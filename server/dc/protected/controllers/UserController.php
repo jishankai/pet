@@ -7,6 +7,11 @@ class UserController extends Controller
 		$this->render('index');
 	}
 
+        public function actionLogin()
+        {
+          $this->render('');
+        }
+
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()
