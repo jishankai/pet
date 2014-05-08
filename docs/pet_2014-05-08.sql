@@ -40,19 +40,19 @@ CREATE TABLE `dc_image` (
 
 
 
-# Dump of table dc_stricker
+# Dump of table dc_sticker
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `dc_stricker`;
+DROP TABLE IF EXISTS `dc_sticker`;
 
-CREATE TABLE `dc_stricker` (
+CREATE TABLE `dc_sticker` (
   `sti_id` int(10) NOT NULL AUTO_INCREMENT,
   `uid` int(10) NOT NULL,
   `create_time` int(10) NOT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`sti_id`),
   KEY `uid` (`uid`),
-  CONSTRAINT `dc_stricker_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `dc_user` (`uid`)
+  CONSTRAINT `dc_sticker_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `dc_user` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
