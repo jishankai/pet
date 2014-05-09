@@ -19,14 +19,23 @@ return array(
 	),
 
 	'modules'=>array(
-                // uncomment the following to enable the Gii tool
-                'gii'=>array(
+        // uncomment the following to enable the Gii tool         
+        'admin',
+        'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>'gii',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 		),
 	),
+
+    // add behaviors to application.
+    'behaviors' => array(
+        'api' => array(
+            'class' => 'WebApplicationApiBehavior',
+            'responseClass' => 'ApiJsonResponse',
+        ),
+    ),
 
 	// application components
 	'components'=>array(
@@ -35,7 +44,7 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 		// uncomment the following to enable URLs in path-format
-                'urlManager'=>array(
+        'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
@@ -43,7 +52,25 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		
+
+        'cache' => array(
+            'calss' => 'CMemCache',
+            'servers' => array(
+                array(
+                    'host' => '192.168.1.93',
+                    'port' => 11211,
+                    'weight' => 100,
+                ),
+            ),
+        ),
+        'session' => array(
+            'class' => 'CCacheHttpSession',
+            'cacheID' => 'cache',
+            'sessionName' => 'SID',
+            'timeout' => 86400,
+            'cookieMode' => 'allow',
+        ),
+        
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=pet',
 			'emulatePrepare' => true,
@@ -63,11 +90,11 @@ return array(
 					'levels'=>'error, warning',
 				),
 				// uncomment the following to show log messages on web pages
-				/*
 				array(
 					'class'=>'CWebLogRoute',
+                    'enabled'=>true,
+                    'categories'=>'system.db.*',
 				),
-				*/
 			),
 		),
 	),
@@ -76,6 +103,6 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		'adminEmail'=>'webmaster@pet.server.com',
 	),
 );
