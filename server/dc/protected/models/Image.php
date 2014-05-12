@@ -9,6 +9,7 @@
  * @property string $comment
  * @property integer $like
  * @property string $url
+ * @property string $file
  * @property integer $create_time
  * @property string $update_time
  *
@@ -33,12 +34,12 @@ class Image extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('uid, url, create_time, update_time', 'required'),
+			array('uid, url, file, create_time, update_time', 'required'),
 			array('uid, like, create_time', 'numerical', 'integerOnly'=>true),
-			array('comment, url', 'length', 'max'=>255),
+			array('comment, url, file', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('img_id, uid, comment, like, url, create_time, update_time', 'safe', 'on'=>'search'),
+			array('img_id, uid, comment, like, url, file, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,7 +65,8 @@ class Image extends CActiveRecord
 			'uid' => 'Uid',
 			'comment' => 'Comment',
 			'like' => 'Like',
-			'url' => 'Url',
+            'url' => 'Url',
+            'file' => 'File',
 			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
 		);
@@ -93,6 +95,7 @@ class Image extends CActiveRecord
 		$criteria->compare('comment',$this->comment,true);
 		$criteria->compare('like',$this->like);
 		$criteria->compare('url',$this->url,true);
+        $criteria->compare('file',$this->file,true);
 		$criteria->compare('create_time',$this->create_time);
 		$criteria->compare('update_time',$this->update_time,true);
 

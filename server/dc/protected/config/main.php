@@ -97,6 +97,11 @@ return array(
 				),
 			),
 		),
+        'image'=>array(
+            'class'=>'ext.Image.CImageComponent',
+            'driver'=>'GD',
+            'params'=>array('directory'=>'/usr/bin'),
+        ),
 	),
 
 	// application-level parameters that can be accessed
