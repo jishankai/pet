@@ -7,6 +7,8 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -23,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.picturedemo.ui.ChosePictureActivity"></activity>
+        <activity android:name="com.example.picturedemo.ui.TakePictureActivity"></activity>
     </application>
 
 </manifest>

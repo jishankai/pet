@@ -1,5 +1,7 @@
 package com.example.picturedemo.ui;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -30,10 +32,11 @@ import com.example.picturedemo.util.ScanUtil;
 
 public class MainActivity extends Activity implements OnClickListener{
 	ImageView imageView;
-	Button simpleBt,colorBt,effectBt,choseBt;
+	Button simpleBt,colorBt,effectBt,choseBt,takePictureBt;
 	RelativeLayout parentRelativelayout;
 	TextView textView;
 	PopupWindow popup;
+	
 	boolean flagSimple=false,flagColor=false,flagEffect=false;
 	/*
 	 * 图片简单处理，弹出PopupWindow中包含的控件，以及需要的属性。
@@ -51,6 +54,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	EffectHandle effectHandle;
 
 	public static ArrayList<Picture> list;
+	int position;//选中的图片在list中的位置
+	public Bitmap showingBmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +81,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		colorBt=(Button)findViewById(R.id.button2);
 		effectBt=(Button)findViewById(R.id.button3);
 		choseBt=(Button)findViewById(R.id.button4);
+		takePictureBt=(Button)findViewById(R.id.button5);
 		textView=(TextView)findViewById(R.id.textView1);
 		parentRelativelayout=(RelativeLayout)findViewById(R.id.imageview_parent);
 		
@@ -89,6 +95,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		colorBt.setOnClickListener(this);
 		effectBt.setOnClickListener(this);
 		choseBt.setOnClickListener(this);
+		takePictureBt.setOnClickListener(this);
 	}
 
 
@@ -118,6 +125,10 @@ public class MainActivity extends Activity implements OnClickListener{
 
 			Intent intent=new Intent(this,ChosePictureActivity.class);
 			this.startActivityForResult(intent, 0);
+			break;
+		case R.id.button5:
+			Intent intent5=new Intent(this,TakePictureActivity.class);
+			this.startActivityForResult(intent5, 2);
 			break;
 		}
 	}
@@ -155,6 +166,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		imageView.setMaxWidth(parentRelativelayout.getWidth());
 		imageView.setMaxHeight(parentRelativelayout.getHeight());
+		showingBmp=getBitmap();
 		//放大
 		simpleBt1.setOnClickListener(new OnClickListener() {
 			
@@ -195,34 +207,42 @@ public class MainActivity extends Activity implements OnClickListener{
 				bitmap=null;
 			}
 		});
+		//顺时针旋转
 		simpleBt3.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Matrix matrix=new Matrix();
-				Bitmap bitmap=getBitmap();
+				Bitmap bitmap=null;
+				bitmap=showingBmp;
 				if(bitmap==null)return;
-				rotateFloat=25f;
+				rotateFloat+=30f;
 				matrix.postRotate(rotateFloat);
 				bitmap=Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 				imageView.setImageBitmap(bitmap);
 				bitmap=null;
+				
+				
 			}
 		});
+		//逆时针旋转
         simpleBt4.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Matrix matrix=new Matrix();
-				Bitmap bitmap=getBitmap();
-				if(bitmap==null)return;
-				rotateFloat=-25f;
-				matrix.postRotate(rotateFloat);
-				bitmap=Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-				imageView.setImageBitmap(bitmap);
-				bitmap=null;
+				Bitmap bitmap=null;
+					bitmap=getBitmap();
+					bitmap=showingBmp;
+					rotateFloat-=30f;
+					matrix.postRotate(rotateFloat);
+					bitmap=Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+					imageView.setImageBitmap(bitmap);
+					bitmap=null;
+				
+				
 			}
 		});
         //左右反转
@@ -297,18 +317,29 @@ public class MainActivity extends Activity implements OnClickListener{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		
 		if(requestCode==0&&data!=null){
 			int position=data.getIntExtra("position", -1);
 			Log.i("me", "onActivityResult"+":"+position);
 			if(position!=-1){
+				scaleFloat=1.0f;
+				rotateFloat=0.0f;
 				String path=list.get(position).path;
 				Bitmap bitmap=BitmapFactory.decodeFile(path);
+				showingBmp=bitmap;
 				imageView.setImageBitmap(bitmap);;
 				Log.i("me", ""+list.get(position).size);
 				textView.setText(list.get(position).fullName+"  大小:"+(list.get(position).size)/1024f+" kb");
 				bitmap=null;
 			}
+		}else if(requestCode==2&&data!=null){
+			Bundle bundle=data.getExtras();
+			String path=bundle.getString("path");
+			String name=bundle.getString("name");
+			Bitmap bitmap=BitmapFactory.decodeFile(path);
+			showingBmp=bitmap;
+			imageView.setImageBitmap(bitmap);;
+			textView.setText(name);
+			bitmap=null;
 		}
 	}
     

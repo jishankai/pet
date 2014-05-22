@@ -68,7 +68,7 @@ public class ChosePictureActivity extends Activity implements OnClickListener{
 				// TODO Auto-generated method stub
 				ChosePictureActivity.this.position=position;
 				data.putExtra("position", position);
-				setResult(10, data);
+				setResult(0, data);
 				ChosePictureActivity.this.finish();
 			}
 		});
