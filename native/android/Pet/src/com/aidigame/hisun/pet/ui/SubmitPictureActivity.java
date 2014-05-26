@@ -1,19 +1,18 @@
 package com.aidigame.hisun.pet.ui;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
-import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 
 public class SubmitPictureActivity extends Activity implements OnClickListener{
@@ -38,7 +37,8 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 		imageView=(ImageView)findViewById(R.id.imageView1);
 		editText=(EditText)findViewById(R.id.editText1);
 		textView=(TextView)findViewById(R.id.textView2);
-		imageView.setImageBitmap(HandlePictureActivity.handlingBmp);
+		
+		imageView.setImageBitmap(BitmapFactory.decodeFile(getIntent().getStringExtra("path")));
 	}
 	
 	private void initListener() {
@@ -46,6 +46,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 		backBt.setOnClickListener(this);
 		recodeBt.setOnClickListener(this);
 		submitBt.setOnClickListener(this);
+		imageView.setOnClickListener(this);
 		editText.addTextChangedListener(new TextWatcher() {
 			
 			@Override
@@ -82,6 +83,12 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			
 			break;
 		case R.id.button3:
+			Intent intent=new Intent(this,ShowTopicActivity.class);
+			intent.putExtra("info", ""+textView.getText());
+			intent.putExtra("path", getIntent().getStringExtra("path"));
+			this.startActivity(intent);
+			break;
+		case R.id.imageView1:
 			
 			break;
 		}

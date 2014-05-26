@@ -1,14 +1,20 @@
 package com.aidigame.hisun.pet.ui;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -18,17 +24,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.ChartletBmp;
 import com.aidigame.hisun.pet.util.ImageUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.CreateTitle;
 import com.aidigame.hisun.pet.widget.fragment.Function4Fragment;
 import com.aidigame.hisun.pet.widget.fragment.HorizontalListViewFragment;
 
-public class HandlePictureActivity extends Activity implements OnClickListener{
+public class HandlePictureActivity extends Activity implements OnClickListener,SurfaceHolder.Callback{
 	LinearLayout fragmentView,titleLayout;
 	RelativeLayout relativeLayout;
 	Button bt1,bt2,bt3,bt4;
 	ImageView imageView;
+	public static SurfaceView surfaceView;
+	public static SurfaceHolder holder;
 	TextView reCameraTv,cancelTv,reDoTv,nextTv;
 	Bitmap bmp;
 	CreateTitle createTitle;
@@ -38,6 +47,7 @@ public class HandlePictureActivity extends Activity implements OnClickListener{
 	public static Bitmap handlingBmp;
 	public static String originPicturePath=null;
 	public boolean isMovingChartlet=false;
+	HorizontalListViewFragment horizontalListViewFragment;
 	public static final int SET_IMAGE_VIEW=0;//布局文件加载完毕，可以获得imageView的宽高
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
@@ -94,7 +104,14 @@ public class HandlePictureActivity extends Activity implements OnClickListener{
 		reDoTv=(TextView)findViewById(R.id.textView3);
 		nextTv=(TextView)findViewById(R.id.textView4);
 		createTitle=new CreateTitle(this, titleLayout);
-		relativeLayout=(RelativeLayout)findViewById(R.id.relativelayout);
+		relativeLayout=(RelativeLayout)findViewById(R.id.relativelayout1);
+		surfaceView=(SurfaceView)findViewById(R.id.surfaceview);
+		//设置Surface透明
+		surfaceView.setZOrderOnTop(true);//这句不可少
+		holder=surfaceView.getHolder();
+		holder.setFormat(PixelFormat.TRANSPARENT);//透明
+		holder.addCallback(this);
+		
 	}
 	private void initListener() {
 		// TODO Auto-generated method stub
@@ -138,9 +155,28 @@ public class HandlePictureActivity extends Activity implements OnClickListener{
 			actionReDo();
 			break;
 		case R.id.textView4:
-			Intent intent4=new Intent(this,SubmitPictureActivity.class);
-			HandlePictureActivity.handlingBmp=ImageUtil.getBitmapFromImageView(imageView);
-			this.startActivity(intent4);
+			
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					Bitmap bmp=Bitmap.createBitmap(horizontalListViewFragment.xCanvas, horizontalListViewFragment.yCanvas, Bitmap.Config.RGB_565);
+					imageView.setDrawingCacheEnabled(true);
+					Canvas canvas=new Canvas(bmp);
+					canvas.drawBitmap(imageView.getDrawingCache(), 0, 0, null);
+					for(ChartletBmp c:horizontalListViewFragment.list){
+						c.draw(canvas);
+					}
+					canvas.save(Canvas.ALL_SAVE_FLAG);
+					canvas.restore();
+					String path=ImageUtil.compressImage(bmp, 100);
+					Intent intent4=new Intent(HandlePictureActivity.this,SubmitPictureActivity.class);
+					intent4.putExtra("path", path);
+					HandlePictureActivity.this.startActivity(intent4);
+				}
+			}).start();
+			
 			break;
 		}
 		
@@ -152,18 +188,17 @@ public class HandlePictureActivity extends Activity implements OnClickListener{
 	private void function1(){
 		isMovingChartlet=false;
 		handlingBmp=ImageUtil.getBitmapFromImageView(imageView);
-		HorizontalListViewFragment horizontalListViewFragment=new HorizontalListViewFragment(this,fragmentView,1 ,imageView);
+		horizontalListViewFragment=new HorizontalListViewFragment(this,fragmentView,1 ,imageView,surfaceView);
         
 	}
 	private void function2(){
 		isMovingChartlet=true;
-		handlingBmp=ImageUtil.getBitmapFromImageView(imageView);
-		HorizontalListViewFragment horizontalListViewFragment=new HorizontalListViewFragment(this,fragmentView,2 ,imageView);
+		horizontalListViewFragment=new HorizontalListViewFragment(this,fragmentView,2 ,imageView,surfaceView);
 		
 	}
 	private void function3(){
 		isMovingChartlet=false;
-		HorizontalListViewFragment horizontalListViewFragment=new HorizontalListViewFragment(this,fragmentView,3 ,imageView);
+		horizontalListViewFragment=new HorizontalListViewFragment(this,fragmentView,3 ,imageView,surfaceView);
 
 	}
 	private void function4(){
@@ -199,5 +234,29 @@ public class HandlePictureActivity extends Activity implements OnClickListener{
 		if(originPicturePath==null)return;
 		handlingBmp=BitmapFactory.decodeFile(originPicturePath);
 		imageView.setImageBitmap(handlingBmp);
+		Canvas canvas=surfaceView.getHolder().lockCanvas();
+		canvas.drawColor(Color.TRANSPARENT,PorterDuff.Mode.CLEAR);
+		surfaceView.getHolder().unlockCanvasAndPost(canvas);
+		if(horizontalListViewFragment!=null){
+			horizontalListViewFragment.list=new ArrayList<ChartletBmp>();
+		}
+	}
+
+	@Override
+	public void surfaceCreated(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void surfaceChanged(SurfaceHolder holder, int format, int width,
+			int height) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void surfaceDestroyed(SurfaceHolder holder) {
+		// TODO Auto-generated method stub
+		
 	}
 }

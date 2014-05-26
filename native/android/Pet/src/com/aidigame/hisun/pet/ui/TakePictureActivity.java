@@ -85,7 +85,9 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 			petCamera.takePicture();
 			break;
 		case R.id.button3:
-			
+			Intent intent=new Intent(this,HomeActivity.class);
+			this.startActivity(intent);
+			this.finish();
 			break;
 		}
 	}

@@ -229,43 +229,7 @@ public class ImageUtil {
 		chartlet=null;
 		return bmp;
 	}
-	public static Bitmap chartletFocusBmp(Bitmap bmp,Context context,float degree){
-		Bitmap frame=BitmapFactory.decodeResource(context.getResources(), R.drawable.camera_take_touch_frame);
-		Bitmap touchPoint=BitmapFactory.decodeResource(context.getResources(), R.drawable.take_img_box02);
-//		touchPoint=scaleImage(touchPoint, 0.5f, 0.5f);
-		bmp=scaleImage(bmp, 0.5f,0.5f);
-		Bitmap background=BitmapFactory.decodeResource(context.getResources(), R.drawable.camera_draw_thumb01);
-		float scaleX=(frame.getWidth()*1f)/bmp.getWidth();
-		float scaleY=(frame.getHeight()*1f)/bmp.getHeight();
-		float scaleSize=Math.max(scaleX-0.05f, scaleY-0.05f);
-		bmp=scaleImage(bmp, scaleSize-0.1f,scaleSize );
-		scaleX=(frame.getWidth()+touchPoint.getWidth())/(1f*background.getWidth());
-		background=scaleImage(background, scaleX, scaleX);
-		HorizontalListViewFragment.Mode_Distance=(int)Math.sqrt(2*Math.pow(frame.getWidth()/2, 2));
-		int width=frame.getWidth()+(int)Math.sqrt(2*Math.pow(touchPoint.getWidth()/2, 2));
-		int newBmpWidth=background.getWidth();
-		int newBmpHeight=background.getHeight();
-		LogUtil.i("me", "frame:"+frame.getWidth()+","+frame.getHeight()+";bmp:"+bmp.getWidth()+","+bmp.getHeight());
-		Bitmap newBmp=Bitmap.createBitmap(newBmpWidth,newBmpHeight , Config.RGB_565);
-		Canvas canvas=new Canvas(newBmp);
-		canvas.drawBitmap(background, 0, 0, null);
-		canvas.drawBitmap(frame, 0, touchPoint.getWidth(), null);
-		canvas.drawBitmap(touchPoint, frame.getWidth(), 0, null);
-		canvas.drawBitmap(bmp,(frame.getWidth()-bmp.getWidth())/2, touchPoint.getWidth(), null);
-		HorizontalListViewFragment.deltaX=background.getWidth()-touchPoint.getWidth()/2;
-		HorizontalListViewFragment.deltaY=background.getHeight()-touchPoint.getHeight()/2;
-		HorizontalListViewFragment.radius=touchPoint.getWidth()+10;
-		HorizontalListViewFragment.pictureCenterX=(frame.getWidth()+bmp.getWidth())/2+touchPoint.getWidth();
-		HorizontalListViewFragment.pictureCenterY=bmp.getHeight()/2+touchPoint.getWidth();
-		/*canvas.drawBitmap(frame, 0, 0, null);
-		canvas.drawBitmap(bmp, 0, 0, null);
-		canvas.drawBitmap(touchPoint, 0, 0, null);*/
-		canvas.save(Canvas.ALL_SAVE_FLAG);
-		
-		canvas.restore();
-		HorizontalListViewFragment.chartletBmp=bmp;
-		return newBmp;
-	}
+	
 	public static void drawBitmap(SurfaceHolder holder,Bitmap bmp){
 		Canvas canvas=holder.lockCanvas();
 		canvas.drawBitmap(bmp, 0, 0, null);

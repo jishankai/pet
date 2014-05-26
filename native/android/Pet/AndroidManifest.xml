@@ -17,13 +17,18 @@
         android:theme="@style/AppTheme" >
         
         <activity android:name="com.aidigame.hisun.pet.ui.TakePictureActivity">
-            <intent-filter >
+
+        </activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.HandlePictureActivity"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.SubmitPictureActivity"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.ShowTopicActivity"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.ShowPictureActivity"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.HomeActivity">
+                        <intent-filter >
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.HandlePictureActivity"></activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.SubmitPictureActivity"></activity>
     </application>
 
 </manifest>

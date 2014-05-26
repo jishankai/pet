@@ -4,19 +4,23 @@ import java.util.ArrayList;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HorizontalListViewAdapter;
+import com.aidigame.hisun.pet.bean.ChartletBmp;
 import com.aidigame.hisun.pet.ui.HandlePictureActivity;
 import com.aidigame.hisun.pet.util.ImageUtil;
 import com.aidigame.hisun.pet.util.LogUtil;
@@ -26,38 +30,68 @@ import com.aidigame.hisun.pet.view.HorizontialListView;
  * @author admin
  *
  */
+/**
+ * 自定义Fragment  实现类似fragment的功能
+ * @author admin
+ *
+ */
 public class HorizontalListViewFragment {
 	LinearLayout parentView;
-	RelativeLayout relativeLayout;
 	View view;
 	HandlePictureActivity context;
 	ImageView imageView;
+	SurfaceView surfaceView;
+	public int xCanvas=0,yCanvas=0;//surfaceView 可绘制的宽高。
 	HorizontialListView horizontialListView;
 	HorizontalListViewAdapter adapter;
 	ArrayList<String> path;
 	ArrayList<String> pictureName;
 	int id;
-	int  Mode_Move=0;
-	int Mode_Scale=1;
-	int Mode_Translate=2;
-	int Mode_X=0;
-	int Mode_Y=0;
-	public static int deltaX=0,deltaY=0;
-	public static int Mode_Distance=0;
-	public static int radius=0;
-	public static int touchCenterX=0,touchCenterY=0;
-	public static int pictureCenterX=0,pictureCenterY=0;
-	boolean isMoving=false;
-	public static Bitmap chartletBmp;
-	public static Bitmap chartletFocusBmp;
-	public HorizontalListViewFragment(HandlePictureActivity context,LinearLayout view,int id,ImageView imageView){
+	public static Bitmap chartletTypeBmp;//选中的贴图类型
+	String chartletTypeBmpPath=null;
+	public static Bitmap chartletBmpFocus;//正在处理的贴图
+	public static Bitmap frameBmp;//框架
+	public static Bitmap controlBmp;//控制球 ，缩放，旋转
+	public static int chartletBmpFocus_centerX=0,chartletBmpFocus_centerY=0;
+	public static int controlBmp_centerX_origin=0,controlBmp_centerY_origin=0;
+	public static int controlBmp_centerX=0,controlBmp_centerY=0;
+	public static int distanceBetween2Center=0;
+	public ArrayList<ChartletBmp> list=new ArrayList<ChartletBmp>();
+	public static final int  MODE_SCALE=0;
+	public static final int  MODE_ROTATE=1;
+	public static final int MODE_TRANSLATE=2;
+	public static int current_mode=-1;
+	public float degrees=0f;
+	public float moveCount=0;
+	public HorizontalListViewFragment(HandlePictureActivity context,LinearLayout view,int id,ImageView imageView,SurfaceView surfaceView){
 		this.context=context;
 		this.parentView=view;
 		this.imageView=imageView;
+		this.surfaceView=surfaceView;
 		parentView.removeAllViews();
 	    this.id=id;
 		initView();
 		setListener();
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				try {
+					Thread.sleep(30);
+					xCanvas=HorizontalListViewFragment.this.imageView.getWidth();
+					int[] xy=new int[2];
+					HorizontalListViewFragment.this.parentView.getLocationOnScreen(xy);
+				    yCanvas=xy[1];
+				    HorizontalListViewFragment.this.imageView.getLocationOnScreen(xy);
+				    yCanvas=yCanvas-xy[1];
+				    LogUtil.i("me", "xCanvas="+xCanvas+",yCanvas="+yCanvas+";");
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 	
 	private void initView() {
@@ -153,24 +187,15 @@ public class HorizontalListViewFragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-			 if(context.actionPicturePath==null){
-					long time=System.currentTimeMillis();
-					context.actionPicturePath=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+""+time;
-					File file=new File(context.actionPicturePath);
-					file.mkdirs();
-					LogUtil.i("me","path====="+path);				
-			}
-			LogUtil.i("me","path====="+path);
-			String temp=context.actionPicturePath+File.separator+context.actionCount+".jpg";
-			context.actionCount++;
-			Bitmap bmp=ImageUtil.getBitmapFromImageView(imageView);
-			ImageUtil.compressImage(bmp, 100,temp);
 				String path=(String)parent.getItemAtPosition(position);
 				switch (HorizontalListViewFragment.this.id) {
 				case 1:
 					choseColor(position);
 					break;
 				case 2:
+					chartletTypeBmpPath=path;
+					chartletBmpFocus_centerX=xCanvas/2;
+			        chartletBmpFocus_centerY=yCanvas/2;
 					chartlet(path);
 					break;
 				case 3:
@@ -178,74 +203,37 @@ public class HorizontalListViewFragment {
 					break;
 				}
 			}
-
-
-
 		});
-		imageView.setOnTouchListener(new OnTouchListener() {
+		surfaceView.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
-				if (context.isMovingChartlet) {
-					LogUtil.i("me", "imageview---------");
-					chartletMove(event);
-					return true;
-				}
-				return false;
-			}
 
-			private void chartletMove(MotionEvent event) {
-				// TODO Auto-generated method stub
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
-                    if(chartletFocusBmp==null){
-                    	if(chartletBmp==null)return;
-                    	Mode_X=(int) event.getX();
-                    	Mode_Y=(int) event.getY();
-                    	chartletFocusBmp=ImageUtil.chartletFocusBmp(chartletBmp, context, 0);
-                    	Bitmap bmp=ImageUtil.chartlet(HandlePictureActivity.handlingBmp, Mode_X, Mode_Y, chartletFocusBmp);
-                    	imageView.setImageBitmap(bmp);
-                    	touchCenterX=Mode_X+deltaX;
-                    	touchCenterY=Mode_Y+deltaY;
-                    	Mode_X=touchCenterX;
-                    	Mode_Y=touchCenterY;
-                    	Mode_Distance=(int)Math.sqrt((Mode_X-pictureCenterX)*(Mode_X-pictureCenterX)+(Mode_Y-pictureCenterY)*(Mode_Y-pictureCenterY));
-                    	LogUtil.i("me", "Mode_Distance"+Mode_Distance);
-                    }else{
-                    	int distance=touchPointBetweenCenter(event);
-                    	if(distance<=radius){
-                    		isMoving=true;
-                    		touchCenterX=(int) event.getX();
-                    		touchCenterY=(int) event.getY();
-                    	}else{
-                    		Bitmap bmp=ImageUtil.chartlet(HandlePictureActivity.handlingBmp, Mode_X, Mode_Y+deltaY, chartletBmp);
-                        	imageView.setImageBitmap(bmp);
-                        	chartletFocusBmp=null;
-                    	}
-                    	
-                    }
+					if(!context.isMovingChartlet||chartletTypeBmp==null)break;
+					judgeTouchEvent(event);
 					break;
 				case MotionEvent.ACTION_UP:
+					
 					break;
 				case MotionEvent.ACTION_MOVE:
-					if(isMoving){
-						
+					if(current_mode==MODE_SCALE){
+						/*if(moveCount%50==0)*/
+						scaleChartlet(event);
+						moveCount++;
+					
+					}else if(current_mode==MODE_TRANSLATE){
+						translateChartlet(event);
 					}
-
 					break;
 				}
+				return true;
 			}
 
-			private int touchPointBetweenCenter(MotionEvent event) {
-				// TODO Auto-generated method stub
-				int x=(int) event.getX();
-				int y=(int) event.getY();
-				int distance=(int)Math.sqrt((x-touchCenterX)*(x-touchCenterX)+(y-touchCenterY)*(y-touchCenterY));
-				
-				return distance;
-			}
 		});
+		
 	}
 
 	private void choseColor(int position) {
@@ -281,15 +269,130 @@ public class HorizontalListViewFragment {
 	private void chartlet(String path) {
 		// TODO Auto-generated method stub
 		Bitmap bmp=BitmapFactory.decodeFile(Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"beauty_info_animation_eye_11.png");
-//		bmp=ImageUtil.scaleImage(bmp, 0.5f, 0.5f);
-		context.currentChartletPath=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"beauty_info_animation_eye_11.png";
-		chartletBmp=bmp;
-		if(bmp==null)return;
-	  /*  final Bitmap  bmp1=ImageUtil.chartlet(HandlePictureActivity.handlingBmp, 0, 0,bmp);
-//		bmp.recycle();
-		bmp=null;
-//		HandlePictureActivity.handlingBmp=bmp1;
-	    imageView.setImageBitmap(bmp1);*/
+        chartletTypeBmp=bmp;
+        float sizeX=72/(bmp.getWidth()*1f);
+        float sizeY=72/(bmp.getHeight()*1f);
+        float size=Math.max(sizeX, sizeY);
+        chartletBmpFocus=ImageUtil.scaleImage(chartletTypeBmp, size, size);
+        frameBmp=BitmapFactory.decodeResource(context.getResources(), R.drawable.camera_take_touch_frame);
+        controlBmp=BitmapFactory.decodeResource(context.getResources(), R.drawable.take_img_box02);
+        sizeX=72/(frameBmp.getWidth()*1f);
+        sizeY=72/(frameBmp.getHeight()*1f);
+        size=Math.max(sizeX, sizeY);
+        frameBmp=ImageUtil.scaleImage(frameBmp, size, size);
+        
+        Canvas canvas=surfaceView.getHolder().lockCanvas();
+        canvas.drawColor(Color.TRANSPARENT,PorterDuff.Mode.CLEAR);
+        for(ChartletBmp c:list){
+        	c.draw(canvas);
+        }
+        canvas.drawBitmap(chartletBmpFocus, chartletBmpFocus_centerX-chartletBmpFocus.getWidth()/2,chartletBmpFocus_centerY-chartletBmpFocus.getHeight()/2 , null);
+        canvas.drawBitmap(frameBmp, chartletBmpFocus_centerX-chartletBmpFocus.getWidth()/2, chartletBmpFocus_centerY-chartletBmpFocus.getHeight()/2, null);
+        controlBmp_centerX_origin=chartletBmpFocus_centerX+chartletBmpFocus.getWidth()/2+controlBmp.getWidth()/2;
+        controlBmp_centerY_origin=chartletBmpFocus_centerY-chartletBmpFocus.getHeight()/2-controlBmp.getHeight()/2;
+        controlBmp_centerX=controlBmp_centerX_origin;
+        controlBmp_centerY=controlBmp_centerY_origin;
+        distanceBetween2Center=(int)Math.sqrt((chartletBmpFocus_centerX-controlBmp_centerX)*(chartletBmpFocus_centerX-controlBmp_centerX)+(chartletBmpFocus_centerX-controlBmp_centerX)*(chartletBmpFocus_centerX-controlBmp_centerX));
+        canvas.drawBitmap(controlBmp, chartletBmpFocus_centerX+chartletBmpFocus.getWidth()/2, chartletBmpFocus_centerY-chartletBmpFocus.getHeight()/2-controlBmp.getHeight(), null);
+        surfaceView.getHolder().unlockCanvasAndPost(canvas);
+	}
+
+	private void judgeTouchEvent(MotionEvent event) {
+		// TODO Auto-generated method stub
+		int x=(int) event.getX();
+		int y=(int) event.getY();
+		if(chartletBmpFocus==null){
+			chartletBmpFocus_centerX=(int) event.getX();
+			chartletBmpFocus_centerY=(int) event.getY();
+			chartlet(chartletTypeBmpPath);
+		}else
+		if(x>=controlBmp_centerX-controlBmp.getWidth()&&x<=controlBmp_centerX+controlBmp.getWidth()
+		   &&y>=controlBmp_centerY-controlBmp.getHeight()&&y<=controlBmp_centerY+controlBmp.getHeight()){
+			current_mode=0;
+			LogUtil.i("me", "缩放缩放缩放");
+		}else if(x>=chartletBmpFocus_centerX-chartletBmpFocus.getWidth()/2&&x<=chartletBmpFocus_centerX+chartletBmpFocus.getWidth()/2
+				&&y>=chartletBmpFocus_centerX-chartletBmpFocus.getHeight()/2&&y<=chartletBmpFocus_centerY+chartletBmpFocus.getHeight()/2){
+			current_mode=MODE_TRANSLATE;
+		}else if(y>=yCanvas||x>=xCanvas){
+			current_mode=-1;
+		}else {
+			//TODO
+			current_mode=-1;
+			if(chartletBmpFocus!=null){
+				ChartletBmp bmp=new ChartletBmp(chartletBmpFocus, chartletBmpFocus_centerX, chartletBmpFocus_centerY,0f);
+				list.add(bmp);
+				chartletBmpFocus=null;
+				Canvas canvas=surfaceView.getHolder().lockCanvas();
+				canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+				for(ChartletBmp c:list){
+					c.draw(canvas);
+				}
+				surfaceView.getHolder().unlockCanvasAndPost(canvas);
+			}
+
+		}
+			
+	}
+	private void scaleChartlet(MotionEvent event){
+		int x=(int) event.getX();
+		int y=(int) event.getY();
+//		int mX=(x+chartletBmpFocus_centerX)/2;
+//		int mY=(y+chartletBmpFocus_centerY)/2;
+//		float degrees=(float) Math.acos(Math.sqrt((mX-chartletBmpFocus_centerX)*(mX-chartletBmpFocus_centerX)+(mY-chartletBmpFocus_centerY)*(mY-chartletBmpFocus_centerY))*1f/distanceBetween2Center);
+		controlBmp_centerX=x;
+		controlBmp_centerY=y;
+		int distance=(int)Math.sqrt((x-chartletBmpFocus_centerX)*(x-chartletBmpFocus_centerX)+((y-chartletBmpFocus_centerY)*(y-chartletBmpFocus_centerY)));
+		int width=(int)Math.sqrt(distance*distance/2)*2;
+		float sizeX=width/(frameBmp.getWidth()*1f);
+		float sizeY=width/(frameBmp.getHeight()*1f);
+		float size=Math.max(sizeX, sizeY);
+		Bitmap frameBmpTemp=ImageUtil.scaleImage(frameBmp, size, size);
+		sizeX=width/(chartletTypeBmp.getWidth()*1f);
+		sizeY=width/(chartletTypeBmp.getHeight()*1f);
+		size=Math.max(sizeX, sizeY);
+		chartletBmpFocus=ImageUtil.scaleImage(chartletTypeBmp, size, size);
+		LogUtil.i("me1", "chartletBmpFocus.getWidth()="+chartletBmpFocus.getWidth()+",chartletBmpFocus.getHeight()"+chartletBmpFocus.getHeight());
+//		chartletBmpFocus=Bitmap.createBitmap(chartletBmpFocus, 0, 0, chartletBmpFocus.getWidth(), chartletBmpFocus.getHeight(), matrix, true);
+		Canvas canvas=surfaceView.getHolder().lockCanvas();
+
+		canvas.drawColor(Color.TRANSPARENT,PorterDuff.Mode.CLEAR );
+        for(ChartletBmp c:list){
+        	c.draw(canvas);
+        }
+		canvas.drawBitmap(frameBmpTemp, chartletBmpFocus_centerX-width/2, chartletBmpFocus_centerY-width/2, null);
+		canvas.drawBitmap(chartletBmpFocus, chartletBmpFocus_centerX-width/2, chartletBmpFocus_centerY-width/2, null);
+		canvas.drawBitmap(controlBmp, chartletBmpFocus_centerX+width/2, chartletBmpFocus_centerY-width/2-controlBmp.getHeight()/2, null);
+		controlBmp_centerX=chartletBmpFocus_centerX+chartletBmpFocus.getWidth()/2+controlBmp.getWidth()/2;
+        controlBmp_centerY=chartletBmpFocus_centerY-chartletBmpFocus.getHeight()/2-controlBmp.getHeight()/2;
+//		canvas.drawBitmap(controlBmp, controlBmp_centerX-controlBmp.getWidth()/2, controlBmp_centerY-controlBmp.getHeight()/2, null);
+		surfaceView.getHolder().unlockCanvasAndPost(canvas);
+	}
+	private void translateChartlet(MotionEvent event){
+		int x=(int)event.getX();
+		int  y=(int)event.getY();
+		controlBmp_centerX_origin=controlBmp_centerX_origin+x-chartletBmpFocus_centerX;
+		controlBmp_centerY_origin=controlBmp_centerY_origin+y-chartletBmpFocus_centerY;
+		controlBmp_centerX=controlBmp_centerX_origin;
+				controlBmp_centerY=controlBmp_centerY_origin;
+		chartletBmpFocus_centerX=x;
+		chartletBmpFocus_centerY=y;
+		Canvas canvas=surfaceView.getHolder().lockCanvas();
+
+		canvas.drawColor(Color.TRANSPARENT,PorterDuff.Mode.CLEAR );
+        for(ChartletBmp c:list){
+        	c.draw(canvas);
+        }
+		canvas.drawBitmap(chartletBmpFocus, chartletBmpFocus_centerX-chartletBmpFocus.getWidth()/2, chartletBmpFocus_centerY-chartletBmpFocus.getHeight()/2, null);
+		float sizeX=chartletBmpFocus.getWidth()/2/(frameBmp.getWidth()*1f);
+		float sizeY=chartletBmpFocus.getHeight()/(frameBmp.getHeight()*1f);
+		float size=Math.max(sizeX, sizeY);
+		Bitmap frameBmpTemp=ImageUtil.scaleImage(frameBmp, size, size);
+		canvas.drawBitmap(frameBmpTemp,  chartletBmpFocus_centerX-chartletBmpFocus.getWidth()/2, chartletBmpFocus_centerY-chartletBmpFocus.getHeight()/2, null);
+//		canvas.drawBitmap(controlBmp, controlBmp_centerX-controlBmp.getWidth()/2, controlBmp_centerY-controlBmp.getHeight()/2, null);
+		canvas.drawBitmap(controlBmp, chartletBmpFocus_centerX+chartletBmpFocus.getWidth()/2, chartletBmpFocus_centerY-chartletBmpFocus.getHeight()/2-controlBmp.getHeight()/2, null);
+		controlBmp_centerX=chartletBmpFocus_centerX+chartletBmpFocus.getWidth()/2+controlBmp.getWidth()/2;
+        controlBmp_centerY=chartletBmpFocus_centerY-chartletBmpFocus.getHeight()/2-controlBmp.getHeight()/2;
+		surfaceView.getHolder().unlockCanvasAndPost(canvas);
 	}
 
 }
