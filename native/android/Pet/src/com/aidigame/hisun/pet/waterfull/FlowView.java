@@ -3,13 +3,14 @@ package com.aidigame.hisun.pet.waterfull;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 
-import com.aidigame.hisun.pet.util.LogUtil;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
 import android.os.Message;
@@ -19,6 +20,9 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.util.LogUtil;
 
 public class FlowView extends ImageView implements View.OnClickListener,
 		View.OnLongClickListener {
@@ -31,6 +35,13 @@ public class FlowView extends ImageView implements View.OnClickListener,
 	private int columnIndex;// 图片属于第几列
 	private int rowIndex;// 图片属于第几行
 	private Handler viewHandler;
+	
+	
+	
+	Bitmap heartBmp;
+	int heartBmpX=0,heartBmpY=0;
+	int heartNum=35;
+	int heartNumX=0,heartNumY=0;
 
 	public FlowView(Context c, AttributeSet attrs, int defStyle) {
 		super(c, attrs, defStyle);
@@ -42,6 +53,31 @@ public class FlowView extends ImageView implements View.OnClickListener,
 		super(c, attrs);
 		this.context = c;
 		Init();
+	}
+	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		// TODO Auto-generated method stub
+		super.onSizeChanged(w, h, oldw, oldh);
+		/*heartBmp=BitmapFactory.decodeResource(context.getResources(), R.drawable.heart_white);
+		heartBmpX=w-25;
+		heartBmpY=h-10;
+		heartNumX=heartBmpX+heartBmp.getWidth()+10;
+		heartNumY=heartBmpY+heartBmp.getHeight()+3;
+		invalidate();*/
+	}
+	@Override
+	protected void onDraw(Canvas canvas) {
+		// TODO Auto-generated method stub
+		super.onDraw(canvas);
+		/*if(heartBmp!=null){
+			canvas.drawBitmap(heartBmp, heartBmpX, heartBmpY, null);
+			Paint paint=new Paint();
+			paint.setColor(Color.WHITE);
+			paint.setAntiAlias(true);
+			paint.setTextSize(18);
+			canvas.drawText(""+heartNum, heartBmpX, heartBmpY, paint);
+		}*/
+
 	}
 
 	public FlowView(Context c) {

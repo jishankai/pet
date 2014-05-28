@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Bitmap.Config;
@@ -14,7 +15,9 @@ import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -244,6 +247,6 @@ public class ImageUtil {
 		view.draw(canvas);
 		return bmp;
 	}
-	
+
 
 }

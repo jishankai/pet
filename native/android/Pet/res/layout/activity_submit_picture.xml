@@ -25,7 +25,18 @@
             android:layout_alignBottom="@+id/button1"
             android:layout_centerHorizontal="true"
             android:text="投稿"
-            android:textSize="16sp" />
+            android:textSize="16sp" 
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="15dp"
+            android:text="投稿" />
+
     </RelativeLayout>
 
     <ImageView
@@ -49,20 +60,16 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:text="录音"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/editText1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" >
+            android:layout_weight="1" 
+            android:hint="为您的爱宠的靓照写个描述吧~">
         </EditText>
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="投稿" />
     </LinearLayout>
 
     <TextView

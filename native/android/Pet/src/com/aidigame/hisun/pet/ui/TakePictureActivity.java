@@ -1,9 +1,9 @@
 package com.aidigame.hisun.pet.ui;
 
+
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.SurfaceHolder;
@@ -15,9 +15,11 @@ import android.widget.LinearLayout;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.util.ImageUtil;
+import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.CreateTitle;
 import com.aidigame.hisun.pet.widget.PetCamera;
+//import com.aviary.android.feather.library.Constants;
 
 public class TakePictureActivity extends Activity implements OnClickListener,SurfaceHolder.Callback{
 	LinearLayout titleLinearLayout;
@@ -27,18 +29,17 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 	//创建顶部标题栏
 	CreateTitle createTitle;
 	PetCamera petCamera;
+	String path;
 	public static final int TAKE_PICTURE_COMPLETED=0;//完成拍照
 	public Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case TAKE_PICTURE_COMPLETED:
-//				String path=(String)msg.obj;
-//				albumBt.setText("");
-				Intent intent=new Intent(TakePictureActivity.this,HandlePictureActivity.class);
-				TakePictureActivity.this.startActivity(intent);
-				TakePictureActivity.this.finish();
-				break;
-
+				path="file://"+ImageUtil.compressImage(HandlePictureActivity.handlingBmp, 50);
+				Intent intent=new Intent(TakePictureActivity.this,com.aviary.android.feather.FeatherActivity.class);
+				intent.setData(Uri.parse(path));
+				intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_IN_API_KEY_SECRET, "f6d0dd319088fd5a");
+				startActivityForResult(intent, 1);
 			default:
 				break;
 			}
@@ -89,6 +90,26 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 			this.startActivity(intent);
 			this.finish();
 			break;
+		}
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (resultCode) {
+		case RESULT_CANCELED:
+			
+			break;
+		case RESULT_OK:
+			Uri uri=data.getData();
+			Intent intent=new Intent(this,SubmitPictureActivity.class);
+			intent.setData(uri);
+			intent.putExtra("path", path);
+			this.startActivity(intent);
+			this.finish();
+			break;
+			
+		
 		}
 	}
 

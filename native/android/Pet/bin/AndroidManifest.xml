@@ -4,10 +4,13 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="10"
-        android:targetSdkVersion="17" />
+        android:minSdkVersion="9"
+        android:targetSdkVersion="18" />
+    
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name="com.aidigame.hisun.pet.PetApplication"
@@ -16,6 +19,73 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         
+        
+        
+        <!-- aviary  入口 -->
+        <meta-data 
+            android:name="com.aviary.android.feather.v1.API_KEY"
+            android:value="6bf571b721c3c7ef"/>
+        <!-- Main Editor Activity -->
+        <activity
+            android:name="com.aviary.android.feather.FeatherActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="unspecified"
+            android:hardwareAccelerated="true"
+            android:largeHeap="true"
+            android:process=":standalone"
+            android:theme="@style/AviaryTheme" >
+            </activity>
+       
+    <activity
+        android:name="com.aviary.android.feather.AlertActivity"
+        android:launchMode="standard"
+        android:noHistory="true"
+        android:theme="@style/AviaryTheme.Dialog">
+        <intent-filter>
+            <action android:name="aviary.intent.action.ALERT"/>
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+    </activity>
+
+    <!-- CDS Content Service -->
+    <service
+        android:process=":aviarycds"
+        android:name="com.aviary.android.feather.cds.AviaryCdsService"
+        android:exported="false">
+        <intent-filter>
+            <action android:name="aviary.intent.action.CDS_DOWNLOAD_START"/>
+            <action android:name="aviary.intent.action.CDS_RESTORE_USER_ITEMS"/>
+        </intent-filter>
+    </service> 
+
+    <!-- 
+        Cds Content Provider, 
+        NOTE that the "authorities" value MUST be formatted in this way:
+        android:authorities="{your.packagename}.AviaryCdsProvider"
+     -->
+    <provider
+        android:name="com.aviary.android.feather.cds.AviaryCdsProvider"
+        android:authorities="com.aidigame.hisun.pet.AviaryCdsProvider"
+        android:process=":standalone"
+        android:exported="false"
+        android:syncable="true" />  
+
+
+    <!-- CDS Download Receiver -->
+    <receiver 
+        android:name="com.aviary.android.feather.cds.AviaryCdsReceiver"
+        android:process=":standalone" >
+        <intent-filter>
+            <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+        </intent-filter>
+    </receiver>
+        
+        
+    
+    
+    
+    
+    
         <activity android:name="com.aidigame.hisun.pet.ui.TakePictureActivity">
 
         </activity>
@@ -29,6 +99,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name="com.example.mylibrary.MainActivity"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.UserHomepageActivity"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.OtherUserTopicActivity"></activity>
     </application>
 
 </manifest>

@@ -8,21 +8,26 @@
         android:id="@+id/linearlayout_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        android:visibility="gone">
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/relativelayout_control"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" 
+        android:background="@color/orange_red"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+>
 
         <Button
             android:id="@+id/imageView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="用户信息"
             android:layout_marginLeft="10dp" 
-            android:textSize="12sp"/>
+            android:background="@drawable/cat"
+            />
 
         <Button
             android:id="@+id/imageView2"
@@ -31,47 +36,46 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:text="拍照"
-            android:textSize="12sp" />
+            android:background="@drawable/camera" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" 
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/white">
 
-            <Button
+            <TextView
                 android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Random" 
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textColor="#FF6F44"
+                android:padding="10dp"/>
 
-            <Button
+            <TextView
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Favorite"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:background="#FF6F44"
+                android:textColor="#FEFEFF"
+                android:padding="10dp" />
             
         </LinearLayout>
 
     </RelativeLayout>
-    <com.aidigame.hisun.pet.waterfull.LazyScrollView
-    android:id="@+id/waterfall_scroll"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-            <LinearLayout
-        android:id="@+id/waterfall_container"
+      <LinearLayout
+        android:id="@+id/waterfall_parent"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@android:color/white" >
-        
+
     </LinearLayout>
-        
-    </com.aidigame.hisun.pet.waterfull.LazyScrollView>
+
 
 </LinearLayout>

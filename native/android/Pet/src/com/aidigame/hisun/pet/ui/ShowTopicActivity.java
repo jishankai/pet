@@ -2,8 +2,12 @@ package com.aidigame.hisun.pet.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -53,7 +57,7 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 		tv4=(TextView)findViewById(R.id.textView4);
 		
 		imageView=(ImageView)findViewById(R.id.imageView1);
-		imageView.setImageBitmap(BitmapFactory.decodeFile(getIntent().getStringExtra("path")));
+		loadBitmap(getIntent().getData());
 		tv3.setText(getIntent().getStringExtra("info"));
 		linearLayout1=(LinearLayout)findViewById(R.id.linearLayout1);
 		linearLayout2=(LinearLayout)findViewById(R.id.linearlayout2);
@@ -145,5 +149,15 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 			break;
 		}
 	}
-
+	public void loadBitmap(Uri uri){
+		Cursor cursor=getContentResolver().query(uri, null, null, null, null);
+		if(cursor!=null){
+			cursor.moveToFirst();
+			String path=cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA));
+			Bitmap bitmap=BitmapFactory.decodeFile(path);
+			imageView.setImageBitmap(bitmap);
+			cursor.close();
+		}
+		
+	}
 }
