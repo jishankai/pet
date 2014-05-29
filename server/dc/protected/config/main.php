@@ -1,4 +1,6 @@
 <?php
+require_once(dirname(__FILE__).'/dc/app.cfg.php');
+require_once(dirname(__FILE__).'/dc/const.cfg.php');
 
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
@@ -44,6 +46,7 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 		// uncomment the following to enable URLs in path-format
+        /*
         'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
@@ -51,13 +54,14 @@ return array(
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
-		),
+        ),
+         */
 
         'cache' => array(
-            'calss' => 'CMemCache',
+            'class' => 'CMemCache',
             'servers' => array(
                 array(
-                    'host' => '192.168.1.93',
+                    'host' => '127.0.0.1',
                     'port' => 11211,
                     'weight' => 100,
                 ),
@@ -77,6 +81,7 @@ return array(
 			'username' => 'root',
 			'password' => '',
 			'charset' => 'utf8',
+            'class' => 'CDbConnection',
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
