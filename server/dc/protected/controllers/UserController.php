@@ -10,12 +10,12 @@ class UserController extends Controller
         );
     }
 
-    public function actionLoginApi($uid, $ver, $token=NULL)
+    public function actionLoginApi($uid, $ver=NULL, $token=NULL)
     {
         $user = User::model()->findByAttributes(array('uid'=>$uid));
         if (empty($user)) {
             $user = new User();
-            $user->token = $token;
+            //$user->token = $token;
             $user->create_time = time();
             $user->save();
         }
@@ -57,7 +57,7 @@ class UserController extends Controller
         }
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $user->register(trim($name), empty($invter)?NULL:$inviter);
+            $user->register(trim($name), $gender, $age, $class, empty($invter)?NULL:$inviter);
             $this->echoJsonData(array('isSuccess'=>true));
         } catch (Exception $e) {
             $transaction->rollback();
