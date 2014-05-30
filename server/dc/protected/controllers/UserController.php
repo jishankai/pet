@@ -13,16 +13,20 @@ class UserController extends Controller
     public function actionLoginApi($uid, $ver=NULL, $token=NULL)
     {
         $user = User::model()->findByAttributes(array('uid'=>$uid));
+        $isSuccess = true;
         if (empty($user)) {
             $user = new User();
             //$user->token = $token;
             $user->create_time = time();
             $user->save();
         }
+        if (!isset($user->name)&&$user->name!='') {
+            $isSuccess = false;
+        }
         $session = Yii::app()->session;
         $session['uid'] = $user->uid;
         $this->echoJsonData(array(
-            'isSuccess'=>true,
+            'isSuccess'=>$isSuccess,
             'SID'=>$session->sessionID,
         )); 
     }
