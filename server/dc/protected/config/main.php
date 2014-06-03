@@ -72,7 +72,7 @@ return array(
             'cacheID' => 'cache',
             'sessionName' => 'SID',
             'timeout' => 86400,
-            'cookieMode' => 'allow',
+            'cookieMode' => 'only',
         ),
         
 		'db'=>array(
