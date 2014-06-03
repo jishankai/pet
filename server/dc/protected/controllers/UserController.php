@@ -37,6 +37,7 @@ class UserController extends Controller
             throw new PException('注册信息不完整');
         }
         $session = Yii::app()->session;
+        $session->setSessionID($_REQUEST['SID']);
         $session->open();
         $uid = $session['uid'];
         if (empty($uid)) {

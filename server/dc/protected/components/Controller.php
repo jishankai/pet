@@ -42,6 +42,7 @@ class Controller extends CController
     {
         if (isset($_REQUEST['SID']) && $_REQUEST['SID']=='') unset($_REQUEST['SID']); 
         $session = Yii::app()->session;
+        $session->setSessionID($_REQUEST['SID']);
         $session->open();
         if (empty($session['uid'])) {
             $this->response->setExpired();//重新登录
