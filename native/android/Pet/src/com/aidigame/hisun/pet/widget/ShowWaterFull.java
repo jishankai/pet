@@ -1,5 +1,7 @@
 package com.aidigame.hisun.pet.widget;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,18 +11,22 @@ import java.util.Random;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.ui.HomeActivity;
+import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.waterfull.FlowTag;
 import com.aidigame.hisun.pet.waterfull.FlowView;
 import com.aidigame.hisun.pet.waterfull.LazyScrollView;
@@ -39,7 +45,7 @@ public class ShowWaterFull {
 		private ArrayList<LinearLayout> waterfall_items;
 		private Display display;
 		private AssetManager asset_manager;
-		private List<String> image_filenames;
+		private List<File> image_filenames;
 		private final String image_path = "images";
 		private Handler handler;
 		private int item_width;
@@ -151,11 +157,11 @@ public class ShowWaterFull {
 								if (pin_mark[k].get(Math.min(bottomIndex[k] + 1,
 										lineIndex[k])) <= t + 3 * scroll_height) {// 最底部的图片位置小于当前t+3*屏幕高度
 
-									((FlowView) waterfall_items.get(k)
+									FlowView flowView=((FlowView) waterfall_items.get(k)
 											.getChildAt(
 													Math.min(1 + bottomIndex[k],
-															lineIndex[k])))
-											.Reload();
+															lineIndex[k])).getTag());//.findViewById(R.id.flowview)   scx添加修改
+											flowView.Reload();
 
 									bottomIndex[k] = Math.min(1 + bottomIndex[k],
 											lineIndex[k]);
@@ -171,7 +177,7 @@ public class ShowWaterFull {
 
 									int i1 = topIndex[k];
 									topIndex[k]++;
-									((FlowView) localLinearLayout.getChildAt(i1))
+									((FlowView) localLinearLayout.getChildAt(i1).getTag())
 											.recycle();
 									Log.d("MainActivity", "recycle,k:" + k
 											+ " headindex:" + topIndex[k]);
@@ -186,8 +192,9 @@ public class ShowWaterFull {
 							LinearLayout localLinearLayout = waterfall_items.get(k);
 							if (pin_mark[k].get(bottomIndex[k]) > t + 3
 									* scroll_height) {
-								((FlowView) localLinearLayout
-										.getChildAt(bottomIndex[k])).recycle();
+								FlowView flowView=((FlowView) localLinearLayout
+										.getChildAt(bottomIndex[k]).getTag());
+								flowView.recycle();
 
 								bottomIndex[k]--;
 							}
@@ -195,7 +202,7 @@ public class ShowWaterFull {
 							if (pin_mark[k].get(Math.max(topIndex[k] - 1, 0)) >= t
 									- 2 * scroll_height) {
 								((FlowView) localLinearLayout.getChildAt(Math.max(
-										-1 + topIndex[k], 0))).Reload();
+										-1 + topIndex[k], 0)).getTag()).Reload();
 								topIndex[k] = Math.max(topIndex[k] - 1, 0);
 							}
 						}
@@ -243,7 +250,7 @@ public class ShowWaterFull {
 
 						pins.put(v.getId(), f);
 						iviews.put(v.getId(), v);
-						waterfall_items.get(columnIndex).addView(v);
+						waterfall_items.get(columnIndex).addView(v.parent);
 
 						lineIndex[columnIndex]++;
 
@@ -284,12 +291,8 @@ public class ShowWaterFull {
 
 			// 加载所有图片路径
 
-			try {
-				image_filenames = Arrays.asList(asset_manager.list(image_path));
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			image_filenames = Arrays.asList(new File(Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"images").listFiles());
+			
 			// 第一次加载
 			AddItemToContainer(current_page, page_count);
 		}
@@ -306,27 +309,44 @@ public class ShowWaterFull {
 				Random rand = new Random();
 //				int r = rand.nextInt(image_filenames.size());
 				int r = i;
-				AddImage(image_filenames.get(r),
+				AddImage(image_filenames.get(r).getAbsolutePath(),
 						(int) Math.ceil(loaded_count / (double) column_count),
 						loaded_count);
 			}
 
 		}
 
-		private void AddImage(String filename, int rowIndex, int id) {
-
-			FlowView item = new FlowView(context);
+		private void AddImage(String filename, int rowIndex, final int id) {
+            View view=LayoutInflater.from(activity).inflate(R.layout.item_waterfull, null);
+            LinearLayout ll=(LinearLayout)view.findViewById(R.id.item_waterfull_linearlayout);
+            ll.setClickable(true);
+            final TextView tv=(TextView)view.findViewById(R.id.textView1);
+            FlowView item=(FlowView)view.findViewById(R.id.flowview);
+			item.parent=view;
+			view.setTag(item);
+			
+			
+//			FlowView item = new FlowView(context);
 			// item.setColumnIndex(columnIndex);
-            item.setPadding(0, 0, 0, 4);
+//            item.setPadding(0, 0, 0, 4);
 			item.setRowIndex(rowIndex);
 			item.setId(id);
 			item.setViewHandler(this.handler);
 			item.setScaleType(ScaleType.FIT_XY);
+            ll.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					LogUtil.i("me", "onClickListener:   FlowView  id="+id);
+					tv.setText(""+(Integer.parseInt(""+tv.getText())+1));
+				}
+			});
 			// 多线程参数
 			FlowTag param = new FlowTag();
 			param.setFlowId(id);
 			param.setAssetManager(asset_manager);
-			param.setFileName(image_path + "/" + filename);
+			param.setFileName(filename);
 			param.setItemWidth(item_width);
 			
 			//FIX By SCX

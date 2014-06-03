@@ -91,7 +91,9 @@ public class PetCamera {
 				@Override
 				public void onPictureTaken(byte[] data, Camera camera) {
 					// TODO Auto-generated method stub
-					Bitmap bmp=BitmapFactory.decodeByteArray(data, 0, data.length);
+					BitmapFactory.Options options=new BitmapFactory.Options();
+					options.inSampleSize=4;
+					Bitmap bmp=BitmapFactory.decodeByteArray(data,0,data.length,options);
 					bmp=ImageUtil.rotateImage(bmp, 90);
 					HandlePictureActivity.handlingBmp=bmp;
 				    Message msg=context.handler.obtainMessage();

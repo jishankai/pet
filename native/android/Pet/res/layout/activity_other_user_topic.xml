@@ -4,48 +4,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="波斯猫"
-            android:layout_weight="1" 
-            android:gravity="center"/>
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />
-
-    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout1" 
-        android:gravity="center_horizontal">
-
+        android:gravity="center_horizontal"
+        android:background="@color/gray_light">
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="波斯猫" 
+            android:gravity="center"/>
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/textView1"
+            android:layout_centerInParent="true"
             android:src="@drawable/ic_launcher" />
 
         <ImageView
@@ -53,18 +31,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/imageView3"
-            android:src="@drawable/ic_launcher"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="30dp" />
-
-    </RelativeLayout>
-
-    <LinearLayout
+            android:src="@drawable/focus_add"
+            android:layout_marginTop="70dp"
+            android:layout_marginLeft="190dp" />
+            <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center" 
-        android:layout_below="@+id/linearLayout2">
+        android:layout_below="@+id/imageView4">
 
         <TextView
             android:id="@+id/textView2"
@@ -76,7 +51,7 @@
             android:id="@+id/imageView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/female" />
 
         <TextView
             android:id="@+id/textView3"
@@ -86,11 +61,39 @@
 
     </LinearLayout>
 
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back" />
+
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/share" 
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout3" >
+        android:layout_below="@+id/linearLayout2" 
+        android:background="@color/gray_light">
 
         <LinearLayout
             android:layout_width="wrap_content"

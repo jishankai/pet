@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:name="com.aidigame.hisun.pet.PetApplication"
@@ -86,22 +87,45 @@
     
     
     
-        <activity android:name="com.aidigame.hisun.pet.ui.TakePictureActivity">
+        <activity android:name="com.aidigame.hisun.pet.ui.TakePictureActivity"
+            >
 
         </activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.HandlePictureActivity"></activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.SubmitPictureActivity"></activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.ShowTopicActivity"></activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.ShowPictureActivity"></activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.HomeActivity">
+        <activity android:name="com.aidigame.hisun.pet.ui.HandlePictureActivity"
+            android:theme="@android:style/Theme.Translucent"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.SubmitPictureActivity"
+            ></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.ShowTopicActivity"
+            android:theme="@android:style/Theme.Translucent"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.ShowPictureActivity"
+            android:theme="@android:style/Theme.Translucent"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.HomeActivity"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent">
+            
+        </activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.UserHomepageActivity"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.OtherUserTopicActivity"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.FirstPageActivity"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent">
                         <intent-filter >
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.example.mylibrary.MainActivity"></activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.UserHomepageActivity"></activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.OtherUserTopicActivity"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.WelcomeActivity"
+            android:theme="@android:style/Theme.Translucent"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.IntroduceActivity"
+            android:theme="@android:style/Theme.Translucent"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.RegisterActivity"
+            android:theme="@android:style/Theme.Translucent"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.PictureAlbumActivity"
+            ></activity>
     </application>
 
 </manifest>

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content"
+    android:background="@color/gray_light" >
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="500dp"
         android:layout_centerHorizontal="true"
-        android:scaleType="fitXY"
+        android:scaleType="center"
         android:src="@drawable/ic_launcher" />
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -23,14 +24,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/linearLayout1" >
+        android:layout_below="@+id/linearLayout1"
+        android:background="@color/gray_deep" 
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
 
-        <Button
+        <ImageView
             android:id="@+id/button1"
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="back" />
+            android:background="@drawable/back" 
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"/>
 
         <Button
             android:id="@+id/button2"
@@ -41,14 +46,15 @@
             android:layout_toRightOf="@+id/button1"
             android:text="头像" />
 
-        <Button
+        <ImageView
             android:id="@+id/button3"
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:text="share" />
+            android:background="@drawable/share"
+            android:layout_centerVertical="true"
+            android:paddingRight="10dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -75,13 +81,17 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="260dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="16sp" />
+        android:textSize="16sp" 
+        android:textColor="@color/white"
+        android:background="@color/brown"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <LinearLayout
         android:id="@+id/linearlayout2"
@@ -91,22 +101,25 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="24dp"
         android:layout_marginLeft="31dp" 
-        android:clickable="true">
+        android:clickable="true"
+        android:background="@drawable/button_gray"
+        android:gravity="center">
 
-        <Button
+        <ImageView
             android:id="@+id/button4"
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="赞" />
+            android:background="@drawable/heart_white"
+            android:paddingLeft="5dp"/>
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="67"
-            android:paddingLeft="15dp" 
-            android:textColor="#ffff0000"
+            android:paddingLeft="10dp" 
+            android:textColor="@color/white"
+            android:paddingRight="3dp"
             android:textSize="16sp"/>
 
     </LinearLayout>
@@ -123,26 +136,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" 
-            android:background="#55ffffff">
+            android:background="@color/brown_deep"
+            android:gravity="center_vertical"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical" 
                 android:layout_weight="1"
-                android:gravity="center_horizontal">
+                android:gravity="center_horizontal"
+>
 
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/weixin" 
+                    />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="微信联系人" />
+                    android:text="微信联系人"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
                         <LinearLayout
@@ -156,13 +175,14 @@
                     android:id="@+id/imageView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/friend_weixin" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="微信朋友圈" />
+                    android:text="微信朋友圈"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
                         <LinearLayout
@@ -176,13 +196,14 @@
                     android:id="@+id/imageView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/xinlang" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="新浪微博" />
+                    android:text="新浪微博" 
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
             
@@ -195,8 +216,10 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:textSize="16sp"
-            android:background="#ffffffff"
-            android:text="取消" />
+            android:textColor="@color/white"
+            android:background="@color/orange_red"
+            android:text="取消" 
+            />
 
     </LinearLayout>
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string-array  name="gender">
+        <item >公</item>
+        <item >母</item>
+        <item >其他</item>
+    </string-array>
+    <string-array name="classs">
+        <item >汪星人</item>
+        <item >喵星人</item>
+    </string-array>
+    
+</resources>

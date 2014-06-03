@@ -45,12 +45,12 @@ public class UserHomepageActivity extends Activity implements OnClickListener{
 		bottomLinearLayout1=(LinearLayout)findViewById(R.id.bottom_linearlayout1);
 		bottomLinearLayout2=(LinearLayout)findViewById(R.id.bottom_linearlayout2);
 		titleLinearLayout=(LinearLayout)findViewById(R.id.linearLayout);
-		CreateTitle createTitle=new CreateTitle(this, titleLinearLayout);
+//		CreateTitle createTitle=new CreateTitle(this, titleLinearLayout);
 		showTopics();
-//		imageView5.setImageResource();//ÉèÖÃÐÔ±ð
-//		tv1.setText();//ÉèÖÃêÇ³Æ
-//		tv2.setText();//ÉèÖÃÖÖ×å
-//		tv3.setText();//ÉèÖÃÄêÁä
+//		imageView5.setImageResource();//ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½
+//		tv1.setText();//ï¿½ï¿½ï¿½ï¿½ï¿½Ç³ï¿½
+//		tv2.setText();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//		tv3.setText();//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 	}
 	private void initListener() {
@@ -83,7 +83,7 @@ public class UserHomepageActivity extends Activity implements OnClickListener{
 		}
 	}
 	/**
-	 * ¸Ä±äÓÃ»§Í·Ïñ
+	 * ï¿½Ä±ï¿½ï¿½Ã»ï¿½Í·ï¿½ï¿½
 	 */
 	private void changeUserIcon() {
 		// TODO Auto-generated method stub
@@ -131,7 +131,7 @@ public class UserHomepageActivity extends Activity implements OnClickListener{
 		TextView focus=(TextView)view.findViewById(R.id.textView3);
 		TextView fans=(TextView)view.findViewById(R.id.textView5);
 		LinearLayout listViewLinearLayout=(LinearLayout)view.findViewById(R.id.listview_linearLayout);
-		ShowFocusTopics showFocusTopics=new ShowFocusTopics(this, listViewLinearLayout);
+		ShowFocusTopics showFocusTopics=new ShowFocusTopics(this, listViewLinearLayout,1);
 	}
 	private void userSetUp() {
 		// TODO Auto-generated method stub

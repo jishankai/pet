@@ -1,7 +1,16 @@
 package com.aidigame.hisun.pet.ui;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,20 +27,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Topic;
+import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.LogUtil;
+import com.aidigame.hisun.pet.util.UiUtil;
 import com.aviary.android.feather.FeatherActivity;
 
 public class SubmitPictureActivity extends Activity implements OnClickListener{
-	Button backBt,recodeBt,submitBt;
-	ImageView imageView;
+	Button recodeBt,submitBt;
+	ImageView imageView,backBt;
 	EditText editText;
 	TextView textView;
 	Uri uri;
-	String path;
+	String path,finalPath;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		UiUtil.setScreenInfo(this);
 		setContentView(R.layout.activity_submit_picture);
 		initView();
 		initListener();
@@ -39,7 +52,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 
 	private void initView() {
 		// TODO Auto-generated method stub
-		backBt=(Button)findViewById(R.id.button1);
+		backBt=(ImageView)findViewById(R.id.button1);
 		recodeBt=(Button)findViewById(R.id.button2);
 		submitBt=(Button)findViewById(R.id.button3);
 		imageView=(ImageView)findViewById(R.id.imageView1);
@@ -111,12 +124,54 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			break;
 		case R.id.button3:
 			//FIXME
+			if(finalPath==null)return;
 			Intent intent3=new Intent(this,ShowTopicActivity.class);
 			intent3.putExtra("info", ""+textView.getText());
-			intent3.setData(uri);
+//			intent3.setData(uri);
+			Topic topic=new Topic();
+			topic.bmpPath=finalPath;
+			intent3.putExtra("topic", topic);
 			this.startActivity(intent3);
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					File file=new File(finalPath);
+				     String fileName=file.getName();
+				     File newPath=new File(Constants.Picture_Path);
+				     if(!newPath.exists()){
+				    	 newPath.mkdirs();
+				     }
+				     FileInputStream fis=null;
+						FileOutputStream fos=null;
+				     try {
+						fis=new FileInputStream(file);
+						fos=new FileOutputStream(Constants.Picture_Path+File.separator+fileName);
+						byte[] buffer=new byte[1024*10];
+						int len=0;
+						while((len=fis.read(buffer, 0, 1024*10))!=-1){
+							fos.write(buffer, 0, len);
+							fos.flush();
+						}
+						SharedPreferences sp=getPreferences(Context.MODE_WORLD_WRITEABLE);
+						Editor editor=sp.edit();
+						String info=textView.getText().toString();
+						info=info==null?"":info;
+						editor.putString(fileName, info);
+						editor.commit();
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				     LogUtil.i("me", "fileName"+fileName);
+				}
+			}).start();
 			this.finish();
-			//TODO É¾³ý ÕÕÆ¬
+			//TODO É¾ï¿½ï¿½ ï¿½ï¿½Æ¬
 			
 			break;
 		case R.id.imageView1:
@@ -149,6 +204,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			String path=cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA));
 			Bitmap bitmap=BitmapFactory.decodeFile(path);
 			imageView.setImageBitmap(bitmap);
+			finalPath=path;
 			cursor.close();
 		}
 		

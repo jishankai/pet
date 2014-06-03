@@ -2,12 +2,9 @@ package com.aidigame.hisun.pet.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,14 +14,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Topic;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.CreateTitle;
 
 public class ShowTopicActivity extends Activity implements OnClickListener{
-	Button bt1,bt2,bt3,bt4;
+	Button bt2;
 	TextView tv1,tv2,tv3,tv4;
-	ImageView imageView;
+	ImageView imageView,bt4,bt1,bt3;
 	LinearLayout linearLayout1;
 	LinearLayout linearLayout2;
 	RelativeLayout relativeLayout1;
@@ -47,22 +45,21 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
-		bt1=(Button)findViewById(R.id.button1);
+		bt1=(ImageView)findViewById(R.id.button1);
+		bt3=(ImageView)findViewById(R.id.button3);
 		bt2=(Button)findViewById(R.id.button2);
-		bt3=(Button)findViewById(R.id.button3);
-		bt4=(Button)findViewById(R.id.button4);
+		bt4=(ImageView)findViewById(R.id.button4);
 		tv1=(TextView)findViewById(R.id.textView1);
 		tv2=(TextView)findViewById(R.id.textView2);
 		tv3=(TextView)findViewById(R.id.textView3);
 		tv4=(TextView)findViewById(R.id.textView4);
-		
 		imageView=(ImageView)findViewById(R.id.imageView1);
-		loadBitmap(getIntent().getData());
+		loadBitmap((Topic)getIntent().getSerializableExtra("topic"));
 		tv3.setText(getIntent().getStringExtra("info"));
 		linearLayout1=(LinearLayout)findViewById(R.id.linearLayout1);
 		linearLayout2=(LinearLayout)findViewById(R.id.linearlayout2);
 		relativeLayout1=(RelativeLayout)findViewById(R.id.relativeLayout1);
-		createTitle=new CreateTitle(this,linearLayout1);
+//		createTitle=new CreateTitle(this,linearLayout1);
 		
 		
 		shareLayout=(LinearLayout)findViewById(R.id.share_linearlayout);
@@ -149,14 +146,12 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 			break;
 		}
 	}
-	public void loadBitmap(Uri uri){
-		Cursor cursor=getContentResolver().query(uri, null, null, null, null);
-		if(cursor!=null){
-			cursor.moveToFirst();
-			String path=cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA));
-			Bitmap bitmap=BitmapFactory.decodeFile(path);
+	public void loadBitmap(Topic topic){
+		
+		if(topic!=null){
+			
+			Bitmap bitmap=BitmapFactory.decodeFile(topic.bmpPath);
 			imageView.setImageBitmap(bitmap);
-			cursor.close();
 		}
 		
 	}

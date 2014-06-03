@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:gravity="center"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/camera1" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        
+        android:background="@drawable/button_gray"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        
+        android:layout_marginTop="10dp" >
+        <EditText 
+            android:id="@+id/editText1"
+            android:layout_width="100dp" style=""
+            android:layout_height="wrap_content"
+            android:hint="我的名字"
+            android:text="1"/>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher" />
+
+    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_below="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_gray"
+        android:layout_centerHorizontal="true" >
+        <Spinner
+            android:id="@+id/editText2" 
+            android:layout_width="100dp" style=""
+            android:layout_height="wrap_content"
+            android:hint="我的性别"
+            android:entries="@array/gender"/>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher" />
+
+    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_below="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_gray"
+        android:layout_centerHorizontal="true" >
+        <Spinner
+            android:id="@+id/editText3" 
+            android:layout_width="100dp" style=""
+            android:layout_height="wrap_content"
+            android:hint="我来自"
+            android:entries="@array/classs"/>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher" />
+
+    </LinearLayout>
+        <LinearLayout
+            android:layout_below="@+id/linearLayout3"
+            android:id="@+id/linearLayout4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_gray"
+        android:layout_centerHorizontal="true" >
+        <EditText
+            android:id="@+id/editText4" 
+            android:layout_width="100dp" style=""
+            android:layout_height="wrap_content"
+            android:hint="我今年"
+            android:text="1"
+            android:inputType="number"/>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher" />
+
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout4"
+            android:text="完成"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button"
+             />
+
+</RelativeLayout>

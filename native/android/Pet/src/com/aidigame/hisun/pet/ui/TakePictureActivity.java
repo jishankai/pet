@@ -26,20 +26,21 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 	SurfaceView surfaceView;
 	SurfaceHolder holder;
 	Button albumBt,takePictureBt,cancelBt;
-	//´´½¨¶¥²¿±êÌâÀ¸
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	CreateTitle createTitle;
 	PetCamera petCamera;
 	String path;
-	public static final int TAKE_PICTURE_COMPLETED=0;//Íê³ÉÅÄÕÕ
+	public static final int TAKE_PICTURE_COMPLETED=0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case TAKE_PICTURE_COMPLETED:
 				path="file://"+ImageUtil.compressImage(HandlePictureActivity.handlingBmp, 50);
+				LogUtil.i("me", "ImageUtil.compressImage(HandlePictureActivity.handlingBmp::::"+path);
 				Intent intent=new Intent(TakePictureActivity.this,com.aviary.android.feather.FeatherActivity.class);
 				intent.setData(Uri.parse(path));
 				intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_IN_API_KEY_SECRET, "f6d0dd319088fd5a");
-				startActivityForResult(intent, 1);
+				startActivityForResult(intent, 1);                                                    
 			default:
 				break;
 			}
@@ -53,7 +54,7 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 		setContentView(R.layout.activity_take_picture);
 		initView();
 		initListener();
-		createTitle=new CreateTitle(this, titleLinearLayout);
+//		createTitle=new CreateTitle(this, titleLinearLayout);
 		holder.addCallback(this);
 	}
 
@@ -65,7 +66,7 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 		takePictureBt=(Button)findViewById(R.id.button2);
 		cancelBt=(Button)findViewById(R.id.button3);
 		holder=surfaceView.getHolder();
-		//2.33Ö®Ç°µÄ°æ±¾µ÷ÓÃcamera±ØÐë¼ÓÕâ¾ä»°£¬²»È»±¨´í
+		//2.33Ö®Ç°ï¿½Ä°æ±¾ï¿½ï¿½ï¿½ï¿½cameraï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä»°ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½
 		holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 		petCamera=new PetCamera(this, holder,surfaceView);
 	}
@@ -80,7 +81,9 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.button1:
-			
+			Intent intent1=new Intent(this,PictureAlbumActivity.class);
+			this.startActivity(intent1);
+			this.finish();
 			break;
 		case R.id.button2:
 			petCamera.takePicture();

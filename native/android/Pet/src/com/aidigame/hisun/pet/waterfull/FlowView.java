@@ -1,17 +1,18 @@
 package com.aidigame.hisun.pet.waterfull;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -22,10 +23,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Topic;
+import com.aidigame.hisun.pet.ui.ShowTopicActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
 
 public class FlowView extends ImageView implements View.OnClickListener,
 		View.OnLongClickListener {
+	public View parent;
+	public Topic topic;
+	
 
 	private AnimationDrawable loadingAnimation;
 	private FlowTag flowTag;
@@ -104,9 +110,24 @@ public class FlowView extends ImageView implements View.OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		Log.d("FlowView", "Click");
-		Toast.makeText(context, "单机" + this.flowTag.getFlowId(),
-				Toast.LENGTH_SHORT).show();
+		
+		int a=v.getId();
+		Log.d("FlowView", "Click:  a="+a+",R.id.flowview="+R.id.flowview);
+		switch (v.getId()) {
+		case R.id.flowview:
+			Toast.makeText(context, "单机" + this.flowTag.getFlowId(),
+					Toast.LENGTH_SHORT).show();
+			break;
+		case R.id.item_waterfull_linearlayout:
+			LogUtil.i("me", "**************R.id.item_waterfull_linearlayout");
+			break;
+		}
+		Intent intent=new Intent(context,ShowTopicActivity.class);
+		topic=new Topic();
+		topic.bmpPath=flowTag.getFileName();
+		intent.putExtra("topic", topic);
+		context.startActivity(intent);
+
 	}
 
 	/**
@@ -179,7 +200,7 @@ public class FlowView extends ImageView implements View.OnClickListener,
 		public void run() {
 			if (flowTag != null) {
 
-				BufferedInputStream buf;
+				/*BufferedInputStream buf;
 				try {
 					buf = new BufferedInputStream(flowTag.getAssetManager()
 							.open(flowTag.getFileName()));
@@ -188,8 +209,8 @@ public class FlowView extends ImageView implements View.OnClickListener,
 				} catch (IOException e) {
 
 					e.printStackTrace();
-				}
-
+				}*/
+				bitmap = BitmapFactory.decodeFile(flowTag.getFileName());
 				((Activity) context).runOnUiThread(new Runnable() {
 					public void run() {
 						if (bitmap != null) {// 此处在线程较多时可能为null
@@ -232,7 +253,7 @@ public class FlowView extends ImageView implements View.OnClickListener,
 
 			if (flowTag != null) {
 
-				BufferedInputStream buf;
+				/*BufferedInputStream buf;
 				try {
 					buf = new BufferedInputStream(flowTag.getAssetManager()
 							.open(flowTag.getFileName()));
@@ -242,14 +263,14 @@ public class FlowView extends ImageView implements View.OnClickListener,
 				} catch (IOException e) {
 
 					e.printStackTrace();
-				}
+				}*/
 				// if (bitmap != null) {
 
 				// 此处不能跟新UI，可能发生异常
 				// CalledFromWrongThreadException: Only the original thread that
 				// created a view hierarchy can touch its views.
 				// 也可以使用Handler和Looper发送Message来解决这个问题
-
+				bitmap = BitmapFactory.decodeFile(flowTag.getFileName());
 				((Activity) context).runOnUiThread(new Runnable() {
 					public void run() {
 						if (bitmap != null) {// 此处在线程较多时可能为null

@@ -15,7 +15,7 @@ import com.aidigame.hisun.pet.widget.CreateTitle;
 import com.aidigame.hisun.pet.widget.ShowFocusTopics;
 import com.aidigame.hisun.pet.widget.ShowWaterFull;
 /**
- * Ö÷½çÃæ
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * @author scx
  *
  */
@@ -45,7 +45,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 		cameraBt=(Button)findViewById(R.id.imageView2);
 		linearLayout1=(LinearLayout)findViewById(R.id.linearlayout_title);
 		waterFullParent=(LinearLayout)findViewById(R.id.waterfall_parent);
-		//ÏÔÊ¾ÆÙ²¼Á÷
+		//ï¿½ï¿½Ê¾ï¿½Ù²ï¿½ï¿½ï¿½
 		new ShowWaterFull(this, waterFullParent);
 //		CreateTitle createTitle=new CreateTitle(this, linearLayout1);
 	}
@@ -66,7 +66,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 			break;
 		case R.id.button2:
 			changeColors(R.id.button2);
-			new ShowFocusTopics(this, waterFullParent);
+			new ShowFocusTopics(this, waterFullParent,2);
 			break;
 		case R.id.imageView1:
 			Intent intent1=new Intent(this,UserHomepageActivity.class);
@@ -75,7 +75,7 @@ public class HomeActivity extends Activity implements OnClickListener{
 		case R.id.imageView2:
 			Intent intent2=new Intent(this,TakePictureActivity.class);
 			this.startActivity(intent2);
-			this.finish();
+//			this.finish();
 			break;
 		}
 	}

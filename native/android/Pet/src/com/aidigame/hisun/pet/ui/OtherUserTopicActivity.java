@@ -1,9 +1,5 @@
 package com.aidigame.hisun.pet.ui;
 
-import com.aidigame.hisun.pet.R;
-import com.aidigame.hisun.pet.util.UiUtil;
-import com.aidigame.hisun.pet.widget.ShowFocusTopics;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,11 +9,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Topic;
+import com.aidigame.hisun.pet.util.UiUtil;
+import com.aidigame.hisun.pet.widget.ShowFocusTopics;
+
 public class OtherUserTopicActivity extends Activity implements OnClickListener{
 	ImageView imageView1,imageView2,imageView3,
     imageView4,imageView5,imageView6,
     imageView7;
     TextView tv3,tv2,tv1;
+    Topic topic;
     LinearLayout bottomLinearLayout1,bottomLinearLayout2;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +44,12 @@ public class OtherUserTopicActivity extends Activity implements OnClickListener{
 		tv3=(TextView)findViewById(R.id.textView3);
 		bottomLinearLayout1=(LinearLayout)findViewById(R.id.bottom_linearlayout1);
 		bottomLinearLayout2=(LinearLayout)findViewById(R.id.bottom_linearlayout2);
+		topic=(Topic)getIntent().getSerializableExtra("topic");
 		showTopics();
-//		imageView5.setImageResource();//ÉèÖÃÐÔ±ð
-//		tv1.setText();//ÉèÖÃêÇ³Æ
-//		tv2.setText();//ÉèÖÃÖÖ×å
-//		tv3.setText();//ÉèÖÃÄêÁä
+//		imageView5.setImageResource();//ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½
+//		tv1.setText(topic.user.nickName);//ï¿½ï¿½ï¿½ï¿½ï¿½Ç³ï¿½
+//		tv2.setText(topic.user.race);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+//		tv3.setText(topic.user.age);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		
 	}
 	private void initListener() {
@@ -108,14 +111,14 @@ public class OtherUserTopicActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 //		imageView6.setImageResource();
 //		imageView7.setImageResource();
-		View view=LayoutInflater.from(this).inflate(R.layout.item_user_topics, null);
+/*		View view=LayoutInflater.from(this).inflate(R.layout.item_user_topics, null);
 		bottomLinearLayout1.removeAllViews();
 		bottomLinearLayout1.addView(view);
 		TextView pictures=(TextView)view.findViewById(R.id.textView1);
 		TextView focus=(TextView)view.findViewById(R.id.textView3);
 		TextView fans=(TextView)view.findViewById(R.id.textView5);
-		LinearLayout listViewLinearLayout=(LinearLayout)view.findViewById(R.id.listview_linearLayout);
-		ShowFocusTopics showFocusTopics=new ShowFocusTopics(this, listViewLinearLayout);
+		LinearLayout listViewLinearLayout=(LinearLayout)view.findViewById(R.id.listview_linearLayout);*/
+		ShowFocusTopics showFocusTopics=new ShowFocusTopics(this, bottomLinearLayout1,2);
 	}
 
 }
