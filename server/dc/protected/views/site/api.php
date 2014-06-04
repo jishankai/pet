@@ -57,8 +57,8 @@ array(
 );
 echo CHtml::label('年龄', 'age');
 echo CHtml::textField('age');
-echo CHtml::label('种类', 'class');
-echo CHtml::dropDownList('class', NULL,
+echo CHtml::label('种类', 'type');
+echo CHtml::dropDownList('type', NULL,
     array(
         '1' => '汪星人',
         '2' => '喵星人',

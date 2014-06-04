@@ -59,6 +59,7 @@ return array(
 
         'cache' => array(
             'class' => 'CMemCache',
+            'keyPrefix' => 'PetData',
             'servers' => array(
                 array(
                     'host' => '127.0.0.1',
@@ -80,10 +81,10 @@ return array(
         ),
         'session' => array(
             'class' => 'CCacheHttpSession',
-            'cacheID' => 'cache',
+            'cacheID' => 'sessionCache',
             'sessionName' => 'SID',
             'timeout' => 86400,
-            'cookieMode' => 'only',
+            'cookieMode' => 'allow',
         ),
         
 		'db'=>array(
