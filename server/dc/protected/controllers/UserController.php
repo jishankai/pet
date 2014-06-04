@@ -12,40 +12,48 @@ class UserController extends Controller
 
     public function actionLoginApi($uid, $ver=NULL, $token=NULL)
     {
-        $user = User::model()->findByAttributes(array('uid'=>$uid));
+        $device = Device::model()->findByAttributes(array('uid'=>$uid));
         $isSuccess = true;
-        if (empty($user)) {
-            $user = new User();
-            //$user->token = $token;
-            $user->create_time = time();
-            $user->save();
-        }
-        if (!isset($user->name) or $user->name=='') {
+        if (empty($device->usr_id)) {
+            if ($device === NULL) {
+                $device = new Device();
+                $device->uid = $uid;
+                //$device->token = $token;
+                $device->create_time = time();
+                $device->save();
+            }
+            $session = Yii::app()->session;
+            $session['id'] = $device->id;
+
             $isSuccess = false;
+        } else {
+            $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
+            $user->login();
+
+            $session = Yii::app()->session;
+            $session['usr_id'] = $device->usr_id;
         }
-        $session = Yii::app()->session;
-        $session['uid'] = $user->uid;
+
         $this->echoJsonData(array(
-            'isSuccess'=>$isSuccess,
-            'SID'=>$session->sessionID,
+            'isSuccess' => $isSuccess,
+            'SID' => $session->sessionID,
         )); 
     }
 
-    public function actionRegisterApi($name, $gender, $age, $class, $code)
+    public function actionRegisterApi($name, $gender, $age, $type, $code)
     {
         if (empty($name)) {
             throw new PException('注册信息不完整');
         }
         $session = Yii::app()->session;
-        $session->setSessionID($_REQUEST['SID']);
         $session->open();
-        $uid = $session['uid'];
-        if (empty($uid)) {
+        $id = $session['`id'];
+        if (empty($id)) {
             $this->response->setError(102, '重新登录');
             $this->response->render();
         }
-        $user = User::model()->findByPk($uid);
-        if (empty($user)) {
+        $device = Device::model()->findByPk($id);
+        if (empty($device)) {
             throw new PException('未登录');
         }
         if (User::model()->isNameExist(trim($name))) {
@@ -62,7 +70,11 @@ class UserController extends Controller
         }
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $user->register(trim($name), $gender, $age, $class, empty($invter)?NULL:$inviter);
+            $user = $device->register(trim($name), $gender, $age, $type, empty($invter)?NULL:$inviter);
+            $transaction->commit();
+
+            $session['usr_id'] = $device->usr_id;
+            $user->login();
             $this->echoJsonData(array('isSuccess'=>true));
         } catch (Exception $e) {
             $transaction->rollback();
@@ -72,7 +84,7 @@ class UserController extends Controller
 
     public function actionInfoApi()
     {
-        $user = User::model()->findByPk($this->uid);
+        $user = User::model()->findByPk($this->usr_id);
 
         $this->echoJsonData(array($user));
     }

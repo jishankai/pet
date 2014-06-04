@@ -21,7 +21,7 @@ class Controller extends CController
      */
     public $breadcrumbs=array();
 
-    public $uid;
+    public $usr_id;
 
     public function filterCheckUpdate($filterChain)
     {
@@ -42,13 +42,12 @@ class Controller extends CController
     {
         if (isset($_REQUEST['SID']) && $_REQUEST['SID']=='') unset($_REQUEST['SID']); 
         $session = Yii::app()->session;
-        $session->setSessionID($_REQUEST['SID']);
         $session->open();
-        if (empty($session['uid'])) {
+        if (empty($session['usr_id'])) {
             $this->response->setExpired();//重新登录
             $this->response->render();
         } else {
-            $this->uid = $session['uid'];
+            $this->usr_id = $session['usr_id'];
             $filterChain->run(); 
         }
     }
@@ -66,7 +65,6 @@ class Controller extends CController
     {
         if (array_key_exists('sig', $params)) unset($params['sig']);
         if (array_key_exists('r', $params)) unset($params['r']); 
-        if (array_key_exists('SID', $params)) unset($params['SID']);
 
         ksort($params);
         $newArray = array();

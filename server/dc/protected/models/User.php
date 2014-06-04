@@ -4,23 +4,36 @@
  * This is the model class for table "dc_user".
  *
  * The followings are the available columns in table 'dc_user':
- * @property integer $uid
+ * @property string $usr_id
  * @property string $name
  * @property integer $gender
+ * @property string $tx
  * @property integer $age
- * @property integer $class
- * @property integer $treasure
+ * @property integer $type
  * @property string $code
  * @property integer $inviter
  * @property integer $create_time
  * @property string $update_time
  *
  * The followings are the available model relations:
- * @property Image[] $images
- * @property Stricker[] $strickers
+ * @property Account $account
+ * @property Device[] $devices
+ * @property Qq $qq
+ * @property Value $value
+ * @property Weibo $weibo
  */
 class User extends CActiveRecord
 {
+	/**
+	 * Returns the static model of the specified AR class.
+	 * @param string $className active record class name.
+	 * @return User the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -37,13 +50,13 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			//array('inviter, create_time, update_time', 'required'),
-			array('gender, age, class, treasure, inviter, create_time', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>45),
+			array('inviter, create_time, update_time', 'required'),
+			array('gender, age, type, inviter, create_time', 'numerical', 'integerOnly'=>true),
+			array('name, tx', 'length', 'max'=>45),
 			array('code', 'length', 'max'=>6),
 			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('uid, name, gender, age, class, treasure, code, inviter, create_time, update_time', 'safe', 'on'=>'search'),
+			// Please remove those attributes that should not be searched.
+			array('usr_id, name, gender, tx, age, type, code, inviter, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,8 +68,11 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'images' => array(self::HAS_MANY, 'Image', 'uid'),
-			'strickers' => array(self::HAS_MANY, 'Stricker', 'uid'),
+			'account' => array(self::HAS_ONE, 'Account', 'usr_id'),
+			'devices' => array(self::HAS_MANY, 'Device', 'usr_id'),
+			'qq' => array(self::HAS_ONE, 'Qq', 'usr_id'),
+			'value' => array(self::HAS_ONE, 'Value', 'usr_id'),
+			'weibo' => array(self::HAS_ONE, 'Weibo', 'usr_id'),
 		);
 	}
 
@@ -66,12 +82,12 @@ class User extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'uid' => 'Uid',
+			'usr_id' => 'Usr',
 			'name' => 'Name',
 			'gender' => 'Gender',
+			'tx' => 'Tx',
 			'age' => 'Age',
-			'class' => 'Class',
-			'treasure' => 'Treasure',
+			'type' => 'Type',
 			'code' => 'Code',
 			'inviter' => 'Inviter',
 			'create_time' => 'Create Time',
@@ -81,28 +97,21 @@ class User extends CActiveRecord
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
+	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public function search()
 	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('uid',$this->uid);
+		$criteria->compare('usr_id',$this->usr_id,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('gender',$this->gender);
+		$criteria->compare('tx',$this->tx,true);
 		$criteria->compare('age',$this->age);
-		$criteria->compare('class',$this->class);
-		$criteria->compare('treasure',$this->treasure);
+		$criteria->compare('type',$this->type);
 		$criteria->compare('code',$this->code,true);
 		$criteria->compare('inviter',$this->inviter);
 		$criteria->compare('create_time',$this->create_time);
@@ -111,17 +120,6 @@ class User extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return User the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
 	}
 
     public function isNameExist($name)
@@ -134,14 +132,18 @@ class User extends CActiveRecord
         return Yii::app()->db->createCommand("SELECT uid FROM dc_user WHERE code=:code")->bindValue(':code',$code)->queryScalar();
     }  
 
-    public function register($name, $gender, $age, $class, $inviter)
+    public function initialize($event)
     {
-        $this->name = $name;
-        $this->gender = $gender;
-        $this->age = $age;
-        $this->class = $class;
-        $this->inviter = $inviter;
+        
+    }
 
-        $this->save();
+    public function rewardInviter($event)
+    {
+        
+    }
+
+    public function login()
+    {
+        
     }
 }
