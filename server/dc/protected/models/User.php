@@ -140,7 +140,7 @@ class User extends CActiveRecord
         $this->gender = $gender;
         $this->age = $age;
         $this->class = $class;
-        $this->$inviter = $inviter;
+        $this->inviter = $inviter;
 
         $this->save();
     }

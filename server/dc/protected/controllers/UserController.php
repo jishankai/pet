@@ -20,7 +20,7 @@ class UserController extends Controller
             $user->create_time = time();
             $user->save();
         }
-        if (!isset($user->name)&&$user->name!='') {
+        if (!isset($user->name) or $user->name=='') {
             $isSuccess = false;
         }
         $session = Yii::app()->session;
