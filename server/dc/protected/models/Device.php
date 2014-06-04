@@ -44,7 +44,6 @@ class Device extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('create_time, update_time', 'required'),
 			array('create_time', 'numerical', 'integerOnly'=>true),
 			array('uid, token, terminal', 'length', 'max'=>45),
 			array('usr_id', 'length', 'max'=>10),

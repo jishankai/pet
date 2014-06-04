@@ -40,7 +40,6 @@ class Weibo extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('usr_id, create_time, update_time', 'required'),
 			array('create_time', 'numerical', 'integerOnly'=>true),
 			array('usr_id', 'length', 'max'=>10),
 			array('account', 'length', 'max'=>45),

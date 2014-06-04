@@ -50,7 +50,6 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('inviter, create_time, update_time', 'required'),
 			array('gender, age, type, inviter, create_time', 'numerical', 'integerOnly'=>true),
 			array('name, tx', 'length', 'max'=>45),
 			array('code', 'length', 'max'=>6),
@@ -124,12 +123,12 @@ class User extends CActiveRecord
 
     public function isNameExist($name)
     {
-        return Yii::app()->db->createCommand('SELECT uid FROM dc_user WHERE name=:name')->bindValue(':name', $name)->queryScalar();
+        return Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $name)->queryScalar();
     }
 
     public function getUserIdByCode($code)
     { 
-        return Yii::app()->db->createCommand("SELECT uid FROM dc_user WHERE code=:code")->bindValue(':code',$code)->queryScalar();
+        return Yii::app()->db->createCommand("SELECT usr_id FROM dc_user WHERE code=:code")->bindValue(':code',$code)->queryScalar();
     }  
 
     public function initialize($event)

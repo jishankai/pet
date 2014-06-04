@@ -37,7 +37,6 @@ class Sticker extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('usr_id, create_time, update_time', 'required'),
 			array('usr_id, create_time', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

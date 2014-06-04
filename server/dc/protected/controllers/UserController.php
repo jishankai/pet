@@ -47,7 +47,7 @@ class UserController extends Controller
         }
         $session = Yii::app()->session;
         $session->open();
-        $id = $session['`id'];
+        $id = $session['id'];
         if (empty($id)) {
             $this->response->setError(102, '重新登录');
             $this->response->render();

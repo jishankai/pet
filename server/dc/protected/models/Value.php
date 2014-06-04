@@ -44,7 +44,6 @@ class Value extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('create_time, update_time', 'required'),
 			array('create_time', 'numerical', 'integerOnly'=>true),
 			array('exp, lv, follow, follower, con_login', 'length', 'max'=>10),
 			// The following rule is used by search().
