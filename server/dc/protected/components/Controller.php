@@ -65,6 +65,7 @@ class Controller extends CController
     {
         if (array_key_exists('sig', $params)) unset($params['sig']);
         if (array_key_exists('r', $params)) unset($params['r']); 
+        if (array_key_exists('name', $params)) unset($params['name']); 
 
         ksort($params);
         $newArray = array();
