@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.12)
 # Database: pet
-# Generation Time: 2014-06-08 04:45:23 +0000
+# Generation Time: 2014-06-08 09:28:05 +0000
 # ************************************************************
 
 
@@ -31,8 +31,8 @@ CREATE TABLE `dc_account` (
   `create_time` int(10) NOT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`usr_id`),
-  CONSTRAINT `FK_ACCOUNT` FOREIGN KEY (`usr_id`) REFERENCES `dc_user` (`usr_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_ACCOUNT` FOREIGN KEY (`usr_id`) REFERENCES `dc_user` (`usr_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -52,8 +52,8 @@ CREATE TABLE `dc_device` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_DEVICE` (`usr_id`),
-  CONSTRAINT `FK_DEVICE` FOREIGN KEY (`usr_id`) REFERENCES `dc_user` (`usr_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_DEVICE` FOREIGN KEY (`usr_id`) REFERENCES `dc_user` (`usr_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -67,8 +67,9 @@ CREATE TABLE `dc_friend` (
   `follow_id` int(10) unsigned NOT NULL,
   `create_time` int(10) NOT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`usr_id`,`follow_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`usr_id`,`follow_id`),
+  CONSTRAINT `FK_FRIEND` FOREIGN KEY (`usr_id`) REFERENCES `dc_user` (`usr_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -79,7 +80,7 @@ DROP TABLE IF EXISTS `dc_image`;
 
 CREATE TABLE `dc_image` (
   `img_id` int(10) NOT NULL AUTO_INCREMENT,
-  `usr_id` int(10) NOT NULL,
+  `usr_id` int(10) unsigned NOT NULL,
   `comment` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `like` int(10) NOT NULL DEFAULT '0',
   `likers` text CHARACTER SET utf8,
@@ -87,8 +88,10 @@ CREATE TABLE `dc_image` (
   `file` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `create_time` int(10) NOT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`img_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`img_id`),
+  KEY `FK_IMAGE` (`usr_id`),
+  CONSTRAINT `FK_IMAGE` FOREIGN KEY (`usr_id`) REFERENCES `dc_user` (`usr_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -104,8 +107,8 @@ CREATE TABLE `dc_qq` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`usr_id`),
   UNIQUE KEY `UN_ACCOUNT` (`account`),
-  CONSTRAINT `FK_QQ` FOREIGN KEY (`usr_id`) REFERENCES `dc_user` (`usr_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_QQ` FOREIGN KEY (`usr_id`) REFERENCES `dc_user` (`usr_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -120,7 +123,7 @@ CREATE TABLE `dc_sticker` (
   `create_time` int(10) NOT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`sti_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -143,7 +146,7 @@ CREATE TABLE `dc_user` (
   PRIMARY KEY (`usr_id`),
   UNIQUE KEY `UN_CODE` (`code`),
   UNIQUE KEY `UQ_NAME` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -162,8 +165,8 @@ CREATE TABLE `dc_value` (
   `create_time` int(10) NOT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`usr_id`),
-  CONSTRAINT `FK_VALUE` FOREIGN KEY (`usr_id`) REFERENCES `dc_user` (`usr_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_VALUE` FOREIGN KEY (`usr_id`) REFERENCES `dc_user` (`usr_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -179,8 +182,8 @@ CREATE TABLE `dc_weibo` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`usr_id`),
   UNIQUE KEY `UN_ACCOUNT` (`account`),
-  CONSTRAINT `FK_WEIBO` FOREIGN KEY (`usr_id`) REFERENCES `dc_user` (`usr_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_WEIBO` FOREIGN KEY (`usr_id`) REFERENCES `dc_user` (`usr_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
