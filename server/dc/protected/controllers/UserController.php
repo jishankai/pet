@@ -7,6 +7,26 @@ class UserController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
+            'getUserId + infoApi,txApi',
+            array(
+                'COutputCache + infoApi',
+                'duration' => 3600,
+                'varyBySession' => true,
+                'dependency' => array(
+                    'class' => 'CDbCacheDependency',
+                    'sql' => "SELECT MAX(update_time) FROM dc_user WHERE usr_id=$this->usr_id",
+                ),
+            ),
+            array(
+                'COutputCache + imagesApi',
+                'duration' => 3600,
+                'varyByParam' => array('img_id'),
+                'varyBySession' => true,
+                'dependency' => array(
+                    'class' => 'CDbCacheDependency',
+                    'sql' => "SELECT MAX(update_time) FROM dc_image WHERE usr_id=$this->usr_id",
+                ),
+            ),
         );
     }
 
@@ -87,5 +107,39 @@ class UserController extends Controller
         $user = User::model()->findByPk($this->usr_id);
 
         $this->echoJsonData(array($user));
+    }
+
+    public function actionTxApi()
+    {
+        $user = User::model()->findByPk($this->usr_id);
+
+        if (isset($_FILES['tx'])) {
+            $fname = basename($_FILES['tx']['name']);
+            $path = Yii::app()->basePath.'/../images/tx/'.$this->usr_id.'_'.$fname;
+            if (move_uploaded_file($_FILES['tx']['tmp_name'], $path)) {
+                $user->tx = $this->usr_id.'_'.$fname;
+                $user->saveAttributes(array('tx'));
+            }
+        }
+
+        $this->echoJsonData(array('tx'=>$user->tx));
+    }
+
+
+    public function actionImagesApi($img_id=NULL)
+    {
+        $c = new CDbCriteria;
+        
+        $c->compare('usr_id', $this->usr_id);
+        $c->limit = 10;
+        $c->order = 'img_id DESC';
+        if(isset($img_id)) {
+            $c->addCondition("img_id<:img_id");
+            $c->params[':img_id'] = $img_id;
+        }
+
+        $images = Image::model()->findAll($c);
+
+        $this->echoJsonData(array($images));
     }
 }

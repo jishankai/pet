@@ -7,6 +7,7 @@ class StickerController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
+            'getUserId',
         );
     }
 

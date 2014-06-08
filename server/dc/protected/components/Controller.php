@@ -65,6 +65,8 @@ class Controller extends CController
     {
         if (array_key_exists('sig', $params)) unset($params['sig']);
         if (array_key_exists('r', $params)) unset($params['r']); 
+        if (array_key_exists('name', $params)) unset($params['name']); 
+        if (array_key_exists('SID', $params)) unset($params['SID']); 
 
         ksort($params);
         $newArray = array();
@@ -87,7 +89,7 @@ class Controller extends CController
      */
     public function getActionParams()
     {
-        return $_GET + $_POST;
+        return $_GET; //+ $_POST;
     }
 
     public function getResponse()

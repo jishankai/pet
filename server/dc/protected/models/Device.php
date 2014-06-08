@@ -138,8 +138,10 @@ class Device extends CActiveRecord
             $str='abcdefghijklmnopqrstuvwxyz0123456789';
             $str_temp=str_shuffle($str);
             $code = substr($str_temp, 0, USER_INVITECODE_LENGTH);
-            $isExist = Yii::app()->db->createCommand("SELECT usr_id FROM dc_user WHERE code=:")->bindValue(':code', $code)->queryScalar();
+            $isExist = Yii::app()->db->createCommand("SELECT usr_id FROM dc_user WHERE code=:code")->bindValue(':code', $code)->queryScalar();
         } while ($isExist);
+
+        return $code;
     }
 
     public function onRegister($event)

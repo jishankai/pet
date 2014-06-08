@@ -18,7 +18,9 @@
  * The followings are the available model relations:
  * @property Account $account
  * @property Device[] $devices
- * @property Qq $qq
+ * @property Friend[] $friends
+ * @property Image[] $images
+ * @pooperty Qq $qq
  * @property Value $value
  * @property Weibo $weibo
  */
@@ -69,9 +71,12 @@ class User extends CActiveRecord
 		return array(
 			'account' => array(self::HAS_ONE, 'Account', 'usr_id'),
 			'devices' => array(self::HAS_MANY, 'Device', 'usr_id'),
+            'friends' => array(self::HAS_MANY, 'Friend', 'usr_id'),
+            'images' => array(self::HAS_MANY, 'Image', 'usr_id'),
 			'qq' => array(self::HAS_ONE, 'Qq', 'usr_id'),
 			'value' => array(self::HAS_ONE, 'Value', 'usr_id'),
 			'weibo' => array(self::HAS_ONE, 'Weibo', 'usr_id'),
+            'friend' => array(self::HAS_MANY, 'Friend', 'usr_id'),
 		);
 	}
 

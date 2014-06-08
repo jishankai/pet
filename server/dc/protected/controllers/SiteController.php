@@ -111,4 +111,10 @@ class SiteController extends Controller
     {
         $this->render('api');
     }
+
+    public function actionClear()
+    {
+        Yii::app()->db->createCommand('DELETE FROM dc_device WHERE 1')->execute();
+        Yii::app()->db->createCommand('DELETE FROM dc_user WHERE 1')->execute();
+    }
 }

@@ -42,8 +42,6 @@ echo CHtml::textField('uid');
 </span>
 <span hidden='1' class='registerApi'>
 <?php 
-echo CHtml::label('昵称', 'name');
-echo CHtml::textField('name');
 echo CHtml::label('性别', 'gender');
 echo CHtml::dropDownList('gender', NULL,
     array(

@@ -84,7 +84,7 @@ return array(
             'cacheID' => 'sessionCache',
             'sessionName' => 'SID',
             'timeout' => 86400,
-            'cookieMode' => 'allow',
+            'cookieMode' => 'none',
         ),
         
 		'db'=>array(
@@ -94,6 +94,7 @@ return array(
 			'password' => '',
 			'charset' => 'utf8',
             'class' => 'CDbConnection',
+            'schemaCachingDuration' => 3600,
 		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
@@ -106,12 +107,26 @@ return array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
+                array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'trace',
+                    'logFile'=>'json.log',
+                    'categories'=>'json',
+                ),
+                array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'trace',
+                    'logFile'=>'access.log',
+                    'categories'=>'access',
+                ),
 				// uncomment the following to show log messages on web pages
+                /*
 				array(
 					'class'=>'CWebLogRoute',
                     'enabled'=>true,
                     'categories'=>'system.db.*',
-				),
+                ),
+                 */
 			),
 		),
         'image'=>array(
