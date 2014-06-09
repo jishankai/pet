@@ -56,8 +56,8 @@ class ImageController extends Controller
 
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $image->like++;
-            $image->saveAttributes(array('like'));
+            $image->likes++;
+            $image->saveAttributes(array('likes'));
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
@@ -82,7 +82,8 @@ class ImageController extends Controller
 
     public function actionFavoriteApi($img_id=NULL)
     {
-        $dependency = new CDbCacheDependency("SELECT MAX(update_time) FROM dc_friend WHERE usr_id = $this->usr_id");
+        $dependency = new CDbCacheDependency("SELECT MAX(update_time) FROM dc_friend WHERE usr_id = :usr_id");
+        $dependency->params[':usr_id']=$this->usr_id;
         $follow_ids = Yii::app()->db->cache(1000, $dependency)->createCommand('SELECT follow_id FROM dc_friend WHERE usr_id = :usr_id')->bindValue(':usr_id', $this->usr_id)->queryColumn();
 
         $c = new CDbCriteria;
@@ -101,9 +102,9 @@ class ImageController extends Controller
     public function actionRandomApi($img_id=NULL)
     {
         if (isset($img_id)) {
-            $images =  Yii::app()->db->createCommand('SELECT img_id, like, url FROM dc_image WHERE img_id<:img_id ORDER BY create_time DESC LIMIT 10')->bindValue(':img_id', $img_id)->queryAll();        
+            $images =  Yii::app()->db->createCommand('SELECT img_id, likes, url FROM dc_image WHERE img_id<:img_id ORDER BY create_time DESC LIMIT 10')->bindValue(':img_id', $img_id)->queryAll();        
         } else {
-            $images =  Yii::app()->db->createCommand('SELECT img_id, like, url FROM dc_image  ORDER BY create_time DESC LIMIT 10')->queryAll();        
+            $images =  Yii::app()->db->createCommand('SELECT img_id, likes, url FROM dc_image ORDER BY create_time DESC LIMIT 10')->queryAll();        
         }
 
         $this->echoJsonData(array($images));
@@ -111,7 +112,8 @@ class ImageController extends Controller
 
     public function actionInfoApi($img_id)
     {
-        $dependency = new CDbCacheDependency("SELECT update_time FROM dc_image WHERE img_id = $img_id");
+        $dependency = new CDbCacheDependency("SELECT update_time FROM dc_image WHERE img_id = :img_id");
+        $dependency->params[':img_id']=$img_id;
         $image = Image::model()->cache(3600, $dependency)->findByPk($img_id);
         
         $this->echoJsonData(array($image)); 
