@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.12)
 # Database: pet
-# Generation Time: 2014-06-09 03:33:07 +0000
+# Generation Time: 2014-06-09 03:50:21 +0000
 # ************************************************************
 
 
@@ -26,7 +26,7 @@
 DROP TABLE IF EXISTS `dc_account`;
 
 CREATE TABLE `dc_account` (
-  `usr_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `usr_id` int(10) unsigned NOT NULL,
   `treasure` int(10) NOT NULL DEFAULT '0',
   `create_time` int(10) NOT NULL,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
