@@ -17,6 +17,19 @@ class ImageController extends Controller
                     'sql' => "SELECT MAX(update_time) FROM dc_image",
                 ),
             ),
+            array(
+                'COutputCache + favoriteApi',
+                'duration' => 300,
+                'varyByParam' => 'img_id',
+                'varyBySession' => true,
+                'dependency' => array(
+                    'class' => 'CDbCacheDependency',
+                    'sql' => 'SELECT MAX(update_time) FROM dc_friend WHERE usr_id = :usr_id',
+                    'params' => array(
+                        'usr_id' => $this->usr_id,
+                    ),
+                ),
+            ),
         );
     }
 
@@ -57,7 +70,25 @@ class ImageController extends Controller
         $transaction = Yii::app()->db->beginTransaction();
         try {
             $image->likes++;
-            $image->saveAttributes(array('likes'));
+            $image->likers .= $this->usr_id;
+            $image->saveAttributes(array('likes, likers'));
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+    }
+
+    public function actionUnlikeApi($img_id)
+    {
+        $image = $this->loadModel($img_id);
+
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $image->likes--;
+            $likers = explode($image->likers, ',');
+            unset($likers[array_search($this->usr_id, $likers)]);
+            $image->likers = implode($likers, ',');
+            $image->saveAttributes(array('likes, likers'));
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
@@ -82,9 +113,7 @@ class ImageController extends Controller
 
     public function actionFavoriteApi($img_id=NULL)
     {
-        $dependency = new CDbCacheDependency("SELECT MAX(update_time) FROM dc_friend WHERE usr_id = :usr_id");
-        $dependency->params[':usr_id']=$this->usr_id;
-        $follow_ids = Yii::app()->db->cache(1000, $dependency)->createCommand('SELECT follow_id FROM dc_friend WHERE usr_id = :usr_id')->bindValue(':usr_id', $this->usr_id)->queryColumn();
+        $follow_ids = Yii::app()->db->createCommand('SELECT follow_id FROM dc_friend WHERE usr_id = :usr_id')->bindValue(':usr_id', $this->usr_id)->queryColumn();
 
         $c = new CDbCriteria;
         $c->compare('usr_id', $follow_ids);
@@ -113,7 +142,7 @@ class ImageController extends Controller
     public function actionInfoApi($img_id)
     {
         $dependency = new CDbCacheDependency("SELECT update_time FROM dc_image WHERE img_id = :img_id");
-        $dependency->params[':img_id']=$img_id;
+        $dependency->params[':img_id'] = $img_id;
         $image = Image::model()->cache(3600, $dependency)->findByPk($img_id);
         
         $this->echoJsonData(array($image)); 

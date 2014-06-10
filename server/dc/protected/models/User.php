@@ -26,6 +26,8 @@
  */
 class User extends CActiveRecord
 {
+    public $relation = NULL;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -138,7 +140,9 @@ class User extends CActiveRecord
 
     public function initialize($event)
     {
-        
+        $v = new Value;
+        $v->usr_id = $this->usr_id;
+        $v->save();
     }
 
     public function rewardInviter($event)
