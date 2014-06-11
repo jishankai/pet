@@ -8,22 +8,28 @@ public class User implements Serializable{
 	 */
 	private static final long serialVersionUID = 2792458691622487088L;
 
-	public String race;
+	
 
 
 	public int topicsNum;
 	public int focusNum;
-	public String userId;
+	public int userId;
 	public String iconPath;
+	public String iconUrl;
 	public int pictures;
-	public int focus;
+	
 	public int fans;
 	
-	
-	public int classs;//1 ß÷ĞÇÈË£»2ÍôĞÇÈË
+	public String race;//æ—ç±»ï¼Œåƒ ç‰§ç¾ŠçŠ¬
+	public int classs;//1 æ±ªæ˜Ÿäººï¼›2å–µæ˜Ÿäºº
 	public String nickName;
-	public int gender;//1 ¹«£»2 Ä¸£»3 ÆäËû
-	public int code;
-	public int age;
+	public int gender;//1 å…¬ï¼›2 æ¯ï¼›3 å…¶ä»–
+	public int code;//æ‹›å¾…id  é‚€è¯·ç 
+	public String age;
 	public String uid;
+	public int focus;//æ˜¯å¦è¢«å…³æ³¨   0 ä¸º å…³æ³¨ï¼›1ä¸ºæœªè¢«å…³æ³¨
+	
+	
+	
+	
 }

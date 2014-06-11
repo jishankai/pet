@@ -1,2 +1,11 @@
 eclipse.preferences.version=1
+encoding//src/com/aidigame/hisun/pet/ui=US-ASCII
+encoding//src/com/aidigame/hisun/pet/ui/ChoseClassActivity.java=UTF-8
+encoding//src/com/aidigame/hisun/pet/ui/HandlePictureActivity.java=UTF-8
+encoding//src/com/aidigame/hisun/pet/ui/HomeActivity.java=UTF-8
+encoding//src/com/aidigame/hisun/pet/ui/OtherUserTopicActivity.java=UTF-8
+encoding//src/com/aidigame/hisun/pet/ui/RegisterActivity.java=UTF-8
+encoding//src/com/aidigame/hisun/pet/ui/SubmitPictureActivity.java=UTF-8
+encoding//src/com/aidigame/hisun/pet/ui/TakePictureActivity.java=UTF-8
+encoding//src/com/aidigame/hisun/pet/ui/UserHomepageActivity.java=UTF-8
 encoding/<project>=UTF-8

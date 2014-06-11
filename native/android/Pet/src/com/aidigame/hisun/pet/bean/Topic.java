@@ -9,8 +9,8 @@ public class Topic implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -3554359157475118701L;
-	public String url;//Â·¾¶»òÕßurl
-	public String bmpPath;//ÏÂÔØµ½±¾µØ ºó²»Îªnull£¬¿Õ±íÊ¾»¹Î´ÏÂÔØ
+	public String url;//Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½url
+	public String bmpPath;//ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Îªnullï¿½ï¿½ï¿½Õ±ï¿½Ê¾ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½
 
 	public String describe;
 
@@ -18,7 +18,8 @@ public class Topic implements Serializable{
 	public int likesNum;
 	public User user;
 	
-	public int img_id;//Í¼Æ¬id
+	public int img_id;//
+	public int usr_id;
 
 
 

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.util.UiUtil;
 
@@ -16,6 +17,7 @@ public class ShowPictureActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
+		PetApplication.petApp.activityList.add(this);
 		setContentView(R.layout.activity_show_picture);
 		imageView=(ImageView)findViewById(R.id.imageView1);
 		imageView.setOnClickListener(new OnClickListener() {

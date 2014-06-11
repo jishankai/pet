@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
@@ -38,13 +39,15 @@ public class FirstPageActivity extends Activity implements OnClickListener{
 					welcomeImage.setImageResource(R.drawable.welcome_xinlang);
 				}
 			}
-			if(msg.what==1){
+			if(msg.what==Constants.LOGIN_SUCCESS){
 				if(Constants.isSuccess){
 					Intent intent2=new Intent(FirstPageActivity.this,HomeActivity.class);
 					FirstPageActivity.this.startActivity(intent2);
 					FirstPageActivity.this.finish();
 				}else{
-					Intent intent2=new Intent(FirstPageActivity.this,RegisterActivity.class);
+					Intent intent1=new Intent(FirstPageActivity.this,HomeActivity.class);
+					FirstPageActivity.this.startActivity(intent1);
+					Intent intent2=new Intent(FirstPageActivity.this,IntroduceActivity.class);
 					FirstPageActivity.this.startActivity(intent2);
 					FirstPageActivity.this.finish();
 				}
@@ -57,6 +60,7 @@ public class FirstPageActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
+		PetApplication.petApp.activityList.add(this);
 		setContentView(R.layout.activity_first_page);
 		linearLayout1=(LinearLayout)findViewById(R.id.weixin_linearLayout);
 		linearLayout2=(LinearLayout)findViewById(R.id.xinlang_linearLayout);
@@ -101,21 +105,12 @@ public class FirstPageActivity extends Activity implements OnClickListener{
 
 	}
 	public void login(){
-		File file=new File(Environment.getExternalStorageDirectory()+File.separator+"pet");
-		if(!file.exists()){
-			
-			
-			 Toast.makeText(this, "将pet文件夹考入内置内存卡中", 10000).show();
-			 return;
-		}
-	    handler.sendEmptyMessage(1);
 		new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-//				HttpUtil.login(FirstPageActivity.this,handler);
-				
+				HttpUtil.login(FirstPageActivity.this,handler);
 			}
 		}).start();
 			

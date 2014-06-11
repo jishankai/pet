@@ -20,7 +20,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-//已不使用此类：AsyncTask加载过多会�?�成 java.util.concurrent.RejectedExecutionException
+//已不使用此类：AsyncTask加载过多会�?�成 java.util.concurrent.RejectedExecutionException
 public class ImageLoaderTask extends AsyncTask<FlowTag, Void, Bitmap> {
 
 	private FlowTag param;
@@ -35,7 +35,7 @@ public class ImageLoaderTask extends AsyncTask<FlowTag, Void, Bitmap> {
 	protected Bitmap doInBackground(FlowTag... params) {
 
 		param = params[0];
-		return loadImageFile(param.getFileName(), param.getAssetManager());
+		return loadImageFile(param.getData().path, param.getAssetManager());
 	}
 
 	private Bitmap loadImageFile(final String filename,
@@ -87,7 +87,7 @@ public class ImageLoaderTask extends AsyncTask<FlowTag, Void, Bitmap> {
 					lp.height = (height * param.getItemWidth()) / width;// 调整高度
 					imageView.setLayoutParams(lp);
 					imageView.bitmap = bitmap;
-					imageView.setImageBitmap(imageView.bitmap);// 将引用指定到同一个对象，方便�?�?
+					imageView.setImageBitmap(imageView.bitmap);// 将引用指定到同一个对象，方便�?�?
 
 					Handler h = imageView.getViewHandler();
 					Message m = h.obtainMessage(this.param.what,

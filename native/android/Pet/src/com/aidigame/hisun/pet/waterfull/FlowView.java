@@ -24,24 +24,33 @@ import android.widget.Toast;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Topic;
+import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.http.HttpUtil;
+import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.ui.ShowTopicActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
 
 public class FlowView extends ImageView implements View.OnClickListener,
 		View.OnLongClickListener {
 	public View parent;
-	public Topic topic;
 	
 
 	private AnimationDrawable loadingAnimation;
 	private FlowTag flowTag;
-	private Context context;
+	private Activity context;
 	public Bitmap bitmap;
 	private ImageLoaderTask task;
-	private int columnIndex;// Í¼Æ¬ÊôÓÚµÚ¼¸ÁÐ
-	private int rowIndex;// Í¼Æ¬ÊôÓÚµÚ¼¸ÐÐ
+	private int columnIndex;// Í¼Æ¬ï¿½ï¿½ï¿½ÚµÚ¼ï¿½ï¿½ï¿½
+	private int rowIndex;// Í¼Æ¬ï¿½ï¿½ï¿½ÚµÚ¼ï¿½ï¿½ï¿½
 	private Handler viewHandler;
-	
+	public Handler handler=new Handler(){
+		public void handleMessage(Message msg) {
+			Intent intent=new Intent(context,ShowTopicActivity.class);
+			intent.putExtra("data",flowTag.getData());
+			context.startActivity(intent);
+//			context.finish();
+		};
+	};
 	
 	
 	Bitmap heartBmp;
@@ -51,13 +60,13 @@ public class FlowView extends ImageView implements View.OnClickListener,
 
 	public FlowView(Context c, AttributeSet attrs, int defStyle) {
 		super(c, attrs, defStyle);
-		this.context = c;
+		this.context = (Activity)c;
 		Init();
 	}
 
 	public FlowView(Context c, AttributeSet attrs) {
 		super(c, attrs);
-		this.context = c;
+		this.context = (Activity)c;
 		Init();
 	}
 	@Override
@@ -88,7 +97,7 @@ public class FlowView extends ImageView implements View.OnClickListener,
 
 	public FlowView(Context c) {
 		super(c);
-		this.context = c;
+		this.context =(Activity) c;
 		Init();
 	}
 
@@ -103,7 +112,7 @@ public class FlowView extends ImageView implements View.OnClickListener,
 	@Override
 	public boolean onLongClick(View v) {
 		Log.d("FlowView", "LongClick");
-		Toast.makeText(context, "³¤°´" + this.flowTag.getFlowId(),
+		Toast.makeText(context, "ï¿½ï¿½ï¿½ï¿½" + this.flowTag.getFlowId(),
 				Toast.LENGTH_SHORT).show();
 		return true;
 	}
@@ -115,23 +124,31 @@ public class FlowView extends ImageView implements View.OnClickListener,
 		Log.d("FlowView", "Click:  a="+a+",R.id.flowview="+R.id.flowview);
 		switch (v.getId()) {
 		case R.id.flowview:
-			Toast.makeText(context, "µ¥»ú" + this.flowTag.getFlowId(),
-					Toast.LENGTH_SHORT).show();
+			/*Toast.makeText(context, "ï¿½ï¿½ï¿½ï¿½" + this.flowTag.getFlowId(),
+					Toast.LENGTH_SHORT).show();*/
+			
+
 			break;
 		case R.id.item_waterfull_linearlayout:
-			LogUtil.i("me", "**************R.id.item_waterfull_linearlayout");
+			
 			break;
 		}
-		Intent intent=new Intent(context,ShowTopicActivity.class);
-		topic=new Topic();
-		topic.bmpPath=flowTag.getFileName();
-		intent.putExtra("topic", topic);
-		context.startActivity(intent);
+		LogUtil.i("me", "**************R.id.item_waterfull_linearlayout");
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				HttpUtil.imageInfo(flowTag.getData(),handler);
+			}
+		}).start();
+
+
 
 	}
 
 	/**
-	 * ¼ÓÔØÍ¼Æ¬
+	 * ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
 	 */
 	public void LoadImage() {
 		if (getFlowTag() != null) {
@@ -141,7 +158,7 @@ public class FlowView extends ImageView implements View.OnClickListener,
 	}
 
 	/**
-	 * ÖØÐÂ¼ÓÔØÍ¼Æ¬
+	 * ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Í¼Æ¬
 	 */
 	public void Reload() {
 		if (this.bitmap == null && getFlowTag() != null) {
@@ -151,7 +168,7 @@ public class FlowView extends ImageView implements View.OnClickListener,
 	}
 
 	/**
-	 * »ØÊÕÄÚ´æ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
 	 */
 	public void recycle() {
 		setImageBitmap(null);
@@ -210,11 +227,26 @@ public class FlowView extends ImageView implements View.OnClickListener,
 
 					e.printStackTrace();
 				}*/
-				bitmap = BitmapFactory.decodeFile(flowTag.getFileName());
+				if(!new File(Constants.Picture_Topic_Path+File.separator+flowTag.getData().url).exists()){
+					String path=HttpUtil.downloadImage(Constants.UPLOAD_IMAGE_RETURN_URL, flowTag.getData().url, null);
+					if(path!=null){
+						flowTag.getData().path=path;
+					}else{
+						//TODO è®¾ç½®ä¸€å¼ é»˜è®¤å›¾ç‰‡
+//						flowTag.getData().path=Constants.Picture_Topic_Path+File.separator+flowTag.getData().url;
+					}
+				}else{
+					//TODO è®¾ç½®ä¸€å¼ é»˜è®¤å›¾ç‰‡
+					flowTag.getData().path=Constants.Picture_Topic_Path+File.separator+flowTag.getData().url;
+				}
+//				new Thread(new Runnable() {
 				((Activity) context).runOnUiThread(new Runnable() {
 					public void run() {
-						if (bitmap != null) {// ´Ë´¦ÔÚÏß³Ì½Ï¶àÊ±¿ÉÄÜÎªnull
-							int width = bitmap.getWidth();// »ñÈ¡ÕæÊÇ¸ß¶È
+						BitmapFactory.Options options=new BitmapFactory.Options();
+						options.inSampleSize=8;
+						Bitmap bitmap = BitmapFactory.decodeFile(flowTag.getData().path,options);
+						if (bitmap != null) {// ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ß³Ì½Ï¶ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Îªnull
+							int width = bitmap.getWidth();// ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ç¸ß¶ï¿½
 							int height = bitmap.getHeight();
 							LayoutParams lp = getLayoutParams();
 							int layoutHeight=0;
@@ -227,6 +259,7 @@ public class FlowView extends ImageView implements View.OnClickListener,
 							width=bitmap.getWidth();
 							if(flowTag.halfHeight){
 								bitmap=Bitmap.createBitmap(bitmap, 0,height/6, width, height*2/3);
+								
 //								bitmap=Bitmap.createBitmap(bitmap, 0,height/4, width, height/2);
                             }else{
                             }
@@ -239,7 +272,7 @@ public class FlowView extends ImageView implements View.OnClickListener,
 							setImageBitmap(bitmap);
 						}
 					}
-				});
+				})/*.start();*/;
 			}
 
 		}
@@ -266,21 +299,37 @@ public class FlowView extends ImageView implements View.OnClickListener,
 				}*/
 				// if (bitmap != null) {
 
-				// ´Ë´¦²»ÄÜ¸úÐÂUI£¬¿ÉÄÜ·¢ÉúÒì³£
+				// ï¿½Ë´ï¿½ï¿½ï¿½ï¿½Ü¸ï¿½ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½ï¿½ì³£
 				// CalledFromWrongThreadException: Only the original thread that
 				// created a view hierarchy can touch its views.
-				// Ò²¿ÉÒÔÊ¹ÓÃHandlerºÍLooper·¢ËÍMessageÀ´½â¾öÕâ¸öÎÊÌâ®é¢˜
-				bitmap = BitmapFactory.decodeFile(flowTag.getFileName());
-				((Activity) context).runOnUiThread(new Runnable() {
+				// Ò²ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Handlerï¿½ï¿½Looperï¿½ï¿½ï¿½ï¿½Messageï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é¢˜
+				if(!new File(Constants.Picture_Topic_Path+File.separator+flowTag.getData().url).exists()){
+					String path=HttpUtil.downloadImage(Constants.UPLOAD_IMAGE_RETURN_URL, flowTag.getData().url, null);
+					if(path!=null){
+						flowTag.getData().path=path;
+					}else{
+						//TODO è®¾ç½®ä¸€å¼ é»˜è®¤å›¾ç‰‡
+//						flowTag.getData().path=Constants.Picture_Topic_Path+File.separator+flowTag.getData().url;
+					}
+				}else{
+					//TODO è®¾ç½®ä¸€å¼ é»˜è®¤å›¾ç‰‡
+					flowTag.getData().path=Constants.Picture_Topic_Path+File.separator+flowTag.getData().url;
+				}
+				
+//				new Thread(new Runnable() {
+					((Activity) context).runOnUiThread(new Runnable() {
 					public void run() {
-						if (bitmap != null) {// ´Ë´¦ÔÚÏß³Ì½Ï¶àÊ±¿ÉÄÜÎªnull
-							int width = bitmap.getWidth();// »ñÈ¡ÕæÊÇ¸ß¶È
+						BitmapFactory.Options options=new BitmapFactory.Options();
+						options.inSampleSize=8;
+						Bitmap bitmap = BitmapFactory.decodeFile(flowTag.getData().path,options);
+						if (bitmap != null) {// ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ß³Ì½Ï¶ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Îªnull
+							int width = bitmap.getWidth();// ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ç¸ß¶ï¿½
 							int height = bitmap.getHeight();
                             
 							LayoutParams lp = getLayoutParams();
 							int layoutHeight=0;
 							 layoutHeight = (height * flowTag.getItemWidth())
-										/ width;// µ÷Õû¸ß¶È
+										/ width;// ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½
 							Matrix matrix=new Matrix();
 							float size=flowTag.getItemWidth()/(bitmap.getWidth()*1f);
 							matrix.postScale(size,size);
@@ -309,7 +358,7 @@ public class FlowView extends ImageView implements View.OnClickListener,
 							h.sendMessage(m);
 						}
 					}
-				});
+				})/*.start()*/;
 
 				// }
 

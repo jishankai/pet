@@ -13,7 +13,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.ImageUtil;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
@@ -26,22 +28,32 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 	SurfaceView surfaceView;
 	SurfaceHolder holder;
 	Button albumBt,takePictureBt,cancelBt;
-	//��������������
+	//标题栏
 	CreateTitle createTitle;
 	PetCamera petCamera;
 	String path;
-	public static final int TAKE_PICTURE_COMPLETED=0;//�������
+	int mode;
+	public static final int TAKE_PICTURE_COMPLETED=0;//拍完照片，使用透镜进行处理
+	public static final int TAKE_PICTURE_GET_PATH=1;//拍完照片，需要拿到相片保存的路径。
 	public Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
+			String temp=ImageUtil.compressImage(HandlePictureActivity.handlingBmp, 50);
+			
 			switch (msg.what) {
 			case TAKE_PICTURE_COMPLETED:
-				path="file://"+ImageUtil.compressImage(HandlePictureActivity.handlingBmp, 50);
+				path="file://"+temp;
 				LogUtil.i("me", "ImageUtil.compressImage(HandlePictureActivity.handlingBmp::::"+path);
 				Intent intent=new Intent(TakePictureActivity.this,com.aviary.android.feather.FeatherActivity.class);
 				intent.setData(Uri.parse(path));
-				intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_IN_API_KEY_SECRET, "f6d0dd319088fd5a");
-				startActivityForResult(intent, 1);                                                    
-			default:
+				intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_IN_API_KEY_SECRET, Constants.EXTRA_IN_API_KEY_SECRET);
+				startActivityForResult(intent, 1);  
+				break;
+			case TAKE_PICTURE_GET_PATH:
+				LogUtil.i("me", "msg.what================"+msg.what);
+				Intent intent1=getIntent();
+				intent1.putExtra("path", temp);
+				setResult(RESULT_OK,intent1);
+				TakePictureActivity.this.finish();
 				break;
 			}
 		};
@@ -51,7 +63,9 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
+		PetApplication.petApp.activityList.add(this);
 		setContentView(R.layout.activity_take_picture);
+		mode=getIntent().getIntExtra("mode", 0);
 		initView();
 		initListener();
 //		createTitle=new CreateTitle(this, titleLinearLayout);
@@ -63,12 +77,16 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 		titleLinearLayout=(LinearLayout)findViewById(R.id.linearlayout_title);
 		surfaceView=(SurfaceView)findViewById(R.id.surfaceView1);
 		albumBt=(Button)findViewById(R.id.button1);
+		//只是拍照，相册不可见
+		if(mode!=0){
+			albumBt.setVisibility(View.INVISIBLE);
+		}
 		takePictureBt=(Button)findViewById(R.id.button2);
 		cancelBt=(Button)findViewById(R.id.button3);
 		holder=surfaceView.getHolder();
-		//2.33֮ǰ�İ汾����camera�������仰����Ȼ����
+		//2.33版本调用相机，必须进行设置，不然报错
 		holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-		petCamera=new PetCamera(this, holder,surfaceView);
+		petCamera=new PetCamera(this, holder,surfaceView,getIntent().getIntExtra("mode", 0));
 	}
 	private void initListener() {
 		// TODO Auto-generated method stub
@@ -82,6 +100,7 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 		switch (v.getId()) {
 		case R.id.button1:
 			Intent intent1=new Intent(this,PictureAlbumActivity.class);
+			this.startActivityForResult(intent1, 2);
 			this.startActivity(intent1);
 			this.finish();
 			break;
@@ -99,6 +118,7 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
+		LogUtil.i("me", "takepicture***onactivityresult");
 		switch (resultCode) {
 		case RESULT_CANCELED:
 			
@@ -133,6 +153,12 @@ public class TakePictureActivity extends Activity implements OnClickListener,Sur
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		// TODO Auto-generated method stub
 		petCamera.stopCamera();
+	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		LogUtil.i("me", "TakePictureActivity关闭了");
 	}
 
 }

@@ -9,7 +9,7 @@ package com.aidigame.hisun.pet.http.json;
  */
 public class LoginJson {
 	public int state;
-	public int errorCode;
+	public int errorCode;//0  正常；1  异常；2 SID过期
 	public String errorMessage;
 	public String version;
 	public String confVersion;

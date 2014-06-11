@@ -32,15 +32,16 @@ public class PetCamera {
 	SurfaceView surfaceView;
 	boolean isTakingPicture=false;
 	boolean isViewing=false;
-	public PetCamera(TakePictureActivity context,SurfaceHolder holder,SurfaceView surfaceView){
+	int mode;//0,éœ€è¦é€é•œå¤„ç†ï¼›1ï¼Œä¸éœ€è¦é€é•œå¤„ç†
+	public PetCamera(TakePictureActivity context,SurfaceHolder holder,SurfaceView surfaceView,int mode){
 		this.context=context;
 		this.holder=holder;
 		this.surfaceView=surfaceView;
 		camera=Camera.open();
-		
+		this.mode=mode;
 	}
 	/**
-	 * Ô¤ÀÀ
+	 * Ô¤ï¿½ï¿½
 	 */
 	public void startPreview(){
 		if(camera!=null&&!isViewing){
@@ -67,7 +68,7 @@ public class PetCamera {
 		}
 	}
 	/**
-	 * ÅÄÕÕ
+	 * ï¿½ï¿½ï¿½ï¿½
 	 */
 	public void takePicture(){
 		if(camera!=null&&!isTakingPicture){
@@ -97,14 +98,15 @@ public class PetCamera {
 					bmp=ImageUtil.rotateImage(bmp, 90);
 					HandlePictureActivity.handlingBmp=bmp;
 				    Message msg=context.handler.obtainMessage();
-				    msg.what=context.TAKE_PICTURE_COMPLETED;
+				    
+				    msg.what=mode;
 					context.handler.sendMessage(msg);
 				}
 			});
 		}
 	}
 	/**
-	 * ÊÍ·ÅÕ¼ÓÃµÄÏà»ú×ÊÔ´
+	 * ï¿½Í·ï¿½Õ¼ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
 	 */
 	public void stopCamera(){
 		if(camera!=null){

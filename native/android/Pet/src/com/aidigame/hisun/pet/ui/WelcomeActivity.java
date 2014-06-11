@@ -18,6 +18,7 @@ public class WelcomeActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
+		PetApplication.petApp.activityList.add(this);
 		setContentView(R.layout.activity_welcome);
 		imageView=(ImageView)findViewById(R.id.imageView1);
 		if(Constants.status==0){

@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,9 +27,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Topic;
 import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.http.HttpUtil;
+import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aviary.android.feather.FeatherActivity;
@@ -40,11 +44,30 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 	TextView textView;
 	Uri uri;
 	String path,finalPath;
+	public static final int UPLOAD_IMAGE_SUCCESS=0;
+	public static final int UPLOAD_IMAGE_FAILS=1;
+	Handler handler=new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case UPLOAD_IMAGE_SUCCESS:
+				Intent intent3=new Intent(SubmitPictureActivity.this,ShowTopicActivity.class);
+//				final String info=""+textView.getText();
+//				intent3.putExtra("info", ""+textView.getText());
+//				intent3.setData(uri);
+//				Topic topic=new Topic();
+//				topic.bmpPath=finalPath;
+				intent3.putExtra("data",(UserImagesJson.Data)msg.obj);
+				SubmitPictureActivity.this.startActivity(intent3);
+				break;
+			}
+		};
+	};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
+		PetApplication.petApp.activityList.add(this);
 		setContentView(R.layout.activity_submit_picture);
 		initView();
 		initListener();
@@ -125,19 +148,21 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 		case R.id.button3:
 			//FIXME
 			if(finalPath==null)return;
-			Intent intent3=new Intent(this,ShowTopicActivity.class);
-			intent3.putExtra("info", ""+textView.getText());
+//			Intent intent3=new Intent(this,ShowTopicActivity.class);
+			final String info=""+textView.getText();
+//			intent3.putExtra("info", ""+textView.getText());
 //			intent3.setData(uri);
-			Topic topic=new Topic();
-			topic.bmpPath=finalPath;
-			intent3.putExtra("topic", topic);
-			this.startActivity(intent3);
+//			Topic topic=new Topic();
+//			topic.bmpPath=finalPath;
+//			intent3.putExtra("topic", topic);
+//			this.startActivity(intent3);
 			new Thread(new Runnable() {
 				
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					File file=new File(finalPath);
+					HttpUtil.uploadImage(finalPath,info,handler);
+					/*File file=new File(finalPath);
 				     String fileName=file.getName();
 				     File newPath=new File(Constants.Picture_Path);
 				     if(!newPath.exists()){
@@ -154,11 +179,12 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 							fos.write(buffer, 0, len);
 							fos.flush();
 						}
-						SharedPreferences sp=getPreferences(Context.MODE_WORLD_WRITEABLE);
+						SharedPreferences sp=getSharedPreferences("temp.xml",Context.MODE_WORLD_WRITEABLE);
 						Editor editor=sp.edit();
 						String info=textView.getText().toString();
 						info=info==null?"":info;
 						editor.putString(fileName, info);
+						editor.putString("comment"+fileName, info);
 						editor.commit();
 					} catch (FileNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -167,11 +193,11 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				     LogUtil.i("me", "fileName"+fileName);
+				     LogUtil.i("me", "fileName"+fileName);*/
 				}
 			}).start();
 			this.finish();
-			//TODO ɾ�� ��Ƭ
+			//TODO �������� ��������
 			
 			break;
 		case R.id.imageView1:

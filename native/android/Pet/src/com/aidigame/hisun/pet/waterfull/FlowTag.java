@@ -1,10 +1,12 @@
 package com.aidigame.hisun.pet.waterfull;
 
+import com.aidigame.hisun.pet.http.json.UserImagesJson;
+
 import android.content.res.AssetManager;
 
 public class FlowTag {
 	private int flowId;
-	private String fileName;
+	private UserImagesJson.Data data;
 	public final int what = 1;
 	public boolean halfHeight;
 
@@ -16,12 +18,12 @@ public class FlowTag {
 		this.flowId = flowId;
 	}
 
-	public String getFileName() {
-		return fileName;
+	public UserImagesJson.Data getData() {
+		return data;
 	}
 
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
+	public void setData(UserImagesJson.Data data) {
+		this.data = data;
 	}
 
 	private AssetManager assetManager;

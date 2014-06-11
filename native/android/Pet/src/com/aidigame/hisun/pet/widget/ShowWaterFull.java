@@ -25,6 +25,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.http.HttpUtil;
+import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.waterfull.FlowTag;
@@ -36,34 +39,34 @@ public class ShowWaterFull {
 	HomeActivity activity;
 	LinearLayout parent;
 	View waterfullView;
+	private ArrayList<UserImagesJson.Data> datas;
 	
 	
-	
-	//ÆÙ²¼Á÷
+	//ï¿½Ù²ï¿½ï¿½ï¿½
 		private LazyScrollView waterfall_scroll;
 		private LinearLayout waterfall_container;
 		private ArrayList<LinearLayout> waterfall_items;
 		private Display display;
 		private AssetManager asset_manager;
-		private List<File> image_filenames;
+//		private List<File> image_filenames;
 		private final String image_path = "images";
 		private Handler handler;
 		private int item_width;
 
-		private int column_count = 2;// ÏÔÊ¾ÁĞÊı
-		private int page_count = 15;// Ã¿´Î¼ÓÔØ30ÕÅÍ¼Æ¬
-
-		private int current_page = 0;// µ±Ç°Ò³Êı
+		private int column_count = 2;// ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½
+		private int page_count = 7;// Ã¿ï¿½Î¼ï¿½ï¿½ï¿½30ï¿½ï¿½Í¼Æ¬
+        
+		private int current_page = 0;// ï¿½ï¿½Ç°Ò³ï¿½ï¿½
 
 		private int[] topIndex;
 		private int[] bottomIndex;
 		private int[] lineIndex;
-		private int[] column_height;// Ã¿ÁĞµÄ¸ß¶È
+		private int[] column_height;// Ã¿ï¿½ĞµÄ¸ß¶ï¿½
 
 		private HashMap<Integer, String> pins;
 
-		private int loaded_count = 0;// ÒÑ¼ÓÔØÊıÁ¿
-
+		private int loaded_count = 0;// ï¿½Ñ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		private int load_num=6;//å½“loaded_countä¸ºload_numçš„æ•´æ•°å€æ—¶ï¼Œä¸‹è½½å›¾ç‰‡
 		private HashMap<Integer, Integer>[] pin_mark = null;
 
 		private Context context;
@@ -74,10 +77,29 @@ public class ShowWaterFull {
 		
 		boolean halfHeight=true;
 		int halfHeightCount=0;
+		//å›¾ç‰‡åˆ—è¡¨æœ€åä¸€å¼ çš„id
+		public int  last_id=-1;
 	public ShowWaterFull(HomeActivity context,LinearLayout parent){
 		this.activity=context;
 		this.parent=parent;
+		datas=new ArrayList<UserImagesJson.Data>();
 		intiView();
+         new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				HttpUtil.downloadUserHomepage(handler, last_id, 3);
+				try {
+					Thread.sleep(200);
+					HttpUtil.downloadUserHomepage(handler, datas.get(datas.size()-1).img_id, 3);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		}).start();
 	}
 	private void intiView() {
 		// TODO Auto-generated method stub
@@ -87,9 +109,9 @@ public class ShowWaterFull {
 		
 		
 		
-		//ÆÙ²¼Á÷
+		//ï¿½Ù²ï¿½ï¿½ï¿½
 				display = activity.getWindowManager().getDefaultDisplay();
-				item_width = display.getWidth() / column_count;// ¸ù¾İÆÁÄ»´óĞ¡¼ÆËãÃ¿ÁĞ´óĞ¡
+				item_width = display.getWidth() / column_count;// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½Ğ´ï¿½Ğ¡
 				asset_manager = activity.getAssets();
 
 				column_height = new int[column_count];
@@ -110,7 +132,7 @@ public class ShowWaterFull {
 
 				InitLayout();
 	}
-	//ÆÙ²¼Á÷
+	//ï¿½Ù²ï¿½ï¿½ï¿½
 		private void InitLayout() {
 			waterfall_scroll = (LazyScrollView)waterfullView.findViewById(R.id.waterfall_scroll);
 			range = waterfall_scroll.computeVerticalScrollRange();//
@@ -120,7 +142,7 @@ public class ShowWaterFull {
 
 				@Override
 				public void onTop() {
-					// ¹ö¶¯µ½×î¶¥¶Ë
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¶¥ï¿½ï¿½
 					Log.d("LazyScroll", "Scroll to top");
 				}
 
@@ -131,8 +153,27 @@ public class ShowWaterFull {
 
 				@Override
 				public void onBottom() {
-					// ¹ö¶¯µ½×îµÍ¶Ë
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½
 					AddItemToContainer(++current_page, page_count);
+					/*if(loaded_count==datas.size()){
+				         new Thread(new Runnable() {
+					 			
+					 			@Override
+					 			public void run() {
+					 				// TODO Auto-generated method stub
+					 				UserImagesJson.Data data=datas.get(datas.size()-1);
+					 				HttpUtil.downloadUserHomepage(handler, data.img_id, 3);
+					 				try {
+										Thread.sleep(200);
+										HttpUtil.downloadUserHomepage(handler, datas.get(datas.size()-1).img_id, 3);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+					 			}
+					 		}).start();
+					}*/
+
 				}
 
 				@Override
@@ -146,8 +187,8 @@ public class ShowWaterFull {
 					scroll_height = waterfall_scroll.getMeasuredHeight();
 					Log.d("MainActivity", "scroll_height:" + scroll_height);
 
-					if (t > oldt) {// ÏòÏÂ¹ö¶¯
-						if (t > 2 * scroll_height) {// ³¬¹ıÁ½ÆÁÄ»ºó
+					if (t > oldt) {// ï¿½ï¿½ï¿½Â¹ï¿½ï¿½ï¿½
+						if (t > 2 * scroll_height) {// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½
 
 							for (int k = 0; k < column_count; k++) {
 
@@ -155,12 +196,12 @@ public class ShowWaterFull {
 										.get(k);
 
 								if (pin_mark[k].get(Math.min(bottomIndex[k] + 1,
-										lineIndex[k])) <= t + 3 * scroll_height) {// ×îµ×²¿µÄÍ¼Æ¬Î»ÖÃĞ¡ÓÚµ±Ç°t+3*ÆÁÄ»¸ß¶È
+										lineIndex[k])) <= t + 3 * scroll_height) {// ï¿½ï¿½×²ï¿½ï¿½ï¿½Í¼Æ¬Î»ï¿½ï¿½Ğ¡ï¿½Úµï¿½Ç°t+3*ï¿½ï¿½Ä»ï¿½ß¶ï¿½
 
 									FlowView flowView=((FlowView) waterfall_items.get(k)
 											.getChildAt(
 													Math.min(1 + bottomIndex[k],
-															lineIndex[k])).getTag());//.findViewById(R.id.flowview)   scxÌí¼ÓĞŞ¸Ä
+															lineIndex[k])).getTag());//.findViewById(R.id.flowview)   scxï¿½ï¿½ï¿½ï¿½Ş¸ï¿½
 											flowView.Reload();
 
 									bottomIndex[k] = Math.min(1 + bottomIndex[k],
@@ -173,7 +214,7 @@ public class ShowWaterFull {
 												+ "  headHeight:"
 												+ pin_mark[k].get(topIndex[k]));
 								if (pin_mark[k].get(topIndex[k]) < t - 2
-										* scroll_height) {// Î´»ØÊÕÍ¼Æ¬µÄ×î¸ßÎ»ÖÃ<t-Á½±¶ÆÁÄ»¸ß¶È
+										* scroll_height) {// Î´ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½<t-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ß¶ï¿½
 
 									int i1 = topIndex[k];
 									topIndex[k]++;
@@ -186,7 +227,7 @@ public class ShowWaterFull {
 							}
 
 						}
-					} else {// ÏòÉÏ¹ö¶¯
+					} else {// ï¿½ï¿½ï¿½Ï¹ï¿½ï¿½ï¿½
 
 						for (int k = 0; k < column_count; k++) {
 							LinearLayout localLinearLayout = waterfall_items.get(k);
@@ -235,20 +276,20 @@ public class ShowWaterFull {
 						int h = msg.arg2;
 						// Log.d("MainActivity",
 						// String.format(
-						// "»ñÈ¡Êµ¼ÊView¸ß¶È:%d,ID£º%d,columnIndex:%d,rowIndex:%d,filename:%s",
+						// "ï¿½ï¿½È¡Êµï¿½ï¿½Viewï¿½ß¶ï¿½:%d,IDï¿½ï¿½%d,columnIndex:%d,rowIndex:%d,filename:%s",
 						// v.getHeight(), v.getId(), v
 						// .getColumnIndex(), v.getRowIndex(),
 						// v.getFlowTag().getFileName()));
-						String f = v.getFlowTag().getFileName();
+						UserImagesJson.Data f = v.getFlowTag().getData();
 
-						// ´Ë´¦¼ÆËãÁĞÖµ
+						// ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 						int columnIndex = GetMinValue(column_height);
 
 						v.setColumnIndex(columnIndex);
 
 						column_height[columnIndex] += h;
 
-						pins.put(v.getId(), f);
+						pins.put(v.getId(), f.path);
 						iviews.put(v.getId(), v);
 						waterfall_items.get(columnIndex).addView(v.parent);
 
@@ -257,6 +298,13 @@ public class ShowWaterFull {
 						pin_mark[columnIndex].put(lineIndex[columnIndex],
 								column_height[columnIndex]);
 						bottomIndex[columnIndex] = lineIndex[columnIndex];
+						break;
+					case Constants.MESSAGE_DOWNLOAD_IMAGES_LIST:
+						UserImagesJson json=(UserImagesJson)msg.obj;
+						for(int i=0;i<json.datas.size();i++){
+							datas.add(json.datas.get(i));
+						}
+						AddItemToContainer(current_page, page_count);
 						break;
 					}
 
@@ -289,11 +337,11 @@ public class ShowWaterFull {
 				
 			}
 
-			// ¼ÓÔØËùÓĞÍ¼Æ¬Â·¾¶
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬Â·ï¿½ï¿½
 
-			image_filenames = Arrays.asList(new File(Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"images").listFiles());
+//			image_filenames = Arrays.asList(new File(Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"images").listFiles());
 			
-			// µÚÒ»´Î¼ÓÔØ
+			// ï¿½ï¿½Ò»ï¿½Î¼ï¿½ï¿½ï¿½
 			AddItemToContainer(current_page, page_count);
 		}
 
@@ -303,20 +351,51 @@ public class ShowWaterFull {
 			int imagecount = (pageindex+1)*pagecount;// image_filenames.size();
 			/*for (int i = currentIndex; i < pagecount * (pageindex + 1)
 					&& i < imagecount; i++) {*/
-			for (int i = currentIndex; i < image_filenames.size()
+		/*	if(currentIndex>datas.size()-1){
+			         new Thread(new Runnable() {
+			 			
+			 			@Override
+			 			public void run() {
+			 				// TODO Auto-generated method stub
+			 				UserImagesJson.Data data=datas.get(datas.size()-1);
+			 				HttpUtil.downloadUserHomepage(handler, data.img_id, 3);
+			 			}
+			 		}).start();
+			}*/
+			for (int i = currentIndex; i < datas.size()
 						&& i < imagecount; i++) {
 				loaded_count++;
 				Random rand = new Random();
 //				int r = rand.nextInt(image_filenames.size());
 				int r = i;
-				AddImage(image_filenames.get(r).getAbsolutePath(),
+				AddImage(datas.get(r),
 						(int) Math.ceil(loaded_count / (double) column_count),
 						loaded_count);
+				if(loaded_count==datas.size()){
+				         new Thread(new Runnable() {
+					 			
+					 			@Override
+					 			public void run() {
+					 				// TODO Auto-generated method stub
+					 				UserImagesJson.Data data=datas.get(datas.size()-1);
+					 				HttpUtil.downloadUserHomepage(handler, data.img_id, 3);
+					 				try {
+										Thread.sleep(200);
+										HttpUtil.downloadUserHomepage(handler, datas.get(datas.size()-1).img_id, 3);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+					 			}
+					 		}).start();
+					}
+
+			
 			}
 
 		}
 
-		private void AddImage(String filename, int rowIndex, final int id) {
+		private void AddImage(UserImagesJson.Data data, int rowIndex, final int id) {
             View view=LayoutInflater.from(activity).inflate(R.layout.item_waterfull, null);
             LinearLayout ll=(LinearLayout)view.findViewById(R.id.item_waterfull_linearlayout);
             ll.setClickable(true);
@@ -342,11 +421,11 @@ public class ShowWaterFull {
 					tv.setText(""+(Integer.parseInt(""+tv.getText())+1));
 				}
 			});
-			// ¶àÏß³Ì²ÎÊı
+			// ï¿½ï¿½ï¿½ß³Ì²ï¿½ï¿½ï¿½
 			FlowTag param = new FlowTag();
 			param.setFlowId(id);
 			param.setAssetManager(asset_manager);
-			param.setFileName(filename);
+			param.setData(data);
 			param.setItemWidth(item_width);
 			
 			//FIX By SCX

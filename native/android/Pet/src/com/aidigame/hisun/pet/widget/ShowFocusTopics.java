@@ -1,15 +1,13 @@
 package com.aidigame.hisun.pet.widget;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Environment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
@@ -17,9 +15,9 @@ import android.widget.ListView;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.ShowTopicsAdapter;
-import com.aidigame.hisun.pet.bean.Topic;
-import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.http.HttpUtil;
+import com.aidigame.hisun.pet.http.json.UserImagesJson;
 
 public class ShowFocusTopics {
 	int mode;
@@ -28,13 +26,21 @@ public class ShowFocusTopics {
 	View showTopicsView;
 	ListView listView;
 	ShowTopicsAdapter adapter;
-	ArrayList<Topic> topics;
-	public ShowFocusTopics(Activity activity,LinearLayout parent,int mode){
+	ArrayList<UserImagesJson.Data> datas;
+	public ShowFocusTopics(Activity activity,LinearLayout parent,ArrayList<UserImagesJson.Data> datas){
 		this.activity=activity;
 		this.parent=parent;
 		this.mode=mode;
+		this.datas=datas;
+		setWidthAndHeight(activity);
 		initView();
 		initListener();
+	}
+	public ShowTopicsAdapter getAdapter(){
+		return adapter;
+	};
+	public ListView getListView(){
+		return listView;
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -42,45 +48,12 @@ public class ShowFocusTopics {
 		parent.removeAllViews();
 		parent.addView(showTopicsView);
 		listView=(ListView)showTopicsView.findViewById(R.id.listView1);
-		loadData();
-		adapter=new ShowTopicsAdapter(activity,topics);
+		adapter=new ShowTopicsAdapter(activity,datas);
 		listView.setAdapter(adapter);
 	}
 	private void loadData() {
 		// TODO Auto-generated method stub
-		topics=new ArrayList<Topic>();
-		Topic topic=null;
-		File[] files=null;
-		if(mode==1){
-			File file=new File(Constants.Picture_Path);
-			if(!file.exists()){
-				files=(new File(Environment.getExternalStorageDirectory()+File.separator+"pet")).listFiles();
-			}else{
-				files=(new File(Constants.Picture_Path)).listFiles();
-			}
-			
-		}else{
-			files=(new File(Environment.getExternalStorageDirectory()+File.separator+"pet")).listFiles();
-		}
-		Context context=activity;
-		SharedPreferences sp=activity.getPreferences(Context.MODE_WORLD_WRITEABLE);
-		HashMap<String,String> map=(HashMap<String,String>)sp.getAll();
-		for(File f:files){
-			topic=new Topic();
-			topic.bmpPath=f.getAbsolutePath();
-			if(mode==1){
-				topic.describe=map.get(f.getName());
-			}else{
-				topic.describe="wwwwwwwwwwwwwww";
-			}
-			
-			topic.likesNum=11;
-			topic.time=34;
-			topic.user=new User();
-			topic.user.nickName="aaa";
-			topic.user.race="df";
-			topics.add(topic);
-		}
+		
 	}
 	private void initListener() {
 		// TODO Auto-generated method stub
@@ -103,6 +76,13 @@ public class ShowFocusTopics {
 				}*/
 			}
 		});
+
+	}
+	public void setWidthAndHeight(Activity activity){
+		DisplayMetrics dm=new DisplayMetrics();
+		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		Constants.screen_width=dm.widthPixels;
+		Constants.screen_height=dm.heightPixels;
 	}
 
 }

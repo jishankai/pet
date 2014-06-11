@@ -29,10 +29,10 @@ import com.aidigame.hisun.pet.widget.fragment.HorizontalListViewFragment;
 
 public class ImageUtil {
 	/**
-	 * Í¼Æ¬Ëõ·Å
-	 * @param path Í¼Æ¬´æÔÚµÄÂ·¾¶
-	 * @param size  ËõÐ¡±¶Êý
-	 * @return      Ëõ·ÅºóµÄÍ¼Æ¬
+	 * Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
+	 * @param path Í¼Æ¬ï¿½ï¿½ï¿½Úµï¿½Â·ï¿½ï¿½
+	 * @param size  ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
+	 * @return      ï¿½ï¿½ï¿½Åºï¿½ï¿½Í¼Æ¬
 	 */
 	public static Bitmap scaleImage(String path,int size){
 		Options options=new BitmapFactory.Options();
@@ -45,10 +45,10 @@ public class ImageUtil {
 		return Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
 	}
 	/**
-	 * ½«Í¼Æ¬Ñ¹Ëõºó±£´æÔÚsd¿¨ÉÏ
-	 * @param bmp  ±»Ñ¹ËõµÄÍ¼Æ¬
-	 * @param quality  Ñ¹ËõÖÊÁ¿  0-100
-	 * @return  path    Ñ¹Ëõ³É¹¦,·µ»ØÑ¹ËõÎÄ¼þÂ·¾¶Ãû£»null Ñ¹ËõÊ§°Ü
+	 * ï¿½ï¿½Í¼Æ¬Ñ¹ï¿½ï¿½ï¿½ó±£´ï¿½ï¿½ï¿½sdï¿½ï¿½ï¿½ï¿½
+	 * @param bmp  ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
+	 * @param quality  Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  0-100
+	 * @return  path    Ñ¹ï¿½ï¿½ï¿½É¹ï¿½,ï¿½ï¿½ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½null Ñ¹ï¿½ï¿½Ê§ï¿½ï¿½
 	 */
 	public static String compressImage(Bitmap bmp,int quality){
 		long time=System.currentTimeMillis();
@@ -111,7 +111,7 @@ public class ImageUtil {
 		} 
 	}
 	/**
-	 * ÊÖ»úÕÕÏà²úÉúµÄÏàÆ¬ ÐèÒªË³Ê±ÕëÐý×ª90¶È
+	 * ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¬ ï¿½ï¿½ÒªË³Ê±ï¿½ï¿½ï¿½ï¿½×ª90ï¿½ï¿½
 	 * @param bmp
 	 * @param degree
 	 * @return
@@ -123,7 +123,7 @@ public class ImageUtil {
 		return bmp;
 	}
 	/**
-	 * ¸ù¾ÝÖ¸¶¨¿Ø¼þµÄ¿í¸ß£¬Ëõ·ÅÍ¼Æ¬
+	 * ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½Ä¿ï¿½ß£ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
 	 * @param bmp
 	 * @param view
 	 * @return
@@ -139,7 +139,7 @@ public class ImageUtil {
 		return bmp;
 	}
 	/**
-	 * »ñÈ¡ImageViewÏÔÊ¾µÄÍ¼Æ¬
+	 * ï¿½ï¿½È¡ImageViewï¿½ï¿½Ê¾ï¿½ï¿½Í¼Æ¬
 	 * @param imageView
 	 * @return
 	 */
@@ -150,7 +150,7 @@ public class ImageUtil {
 		return bmp;
 	}
 	/**
-	 * ÂË¾µ  ÑÕÉ«µþ¼Ó
+	 * ï¿½Ë¾ï¿½  ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
 	 * @param bmp
 	 * @param alpha
 	 * @param red
@@ -193,7 +193,7 @@ public class ImageUtil {
 		return newBmp;
 	}
 	/**
-	 * É¾³ýÖ¸¶¨ÎÄ¼þ¼Ð£¬
+	 * É¾ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð£ï¿½
 	 * @param path
 	 */
 	public static void deleteFile(String path){

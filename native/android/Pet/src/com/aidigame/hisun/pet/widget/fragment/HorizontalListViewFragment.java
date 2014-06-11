@@ -26,12 +26,12 @@ import com.aidigame.hisun.pet.util.ImageUtil;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.view.HorizontialListView;
 /**
- * ×Ô¶¨ÒåFragment  ÊµÏÖÀàËÆfragmentµÄ¹¦ÄÜ
+ * ï¿½Ô¶ï¿½ï¿½ï¿½Fragment  Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fragmentï¿½Ä¹ï¿½ï¿½ï¿½
  * @author admin
  *
  */
 /**
- * ×Ô¶¨ÒåFragment  ÊµÏÖÀàËÆfragmentµÄ¹¦ÄÜ
+ * ï¿½Ô¶ï¿½ï¿½ï¿½Fragment  Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fragmentï¿½Ä¹ï¿½ï¿½ï¿½
  * @author admin
  *
  */
@@ -41,17 +41,17 @@ public class HorizontalListViewFragment {
 	HandlePictureActivity context;
 	ImageView imageView;
 	SurfaceView surfaceView;
-	public int xCanvas=0,yCanvas=0;//surfaceView ¿É»æÖÆµÄ¿í¸ß¡£
+	public int xCanvas=0,yCanvas=0;//surfaceView ï¿½É»ï¿½ï¿½ÆµÄ¿ï¿½ß¡ï¿½
 	HorizontialListView horizontialListView;
 	HorizontalListViewAdapter adapter;
 	ArrayList<String> path;
 	ArrayList<String> pictureName;
 	int id;
-	public static Bitmap chartletTypeBmp;//Ñ¡ÖÐµÄÌùÍ¼ÀàÐÍ
+	public static Bitmap chartletTypeBmp;//Ñ¡ï¿½Ðµï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½
 	String chartletTypeBmpPath=null;
-	public static Bitmap chartletBmpFocus;//ÕýÔÚ´¦ÀíµÄÌùÍ¼
-	public static Bitmap frameBmp;//¿ò¼Ü
-	public static Bitmap controlBmp;//¿ØÖÆÇò £¬Ëõ·Å£¬Ðý×ª
+	public static Bitmap chartletBmpFocus;//ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
+	public static Bitmap frameBmp;//ï¿½ï¿½ï¿½
+	public static Bitmap controlBmp;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½×ª
 	public static int chartletBmpFocus_centerX=0,chartletBmpFocus_centerY=0;
 	public static int controlBmp_centerX_origin=0,controlBmp_centerY_origin=0;
 	public static int controlBmp_centerX=0,controlBmp_centerY=0;
@@ -151,11 +151,11 @@ public class HorizontalListViewFragment {
 		path.add(Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"beauty_info_animation_eye_11.png");
 		pictureName=new ArrayList<String>();
 
-		pictureName.add("·ÖÀà1");
-		pictureName.add("·ÖÀà2");
-		pictureName.add("·ÖÀà3");
-		pictureName.add("·ÖÀà4");
-		pictureName.add("·ÖÀà5");
+		pictureName.add("ï¿½ï¿½ï¿½ï¿½1");
+		pictureName.add("ï¿½ï¿½ï¿½ï¿½2");
+		pictureName.add("ï¿½ï¿½ï¿½ï¿½3");
+		pictureName.add("ï¿½ï¿½ï¿½ï¿½4");
+		pictureName.add("ï¿½ï¿½ï¿½ï¿½5");
 		pictureName.add("function6");
 		pictureName.add("function7");
 	}
@@ -171,11 +171,11 @@ public class HorizontalListViewFragment {
 		path.add(Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"ic_launcher.png");
 
 		pictureName=new ArrayList<String>();
-		pictureName.add("±ß¿ò1");
-		pictureName.add("±ß¿ò2");
-		pictureName.add("±ß¿ò3");
-		pictureName.add("±ß¿ò4");
-		pictureName.add("±ß¿ò5");
+		pictureName.add("ï¿½ß¿ï¿½1");
+		pictureName.add("ï¿½ß¿ï¿½2");
+		pictureName.add("ï¿½ß¿ï¿½3");
+		pictureName.add("ï¿½ß¿ï¿½4");
+		pictureName.add("ï¿½ß¿ï¿½5");
 		
 		pictureName.add("function6");
 		pictureName.add("function7");
@@ -238,7 +238,7 @@ public class HorizontalListViewFragment {
 
 	private void choseColor(int position) {
 		// TODO Auto-generated method stub
-		//TODO Éè¶¨ÑÕÉ«µÄÖµ
+		//TODO ï¿½è¶¨ï¿½ï¿½É«ï¿½ï¿½Öµ
 		Bitmap bmp=Bitmap.createBitmap(HandlePictureActivity.handlingBmp);
 		switch (position) {
 		case 0:
@@ -309,7 +309,7 @@ public class HorizontalListViewFragment {
 		if(x>=controlBmp_centerX-controlBmp.getWidth()&&x<=controlBmp_centerX+controlBmp.getWidth()
 		   &&y>=controlBmp_centerY-controlBmp.getHeight()&&y<=controlBmp_centerY+controlBmp.getHeight()){
 			current_mode=0;
-			LogUtil.i("me", "Ëõ·ÅËõ·ÅËõ·Å");
+			LogUtil.i("me", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}else if(x>=chartletBmpFocus_centerX-chartletBmpFocus.getWidth()/2&&x<=chartletBmpFocus_centerX+chartletBmpFocus.getWidth()/2
 				&&y>=chartletBmpFocus_centerX-chartletBmpFocus.getHeight()/2&&y<=chartletBmpFocus_centerY+chartletBmpFocus.getHeight()/2){
 			current_mode=MODE_TRANSLATE;

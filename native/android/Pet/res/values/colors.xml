@@ -9,4 +9,6 @@
     <color name="black">#000000</color>
     <color name="black_light">#413F2F</color>
     <color name="first_background">#FBF5EE</color>
+    <color name="green_light">#2EC95D</color>
+    <color name="background_transparent">#B5C9C9C9</color>
 </resources>

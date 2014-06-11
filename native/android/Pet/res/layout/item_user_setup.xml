@@ -5,10 +5,11 @@
     android:orientation="vertical" >
 
     <RelativeLayout
+        android:id="@+id/set_relativelayout01"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
+        android:layout_height="55dp" 
         android:gravity="center_vertical"
-        android:layout_weight="1">
+        >
 
         <TextView
             android:id="@+id/textView1"
@@ -16,29 +17,45 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="17dp"
-            android:text="账号管理" 
+            android:text="账号设置" 
             android:textSize="18sp"
             android:layout_centerVertical="true"/>
 
         <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/set_imageView1"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/xinlang"
+            android:layout_toLeftOf="@+id/set_imageView2" />
+         <ImageView
+            android:id="@+id/set_imageView2"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/weixin" 
+            android:layout_toLeftOf="@+id/imageView3" />
+                  <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="45dp"
-            android:src="@drawable/ic_launcher" />
+            android:layout_marginRight="15dp"
+            android:src="@drawable/back" />
 
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#ffffff00"/>
+        android:background="@color/gray_light"/>
 
     <RelativeLayout
+        android:id="@+id/set_relativelayout02"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:layout_weight="1">
+        android:layout_height="55dp" 
+        >
         
         <TextView
             android:id="@+id/textView1"
@@ -46,28 +63,37 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="17dp"
-            android:text="设定封面" 
+            android:text="清除缓存" 
+            android:textSize="18sp"
+            android:layout_centerVertical="true"/>
+                <TextView
+            android:id="@+id/set_textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/imageView4"
+            android:text="1.8M" 
             android:textSize="18sp"
             android:layout_centerVertical="true"/>
 
         <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="45dp"
-            android:src="@drawable/ic_launcher" />
+            android:layout_marginRight="15dp"
+            android:src="@drawable/back" />
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#ffffff00"/>
+        android:background="@color/gray_light"/>
     <RelativeLayout
+        android:id="@+id/set_relativelayout03"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
+        android:layout_height="55dp" 
         android:gravity="center_vertical"
-        android:layout_weight="1">
+        >
 
         <TextView
             android:id="@+id/textView1"
@@ -75,29 +101,29 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="17dp"
-            android:text="购买记录" 
+            android:text="赏个好评 " 
             android:textSize="18sp"
             android:layout_centerVertical="true"/>
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="45dp"
-            android:src="@drawable/ic_launcher" />
+            android:layout_marginRight="15dp"
+            android:src="@drawable/back" />
 
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#ffffff00"/>
+        android:background="@color/gray_light"/>
     <RelativeLayout
+        android:id="@+id/set_relativelayout04"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:gravity="center_vertical"
-        android:layout_weight="1">
+        android:layout_height="55dp" 
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/textView1"
@@ -105,29 +131,29 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="17dp"
-            android:text="新消息提醒" 
+            android:text="提个意见" 
             android:textSize="18sp"
             android:layout_centerVertical="true"/>
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="45dp"
-            android:src="@drawable/ic_launcher" />
+            android:layout_marginRight="15dp"
+            android:src="@drawable/back" />
 
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#ffffff00"/>
+        android:background="@color/gray_light"/>
     <RelativeLayout
+        android:id="@+id/set_relativelayout05"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:gravity="center_vertical"
-        android:layout_weight="1">
+        android:layout_height="55dp" 
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/textView1"
@@ -135,29 +161,46 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="17dp"
-            android:text="通用设置" 
+            android:text="关于我们" 
             android:textSize="18sp" 
             android:layout_centerVertical="true"/>
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="45dp"
-            android:src="@drawable/ic_launcher" />
+            android:layout_marginRight="15dp"
+            android:src="@drawable/back" />
 
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#ffffff00"/>
+        android:background="@color/gray_light"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp" 
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/set_button1"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="退出登录" 
+            android:textSize="18sp"
+            android:background="@color/orange_red"/>
+        
+        </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:gravity="center_vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/textView1"
@@ -182,12 +225,14 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#ffffff00"/>
+        android:background="#ffffff00"
+        android:visibility="gone"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:gravity="center_vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/textView1"

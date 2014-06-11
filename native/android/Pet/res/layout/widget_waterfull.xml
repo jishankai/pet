@@ -9,8 +9,7 @@
         android:id="@+id/waterfall_container"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="horizontal"
-        android:background="@android:color/white" >
+        android:orientation="horizontal" >
         
     </LinearLayout>
         

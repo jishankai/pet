@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.ChartletBmp;
 import com.aidigame.hisun.pet.util.ImageUtil;
@@ -48,18 +49,18 @@ public class HandlePictureActivity extends Activity implements OnClickListener,S
 	public static String originPicturePath=null;
 	public boolean isMovingChartlet=false;
 	HorizontalListViewFragment horizontalListViewFragment;
-	public static final int SET_IMAGE_VIEW=0;//²¼¾ÖÎÄ¼þ¼ÓÔØÍê±Ï£¬¿ÉÒÔ»ñµÃimageViewµÄ¿í¸ß
+	public static final int SET_IMAGE_VIEW=0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½imageViewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case SET_IMAGE_VIEW:
-				//×¢Òâ£¬ÕÛ¶þ·µ»ØµÄÊÇÐÂ½¨¶îBitmap¶ÔÏó
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Bitmapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				Bitmap bmp=ImageUtil.scaleImageByView(HandlePictureActivity.handlingBmp, imageView);
 				HandlePictureActivity.handlingBmp.recycle();
 				HandlePictureActivity.handlingBmp=bmp;
 				imageView.setImageBitmap(bmp);
 				ImageUtil.compressImage(HandlePictureActivity.handlingBmp, 100);
-				//³õÊ¼»¯ÏÔÊ¾function1
+				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½function1
 				function1();
 				break;
 			}
@@ -70,6 +71,8 @@ public class HandlePictureActivity extends Activity implements OnClickListener,S
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
+		PetApplication.petApp.activityList.add(this);
+		PetApplication.petApp.activityList.add(this);
 		setContentView(R.layout.activity_handle_picture);
 		initView();
 		initListener();
@@ -106,10 +109,10 @@ public class HandlePictureActivity extends Activity implements OnClickListener,S
 		createTitle=new CreateTitle(this, titleLayout);
 		relativeLayout=(RelativeLayout)findViewById(R.id.relativelayout1);
 		surfaceView=(SurfaceView)findViewById(R.id.surfaceview);
-		//ÉèÖÃSurfaceÍ¸Ã÷
-		surfaceView.setZOrderOnTop(true);//Õâ¾ä²»¿ÉÉÙ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Surfaceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		surfaceView.setZOrderOnTop(true);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		holder=surfaceView.getHolder();
-		holder.setFormat(PixelFormat.TRANSPARENT);//Í¸Ã÷
+		holder.setFormat(PixelFormat.TRANSPARENT);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		holder.addCallback(this);
 		
 	}
@@ -206,7 +209,7 @@ public class HandlePictureActivity extends Activity implements OnClickListener,S
 		Function4Fragment f4f=new Function4Fragment(this,fragmentView);
 	}
 	/**
-	 * ³·ÏúÖ®Ç°µÄ²Ù×÷
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private void actionBack() {
 		// TODO Auto-generated method stub

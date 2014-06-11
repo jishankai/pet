@@ -4,7 +4,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
     
     <uses-permission android:name="android.permission.CAMERA"/>
@@ -100,12 +100,11 @@
         <activity android:name="com.aidigame.hisun.pet.ui.ShowPictureActivity"
             android:theme="@android:style/Theme.Translucent"></activity>
         <activity android:name="com.aidigame.hisun.pet.ui.HomeActivity"
-            android:launchMode="singleInstance"
-            android:theme="@android:style/Theme.Translucent">
+            android:theme="@android:style/Theme.Translucent"
+            android:launchMode="singleInstance">
             
         </activity>
         <activity android:name="com.aidigame.hisun.pet.ui.UserHomepageActivity"
-            android:launchMode="singleInstance"
             android:theme="@android:style/Theme.Translucent"></activity>
         <activity android:name="com.aidigame.hisun.pet.ui.OtherUserTopicActivity"
             android:launchMode="singleInstance"
@@ -125,7 +124,15 @@
         <activity android:name="com.aidigame.hisun.pet.ui.RegisterActivity"
             android:theme="@android:style/Theme.Translucent"></activity>
         <activity android:name="com.aidigame.hisun.pet.ui.PictureAlbumActivity"
-            ></activity>
+            android:theme="@android:style/Theme.Translucent"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.ScanPictureActivity"
+            android:theme="@android:style/Theme.Translucent"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.ChoseClassActivity"
+            android:theme="@android:style/Theme.Translucent"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.UnregisterNoteActivity"
+            android:theme="@android:style/Theme.Translucent"></activity>
+                <activity android:name="com.aidigame.hisun.pet.ui.SetupActivity"
+            android:theme="@android:style/Theme.Translucent"></activity>
     </application>
 
 </manifest>

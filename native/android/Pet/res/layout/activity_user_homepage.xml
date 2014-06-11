@@ -24,14 +24,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="波斯猫"
-            android:gravity="center"/>
-        <ImageView
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="18dp"/>
+        <com.aidigame.hisun.pet.view.CircleView
             android:id="@+id/imageView3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
            android:layout_below="@+id/textView1"
-            android:src="@drawable/ic_launcher"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true" 
+            android:layout_marginTop="10dp"/>
+        <TextView android:id="@+id/comming_soon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/coming_soon"
+            android:text="Comming Soon"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            android:layout_below="@+id/textView1"
+            android:layout_centerInParent="true" 
+            android:layout_marginTop="30dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:visibility="invisible"/>
 
         <ImageView
             android:id="@+id/imageView4"
@@ -39,27 +57,29 @@
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/imageView3"
             android:src="@drawable/camera_green"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="200dp" />
+            android:layout_marginTop="116dp"
+            android:layout_marginLeft="206dp" />
         
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center" 
-        android:layout_below="@+id/imageView4">
+        android:layout_below="@+id/imageView4"
+        android:layout_marginTop="25dp">
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="苏格兰折耳猫" 
+             android:textSize="18sp"
             android:paddingRight="5dp"/>
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/male" />
 
         <TextView
@@ -67,6 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3岁" 
+            android:textSize="18sp"
             android:paddingLeft="5dp"/>
 
     </LinearLayout>
@@ -82,18 +103,22 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back" />
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/back" 
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"/>
 
 
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:src="@drawable/comingsoon" 
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"/>
 
     </RelativeLayout>
 
@@ -112,9 +137,22 @@
 
             <ImageView
                 android:id="@+id/imageView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:src="@drawable/home_red" />
+
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/exp_gray" />
 
         </LinearLayout>
 
@@ -126,8 +164,8 @@
 
             <ImageView
                 android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:src="@drawable/set_gray" />
 
         </LinearLayout>
@@ -139,7 +177,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" 
-        android:layout_below="@+id/linearLayout4">
+        android:layout_below="@+id/linearLayout4"
+        android:background="@drawable/background_cat">
     </LinearLayout>
 
     <LinearLayout
@@ -149,7 +188,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="10dp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+         >
     </LinearLayout>
 
 </RelativeLayout>
