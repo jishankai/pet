@@ -67,7 +67,7 @@ class ApiJsonResponse
     {
         $this->state = self::STATE_ERROR;
         $this->errorCode = -1;
-        if ($exception instanceof BPException) {
+        if ($exception instanceof PException) {
             $this->errorMessage = $exception->getMessage();
         } else {
             $this->errorMessage = YII_DEBUG ? $exception->__toString() : "System Exception";

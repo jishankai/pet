@@ -10,7 +10,7 @@
  * @property string $token
  * @property string $terminal
  * @property string $os
- * @property integer $create_time
+ * @property string $create_time
  * @property string $update_time
  *
  * The followings are the available model relations:
@@ -44,9 +44,8 @@ class Device extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('create_time', 'numerical', 'integerOnly'=>true),
 			array('uid, token, terminal', 'length', 'max'=>45),
-			array('usr_id', 'length', 'max'=>10),
+			array('usr_id, create_time', 'length', 'max'=>10),
 			array('os', 'length', 'max'=>25),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -66,20 +65,27 @@ class Device extends CActiveRecord
 		);
 	}
 
+    public function behaviors()
+    {
+        return array(
+            'behavior' => 'DeviceBehavior',
+        );
+    }
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'uid' => 'Uid',
-			'usr_id' => 'Usr',
+			'id' => '编号',
+			'uid' => '设备唯一标示',
+			'usr_id' => '用户编号',
 			'token' => 'Token',
-			'terminal' => 'Terminal',
-			'os' => 'Os',
-			'create_time' => 'Create Time',
-			'update_time' => 'Update Time',
+			'terminal' => '平台',
+			'os' => '系统',
+			'create_time' => '创建时间',
+			'update_time' => '更新时间',
 		);
 	}
 
@@ -100,52 +106,11 @@ class Device extends CActiveRecord
 		$criteria->compare('token',$this->token,true);
 		$criteria->compare('terminal',$this->terminal,true);
 		$criteria->compare('os',$this->os,true);
-		$criteria->compare('create_time',$this->create_time);
+		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-
-    public function register($name, $gender, $age, $type, $inviter)
-    {
-        $user = new User();
-        
-        $user->name = $name;
-        $user->gender = $gender;
-        $user->age = $age;
-        $user->type = $type;
-        $user->code = $this->createInviteCode();
-        $user->inviter = $inviter;
-                
-        $user->save();
-
-        $this->onRegister = array($user, 'initialize');
-        $this->onRegister = array($user, 'rewardInviter');
-
-        $this->usr_id = $user->usr_id;
-        $this->saveAttributes(array('usr_id'));
-
-        $this->onRegister(new CEvent());
-
-        return $user;
-    }
-
-    public function createInviteCode()
-    {
-        do {
-            $str='abcdefghijklmnopqrstuvwxyz0123456789';
-            $str_temp=str_shuffle($str);
-            $code = substr($str_temp, 0, USER_INVITECODE_LENGTH);
-            $isExist = Yii::app()->db->createCommand("SELECT usr_id FROM dc_user WHERE code=:code")->bindValue(':code', $code)->queryScalar();
-        } while ($isExist);
-
-        return $code;
-    }
-
-    public function onRegister($event)
-    {
-        $this->raiseEvent('onRegister', $event);
-    }
 }

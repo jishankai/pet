@@ -6,11 +6,9 @@
  * The followings are the available columns in table 'dc_value':
  * @property string $usr_id
  * @property string $exp
- * @property string $lv
- * @property string $follow
- * @property string $follower
  * @property string $con_login
- * @property integer $create_time
+ * @property string $login_time
+ * @property string $create_time
  * @property string $update_time
  *
  * The followings are the available model relations:
@@ -44,11 +42,10 @@ class Value extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('create_time', 'numerical', 'integerOnly'=>true),
-			array('exp, lv, follow, follower, con_login', 'length', 'max'=>10),
+			array('usr_id, exp, con_login, login_time, create_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('usr_id, exp, lv, follow, follower, con_login, create_time, update_time', 'safe', 'on'=>'search'),
+			array('usr_id, exp, con_login, login_time, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,6 +61,14 @@ class Value extends CActiveRecord
 		);
 	}
 
+    /*
+    public function behaviors()
+    {
+        return array(
+            'behavior' => 'ValueBehavior',
+        );
+    }
+     */
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -71,11 +76,9 @@ class Value extends CActiveRecord
 	{
 		return array(
 			'usr_id' => 'Usr',
-			'exp' => 'Exp',
-			'lv' => 'Lv',
-			'follow' => 'Follow',
-			'follower' => 'Follower',
-			'con_login' => 'Con Login',
+			'exp' => '经验',
+            'con_login' => '连续登陆天数',
+			'login_time' => 'Login Time',
 			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
 		);
@@ -94,11 +97,9 @@ class Value extends CActiveRecord
 
 		$criteria->compare('usr_id',$this->usr_id,true);
 		$criteria->compare('exp',$this->exp,true);
-		$criteria->compare('lv',$this->lv,true);
-		$criteria->compare('follow',$this->follow,true);
-		$criteria->compare('follower',$this->follower,true);
 		$criteria->compare('con_login',$this->con_login,true);
-		$criteria->compare('create_time',$this->create_time);
+		$criteria->compare('login_time',$this->login_time,true);
+		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 
 		return new CActiveDataProvider($this, array(

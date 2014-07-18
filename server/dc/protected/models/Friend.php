@@ -7,7 +7,7 @@
  * @property string $usr_id
  * @property string $follow_id
  * @property integer $relation
- * @property integer $create_time
+ * @property string $create_time
  * @property string $update_time
  *
  * The followings are the available model relations:
@@ -41,11 +41,11 @@ class Friend extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('relation, create_time', 'numerical', 'integerOnly'=>true),
-			array('usr_id, follow_id', 'length', 'max'=>10),
+			array('relation', 'numerical', 'integerOnly'=>true),
+			array('usr_id, follow_id, create_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('usr_id, follow_id, create_time, update_time', 'safe', 'on'=>'search'),
+			array('usr_id, follow_id, relation, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,6 +61,15 @@ class Friend extends CActiveRecord
 		);
 	}
 
+    /*
+    public function behaviors()
+    {
+        return array(
+            'behavior' => 'FriendBehavior',
+        );
+    }
+     */
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -69,7 +78,7 @@ class Friend extends CActiveRecord
 		return array(
 			'usr_id' => 'Usr',
 			'follow_id' => 'Follow',
-            'realtion' => 'Relation',
+			'relation' => 'Relation',
 			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
 		);
@@ -89,7 +98,7 @@ class Friend extends CActiveRecord
 		$criteria->compare('usr_id',$this->usr_id,true);
 		$criteria->compare('follow_id',$this->follow_id,true);
 		$criteria->compare('relation',$this->relation);
-		$criteria->compare('create_time',$this->create_time);
+		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 
 		return new CActiveDataProvider($this, array(

@@ -10,6 +10,8 @@ require_once(dirname(__FILE__).'/dc/const.cfg.php');
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'阿猫阿狗',
+    'theme'=>'blackboot',
+    'defaultController'=>'site/login',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -18,6 +20,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+        'application.extensions.*',
 	),
 
 	'modules'=>array(
@@ -25,9 +28,10 @@ return array(
         'admin',
         'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'gii',
+			'password'=>false,
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			'ipFilters'=>array('127.0.0.1','::1'),
+			//'ipFilters'=>array('0.0.0.0','::1'),
+            'ipFilters'=>false,
 		),
 	),
 
@@ -40,33 +44,58 @@ return array(
     ),
 
 	// application components
-	'components'=>array(
-		'user'=>array(
-			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
-		),
-		// uncomment the following to enable URLs in path-format
+    'components'=>array(
+        'user'=>array(
+            // enable cookie-based authentication
+            'allowAutoLogin'=>true,
+        ),
+        /*
+        'mobiledetect'=>array(
+            'class' => 'ext.MobileDetect.MobileDetect' 
+        ),
+         */
+        'image'=>array(    
+            'class'=>'application.extensions.image.CImageComponent',
+            // GD or ImageMagick            
+            'driver'=>'GD',
+            // ImageMagick setup path       
+            'params'=>array('directory'=>'/usr/bin'),
+        ),
+
+        's3'=>array(
+            'class'=>'ext.s3.ES3',
+            'aKey'=>AWS_ACCESS_KEY, 
+            'sKey'=>AWS_SECRET_KEY,
+        ),
+
+        'file'=>array(
+            'class'=>'application.extensions.file.CFile',
+        ),
+        // uncomment the following to enable URLs in path-format
         /*
         'urlManager'=>array(
-			'urlFormat'=>'path',
-			'rules'=>array(
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-			),
+            'urlFormat'=>'path',
+            'rules'=>array(
+                '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+                '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+            ),
         ),
          */
 
         'cache' => array(
-            'class' => 'CMemCache',
-            'keyPrefix' => 'PetData',
-            'servers' => array(
-                array(
-                    'host' => '127.0.0.1',
-                    'port' => 11211,
-                    'weight' => 100,
-                ),
-            ),
+            'class' => 'CFileCache',
+            'directoryLevel' => 4,
+        /*
+        'class' => 'CMemCache',
+        'servers' => array(
+            array(
+                'host' => 'cache4test.5edo1u.cfg.apne1.cache.amazonaws.com',
+                'port' => 11211,
+                'weight' => 100,
+            ),  
+        ),
+         */  
         ),
         'sessionCache' => array(
             'class' => 'CMemCache',
@@ -77,6 +106,13 @@ return array(
                     'port' => 11211,
                     'weight' => 100,
                 ),
+            /*
+            array(
+                'host' => 'cache4test.5edo1u.cfg.apne1.cache.amazonaws.com',
+                'port' => 11211,
+                'weight' => 100,
+            )
+             */
             ),
         ),
         'session' => array(
@@ -86,54 +122,59 @@ return array(
             'timeout' => 86400,
             'cookieMode' => 'none',
         ),
-        
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=pet',
-			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
-			'charset' => 'utf8',
+
+        'db'=>array(
+            'connectionString' => 'mysql:host=localhost;dbname=pet',
+            'emulatePrepare' => true,
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8mb4',
             'class' => 'CDbConnection',
             'schemaCachingDuration' => 3600,
-		),
-		'errorHandler'=>array(
-			// use 'site/error' action to display errors
-			'errorAction'=>'site/error',
-		),
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
-				),
+            'enableProfiling'=>true,
+            'enableParamLogging'=>true,
+        ),
+        'errorHandler'=>array(
+            // use 'site/error' action to display errors
+            'errorAction'=>'site/error',
+        ),
+        'log'=>array(
+            'class'=>'CLogRouter',
+            'routes'=>array(
                 array(
                     'class'=>'CFileLogRoute',
-                    'levels'=>'trace',
-                    'logFile'=>'json.log',
-                    'categories'=>'json',
+                    'levels'=>'error, warning',
                 ),
                 array(
                     'class'=>'CFileLogRoute',
                     'levels'=>'trace',
-                    'logFile'=>'access.log',
-                    'categories'=>'access',
-                ),
-				// uncomment the following to show log messages on web pages
+                'logFile'=>'json.log',
+                'categories'=>'json',
+            ),
+            array(
+                'class'=>'CFileLogRoute',
+                'levels'=>'trace',
+                'logFile'=>'access.log',
+                'categories'=>'access',
+            ),
                 /*
-				array(
-					'class'=>'CWebLogRoute',
+                array(
+                    'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
+                    'ipFilters'=>false,
+                    // Access is restricted by default to the localhost
+                    //'ipFilters'=>array('127.0.0.1','192.168.1.*', 88.23.23.0/24),
+                )
+                // uncomment the following to show log messages on web pages
+                */
+                /*
+                array(
+                    'class'=>'CWebLogRoute',
                     'enabled'=>true,
                     'categories'=>'system.db.*',
                 ),
                  */
-			),
-		),
-        'image'=>array(
-            'class'=>'ext.Image.CImageComponent',
-            'driver'=>'GD',
-            'params'=>array('directory'=>'/usr/bin'),
         ),
+		),
 	),
 
 	// application-level parameters that can be accessed

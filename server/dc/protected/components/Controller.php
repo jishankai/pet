@@ -40,7 +40,7 @@ class Controller extends CController
 
     public function filterGetUserId($filterChain)
     {
-        if (isset($_REQUEST['SID']) && $_REQUEST['SID']=='') unset($_REQUEST['SID']); 
+        //if (isset($_REQUEST['SID']) && $_REQUEST['SID']=='') unset($_REQUEST['SID']); 
         $session = Yii::app()->session;
         $session->open();
         if (empty($session['usr_id'])) {
@@ -89,7 +89,7 @@ class Controller extends CController
      */
     public function getActionParams()
     {
-        return $_GET; //+ $_POST;
+        return $_GET;// + $_POST;
     }
 
     public function getResponse()

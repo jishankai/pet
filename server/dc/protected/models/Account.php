@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'dc_account':
  * @property string $usr_id
  * @property integer $treasure
- * @property integer $create_time
+ * @property string $create_time
  * @property string $update_time
  *
  * The followings are the available model relations:
@@ -40,7 +40,8 @@ class Account extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('treasure, create_time', 'numerical', 'integerOnly'=>true),
+			array('treasure', 'numerical', 'integerOnly'=>true),
+			array('usr_id, create_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('usr_id, treasure, create_time, update_time', 'safe', 'on'=>'search'),
@@ -58,6 +59,13 @@ class Account extends CActiveRecord
 			'usr' => array(self::BELONGS_TO, 'User', 'usr_id'),
 		);
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'behavior' => 'AccountBehavior',
+        );
+    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -85,7 +93,7 @@ class Account extends CActiveRecord
 
 		$criteria->compare('usr_id',$this->usr_id,true);
 		$criteria->compare('treasure',$this->treasure);
-		$criteria->compare('create_time',$this->create_time);
+		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 
 		return new CActiveDataProvider($this, array(
