@@ -10,7 +10,10 @@ import android.widget.ImageView;
 
 import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.UiUtil;
+import com.aidigame.hisun.pet.widget.WeixinShare;
+import com.aidigame.hisun.pet.widget.XinlangShare;
 
 public class UnregisterNoteActivity extends Activity implements OnClickListener{
 	Button cancel;
@@ -20,7 +23,6 @@ public class UnregisterNoteActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
-		PetApplication.petApp.activityList.add(this);
 		setContentView(R.layout.activity_unregiser_note);
 		cancel=(Button)findViewById(R.id.button1);
 		weixin=(ImageView)findViewById(R.id.imageView1);
@@ -34,18 +36,21 @@ public class UnregisterNoteActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.button1:
-			
+			Intent intent0=new Intent(this,RegisterActivity.class);
+			this.startActivity(intent0);
+			this.finish();
 			break;
 		case R.id.imageView1:
-			Intent intent1=new Intent(this,IntroduceActivity.class);
+		    if(Constants.api==null)WeixinShare.regToWeiXin(this);
+		    Intent intent1=new Intent(this,IntroduceActivity.class);
 			this.startActivity(intent1);
+			this.finish();
 			break;
 		case R.id.imageView2:
-			Intent intent=new Intent(this,IntroduceActivity.class);
-			this.startActivity(intent);
+			XinlangShare.xinlangAuth(this);
 			break;
 		}
-		this.finish();
+		
 	}
 
 }

@@ -2,6 +2,8 @@ package com.aidigame.hisun.pet.http.json;
 
 import java.util.ArrayList;
 
+import android.R.integer;
+
 /**
  * http://54.199.161.210/dc/index.php?r=user/infoApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2&SID=
  * info返回结果{
@@ -11,16 +13,11 @@ import java.util.ArrayList;
  * "version":"1.0",
  * "confVersion":"1.0",
  * "data":[
- *         {"usr_id":"8",
- *          "name":"23",
- *          "gender":"1",
- *          "tx":null,
- *          "age":"1",
- *          "type":"1",
- *          "code":"co9rg7",
- *          "inviter":"0",
- *          "create_time":"0",
- *          "update_time":"2014-06-05 06:48:46"
+ *         {"usr_id":"47","name":"1\u697c\u4e3b","gender":"1",
+			 * "tx":"47_icon_profile_block_user.hdpi.png","age":"1",
+			 * "type":"1","code":"4dkrc3","inviter":"0","create_time":"0",
+			 * "update_time":"2014-06-12 11:38:57","exp":"0","lv":"0",
+			 * "follow":"2","follower":"1","con_login":"0","imagesCount":"9"
  *          }],
  *"currentTime":1401951674}
  * @author admin
@@ -49,6 +46,13 @@ public class InfoJson {
 		public String inviter;
 		public String create_time;
 		public String update_time;
+		public int exp;
+		public int lv;
+		public int follow;
+		public int follower;
+		public int con_login;
+		public int imagesCount;
+		
 	}
 
 }

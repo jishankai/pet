@@ -20,7 +20,6 @@ public class IntroduceActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
-		PetApplication.petApp.activityList.add(this);
 		setContentView(R.layout.activity_introduce);
 		bt=(Button)findViewById(R.id.button1);
 		bt.setOnClickListener(new OnClickListener() {

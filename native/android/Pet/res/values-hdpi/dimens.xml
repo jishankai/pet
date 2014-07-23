@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="register_circleview_w">100dp</dimen>
+    <dimen name="register_circleview_margin_top">5dp</dimen>
+    <dimen name="register_sex_image_margin_top">5dp</dimen>
+    <dimen name="register_text_size_normal">12sp</dimen>
+     <dimen name="register_female_margin_left">5dp</dimen>
+    <dimen name="orange_title_height">48dp</dimen>
+    <dimen name="home_activity_menu_padding">5dp</dimen>
+</resources>

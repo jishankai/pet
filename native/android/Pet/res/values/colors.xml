@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#FEFEFF</color>
-    <color name="orange_red">#FC7B51</color>
-    <color name="gray_deep">#7F7C77</color>
+    <color name="orange_red">#d0fb6137</color>
+    <color name="gray_deep">#3e3e3e</color>
     <color name="brown">#432D20</color>
     <color name="brown_deep">#51493D</color>
     <color name="gray_light">#F2F0EB</color>
@@ -11,4 +11,8 @@
     <color name="first_background">#FBF5EE</color>
     <color name="green_light">#2EC95D</color>
     <color name="background_transparent">#B5C9C9C9</color>
+    <color name="transparent">#ff000000</color>
+    <color name="user_home_nums_unchecked">#787777</color>
+    <color name="user_home_nums_checked">#fb6137</color>
+    <color name="listview_item_selected_background">@android:color/transparent</color>
 </resources>

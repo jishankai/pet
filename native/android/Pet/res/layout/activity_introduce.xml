@@ -19,6 +19,7 @@
             android:layout_height="40dp"
             android:text="好的"
             android:textSize="18sp"
+            android:textStyle="bold"
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"

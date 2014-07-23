@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,9 @@ public class HorizontalListViewAdapter extends BaseAdapter {
 		}else{
 			holder=(Holder)convertView.getTag();
 		}
-		Bitmap bmp=BitmapFactory.decodeFile(path.get(position));
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		Bitmap bmp=BitmapFactory.decodeFile(path.get(position),options);
 		holder.imageView.setImageBitmap(bmp);
 		bmp=null;
 		holder.textView.setText(pictureName.get(position));

@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 
 import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.http.HttpUtil;
 
 /**
  * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0",

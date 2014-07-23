@@ -30,15 +30,18 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" 
-                android:textSize="18sp"/>
+                android:text="" 
+                android:textColor="#fb6137"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" 
-                android:textSize="18sp"/>
+                android:text="" 
+                 android:textColor="#aaa9a9"
+                android:textSize="14sp"/>
         </LinearLayout>
 
         <TextView
@@ -48,7 +51,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="23dp"
-            android:text="TextView" />
+            android:textColor="#9c9c9c"
+            android:textSize="12sp"
+            android:text="" />
     </RelativeLayout>
 
 
@@ -76,8 +81,8 @@
             android:id="@+id/heart_linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        
-        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_alignBottom="@+id/imageView2"
         android:layout_marginLeft="24dp"
         android:gravity="center"
         android:clickable="true"
@@ -101,7 +106,7 @@
         android:textSize="16sp"
         android:layout_gravity="center" 
         android:paddingLeft="10dp"
-        android:paddingRight="3dp"/>
+        android:paddingRight="5dp"/>
 
 
     </LinearLayout>
@@ -111,7 +116,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="TextView" 
+        android:text="" 
+        android:textSize="16sp"
+        android:textColor="#767676"
+        android:paddingTop="3dp"
+        android:singleLine="true"
+        android:paddingBottom="3dp"
         />       
         
     

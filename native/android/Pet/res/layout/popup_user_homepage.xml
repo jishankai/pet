@@ -1,48 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="#55C9C9C9"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/button_white"
     >
-
+<TextView
+    android:id="@+id/chose"
+        android:layout_width="300dp"
+        android:layout_height="36dp"
+        android:text="选择图片" 
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textColor="@color/orange_red"
+        android:textSize="18sp"/>
+<View 
+    android:layout_below="@+id/chose"
+    android:id="@+id/line1"
+    android:layout_width="300dp"
+    android:layout_height="1dp"
+    android:background="@color/orange_red"/>
     <TextView
+        android:layout_below="@+id/line1"
         android:id="@+id/textView1"
-        android:layout_width="240dp"
+        android:layout_width="300dp"
         android:layout_height="36dp"
         android:text="拍照" 
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:textColor="@color/orange_red"
-        android:background="@color/white"
-        android:textSize="18sp"
-        android:layout_above="@+id/textView2"/>
+        android:textColor="@color/gray_deep"
+        android:textSize="18sp"/>
+    <View 
+    android:layout_below="@+id/textView1"
+    android:id="@+id/line2"
+    android:layout_width="300dp"
+    android:layout_height="1dp"
+    android:background="@color/gray_deep"/>
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="240dp"
+        android:layout_width="300dp"
         android:layout_height="36dp"
         android:text="从相册选取"
         android:gravity="center"
         android:textSize="18sp"
         android:layout_marginTop="1dp"
-        android:background="@color/white"
-        android:textColor="@color/orange_red" 
-        android:layout_above="@+id/textView3"
-        android:layout_centerHorizontal="true"/>
+        android:textColor="@color/gray_deep" 
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/line2"/>
+       <View 
+    android:layout_below="@+id/textView2"
+    android:id="@+id/line3"
+    android:layout_width="300dp"
+    android:layout_height="1dp"
+    android:background="@color/gray_deep"/>
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="240dp"
+        android:layout_width="300dp"
         android:layout_height="36dp"
         android:text="取消"
         android:paddingTop="5dp"
         android:gravity="center"
         android:textSize="18sp"
-        android:layout_alignParentBottom="true"
+       android:layout_below="@+id/line3"
         android:layout_marginTop="4dp"
-        android:background="@color/white"
-        android:textColor="@color/orange_red"
-        android:layout_centerHorizontal="true" />
+        android:textColor="@color/gray_deep"
+        android:layout_centerHorizontal="true" /><!--  android:layout_alignParentBottom="true" -->
 
 </RelativeLayout>

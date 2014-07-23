@@ -3,6 +3,7 @@ package com.aidigame.hisun.pet.service;
 import java.io.File;
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;
 
@@ -14,9 +15,10 @@ import com.aidigame.hisun.pet.util.LogUtil;
 
 public class DownloadIconAsyncTask extends AsyncTask<UserImagesJson, Integer, Boolean> {
     Handler handler;
-	public DownloadIconAsyncTask(Handler handler){
+    Activity activity;
+	public DownloadIconAsyncTask(Handler handler,Activity activity){
 		this.handler=handler;
-		
+		this.activity=activity;
 	}
 	@Override
 	protected Boolean doInBackground(UserImagesJson... params) {
@@ -26,13 +28,13 @@ public class DownloadIconAsyncTask extends AsyncTask<UserImagesJson, Integer, Bo
 			if(params[i]==null)continue;
 			ArrayList<UserImagesJson.Data> datas=params[i].datas;
 			for(int j=0;j<datas.size();j++){
-				HttpUtil.otherUserInfo(datas.get(j), null);
+				HttpUtil.otherUserInfo(datas.get(j), null,activity);
 				handler.sendEmptyMessage(2);
 			}
 			for(int j=0;j<datas.size();j++){
 				if(new File(datas.get(j).user.iconPath).exists())continue;
-				boolean  flag=HttpUtil.downloadIconImage(url, datas.get(j).user.iconUrl, null);
-				if(flag){
+				String  flag=HttpUtil.downloadIconImage(url, datas.get(j).user.iconUrl, null,activity);
+				if(flag!=null){
 					File file=new File(Constants.Picture_ICON_Path);
 					if(!file.exists()){
 						file.mkdirs();

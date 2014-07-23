@@ -78,7 +78,7 @@ public class CircleView extends View {
 
 		if (null == bitmap) {
 			bitmap = BitmapFactory
-					.decodeResource(getResources(), R.drawable.a1,options);
+					.decodeResource(getResources(), R.drawable.a11,options);
 		}
 		if (null == mDstB) {
 			mDstB = makeDst(getWidth(), getHeight());
@@ -92,5 +92,6 @@ public class CircleView extends View {
 		canvas.drawBitmap(bitmap, null, bitmapRect, paint);
 		paint.setXfermode(null);
 		canvas.restore();
+		
 	}
 }

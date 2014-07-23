@@ -2,6 +2,9 @@ package com.aidigame.hisun.pet.service;
 
 import java.io.File;
 
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Handler;
 
@@ -13,9 +16,10 @@ import com.aidigame.hisun.pet.util.LogUtil;
 
 public class DownloadImagesAsyncTask extends AsyncTask<UserImagesJson.Data, Integer, Boolean> {
     Handler handler;
-	public DownloadImagesAsyncTask(Handler handler){
+    Activity activity;
+	public DownloadImagesAsyncTask(Handler handler,Activity activity){
 		this.handler=handler;
-		
+		this.activity=activity;
 	}
 	@Override
 	protected Boolean doInBackground(UserImagesJson.Data... params) {
@@ -23,7 +27,7 @@ public class DownloadImagesAsyncTask extends AsyncTask<UserImagesJson.Data, Inte
 		String url=Constants.UPLOAD_IMAGE_RETURN_URL;
 		for(int i=0;i<params.length;i++){
 			if(params[i]==null)continue;
-			String  path=HttpUtil.downloadImage(url, params[i].url, null);
+			String  path=HttpUtil.downloadImage(url, params[i].url, null,activity);
 			if(path!=null){
 				params[i].path=Constants.Picture_Topic_Path+File.separator+params[i].url;
 				

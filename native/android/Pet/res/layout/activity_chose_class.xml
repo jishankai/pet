@@ -7,8 +7,8 @@
     <View
         android:id="@+id/view1"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="@color/orange_red" />
+        android:layout_height="@dimen/orange_title_height"
+        android:background="#80fb6137" />
 
     <ListView
         android:id="@+id/listView1"
@@ -24,6 +24,8 @@
         android:layout_height="wrap_content"
         android:text="正在与其他星球搭建友好关系以获取更多信息！"
         android:layout_below="@+id/listView1"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:layout_marginLeft="24dp" 
+        android:layout_marginRight="24dp" />
 
 </RelativeLayout>

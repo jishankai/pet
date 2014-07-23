@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -18,21 +19,21 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.aidigame.hisun.pet.R;
-import com.aidigame.hisun.pet.ui.HandlePictureActivity;
-import com.aidigame.hisun.pet.widget.fragment.HorizontalListViewFragment;
+import com.aidigame.hisun.pet.constant.Constants;
 
 public class ImageUtil {
 	/**
-	 * ͼƬ����
-	 * @param path ͼƬ���ڵ�·��
-	 * @param size  ��С����
-	 * @return      ���ź��ͼƬ
+	 * 对图片进行缩放
+	 * @param path 
+	 * @param size  
+	 * @return      
 	 */
 	public static Bitmap scaleImage(String path,int size){
 		Options options=new BitmapFactory.Options();
@@ -45,10 +46,10 @@ public class ImageUtil {
 		return Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
 	}
 	/**
-	 * ��ͼƬѹ���󱣴���sd����
-	 * @param bmp  ��ѹ����ͼƬ
-	 * @param quality  ѹ������  0-100
-	 * @return  path    ѹ���ɹ�,����ѹ���ļ�·������null ѹ��ʧ��
+	 * 将给定的图片以quality质量进行压缩，保存到sd卡中
+	 * @param bmp  
+	 * @param quality  0-100
+	 * @return  path   图片的路径名
 	 */
 	public static String compressImage(Bitmap bmp,int quality){
 		long time=System.currentTimeMillis();
@@ -61,7 +62,7 @@ public class ImageUtil {
 		String path=Environment.getExternalStorageDirectory()
 				    +File.separator+"pet"+File.separator
 				    +time+".jpg";
-		HandlePictureActivity.originPicturePath=path;
+//		HandlePictureActivity.originPicturePath=path;
 		FileOutputStream fos=null;
 		try {
 			fos = new FileOutputStream(new File(path));
@@ -111,7 +112,7 @@ public class ImageUtil {
 		} 
 	}
 	/**
-	 * �ֻ������������Ƭ ��Ҫ˳ʱ����ת90��
+	 * 对图片进行旋转
 	 * @param bmp
 	 * @param degree
 	 * @return
@@ -123,7 +124,7 @@ public class ImageUtil {
 		return bmp;
 	}
 	/**
-	 * ����ָ���ؼ��Ŀ�ߣ�����ͼƬ
+	 * 根据给定的View空间的宽高，对图片进行缩放
 	 * @param bmp
 	 * @param view
 	 * @return
@@ -139,7 +140,7 @@ public class ImageUtil {
 		return bmp;
 	}
 	/**
-	 * ��ȡImageView��ʾ��ͼƬ
+	 * 获取ImageView中的图片，（对ImageView所在的区域进行截图）
 	 * @param imageView
 	 * @return
 	 */
@@ -193,7 +194,7 @@ public class ImageUtil {
 		return newBmp;
 	}
 	/**
-	 * ɾ��ָ���ļ��У�
+	 * 删除指定路径下的所有文件、文件夹
 	 * @param path
 	 */
 	public static void deleteFile(String path){
@@ -215,7 +216,7 @@ public class ImageUtil {
 		path=null;
 	}
 	/**
-	 * 
+	 * 插图
 	 */
 	public static Bitmap chartlet(Bitmap dest,int x,int y,Bitmap chartlet){
 		Bitmap bmp=Bitmap.createBitmap(dest.getWidth(), dest.getHeight(), Bitmap.Config.RGB_565);
@@ -232,11 +233,221 @@ public class ImageUtil {
 		chartlet=null;
 		return bmp;
 	}
-	
+	/**
+	 * 毛玻璃，模糊效果
+	 * @param sentBitmap
+	 * @param radius
+	 * @return
+	 */
+	public static Bitmap fastblur(Bitmap sentBitmap, int radius) {
+
+		  Bitmap bitmap = sentBitmap.copy(sentBitmap.getConfig(), true);
+
+		  if (radius < 1) {
+		   return (null);
+		  }
+
+		  int w = bitmap.getWidth();
+		  int h = bitmap.getHeight();
+
+		  int[] pix = new int[w * h];
+		  Log.e("pix", w + " " + h + " " + pix.length);
+		  bitmap.getPixels(pix, 0, w, 0, 0, w, h);
+
+		  int wm = w - 1;
+		  int hm = h - 1;
+		  int wh = w * h;
+		  int div = radius + radius + 1;
+
+		  int r[] = new int[wh];
+		  int g[] = new int[wh];
+		  int b[] = new int[wh];
+		  int rsum, gsum, bsum, x, y, i, p, yp, yi, yw;
+		  int vmin[] = new int[Math.max(w, h)];
+
+		  int divsum = (div + 1) >> 1;
+		  divsum *= divsum;
+		  int dv[] = new int[256 * divsum];
+		  for (i = 0; i < 256 * divsum; i++) {
+		   dv[i] = (i / divsum);
+		  }
+
+		  yw = yi = 0;
+
+		  int[][] stack = new int[div][3];
+		  int stackpointer;
+		  int stackstart;
+		  int[] sir;
+		  int rbs;
+		  int r1 = radius + 1;
+		  int routsum, goutsum, boutsum;
+		  int rinsum, ginsum, binsum;
+
+		  for (y = 0; y < h; y++) {
+		   rinsum = ginsum = binsum = routsum = goutsum = boutsum = rsum = gsum = bsum = 0;
+		   for (i = -radius; i <= radius; i++) {
+		    p = pix[yi + Math.min(wm, Math.max(i, 0))];
+		    sir = stack[i + radius];
+		    sir[0] = (p & 0xff0000) >> 16;
+		    sir[1] = (p & 0x00ff00) >> 8;
+		    sir[2] = (p & 0x0000ff);
+		    rbs = r1 - Math.abs(i);
+		    rsum += sir[0] * rbs;
+		    gsum += sir[1] * rbs;
+		    bsum += sir[2] * rbs;
+		    if (i > 0) {
+		     rinsum += sir[0];
+		     ginsum += sir[1];
+		     binsum += sir[2];
+		    } else {
+		     routsum += sir[0];
+		     goutsum += sir[1];
+		     boutsum += sir[2];
+		    }
+		   }
+		   stackpointer = radius;
+
+		   for (x = 0; x < w; x++) {
+
+		    r[yi] = dv[rsum];
+		    g[yi] = dv[gsum];
+		    b[yi] = dv[bsum];
+
+		    rsum -= routsum;
+		    gsum -= goutsum;
+		    bsum -= boutsum;
+
+		    stackstart = stackpointer - radius + div;
+		    sir = stack[stackstart % div];
+
+		    routsum -= sir[0];
+		    goutsum -= sir[1];
+		    boutsum -= sir[2];
+
+		    if (y == 0) {
+		     vmin[x] = Math.min(x + radius + 1, wm);
+		    }
+		    p = pix[yw + vmin[x]];
+
+		    sir[0] = (p & 0xff0000) >> 16;
+		    sir[1] = (p & 0x00ff00) >> 8;
+		    sir[2] = (p & 0x0000ff);
+
+		    rinsum += sir[0];
+		    ginsum += sir[1];
+		    binsum += sir[2];
+
+		    rsum += rinsum;
+		    gsum += ginsum;
+		    bsum += binsum;
+
+		    stackpointer = (stackpointer + 1) % div;
+		    sir = stack[(stackpointer) % div];
+
+		    routsum += sir[0];
+		    goutsum += sir[1];
+		    boutsum += sir[2];
+
+		    rinsum -= sir[0];
+		    ginsum -= sir[1];
+		    binsum -= sir[2];
+
+		    yi++;
+		   }
+		   yw += w;
+		  }
+		  for (x = 0; x < w; x++) {
+		   rinsum = ginsum = binsum = routsum = goutsum = boutsum = rsum = gsum = bsum = 0;
+		   yp = -radius * w;
+		   for (i = -radius; i <= radius; i++) {
+		    yi = Math.max(0, yp) + x;
+
+		    sir = stack[i + radius];
+
+		    sir[0] = r[yi];
+		    sir[1] = g[yi];
+		    sir[2] = b[yi];
+
+		    rbs = r1 - Math.abs(i);
+
+		    rsum += r[yi] * rbs;
+		    gsum += g[yi] * rbs;
+		    bsum += b[yi] * rbs;
+
+		    if (i > 0) {
+		     rinsum += sir[0];
+		     ginsum += sir[1];
+		     binsum += sir[2];
+		    } else {
+		     routsum += sir[0];
+		     goutsum += sir[1];
+		     boutsum += sir[2];
+		    }
+
+		    if (i < hm) {
+		     yp += w;
+		    }
+		   }
+		   yi = x;
+		   stackpointer = radius;
+		   for (y = 0; y < h; y++) {
+		    // Preserve alpha channel: ( 0xff000000 & pix[yi] )
+		    pix[yi] = (0xff000000 & pix[yi]) | (dv[rsum] << 16)
+		      | (dv[gsum] << 8) | dv[bsum];
+
+		    rsum -= routsum;
+		    gsum -= goutsum;
+		    bsum -= boutsum;
+
+		    stackstart = stackpointer - radius + div;
+		    sir = stack[stackstart % div];
+
+		    routsum -= sir[0];
+		    goutsum -= sir[1];
+		    boutsum -= sir[2];
+
+		    if (x == 0) {
+		     vmin[y] = Math.min(y + r1, hm) * w;
+		    }
+		    p = x + vmin[y];
+
+		    sir[0] = r[p];
+		    sir[1] = g[p];
+		    sir[2] = b[p];
+
+		    rinsum += sir[0];
+		    ginsum += sir[1];
+		    binsum += sir[2];
+
+		    rsum += rinsum;
+		    gsum += ginsum;
+		    bsum += binsum;
+
+		    stackpointer = (stackpointer + 1) % div;
+		    sir = stack[stackpointer];
+
+		    routsum += sir[0];
+		    goutsum += sir[1];
+		    boutsum += sir[2];
+
+		    rinsum -= sir[0];
+		    ginsum -= sir[1];
+		    binsum -= sir[2];
+
+		    yi += w;
+		   }
+		  }
+
+		  Log.e("pix", w + " " + h + " " + pix.length);
+		  bitmap.setPixels(pix, 0, w, 0, 0, w, h);
+
+		  return (bitmap);
+		 }
+
 	public static void drawBitmap(SurfaceHolder holder,Bitmap bmp){
 		Canvas canvas=holder.lockCanvas();
 		canvas.drawBitmap(bmp, 0, 0, null);
-		HandlePictureActivity.handlingBmp=bmp;
+//		HandlePictureActivity.handlingBmp=bmp;
 		holder.unlockCanvasAndPost(canvas);
 	}
 	public static Bitmap getBitmapFromSurfaceView(SurfaceView view){
@@ -246,6 +457,24 @@ public class ImageUtil {
 		Canvas canvas=new Canvas(bmp);
 		view.draw(canvas);
 		return bmp;
+	}
+	public static Bitmap getBitmapFromView(View view,Context context){
+		long l1=System.currentTimeMillis();
+		Bitmap bmp=Bitmap.createBitmap(view.getWidth(),view.getHeight(),Config.ARGB_8888);
+		
+		ByteArrayOutputStream baos=new ByteArrayOutputStream();
+		
+		Canvas canvas=new Canvas(bmp);
+		view.draw(canvas);
+//		bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//		byte[] pixls=baos.toByteArray();
+//		BitmapFactory.Options opts=new BitmapFactory.Options();
+//		opts.inSampleSize=2;
+		LogUtil.i("scroll",""+( System.currentTimeMillis()-l1));
+//		return BitmapFactory.decodeByteArray(pixls, 0,baos.size(), opts);
+		Bitmap newImg = com.aidigame.hisun.pet.blur.Blur.fastblur(context, bmp, 18);
+		return newImg;
+		
 	}
 
 

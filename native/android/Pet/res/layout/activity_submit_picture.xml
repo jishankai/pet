@@ -2,21 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" >
+    android:background="@drawable/submit_background" >
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/black_light" >
+        android:layout_alignParentTop="true" >
 
         <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/back_white"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="13dp"/>
+         <ImageView
             android:id="@+id/button1"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/back"/>
+            android:background="#00000000"/>
 
         <TextView
             android:id="@+id/textView1"
@@ -28,36 +33,58 @@
             android:text="投稿"
             android:textSize="16sp" 
             android:visibility="gone"/>
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+  <Button
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:padding="10dp"
             android:layout_marginRight="15dp"
-            android:text="投稿" 
-            android:textColor="@color/white"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/delete"/>
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:padding="5dp"
+            android:layout_marginRight="15dp"
             android:background="#00000000"/>
+      
 
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_height="match_parent"
         android:layout_below="@+id/relativeLayout1"
-        android:src="@drawable/ic_launcher"
-        android:scaleType="fitXY" 
+        android:scaleType="fitCenter" 
         android:layout_above="@+id/linearLayout1"/>
+                <LinearLayout
+        android:id="@+id/progress_linearlayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_above="@+id/linearLayout1"
+        android:background="#00000000">
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/button4"
         android:layout_alignParentLeft="true" 
-        android:background="@color/gray_light">
+        android:background="@drawable/button_white"
+         android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="2dp">
 
         <Button
             android:id="@+id/button2"
@@ -70,16 +97,95 @@
         <EditText
             android:id="@+id/editText1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+           
+            android:layout_height="65dp"
             android:layout_weight="1" 
             android:hint="为您的爱宠的靓照写个描述吧~"
-            android:background="@color/black_light"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingRight="10dp"
-            android:textColor="@color/white">
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:gravity="top|left"
+            android:background="@null">
         </EditText>
+
+        
+
+    </LinearLayout>
+    <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_above="@+id/share"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="发布" 
+            android:layout_marginBottom="2dp"/>
+    <LinearLayout 
+        android:id="@+id/share"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:background="@drawable/white_frame"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="60dp">
+        <LinearLayout 
+            android:id="@+id/xinlang_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="#50ffffff">
+
+            <ImageView
+                android:id="@+id/xinlang"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/xinlang_gray" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="新浪微博"
+                android:layout_marginLeft="5dp" />
+
+        </LinearLayout>
+        <View android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#ffffff"/>
+        <LinearLayout 
+            android:id="@+id/weixin_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="#50ffffff">
+
+            <ImageView
+                android:id="@+id/weixin1"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/weixin_gray" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信朋友圈"
+                android:layout_marginLeft="5dp" />
+
+        </LinearLayout>
+        
     </LinearLayout>
 
     <TextView

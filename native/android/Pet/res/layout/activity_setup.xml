@@ -15,14 +15,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/gray_light" 
+        android:background="@color/white" 
         android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/back" />
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/back" 
+            android:padding="8dp"
+            />
 
         <TextView
             android:id="@+id/textView2"
@@ -31,14 +33,15 @@
             android:layout_weight="1"
             android:text="账号设置" 
             android:textSize="20sp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:layout_marginRight="15dp"/>
         
     </LinearLayout>
     
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="55dp" 
-        android:background="@color/gray_deep">
+        android:background="@color/gray_light">
 
         <TextView
             android:id="@+id/textView1"
@@ -56,7 +59,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@color/white" >
 
         <ImageView
             android:id="@+id/imageView2"
@@ -74,14 +78,22 @@
             android:layout_centerVertical="true"
             android:text="新浪微博" />
 
-        <ImageView
-            android:id="@+id/imageView3"
+       <!--  <ImageView
+            android:id="@+id/setup_imageview1"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="39dp"
-            android:src="@drawable/back" />
+            android:src="@drawable/right" /> -->
+            <ImageView
+                android:id="@+id/setup_imageview1"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="39dp"
+            android:src="@drawable/unchecked"/>
 
 
 
@@ -95,7 +107,9 @@
             android:layout_marginBottom="5dp"/>
         <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:visibility="gone" >
                         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="42dp"
@@ -112,19 +126,27 @@
             android:layout_toRightOf="@+id/imageView4"
             android:text="微信" />
 
-        <ImageView
-            android:id="@+id/imageView5"
+        <!-- <ImageView
+            android:id="@+id/setup_imageview2"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="39dp"
-            android:src="@drawable/back" />
+            android:src="@drawable/right" /> -->
+             <ImageView
+                android:id="@+id/setup_imageview2"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="39dp"
+            android:src="@drawable/unchecked" />
         </RelativeLayout>
             <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="55dp" 
-        android:background="@color/gray_deep">
+        android:background="@color/gray_light">
 
         <TextView
             android:id="@+id/textView1"
@@ -142,7 +164,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@color/white" >
 
         <ImageView
             android:id="@+id/imageView2"
@@ -161,13 +184,13 @@
             android:text="新浪微博" />
 
         <ImageView
-            android:id="@+id/imageView7"
+                android:id="@+id/setup_imageview3"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="39dp"
-            android:src="@drawable/back" />
+            android:layout_marginRight="39dp" 
+            android:src="@drawable/unchecked"/>
 
 
 
@@ -181,7 +204,8 @@
             android:layout_marginBottom="5dp"/>
         <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@color/white" >
                         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="42dp"
@@ -199,18 +223,18 @@
             android:text="微信朋友圈" />
 
         <ImageView
-            android:id="@+id/imageView8"
+                android:id="@+id/setup_imageview4"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="39dp"
-            android:src="@drawable/back" />
+            android:src="@drawable/unchecked" />
         </RelativeLayout>
                     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="95dp" 
-        android:background="@color/gray_deep">
+        android:background="@color/gray_light">
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
@@ -235,14 +259,16 @@
 
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/account_visibility_relativelayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="@color/white" >
                         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/setup_acount_image"
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/friend_weixin" 
+            android:src="@drawable/eye_acount" 
             android:layout_marginLeft="19dp"/>
 
         <TextView
@@ -250,29 +276,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imageView4"
+            android:layout_toRightOf="@+id/setup_acount_image"
             android:text="账号可见性" />
                 <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tv_acount_visibilty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/imageView9"
+            android:layout_toLeftOf="@+id/setup_imageview5"
             android:text="我关注的人" />
 
         <ImageView
-            android:id="@+id/imageView9"
+            android:id="@+id/setup_imageview5"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="39dp"
-            android:src="@drawable/back" />
+            android:src="@drawable/right" />
         </RelativeLayout>
         <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        android:background="@color/gray_deep"
+        android:background="@color/gray_light"
         android:layout_weight="1">
         <TextView
             android:id="@+id/textView1"

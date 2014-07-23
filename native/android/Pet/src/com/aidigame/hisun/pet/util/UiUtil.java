@@ -1,24 +1,36 @@
 package com.aidigame.hisun.pet.util;
 
+import com.aidigame.hisun.pet.constant.Constants;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
 public class UiUtil {
 	/**
-	 * 设置屏幕 全屏 方向 是否有Title
+	 * 鐣岄潰閫氱敤璁剧疆
 	 * @param context
 	 */
 	public static void setScreenInfo(Context context){
 		Activity activity=(Activity)context;
-		//竖屏显示
-//		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		//没有标题
+		//鍨傜洿鏄剧ず
+		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		//娌℃湁鏍囬
 		activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		//全屏显示
-		activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		//鍏ㄥ睆鏄剧ず
+//		activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+	}
+	public static void setWidthAndHeight(Activity activity){
+		DisplayMetrics dm=new DisplayMetrics();
+		activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+		Constants.screen_width=dm.widthPixels;
+		Constants.screen_height=dm.heightPixels;
+		
+		LogUtil.i("me", "Constants.screen_width="+Constants.screen_width+",Constants.screen_height="+Constants.screen_height);
 	}
 
 }
