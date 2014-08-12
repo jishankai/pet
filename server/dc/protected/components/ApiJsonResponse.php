@@ -67,7 +67,7 @@ class ApiJsonResponse
     {
         $this->state = self::STATE_ERROR;
         $this->errorCode = -1;
-        if ($exception instanceof BPException) {
+        if ($exception instanceof PException) {
             $this->errorMessage = $exception->getMessage();
         } else {
             $this->errorMessage = YII_DEBUG ? $exception->__toString() : "System Exception";
@@ -114,11 +114,12 @@ class ApiJsonResponse
             'data' => $this->data,
             'currentTime' => time(),
         ), JSON_NUMERIC_CHECK);
+
         if($return){
             return $json;
         }else{
-	    Yii::trace($json, 'json');
-            echo $json;
+            Yii::trace($json, 'json');
+            echo urldecode($json);
         }
     }
 }

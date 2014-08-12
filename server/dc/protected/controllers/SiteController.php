@@ -92,6 +92,7 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
+                Yii::app()->user->setReturnUrl(array('site/index'));
 				$this->redirect(Yii::app()->user->returnUrl);
 		}
 		// display the login form
@@ -110,5 +111,43 @@ class SiteController extends Controller
     public function actionApi()
     {
         $this->render('api');
+    }
+
+    public function actionClear()
+    {
+        /*
+        Yii::app()->db->createCommand('DELETE FROM dc_device WHERE 1')->execute();
+        Yii::app()->db->createCommand('DELETE FROM dc_user WHERE 1')->execute();
+         */
+    }
+
+    public function actionClearUser($name)
+    {
+        $usr_id = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $name)->queryScalar();
+        Yii::app()->db->createCommand('UPDATE dc_device SET usr_id=NULL WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->execute();
+        echo '成功啦！';
+    }
+
+    public function actionReplaceUser($from, $to)
+    {
+        $from_id = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $from)->queryScalar();
+        $to_id = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $to)->queryScalar();
+        if (isset($to_id)) {
+            Yii::app()->db->createCommand('UPDATE dc_device SET usr_id=:to WHERE usr_id=:from')->bindValues(array(':from'=>$from_id, ':to'=>$to_id))->execute();
+            echo '成功啦！';
+        } else {
+            echo '失败了...';
+        }
+    }
+    public function actionRepair()
+    {
+        $images = Image::model()->findAll();
+        foreach ($images as $image) {
+            $c = new Comment;
+            $c->img_id = $image->img_id;
+            $c->create_time = time();
+
+            $c->save();
+        }
     }
 }
