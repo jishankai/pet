@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'dc_image':
  * @property string $img_id
- * @property string $usr_id
+ * @property string $aid
  * @property string $topic_id
  * @property string $cmt
  * @property string $url
@@ -17,20 +17,10 @@
  * @property integer $is_deleted
  *
  * The followings are the available model relations:
- * @property User $usr
+ * @property Animal $a
  */
 class Image extends CActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return Image the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
-
 	/**
 	 * @return string the associated database table name
 	 */
@@ -48,11 +38,11 @@ class Image extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('is_deleted', 'numerical', 'integerOnly'=>true),
-			array('usr_id, topic_id, likes, create_time', 'length', 'max'=>10),
+			array('aid, topic_id, likes, create_time', 'length', 'max'=>10),
 			array('cmt, url', 'length', 'max'=>255),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('img_id, usr_id, topic_id, cmt, url, likes, likers, comments, create_time, update_time, is_deleted', 'safe', 'on'=>'search'),
+			// @todo Please remove those attributes that should not be searched.
+			array('img_id, aid, topic_id, cmt, url, likes, likers, comments, create_time, update_time, is_deleted', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,14 +54,14 @@ class Image extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'usr' => array(self::BELONGS_TO, 'User', 'usr_id'),
+			'a' => array(self::BELONGS_TO, 'Animal', 'aid'),
 		);
 	}
 
     public function behaviors()
     {
         return array(
-            'behavior' => 'ImageBehavior',
+            //'behavior' => 'ImageBehavior',
         );
     }
 
@@ -82,7 +72,7 @@ class Image extends CActiveRecord
 	{
 		return array(
 			'img_id' => '图片编号',
-			'usr_id' => '用户编号',
+			'aid' => '宠物编号',
 			'topic_id' => '活动编号',
 			'cmt' => '说明',
 			'url' => '地址',
@@ -97,17 +87,24 @@ class Image extends CActiveRecord
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 *
+	 * Typical usecase:
+	 * - Initialize the model fields with values from filter form.
+	 * - Execute this method to get CActiveDataProvider instance which will filter
+	 * models according to data in model fields.
+	 * - Pass data provider to CGridView, CListView or any similar widget.
+	 *
+	 * @return CActiveDataProvider the data provider that can return the models
+	 * based on the search/filter conditions.
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('img_id',$this->img_id,true);
-		$criteria->compare('usr_id',$this->usr_id,true);
+		$criteria->compare('aid',$this->aid,true);
 		$criteria->compare('topic_id',$this->topic_id,true);
 		$criteria->compare('cmt',$this->cmt,true);
 		$criteria->compare('url',$this->url,true);
@@ -121,5 +118,16 @@ class Image extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-    }
+	}
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return Image the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
 }

@@ -1,29 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "dc_item".
+ * This is the model class for table "dc_news".
  *
- * The followings are the available columns in table 'dc_item':
- * @property string $item_id
- * @property string $name
- * @property string $icon
- * @property string $desc
- * @property string $img
- * @property string $price
- * @property integer $rq
- * @property integer $exp
+ * The followings are the available columns in table 'dc_news':
+ * @property string $nid
+ * @property string $aid
  * @property integer $type
+ * @property string $content
  * @property string $create_time
  * @property string $update_time
+ *
+ * The followings are the available model relations:
+ * @property Animal $a
  */
-class Item extends CActiveRecord
+class News extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'dc_item';
+		return 'dc_news';
 	}
 
 	/**
@@ -34,12 +32,12 @@ class Item extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('rq, exp, type', 'numerical', 'integerOnly'=>true),
-			array('name, icon, img', 'length', 'max'=>255),
-			array('price, create_time', 'length', 'max'=>10),
+			array('type', 'numerical', 'integerOnly'=>true),
+			array('aid, create_time', 'length', 'max'=>10),
+			array('content', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('item_id, name, icon, desc, img, price, rq, exp, type, create_time, update_time', 'safe', 'on'=>'search'),
+			array('nid, aid, type, content, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,13 +49,14 @@ class Item extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'a' => array(self::BELONGS_TO, 'Animal', 'aid'),
 		);
 	}
 
     public function behaviors()
     {
         return array(
-            //'behavior' => 'ItemBehavior',
+            //'behavior' => 'NewsBehavior',
         );
     }
 
@@ -67,15 +66,10 @@ class Item extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'item_id' => '物品编号',
-			'name' => '名称',
-			'icon' => '标志',
-			'desc' => '描述',
-			'img' => '图片地址',
-			'price' => '价格',
-			'rq' => '人气变化',
-			'exp' => '增加经验',
+			'nid' => '通知编号',
+			'aid' => '宠物编号',
 			'type' => '类别',
+			'content' => '内容',
 			'create_time' => '创建时间',
 			'update_time' => '更新时间',
 		);
@@ -99,15 +93,10 @@ class Item extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('item_id',$this->item_id,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('icon',$this->icon,true);
-		$criteria->compare('desc',$this->desc,true);
-		$criteria->compare('img',$this->img,true);
-		$criteria->compare('price',$this->price,true);
-		$criteria->compare('rq',$this->rq);
-		$criteria->compare('exp',$this->exp);
+		$criteria->compare('nid',$this->nid,true);
+		$criteria->compare('aid',$this->aid,true);
 		$criteria->compare('type',$this->type);
+		$criteria->compare('content',$this->content,true);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 
@@ -120,7 +109,7 @@ class Item extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Item the static model class
+	 * @return News the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

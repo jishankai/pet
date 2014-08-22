@@ -2,21 +2,40 @@
 
 class DeviceBehavior extends CActiveRecordBehavior
 {
-    public function register($weibo, $wechat, $name, $gender, $age, $type, $inviter)
+    public function register($aid, $name, $gender, $age, $type, $u_name, $u_gender, $u_city, $inviter)
     {
+        
         $user = new User();
         
-        $user->weibo = $weibo;
-        $user->wechat = $wechat;
-        $user->name = $name;
-        $user->gender = $gender;
-        $user->age = $age;
-        $user->type = $type;
+        $user->name = $u_name;
+        $user->gender = $u_gender;
+        $user->city = $u_city;
         $user->code = $this->createInviteCode();
         $user->inviter = $inviter;
                 
         $user->save();
 
+        if (!isset($aid)) {
+            $animal = new Animal();
+            $animal->name = $name;
+            $animal->gender = $gender;
+            $animal->age = $age;
+            $animal->type = $type;
+            $animal->master_id = $user->usr_id;
+            $animal->save();
+            $session = Yii::app()->session;
+            $aid = $animal->aid = $animal->aid + 10000000000*$session['planet'];
+            $animal->saveAttributes(array('aid'));
+        }
+        $circle = new Circle();
+        $circle->aid = $aid;
+        $circle->usr_id = $user->usr_id;
+        $circle->rank = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_circle WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar() + 1; 
+        $circle->save();
+
+        $user->aid = $aid;
+        $user->saveAttributes(array('aid'));
+        
         $user->initialize();
         $user->rewardInviter();
         //$this->onRegister = array($user, 'initialize');

@@ -33,7 +33,7 @@ class ImageController extends Controller
         );
     }
 
-    public function actionUploadApi()
+    public function actionUploadApi($aid)
     {
         $model = new Image;
 
@@ -49,9 +49,9 @@ class ImageController extends Controller
         if ($cmtlen>40) {
             throw new PException('描述不合要求');
         }
-        
-        if (isset($_FILES['image'])) {
-            $model->usr_id = $this->usr_id;
+
+        if (isset($_FILES['image'])&&isset($aid)) {
+            $model->aid = $aid;
             $model->cmt = $_POST['comment'];
             preg_match("/#\s*([^#]*)\s*#/",$_POST['comment'],$matches);
             #Yii::trace($_POST['comment'].$matches[0].'...'.$matches[1], 'access');
@@ -69,13 +69,13 @@ class ImageController extends Controller
                 }
             }
             $model->create_time = time();
-            $img_count = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryScalar();
+            $img_count = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
 
             $fname = basename($_FILES['image']['name']);
             #$success = Yii::app()->s3->upload( $_FILES['image']['tmp_name'], 'upload/'.$fname, 'pet4jishankaitest' );
-            $path = Yii::app()->basePath.'/../images/upload/'.$model->usr_id.'_'.$img_count.'.'.$fname;
+            $path = Yii::app()->basePath.'/../images/upload/'.$model->aid.'_'.$img_count.'.'.$fname;
             if (move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
-                $model->url = $model->usr_id.'_'.$img_count.'.'.$fname;
+                $model->url = $model->aid.'_'.$img_count.'.'.$fname;
                 $model->save();
                 
                 //events
@@ -166,19 +166,16 @@ class ImageController extends Controller
 
     public function actionFavoriteApi($img_id=NULL)
     {
-        $follow_1 = Yii::app()->db->createCommand('SELECT follow_id FROM dc_friend WHERE usr_id = :usr_id AND relation IN (0,1)')->bindValue(':usr_id', $this->usr_id)->queryColumn();
-        $follow_2 = Yii::app()->db->createCommand('SELECT usr_id FROM dc_friend WHERE follow_id = :usr_id AND relation IN (0,-1)')->bindValue(':usr_id', $this->usr_id)->queryColumn();
-
-        $follow_ids = array_merge($follow_1, $follow_2);
+        $follow_ids = Yii::app()->db->createCommand('SELECT aid FROM dc_follow WHERE usr_id=:usr_id')->bindValue(':usr_id',$this->usr_id)->queryColumn();
 
         $c = new CDbCriteria;
-        $c->compare('t.usr_id', $follow_ids);
+        $c->compare('t.aid', $follow_ids);
         $c->limit = 10;
         $c->order = 'img_id DESC';
         if(isset($img_id)) {
             $c->compare('img_id', '<'.$img_id);
         }
-        $imgs = Image::model()->with('usr')->findAll($c);
+        $imgs = Image::model()->with('a')->findAll($c);
         /*
         $images = array();
         foreach ($imgs as $img) {

@@ -32,6 +32,7 @@ return array(
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			//'ipFilters'=>array('0.0.0.0','::1'),
             'ipFilters'=>false,
+            'generatorPaths'=>array('application.gii'),
 		),
 	),
 
