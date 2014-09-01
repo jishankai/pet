@@ -53,6 +53,7 @@ class ImageController extends Controller
         if (isset($_FILES['image'])&&isset($aid)) {
             $model->aid = $aid;
             $model->cmt = $_POST['comment'];
+            /*
             preg_match("/#\s*([^#]*)\s*#/",$_POST['comment'],$matches);
             #Yii::trace($_POST['comment'].$matches[0].'...'.$matches[1], 'access');
             if (isset($matches[1])) {
@@ -66,7 +67,20 @@ class ImageController extends Controller
                 //Yii::trace('topic:'.$topic_id.$matches[1].$topic->topic_id, 'access');
                 if (isset($topic)) {
                     $model->topic_id = $topic->topic_id;
+                    $model->topic_name = $topic->name;
+                } else {
+                    $model->topic_name = $matches[1];
                 }
+            }
+             */
+            if (isset($_POST['topic_id'])) {
+                $model->topic_id = $_POST['topic_id'];
+                $model->topic_name = $_POST['topic_name'];
+            } else {
+                $model->topic_name = $_POST['topic_name'];
+            }
+            if (isset($_POST['relates'])) {
+                $model->relates = $_POST['relates'];
             }
             $model->create_time = time();
             $img_count = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
@@ -204,12 +218,23 @@ class ImageController extends Controller
         $dependency->params[':img_id'] = $img_id;
         $image = Image::model()->cache(3600, $dependency)->findByPk($img_id);
 
+        $is_follow = Yii::app()->db->createCommand('SELECT aid FROM dc_follow WHERE aid=:aid AND usr_id=:usr_id ')->bindValues(array(
+            ':aid' => $image->aid,
+            ':usr_id' => $this->usr_id,
+        ))->queryScalar();
+
         if (isset($image->likers)&&$image->likers!='') {
             $liker_tx = Yii::app()->db->createCommand("SELECT tx FROM dc_user WHERE usr_id IN ($image->likers)")->queryColumn();
         }
         
+        if (isset($image->senders)&&$image->senders!='') {
+            $liker_tx = Yii::app()->db->createCommand("SELECT tx FROM dc_user WHERE usr_id IN ($image->senders)")->queryColumn();
+        }
+        
         $this->echoJsonData(array(
             'image'=>$image,
+            'is_follow'=>isset($is_follow)?TRUE:FALSE,
+            'sender_tx'=>isset($sender_tx)?$sender_tx:NULL,
             'liker_tx'=>isset($liker_tx)?$liker_tx:NULL,
         )); 
     }
@@ -230,8 +255,13 @@ class ImageController extends Controller
             'create_time' => time(),
         );
          */
-
-        $image->comments = $image->comments.';'.'usr_id:'.$this->usr_id.','.'name:'.$user->name.','.'body:'.$body.','.'create_time:'.time();
+        if (isset($_POST['reply_id'])) {
+            $image->comments = $image->comments.';'.'usr_id:'.$this->usr_id.','.'name:'.$user->name.','.'reply_id:'.$_POST['reply_id'].','.'reply_name'.$_POST['reply_name'].','.'body:'.$body.','.'create_time:'.time();
+            PMail::create($_POST['reply_id'], $user, $user->name.'在'.$image->img_id.'回复了你');
+        } else {
+            $image->comments = $image->comments.';'.'usr_id:'.$this->usr_id.','.'name:'.$user->name.','.'body:'.$body.','.'create_time:'.time();
+        }
+        
 
         if ($image->saveAttributes(array('comments'))) {
             $this->echoJsonData(array('isSuccess'=>TRUE));

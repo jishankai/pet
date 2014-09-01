@@ -7,7 +7,10 @@
  * @property string $aid
  * @property string $usr_id
  * @property string $rank
- * @property string $contri
+ * @property string $t_contri
+ * @property string $d_contri
+ * @property string $w_contri
+ * @property string $m_contri
  * @property string $create_time
  * @property string $update_time
  */
@@ -29,10 +32,10 @@ class Circle extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('aid, usr_id, rank, contri, create_time', 'length', 'max'=>10),
+			array('aid, usr_id, rank, t_contri, d_contri, w_contri, m_contri,  create_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('aid, usr_id, rank, contri, create_time, update_time', 'safe', 'on'=>'search'),
+			array('aid, usr_id, rank, t_contri, d_contri, w_contri, m_contri, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,7 +66,10 @@ class Circle extends CActiveRecord
 			'aid' => '宠物编号',
 			'usr_id' => '用户编号',
 			'rank' => '人气排名',
-			'contri' => '贡献度',
+			't_contri' => '贡献度',
+			'd_contri' => '贡献度',
+			'w_contri' => '贡献度',
+			'm_contri' => '贡献度',
 			'create_time' => '创建时间',
 			'update_time' => '更新时间',
 		);
@@ -90,7 +96,10 @@ class Circle extends CActiveRecord
 		$criteria->compare('aid',$this->aid,true);
 		$criteria->compare('usr_id',$this->usr_id,true);
 		$criteria->compare('rank',$this->rank,true);
-		$criteria->compare('contri',$this->contri,true);
+		$criteria->compare('t_contri',$this->contri,true);
+		$criteria->compare('d_contri',$this->contri,true);
+		$criteria->compare('w_contri',$this->contri,true);
+		$criteria->compare('m_contri',$this->contri,true);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 

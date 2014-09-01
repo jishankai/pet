@@ -11,6 +11,7 @@
  * @property integer $from
  * @property integer $type
  * @property integer $age
+ * @property string $address
  * @property string $master_id
  * @property string $items
  * @property integer $d_rq
@@ -44,11 +45,12 @@ class Animal extends CActiveRecord
 		return array(
 			array('gender, from, type, age, d_rq, w_rq, m_rq, t_rq', 'numerical', 'integerOnly'=>true),
 			array('name, tx', 'length', 'max'=>45),
+            array('address, items', 'length', 'max'=>255),
 			array('master_id, create_time', 'length', 'max'=>10),
 			array('items', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('aid, name, tx, gender, from, type, age, master_id, items, d_rq, w_rq, m_rq, t_rq, create_time, update_time', 'safe', 'on'=>'search'),
+			array('aid, name, tx, gender, from, type, age, address, master_id, items, d_rq, w_rq, m_rq, t_rq, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -85,6 +87,7 @@ class Animal extends CActiveRecord
 			'from' => '星球',
 			'type' => '种族',
 			'age' => '年龄',
+            'address' => '邮寄地址',
 			'master_id' => '主人编号',
 			'items' => '礼物',
 			'd_rq' => '日人气',
@@ -121,6 +124,7 @@ class Animal extends CActiveRecord
 		$criteria->compare('from',$this->from);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('age',$this->age);
+        $criteria->compare('address',$this->address,true);
 		$criteria->compare('master_id',$this->master_id,true);
 		$criteria->compare('items',$this->items,true);
 		$criteria->compare('d_rq',$this->d_rq);

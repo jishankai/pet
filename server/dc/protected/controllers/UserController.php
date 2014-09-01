@@ -81,12 +81,14 @@ class UserController extends Controller
         )); 
     }
 
+    /*
     public function actionTypeApi()
     {
         $type = Util::loadConfig('pet_type');
 
         $this->echoJsonData($type);
     }
+     */
 
     public function actionBindApi($weibo=NULL, $wechat=NULL)
     {
@@ -175,9 +177,10 @@ class UserController extends Controller
         if (!isset($usr_id) or $usr_id='') {
            $usr_id = $this->usr_id; 
         }
-        $user = User::model()->with('value')->findByPk($usr_id);
 
-        $this->echoJsonData(array($user));
+        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, a.aid, a.name, a.tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+
+        $this->echoJsonData(array($r));
     }
 
     public function actionTxApi()
@@ -196,13 +199,33 @@ class UserController extends Controller
         $this->echoJsonData(array('tx'=>$user->tx));
     }
 
-    public function actionOthersApi($usr_ids)
+    public function actionOthersApi($usr_ids, $usr_id=NULL)
     {
+        /*
         $c = new CDbCriteria;
         $c->compare('usr_id', explode(',',$usr_ids));
         $users = User::model()->findAll($c);
 
         $this->echoJsonData(array($users));
+         */
+        $tmp_ids = explode(',',$usr_ids);
+        if (isset($usr_id)) {
+            foreach ($tmp_ids as $k=>$tmp_id) {
+                if ($tmp_id!=$usr_id) {
+                    unset($tmp_ids[$k]);
+                } else {
+                    break;
+                }
+            }
+        }
+        for ($i = 0; $i < 30 && isset($tmp_ids[$i]); $i++) {
+            $search_ids[] = $tmp_ids[$i];
+        }
+        $search_ids = implode(',', $search_ids);
+
+        $r = Yii::app()->db->createCommand('SELECT usr_id, name, tx, city, gender FROM dc_user WHERE usr_id IN (:usr_ids)')->bindValue(':usr_ids', $search_ids)->queryAll();
+
+        $this->echoJsonData($r);
     }
 
     public function actionNotifyApi()
@@ -214,5 +237,50 @@ class UserController extends Controller
             'mail_count' => $mail_n,
             'topic_count' => $topic_n,
         ));
+    }
+
+    public function actionPetsApi($usr_id)
+    {
+        if (!isset($usr_id) or $usr_id='') {
+           $usr_id = $this->usr_id; 
+        }
+        
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.d_rq, c.t_contri, COUNT(n.nid) AS news_count, COUNT(c1.usr_id) FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid LEFT JOIN dc_circle c1 ON c.aid=c1.aid LEFT JOIN dc_news n ON a.aid=n.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+
+        $this->echoJsonData($r);
+    }
+
+    public function actionFollowingApi($usr_id)
+    {
+        if (!isset($usr_id) or $usr_id='') {
+           $usr_id = $this->usr_id; 
+        }
+
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.age, a.gender, a.t_rq, u.name FROM dc_follow f LEFT JOIN dc_animal a ON f.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE f.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+
+        $this->echoJsonData($r);
+    }
+
+    public function actionTopicApi($usr_id)
+    {
+        if (!isset($usr_id) or $usr_id='') {
+           $usr_id = $this->usr_id; 
+        }
+
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.topic_name, i.create_time, t.name FROM dc_follow f LEFT JOIN dc_image i ON f.aid=i.aid WHERE f.usr_id=:usr_id AND i.topic_name<>""')->bindValue(':usr_id', $usr_id)->queryAll();
+
+        $this->echoJsonData($r);
+    }
+
+    public function actionItemsApi($usr_id)
+    {
+        if (!isset($usr_id) or $usr_id='') {
+           $usr_id = $this->usr_id; 
+        }
+
+        $i = Yii::app()->db->createCommand('SELECT items FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryScalar();
+        $r = unserialize($i);
+
+        $this->echoJsonData($r);
     }
 }

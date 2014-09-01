@@ -15,6 +15,7 @@
  * @property string $exp
  * @property string $lv
  * @property string $gold
+ * @property string $items
  * @property string $con_login
  * @property string $login_time
  * @property string $vip
@@ -51,11 +52,12 @@ class User extends CActiveRecord
 		return array(
 			array('gender, city, age', 'numerical', 'integerOnly'=>true),
 			array('name, tx, weibo, qq', 'length', 'max'=>45),
-			array('exp, lv, gold, con_login, login_time, vip, aid, inviter, create_time', 'length', 'max'=>10),
+            array('exp, lv, gold, con_login, login_time, vip, aid, inviter, create_time', 'length', 'max'=>10),
+            array('items', 'length', 'max'=>255),
 			array('code', 'length', 'max'=>6),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('usr_id, name, tx, gender, city, weibo, qq, age, exp, lv, gold, con_login, login_time, vip, aid, code, inviter, create_time, update_time', 'safe', 'on'=>'search'),
+			array('usr_id, name, tx, gender, city, weibo, qq, age, exp, lv, gold, items, con_login, login_time, vip, aid, code, inviter, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -98,7 +100,8 @@ class User extends CActiveRecord
 			'age' => '年龄',
 			'exp' => '经验',
 			'lv' => '等级',
-			'gold' => '金币',
+            'gold' => '金币',
+            'items' => '道具',
 			'con_login' => '连续登录时间',
 			'login_time' => '上次登录时间',
 			'vip' => 'VIP值',
@@ -139,6 +142,7 @@ class User extends CActiveRecord
 		$criteria->compare('exp',$this->exp,true);
 		$criteria->compare('lv',$this->lv,true);
 		$criteria->compare('gold',$this->gold,true);
+		$criteria->compare('items',$this->items,true);
 		$criteria->compare('con_login',$this->con_login,true);
 		$criteria->compare('login_time',$this->login_time,true);
 		$criteria->compare('vip',$this->vip,true);

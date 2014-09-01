@@ -29,6 +29,7 @@ class Talk extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('usra_id, usrb_id, create_time', 'length', 'max'=>10),
+			array('content', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('usra_id, usrb_id, content, create_time, update_time', 'safe', 'on'=>'search'),
