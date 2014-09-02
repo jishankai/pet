@@ -133,12 +133,12 @@ class UserController extends Controller
         if (empty($device)) {
             throw new PException('未登录');
         }
+        $pattern = '/^[a-zA-Z0-9\x{30A0}-\x{30FF}\x{3040}-\x{309F}\x{4E00}-\x{9FBF}]+$/u';
         if (!empty($aid)) {
             $namelen = (strlen($name)+mb_strlen($name,"UTF8"))/2;
             if ($namelen>8) {
                 throw new PException('宠物昵称超过最大长度');
             }
-            $pattern = '/^[a-zA-Z0-9\x{30A0}-\x{30FF}\x{3040}-\x{309F}\x{4E00}-\x{9FBF}]+$/u';
             if (!preg_match($pattern, $name)) {
                 throw new PException('宠物昵称含有特殊字符');
             }
@@ -174,11 +174,11 @@ class UserController extends Controller
 
     public function actionInfoApi($usr_id)
     {
-        if (!isset($usr_id) or $usr_id='') {
+        if (!isset($usr_id) or $usr_id=='') {
            $usr_id = $this->usr_id; 
         }
 
-        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, a.aid, a.name, a.tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, a.aid, a.name AS a_name, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
 
         $this->echoJsonData(array($r));
     }
@@ -241,7 +241,7 @@ class UserController extends Controller
 
     public function actionPetsApi($usr_id)
     {
-        if (!isset($usr_id) or $usr_id='') {
+        if (!isset($usr_id) or $usr_id=='') {
            $usr_id = $this->usr_id; 
         }
         
@@ -252,7 +252,7 @@ class UserController extends Controller
 
     public function actionFollowingApi($usr_id)
     {
-        if (!isset($usr_id) or $usr_id='') {
+        if (!isset($usr_id) or $usr_id=='') {
            $usr_id = $this->usr_id; 
         }
 
@@ -263,7 +263,7 @@ class UserController extends Controller
 
     public function actionTopicApi($usr_id)
     {
-        if (!isset($usr_id) or $usr_id='') {
+        if (!isset($usr_id) or $usr_id=='') {
            $usr_id = $this->usr_id; 
         }
 
@@ -274,7 +274,7 @@ class UserController extends Controller
 
     public function actionItemsApi($usr_id)
     {
-        if (!isset($usr_id) or $usr_id='') {
+        if (!isset($usr_id) or $usr_id=='') {
            $usr_id = $this->usr_id; 
         }
 

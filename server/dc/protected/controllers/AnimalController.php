@@ -215,7 +215,7 @@ class AnimalController extends Controller
             $animal->master_id = $this->usr_id;
             $animal->save();
             $session = Yii::app()->session;
-            $aid = $animal->aid = $animal->aid + 10000000000*$session['planet'];
+            $aid = $animal->aid = $animal->aid + 1000000000*$session['planet'];
             $animal->saveAttributes(array('aid'));
             $circle = new Circle();
             $circle->aid = $aid;
@@ -385,8 +385,8 @@ class AnimalController extends Controller
             
             $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, COUNT(DISTINCT c.usr_id) AS fans FROM dc_animal a LEFT JOIN dc_circle c ON a.aid=c.aid WHERE a.t_rq<:t_rq AND type BETWEEN :type1 AND :type2 ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
                 ':t_rq'=>$t_rq,
-                ':type1'=>10000000000*$session['planet'],
-                ':type2'=>10000000000*($session['planet']+1),
+                ':type1'=>1000000000*$session['planet'],
+                ':type2'=>1000000000*($session['planet']+1),
             ))->queryAll();
         }
         
@@ -399,7 +399,7 @@ class AnimalController extends Controller
 
         $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, COUNT(DISTINCT c.usr_id) AS fans FROM dc_animal a LEFT JOIN dc_circle c ON a.aid=c.aid WHERE a.aid>:aid AND name LIKE "%:name%" ORDER BY a.aid ASC LIMIT 30')->bindValues(array(
             ':name'=>$name,
-            ':aid'=>$aid+10000000000*$session['planet'],
+            ':aid'=>$aid+1000000000*$session['planet'],
         ))->queryAll();
 
         $this->echoJsonData(array($r));

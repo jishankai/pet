@@ -14,10 +14,6 @@ class UserBehavior extends CActiveRecordBehavior
 
     public function initialize()
     {
-        $v = new Value;
-        $v->usr_id = $this->owner->usr_id;
-        $v->create_time = time();
-        $v->save();
     }
 
     public function rewardInviter()
