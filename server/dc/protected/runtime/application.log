@@ -4576,3 +4576,1501 @@ REQUEST_URI=/index.php?r=admin/topic/index
 in /home/skji/rep/Pet/server/dc/protected/modules/admin/views/topic/_view.php (36)
 in /home/skji/rep/Pet/server/dc/protected/modules/admin/views/topic/index.php (20)
 in /home/skji/rep/Pet/server/dc/protected/modules/admin/controllers/TopicController.php (182)
+2014/09/01 19:46:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "user".' in /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php:483
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(270): CController->missingAction('user')
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('user')
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('site/user/regis...')
+#3 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php?r=site/user/registerApi
+---
+2014/09/01 19:46:46 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('registerApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/registerAp...')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/registerApi
+---
+2014/09/01 20:50:36 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('registerApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/registerAp...')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/registerApi&age=544&code=&gender=2&name=null&type=%E7%B4%A2%E9%A9%AC%E5%88%A9%E7%8C%AB%E7%B4%A2%E9%A9%AC%E5%88%A9%E7%8C%AB&u_city=%E5%8C%97%E4%BA%AC%7C%E4%B8%9C%E5%9F%8E%E5%8C%BA&u_gender=1&u_name=%E5%B0%BD%E5%BF%AB&sig=221a202bdf94d6454633ecb0b03fafe9&SID=966354hcm820q4v95j6q8lmea7
+---
+2014/09/01 21:11:14 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('registerApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/registerAp...')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/registerApi&age=55&code=&gender=2&name=null&type=%E7%BE%8E%E5%9B%BD%E7%9F%AD%E5%B0%BE%E7%8C%AB%E7%BE%8E%E5%9B%BD%E7%9F%AD%E5%B0%BE%E7%8C%AB&u_city=%E5%8C%97%E4%BA%AC%7C%E4%B8%9C%E5%9F%8E%E5%8C%BA&u_gender=1&u_name=%E9%98%BF%E9%B2%81&sig=70248324eaf72429e7cfe130ee791e6b&SID=qe2rgl695hva0eg6cpchtv9bd2
+---
+2014/09/01 21:14:06 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('registerApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/registerAp...')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/registerApi&age=5&code=&gender=2&name=null&type=%E7%BE%8E%E5%9B%BD%E7%9F%AD%E5%B0%BE%E7%8C%AB%E7%BE%8E%E5%9B%BD%E7%9F%AD%E5%B0%BE%E7%8C%AB&u_city=%E5%8C%97%E4%BA%AC%7C%E4%B8%9C%E5%9F%8E%E5%8C%BA&u_gender=1&u_name=%E7%BB%8F%E7%90%86%E6%88%91&sig=539be794ef432929978ba61b8512f265&SID=469i03ur4osqg9h2ibnovh4er3
+---
+2014/09/01 21:16:59 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('registerApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/registerAp...')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/registerApi&age=55&code=&gender=2&name=null&type=%E8%A5%BF%E4%BC%AF%E5%88%A9%E4%BA%9A%E6%A3%AE%E6%9E%97%E7%8C%AB%E8%A5%BF%E4%BC%AF%E5%88%A9%E4%BA%9A%E6%A3%AE%E6%9E%97%E7%8C%AB&u_city=%E5%8C%97%E4%BA%AC%7C%E5%AE%A3%E6%AD%A6%E5%8C%BA&u_gender=1&u_name=%E7%A9%BA&sig=9c40c84b9b9b3fcd8b02b780906fd72a&SID=dimv2p2t1avvgb7e7d7pff81k6
+---
+2014/09/01 21:26:39 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('registerApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/registerAp...')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/registerApi&age=55&code=&gender=2&name=null&type=%E8%A5%BF%E4%BC%AF%E5%88%A9%E4%BA%9A%E6%A3%AE%E6%9E%97%E7%8C%AB%E8%A5%BF%E4%BC%AF%E5%88%A9%E4%BA%9A%E6%A3%AE%E6%9E%97%E7%8C%AB&u_city=%E5%8C%97%E4%BA%AC%7C%E5%AE%A3%E6%AD%A6%E5%8C%BA&u_gender=1&u_name=%E7%A9%BA&sig=9c40c84b9b9b3fcd8b02b780906fd72a&SID=dimv2p2t1avvgb7e7d7pff81k6
+---
+2014/09/02 11:25:07 [error] [exception.CException] exception 'CException' with message 'Property "User.type" is not defined.' in /home/ec2-user/repo/Pet/server/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/ar/CActiveRecord.php(145): CComponent->__get('type')
+#1 /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php(119): CActiveRecord->__get('type')
+#2 [internal function]: UserBehavior->getTypeName()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/base/CComponent.php(261): call_user_func_array(Array, Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/db/ar/CActiveRecord.php(227): CComponent->__call('getTypeName', Array)
+#5 /home/ec2-user/repo/Pet/server/dc/protected/modules/admin/views/user/_view.php(25): CActiveRecord->__call('getTypeName', Array)
+#6 /home/ec2-user/repo/Pet/server/dc/protected/modules/admin/views/user/_view.php(25): User->getTypeName()
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(130): require('/home/ec2-user/...')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/home/ec2-user/...', Array, false)
+#9 /home/ec2-user/repo/Pet/server/yii/framework/zii/widgets/CListView.php(291): CBaseController->renderFile('/home/ec2-user/...', Array)
+#10 /home/ec2-user/repo/Pet/server/yii/framework/zii/widgets/CBaseListView.php(167): CListView->renderItems()
+#11 [internal function]: CBaseListView->renderSection(Array)
+#12 /home/ec2-user/repo/Pet/server/yii/framework/zii/widgets/CBaseListView.php(150): preg_replace_callback('/{(\w+)}/', Array, '{summary}?{sort...')
+#13 /home/ec2-user/repo/Pet/server/yii/framework/zii/widgets/CBaseListView.php(135): CBaseListView->renderContent()
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(173): CBaseListView->run()
+#15 /home/ec2-user/repo/Pet/server/dc/protected/modules/admin/views/user/index.php(20): CBaseController->widget('zii.widgets.CLi...', Array)
+#16 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(126): require('/home/ec2-user/...')
+#17 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/home/ec2-user/...', Array, true)
+#18 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(869): CBaseController->renderFile('/home/ec2-user/...', Array, true)
+#19 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(782): CController->renderPartial('index', Array, true)
+#20 /home/ec2-user/repo/Pet/server/dc/protected/modules/admin/controllers/UserController.php(144): CController->render('index', Array)
+#21 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionIndex()
+#22 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#23 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#24 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#25 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#26 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#27 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#28 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#29 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#30 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#31 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/user/inde...')
+#32 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#33 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#34 {main}
+REQUEST_URI=/index.php?r=admin/user/index
+HTTP_REFERER=http://54.199.161.210:8001/index.php?r=admin/device/index
+---
+2014/09/02 11:25:23 [error] [exception.CException] exception 'CException' with message 'Property "User.type" is not defined.' in /home/ec2-user/repo/Pet/server/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/ar/CActiveRecord.php(145): CComponent->__get('type')
+#1 /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php(119): CActiveRecord->__get('type')
+#2 [internal function]: UserBehavior->getTypeName()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/base/CComponent.php(261): call_user_func_array(Array, Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/db/ar/CActiveRecord.php(227): CComponent->__call('getTypeName', Array)
+#5 /home/ec2-user/repo/Pet/server/dc/protected/modules/admin/views/user/_view.php(25): CActiveRecord->__call('getTypeName', Array)
+#6 /home/ec2-user/repo/Pet/server/dc/protected/modules/admin/views/user/_view.php(25): User->getTypeName()
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(130): require('/home/ec2-user/...')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/home/ec2-user/...', Array, false)
+#9 /home/ec2-user/repo/Pet/server/yii/framework/zii/widgets/CListView.php(291): CBaseController->renderFile('/home/ec2-user/...', Array)
+#10 /home/ec2-user/repo/Pet/server/yii/framework/zii/widgets/CBaseListView.php(167): CListView->renderItems()
+#11 [internal function]: CBaseListView->renderSection(Array)
+#12 /home/ec2-user/repo/Pet/server/yii/framework/zii/widgets/CBaseListView.php(150): preg_replace_callback('/{(\w+)}/', Array, '{summary}?{sort...')
+#13 /home/ec2-user/repo/Pet/server/yii/framework/zii/widgets/CBaseListView.php(135): CBaseListView->renderContent()
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(173): CBaseListView->run()
+#15 /home/ec2-user/repo/Pet/server/dc/protected/modules/admin/views/user/index.php(20): CBaseController->widget('zii.widgets.CLi...', Array)
+#16 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(126): require('/home/ec2-user/...')
+#17 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/home/ec2-user/...', Array, true)
+#18 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(869): CBaseController->renderFile('/home/ec2-user/...', Array, true)
+#19 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(782): CController->renderPartial('index', Array, true)
+#20 /home/ec2-user/repo/Pet/server/dc/protected/modules/admin/controllers/UserController.php(144): CController->render('index', Array)
+#21 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionIndex()
+#22 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#23 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#24 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#25 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#26 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#27 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#28 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#29 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#30 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('index')
+#31 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/user/inde...')
+#32 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#33 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#34 {main}
+REQUEST_URI=/index.php?r=admin/user/index
+HTTP_REFERER=http://54.199.161.210:8001/index.php?r=admin/image/index
+---
+2014/09/02 11:25:27 [error] [exception.CException] exception 'CException' with message 'Property "Image.usr_id" is not defined.' in /home/ec2-user/repo/Pet/server/yii/framework/base/CComponent.php:130
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/ar/CActiveRecord.php(145): CComponent->__get('usr_id')
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/helpers/CHtml.php(2529): CActiveRecord->__get('usr_id')
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/helpers/CHtml.php(1802): CHtml::resolveValue(Object(Image), 'usr_id')
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/widgets/CActiveForm.php(847): CHtml::activeDropDownList(Object(Image), 'usr_id', Array, Array)
+#4 /home/ec2-user/repo/Pet/server/dc/protected/modules/admin/views/image/_form.php(20): CActiveForm->dropDownList(Object(Image), 'usr_id', Array)
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(126): require('/home/ec2-user/...')
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/home/ec2-user/...', Array, true)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(869): CBaseController->renderFile('/home/ec2-user/...', Array, true)
+#8 /home/ec2-user/repo/Pet/server/dc/protected/modules/admin/views/image/create.php(18): CController->renderPartial('_form', Array)
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(126): require('/home/ec2-user/...')
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/CBaseController.php(95): CBaseController->renderInternal('/home/ec2-user/...', Array, true)
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(869): CBaseController->renderFile('/home/ec2-user/...', Array, true)
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(782): CController->renderPartial('create', Array, true)
+#13 /home/ec2-user/repo/Pet/server/dc/protected/modules/admin/controllers/ImageController.php(79): CController->render('create', Array)
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): ImageController->actionCreate()
+#15 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#16 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#17 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilter.php(40): CFilterChain->run()
+#18 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(1145): CFilter->filter(Object(CFilterChain))
+#19 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): CController->filterAccessControl(Object(CFilterChain))
+#20 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#21 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#22 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#23 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('create')
+#24 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('admin/image/cre...')
+#25 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#26 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#27 {main}
+REQUEST_URI=/index.php?r=admin/image/create
+HTTP_REFERER=http://54.199.161.210:8001/index.php?r=admin/image/index
+---
+2014/09/02 11:34:53 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php:336
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#12 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91c&sig=52776ed04e353d86f4f3b565a35addd1
+---
+2014/09/02 11:36:04 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php:336
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#12 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91c&sig=52776ed04e353d86f4f3b565a35addd1
+---
+2014/09/02 12:29:27 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('registerApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/registerAp...')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/registerApi&age=58&code=&gender=2&name=null&type=%E8%A5%BF%E4%BC%AF%E5%88%A9%E4%BA%9A%E6%A3%AE%E6%9E%97%E7%8C%AB%E8%A5%BF%E4%BC%AF%E5%88%A9%E4%BA%9A%E6%A3%AE%E6%9E%97%E7%8C%AB&u_city=%E5%8C%97%E4%BA%AC%7C%E4%B8%9C%E5%9F%8E%E5%8C%BA&u_gender=1&u_name=%E6%A5%BC&sig=6153b1eba5c0c071433492786bec0365&SID=jq8siblujn21p6puld1h098pt0
+---
+2014/09/02 12:32:21 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91c&sig=40cc48f118fa5335d2cd3c638f015407
+---
+2014/09/02 12:33:21 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91c&sig=2fa2603ce0a061639bf2b216a933e8c5
+---
+2014/09/02 12:34:14 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91c&sig=40cc48f118fa5335d2cd3c638f015407
+---
+2014/09/02 12:42:10 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php:336
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#12 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=357457043499699&sig=bf136ad26f02fbcfe7942170e9ae322a
+---
+2014/09/02 12:42:10 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php:336
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#12 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=357457043499699&sig=bf136ad26f02fbcfe7942170e9ae322a
+---
+2014/09/02 12:42:12 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 12:42:12 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 12:42:12 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 12:42:12 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 12:49:47 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91c&sig=40cc48f118fa5335d2cd3c638f015407
+---
+2014/09/02 12:50:55 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91c&sig=e7291ac6bedc8c24d4d6e8193de9e8be
+---
+2014/09/02 12:53:57 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91c&planet=1&sig=e7291ac6bedc8c24d4d6e8193de9e8be
+---
+2014/09/02 12:53:57 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91c&planet=1&sig=e7291ac6bedc8c24d4d6e8193de9e8be
+---
+2014/09/02 12:54:50 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 12:54:50 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 12:54:50 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 12:54:50 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 12:55:34 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91c&planet=1&sig=e7291ac6bedc8c24d4d6e8193de9e8be
+---
+2014/09/02 12:56:29 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 12:56:29 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 12:56:30 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 12:56:30 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 13:32:24 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 13:32:24 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 13:36:35 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 13:36:35 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 13:36:35 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 13:36:35 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 13:36:35 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 13:36:35 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 13:37:06 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=357457043499699&planet=1
+---
+2014/09/02 13:37:06 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=357457043499699&planet=1
+---
+2014/09/02 13:37:06 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 13:37:06 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 13:37:06 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 13:37:06 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 13:56:58 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=357457043499699&planet=1
+---
+2014/09/02 13:57:11 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 13:57:11 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 13:57:19 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=357457043499699&planet=1
+---
+2014/09/02 13:58:05 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 13:58:05 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 13:59:00 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 13:59:00 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 13:59:21 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 13:59:21 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 14:07:31 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 14:07:31 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 14:07:50 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 14:07:50 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 14:09:17 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php:336
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#12 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91c&sig=52776ed04e353d86f4f3b565a35addd1
+---
+2014/09/02 14:16:32 [error] [exception.CHttpException.400] exception 'CHttpException' with message 'Your request is invalid.' in /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php:336
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(309): CController->invalidActionParams(Object(CInlineAction))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#12 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91c&sig=52776ed04e353d86f4f3b565a35addd1
+---
+2014/09/02 14:17:59 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91cplanet=1&sig=4fa36a10a7047b3705965d331a605cad
+---
+2014/09/02 14:19:59 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/loginApi&uid=bc1ba308981ad4d1e2b8e1dd2a09aa7886e5a91cplanet=1&sig=4fa36a10a7047b3705965d331a605cad
+---
+2014/09/02 14:22:52 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 14:22:52 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 14:22:52 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 14:22:52 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 14:26:10 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 14:26:10 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 14:26:10 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 14:26:10 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 14:27:42 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '866194017682232' for key 'UQ_UID'. The SQL statement executed was: INSERT INTO `dc_device` (`uid`, `token`, `terminal`, `os`, `create_time`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4). Bound with :yp0='866194017682232', :yp1='', :yp2='', :yp3='', :yp4='1409635662'.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (65)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 14:27:42 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '866194017682232' for key 'UQ_UID'. The SQL statement executed was: INSERT INTO `dc_device` (`uid`, `token`, `terminal`, `os`, `create_time`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4). Bound with :yp0='866194017682232', :yp1='', :yp2='', :yp3='', :yp4='1409635662'' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:358
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/ar/CActiveRecord.php(1077): CDbCommand->execute()
+#1 /home/ec2-user/repo/Pet/server/yii/framework/db/ar/CActiveRecord.php(806): CActiveRecord->insert(NULL)
+#2 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(65): CActiveRecord->save()
+#3 [internal function]: UserController->actionLoginApi('866194017682232', '1', NULL, NULL)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(UserController), Array)
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(UserController), Object(ReflectionMethod), Array)
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#15 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('loginApi')
+#17 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/loginApi')
+#18 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#19 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#20 {main}
+REQUEST_URI=/index.php?r=user/loginApi&planet=1&uid=866194017682232&sig=8d663a8f723efdc3c6a5b352ae937f52
+---
+2014/09/02 14:27:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "typeApi".' in /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php:483
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(270): CController->missingAction('typeApi')
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('typeApi')
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/typeApi')
+#3 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php?r=user/typeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 14:27:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "typeApi".' in /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php:483
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(270): CController->missingAction('typeApi')
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('typeApi')
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/typeApi')
+#3 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php?r=user/typeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 14:27:43 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 14:27:43 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 14:27:43 [error] [system.db.CDbCommand] CDbCommand::fetchColumn() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=.
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php (49)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (58)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (37)
+2014/09/02 14:27:43 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1. The SQL statement executed was: SELECT url FROM dc_image WHERE img_id=' in /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/db/CDbCommand.php(433): CDbCommand->queryInternal('fetchColumn', 0, Array)
+#1 /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php(49): CDbCommand->queryScalar()
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(49): UserController->actionWelcomeApi()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('welcomeApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/welcomeApi')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/welcomeApi&sig=beac851bfcd1b0d3dc98b327aa7fbad2
+---
+2014/09/02 15:01:47 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('txApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/txApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/txApi
+---
+2014/09/02 15:03:54 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('txApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/txApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/txApi&sig=96d435d00b0ff3785990b586b0812aa0&SID=bcqqa6a7r7nt8o1aql0c9dov15
+---
+2014/09/02 15:04:02 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('txApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/txApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/txApi&sig=96d435d00b0ff3785990b586b0812aa0&SID=bcqqa6a7r7nt8o1aql0c9dov15
+---
+2014/09/02 15:04:45 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('txApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/txApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/txApi&SID=bcqqa6a7r7nt8o1aql0c9dov15
+---
+2014/09/02 15:05:42 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('txApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/txApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/txApi&&sig=96d435d00b0ff3785990b586b0812aa0&SID=bcqqa6a7r7nt8o1aql0c9dov15
+---
+2014/09/02 15:05:54 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('txApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/txApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/txApi&&sig=96d435d00b0ff3785990b586b0812aa0&SID=bcqqa6a7r7nt8o1aql0c9dov15
+---
+2014/09/02 15:06:51 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('txApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/txApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/txApi&&sig=96d435d00b0ff3785990b586b0812aa0&SID=bcqqa6a7r7nt8o1aql0c9dov15
+---
+2014/09/02 16:21:03 [error] [exception.PException] exception 'PException' with message '%E6%9C%AA%E7%99%BB%E5%BD%95' in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php:134
+Stack trace:
+#0 [internal function]: UserController->actionRegisterApi(NULL, '??????', '2', '9', '101', 'j', '2', '1000', '')
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(UserController), Array)
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(UserController), Object(ReflectionMethod), Array)
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('registerApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/registerAp...')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/registerApi&age=9&code=&gender=2&name=%E6%97%BA%E6%97%BA&type=101&u_city=1000&u_gender=2&u_name=j&sig=1d10badfe3b5019f4f20f61e495a052e&SID=uc7r4i3n3hl9ge0slqo89sdtv1
+---
+2014/09/02 16:30:56 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('txApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/txApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/txApi&&sig=7df7cd518324776b516a4b05b155179d&SID=e9jb2u8fc9ev0lmc1m1pioljd2
+---
+2014/09/02 16:31:13 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('txApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/txApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/txApi&sig=7df7cd518324776b516a4b05b155179d&SID=e9jb2u8fc9ev0lmc1m1pioljd2
+---
+2014/09/02 16:31:28 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('txApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/txApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/txApi&SID=e9jb2u8fc9ev0lmc1m1pioljd2&sig=7df7cd518324776b516a4b05b155179d
+---
+2014/09/02 16:31:37 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('txApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/txApi')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/txApi
+---
+2014/09/02 16:42:39 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('registerApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/registerAp...')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/registerApi&age=2&code=&gender=1&name=sss&type=10&u_city=011&u_gener=1&u_name=slsl&sig=cbf9dcf6f95c0e8e080cb2ca433f53c7
+---
+2014/09/02 16:42:53 [error] [exception.CException] exception 'CException' with message 'Signature Error' in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php:60
+Stack trace:
+#0 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#2 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#5 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('registerApi')
+#8 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/registerAp...')
+#9 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/index.php?r=user/registerApi&age=2&code=&gender=1&name=sss&type=10&u_city=011&u_gener=1&u_name=slsl&sig=cbf9dcf6f95c0e8e080cb2ca433f53c7
+---
+2014/09/02 16:58:07 [error] [exception.PException] exception 'PException' with message '%E6%9C%AA%E7%99%BB%E5%BD%95' in /home/ec2-user/repo/Pet/server/dc/protected/controllers/UserController.php:134
+Stack trace:
+#0 [internal function]: UserController->actionRegisterApi(NULL, '??????', '2', '5', '101', '?????????', '1', '1015', '')
+#1 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CAction.php(108): ReflectionMethod->invokeArgs(Object(UserController), Array)
+#2 /home/ec2-user/repo/Pet/server/yii/framework/web/actions/CInlineAction.php(47): CAction->runWithParamsInternal(Object(UserController), Object(ReflectionMethod), Array)
+#3 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(133): CController->runAction(Object(CInlineAction))
+#5 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(58): CFilterChain->run()
+#6 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckSig(Object(CFilterChain))
+#7 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#8 /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php(37): CFilterChain->run()
+#9 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CInlineFilter.php(58): Controller->filterCheckUpdate(Object(CFilterChain))
+#10 /home/ec2-user/repo/Pet/server/yii/framework/web/filters/CFilterChain.php(130): CInlineFilter->filter(Object(CFilterChain))
+#11 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(291): CFilterChain->run()
+#12 /home/ec2-user/repo/Pet/server/yii/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(282): CController->run('registerApi')
+#14 /home/ec2-user/repo/Pet/server/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('user/registerAp...')
+#15 /home/ec2-user/repo/Pet/server/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#16 /home/ec2-user/repo/Pet/server/dc/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/index.php?r=user/registerApi&age=5&code=&gender=2&name=%E7%BB%8F%E6%B5%8E&type=101&u_city=1015&u_gender=1&u_name=%E7%BB%8F%E6%B5%8E%E5%AD%A6&sig=6dda2de9a75d77c59ce2b45f21e929c4&SID=tkgg873bgh4utq6nnji40r38f3
+---

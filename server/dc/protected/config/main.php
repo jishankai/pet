@@ -125,7 +125,7 @@ return array(
         ),
 
         'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=pet',
+            'connectionString' => 'mysql:host=localhost;dbname=pet_test',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => '',

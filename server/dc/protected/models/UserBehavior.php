@@ -53,16 +53,15 @@ class UserBehavior extends CActiveRecordBehavior
 
     public function login()
     {
-        $value = $this->owner->value;
-        if (date("m.d.y",$value->login_time)!=date("m.d.y")) {
-            $value->con_login>0 ? $value->con_login++ : $value->con_login=1;
-            $value->saveAttributes(array('con_login'));
+        if (date("m.d.y",$this->owner->login_time)!=date("m.d.y")) {
+            $this->owner->con_login>0 ? $this->owner->con_login++ : $this->owner->con_login=1;
+            $this->owner->saveAttributes(array('con_login'));
 
             $this->onLogin = array($this, 'addExp');
         }
 
-        $value->login_time = time();
-        $value->saveAttributes(array('login_time'));
+        $this->owner->login_time = time();
+        $this->owner->saveAttributes(array('login_time'));
         #Yii::trace('exp:'.$value->exp, 'access');
         $this->onLogin(new CEvent($this, array('on'=>'login'))); 
     }
@@ -84,22 +83,21 @@ class UserBehavior extends CActiveRecordBehavior
 
     public function addExp($event)
     {
-        $value = $this->owner->value;
         switch ($event->params['on']) {
             case 'login':
-                $value->exp+=($value->con_login>5?5:$value->con_login);
+                $this->owner->exp+=($this->owner->con_login>5?5:$this->owner->con_login);
                 break;
             case 'like':
-                $value->exp+=1;    
+                $this->owner->exp+=1;    
                 break;
             case 'upload':
-                $value->exp+=2;    
+                $this->owner->exp+=2;    
                 break;
             default:
                 break;
         }
 
-        $value->saveAttributes(array('exp'));
+        $this->owner->saveAttributes(array('exp'));
     }
 
     public function attrWithRelated(array $with)
