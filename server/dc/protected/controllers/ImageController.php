@@ -24,7 +24,7 @@ class ImageController extends Controller
                 'varyBySession' => true,
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
-                    'sql' => 'SELECT MAX(update_time) FROM dc_friend WHERE usr_id = :usr_id',
+                    'sql' => 'SELECT MAX(update_time) FROM dc_follow WHERE usr_id = :usr_id',
                     'params' => array(
                         'usr_id' => $this->usr_id,
                     ),
@@ -94,7 +94,7 @@ class ImageController extends Controller
                 
                 //events
                 $user = User::model()->findByPk($this->usr_id);
-                $user->uploadImage();
+                $user->uploadImage($aid);
             }
         }
 
@@ -125,9 +125,7 @@ class ImageController extends Controller
             $user->like();
 
             //events
-            if ($image->usr_id!=$this->usr_id) {
-                PMail::create($image->usr_id, $user, $user->name.'赞了你');
-            }
+            //PMail::create($image->usr_id, $user, $user->name.'赞了你');
 
             $transaction->commit();
 
@@ -178,27 +176,14 @@ class ImageController extends Controller
         $this->echoJsonData(array('isSuccess'=>true));
     }
 
-    public function actionFavoriteApi($img_id=NULL)
+    public function actionFavoriteApi($img_id=9999999999)
     {
-        $follow_ids = Yii::app()->db->createCommand('SELECT aid FROM dc_follow WHERE usr_id=:usr_id')->bindValue(':usr_id',$this->usr_id)->queryColumn();
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.cmt, i.likes, i.aid, a.tx, a.name, i.create_time FROM dc_image i INNER JOIN dc_follow f ON f.aid=i.aid LEFT JOIN dc_animal a ON i.aid=a.aid WHERE usr_id=:usr_id AND img_id<:img_id ORDER BY img_id DESC LIMIT 30')->bindValues(array(
+            ':usr_id' => $this->usr_id,
+            ':img_id' => $img_id,
+        ))->queryAll();
 
-        $c = new CDbCriteria;
-        $c->compare('t.aid', $follow_ids);
-        $c->limit = 10;
-        $c->order = 'img_id DESC';
-        if(isset($img_id)) {
-            $c->compare('img_id', '<'.$img_id);
-        }
-        $imgs = Image::model()->with('a')->findAll($c);
-        /*
-        $images = array();
-        foreach ($imgs as $img) {
-            $user = $img->usr;
-            $images[] = array_merge($user->getAttributes(), $img->getAttributes());
-        }
-         */
-
-        $this->echoJsonData(array($imgs));
+        $this->echoJsonData($r);
     }
 
     public function actionRandomApi($img_id=NULL)
@@ -212,15 +197,15 @@ class ImageController extends Controller
         $this->echoJsonData(array($images));
     }
 
-    public function actionInfoApi($img_id)
+    public function actionInfoApi($img_id, $usr_id)
     {
         $dependency = new CDbCacheDependency("SELECT update_time FROM dc_image WHERE img_id = :img_id");
         $dependency->params[':img_id'] = $img_id;
         $image = Image::model()->cache(3600, $dependency)->findByPk($img_id);
 
-        $is_follow = Yii::app()->db->createCommand('SELECT aid FROM dc_follow WHERE aid=:aid AND usr_id=:usr_id ')->bindValues(array(
+        $is_follow = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_follow WHERE aid=:aid AND usr_id=:usr_id ')->bindValues(array(
             ':aid' => $image->aid,
-            ':usr_id' => $this->usr_id,
+            ':usr_id' => $usr_id,
         ))->queryScalar();
 
         if (isset($image->likers)&&$image->likers!='') {
@@ -233,7 +218,7 @@ class ImageController extends Controller
         
         $this->echoJsonData(array(
             'image'=>$image,
-            'is_follow'=>isset($is_follow)?TRUE:FALSE,
+            'is_follow'=>$is_follow,
             'sender_tx'=>isset($sender_tx)?$sender_tx:NULL,
             'liker_tx'=>isset($liker_tx)?$liker_tx:NULL,
         )); 

@@ -100,7 +100,7 @@ return array(
         ),
         'sessionCache' => array(
             'class' => 'CMemCache',
-            'keyPrefix' => 'PetSession',
+            'keyPrefix' => 'PetTestSession',
             'servers' => array(
                 array(
                     'host' => '127.0.0.1',
@@ -120,7 +120,7 @@ return array(
             'class' => 'CCacheHttpSession',
             'cacheID' => 'sessionCache',
             'sessionName' => 'SID',
-            'timeout' => 86400,
+            'timeout' => mktime(0,0,0,date('m'),date('d')+1,date('Y'))-time(),
             'cookieMode' => 'none',
         ),
 

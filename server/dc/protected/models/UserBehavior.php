@@ -33,10 +33,10 @@ class UserBehavior extends CActiveRecordBehavior
         $this->onLike(new CEvent($this, array('on'=>'like'))); 
     }
 
-    public function uploadImage()
+    public function uploadImage($aid)
     {
-        $today_count = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE usr_id=:usr_id AND create_time>=:time')->bindValues(array(
-            ':usr_id' => $this->owner->usr_id,
+        $today_count = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE aid=:aid AND create_time>=:time')->bindValues(array(
+            ':aid' => $aid,
             ':time' => mktime(0,0,0,date('m'),date('d'),date('Y')),
         ))->queryScalar();
         #Yii::trace('today_count:'.mktime(0,0,0,date('m'),date('d'),date('Y')).'  '.$today_count, 'access');

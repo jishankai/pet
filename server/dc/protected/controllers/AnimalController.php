@@ -7,7 +7,7 @@ class AnimalController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId',
+            'getUserId - infoApi',
             /*
             array(
                 'COutputCache + welcomeApi',
@@ -32,11 +32,11 @@ class AnimalController extends Controller
                 ),
             ),
              */
+            /*
             array(
                 'COutputCache + imagesApi',
                 'duration' => 3600,
-                'varyByParam' => array('img_id', 'usr_id'),
-                'varyBySession' => true,
+                'varyByParam' => array('img_id', 'aid'),
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
                     'sql' => "SELECT MAX(update_time) FROM dc_image WHERE usr_id=:usr_id",
@@ -45,6 +45,7 @@ class AnimalController extends Controller
                     ),
                 ),
             ),
+             */
             /*
             array(
                 'COutputCache + followingApi',
@@ -74,18 +75,35 @@ class AnimalController extends Controller
             ),
              */
             array(
-                'COutputCache + othersApi',
-                'duration' => 3600,
-                'varyByParam' => array('usr_ids'),
+                'COutputCache + cardApi',
+                'duration' => 86400,
+                'varyByParam' => array('aid'),
             )
         );
     }
 
     public function actionInfoApi($aid)
     {
-        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.master_id, a.t_rq, u.name, u.tx, u.rank, COUNT(DISTINCT c.usr_id) AS fans, COUNT(DISTINCT f.usr_id) AS followers FROM dc_animal a JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN dc_circle c ON a.aid=c.aid LEFT JOIN dc_follow f ON a.aid=f.aid WHERE a.aid=:aid')->bindValue(':aid', $aid)->queryColumn();
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.master_id, a.t_rq, u.name AS u_name, u.tx AS u_tx, c.rank AS u_rank, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans, (SELECT COUNT(*) FROM dc_follow f WHERE f.aid=a.aid) AS followers FROM dc_animal a JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN dc_circle c ON a.aid=c.aid WHERE a.aid=:aid')->bindValue(':aid', $aid)->queryRow();
 
         $this->echoJsonData($r);
+    }
+
+    public function actionRelationApi($aid)
+    {
+        $is_fan = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_circle WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(
+            ':aid' => $aid,
+            ':usr_id' => $this->usr_id,
+        ))->queryScalar();
+        $is_follow = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_follow WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(
+            ':aid' => $aid,
+            ':usr_id' => $this->usr_id,
+        ))->queryScalar();
+
+        $this->echoJsonData(array(
+            'is_fan' => $is_fan,
+            'is_follow' => $is_follow,
+        ));
     }
 
     public function actionTxApi($aid)
@@ -94,7 +112,7 @@ class AnimalController extends Controller
 
         if (isset($_FILES['tx'])) {
             $fname = basename($_FILES['tx']['name']);
-            $path = Yii::app()->basePath.'/../images/tx_ani/'.$aid.'_'.$fname;
+            $path = Yii::app()->basePath.'/../images/tx/tx_ani/'.$aid.'_'.$fname;
             if (move_uploaded_file($_FILES['tx']['tmp_name'], $path)) {
                 $a->tx = $aid.'_'.$fname;
                 $a->saveAttributes(array('tx'));
@@ -119,7 +137,7 @@ class AnimalController extends Controller
 
         $images = Image::model()->findAll($c);
 
-        $this->echoJsonData($images);
+        $this->echoJsonData(array($images));
     }
 
     public function actionFollowApi($aid)
@@ -182,7 +200,7 @@ class AnimalController extends Controller
             ':usr_id'=>$usr_id,
         ))->queryAll();
 
-        $this->echoJsonData($r);
+        $this->echoJsonData(array($r));
     }
 
     public function actionItemsApi($aid)
@@ -269,7 +287,7 @@ class AnimalController extends Controller
     {
         if (isset($_FILES['voice'])) {
             $fname = basename($_FILES['voice']['name']);
-            $path = Yii::app()->basePath.'/../assets/voices/ani/voice_'.date().'_'.$aid;
+            $path = Yii::app()->basePath.'/../assets/voices/ani/voice_'.date('y-m-d').'_'.$aid;
             if (move_uploaded_file($_FILES['voice']['tmp_name'], $path)) {
                 $this->echoJsonData(array('isSuccess'=>TRUE));
             } else {
@@ -284,7 +302,7 @@ class AnimalController extends Controller
 
     public function actionVoiceDownApi($aid)
     {
-        $path = Yii::app()->basePath.'/../assets/voices/ani/voice_'.date().'_'.$aid;
+        $path = Yii::app()->basePath.'/../assets/voices/ani/voice_'.date('y-m-d').'_'.$aid;
         if (file_exists($path)) {
             $this->echoJsonData(array('url'=>$path));
         } else {
@@ -376,17 +394,17 @@ class AnimalController extends Controller
             $t_rq = Yii::app()->db->createCommand('SELECT t_rq FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
         }
         if (isset($type)) {
-            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, COUNT(DISTINCT c.usr_id) AS fans FROM dc_animal a LEFT JOIN dc_circle c ON a.aid=c.aid WHERE a.t_rq<:t_rq AND type=:type ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.t_rq<:t_rq AND type=:type ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
                 ':t_rq'=>$t_rq,
                 ':type'=>$type,
             ))->queryAll();
         } else {
             $session = Yii::app()->session;
             
-            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, COUNT(DISTINCT c.usr_id) AS fans FROM dc_animal a LEFT JOIN dc_circle c ON a.aid=c.aid WHERE a.t_rq<:t_rq AND type BETWEEN :type1 AND :type2 ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.t_rq<:t_rq AND a.aid BETWEEN :aid1 AND :aid2 ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
                 ':t_rq'=>$t_rq,
-                ':type1'=>1000000000*$session['planet'],
-                ':type2'=>1000000000*($session['planet']+1),
+                ':aid1'=>1000000000*$session['planet'],
+                ':aid2'=>1000000000*($session['planet']+1),
             ))->queryAll();
         }
         
@@ -397,7 +415,7 @@ class AnimalController extends Controller
     {
         $session = Yii::app()->session;
 
-        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, COUNT(DISTINCT c.usr_id) AS fans FROM dc_animal a LEFT JOIN dc_circle c ON a.aid=c.aid WHERE a.aid>:aid AND name LIKE "%:name%" ORDER BY a.aid ASC LIMIT 30')->bindValues(array(
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.aid>:aid AND name LIKE "%:name%" ORDER BY a.aid ASC LIMIT 30')->bindValues(array(
             ':name'=>$name,
             ':aid'=>$aid+1000000000*$session['planet'],
         ))->queryAll();
@@ -430,10 +448,8 @@ class AnimalController extends Controller
         $this->echoJsonData($r);
     }
 
-    public function actionAddressApi()
+    public function actionAddressApi($aid)
     {
-        $aid = $_REQUEST['aid'];
-        
         $animal = Animal::model()->findByPk($aid);
         if (isset($_POST['name'])) {
             $address = array(

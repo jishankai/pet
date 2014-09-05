@@ -150,4 +150,8 @@ class SiteController extends Controller
             $c->save();
         }
     }
+
+    public function actionEcho()
+    {
+    }
 }

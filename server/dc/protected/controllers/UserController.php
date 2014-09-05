@@ -25,18 +25,20 @@ class UserController extends Controller
                 'varyBySession' => true,
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
-                    'sql' => "SELECT MAX(update_time) FROM dc_user WHERE usr_id=:usr_id",
+                    'sql' => "SELECT update_time FROM dc_user WHERE usr_id=:usr_id",
                     'params' => array(
                         ':usr_id' => $this->usr_id,
                     ),
                 ),
             ),
              */
+            /*
             array(
                 'COutputCache + othersApi',
                 'duration' => 3600,
                 'varyByParam' => array('usr_ids'),
             )
+             */
         );
     }
 
@@ -178,7 +180,7 @@ class UserController extends Controller
            $usr_id = $this->usr_id; 
         }
 
-        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, a.aid, a.name AS a_name, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, u.gold, a.aid, a.name AS a_name, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
 
         $this->echoJsonData(array($r));
     }
@@ -189,7 +191,7 @@ class UserController extends Controller
 
         if (isset($_FILES['tx'])) {
             $fname = basename($_FILES['tx']['name']);
-            $path = Yii::app()->basePath.'/../images/tx_usr/'.$this->usr_id.'_'.$fname;
+            $path = Yii::app()->basePath.'/../images/tx/tx_usr/'.$this->usr_id.'_'.$fname;
             if (move_uploaded_file($_FILES['tx']['tmp_name'], $path)) {
                 $user->tx = $this->usr_id.'_'.$fname;
                 $user->saveAttributes(array('tx'));
@@ -222,8 +224,8 @@ class UserController extends Controller
             $search_ids[] = $tmp_ids[$i];
         }
         $search_ids = implode(',', $search_ids);
-
-        $r = Yii::app()->db->createCommand('SELECT usr_id, name, tx, city, gender FROM dc_user WHERE usr_id IN (:usr_ids)')->bindValue(':usr_ids', $search_ids)->queryAll();
+        
+        $r = Yii::app()->db->createCommand("SELECT usr_id, name, tx, city, gender FROM dc_user WHERE usr_id IN ($search_ids)")->queryAll();
 
         $this->echoJsonData($r);
     }
@@ -239,13 +241,17 @@ class UserController extends Controller
         ));
     }
 
-    public function actionPetsApi($usr_id)
+    public function actionPetsApi($usr_id, $is_simple=0)
     {
         if (!isset($usr_id) or $usr_id=='') {
            $usr_id = $this->usr_id; 
         }
+        if ($is_simple) {
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+        } else {
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.d_rq, c.t_contri, c.rank, (SELECT COUNT(*) FROM dc_news n WHERE c.aid=n.aid) AS news_count, (SELECT COUNT(*) FROM dc_circle c1 WHERE c.aid=c1.aid) AS fans_count FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+        }
         
-        $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.d_rq, c.t_contri, COUNT(n.nid) AS news_count, COUNT(c1.usr_id) FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid LEFT JOIN dc_circle c1 ON c.aid=c1.aid LEFT JOIN dc_news n ON a.aid=n.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
 
         $this->echoJsonData($r);
     }
@@ -256,7 +262,7 @@ class UserController extends Controller
            $usr_id = $this->usr_id; 
         }
 
-        $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.age, a.gender, a.t_rq, u.name FROM dc_follow f LEFT JOIN dc_animal a ON f.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE f.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.type, a.age, a.gender, a.t_rq, u.name AS u_name FROM dc_follow f LEFT JOIN dc_animal a ON f.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE f.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
 
         $this->echoJsonData($r);
     }
@@ -267,7 +273,7 @@ class UserController extends Controller
            $usr_id = $this->usr_id; 
         }
 
-        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.topic_name, i.create_time, t.name FROM dc_follow f LEFT JOIN dc_image i ON f.aid=i.aid WHERE f.usr_id=:usr_id AND i.topic_name<>""')->bindValue(':usr_id', $usr_id)->queryAll();
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.topic_name, i.create_time FROM dc_circle c LEFT JOIN dc_image i ON c.aid=i.aid WHERE c.usr_id=:usr_id AND i.topic_name<>""')->bindValue(':usr_id', $usr_id)->queryAll();
 
         $this->echoJsonData($r);
     }
