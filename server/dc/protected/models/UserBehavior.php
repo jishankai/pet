@@ -112,6 +112,12 @@ class UserBehavior extends CActiveRecordBehavior
             case 'upload':
                 $this->owner->exp+=PHOTO_X1;    
                 break;
+            case 'comment':
+                $this->owner->exp+=COMMENT_X1;
+                break;
+            case 'voice':
+                $this->owner->exp+=VOICE_X;
+                break;
             default:
                 break;
         }

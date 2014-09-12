@@ -241,7 +241,7 @@ class AnimalController extends Controller
             $circle->save();
             $transaction->commit();
 
-            $this->echoJsonData(array('isSuccess'=>true));
+            $this->echoJsonData(array('isSuccess'=>TRUE));
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
@@ -258,7 +258,7 @@ class AnimalController extends Controller
             $circle->save();
             $transaction->commit();
 
-            $this->echoJsonData(array('isSuccess'=>true));
+            $this->echoJsonData(array('isSuccess'=>TRUE));
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
@@ -283,12 +283,26 @@ class AnimalController extends Controller
         }
     }
 
+    public function actionIsVoiced()
+    {
+        $session = Yii::app()->session;
+        if (isset($session['is_voiced'])) {
+            $this->echoJsonData(array('is_voiced'=>TRUE));
+        } else {
+            $session['is_voiced'] = 1;
+            $this->echoJsonData(array('is_voiced'=>FALSE));
+        }
+        
+    }
     public function actionVoiceUpApi($aid)
     {
         if (isset($_FILES['voice'])) {
             $fname = basename($_FILES['voice']['name']);
             $path = Yii::app()->basePath.'/../assets/voices/ani/voice_'.date('y-m-d').'_'.$aid;
             if (move_uploaded_file($_FILES['voice']['tmp_name'], $path)) {
+                $user = User::model()->findByPk($this->usr_id);
+                $user->onVoiceUp = array($user, 'addExp');
+                $user->onVoiceUp(new CEvent($user, array('on'=>'voice'))); 
                 $this->echoJsonData(array('isSuccess'=>TRUE));
             } else {
                 throw new PException('上传失败'); 
@@ -313,6 +327,20 @@ class AnimalController extends Controller
 
     public function actionTouchApi($aid)
     {
+       $session = Yii::app()->session;
+       if (isset($session['touch_count'])) {
+           $session['touch_count']+=1;
+       } else {
+           $session['touch_count']=1;
+       }
+       $user = User::model()->findByPk($this->usr_id);
+       if ($session['touch_count']<=3) {
+           $user->onTouch = array($user, 'addExp');   
+           $user->onTouch = array($user, 'addGold');   
+       } else if ($session['touch_count']<=7) {
+           $user->onTouch = array($user, 'addGold');   
+       }
+       
        $this->echoJsonData(array('isSuccess'=>TRUE)); 
     }
 

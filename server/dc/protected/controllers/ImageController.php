@@ -249,7 +249,20 @@ class ImageController extends Controller
         
 
         if ($image->saveAttributes(array('comments'))) {
-            $this->echoJsonData(array('isSuccess'=>TRUE));
+            $session = Yii::app()->session;
+            if (isset($session['comment_count'])) {
+                $session['comment_count']+=1;
+            } else {
+                $session['comment_count']=1;
+            }
+            
+            if ($session['comment_count']<=15) {
+                $user->onComment = array($user, 'addExp');
+                $user->onComment(new CEvent($user, array('on'=>'share'))); 
+                $this->echoJsonData(array('exp'=>$user->exp));
+            } else {
+                $this->echoJsonData(array('exp'=>$user->exp));
+            }
         }
     }
 }

@@ -41,6 +41,8 @@ class TalkController extends Controller
                         break;
                     }
                 }
+                $buf = serialize($messages);
+                file_put_contents($path, $buf);
 
                 if (isset($arr[$talk->talk_id])) {
                     if ($this->usr_id==$talk->usra_id) {
@@ -114,7 +116,25 @@ class TalkController extends Controller
         clearstatcache();
         fclose($file);
          */
-        $this->echoJsonData(array('talk_id'=>$talk->talk_id)); 
+        $this->echoJsonData(array('isSuccess'=>TRUE)); 
+    }
+
+    public function actionSearchApi($usr_id)
+    {
+        $c = new CDbCriteria;
+        $c->addCondition('(usra_id=:usra_id AND usrb_id=:usrb_id) OR (usra_id=:usrb_id AND usrb_id=:usra_id)');
+        $c->params[':usra_id'] = $this->usr_id;
+        $c->params[':usrb_id'] = $usr_id;
+        $talk = Talk::model()->find($c);
+        if (empty($talk)) {
+            $talk = new Talk();
+            $talk->usra_id = $this->usr_id;
+            $talk->usrb_id = $usr_id;
+            $talk->content = $this->usr_id.'&'.$usr_id;
+            $talk->save();
+        }
+
+        $this->echoJsonData(array('talk_id'=>$talk->talk_id));
     }
 
     public function actionDeleteApi($talk_id)
