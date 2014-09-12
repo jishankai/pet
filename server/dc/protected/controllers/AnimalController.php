@@ -7,7 +7,7 @@ class AnimalController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - infoApi',
+            'getUserId - infoApi,recommendApi,cardApi',
             /*
             array(
                 'COutputCache + welcomeApi',
@@ -321,7 +321,7 @@ class AnimalController extends Controller
        $this->echoJsonData(array('isSuccess'=>TRUE)); 
     }
 
-    public function actionSendGiftApi($item_id, $aid, $img_id=NULL, $is_buy=FALSE)
+    public function actionSendGiftApi($item_id, $aid, $img_id=NULL, $is_buy=FALSE, $is_shake=FALSE)
     {
         $transaction = Yii::app()->db->beginTransaction();
         try {
@@ -337,8 +337,10 @@ class AnimalController extends Controller
                 }
                 $user->items = serialize($items);
             }
-            $user->exp+=$item->exp;
-            $user->saveAtrributes(array('items', 'exp'));
+            $user->onLogin = array($user, 'addExp');
+            $user->onLogin(new CEvent($user, array('on'=>'gift', 'is_shake'=>$is_shake))); 
+
+            $user->saveAtrributes(array('items'));
 
             $animal = Animal::model()->findByPk($aid);
             $animal->d_rq+=$item->rq;
@@ -376,7 +378,7 @@ class AnimalController extends Controller
 
     public function actionCardApi($aid)
     {
-        $images = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY update_time LIMIT 4')->queryAll();
+        $images = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY update_time LIMIT 4')->bindValue(':aid', $aid)->queryAll();
 
         $master_id = Yii::app()->db->createCommand('SELECT master_id FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
         $master = Yii::app()->db->createCommand('SELECT usr_id, name, tx, gender, city FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $master_id)->queryRow();
@@ -413,11 +415,8 @@ class AnimalController extends Controller
 
     public function actionSearchApi($name, $aid=0)
     {
-        $session = Yii::app()->session;
-
-        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.aid>:aid AND name LIKE "%:name%" ORDER BY a.aid ASC LIMIT 30')->bindValues(array(
-            ':name'=>$name,
-            ':aid'=>$aid+1000000000*$session['planet'],
+        $r = Yii::app()->db->createCommand("SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.aid>:aid AND name LIKE '%$name%' ORDER BY a.aid ASC LIMIT 30")->bindValues(array(
+            ':aid'=>$aid,
         ))->queryAll();
 
         $this->echoJsonData(array($r));

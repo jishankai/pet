@@ -130,10 +130,25 @@ return array(
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8mb4',
-            'class' => 'CDbConnection',
+            'class' => 'DbConnectionMan',
             'schemaCachingDuration' => 3600,
             'enableProfiling'=>true,
             'enableParamLogging'=>true,
+            'enableSlave'=>true,
+            'slaves'=>array(
+                array(
+                    'connectionString' => 'mysql:host=127.0.0.1;port=3307;dbname=pet_test',
+                    'username' => 'root',
+                    'password' => '',
+                    'charset' => 'utf8mb4',
+                ),
+                array(
+                    'connectionString' => 'mysql:host=127.0.0.1;port=3308;dbname=pet_test',
+                    'username' => 'root',
+                    'password' => '',
+                    'charset' => 'utf8mb4',
+                ),
+            ),
         ),
         'errorHandler'=>array(
             // use 'site/error' action to display errors

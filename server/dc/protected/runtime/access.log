@@ -9690,3 +9690,151 @@ in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (
 in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
 in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
 in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/06 04:29:42 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/06 04:30:29 [trace] [access] Image: 123123
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/07 18:07:29 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/08 20:24:45 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/09 11:11:13 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/09 11:18:31 [trace] [access] 2
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/09 11:55:01 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/09 16:58:50 [trace] [access] Image: 
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/09 17:03:36 [trace] [access] Image: 
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/09 17:05:04 [trace] [access] Image: 
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/09 17:13:58 [trace] [access] Image: 
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/09 17:28:22 [trace] [access] Image: 
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/09 18:43:49 [trace] [access] Image: 啦啦啦
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/09 18:46:49 [trace] [access] Image: 
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/09 18:47:01 [trace] [access] Image: 
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/09 19:54:23 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/10 11:09:23 [trace] [access] Image: 
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/10 11:23:45 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/10 11:23:50 [trace] [access] 2
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/10 12:26:41 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/10 15:21:20 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/10 15:22:59 [trace] [access] Image: 有意思
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/10 15:45:12 [trace] [access] Image: 默默的爱着你
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/10 16:03:13 [trace] [access] Image: 可否就这样在一起
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/10 16:13:32 [trace] [access] Image: 猫一样的脚步
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/10 21:09:05 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/10 21:09:57 [trace] [access] 2
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/11 11:22:06 [trace] [access] Image: 
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/11 11:46:04 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/11 11:48:39 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/11 11:52:05 [trace] [access] 2
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/11 15:26:22 [trace] [access] Image: 
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/11 15:26:33 [trace] [access] Image: 
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)
+2014/09/11 17:42:17 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/11 22:34:40 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/12 12:54:17 [trace] [access] 1
+in /home/ec2-user/repo/Pet/server/dc/protected/models/UserBehavior.php (28)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (125)
+2014/09/12 13:08:54 [trace] [access] Image: 城管
+in /home/ec2-user/repo/Pet/server/dc/protected/controllers/ImageController.php (41)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (52)
+in /home/ec2-user/repo/Pet/server/dc/protected/components/Controller.php (59)

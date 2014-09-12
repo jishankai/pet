@@ -40,11 +40,10 @@ class UserBehavior extends CActiveRecordBehavior
             ':time' => mktime(0,0,0,date('m'),date('d'),date('Y')),
         ))->queryScalar();
         #Yii::trace('today_count:'.mktime(0,0,0,date('m'),date('d'),date('Y')).'  '.$today_count, 'access');
-        if ($today_count<=5) {
+        if ($today_count<=10) {
             $this->onUpload = array($this, 'addExp');
+            $this->onUpload(new CEvent($this, array('on'=>'upload'))); 
         }
-
-        $this->onUpload(new CEvent($this, array('on'=>'upload'))); 
     }
 
     public function login()
@@ -54,12 +53,23 @@ class UserBehavior extends CActiveRecordBehavior
             $this->owner->saveAttributes(array('con_login'));
 
             $this->onLogin = array($this, 'addExp');
+            $this->onLogin = array($this, 'addGold');
         }
 
         $this->owner->login_time = time();
         $this->owner->saveAttributes(array('login_time'));
         #Yii::trace('exp:'.$value->exp, 'access');
         $this->onLogin(new CEvent($this, array('on'=>'login'))); 
+    }
+
+    public function onShare($event)
+    {
+        $this->raiseEvent('onShare', $event);
+    }
+
+    public function onGift($event)
+    {
+        $this->raiseEvent('onGift', $event);
     }
 
     public function onLike($event)
@@ -81,13 +91,26 @@ class UserBehavior extends CActiveRecordBehavior
     {
         switch ($event->params['on']) {
             case 'login':
-                $this->owner->exp+=($this->owner->con_login>5?5:$this->owner->con_login);
+                if ($this->owner->con_login==1) {
+                    $this->owner->exp+=LOGIN_X1;
+                } else if ($this->owner->con_login<=6) {
+                    $this->owner->exp+=$this->owner->con_login*LOGIN_X2;
+                } else {
+                    $this->owner->exp+=LOGIN_X3;
+                }
+                break;
+            case 'gift':
+                if ($event->params['is_shake']) {
+                    $this->owner->exp+=GIFT_X1;
+                } else {
+                    $this->owner->exp+=GIFT_X2;
+                }
                 break;
             case 'like':
                 $this->owner->exp+=1;    
                 break;
             case 'upload':
-                $this->owner->exp+=2;    
+                $this->owner->exp+=PHOTO_X1;    
                 break;
             default:
                 break;
@@ -96,6 +119,27 @@ class UserBehavior extends CActiveRecordBehavior
         $this->owner->saveAttributes(array('exp'));
     }
 
+    public function addGold($event)
+    {
+        switch ($event->params['on']) {
+            case 'login':
+                if ($this->owner->con_login==1) {
+                    $this->owner->gold+=LOGIN_X1;
+                } else if ($this->owner->con_login<=6) {
+                    $this->owner->gold+=$this->owner->con_login*LOGIN_X2;
+                } else {
+                    $this->owner->gold+=LOGIN_X3;
+                }
+                break;
+             case 'share':
+                 $this->owner->gold+=SHARE_X1;
+                 break;
+            default:
+                // code...
+                break;
+        }
+        $this->owner->saveAttributes(array('gold'));
+    }
     public function attrWithRelated(array $with)
     {
         $attr = $this->owner->getAttributes();

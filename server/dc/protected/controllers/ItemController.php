@@ -21,16 +21,22 @@ class ItemController extends Controller
         );
     }
 
-    public function actionListApi($code)
+    public function actionListApi($code=0)
     {
         $r = Yii::app()->db->createCommand('SELECT item_id FROM dc_item')->queryColumn();
-        $tmp_code = md5($r);
+        if (isset($r)) {
+            $tmp_code = md5($r);
+        } else {
+            $tmp_code = 0;
+        }
+        
         if ($code==$tmp_code) {
             $this->echoJsonData(array('is_update'=>FALSE));        
         } else {
             $this->echoJsonData(array(
                 'is_update'=>TRUE,
                 'item_ids'=>$r,
+                'code' => $tmp_code,
             ));        
         }
     }

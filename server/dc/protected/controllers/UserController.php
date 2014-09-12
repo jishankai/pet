@@ -83,6 +83,24 @@ class UserController extends Controller
         )); 
     }
 
+    public function actionShareApi()
+    {
+        $session = Yii::app()->session;
+        if (isset($session['share_count'])) {
+            $session['share_count']+=1;
+        } else {
+            $session['share_count']=1;
+        }
+        $user = User::mode()->findByPk($this->usr_id);
+        if ($session['share_count']<=6) {
+            $user->onShare = array($user, 'addGold');
+            $user->onShare(new CEvent($user, array('on'=>'share'))); 
+            $this->echoJsonData(array('gold'=>$user->gold));
+        } else {
+            $this->echoJsonData(array('gold'=>$user->gold));
+        }
+    }
+
     /*
     public function actionTypeApi()
     {
@@ -136,7 +154,7 @@ class UserController extends Controller
             throw new PException('未登录');
         }
         $pattern = '/^[a-zA-Z0-9\x{30A0}-\x{30FF}\x{3040}-\x{309F}\x{4E00}-\x{9FBF}]+$/u';
-        if (!empty($aid)) {
+        if (empty($aid)) {
             $namelen = (strlen($name)+mb_strlen($name,"UTF8"))/2;
             if ($namelen>8) {
                 throw new PException('宠物昵称超过最大长度');

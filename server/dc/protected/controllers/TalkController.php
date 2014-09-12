@@ -29,42 +29,41 @@ class TalkController extends Controller
         foreach ($talks as $talk) {
             $path = Yii::app()->basePath.'/../assets/talks/'.$talk->content;
             if (file_exists($path)) {
-                $file = fopen($path, 'r');
-                $buf = fread($file,filesize($path));
+                $arr = array();
+                $buf = file_get_contents($path);
                 $messages = unserialize($buf);
                 foreach ($messages as $message) {
                     if ($message['usr_id']!=$this->usr_id && !$message['is_read']) {
                         $message['is_read'] = TRUE;
-                        $r[$talk->talk_id]['msg'][$message['timestamp']] = $message['msg'];
-                        isset($r[$talk->talk_id]['new_msg'])?$r[$talk->talk_id]['new_msg']++:$r[$talk->talk_id]['new_msg']=1;
+                        $arr[$talk->talk_id]['msg'][$message['timestamp']] = $message['msg'];
+                        isset($arr[$talk->talk_id]['new_msg'])?$arr[$talk->talk_id]['new_msg']++:$arr[$talk->talk_id]['new_msg']=1;
                     } else {
                         break;
                     }
                 }
-                fclose($file);
 
-                if (isset($r[$talk->talk_id])) {
+                if (isset($arr[$talk->talk_id])) {
                     if ($this->usr_id==$talk->usra_id) {
-                        $r[$talk->talk_id]['usr_id'] = $talk->usrb_id;
+                        $arr[$talk->talk_id]['usr_id'] = $talk->usrb_id;
                     } else {
-                        $r[$talk->talk_id]['usr_id'] = $talk->usra_id;
+                        $arr[$talk->talk_id]['usr_id'] = $talk->usra_id;
                     }
-                    $tmp = Yii::app()->db->createCommand('SELECT tx, name FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $r[$talk->talk_id]['usr_id'])->queryRow();
+                    $tmp = Yii::app()->db->createCommand('SELECT tx, name FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $arr[$talk->talk_id]['usr_id'])->queryRow();
                     if (isset($tmp)) {
-                        $r[$talk->talk_id]['usr_tx'] = $tmp['tx'];
-                        $r[$talk->talk_id]['usr_name'] = $tmp['name'];
+                        $arr[$talk->talk_id]['usr_tx'] = $tmp['tx'];
+                        $arr[$talk->talk_id]['usr_name'] = $tmp['name'];
                     }
-                } else {
-                    break;
+                    $r[] = $arr;
                 }
+            } else {
+                break;
             }
         }
         $this->echoJsonData($r);
     }
 
-    public function actionSendMsgApi()
+    public function actionSendMsgApi($usr_id)
     {
-        $usr_id = $_POST['usr_id'];
         $c = new CDbCriteria;
         $c->addCondition('(usra_id=:usra_id AND usrb_id=:usrb_id) OR (usra_id=:usrb_id AND usrb_id=:usra_id)');
         $c->params[':usra_id'] = $this->usr_id;
@@ -78,9 +77,31 @@ class TalkController extends Controller
             $talk->save();
         }
         $path = Yii::app()->basePath.'/../assets/talks/'.$talk->content;
+        if (file_exists($path)) {
+            $buf = file_get_contents($path);
+            $messages = unserialize($buf);
+        } else {
+            $messages = array();
+        }
+        $msg = array(
+            'usr_id' => $this->usr_id,
+            'msg' => $_POST['msg'],
+            'timestamp' => time(),
+            'is_read' => FALSE,
+        );
+        array_unshift($messages, $msg);
+        $buf = serialize($messages);
+        file_put_contents($path, $buf);
+        /*
         $file = fopen($path, 'w+');
-        $buf = fread($file,filesize($path));
-        $messages = unserialize($buf);
+        clearstatcache();
+        var_dump(filesize($path));
+        if (filesize($path)>0) {
+            $buf = fread($file,filesize($path));
+            $messages = unserialize($buf);
+        } else {
+            $messages = array();
+        }
         $msg = array(
             'usr_id' => $this->usr_id,
             'msg' => $_POST['msg'],
@@ -90,14 +111,15 @@ class TalkController extends Controller
         array_unshift($messages, $msg);
         $buf = serialize($messages);
         fwrite($file, $buf);
+        clearstatcache();
         fclose($file);
-
-        $this->echoJsonData(array('isSuccess'=>$isSuccess)); 
+         */
+        $this->echoJsonData(array('talk_id'=>$talk->talk_id)); 
     }
 
     public function actionDeleteApi($talk_id)
     {
-        $this->echoJsonData(array('isSuccess'=>$isSuccess));
+        $this->echoJsonData(array('isSuccess'=>TRUE));
     }
 
 }
