@@ -11,18 +11,20 @@ class TalkController extends Controller
         );
     }
 
-    public function actionListApi($talk_id=NULL)
+    public function actionListApi()
     {
         $c = new CDbCriteria;
         $c->addCondition('usra_id=:usra_id OR usrb_id=:usrb_id');
-        $c->limit = 30;
+        //$c->limit = 30;
         $c->params[':usra_id'] = $this->usr_id;
         $c->params[':usrb_id'] = $this->usr_id;
         $c->order = 'update_time DESC';
+        /*
         if(isset($talk_id)) {
             $update_time = Yii::app()->db->createCommand('SELECT update_time FROM dc_talk WHERE talk_id=:talk_id')->bindValue(':talk_id', $talk_id)->queryScalar();
             $c->compare('update_time', '<'.$update_time);
         }
+         */
         $talks = Talk::model()->findAll($c);
 
         $r = array();
