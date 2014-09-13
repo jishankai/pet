@@ -329,7 +329,7 @@ class AnimalController extends Controller
 
     public function actionVoiceDownApi($aid)
     {
-        $path = Yii::app()->basePath.'/../assets/voices/ani/voice_'.date('y-m-d').'_'.$aid;
+        $path = 'assets/voices/ani/voice_'.date('y-m-d').'_'.$aid;
         if (file_exists($path)) {
             $this->echoJsonData(array('url'=>$path));
         } else {
@@ -363,6 +363,8 @@ class AnimalController extends Controller
 
     public function actionShakeApi($aid)
     {
+    $circle = Circle::model()->findByPk(array('aid'=>$aid, 'usr_id'=>$this->usr_id));
+       $session = Yii::app()->session;
        $this->echoJsonData(array('isSuccess'=>TRUE)); 
     }
 
@@ -422,6 +424,15 @@ class AnimalController extends Controller
                 $image->saveAttributes(array('gifts', 'senders'));
             }
 
+            if ($is_shake) {
+                $session = Yii::app()->session;
+                if (isset($session[$aid.'_shake_count'])) {
+                    $session[$aid.'_shake_count']-=1;
+                } else {
+                    $session[$aid.'_shake_count']=3;
+                }
+            }
+            
             $transaction->commit();
 
             $this->echoJsonData(array('exp'=>$user->exp));
