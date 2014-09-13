@@ -363,9 +363,16 @@ class AnimalController extends Controller
 
     public function actionShakeApi($aid)
     {
-    $circle = Circle::model()->findByPk(array('aid'=>$aid, 'usr_id'=>$this->usr_id));
-       $session = Yii::app()->session;
-       $this->echoJsonData(array('isSuccess'=>TRUE)); 
+        $circle = Circle::model()->findByPk(array('aid'=>$aid, 'usr_id'=>$this->usr_id));
+        if (isset($circle)) {
+            $session = Yii::app()->session;
+            if (!isset($session[$aid.'_shake_count'])) {
+                $session[$aid.'_shake_count']=3;
+            }
+            $this->echoJsonData(array('shake_count'=>$session[$aid.'_shake_count'])); 
+        } else {
+            throw new PException('亲，不是成员不可以摇一摇哦');
+        }
     }
 
     public function actionSendGiftApi($item_id, $aid, $img_id=NULL, $is_buy=FALSE, $is_shake=FALSE)
