@@ -382,7 +382,7 @@ class AnimalController extends Controller
             $item = Item::model()->findByPk($item_id);
 
             $user = User::model()->findByPk($this->usr_id);
-            if (!$is_buy) {
+            if (!$is_buy&&!$is_shake) {
                 $items = unserialize($user->items);
                 if (isset($items[$item_id])&&$items[$item_id]>0) {
                     $items[$item_id]--;
