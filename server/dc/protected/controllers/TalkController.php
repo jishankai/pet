@@ -34,11 +34,12 @@ class TalkController extends Controller
                 $arr = array();
                 $buf = file_get_contents($path);
                 $messages = unserialize($buf);
-                foreach ($messages as $message) {
+                foreach ($messages as $k=>$message) {
                     if ($message['usr_id']!=$this->usr_id && !$message['is_read']) {
                         $message['is_read'] = TRUE;
                         $arr[$talk->talk_id]['msg'][$message['timestamp']] = $message['msg'];
                         isset($arr[$talk->talk_id]['new_msg'])?$arr[$talk->talk_id]['new_msg']++:$arr[$talk->talk_id]['new_msg']=1;
+                        $messages[$k] = $message;
                     } else {
                         break;
                     }

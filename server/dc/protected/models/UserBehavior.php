@@ -82,6 +82,21 @@ class UserBehavior extends CActiveRecordBehavior
         $this->raiseEvent('onUpload', $event);
     }
 
+    public function onVoiceUp($event)
+    {
+        $this->raiseEvent('onVoiceUp', $event);
+    }
+
+    public function onComment($event)
+    {
+        $this->raiseEvent('onComment', $event);
+    }
+
+    public function onTouch($event)
+    {
+        $this->raiseEvent('onTouch', $event);
+    }
+
     public function onLogin($event)
     {
         $this->raiseEvent('onLogin', $event);
@@ -115,6 +130,9 @@ class UserBehavior extends CActiveRecordBehavior
             case 'comment':
                 $this->owner->exp+=COMMENT_X1;
                 break;
+            case 'touch':
+                $this->owner->exp+=TOUCH_X1;
+                break;
             case 'voice':
                 $this->owner->exp+=VOICE_X;
                 break;
@@ -137,6 +155,9 @@ class UserBehavior extends CActiveRecordBehavior
                     $this->owner->gold+=LOGIN_X3;
                 }
                 break;
+             case 'touch':
+                 $this->owner->gold+=rand(1,6);
+                 break;
              case 'share':
                  $this->owner->gold+=SHARE_X1;
                  break;

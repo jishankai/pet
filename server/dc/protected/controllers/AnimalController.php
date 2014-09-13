@@ -7,7 +7,7 @@ class AnimalController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - infoApi,recommendApi,cardApi',
+            'getUserId - infoApi,recommendApi,cardApi,searchApi',
             /*
             array(
                 'COutputCache + welcomeApi',
@@ -159,6 +159,12 @@ class AnimalController extends Controller
             //events
             //$user = User::model()->findByPk($this->usr_id);
             //PMail::create($usr_id, $user, $user->name.'关注了你');
+            $animal = Animal::model()->findByPk($aid);
+            $animal->t_rq+=5;
+            $animal->d_rq+=5;
+            $animal->w_rq+=5;
+            $animal->m_rq+=5;
+            $animal->saveAttributes(array('t_rq','d_rq','w_rq','m_rq'));
 
             $transaction->commit();
 
@@ -180,6 +186,13 @@ class AnimalController extends Controller
                 'aid' => $aid,
             ));
             $f->delete();
+
+            $animal = Animal::model()->findByPk($aid);
+            $animal->t_rq-=5;
+            $animal->d_rq-=5;
+            $animal->w_rq-=5;
+            $animal->m_rq-=5;
+            $animal->saveAttributes(array('t_rq','d_rq','w_rq','m_rq'));
 
             $transaction->commit();
 
@@ -303,7 +316,7 @@ class AnimalController extends Controller
                 $user = User::model()->findByPk($this->usr_id);
                 $user->onVoiceUp = array($user, 'addExp');
                 $user->onVoiceUp(new CEvent($user, array('on'=>'voice'))); 
-                $this->echoJsonData(array('isSuccess'=>TRUE));
+                $this->echoJsonData(array('exp'=>$user->exp));
             } else {
                 throw new PException('上传失败'); 
             }
@@ -337,11 +350,15 @@ class AnimalController extends Controller
        if ($session['touch_count']<=3) {
            $user->onTouch = array($user, 'addExp');   
            $user->onTouch = array($user, 'addGold');   
-       } else if ($session['touch_count']<=7) {
-           $user->onTouch = array($user, 'addGold');   
+       } else if ($session['touch_count']<=10) {
+           $user->onTouch = array($user, 'addExp');   
        }
+       $user->onTouch(new CEvent($user, array('on'=>'touch'))); 
        
-       $this->echoJsonData(array('isSuccess'=>TRUE)); 
+       $this->echoJsonData(array(
+           'gold' => $user->gold,
+           'exp' => $user->exp,
+       )); 
     }
 
     public function actionShakeApi($aid)
@@ -370,6 +387,16 @@ class AnimalController extends Controller
 
             $user->saveAtrributes(array('items'));
 
+            $circle = Circle::model()->findByPk(array('aid'=>$aid,'usr_id'=>$this->usr_id));
+            if (isset($circle)) {
+                $circle->t_contri+=$item->rq;
+                $circle->m_contri+=$item->rq;
+                $circle->y_contri+=$item->rq;
+                $circle->d_contri+=$item->rq;
+
+                $circle->saveAttributes(array('t_contri','m_contri','y_contri','d_contri'));
+            }
+
             $animal = Animal::model()->findByPk($aid);
             $animal->d_rq+=$item->rq;
             $animal->m_rq+=$item->rq;
@@ -397,7 +424,7 @@ class AnimalController extends Controller
 
             $transaction->commit();
 
-            $this->echoJsonData(array('isSuccess'=>true));
+            $this->echoJsonData(array('exp'=>$user->exp));
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;

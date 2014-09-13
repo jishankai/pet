@@ -98,7 +98,7 @@ class ImageController extends Controller
             }
         }
 
-        $this->echoJsonData(array($model));
+        $this->echoJsonData(array('image'=>$model, 'exp'=>$user->exp));
     }
 
     public function actionLikeApi($img_id)
@@ -123,6 +123,13 @@ class ImageController extends Controller
 
             $user = User::model()->findByPk($this->usr_id);
             $user->like();
+
+            $animal = Animal::model()->findByPk($image->aid);
+            $animal->t_rq+=5;
+            $animal->d_rq+=5;
+            $animal->w_rq+=5;
+            $animal->m_rq+=5;
+            $animal->saveAttributes(array('t_rq','d_rq','w_rq','m_rq'));
 
             //events
             //PMail::create($image->usr_id, $user, $user->name.'赞了你');
@@ -249,6 +256,13 @@ class ImageController extends Controller
         
 
         if ($image->saveAttributes(array('comments'))) {
+            $animal = Animal::model()->findByPk($image->aid);
+            $animal->t_rq+=5;
+            $animal->d_rq+=5;
+            $animal->w_rq+=5;
+            $animal->m_rq+=5;
+            $animal->saveAttributes(array('t_rq','d_rq','w_rq','m_rq'));
+
             $session = Yii::app()->session;
             if (isset($session['comment_count'])) {
                 $session['comment_count']+=1;
