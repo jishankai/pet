@@ -7,7 +7,7 @@ class ImageController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - randomApi,infoApi',
+            'getUserId - recommendApi,randomApi,infoApi',
             array(
                 'COutputCache + randomApi',
                 'duration' => 300,
@@ -206,6 +206,17 @@ class ImageController extends Controller
         $this->echoJsonData($r);
     }
 
+    public function actionRecommendApi($img_id=NULL)
+    {
+        if (isset($img_id)) {
+            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url FROM dc_image i WHERE i.img_id<:img_id ORDER BY i.create_time DESC LIMIT 30')->bindValue(':img_id', $img_id)->queryAll();        
+        } else {
+            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url FROM dc_image i ORDER BY i.create_time DESC LIMIT 30')->queryAll();        
+        }
+
+        $this->echoJsonData(array($images));
+    }
+    
     public function actionRandomApi($img_id=NULL)
     {
         if (isset($img_id)) {
