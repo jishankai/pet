@@ -296,7 +296,7 @@ class AnimalController extends Controller
         }
     }
 
-    public function actionIsVoiced()
+    public function actionIsVoicedApi()
     {
         $session = Yii::app()->session;
         if (isset($session['is_voiced'])) {
