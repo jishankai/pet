@@ -93,8 +93,7 @@ class UserController extends Controller
         }
         $user = User::mode()->findByPk($this->usr_id);
         if ($session['share_count']<=6) {
-            $user->onShare = array($user, 'addGold');
-            $user->onShare(new CEvent($user, array('on'=>'share'))); 
+            $user->share();
             $this->echoJsonData(array('gold'=>$user->gold));
         } else {
             $this->echoJsonData(array('gold'=>$user->gold));

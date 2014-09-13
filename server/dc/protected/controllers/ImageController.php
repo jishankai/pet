@@ -271,8 +271,7 @@ class ImageController extends Controller
             }
             
             if ($session['comment_count']<=15) {
-                $user->onComment = array($user, 'addExp');
-                $user->onComment(new CEvent($user, array('on'=>'share'))); 
+                $user->comment();
                 $this->echoJsonData(array('exp'=>$user->exp));
             } else {
                 $this->echoJsonData(array('exp'=>$user->exp));

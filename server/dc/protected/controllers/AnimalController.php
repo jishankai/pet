@@ -314,8 +314,7 @@ class AnimalController extends Controller
             $path = Yii::app()->basePath.'/../assets/voices/ani/voice_'.date('y-m-d').'_'.$aid;
             if (move_uploaded_file($_FILES['voice']['tmp_name'], $path)) {
                 $user = User::model()->findByPk($this->usr_id);
-                $user->onVoiceUp = array($user, 'addExp');
-                $user->onVoiceUp(new CEvent($user, array('on'=>'voice'))); 
+                $user->voiceUp();
                 $this->echoJsonData(array('exp'=>$user->exp));
             } else {
                 throw new PException('上传失败'); 
@@ -347,13 +346,7 @@ class AnimalController extends Controller
            $session['touch_count']=1;
        }
        $user = User::model()->findByPk($this->usr_id);
-       if ($session['touch_count']<=3) {
-           $user->onTouch = array($user, 'addExp');   
-           $user->onTouch = array($user, 'addGold');   
-       } else if ($session['touch_count']<=10) {
-           $user->onTouch = array($user, 'addExp');   
-       }
-       $user->onTouch(new CEvent($user, array('on'=>'touch'))); 
+       $user->touch();
        
        $this->echoJsonData(array(
            'gold' => $user->gold,
@@ -391,9 +384,7 @@ class AnimalController extends Controller
                 }
                 $user->items = serialize($items);
             }
-            $user->onLogin = array($user, 'addExp');
-            $user->onLogin(new CEvent($user, array('on'=>'gift', 'is_shake'=>$is_shake))); 
-
+            $user->sendGift();
             $user->saveAtrributes(array('items'));
 
             $circle = Circle::model()->findByPk(array('aid'=>$aid,'usr_id'=>$this->usr_id));

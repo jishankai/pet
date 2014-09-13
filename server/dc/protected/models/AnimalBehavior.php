@@ -7,62 +7,6 @@ class AnimalBehavior extends CActiveRecordBehavior
         return Yii::app()->db->createCommand('SELECT usr_id FROM dc_animal WHERE name=:name')->bindValue(':name', $name)->queryScalar();
     }
 
-    public function like()
-    {
-        $session = Yii::app()->session;
-        isset($session[date("m.d.y").'_like']) ? ($session[date("m.d.y").'_like']+=1) : ($session[date("m.d.y").'_like']=1); 
-        Yii::trace($session[date("m.d.y").'_like'], 'access');
-        if ($session[date("m.d.y").'_like']<=20) {
-           # $this->onLike = array($this, 'addExp');
-        }
-
-        $this->onLike(new CEvent($this, array('on'=>'like'))); 
-    }
-
-    public function uploadImage()
-    {
-        $today_count = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE usr_id=:usr_id AND create_time>=:time')->bindValues(array(
-            ':usr_id' => $this->owner->usr_id,
-            ':time' => mktime(0,0,0,date('m'),date('d'),date('Y')),
-        ))->queryScalar();
-        #Yii::trace('today_count:'.mktime(0,0,0,date('m'),date('d'),date('Y')).'  '.$today_count, 'access');
-        if ($today_count<=5) {
-            $this->onUpload = array($this, 'addExp');
-        }
-
-        $this->onUpload(new CEvent($this, array('on'=>'upload'))); 
-    }
-
-    public function onLike($event)
-    {
-        $this->raiseEvent('onLike', $event);
-    }
-
-    public function onUpload($event)
-    {
-        $this->raiseEvent('onUpload', $event);
-    }
-
-    public function addExp($event)
-    {
-        $value = $this->owner->value;
-        switch ($event->params['on']) {
-            case 'login':
-                $value->exp+=($value->con_login>5?5:$value->con_login);
-                break;
-            case 'like':
-                $value->exp+=1;    
-                break;
-            case 'upload':
-                $value->exp+=2;    
-                break;
-            default:
-                break;
-        }
-
-        $value->saveAttributes(array('exp'));
-    }
-
     public function attrWithRelated(array $with)
     {
         $attr = $this->owner->getAttributes();

@@ -1,15 +1,15 @@
 <?php
 
-class UserBehavior extends CActiveRecordBehavior
+class thisBehavior extends CActiveRecordBehavior
 {
     public function isNameExist($name)
     {
-        return Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $name)->queryScalar();
+        return Yii::app()->db->createCommand('SELECT usr_id FROM dc_this WHERE name=:name')->bindValue(':name', $name)->queryScalar();
     }
 
-    public function getUserIdByCode($code)
+    public function getthisIdByCode($code)
     { 
-        return Yii::app()->db->createCommand("SELECT usr_id FROM dc_user WHERE code=:code")->bindValue(':code',$code)->queryScalar();
+        return Yii::app()->db->createCommand("SELECT usr_id FROM dc_this WHERE code=:code")->bindValue(':code',$code)->queryScalar();
     }  
 
     public function initialize()
@@ -60,6 +60,42 @@ class UserBehavior extends CActiveRecordBehavior
         $this->owner->saveAttributes(array('login_time'));
         #Yii::trace('exp:'.$value->exp, 'access');
         $this->onLogin(new CEvent($this, array('on'=>'login'))); 
+    }
+
+    public function sendGift()
+    {
+        $this->onGift = array($this, 'addExp');
+        $this->onGift(new CEvent($this, array('on'=>'gift', 'is_shake'=>$is_shake))); 
+    }
+    
+    public function comment()
+    {
+        $this->onComment = array($this, 'addExp');
+        $this->onComment(new CEvent($this, array('on'=>'share'))); 
+    }
+
+    public function touch()
+    {
+        $session = Yii::app()->session; 
+        if ($session['touch_count']<=3) {
+            $this->onTouch = array($this, 'addExp');   
+            $this->onTouch = array($this, 'addGold');   
+        } else if ($session['touch_count']<=10) {
+            $this->onTouch = array($this, 'addExp');   
+        }
+        $this->onTouch(new CEvent($this, array('on'=>'touch'))); 
+    }
+
+    public function voiceUp()
+    {
+        $this->onVoiceUp = array($this, 'addExp');
+        $this->onVoiceUp(new CEvent($this, array('on'=>'voice'))); 
+    }
+
+    public function share()
+    {
+        $this->onShare = array($this, 'addGold');
+        $this->onShare(new CEvent($this, array('on'=>'share'))); 
     }
 
     public function onShare($event)
