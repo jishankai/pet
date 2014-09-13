@@ -166,6 +166,17 @@ class AnimalController extends Controller
             $animal->m_rq+=5;
             $animal->saveAttributes(array('t_rq','d_rq','w_rq','m_rq'));
 
+            $news = new News;
+            $news->aid = $aid;
+            $news->type = 1;
+            $news->create_time = time();
+            $user = User::model()->findByPk($this->usr_id);
+            $news->content = serialize(array(
+                'usr_id'=>$user->usr_id,
+                'u_name'=>$user->name,
+            ));
+            $news->save();
+
             $transaction->commit();
 
             $this->echoJsonData(array(
@@ -269,6 +280,18 @@ class AnimalController extends Controller
             $circle->aid = $aid;
             $circle->usr_id = $this->usr_id;
             $circle->save();
+            
+            $news = new News;
+            $news->aid = $aid;
+            $news->type = 2;
+            $news->create_time = time();
+            $user = User::model()->findByPk($this->usr_id);
+            $news->content = serialize(array(
+                'usr_id'=>$user->usr_id,
+                'u_name'=>$user->name,
+            ));
+            $news->save();
+
             $transaction->commit();
 
             $this->echoJsonData(array('isSuccess'=>TRUE));
@@ -315,6 +338,13 @@ class AnimalController extends Controller
             if (move_uploaded_file($_FILES['voice']['tmp_name'], $path)) {
                 $user = User::model()->findByPk($this->usr_id);
                 $user->voiceUp();
+
+                $news = new News;
+                $news->aid = $aid;
+                $news->type = 5;
+                $news->create_time = time();
+                $news->save();
+
                 $this->echoJsonData(array('exp'=>$user->exp));
             } else {
                 throw new PException('上传失败'); 
@@ -370,73 +400,90 @@ class AnimalController extends Controller
 
     public function actionSendGiftApi($item_id, $aid, $img_id=NULL, $is_buy=FALSE, $is_shake=FALSE)
     {
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            $item = Item::model()->findByPk($item_id);
-
-            $user = User::model()->findByPk($this->usr_id);
-            if (!$is_buy&&!$is_shake) {
-                $items = unserialize($user->items);
-                if (isset($items[$item_id])&&$items[$item_id]>0) {
-                    $items[$item_id]--;
-                } else {
-                    throw new PException('礼物数量不足');
+        $item = Item::model()->findByPk($item_id);
+        if (isset($item)) {
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $user = User::model()->findByPk($this->usr_id);
+                if (!$is_buy&&!$is_shake) {
+                    $items = unserialize($user->items);
+                    if (isset($items[$item_id])&&$items[$item_id]>0) {
+                        $items[$item_id]--;
+                    } else {
+                        throw new PException('礼物数量不足');
+                    }
+                    $user->items = serialize($items);
                 }
-                $user->items = serialize($items);
-            }
-            $user->sendGift();
-            $user->saveAtrributes(array('items'));
+                $user->sendGift($is_shake);
+                $user->saveAttributes(array('items'));
 
-            $circle = Circle::model()->findByPk(array('aid'=>$aid,'usr_id'=>$this->usr_id));
-            if (isset($circle)) {
-                $circle->t_contri+=$item->rq;
-                $circle->m_contri+=$item->rq;
-                $circle->y_contri+=$item->rq;
-                $circle->d_contri+=$item->rq;
+                $circle = Circle::model()->findByPk(array('aid'=>$aid,'usr_id'=>$this->usr_id));
+                if (isset($circle)) {
+                    $circle->t_contri+=$item->rq;
+                    $circle->m_contri+=$item->rq;
+                    $circle->w_contri+=$item->rq;
+                    $circle->d_contri+=$item->rq;
 
-                $circle->saveAttributes(array('t_contri','m_contri','y_contri','d_contri'));
-            }
-
-            $animal = Animal::model()->findByPk($aid);
-            $animal->d_rq+=$item->rq;
-            $animal->m_rq+=$item->rq;
-            $animal->y_rq+=$item->rq;
-            $animal->t_rq+=$item->rq;
-            $a_items = unserialize($animal->items);
-            if (isset($a_items[$item_id])) {
-                $a_items[$item_id]++;
-            } else {
-                $a_items[$item_id] = 1;
-            }
-            $animal->items = unserialize($a_items);
-            $animal->saveAttributes(array('d_rq', 'm_rq', 'y_rq', 't_rq', 'items'));
-
-            if (isset($img_id)) {
-                $image = Image::model()->findByPk($img_id);
-                $image->gifts++;
-                if (isset($image->senders)&&$image->senders!='') {
-                    $image->senders = $this->usr_id.','.$image->senders;
-                } else {
-                    $image->senders = $this->usr_id;
+                    $circle->saveAttributes(array('t_contri','m_contri','w_contri','d_contri'));
                 }
-                $image->saveAttributes(array('gifts', 'senders'));
-            }
 
-            if ($is_shake) {
-                $session = Yii::app()->session;
-                if (isset($session[$aid.'_shake_count'])) {
-                    $session[$aid.'_shake_count']-=1;
+                $animal = Animal::model()->findByPk($aid);
+                $animal->d_rq+=$item->rq;
+                $animal->m_rq+=$item->rq;
+                $animal->w_rq+=$item->rq;
+                $animal->t_rq+=$item->rq;
+                $a_items = unserialize($animal->items);
+                if (isset($a_items[$item_id])) {
+                    $a_items[$item_id]++;
                 } else {
-                    $session[$aid.'_shake_count']=3;
+                    $a_items[$item_id] = 1;
                 }
-            }
-            
-            $transaction->commit();
+                $animal->items = serialize($a_items);
+                $animal->saveAttributes(array('d_rq', 'm_rq', 'w_rq', 't_rq', 'items'));
 
-            $this->echoJsonData(array('exp'=>$user->exp));
-        } catch (Exception $e) {
-            $transaction->rollback();
-            throw $e;
+                if (isset($img_id)) {
+                    $image = Image::model()->findByPk($img_id);
+                    $image->gifts++;
+                    if (isset($image->senders)&&$image->senders!='') {
+                        $image->senders = $this->usr_id.','.$image->senders;
+                    } else {
+                        $image->senders = $this->usr_id;
+                    }
+                    $image->saveAttributes(array('gifts', 'senders'));
+                }
+
+                if ($is_shake) {
+                    $session = Yii::app()->session;
+                    if (isset($session[$aid.'_shake_count'])) {
+                        $session[$aid.'_shake_count']-=1;
+                    } else {
+                        $session[$aid.'_shake_count']=3;
+                    }
+                }
+
+                $news = new News;
+                $news->aid = $aid;
+                $news->type = $item->rq>=0?4:7;
+                $news->create_time = time();
+                $news->content = serialize(array(
+                    'a_name'=>$animal->name,
+                    'usr_id'=>$user->usr_id,
+                    'u_name'=>$user->name,
+                    'item_id'=>$item->item_id,
+                    'item_name'=>$item->name,
+                    'rq'=>$item->rq,
+                ));
+                $news->save();
+
+                $transaction->commit();
+
+                $this->echoJsonData(array('exp'=>$user->exp));
+            } catch (Exception $e) {
+                $transaction->rollback();
+                throw $e;
+            }
+        } else {
+            throw new PException('礼物不存在');
         }
     }
 
@@ -466,7 +513,7 @@ class AnimalController extends Controller
             ))->queryAll();
         } else {
             $session = Yii::app()->session;
-            
+
             $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.t_rq<:t_rq AND a.aid BETWEEN :aid1 AND :aid2 ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
                 ':t_rq'=>$t_rq,
                 ':aid1'=>1000000000*$session['planet'],

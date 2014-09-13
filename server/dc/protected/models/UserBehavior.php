@@ -1,15 +1,15 @@
 <?php
 
-class thisBehavior extends CActiveRecordBehavior
+class UserBehavior extends CActiveRecordBehavior
 {
     public function isNameExist($name)
     {
-        return Yii::app()->db->createCommand('SELECT usr_id FROM dc_this WHERE name=:name')->bindValue(':name', $name)->queryScalar();
+        return Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $name)->queryScalar();
     }
 
     public function getthisIdByCode($code)
     { 
-        return Yii::app()->db->createCommand("SELECT usr_id FROM dc_this WHERE code=:code")->bindValue(':code',$code)->queryScalar();
+        return Yii::app()->db->createCommand("SELECT usr_id FROM dc_user WHERE code=:code")->bindValue(':code',$code)->queryScalar();
     }  
 
     public function initialize()
@@ -62,7 +62,7 @@ class thisBehavior extends CActiveRecordBehavior
         $this->onLogin(new CEvent($this, array('on'=>'login'))); 
     }
 
-    public function sendGift()
+    public function sendGift($is_shake)
     {
         $this->onGift = array($this, 'addExp');
         $this->onGift(new CEvent($this, array('on'=>'gift', 'is_shake'=>$is_shake))); 

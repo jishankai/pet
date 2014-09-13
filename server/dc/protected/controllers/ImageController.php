@@ -95,6 +95,19 @@ class ImageController extends Controller
                 //events
                 $user = User::model()->findByPk($this->usr_id);
                 $user->uploadImage($aid);
+
+                $news = new News;
+                $news->aid = $aid;
+                $news->type = 3;
+                $news->create_time = time();
+                $user = User::model()->findByPk($this->usr_id);
+                $news->content = serialize(array(
+                    'usr_id'=>$user->usr_id,
+                    'u_name'=>$user->name,
+                    'img_id'=>$model->img_id,
+                    'img_url'=>$model->url,
+                ));
+                $news->save();
             }
         }
 
