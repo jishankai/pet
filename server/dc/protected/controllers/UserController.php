@@ -197,7 +197,12 @@ class UserController extends Controller
            $usr_id = $this->usr_id; 
         }
 
-        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, u.gold, a.aid, a.name AS a_name, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, u.gold, u.con_login, a.aid, a.name AS a_name, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
+        if ($r['con_login']<=6) {
+            $r['next_gold'] = $r['con_login']*LOGIN_X2;
+        } else {
+            $r['next_gold'] = LOGIN_X3;
+        }
 
         $this->echoJsonData(array($r));
     }
