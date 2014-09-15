@@ -30,6 +30,11 @@ class ImageController extends Controller
                     ),
                 ),
             ),
+
+            array(
+                'COutputCache + topicApi',
+                'duration' => 3600,
+            )
         );
     }
 
@@ -305,6 +310,8 @@ class ImageController extends Controller
 
     public function actionTopicApi()
     {
-        
+        $r = Yii::app()->db->createCommand('SELECT topic_id, topic FROM dc_topic ORDER BY topic_id DESC')->queryAll();
+
+        $this->echoJsonData($r);       
     }
 }
