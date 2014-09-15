@@ -12,8 +12,9 @@ class ApiJsonResponse
     const STATE_OK              = 0; //正常
     const STATE_ERROR           = 1; //错误
     const STATE_EXPIRED         = 2; //session过期
-    const STATE_CLIENT_OUTDATED = 3; //客户端版本过期
-    const STATE_MAINTENANCE     = 4; //服务器维护
+    const STATE_NOTREGISTERED   = 3; //未注册
+    const STATE_CLIENT_OUTDATED = 4; //客户端版本过期
+    const STATE_MAINTENANCE     = 5; //服务器维护
 
     protected $state = self::STATE_OK;
 
@@ -80,6 +81,11 @@ class ApiJsonResponse
     public function setExpired()
     {
         $this->state = self::STATE_EXPIRED;
+    }
+
+    public function setNotRegistered()
+    {
+        $this->state = self::STATE_NOTREGISTERED;
     }
 
     /**

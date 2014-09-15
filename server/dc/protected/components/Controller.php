@@ -45,7 +45,11 @@ class Controller extends CController
         $session->open();
         
         if (empty($session['usr_id'])) {
-            $this->response->setExpired();//重新登录
+            if (isset($session['not_registered'])&&$session['not_registered']==TRUE) {
+                $this->response->setNotRegistered();
+            } else {
+                $this->response->setExpired();//重新登录
+            }
             $this->response->render();
         } else {
             $this->usr_id = $session['usr_id'];

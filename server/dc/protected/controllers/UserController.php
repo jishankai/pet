@@ -67,6 +67,7 @@ class UserController extends Controller
                 $device->save();
             }
             $session['id'] = $device->id;
+            $session['not_registered'] = TRUE;
 
             $isSuccess = false;
         } else {
@@ -183,6 +184,7 @@ class UserController extends Controller
             $transaction->commit();
 
             $session['usr_id'] = $device->usr_id;
+            $session['not_registered'] = FALSE;
             $user->login();
             $this->echoJsonData(array('isSuccess'=>true));
         } catch (Exception $e) {
