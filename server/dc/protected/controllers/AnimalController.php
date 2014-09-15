@@ -371,21 +371,33 @@ class AnimalController extends Controller
         
     }
 
+    public function actionIsTouchedApi($aid)
+    {
+       $session = Yii::app()->session;
+       if (isset($session[$aid.'touch_count'])) {
+           $is_touched = TRUE;
+       } else {
+           $is_touched = FALSE;
+       }
+
+       $this->echoJsonData(array('is_touched'=>$is_touched));
+    }
+
     public function actionTouchApi($aid)
     {
        $session = Yii::app()->session;
-       if (isset($session['touch_count'])) {
-           $session['touch_count']+=1;
+       if (!isset($session[$aid.'touch_count'])) {
+           $session[$aid.'touch_count']=1;
+           $user = User::model()->findByPk($this->usr_id);
+           $user->touch();
+
+           $this->echoJsonData(array(
+               'gold' => $user->gold,
+               'exp' => $user->exp,
+           )); 
        } else {
-           $session['touch_count']=1;
+           throw new PException('你今天已经摸过啦！');
        }
-       $user = User::model()->findByPk($this->usr_id);
-       $user->touch();
-       
-       $this->echoJsonData(array(
-           'gold' => $user->gold,
-           'exp' => $user->exp,
-       )); 
     }
 
     public function actionShakeApi($aid)
