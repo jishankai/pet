@@ -237,7 +237,7 @@ class AnimalController extends Controller
 
     public function actionNewsApi($aid, $nid=999999999)
     {
-        $r = Yii::app()->db->createCommand('SELECT nid, aid, type, content FROM dc_news WHERE aid=:aid AND nid<:nid ORDER BY nid DESC')->bindValues(array(
+        $r = Yii::app()->db->createCommand('SELECT nid, aid, type, content, create_time FROM dc_news WHERE aid=:aid AND nid<:nid ORDER BY nid DESC')->bindValues(array(
             ':aid' => $aid,
             ':nid' => $nid,
         ))->queryAll();
