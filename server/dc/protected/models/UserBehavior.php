@@ -71,7 +71,7 @@ class UserBehavior extends CActiveRecordBehavior
     public function comment()
     {
         $this->onComment = array($this, 'addExp');
-        $this->onComment(new CEvent($this, array('on'=>'share'))); 
+        $this->onComment(new CEvent($this, array('on'=>'comment'))); 
     }
 
     public function touch()

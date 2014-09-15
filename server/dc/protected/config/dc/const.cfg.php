@@ -3,7 +3,7 @@
 
     define('LOGIN_X1', 5);
     define('LOGIN_X2', 4);
-    define('LOGIN_X2', 30);
+    define('LOGIN_X3', 30);
 
     define('GIFT_X1', 3);
     define('GIFT_X2', 10);

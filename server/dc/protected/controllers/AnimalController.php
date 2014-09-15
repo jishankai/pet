@@ -242,6 +242,10 @@ class AnimalController extends Controller
             ':nid' => $nid,
         ))->queryAll();
 
+        foreach ($r as $k=>$v) {
+            $r[$k]['content'] = unserialize($v['content']);
+        }
+
         $this->echoJsonData($r);
     }
 
