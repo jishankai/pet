@@ -43,21 +43,23 @@ class ImageController extends Controller
         $model = new Image;
 
         if (isset($_POST['comment'])) {
-        Yii::trace("Image: ".$_POST['comment'], 'access');
+            Yii::trace("Image: ".$_POST['comment'], 'access');
         }
         /*
         if (isset($_FILES['image'])) {
         Yii::trace("Image: ".$_FILES['image'], 'access');
         }
-        */
+         */
         $cmtlen = (strlen($_POST['comment'])+mb_strlen($_POST['comment'],"UTF8"))/2;
         if ($cmtlen>40) {
             throw new PException('描述不合要求');
         }
 
         if (isset($_FILES['image'])&&isset($aid)) {
-            $model->aid = $aid;
-            $model->cmt = $_POST['comment'];
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $model->aid = $aid;
+                $model->cmt = $_POST['comment'];
             /*
             preg_match("/#\s*([^#]*)\s*#/",$_POST['comment'],$matches);
             #Yii::trace($_POST['comment'].$matches[0].'...'.$matches[1], 'access');
@@ -78,41 +80,46 @@ class ImageController extends Controller
                 }
             }
              */
-            if (isset($_POST['topic_id'])) {
-                $model->topic_id = $_POST['topic_id'];
-                $model->topic_name = $_POST['topic_name'];
-            } else {
-                $model->topic_name = $_POST['topic_name'];
-            }
-            if (isset($_POST['relates'])) {
-                $model->relates = $_POST['relates'];
-            }
-            $model->create_time = time();
-            $img_count = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
+                if (isset($_POST['topic_id'])) {
+                    $model->topic_id = $_POST['topic_id'];
+                    $model->topic_name = $_POST['topic_name'];
+                } else {
+                    $model->topic_name = $_POST['topic_name'];
+                }
+                if (isset($_POST['relates'])) {
+                    $model->relates = $_POST['relates'];
+                }
+                $model->create_time = time();
+                $img_count = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
 
-            $fname = basename($_FILES['image']['name']);
-            #$success = Yii::app()->s3->upload( $_FILES['image']['tmp_name'], 'upload/'.$fname, 'pet4jishankaitest' );
-            $path = Yii::app()->basePath.'/../images/upload/'.$model->aid.'_'.$img_count.'.'.$fname;
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
-                $model->url = $model->aid.'_'.$img_count.'.'.$fname;
-                $model->save();
-                
-                //events
-                $user = User::model()->findByPk($this->usr_id);
-                $user->uploadImage($aid);
+                $fname = basename($_FILES['image']['name']);
+                #$success = Yii::app()->s3->upload( $_FILES['image']['tmp_name'], 'upload/'.$fname, 'pet4jishankaitest' );
+                $path = Yii::app()->basePath.'/../images/upload/'.$model->aid.'_'.$img_count.'.'.$fname;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
+                    $model->url = $model->aid.'_'.$img_count.'.'.$fname;
+                    $model->save();
 
-                $news = new News;
-                $news->aid = $aid;
-                $news->type = 3;
-                $news->create_time = time();
-                $user = User::model()->findByPk($this->usr_id);
-                $news->content = serialize(array(
-                    'usr_id'=>$user->usr_id,
-                    'u_name'=>$user->name,
-                    'img_id'=>$model->img_id,
-                    'img_url'=>$model->url,
-                ));
-                $news->save();
+                    //events
+                    $user = User::model()->findByPk($this->usr_id);
+                    $user->uploadImage($aid);
+
+                    $news = new News;
+                    $news->aid = $aid;
+                    $news->type = 3;
+                    $news->create_time = time();
+                    $user = User::model()->findByPk($this->usr_id);
+                    $news->content = serialize(array(
+                        'usr_id'=>$user->usr_id,
+                        'u_name'=>$user->name,
+                        'img_id'=>$model->img_id,
+                        'img_url'=>$model->url,
+                    ));
+                    $news->save();
+                }
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollback();
+                throw $e;
             }
         }
 
@@ -313,5 +320,31 @@ class ImageController extends Controller
         $r = Yii::app()->db->createCommand('SELECT topic_id, topic FROM dc_topic ORDER BY topic_id DESC')->queryAll();
 
         $this->echoJsonData($r);       
+    }
+    
+    public function actionShareApi($img_id)
+    {
+        $session = Yii::app()->session;
+        if (isset($session['share_count'])) {
+            $session['share_count']+=1;
+        } else {
+            $session['share_count']=1;
+        }
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $image = Image::model()->findByPk($img_id);
+            $image->share++;
+            $image->saveAttributes(array('share'));
+
+            $user = User::mode()->findByPk($this->usr_id);
+            if ($session['share_count']<=6) {
+                $user->share();
+            }
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+        $this->echoJsonData(array('gold'=>$user->gold));
     }
 }

@@ -55,49 +55,39 @@ class UserController extends Controller
 
     public function actionLoginApi($uid, $planet, $ver=NULL, $token=NULL)
     {
-        $device = Device::model()->findByAttributes(array('uid'=>$uid));
-        $isSuccess = true;
-        $session = Yii::app()->session;
-        if (empty($device->usr_id)) {
-            if ($device === NULL) {
-                $device = new Device();
-                $device->uid = $uid;
-                //$device->token = $token;
-                $device->create_time = time();
-                $device->save();
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $device = Device::model()->findByAttributes(array('uid'=>$uid));
+            $isSuccess = true;
+            $session = Yii::app()->session;
+            if (empty($device->usr_id)) {
+                if ($device === NULL) {
+                    $device = new Device();
+                    $device->uid = $uid;
+                    //$device->token = $token;
+                    $device->create_time = time();
+                    $device->save();
+                }
+                $session['id'] = $device->id;
+                $session['not_registered'] = TRUE;
+
+                $isSuccess = false;
+            } else {
+                $session['usr_id'] = $device->usr_id;
+
+                $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
+                $user->login();
             }
-            $session['id'] = $device->id;
-            $session['not_registered'] = TRUE;
+            $session['planet'] = $planet;
+            $transaction->commit();
 
-            $isSuccess = false;
-        } else {
-            $session['usr_id'] = $device->usr_id;
-
-            $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
-            $user->login();
-        }
-        $session['planet'] = $planet;
-
-        $this->echoJsonData(array(
-            'isSuccess' => $isSuccess,
-            'SID' => $session->sessionID,
-        )); 
-    }
-
-    public function actionShareApi()
-    {
-        $session = Yii::app()->session;
-        if (isset($session['share_count'])) {
-            $session['share_count']+=1;
-        } else {
-            $session['share_count']=1;
-        }
-        $user = User::mode()->findByPk($this->usr_id);
-        if ($session['share_count']<=6) {
-            $user->share();
-            $this->echoJsonData(array('gold'=>$user->gold));
-        } else {
-            $this->echoJsonData(array('gold'=>$user->gold));
+            $this->echoJsonData(array(
+                'isSuccess' => $isSuccess,
+                'SID' => $session->sessionID,
+            )); 
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
         }
     }
 
@@ -113,26 +103,33 @@ class UserController extends Controller
     public function actionBindApi($weibo=NULL, $wechat=NULL)
     {
         $isBinded = FALSE;
-        if ((isset($weibo)&&$weibo!='') or (isset($wechat)&&$wechat!='')) {
-            $c = new CDbCriteria;
-            $c->compare('weibo',$weibo);
-            $c->compare('wechat',$wechat); 
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            if ((isset($weibo)&&$weibo!='') or (isset($wechat)&&$wechat!='')) {
+                $c = new CDbCriteria;
+                $c->compare('weibo',$weibo);
+                $c->compare('wechat',$wechat); 
 
-            $user = User::model()->find($c);
-            if (isset($user)) {
-                $session = Yii::app()->session;
-                $session->open();
-                $id = $session['id'];
-                $device = Device::model()->findByPk($id);
-                $device->usr_id = $user->usr_id;
-                $device->saveAttributes(array('usr_id'));
-                $session['usr_id'] = $user->usr_id;
+                $user = User::model()->find($c);
+                if (isset($user)) {
+                    $session = Yii::app()->session;
+                    $session->open();
+                    $id = $session['id'];
+                    $device = Device::model()->findByPk($id);
+                    $device->usr_id = $user->usr_id;
+                    $device->saveAttributes(array('usr_id'));
+                    $session['usr_id'] = $user->usr_id;
 
-                $isBinded = TRUE;
+                    $isBinded = TRUE;
+                }
             }
+            $transaction->commit();
+            $this->echoJsonData(array('isBinded'=>$isBinded));
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
         }
-        $this->echoJsonData(array('isBinded'=>$isBinded));
-            
+
     }
 
     public function actionRegisterApi($aid=NULL, $name, $gender, $age, $type, $u_name, $u_gender, $u_city, $code)
@@ -196,7 +193,7 @@ class UserController extends Controller
     public function actionInfoApi($usr_id)
     {
         if (!isset($usr_id) or $usr_id=='') {
-           $usr_id = $this->usr_id; 
+            $usr_id = $this->usr_id; 
         }
 
         $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, u.gold, u.con_login, a.aid, a.name AS a_name, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
@@ -248,7 +245,7 @@ class UserController extends Controller
             $search_ids[] = $tmp_ids[$i];
         }
         $search_ids = implode(',', $search_ids);
-        
+
         $r = Yii::app()->db->createCommand("SELECT usr_id, name, tx, city, gender FROM dc_user WHERE usr_id IN ($search_ids)")->queryAll();
 
         $this->echoJsonData($r);
@@ -268,14 +265,14 @@ class UserController extends Controller
     public function actionPetsApi($usr_id, $is_simple=0)
     {
         if (!isset($usr_id) or $usr_id=='') {
-           $usr_id = $this->usr_id; 
+            $usr_id = $this->usr_id; 
         }
         if ($is_simple) {
             $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
         } else {
             $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.d_rq, c.t_contri, c.rank, (SELECT COUNT(*) FROM dc_news n WHERE c.aid=n.aid) AS news_count, (SELECT COUNT(*) FROM dc_circle c1 WHERE c.aid=c1.aid) AS fans_count FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
         }
-        
+
 
         $this->echoJsonData($r);
     }
@@ -283,7 +280,7 @@ class UserController extends Controller
     public function actionFollowingApi($usr_id)
     {
         if (!isset($usr_id) or $usr_id=='') {
-           $usr_id = $this->usr_id; 
+            $usr_id = $this->usr_id; 
         }
 
         $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.type, a.age, a.gender, a.t_rq, u.name AS u_name FROM dc_follow f LEFT JOIN dc_animal a ON f.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE f.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
@@ -294,7 +291,7 @@ class UserController extends Controller
     public function actionTopicApi($usr_id)
     {
         if (!isset($usr_id) or $usr_id=='') {
-           $usr_id = $this->usr_id; 
+            $usr_id = $this->usr_id; 
         }
 
         $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.topic_name, i.create_time FROM dc_circle c LEFT JOIN dc_image i ON c.aid=i.aid WHERE c.usr_id=:usr_id AND i.topic_name<>""')->bindValue(':usr_id', $usr_id)->queryAll();
@@ -305,7 +302,7 @@ class UserController extends Controller
     public function actionItemsApi($usr_id)
     {
         if (!isset($usr_id) or $usr_id=='') {
-           $usr_id = $this->usr_id; 
+            $usr_id = $this->usr_id; 
         }
 
         $i = Yii::app()->db->createCommand('SELECT items FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryScalar();

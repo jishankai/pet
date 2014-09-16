@@ -57,15 +57,22 @@ class ItemController extends Controller
             if ($user->gold-$item->price*$num<0) {
                 throw new PException('余额不足');
             } else {
-                $user->gold-=$item->price*$num;
-                $items = unserialize($user->items);
-                if (isset($items[$item_id])) {
-                    $items[$item_id]+=$num;
-                } else {
-                    $items[$item_id]=$num;
+                $transaction = Yii::app()->db->beginTransaction();
+                try {
+                    $user->gold-=$item->price*$num;
+                    $items = unserialize($user->items);
+                    if (isset($items[$item_id])) {
+                        $items[$item_id]+=$num;
+                    } else {
+                        $items[$item_id]=$num;
+                    }
+                    $user->items = serialize($items);
+                    $user->saveAttributes(array('gold', 'items'));
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollback();
+                    throw $e;
                 }
-                $user->items = serialize($items);
-                $user->saveAttributes(array('gold', 'items'));
 
                 $this->echoJsonData(array('user_gold'=>$user->gold));
             }

@@ -340,16 +340,23 @@ class AnimalController extends Controller
             $fname = basename($_FILES['voice']['name']);
             $path = Yii::app()->basePath.'/../assets/voices/ani/voice_'.date('y-m-d').'_'.$aid;
             if (move_uploaded_file($_FILES['voice']['tmp_name'], $path)) {
-                $user = User::model()->findByPk($this->usr_id);
-                $user->voiceUp();
+                $transaction = Yii::app()->db->beginTransaction();
+                try {
+                    $user = User::model()->findByPk($this->usr_id);
+                    $user->voiceUp();
 
-                $news = new News;
-                $news->aid = $aid;
-                $news->type = 5;
-                $news->create_time = time();
-                $news->save();
+                    $news = new News;
+                    $news->aid = $aid;
+                    $news->type = 5;
+                    $news->create_time = time();
+                    $news->save();
+                    $transaction->commit();
 
-                $this->echoJsonData(array('exp'=>$user->exp));
+                    $this->echoJsonData(array('exp'=>$user->exp));
+                } catch (Exception $e) {
+                    $transaction->rollback();
+                    throw $e;
+                }
             } else {
                 throw new PException('上传失败'); 
             }
@@ -357,7 +364,7 @@ class AnimalController extends Controller
             throw new PException('音频文件不存在'); 
         }
 
-        
+
     }
 
     public function actionVoiceDownApi($aid)
@@ -368,36 +375,43 @@ class AnimalController extends Controller
         } else {
             throw new PException('音频文件不存在');
         }
-        
+
     }
 
     public function actionIsTouchedApi($aid)
     {
-       $session = Yii::app()->session;
-       if (isset($session[$aid.'touch_count'])) {
-           $is_touched = TRUE;
-       } else {
-           $is_touched = FALSE;
-       }
+        $session = Yii::app()->session;
+        if (isset($session[$aid.'touch_count'])) {
+            $is_touched = TRUE;
+        } else {
+            $is_touched = FALSE;
+        }
 
-       $this->echoJsonData(array('is_touched'=>$is_touched));
+        $this->echoJsonData(array('is_touched'=>$is_touched));
     }
 
     public function actionTouchApi($aid)
     {
-       $session = Yii::app()->session;
-       if (!isset($session[$aid.'touch_count'])) {
-           $session[$aid.'touch_count']=1;
-           $user = User::model()->findByPk($this->usr_id);
-           $user->touch();
+        $session = Yii::app()->session;
+        if (!isset($session[$aid.'touch_count'])) {
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $session[$aid.'touch_count']=1;
+                $user = User::model()->findByPk($this->usr_id);
+                $user->touch();
+                $transaction->commit();
 
-           $this->echoJsonData(array(
-               'gold' => $user->gold,
-               'exp' => $user->exp,
-           )); 
-       } else {
-           throw new PException('你今天已经摸过啦！');
-       }
+                $this->echoJsonData(array(
+                    'gold' => $user->gold,
+                    'exp' => $user->exp,
+                )); 
+            } catch (Exception $e) {
+                $transaction->rollback();
+                throw $e;
+            }
+        } else {
+            throw new PException('你今天已经摸过啦！');
+        }
     }
 
     public function actionShakeApi($aid)
@@ -578,15 +592,22 @@ class AnimalController extends Controller
     {
         $animal = Animal::model()->findByPk($aid);
         if (isset($_POST['name'])) {
-            $address = array(
-                'name'=>$_POST['name'],
-                'telephone'=>$_POST['telephone'],
-                'zipcode'=>$_POST['zipcode'],
-                'region'=>$_POST['region'],
-                'building'=>$_POST['building'],
-            );
-            $animal->address = serialize($address);
-            $animal->saveAttributes(array('address'));
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $address = array(
+                    'name'=>$_POST['name'],
+                    'telephone'=>$_POST['telephone'],
+                    'zipcode'=>$_POST['zipcode'],
+                    'region'=>$_POST['region'],
+                    'building'=>$_POST['building'],
+                );
+                $animal->address = serialize($address);
+                $animal->saveAttributes(array('address'));
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollback();
+                throw $e;
+            }
         }
 
         $this->echoJsonData(array(unserialize($animal->address)));
