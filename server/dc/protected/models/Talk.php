@@ -50,7 +50,7 @@ class Talk extends CActiveRecord
     public function behaviors()
     {
         return array(
-            //'behavior' => 'TalkBehavior',
+            'behavior' => 'TalkBehavior',
         );
     }
 

@@ -154,6 +154,53 @@ class UserController extends Controller
 
     }
 
+    public function actionModifyInfoApi($aid=NULL, $name, $gender, $age, $type, $u_name, $u_gender, $u_city)
+    {
+        $pattern = '/^[a-zA-Z0-9\x{30A0}-\x{30FF}\x{3040}-\x{309F}\x{4E00}-\x{9FBF}]+$/u';
+        if (empty($aid)) {
+            $namelen = (strlen($name)+mb_strlen($name,"UTF8"))/2;
+            if ($namelen>8) {
+                throw new PException('宠物昵称超过最大长度');
+            }
+            if (!preg_match($pattern, $name)) {
+                throw new PException('宠物昵称含有特殊字符');
+            }
+        }
+        $u_namelen = (strlen($u_name)+mb_strlen($u_name,"UTF8"))/2;
+        if ($u_namelen>8) {
+            throw new PException('用户名超过最大长度');
+        }
+        if (User::model()->isNameExist(trim($name))) {
+            throw new PException('用户名已被注册');
+        }
+        if (!preg_match($pattern, $u_name)) {
+            throw new PException('用户名含有特殊字符');
+        }
+    
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            if (isset($aid)) {
+                $animal = Animal::model()->findByPk($aid);
+                $animal->name = $name;
+                $animal->age = $age;
+                $animal->type = $type;
+                $animal->gender = $gender;
+                $animal->saveAttributes(array('name', 'age', 'type', 'gender'));
+            }
+            $user = User::model()->findByPk($this->usr_id);
+            $user->name = $u_name;
+            $user->gender = $u_gender;
+            $user->city = $u_city;
+            $user->saveAttributes(array('name', 'gender', 'city'));
+            $transaction->commit();
+
+            $this->echoJsonData(array('isSuccess'=>true));
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+    }
+    
     public function actionRegisterApi($aid=NULL, $name, $gender, $age, $type, $u_name, $u_gender, $u_city, $code)
     {
         /*

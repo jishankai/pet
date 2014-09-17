@@ -38,4 +38,6 @@
     define('FOLLOWED_X', 5);
     define('LIKED_X', 3);
 
+    define('RANK_REWARD_E', 1);
+    define('SYSTEM_USERID', 0);
 ?>
