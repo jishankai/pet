@@ -333,10 +333,10 @@ class ImageController extends Controller
         $transaction = Yii::app()->db->beginTransaction();
         try {
             $image = Image::model()->findByPk($img_id);
-            $image->share++;
-            $image->saveAttributes(array('share'));
+            $image->shares++;
+            $image->saveAttributes(array('shares'));
 
-            $user = User::mode()->findByPk($this->usr_id);
+            $user = User::model()->findByPk($this->usr_id);
             if ($session['share_count']<=6) {
                 $user->share();
             }
