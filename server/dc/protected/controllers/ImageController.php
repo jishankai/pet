@@ -284,7 +284,7 @@ class ImageController extends Controller
         );
          */
         if (isset($_POST['reply_id'])) {
-            $image->comments = $image->comments.';'.'usr_id:'.$this->usr_id.','.'name:'.$user->name.','.'reply_id:'.$_POST['reply_id'].','.'reply_name'.$_POST['reply_name'].','.'body:'.$body.','.'create_time:'.time();
+            $image->comments = $image->comments.';'.'usr_id:'.$this->usr_id.','.'name:'.$user->name.','.'reply_id:'.$_POST['reply_id'].','.'reply_name:'.$_POST['reply_name'].','.'body:'.$body.','.'create_time:'.time();
             PMail::create($_POST['reply_id'], $user, $user->name.'在'.$image->img_id.'回复了你');
         } else {
             $image->comments = $image->comments.';'.'usr_id:'.$this->usr_id.','.'name:'.$user->name.','.'body:'.$body.','.'create_time:'.time();

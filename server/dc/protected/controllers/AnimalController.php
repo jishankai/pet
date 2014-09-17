@@ -323,13 +323,13 @@ class AnimalController extends Controller
         }
     }
 
-    public function actionIsVoicedApi()
+    public function actionIsVoicedApi($aid)
     {
         $session = Yii::app()->session;
-        if (isset($session['is_voiced'])) {
+        if (isset($session[$aid.'_is_voiced'])) {
             $this->echoJsonData(array('is_voiced'=>TRUE));
         } else {
-            $session['is_voiced'] = 1;
+            $session[$aid.'_is_voiced'] = 1;
             $this->echoJsonData(array('is_voiced'=>FALSE));
         }
         
