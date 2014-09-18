@@ -138,6 +138,26 @@ class UserBehavior extends CActiveRecordBehavior
         $this->raiseEvent('onLogin', $event);
     }
 
+    public function caclLevel($exp)
+    {
+        $levels = Util::loadConfig('level');
+        $level_count = array_count($levels);
+        $i = 1;
+        $j = $level_count;
+        while ($k=($i+$j)/2&&$j-$i>1) {
+            if ($levels[$k]<$exp) {
+                $i = $k;
+            } else if ($levels[$k]>$exp) {
+                $j = $k;
+            } else {
+                $i = $k;
+                break;
+            }
+        }
+
+        return $i;
+    }
+
     public function addExp($event)
     {
         switch ($event->params['on']) {

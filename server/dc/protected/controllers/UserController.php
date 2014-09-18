@@ -91,7 +91,7 @@ class UserController extends Controller
         }
     }
 
-    public function actionShareApi($img_id)
+    public function actionShareApi()
     {
         $session = Yii::app()->session;
         if (isset($session['share_count'])) {
