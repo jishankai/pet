@@ -424,24 +424,24 @@ class AnimalController extends Controller
         $this->echoJsonData(array('shake_count'=>$session[$aid.'_shake_count'])); 
     }
 
-    public function actionSendGiftApi($item_id, $aid, $img_id=NULL, $is_buy=FALSE, $is_shake=FALSE)
+    public function actionSendGiftApi($item_id, $aid, $img_id=NULL, $is_shake=FALSE)
     {
         $item = Item::model()->findByPk($item_id);
         if (isset($item)) {
             $transaction = Yii::app()->db->beginTransaction();
             try {
                 $user = User::model()->findByPk($this->usr_id);
-                if (!$is_buy&&!$is_shake) {
+                if (!$is_shake) {
                     $items = unserialize($user->items);
                     if (isset($items[$item_id])&&$items[$item_id]>0) {
                         $items[$item_id]--;
+                        $user->items = serialize($items);
+                        $user->saveAttributes(array('items'));
                     } else {
                         throw new PException('礼物数量不足');
                     }
-                    $user->items = serialize($items);
                 }
                 $user->sendGift($is_shake);
-                $user->saveAttributes(array('items'));
 
                 $circle = Circle::model()->findByPk(array('aid'=>$aid,'usr_id'=>$this->usr_id));
                 if (isset($circle)) {
