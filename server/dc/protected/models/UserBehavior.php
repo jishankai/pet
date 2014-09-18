@@ -92,6 +92,18 @@ class UserBehavior extends CActiveRecordBehavior
         $this->onVoiceUp(new CEvent($this, array('on'=>'voice'))); 
     }
 
+    public function contributionChange($circle)
+    {
+        $new_rank = $this->caclRank($circle->t_rq);
+        if ($new_rank>$circle->rank) {
+            $circle->rank = $new_rank;
+            $circle->saveAttributes(array('rank'));
+
+            $this->onRankUp = array($this, 'addGold');
+            $this->onRankUp(new CEvent($this, array('on'=>'rankUp', 'rank'=>$circle->rank)));
+        }
+    }
+
     public function share()
     {
         $this->onShare = array($this, 'addGold');
@@ -101,6 +113,16 @@ class UserBehavior extends CActiveRecordBehavior
     public function onShare($event)
     {
         $this->raiseEvent('onShare', $event);
+    }
+
+    public function onRankUp($event)
+    {
+        $this->raiseEvent('onRankUp', $event);
+    }
+
+    public function onLevelUp($event)
+    {
+        $this->raiseEvent('onLevelUp', $event);
     }
 
     public function onGift($event)
@@ -138,6 +160,26 @@ class UserBehavior extends CActiveRecordBehavior
         $this->raiseEvent('onLogin', $event);
     }
 
+    public function caclRank($contri)
+    {
+        $ranks = Util::loadConfig('rank');
+        $rank_count = array_count($ranks);
+        $i = 1;
+        $j = $rank_count;
+        while ($k=($i+$j)/2&&$j-$i>1) {
+            if ($ranks[$k]<$contri) {
+                $i = $k;
+            } else if ($ranks[$k]>$contri) {
+                $j = $k;
+            } else {
+                $i = $k;
+                break;
+            }
+        }
+
+        return $i;
+    }
+    
     public function caclLevel($exp)
     {
         $levels = Util::loadConfig('level');
@@ -195,8 +237,16 @@ class UserBehavior extends CActiveRecordBehavior
             default:
                 break;
         }
+        $new_lv = $this->caclLevel($this->owner->exp);
+        if ($new_lv!=$this->owner->lv) {
+            $this->owner->lv = $new_lv;
+            $this->owner->saveAttributes(array('exp', 'lv'));
 
-        $this->owner->saveAttributes(array('exp'));
+            $this->onLevelUp = array($this, 'addGold');
+            $this->onLevelUp(new CEvent($this, array('on'=>'levelUp'))); 
+        } else {
+            $this->owner->saveAttributes(array('exp'));
+        }
     }
 
     public function addGold($event)
@@ -216,6 +266,12 @@ class UserBehavior extends CActiveRecordBehavior
                  break;
              case 'share':
                  $this->owner->gold+=SHARE_X1;
+                 break;
+             case 'levelUp':
+                 $this->owner->gold+=($this->owner->lv/5+1)*LEVELUP_A;
+                 break;
+             case 'rankUp':
+                 $this->owner->gold+=$event->params['rank']*RANKUP_A;
                  break;
             default:
                 // code...

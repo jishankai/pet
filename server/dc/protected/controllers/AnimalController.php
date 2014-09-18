@@ -352,7 +352,7 @@ class AnimalController extends Controller
                     $news->save();
                     $transaction->commit();
 
-                    $this->echoJsonData(array('exp'=>$user->exp));
+                    $this->echoJsonData(array('exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv));
                 } catch (Exception $e) {
                     $transaction->rollback();
                     throw $e;
@@ -404,6 +404,7 @@ class AnimalController extends Controller
                 $this->echoJsonData(array(
                     'gold' => $user->gold,
                     'exp' => $user->exp,
+                    'lv' => $user->lv,
                 )); 
             } catch (Exception $e) {
                 $transaction->rollback();
@@ -448,6 +449,8 @@ class AnimalController extends Controller
                     $circle->m_contri+=$item->rq;
                     $circle->w_contri+=$item->rq;
                     $circle->d_contri+=$item->rq;
+
+                    $user->contributionChange($circle);
 
                     $circle->saveAttributes(array('t_contri','m_contri','w_contri','d_contri'));
                 }
@@ -502,7 +505,7 @@ class AnimalController extends Controller
 
                 $transaction->commit();
 
-                $this->echoJsonData(array('exp'=>$user->exp));
+                $this->echoJsonData(array('exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv, 'rank'=>isset($circle)?$circle->rank:0));
             } catch (Exception $e) {
                 $transaction->rollback();
                 throw $e;

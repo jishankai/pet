@@ -17,13 +17,9 @@
     define('COMMENT_X1', 5);
     define('COMMENT_X2', 0);
 
-    define('LEVEL_A', 25);
-    define('LEVEL_C', 120);
-    define('RANK_A', 30);
-    define('RANK_C', 360);
     define('LEVELUP_A', 5);
 
-    define('RANK_UP', 15);
+    define('RANKUP_A', 15);
 
     define('VOICE_X', 15);
 

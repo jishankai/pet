@@ -101,7 +101,7 @@ class UserController extends Controller
         }
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $user = User::mode()->findByPk($this->usr_id);
+            $user = User::model()->findByPk($this->usr_id);
             if ($session['share_count']<=6) {
                 $user->share();
             }
@@ -339,7 +339,7 @@ class UserController extends Controller
         if ($is_simple) {
             $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
         } else {
-            $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.d_rq, c.t_contri, c.rank, (SELECT COUNT(*) FROM dc_news n WHERE c.aid=n.aid) AS news_count, (SELECT COUNT(*) FROM dc_circle c1 WHERE c.aid=c1.aid) AS fans_count FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.master_id, a.d_rq, c.t_contri, c.rank, (SELECT COUNT(*) FROM dc_news n WHERE c.aid=n.aid) AS news_count, (SELECT COUNT(*) FROM dc_circle c1 WHERE c.aid=c1.aid) AS fans_count FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
         }
 
 

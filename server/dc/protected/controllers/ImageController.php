@@ -123,7 +123,7 @@ class ImageController extends Controller
             }
         }
 
-        $this->echoJsonData(array('image'=>$model, 'exp'=>$user->exp));
+        $this->echoJsonData(array('image'=>$model, 'exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv));
     }
 
     public function actionLikeApi($img_id)
@@ -308,10 +308,9 @@ class ImageController extends Controller
             
             if ($session['comment_count']<=15) {
                 $user->comment();
-                $this->echoJsonData(array('exp'=>$user->exp));
-            } else {
-                $this->echoJsonData(array('exp'=>$user->exp));
             }
+
+            $this->echoJsonData(array('exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv));
         }
     }
 
