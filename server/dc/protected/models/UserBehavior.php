@@ -94,7 +94,7 @@ class UserBehavior extends CActiveRecordBehavior
 
     public function contributionChange($circle)
     {
-        $new_rank = $this->caclRank($circle->t_rq);
+        $new_rank = $this->caclRank($circle->t_contri);
         if ($new_rank>$circle->rank) {
             $circle->rank = $new_rank;
             $circle->saveAttributes(array('rank'));
