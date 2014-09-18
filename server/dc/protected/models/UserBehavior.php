@@ -94,7 +94,7 @@ class UserBehavior extends CActiveRecordBehavior
 
     public function contributionChange($circle)
     {
-        $new_rank = $this->caclRank($circle->t_contri);
+        $new_rank = $this->caclRank($circle);
         if ($new_rank>$circle->rank) {
             $circle->rank = $new_rank;
             $circle->saveAttributes(array('rank'));
@@ -160,22 +160,23 @@ class UserBehavior extends CActiveRecordBehavior
         $this->raiseEvent('onLogin', $event);
     }
 
-    public function caclRank($contri)
+    public function caclRank($circle)
     {
         $ranks = Util::loadConfig('rank');
-        $rank_count = array_count($ranks);
-        $i = 1;
-        $j = $rank_count;
+        $i = $circle->rank;
+        $j = 8;
+        /*
         while ($k=($i+$j)/2&&$j-$i>1) {
-            if ($ranks[$k]<$contri) {
+            if ($ranks[$k]<$circle->t_contri) {
                 $i = $k;
-            } else if ($ranks[$k]>$contri) {
+            } else if ($ranks[$k]>$circle->t_contri) {
                 $j = $k;
             } else {
                 $i = $k;
                 break;
             }
         }
+         */
 
         return $i;
     }
@@ -183,9 +184,9 @@ class UserBehavior extends CActiveRecordBehavior
     public function caclLevel($exp)
     {
         $levels = Util::loadConfig('level');
-        $level_count = array_count($levels);
-        $i = 1;
-        $j = $level_count;
+        $i = $this->owner->lv;;
+        $j = 50;
+        /*
         while ($k=($i+$j)/2&&$j-$i>1) {
             if ($levels[$k]<$exp) {
                 $i = $k;
@@ -196,6 +197,7 @@ class UserBehavior extends CActiveRecordBehavior
                 break;
             }
         }
+         */
 
         return $i;
     }
