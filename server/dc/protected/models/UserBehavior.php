@@ -163,21 +163,11 @@ class UserBehavior extends CActiveRecordBehavior
     public function caclRank($circle)
     {
         $ranks = Util::loadConfig('rank');
-        $i = $circle->rank;
-        $j = 8;
-        /*
-        while ($k=($i+$j)/2&&$j-$i>1) {
-            if ($ranks[$k]<$circle->t_contri) {
-                $i = $k;
-            } else if ($ranks[$k]>$circle->t_contri) {
-                $j = $k;
-            } else {
-                $i = $k;
-                break;
-            }
+        for ($i = $circle->rank; $i < 9; $i++) {
+             if ($ranks[$i]>$circle->t_contri) {
+                 break;
+             }
         }
-         */
-
         return $i;
     }
     
