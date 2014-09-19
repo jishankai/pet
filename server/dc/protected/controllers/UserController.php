@@ -265,7 +265,7 @@ class UserController extends Controller
             $usr_id = $this->usr_id; 
         }
 
-        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, u.gold, u.con_login, a.aid, a.name AS a_name, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, u.gold, u.con_login, c.rank, a.aid, a.name AS a_name, a.age AS a_age, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid LEFT JOIN dc_circle c ON u.usr_id=c.usr_id AND u.aid=c.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
         if ($r['con_login']<=5) {
             $r['next_gold'] = ($r['con_login']+1)*LOGIN_X2;
         } else {
@@ -378,5 +378,19 @@ class UserController extends Controller
         $r = unserialize($i);
 
         $this->echoJsonData($r);
+    }
+
+    public function actionChgDefAniApi($aid)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            Yii::app()->db->createCommand('UPDATE dc_user SET aid=:aid WHERE usr_id=:usr_id')->bindValues(array(':aid'=>$aid, ':usr_id'=>$this->usr_id))->execute();
+            $transaction->commit();
+
+            $this->echoJsonData(array('isSuccess'=>TRUE));
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
     }
 }
