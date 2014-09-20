@@ -256,7 +256,7 @@ class ImageController extends Controller
         }
         
         if (isset($image->senders)&&$image->senders!='') {
-            $liker_tx = Yii::app()->db->createCommand("SELECT tx FROM dc_user WHERE usr_id IN ($image->senders)")->queryColumn();
+            $sender_tx = Yii::app()->db->createCommand("SELECT tx FROM dc_user WHERE usr_id IN ($image->senders)")->queryColumn();
         }
         
         $this->echoJsonData(array(
