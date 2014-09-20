@@ -48,7 +48,18 @@ class TopicController extends Controller
         $this->echoJsonData(array($images));
         
     }
+    
+    public function actionRankApi($topic_id, $img_id=NULL)
+    {
+        if (isset($img_id)) {
+            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url FROM dc_image i LEFT JOIN dc_topic t ON i.topic_id=t.topic_id WHERE i.topic_id=:topic_id AND i.img_id<:img_id AND i.create_time BETWEEN t.start_time AND t.end_time ORDER BY i.likes DESC LIMIT 10')->bindValues(array(':img_id'=>$img_id, ':topic_id'=>$topic_id))->queryAll();        
+        } else {
+            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url FROM dc_image i LEFT JOIN dc_topic t ON i.topic_id=t.topic_id WHERE i.topic_id=:topic_id AND i.create_time BETWEEN t.start_time AND t.end_time ORDER BY i.likes DESC LIMIT 10')->bindValue(':topic_id', $topic_id)->queryAll();        
+        }
 
+        $this->echoJsonData(array($images));
+    }
+    
     public function actionRewardApi($topic_id)
     {
         $rewards_str = Yii::app()->db->createCommand('SELECT reward FROM dc_topic WHERE topic_id=:topic_id')->bindValue(':topic_id', $topic_id)->queryScalar();
@@ -56,9 +67,10 @@ class TopicController extends Controller
         $r = array();
         if (isset($rewards_str) && $rewards_str!='') {
             $rewards = explode(';',$rewards_str);
+            $itemList = Util::loadConfig('items');
             foreach ($rewards as $reward_str) {
                 $reward = explode(':', $reward_str);
-                $r[$reward[0]] = Yii::app()->db->createCommand("SELECT * FROM dc_item WHERE item_id IN ($reward[1])")->queryAll();
+                $r[$reward[0]] = $itemList[$reward[1]];
             }
         }
 

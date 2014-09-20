@@ -426,7 +426,8 @@ class AnimalController extends Controller
 
     public function actionSendGiftApi($item_id, $aid, $img_id=NULL, $is_shake=FALSE)
     {
-        $item = Item::model()->findByPk($item_id);
+        $itemList = Util::loadConfig('items');
+        $item = $itemList[$item_id];
         if (isset($item)) {
             $transaction = Yii::app()->db->beginTransaction();
             try {
@@ -445,10 +446,10 @@ class AnimalController extends Controller
 
                 $circle = Circle::model()->findByPk(array('aid'=>$aid,'usr_id'=>$this->usr_id));
                 if (isset($circle)) {
-                    $circle->t_contri+=$item->rq;
-                    $circle->m_contri+=$item->rq;
-                    $circle->w_contri+=$item->rq;
-                    $circle->d_contri+=$item->rq;
+                    $circle->t_contri+=$item['rq'];
+                    $circle->m_contri+=$item['rq'];
+                    $circle->w_contri+=$item['rq'];
+                    $circle->d_contri+=$item['rq'];
 
                     $user->contributionChange($circle);
 
@@ -456,10 +457,10 @@ class AnimalController extends Controller
                 }
 
                 $animal = Animal::model()->findByPk($aid);
-                $animal->d_rq+=$item->rq;
-                $animal->m_rq+=$item->rq;
-                $animal->w_rq+=$item->rq;
-                $animal->t_rq+=$item->rq;
+                $animal->d_rq+=$item['rq'];
+                $animal->m_rq+=$item['rq'];
+                $animal->w_rq+=$item['rq'];
+                $animal->t_rq+=$item['rq'];
                 $a_items = unserialize($animal->items);
                 if (isset($a_items[$item_id])) {
                     $a_items[$item_id]++;
@@ -491,15 +492,14 @@ class AnimalController extends Controller
 
                 $news = new News;
                 $news->aid = $aid;
-                $news->type = $item->rq>=0?4:7;
+                $news->type = $item['rq']>=0?4:7;
                 $news->create_time = time();
                 $news->content = serialize(array(
                     'a_name'=>$animal->name,
                     'usr_id'=>$user->usr_id,
                     'u_name'=>$user->name,
-                    'item_id'=>$item->item_id,
-                    'item_name'=>$item->name,
-                    'rq'=>$item->rq,
+                    'item_id'=>$item_id,
+                    'rq'=>$item['rq'],
                 ));
                 $news->save();
 
