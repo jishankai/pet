@@ -91,6 +91,14 @@ class UserController extends Controller
         }
     }
 
+    public function actionPlanetApi($planet)
+    {
+        $session = Yii::app()->session;
+        $session['planet'] = $planet;
+
+        $this->echoJsonData(array('isSuccess'=>TRUE));
+    }
+
     public function actionShareApi()
     {
         $session = Yii::app()->session;
