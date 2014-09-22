@@ -266,6 +266,7 @@ class AnimalController extends Controller
             $circle = new Circle();
             $circle->aid = $aid;
             $circle->usr_id = $this->usr_id;
+            $circle->rank = 0;
             $circle->save();
             $transaction->commit();
 
@@ -505,7 +506,7 @@ class AnimalController extends Controller
 
                 $transaction->commit();
 
-                $this->echoJsonData(array('exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv, 'rank'=>isset($circle)?$circle->rank:0));
+                $this->echoJsonData(array('exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv, 'rank'=>isset($circle)?$circle->rank:-1));
             } catch (Exception $e) {
                 $transaction->rollback();
                 throw $e;
