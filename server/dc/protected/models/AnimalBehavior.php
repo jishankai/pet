@@ -4,7 +4,7 @@ class AnimalBehavior extends CActiveRecordBehavior
 {
     public function isNameExist($name, $aid=0)
     {
-        return Yii::app()->db->createCommand('SELECT aid FROM dc_animal WHERE name=:name AND aid=:aid')->bindValues(array(
+        return Yii::app()->db->createCommand('SELECT aid FROM dc_animal WHERE name=:name AND aid<>:aid')->bindValues(array(
             ':name'=>$name,
             ':aid'=>$aid,
         ))->queryScalar();
