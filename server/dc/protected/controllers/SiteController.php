@@ -162,6 +162,6 @@ class SiteController extends Controller
             ':name'=>$u_name,
         ))->execute();
 
-        echo "$u_name成功获得$gold金币";
+        echo "成功获得金币";
     }
 }
