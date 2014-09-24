@@ -9,15 +9,9 @@ class GameController extends Controller
         );
     }
 
-    public function actions()
+    public function action2048($aid)
     {
-        return array(
-            '2048'=>array(
-                'class'=>'CViewAction',
-                'basePath'=>'2048',
-                'layout'=>FALSE,
-            ),
-        );
+        $this->render('2048');
     }
 }
 

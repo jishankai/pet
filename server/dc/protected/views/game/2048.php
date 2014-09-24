@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
 
-  <link href="style/main.css" rel="stylesheet" type="text/css">
-  <link rel="shortcut icon" href="favicon.ico">
-  <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
-  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
-  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
+  <link href="assets/games/2048/style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="assets/games/2048/favicon.ico">
+  <link rel="apple-touch-icon" href="assets/games/2048/meta/apple-touch-icon.png">
+  <link rel="apple-touch-startup-image" href="assets/games/2048/meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
+  <link rel="apple-touch-startup-image" href="assets/games/2048/meta/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
@@ -99,16 +99,16 @@ window.setInterval("heartBeat()",1);
     var my_list = {2:'九头虫',4:'白龙马',8:'沙僧',16:'猪八戒',32:'孙悟空',64:'唐僧',128:'观音',256:'弥勒佛',512:'上老君',1024:'如来佛',2048:'神笔记',4096:'http://iduanzi.qiniudn.com/tuoguang/4096.jpg',8192:'http://iduanzi.qiniudn.com/tuoguang/8192.jpg',16384:'http://iduanzi.qiniudn.com/tuoguang/16384.jpg',32768:'32768',65536:'65536',131072:'131072',262144:'262144',524288:'524288',1048576:'1048576',2097152:'2097152',4194304:'4194304',8388608:'8388608',16777216:'16777216',33554432:'33554432',67108864:'67108864',134217728:'134217728',268435456:'268435456',536870912:'536870912',1073741824:'1073741824',2147483648:'2147483648'};
     var my_mark = {2:'快来变身吧！',4:'小白马就挂了！',8:'沙和尚，是你吗',16:'对小猪就是你！',32:'悟空，等等我！',64:'打雷啦，收衣服啦',128:'普渡众生！',256:'阿弥托福！',512:'你这泼猴，不像话！',1024:'五指山压死你',2048:'恭喜！终于见到本尊了！ ',4096:'强者！太伟大了！',8192:'你有这么厉害呀！',16384:'你已跳出三界之外了！',32768:'Game Over, HiScore: 32768',65536:'Game Over, HiScore: 65536',131072:'Game Over, HiScore: 131072',262144:'Game Over, HiScore: 262144',524288:'Game Over, HiScore: 524288',1048576:'Game Over, HiScore: 1048576',2097152:'Game Over, HiScore: 2097152',4194304:'Game Over, HiScore: 4194304',8388608:'Game Over, HiScore: 8388608',16777216:'Game Over, HiScore: 16777216',33554432:'Game Over, HiScore: 33554432',67108864:'Game Over, HiScore: 67108864',134217728:'Game Over, HiScore: 134217728',268435456:'Game Over, HiScore: 268435456',536870912:'Game Over, HiScore: 536870912',1073741824:'Game Over, HiScore: 1073741824',2147483648:'Game Over, HiScore: 2147483648'};
     var my_goal = 16;
-  </script>  <script src="js/bind_polyfill.js"></script>
-  <script src="js/classlist_polyfill.js"></script>
-  <script src="js/animframe_polyfill.js"></script>
-  <script src="js/keyboard_input_manager.js"></script>
-  <script src="js/html_actuator.js"></script>
-  <script src="js/grid.js"></script>
-  <script src="js/tile.js"></script>
-  <script src="js/local_storage_manager.js"></script>
-  <script src="js/game_manager.js"></script>
-  <script src="js/application.js"></script>
+  </script>  <script src="assets/games/2048/js/bind_polyfill.js"></script>
+  <script src="assets/games/2048/js/classlist_polyfill.js"></script>
+  <script src="assets/games/2048/js/animframe_polyfill.js"></script>
+  <script src="assets/games/2048/js/keyboard_input_manager.js"></script>
+  <script src="assets/games/2048/js/html_actuator.js"></script>
+  <script src="assets/games/2048/js/grid.js"></script>
+  <script src="assets/games/2048/js/tile.js"></script>
+  <script src="assets/games/2048/js/local_storage_manager.js"></script>
+  <script src="assets/games/2048/js/game_manager.js"></script>
+  <script src="assets/games/2048/js/application.js"></script>
   
 
 </body>
