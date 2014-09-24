@@ -53,7 +53,6 @@ class User extends CActiveRecord
 			array('gender, city, age', 'numerical', 'integerOnly'=>true),
 			array('name, tx, weibo, qq', 'length', 'max'=>45),
             array('exp, lv, gold, con_login, login_time, vip, aid, inviter, create_time', 'length', 'max'=>10),
-            array('items', 'length', 'max'=>255),
 			array('code', 'length', 'max'=>6),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

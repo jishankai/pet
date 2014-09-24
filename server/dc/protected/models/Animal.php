@@ -47,7 +47,6 @@ class Animal extends CActiveRecord
 			array('name, tx', 'length', 'max'=>45),
             array('address, items', 'length', 'max'=>255),
 			array('master_id, create_time', 'length', 'max'=>10),
-			array('items', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('aid, name, tx, gender, from, type, age, address, master_id, items, d_rq, w_rq, m_rq, t_rq, create_time, update_time', 'safe', 'on'=>'search'),
