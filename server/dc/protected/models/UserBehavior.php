@@ -2,9 +2,12 @@
 
 class UserBehavior extends CActiveRecordBehavior
 {
-    public function isNameExist($name)
+    public function isNameExist($name, $usr_id=0)
     {
-        return Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $name)->queryScalar();
+        return Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name AND usr_id<>:usr_id')->bindValues(array(
+            ':name'=>$name,
+            ':usr_id'=>$usr_id,
+        ))->queryScalar();
     }
 
     public function getthisIdByCode($code)

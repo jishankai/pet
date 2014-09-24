@@ -6,13 +6,18 @@ class GameController extends Controller
     {
         return array(
             'checkUpdate',
-            'checkSig',
         );
     }
 
-    public function action2048($aid)
+    public function actions()
     {
-       $this->render('game/index'); 
+        return array(
+            '2048'=>array(
+                'class'=>'CViewAction',
+                'basePath'=>'2048',
+                'layout'=>FALSE,
+            ),
+        );
     }
 }
 

@@ -165,11 +165,14 @@ class UserController extends Controller
     public function actionModifyInfoApi($aid=NULL, $name, $gender, $age, $type, $u_name, $u_gender, $u_city)
     {
         $pattern = '/^[a-zA-Z0-9\x{30A0}-\x{30FF}\x{3040}-\x{309F}\x{4E00}-\x{9FBF}]+$/u';
-        if (empty($aid)) {
+        if (isset($aid)) {
             //$namelen = (strlen($name)+mb_strlen($name,"UTF8"))/2;
             $namelen = mb_strlen($name,"UTF8");
             if ($namelen>8) {
                 throw new PException('宠物昵称超过最大长度');
+            }
+            if (Animal::model()->isNameExist(trim($name), $aid)) {
+                throw new PException('宠物名已被注册');
             }
             if (!preg_match($pattern, $name)) {
                 throw new PException('宠物昵称含有特殊字符');
@@ -180,7 +183,7 @@ class UserController extends Controller
         if ($u_namelen>8) {
             throw new PException('用户名超过最大长度');
         }
-        if (User::model()->isNameExist(trim($u_name))) {
+        if (User::model()->isNameExist(trim($u_name), $this->usr_id)) {
             throw new PException('用户名已被注册');
         }
         if (!preg_match($pattern, $u_name)) {
