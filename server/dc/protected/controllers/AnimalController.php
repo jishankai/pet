@@ -330,7 +330,6 @@ class AnimalController extends Controller
         if (isset($session[$aid.'_is_voiced'])) {
             $this->echoJsonData(array('is_voiced'=>TRUE));
         } else {
-            $session[$aid.'_is_voiced'] = 1;
             $this->echoJsonData(array('is_voiced'=>FALSE));
         }
         
@@ -353,6 +352,8 @@ class AnimalController extends Controller
                     $news->save();
                     $transaction->commit();
 
+                    $session = Yii::app()->session;
+                    $session[$aid.'_is_voiced'] = 1;
                     $this->echoJsonData(array('exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv));
                 } catch (Exception $e) {
                     $transaction->rollback();
