@@ -7,7 +7,7 @@ class AnimalController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - infoApi,recommendApi,cardApi,searchApi',
+            'getUserId - infoApi,recommendApi,cardApi,searchApi, newsApi, txApi, imagesApi, fansApi, itemsApi',
             /*
             array(
                 'COutputCache + welcomeApi',
@@ -153,6 +153,8 @@ class AnimalController extends Controller
                 $f->usr_id = $this->usr_id;
                 $f->aid = $aid;
                 $f->create_time = time();
+            } else {
+                throw new PException("已关注");
             }
             $f->save();
 
@@ -196,7 +198,11 @@ class AnimalController extends Controller
                 'usr_id' => $this->usr_id,
                 'aid' => $aid,
             ));
-            $f->delete();
+            if (isset($f)) {
+                $f->delete();
+            } else {
+                throw new PException("未关注");
+            }
 
             $animal = Animal::model()->findByPk($aid);
             $animal->t_rq-=5;
@@ -286,6 +292,16 @@ class AnimalController extends Controller
             $circle->usr_id = $this->usr_id;
             $circle->save();
             
+            $f = Follow::model()->findByPk(array(
+                'usr_id' => $this->usr_id,
+                'aid' => $aid,
+            ));
+            if (!isset($f)) {
+                $f = new Follow;
+                $f->usr_id = $this->usr_id;
+                $f->aid = $aid;
+                $f->create_time = time();
+            }
             $news = new News;
             $news->aid = $aid;
             $news->type = 2;

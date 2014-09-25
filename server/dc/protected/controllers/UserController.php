@@ -99,14 +99,9 @@ class UserController extends Controller
         $this->echoJsonData(array('isSuccess'=>TRUE));
     }
 
+    /*
     public function actionShareApi()
     {
-        $session = Yii::app()->session;
-        if (isset($session['share_count'])) {
-            $session['share_count']+=1;
-        } else {
-            $session['share_count']=1;
-        }
         $transaction = Yii::app()->db->beginTransaction();
         try {
             $user = User::model()->findByPk($this->usr_id);
@@ -120,6 +115,7 @@ class UserController extends Controller
         }
         $this->echoJsonData(array('gold'=>$user->gold));
     }
+     */
     
     /*
     public function actionTypeApi()
@@ -337,11 +333,9 @@ class UserController extends Controller
 
     public function actionNotifyApi()
     {
-        $mail_n = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_mail WHERE is_read=0 AND usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryScalar();
         $topic_n = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_topic WHERE status!=0 AND start_time<=:time AND end_time>:time')->bindValue(':time', time())->queryScalar();
 
         $this->echoJsonData(array(
-            'mail_count' => $mail_n,
             'topic_count' => $topic_n,
         ));
     }

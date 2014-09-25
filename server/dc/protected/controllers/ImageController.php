@@ -323,27 +323,17 @@ class ImageController extends Controller
     
     public function actionShareApi($img_id)
     {
-        $session = Yii::app()->session;
-        if (isset($session['share_count'])) {
-            $session['share_count']+=1;
-        } else {
-            $session['share_count']=1;
-        }
         $transaction = Yii::app()->db->beginTransaction();
         try {
             $image = Image::model()->findByPk($img_id);
             $image->shares++;
             $image->saveAttributes(array('shares'));
 
-            $user = User::model()->findByPk($this->usr_id);
-            if ($session['share_count']<=6) {
-                $user->share();
-            }
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
         }
-        $this->echoJsonData(array('gold'=>$user->gold));
+        $this->echoJsonData(array('isSuccess'=>TRUE));
     }
 }
