@@ -258,6 +258,7 @@ class AnimalController extends Controller
     public function actionCreateApi($name, $gender, $age, $type)
     {
         $animal = new Animal();
+        $animal->aid = rand(0,time());
         $animal->name = $name;
         $animal->gender = $gender;
         $animal->age = $age;

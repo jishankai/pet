@@ -17,6 +17,7 @@ class DeviceBehavior extends CActiveRecordBehavior
 
         if (!isset($aid)) {
             $animal = new Animal();
+            $animal->aid = rand(0,time());
             $animal->name = $name;
             $animal->gender = $gender;
             $animal->age = $age;
