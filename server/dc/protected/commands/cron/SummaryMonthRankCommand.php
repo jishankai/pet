@@ -29,23 +29,25 @@ class SummaryMonthRankCommand extends CConsoleCommand {
         //奖励计算
         $total_member = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_user')->queryScalar();
         $total_a = Yii::app()->db->createCommand('SELECT COUNT(aid), SUM(m_rq) FROM dc_animal')->queryRow();
-        $all_gold = $total_memeber*RANK_REWARD_E;
+        $all_gold = $total_member*RANK_REWARD_E;
         $total_popularity = $total_a['SUM(m_rq)'];
         $rewarm_count = $total_a['COUNT(aid)']*30/100;
         for ($i = 0; $i <$rewarm_count; $i++) {
             $aid = $r[$i]['aid'];
             $single_popularity = $r[$i]['m_rq'];
             $total_gold = $all_gold*$single_popularity/$total_popularity;
-            $circles = Circle::model()->findByAttributes(array('aid'=>$aid));
-            foreach ($circles as $circle) {
-                $result_money = $total_gold*$circle->m_contri/$single_popularity;
-                $user = User::model()->findByPk($circle->usr_id);
-                $user->gold+=$result_money;
-                $user->saveAttributes(array('gold'));
+            if ($total_gold!=0) {
+                $circles = Circle::model()->findAllByAttributes(array('aid'=>$aid));
+                foreach ($circles as $circle) {
+                    $result_money = $total_gold*$circle->m_contri/$single_popularity;
+                    $user = User::model()->findByPk($circle->usr_id);
+                    $user->gold+=$result_money;
+                    $user->saveAttributes(array('gold'));
 
-                $self_rank = $i+1;
-                $msg = "您的王国/家族在人气月排行榜中获得第$self_rank名，您获得$result_money金币奖励";
-                Talk::sendMsg(SYSTEM_USERID, $user->usr_id, $msg);
+                    $self_rank = $i+1;
+                    $msg = "您的王国/家族在人气月排行榜中获得第".$self_rank."名，您获得".$result_money."金币奖励";
+                    Talk::model()->sendMsg(SYSTEM_USERID, $user->usr_id, $msg);
+                }
             }
         }
         Yii::app()->cache->set('m_rq_rank_report', $rank, 3600*24*30);               

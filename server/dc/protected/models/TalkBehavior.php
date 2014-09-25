@@ -2,7 +2,7 @@
 
 class TalkBehavior extends CActiveRecordBehavior
 {
-    public static function sendMsg($usra_id, $usrb_id, $msg)
+    public function sendMsg($usra_id, $usrb_id, $msg)
     {
         $c = new CDbCriteria;
         $c->addCondition('(usra_id=:usra_id AND usrb_id=:usrb_id) OR (usra_id=:usrb_id AND usrb_id=:usra_id)');
