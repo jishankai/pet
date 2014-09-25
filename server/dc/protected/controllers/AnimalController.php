@@ -257,30 +257,23 @@ class AnimalController extends Controller
 
     public function actionCreateApi($name, $gender, $age, $type)
     {
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            $animal = new Animal();
-            $animal->name = $name;
-            $animal->gender = $gender;
-            $animal->age = $age;
-            $animal->type = $type;
-            $animal->master_id = $this->usr_id;
-            $animal->save();
-            $session = Yii::app()->session;
-            $animal->aid = $animal->id + 1000000000*$session['planet'];
-            $animal->saveAttributes(array('aid'));
-            $circle = new Circle();
-            $circle->aid = $animal->aid;
-            $circle->usr_id = $this->usr_id;
-            $circle->rank = 0;
-            $circle->save();
-            $transaction->commit();
+        $animal = new Animal();
+        $animal->name = $name;
+        $animal->gender = $gender;
+        $animal->age = $age;
+        $animal->type = $type;
+        $animal->master_id = $this->usr_id;
+        $animal->save();
+        $session = Yii::app()->session;
+        $animal->aid = $animal->id + 1000000000*$session['planet'];
+        $animal->saveAttributes(array('aid'));
+        $circle = new Circle();
+        $circle->aid = $animal->aid;
+        $circle->usr_id = $this->usr_id;
+        $circle->rank = 0;
+        $circle->save();
 
-            $this->echoJsonData(array('isSuccess'=>TRUE));
-        } catch (Exception $e) {
-            $transaction->rollback();
-            throw $e;
-        }
+        $this->echoJsonData(array('isSuccess'=>TRUE));
     }
 
     public function actionJoinApi($aid)
@@ -291,7 +284,7 @@ class AnimalController extends Controller
             $circle->aid = $aid;
             $circle->usr_id = $this->usr_id;
             $circle->save();
-            
+
             $f = Follow::model()->findByPk(array(
                 'usr_id' => $this->usr_id,
                 'aid' => $aid,
@@ -348,7 +341,7 @@ class AnimalController extends Controller
         } else {
             $this->echoJsonData(array('is_voiced'=>FALSE));
         }
-        
+
     }
     public function actionVoiceUpApi($aid)
     {
