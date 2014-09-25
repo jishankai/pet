@@ -7,7 +7,6 @@ class RankController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId',
         );
     }
 
