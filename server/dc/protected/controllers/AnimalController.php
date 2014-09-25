@@ -267,7 +267,7 @@ class AnimalController extends Controller
             $animal->master_id = $this->usr_id;
             $animal->save();
             $session = Yii::app()->session;
-            $aid = $animal->aid = $animal->aid + 1000000000*$session['planet'];
+            $aid = $animal->aid = $animal->id + 1000000000*$session['planet'];
             $animal->saveAttributes(array('aid'));
             $circle = new Circle();
             $circle->aid = $aid;

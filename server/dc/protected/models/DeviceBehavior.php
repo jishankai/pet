@@ -24,7 +24,7 @@ class DeviceBehavior extends CActiveRecordBehavior
             $animal->master_id = $user->usr_id;
             $animal->save();
             $session = Yii::app()->session;
-            $aid = $animal->aid = $animal->aid + 1000000000*$session['planet'];
+            $aid = $animal->aid = $animal->id + 1000000000*$session['planet'];
             $animal->saveAttributes(array('aid'));
         }
         $circle = new Circle();
