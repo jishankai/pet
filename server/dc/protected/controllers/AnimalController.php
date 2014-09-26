@@ -257,22 +257,26 @@ class AnimalController extends Controller
 
     public function actionCreateApi($name, $gender, $age, $type)
     {
-        $animal = new Animal();
-        $animal->aid = rand(0,time());
-        $animal->name = $name;
-        $animal->gender = $gender;
-        $animal->age = $age;
-        $animal->type = $type;
-        $animal->master_id = $this->usr_id;
-        $animal->save();
-        $session = Yii::app()->session;
-        $animal->aid = $animal->id + 1000000000*$session['planet'];
-        $animal->saveAttributes(array('aid'));
-        $circle = new Circle();
-        $circle->aid = $animal->aid;
-        $circle->usr_id = $this->usr_id;
-        $circle->rank = 0;
-        $circle->save();
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $animal = new Animal();
+            $animal->name = $name;
+            $animal->gender = $gender;
+            $animal->age = $age;
+            $animal->type = $type;
+            $animal->from = substr($type,0,1);
+            $animal->master_id = $this->usr_id;
+            $animal->save();
+            $circle = new Circle();
+            $circle->aid = $animal->aid;
+            $circle->usr_id = $this->usr_id;
+            $circle->rank = 0;
+            $circle->save();
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
 
         $this->echoJsonData(array('isSuccess'=>TRUE));
     }
@@ -554,10 +558,9 @@ class AnimalController extends Controller
         } else {
             $session = Yii::app()->session;
 
-            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.t_rq<:t_rq AND a.aid BETWEEN :aid1 AND :aid2 ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.t_rq<:t_rq AND a.from=:from ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
                 ':t_rq'=>$t_rq,
-                ':aid1'=>1000000000*$session['planet'],
-                ':aid2'=>1000000000*($session['planet']+1),
+                ':from'=>$session['planet'],
             ))->queryAll();
         }
         

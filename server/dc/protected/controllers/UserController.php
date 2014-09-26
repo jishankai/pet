@@ -255,11 +255,18 @@ class UserController extends Controller
                 throw new PException('邀请ID不存在');
             }
         }
-        $user = $device->register($aid, trim($name), $gender, $age, $type, trim($u_name), $u_gender, $u_city,  empty($invter)?NULL:$inviter);
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $user = $device->register($aid, trim($name), $gender, $age, $type, trim($u_name), $u_gender, $u_city,  empty($invter)?NULL:$inviter);
 
-        $session['usr_id'] = $device->usr_id;
-        $session['not_registered'] = FALSE;
-        $user->login();
+            $session['usr_id'] = $device->usr_id;
+            $session['not_registered'] = FALSE;
+            $user->login();
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
         $this->echoJsonData(array('isSuccess'=>true));
     }
 

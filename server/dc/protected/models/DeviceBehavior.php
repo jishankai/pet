@@ -17,16 +17,13 @@ class DeviceBehavior extends CActiveRecordBehavior
 
         if (!isset($aid)) {
             $animal = new Animal();
-            $animal->aid = rand(0,time());
             $animal->name = $name;
             $animal->gender = $gender;
             $animal->age = $age;
             $animal->type = $type;
+            $animal->from = substr($type,0,1);
             $animal->master_id = $user->usr_id;
             $animal->save();
-            $session = Yii::app()->session;
-            $animal->aid = $animal->id + 1000000000*$session['planet'];
-            $animal->saveAttributes(array('aid'));
             $aid = $animal->aid;
         }
         $circle = new Circle();

@@ -4,7 +4,6 @@
  * This is the model class for table "dc_animal".
  *
  * The followings are the available columns in table 'dc_animal':
- * @property string $id
  * @property string $aid
  * @property string $name
  * @property string $tx
@@ -50,7 +49,7 @@ class Animal extends CActiveRecord
 			array('master_id, create_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, aid, name, tx, gender, from, type, age, address, master_id, items, d_rq, w_rq, m_rq, t_rq, create_time, update_time', 'safe', 'on'=>'search'),
+			array('aid, name, tx, gender, from, type, age, address, master_id, items, d_rq, w_rq, m_rq, t_rq, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -80,7 +79,6 @@ class Animal extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => '编号',
 			'aid' => '宠物编号',
 			'name' => '名字',
 			'tx' => '头像地址',
@@ -118,7 +116,6 @@ class Animal extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
 		$criteria->compare('aid',$this->aid,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('tx',$this->tx,true);
