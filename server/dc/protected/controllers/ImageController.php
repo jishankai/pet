@@ -115,6 +115,13 @@ class ImageController extends Controller
                         'img_url'=>$model->url,
                     ));
                     $news->save();
+                    
+                    if (isset($_POST['relates'])) {
+                        $usr_ids = explode(',',$model->relates);
+                        foreach ($usr_ids as $usr_id) {
+                            Talk::model()->sendMsg(NPC_IMAGE_USRID, $usr_id, $user->name."在爱宠的照片中@了你，没想到你人缘还不错，还真让本喵吃惊呀");
+                        }
+                    }
                 }
                 $transaction->commit();
             } catch (Exception $e) {
@@ -285,7 +292,7 @@ class ImageController extends Controller
          */
         if (isset($_POST['reply_id'])) {
             $image->comments = 'usr_id:'.$this->usr_id.','.'name:'.$user->name.','.'reply_id:'.$_POST['reply_id'].','.'reply_name:'.$_POST['reply_name'].','.'body:'.$body.','.'create_time:'.time().';'.$image->comments;
-            PMail::create($_POST['reply_id'], $user, $user->name.'在'.$image->img_id.'回复了你');
+            //PMail::create($_POST['reply_id'], $user, $user->name.'在'.$image->img_id.'回复了你');
         } else {
             $image->comments = 'usr_id:'.$this->usr_id.','.'name:'.$user->name.','.'body:'.$body.','.'create_time:'.time().';'.$image->comments;
         }
@@ -308,6 +315,11 @@ class ImageController extends Controller
             
             if ($session['comment_count']<=15) {
                 $user->comment();
+            }
+            if (isset($_POST['reply_id'])) {
+                Talk::model()->sendMsg(NPC_IMAGE_USRID, $_POST['reply_id'], $user->name."回复了你：".$body);
+            } else {
+                Talk::model()->sendMsg(NPC_IMAGE_USRID, $image->usr_id, $user->name."评论了你：".$body);
             }
 
             $this->echoJsonData(array('exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv));

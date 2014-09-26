@@ -262,6 +262,8 @@ class UserController extends Controller
             $session['usr_id'] = $device->usr_id;
             $session['not_registered'] = FALSE;
             $user->login();
+
+            Talk::model()->sendMsg(NPC_SYSTEM_USRID, $user->usr_id, "HI~我是的汪汪大使，欢迎来到宠物星球，以后星球上的新鲜事，汪汪会光速传达你，放心交给我吧，汪汪");
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();

@@ -93,6 +93,10 @@ class TopicController extends Controller
                     $model->saveAttributes(array('img'));
                 }
 
+                $users = User::model()->findAll();
+                foreach ($users as $user) {
+                    Talk::model()->sendMsg(NPC_SYSTEM_USRID, $user->usr_id, "汪汪！宠物星球开展了一个".$model->topic."活动！参加的宠物有机会得到礼品哦~羡慕死汪了，快去看看吧~");
+                }
                 $this->redirect(array('view','id'=>$model->topic_id));
             }
         }
