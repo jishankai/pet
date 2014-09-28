@@ -7,7 +7,7 @@ class UserController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - welcomeApi,loginApi,typeApi,bindApi,registerApi,othersApi,infoApi, petsApi, followingApi, topicApi, itemsApi',
+            'getUserId - welcomeApi,getSIDApi,loginApi,typeApi,bindApi,registerApi,othersApi,infoApi, petsApi, followingApi, topicApi, itemsApi',
             /*
             array(
                 'COutputCache + welcomeApi',
@@ -53,6 +53,13 @@ class UserController extends Controller
         $this->echoJsonData(array('url'=>$url));    
     }
 
+    public function actionGetSIDApi($uid)
+    {
+        $sid = Yii::app()->db->createCommand('SELECT sid FROM dc_device WHERE uid=:uid')->bindValue(':uid', $uid)->queryScalar();
+
+        $this->echoJsonData(array('SID'=>$sid));
+    }
+
     public function actionLoginApi($uid, $planet, $ver=NULL, $token=NULL)
     {
         $transaction = Yii::app()->db->beginTransaction();
@@ -71,27 +78,18 @@ class UserController extends Controller
                 $session['id'] = $device->id;
                 $session['not_registered'] = TRUE;
 
-                $device->sid = $session->sessionID;
-                $device->saveAttributes(array('sid'));                
-
                 $isSuccess = false;
             } else {
-                $session->close();
-                $session->setSessionID($device->sid);
-                $session->open();
+                $session['usr_id'] = $device->usr_id;
 
-                if (!isset($session['usr_id'])) {
-                    $session = Yii::app()->session;
-                    $session['usr_id'] = $device->usr_id;
-
-                    $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
-                    $user->login();
-
-                    $device->sid = $session->sessionID;
-                    $device->saveAttributes(array('sid'));
-                }
+                $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
+                $user->login();
             }
             $session['planet'] = $planet;
+
+            $device->sid = $session->sessionID;
+            $device->saveAttributes(array('sid'));
+
             $transaction->commit();
 
             $this->echoJsonData(array(
