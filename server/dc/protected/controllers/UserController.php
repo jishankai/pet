@@ -83,6 +83,7 @@ class UserController extends Controller
 
             $this->echoJsonData(array(
                 'isSuccess' => $isSuccess,
+                'usr_id' => $device->usr_id,
                 'SID' => $session->sessionID,
             )); 
         } catch (Exception $e) {
