@@ -85,6 +85,9 @@ class UserController extends Controller
 
                     $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
                     $user->login();
+
+                    $device->sid = $session->sessionID;
+                    $device->saveAttributes(array('sid'));
                 }
             }
             $session['planet'] = $planet;
