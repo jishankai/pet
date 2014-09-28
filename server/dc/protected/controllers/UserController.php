@@ -81,6 +81,7 @@ class UserController extends Controller
                 $session->open();
 
                 if (!isset($session['usr_id'])) {
+                    $session = Yii::app()->session;
                     $session['usr_id'] = $device->usr_id;
 
                     $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
