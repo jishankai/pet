@@ -319,7 +319,7 @@ class ImageController extends Controller
             if (isset($_POST['reply_id'])) {
                 Talk::model()->sendMsg(NPC_IMAGE_USRID, $_POST['reply_id'], $user->name."回复了你：".$body);
             } else {
-                Talk::model()->sendMsg(NPC_IMAGE_USRID, $image->usr_id, $user->name."评论了你：".$body);
+                Talk::model()->sendMsg(NPC_IMAGE_USRID, $animal->master_id, $user->name."评论了你：".$body);
             }
 
             $this->echoJsonData(array('exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv));
