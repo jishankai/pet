@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $uid
  * @property string $usr_id
+ * @property string $sid
  * @property string $token
  * @property string $terminal
  * @property string $os
@@ -44,12 +45,12 @@ class Device extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('uid, token, terminal', 'length', 'max'=>45),
+			array('uid, sid, token, terminal', 'length', 'max'=>45),
 			array('usr_id, create_time', 'length', 'max'=>10),
 			array('os', 'length', 'max'=>25),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, uid, usr_id, token, terminal, os, create_time, update_time', 'safe', 'on'=>'search'),
+			array('id, uid, usr_id, sid, token, terminal, os, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -81,6 +82,7 @@ class Device extends CActiveRecord
 			'id' => '编号',
 			'uid' => '设备唯一标示',
 			'usr_id' => '用户编号',
+			'sid' => 'SID',
 			'token' => 'Token',
 			'terminal' => '平台',
 			'os' => '系统',
@@ -103,6 +105,7 @@ class Device extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('uid',$this->uid,true);
 		$criteria->compare('usr_id',$this->usr_id,true);
+		$criteria->compare('sid',$this->sid,true);
 		$criteria->compare('token',$this->token,true);
 		$criteria->compare('terminal',$this->terminal,true);
 		$criteria->compare('os',$this->os,true);

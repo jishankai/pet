@@ -71,12 +71,21 @@ class UserController extends Controller
                 $session['id'] = $device->id;
                 $session['not_registered'] = TRUE;
 
+                $device->sid = $session->sessionID;
+                $device->saveAttributes(array('sid'));                
+
                 $isSuccess = false;
             } else {
-                $session['usr_id'] = $device->usr_id;
+                $session->close();
+                $session->setSessionID($device->sid);
+                $session->open();
 
-                $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
-                $user->login();
+                if (!isset($session['usr_id'])) {
+                    $session['usr_id'] = $device->usr_id;
+
+                    $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
+                    $user->login();
+                }
             }
             $session['planet'] = $planet;
             $transaction->commit();
