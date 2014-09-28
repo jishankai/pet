@@ -7,7 +7,7 @@ class UserController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - welcomeApi,loginApi,typeApi,bindApi,registerApi,othersApi,infoApi',
+            'getUserId - welcomeApi,loginApi,typeApi,bindApi,registerApi,othersApi,infoApi, petsApi, followingApi, topicApi, itemsApi',
             /*
             array(
                 'COutputCache + welcomeApi',
@@ -340,9 +340,6 @@ class UserController extends Controller
 
     public function actionPetsApi($usr_id, $is_simple=0)
     {
-        if (!isset($usr_id) or $usr_id=='') {
-            $usr_id = $this->usr_id; 
-        }
         if ($is_simple) {
             $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.master_id, a.type, a.age, a.gender FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
         } else {
@@ -355,10 +352,6 @@ class UserController extends Controller
 
     public function actionFollowingApi($usr_id)
     {
-        if (!isset($usr_id) or $usr_id=='') {
-            $usr_id = $this->usr_id; 
-        }
-
         $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.type, a.age, a.gender, a.t_rq, u.name AS u_name FROM dc_follow f LEFT JOIN dc_animal a ON f.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE f.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
 
         $this->echoJsonData($r);
@@ -366,10 +359,6 @@ class UserController extends Controller
 
     public function actionTopicApi($usr_id)
     {
-        if (!isset($usr_id) or $usr_id=='') {
-            $usr_id = $this->usr_id; 
-        }
-
         $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.topic_name, i.create_time FROM dc_circle c LEFT JOIN dc_image i ON c.aid=i.aid WHERE c.usr_id=:usr_id AND i.topic_name<>""')->bindValue(':usr_id', $usr_id)->queryAll();
 
         $this->echoJsonData($r);
@@ -377,10 +366,6 @@ class UserController extends Controller
 
     public function actionItemsApi($usr_id)
     {
-        if (!isset($usr_id) or $usr_id=='') {
-            $usr_id = $this->usr_id; 
-        }
-
         $i = Yii::app()->db->createCommand('SELECT items FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryScalar();
         $r = unserialize($i);
 
