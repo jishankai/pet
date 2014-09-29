@@ -566,6 +566,29 @@ class AnimalController extends Controller
         
         $this->echoJsonData(array($r));
     }
+    
+    public function actionPopularApi($type=NULL, $aid=NULL)
+    {
+        $t_rq = 999999999;
+        if (isset($aid)) {
+            $t_rq = Yii::app()->db->createCommand('SELECT t_rq FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
+        }
+        if (isset($type)) {
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.t_rq<:t_rq AND type=:type ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
+                ':t_rq'=>$t_rq,
+                ':type'=>$type,
+            ))->queryAll();
+        } else {
+            $session = Yii::app()->session;
+
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.t_rq<:t_rq AND a.from=:from ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
+                ':t_rq'=>$t_rq,
+                ':from'=>$session['planet'],
+            ))->queryAll();
+        }
+        
+        $this->echoJsonData(array($r));
+    }
 
     public function actionSearchApi($name, $aid=0)
     {
