@@ -55,7 +55,7 @@ class UserController extends Controller
 
     public function actionGetSIDApi($uid)
     {
-        $r = Yii::app()->db->createCommand('SELECT usr_id, sid FROM dc_device WHERE uid=:uid')->bindValue(':uid', $uid)->queryScalar();
+        $r = Yii::app()->db->createCommand('SELECT usr_id, sid FROM dc_device WHERE uid=:uid')->bindValue(':uid', $uid)->queryRow();
 
         $this->echoJsonData($r);
     }
