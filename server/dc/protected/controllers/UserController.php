@@ -233,12 +233,15 @@ class UserController extends Controller
         $session->open();
         $id = $session['id'];
         if (empty($id)) {
-            $this->response->setError(102, '重新登录');
+            $this->response->setExpired();//重新登录
             $this->response->render();
+            return ;
         }
         $device = Device::model()->findByPk($id);
         if (empty($device)) {
-            throw new PException('未登录');
+            $this->response->setExpired();//重新登录
+            $this->response->render();
+            return ;
         }
         $pattern = '/^[a-zA-Z0-9\x{30A0}-\x{30FF}\x{3040}-\x{309F}\x{4E00}-\x{9FBF}]+$/u';
         if (empty($aid)) {
