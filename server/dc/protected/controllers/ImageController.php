@@ -50,7 +50,8 @@ class ImageController extends Controller
         Yii::trace("Image: ".$_FILES['image'], 'access');
         }
          */
-        $cmtlen = (strlen($_POST['comment'])+mb_strlen($_POST['comment'],"UTF8"))/2;
+        //$cmtlen = (strlen($_POST['comment'])+mb_strlen($_POST['comment'],"UTF8"))/2;
+        $cmtlen = mb_strlen($_POST['comment'],"UTF8");
         if ($cmtlen>40) {
             throw new PException('描述不合要求');
         }
