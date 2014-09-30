@@ -5,7 +5,7 @@ class SummaryWeekRankCommand extends CConsoleCommand {
 		echo "Usage: SummaryRank start\n";
 	}
 	
-	public function start($args) {
+	public function start() {
         $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, w_rq  FROM dc_animal ORDER BY w_rq DESC')->queryAll();
         $prev_rank = Yii::app()->cache->get('w_rq_rank_report');
         if (isset($prev_rank)) {
@@ -55,7 +55,7 @@ class SummaryWeekRankCommand extends CConsoleCommand {
 
     public function run($args) {
         if(isset($args[0]) && $args[0] == 'start'){
-            $this->start($args);
+            $this->start();
         }else{
             return $this->usage();
         }
