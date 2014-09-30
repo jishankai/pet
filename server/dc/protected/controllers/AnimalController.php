@@ -544,46 +544,38 @@ class AnimalController extends Controller
         ));
     }
 
-    public function actionRecommendApi($type=NULL, $aid=NULL)
+    public function actionRecommendApi($type=NULL, $page=0)
     {
-        $t_rq = 999999999;
-        if (isset($aid)) {
-            $t_rq = Yii::app()->db->createCommand('SELECT t_rq FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
-        }
         if (isset($type)) {
-            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.t_rq<:t_rq AND type=:type ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
-                ':t_rq'=>$t_rq,
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE type=:type ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
                 ':type'=>$type,
+                ':m'=>30*$page,
             ))->queryAll();
         } else {
             $session = Yii::app()->session;
 
-            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.t_rq<:t_rq AND a.from=:from ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
-                ':t_rq'=>$t_rq,
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.from=:from ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
                 ':from'=>$session['planet'],
+                ':m'=>30*$page,
             ))->queryAll();
         }
         
         $this->echoJsonData(array($r));
     }
-    
-    public function actionPopularApi($type=NULL, $aid=NULL)
+
+    public function actionPopularApi($type=NULL, $page=0)
     {
-        $t_rq = 999999999;
-        if (isset($aid)) {
-            $t_rq = Yii::app()->db->createCommand('SELECT t_rq FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
-        }
         if (isset($type)) {
-            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.t_rq<:t_rq AND type=:type ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
-                ':t_rq'=>$t_rq,
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE type=:type ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
                 ':type'=>$type,
+                ':m'=>30*$page,
             ))->queryAll();
         } else {
             $session = Yii::app()->session;
 
-            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.t_rq<:t_rq AND a.from=:from ORDER BY a.t_rq DESC LIMIT 30')->bindValues(array(
-                ':t_rq'=>$t_rq,
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.from=:from ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
                 ':from'=>$session['planet'],
+                ':m'=>30*$page,
             ))->queryAll();
         }
         
