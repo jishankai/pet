@@ -6,7 +6,7 @@ class SummaryDayContributionRankCommand extends CConsoleCommand {
     }
 
     public function start() {
-        $aids = Yii::app()->db->createCommand('SELECT aid FROM dc_animal')->queryAll();
+        $aids = Yii::app()->db->createCommand('SELECT aid FROM dc_animal')->queryColumn();
         foreach ($aids as $aid) {
             $r = Yii::app()->db->createCommand('SELECT c.usr_id AS usr_id, c.d_contri AS d_contri, u.tx AS tx, u.name AS name FROM dc_circle c LEFT JOIN dc_user u ON c.usr_id=u.usr_id WHERE c.aid=:aid ORDER BY c.d_contri DESC')->bindValue(':aid', $aid)->queryAll();
             $prev_rank = Yii::app()->cache->get($aid.'_d_rank');
