@@ -299,6 +299,7 @@ class AnimalController extends Controller
                 $f->usr_id = $this->usr_id;
                 $f->aid = $aid;
                 $f->create_time = time();
+                $f->save();
             }
             $news = new News;
             $news->aid = $aid;
