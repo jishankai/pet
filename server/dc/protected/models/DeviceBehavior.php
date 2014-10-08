@@ -32,6 +32,11 @@ class DeviceBehavior extends CActiveRecordBehavior
         $circle->usr_id = $user->usr_id;
         $circle->rank = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_circle WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar() + 1; 
         $circle->save();
+        $f = new Follow;
+        $f->usr_id = $this->usr_id;
+        $f->aid = $aid;
+        $f->create_time = time();
+        $f->save();
 
         $user->aid = $aid;
         $user->saveAttributes(array('aid'));
