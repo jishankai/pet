@@ -38,7 +38,7 @@ class DeviceBehavior extends CActiveRecordBehavior
             $circle->save();
         }
         $f = new Follow;
-        $f->usr_id = $this->usr_id;
+        $f->usr_id = $user->usr_id;
         $f->aid = $aid;
         $f->create_time = time();
         $f->save();
