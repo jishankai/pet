@@ -515,6 +515,7 @@ class AnimalController extends Controller
                     'a_name'=>$animal->name,
                     'usr_id'=>$user->usr_id,
                     'u_name'=>$user->name,
+                    'rank' => isset($circle)?$circle->rank:-1,
                     'item_id'=>$item_id,
                     'rq'=>$item['rq'],
                 ));
