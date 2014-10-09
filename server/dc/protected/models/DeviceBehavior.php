@@ -13,7 +13,32 @@ class DeviceBehavior extends CActiveRecordBehavior
         $user->code = $this->createInviteCode();
         $user->inviter = $inviter;
         $user->gold = 500;
-                
+        $reward_items = array(
+            1101 => 3,
+            1102 => 3,
+            1103 => 3,
+            1104 => 3,
+            1105 => 3,
+            1106 => 3,
+            1107 => 3,
+            1201 => 2,
+            1202 => 2,
+            1203 => 2,
+            1204 => 2,
+            1205 => 2,
+            1206 => 2,
+            1207 => 2,
+            1301 => 1,
+            1302 => 1,
+            1303 => 1,
+            1304 => 1,
+            1305 => 1,
+            2101 => 3,
+            2102 => 3,
+            2103 => 3,
+            2104 => 3,
+        );
+        $user->items = serialize($reward_items);
         $user->save();
 
         if (!isset($aid)) {
