@@ -478,6 +478,18 @@ class AnimalController extends Controller
                 $animal->m_rq+=$item['rq'];
                 $animal->w_rq+=$item['rq'];
                 $animal->t_rq+=$item['rq'];
+                if ($animal->d_rq<0) {
+                    $animel->d_rq = 0;
+                }
+                if ($animal->m_rq<0) {
+                    $animel->m_rq = 0;
+                }
+                if ($animal->w_rq<0) {
+                    $animel->w_rq = 0;
+                }
+                if ($animal->t_rq<0) {
+                    $animel->t_rq = 0;
+                }
                 $a_items = unserialize($animal->items);
                 if (isset($a_items[$item_id])) {
                     $a_items[$item_id]++;
