@@ -399,12 +399,14 @@ class AnimalController extends Controller
     {
         $session = Yii::app()->session;
         if (isset($session[$aid.'touch_count'])) {
-            $is_touched = TRUE;
+            $this->echoJsonData(array('is_touched'=>TRUE));
         } else {
-            $is_touched = FALSE;
+            $img_url = Yii::app()->db->createCommand('SELECT url FROM dc_image WHERE aid=:aid ORDER BY update_time DESC LIMIT 1')->bindValue(':aid',$aid)->queryScalar();
+            $this->echoJsonData(array(
+                'is_touched'=>FALSE,
+                'img_url'=>$img_url,
+            ));
         }
-
-        $this->echoJsonData(array('is_touched'=>$is_touched));
     }
 
     public function actionTouchApi($aid)
