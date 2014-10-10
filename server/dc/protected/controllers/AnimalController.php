@@ -278,7 +278,7 @@ class AnimalController extends Controller
             throw $e;
         }
 
-        $this->echoJsonData(array('isSuccess'=>TRUE));
+        $this->echoJsonData(array('aid'=>$animal->aid));
     }
 
     public function actionJoinApi($aid)
