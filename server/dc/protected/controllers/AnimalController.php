@@ -224,7 +224,7 @@ class AnimalController extends Controller
 
     public function actionFansApi($aid, $rank=999999999, $usr_id=0)
     {
-        $r = Yii::app()->db->createCommand('SELECT c.usr_id as usr_id, rank, t_contri, u.tx, name, gender, city FROM dc_circle c INNER JOIN dc_user u ON c.usr_id=u.usr_id WHERE c.aid=:aid AND rank<:rank AND c.usr_id>:usr_id  ORDER BY rank DESC, c.usr_id DESC LIMIT 30')->bindValues(array(
+        $r = Yii::app()->db->createCommand('SELECT c.usr_id as usr_id, rank, t_contri, u.tx, name, gender, city FROM dc_circle c INNER JOIN dc_user u ON c.usr_id=u.usr_id WHERE c.aid=:aid AND rank<:rank AND c.usr_id>:usr_id  ORDER BY t_contri DESC, c.usr_id DESC LIMIT 30')->bindValues(array(
             ':aid'=>$aid,
             ':rank'=>$rank,
             ':usr_id'=>$usr_id,
