@@ -267,11 +267,21 @@ class AnimalController extends Controller
             $animal->from = substr($type,0,1);
             $animal->master_id = $this->usr_id;
             $animal->save();
+
             $circle = new Circle();
             $circle->aid = $animal->aid;
             $circle->usr_id = $this->usr_id;
             $circle->rank = 0;
             $circle->save();
+            
+            $f = new Follow();
+            $f->usr_id = $this->usr_id;
+            $f->aid = $animal->aid;
+            $f->create_time = time();
+            $f->save();
+
+            Yii::app()->db->createCommand('UPDATE dc_user SET aid=:aid WHERE usr_id=:usr_id')->bindValues(array(':aid'=>$animal->aid, ':usr_id'=>$this->usr_id))->execute();
+
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
@@ -398,15 +408,16 @@ class AnimalController extends Controller
     public function actionIsTouchedApi($aid)
     {
         $session = Yii::app()->session;
+        $img_url = Yii::app()->db->createCommand('SELECT url FROM dc_image WHERE aid=:aid ORDER BY update_time DESC LIMIT 1')->bindValue(':aid',$aid)->queryScalar();
         if (isset($session[$aid.'touch_count'])) {
-            $this->echoJsonData(array('is_touched'=>TRUE));
+            $is_touched = TRUE;
         } else {
-            $img_url = Yii::app()->db->createCommand('SELECT url FROM dc_image WHERE aid=:aid ORDER BY update_time DESC LIMIT 1')->bindValue(':aid',$aid)->queryScalar();
-            $this->echoJsonData(array(
-                'is_touched'=>FALSE,
-                'img_url'=>$img_url,
-            ));
+            $is_touched = FALSE;
         }
+        $this->echoJsonData(array(
+            'is_touched'=>$is_touched,
+            'img_url'=>$img_url,
+        ));
     }
 
     public function actionTouchApi($aid)
