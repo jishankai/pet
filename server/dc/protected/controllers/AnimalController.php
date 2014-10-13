@@ -667,4 +667,36 @@ class AnimalController extends Controller
 
         $this->echoJsonData(array(unserialize($animal->address)));
     }
+
+    public function actionModifyInfoApi($aid, $name, $gender, $age, $type)
+    {
+        $pattern = '/^[a-zA-Z0-9\x{30A0}-\x{30FF}\x{3040}-\x{309F}\x{4E00}-\x{9FBF}]+$/u';
+        //$namelen = (strlen($name)+mb_strlen($name,"UTF8"))/2;
+        $namelen = mb_strlen($name,"UTF8");
+        if ($namelen>8) {
+            throw new PException('宠物昵称超过最大长度');
+        }
+        if (Animal::model()->isNameExist(trim($name), $aid)) {
+            throw new PException('宠物名已被注册');
+        }
+        if (!preg_match($pattern, $name)) {
+            throw new PException('宠物昵称含有特殊字符');
+        }
+
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $animal = Animal::model()->findByPk($aid);
+            $animal->name = $name;
+            $animal->age = $age;
+            $animal->type = $type;
+            $animal->gender = $gender;
+            $animal->saveAttributes(array('name', 'age', 'type', 'gender'));
+            $transaction->commit();
+
+            $this->echoJsonData(array('isSuccess'=>true));
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+    }
 }
