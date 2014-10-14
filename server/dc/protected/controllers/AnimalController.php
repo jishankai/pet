@@ -685,9 +685,6 @@ class AnimalController extends Controller
         if ($namelen>8) {
             throw new PException('宠物昵称超过最大长度');
         }
-        if (Animal::model()->isNameExist(trim($name), $aid)) {
-            throw new PException('宠物名已被注册');
-        }
         if (!preg_match($pattern, $name)) {
             throw new PException('宠物昵称含有特殊字符');
         }
