@@ -17,6 +17,7 @@ class ImageController extends Controller
                     'sql' => "SELECT MAX(update_time) FROM dc_image",
                 ),
             ),
+            /*
             array(
                 'COutputCache + favoriteApi',
                 'duration' => 300,
@@ -30,6 +31,7 @@ class ImageController extends Controller
                     ),
                 ),
             ),
+                */
 
             array(
                 'COutputCache + topicApi',
@@ -221,7 +223,9 @@ class ImageController extends Controller
 
     public function actionFavoriteApi($img_id=9999999999)
     {
-        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.cmt, i.likes, i.likers, i.aid, a.tx, a.name, a.type, i.create_time FROM dc_image i INNER JOIN dc_follow f ON f.aid=i.aid LEFT JOIN dc_animal a ON i.aid=a.aid WHERE usr_id=:usr_id AND img_id<:img_id ORDER BY img_id DESC LIMIT 30')->bindValues(array(
+        $dependency = new CDbCacheDependency("SELECT MAX(i.update_time) FROM dc_follow f LEFT JOIN dc_image i ON f.aid=i.aid WHERE usr_id = :usr_id");
+        $dependency->params[':usr_id'] = $this->usr_id;
+        $r = Yii::app()->db->cache(3600, $dependency)->createCommand('SELECT i.img_id, i.url, i.cmt, i.likes, i.likers, i.aid, a.tx, a.name, a.type, i.create_time FROM dc_image i INNER JOIN dc_follow f ON f.aid=i.aid LEFT JOIN dc_animal a ON i.aid=a.aid WHERE usr_id=:usr_id AND img_id<:img_id ORDER BY img_id DESC LIMIT 30')->bindValues(array(
             ':usr_id' => $this->usr_id,
             ':img_id' => $img_id,
         ))->queryAll();
