@@ -45,7 +45,7 @@ class SummaryWeekRankCommand extends CConsoleCommand {
 
                     $self_rank = $i+1;
                     $msg = "您的王国/家族在人气周排行榜中获得第".$self_rank."名，您获得".$result_money."金币奖励";
-                    Talk::model()->sendMsg(SYSTEw_USERID, $user->usr_id, $msg);
+                    Talk::model()->sendMsg(SYSTEM_USERID, $user->usr_id, $msg);
                 }
             }
         }
