@@ -102,6 +102,9 @@ class ImageController extends Controller
 
                     //events
                     $user = User::model()->findByPk($this->usr_id);
+                    $ex_gold = $user->gold;
+                    $ex_exp = $user->exp;
+                    $ex_lv = $user->lv;
                     $user->uploadImage($aid);
 
                     $news = new News;
@@ -131,7 +134,7 @@ class ImageController extends Controller
             }
         }
 
-        $this->echoJsonData(array('image'=>$model, 'exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv));
+        $this->echoJsonData(array('image'=>$model, 'exp'=>$user->exp-$ex_exp, 'gold'=>$user->gold-$ex_gold, 'lv'=>$user->lv-$ex_lv));
     }
 
     public function actionLikeApi($img_id)
@@ -282,6 +285,9 @@ class ImageController extends Controller
 
         $image = Image::model()->findByPk($img_id);
         $user = User::model()->findByPk($this->usr_id);
+        $ex_gold = $user->gold;
+        $ex_exp = $user->exp;
+        $ex_lv = $user->lv;
 
         /*
         $comment = array(
@@ -323,7 +329,7 @@ class ImageController extends Controller
                 Talk::model()->sendMsg(NPC_IMAGE_USRID, $animal->master_id, $user->name."评论了你：".$body);
             }
 
-            $this->echoJsonData(array('exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv));
+            $this->echoJsonData(array('exp'=>$user->exp-$ex_exp, 'gold'=>$user->gold-$ex_gold, 'lv'=>$user->lv-$ex_lv));
         }
     }
 

@@ -368,6 +368,9 @@ class AnimalController extends Controller
                 $transaction = Yii::app()->db->beginTransaction();
                 try {
                     $user = User::model()->findByPk($this->usr_id);
+                    $ex_gold = $user->gold;
+                    $ex_exp = $user->exp;
+                    $ex_lv = $user->lv;
                     $user->voiceUp();
 
                     $news = new News;
@@ -379,7 +382,7 @@ class AnimalController extends Controller
 
                     $session = Yii::app()->session;
                     $session[$aid.'_is_voiced'] = 1;
-                    $this->echoJsonData(array('exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv));
+                    $this->echoJsonData(array('exp'=>$user->exp-$ex_exp, 'gold'=>$user->gold-$ex_gold, 'lv'=>$user->lv-$ex_lv));
                 } catch (Exception $e) {
                     $transaction->rollback();
                     throw $e;
@@ -428,13 +431,16 @@ class AnimalController extends Controller
             try {
                 $session[$aid.'touch_count']=1;
                 $user = User::model()->findByPk($this->usr_id);
+                $ex_gold = $user->gold;
+                $ex_exp = $user->exp;
+                $ex_lv = $user->lv;
                 $user->touch();
                 $transaction->commit();
 
                 $this->echoJsonData(array(
-                    'gold' => $user->gold,
-                    'exp' => $user->exp,
-                    'lv' => $user->lv,
+                    'gold' => $user->gold-$ex_gold,
+                    'exp' => $user->exp-$ex_exp,
+                    'lv' => $user->lv-$ex_lv,
                 )); 
             } catch (Exception $e) {
                 $transaction->rollback();
@@ -462,6 +468,9 @@ class AnimalController extends Controller
             $transaction = Yii::app()->db->beginTransaction();
             try {
                 $user = User::model()->findByPk($this->usr_id);
+                $ex_gold = $user->gold;
+                $ex_exp = $user->exp;
+                $ex_lv = $user->lv;
                 if (!$is_shake) {
                     $items = unserialize($user->items);
                     if (isset($items[$item_id])&&$items[$item_id]>0) {
@@ -476,6 +485,7 @@ class AnimalController extends Controller
 
                 $circle = Circle::model()->findByPk(array('aid'=>$aid,'usr_id'=>$this->usr_id));
                 if (isset($circle)) {
+                    $ex_rank = $circle->rank;
                     $circle->t_contri+=$item['rq'];
                     $circle->m_contri+=$item['rq'];
                     $circle->w_contri+=$item['rq'];
@@ -547,7 +557,7 @@ class AnimalController extends Controller
 
                 $transaction->commit();
 
-                $this->echoJsonData(array('exp'=>$user->exp, 'gold'=>$user->gold, 'lv'=>$user->lv, 'rank'=>isset($circle)?$circle->rank:-1));
+                $this->echoJsonData(array('exp'=>$user->exp-$ex_exp, 'gold'=>$user->gold-$ex_gold, 'lv'=>$user->lv-$ex_lv, 'rank'=>isset($circle)?$circle->rank-$ex_rank:-1));
             } catch (Exception $e) {
                 $transaction->rollback();
                 throw $e;
