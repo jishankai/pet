@@ -24,7 +24,7 @@ class ImageController extends Controller
                 'varyBySession' => true,
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
-                    'sql' => 'SELECT MAX(update_time) FROM dc_follow WHERE usr_id = :usr_id',
+                    'sql' => 'SELECT MAX(i.update_time) FROM dc_follow f LEFT JOIN dc_image i ON f.aid=i.aid WHERE usr_id = :usr_id',
                     'params' => array(
                         'usr_id' => $this->usr_id,
                     ),
