@@ -5,39 +5,35 @@
  *
  * The followings are the available columns in table 'dc_user':
  * @property string $usr_id
- * @property string $weibo
- * @property string $wechat
  * @property string $name
- * @property integer $gender
  * @property string $tx
+ * @property integer $gender
+ * @property integer $city
+ * @property string $weibo
+ * @property string $qq
  * @property integer $age
- * @property integer $type
+ * @property string $exp
+ * @property string $lv
+ * @property string $gold
+ * @property string $items
+ * @property string $con_login
+ * @property string $login_time
+ * @property string $vip
+ * @property string $aid
  * @property string $code
  * @property string $inviter
  * @property string $create_time
  * @property string $update_time
  *
  * The followings are the available model relations:
- * @property Account $account
- * @property Device[] $devices
- * @property Friend[] $friends
- * @property Image[] $images
- * @property Mail $mail
+ * @property Animal[] $animals
+ * @property Animal[] $dcAnimals
+ * @property Animal[] $dcAnimals1
+ * @property Mail[] $mails
  * @property Sticker[] $stickers
- * @property Value $value
  */
 class User extends CActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return User the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
-
 	/**
 	 * @return string the associated database table name
 	 */
@@ -54,13 +50,13 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('gender, age, type', 'numerical', 'integerOnly'=>true),
-			array('weibo, wechat, name, tx', 'length', 'max'=>45),
+			array('gender, city, age', 'numerical', 'integerOnly'=>true),
+			array('name, tx, weibo, qq', 'length', 'max'=>45),
+            array('exp, lv, gold, con_login, login_time, vip, aid, inviter, create_time', 'length', 'max'=>10),
 			array('code', 'length', 'max'=>6),
-			array('inviter, create_time', 'length', 'max'=>10),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('usr_id, weibo, wechat, name, gender, tx, age, type, code, inviter, create_time, update_time', 'safe', 'on'=>'search'),
+			// @todo Please remove those attributes that should not be searched.
+			array('usr_id, name, tx, gender, city, weibo, qq, age, exp, lv, gold, items, con_login, login_time, vip, aid, code, inviter, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,13 +68,11 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'account' => array(self::HAS_ONE, 'Account', 'usr_id'),
-			'devices' => array(self::HAS_MANY, 'Device', 'usr_id'),
-			'friends' => array(self::HAS_MANY, 'Friend', 'usr_id'),
-			'images' => array(self::HAS_MANY, 'Image', 'usr_id'),
-			'mail' => array(self::HAS_ONE, 'Mail', 'usr_id'),
+			'animals' => array(self::HAS_MANY, 'Animal', 'master_id'),
+			'dcAnimals' => array(self::MANY_MANY, 'Animal', 'dc_circle(usr_id, aid)'),
+			'dcAnimals1' => array(self::MANY_MANY, 'Animal', 'dc_follow(usr_id, aid)'),
+			'mails' => array(self::HAS_MANY, 'Mail', 'usr_id'),
 			'stickers' => array(self::HAS_MANY, 'Sticker', 'usr_id'),
-			'value' => array(self::HAS_ONE, 'Value', 'usr_id'),
 		);
 	}
 
@@ -96,13 +90,21 @@ class User extends CActiveRecord
 	{
 		return array(
 			'usr_id' => '用户编号',
-			'weibo' => '微博账号',
-			'wechat' => '微信账号',
-			'name' => '昵称',
+			'name' => '姓名',
+			'tx' => '头像地址',
 			'gender' => '性别',
-			'tx' => '头像',
+			'city' => '城市',
+			'weibo' => '微博账号',
+			'qq' => 'QQ账号',
 			'age' => '年龄',
-			'type' => '类型',
+			'exp' => '经验',
+			'lv' => '等级',
+            'gold' => '金币',
+            'items' => '道具',
+			'con_login' => '连续登录时间',
+			'login_time' => '上次登录时间',
+			'vip' => 'VIP值',
+			'aid' => '宠物编号',
 			'code' => '邀请码',
 			'inviter' => '邀请者',
 			'create_time' => '创建时间',
@@ -112,23 +114,38 @@ class User extends CActiveRecord
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 *
+	 * Typical usecase:
+	 * - Initialize the model fields with values from filter form.
+	 * - Execute this method to get CActiveDataProvider instance which will filter
+	 * models according to data in model fields.
+	 * - Pass data provider to CGridView, CListView or any similar widget.
+	 *
+	 * @return CActiveDataProvider the data provider that can return the models
+	 * based on the search/filter conditions.
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('usr_id',$this->usr_id,true);
-		$criteria->compare('weibo',$this->weibo,true);
-		$criteria->compare('wechat',$this->wechat,true);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('gender',$this->gender);
 		$criteria->compare('tx',$this->tx,true);
+		$criteria->compare('gender',$this->gender);
+		$criteria->compare('city',$this->city);
+		$criteria->compare('weibo',$this->weibo,true);
+		$criteria->compare('qq',$this->qq,true);
 		$criteria->compare('age',$this->age);
-		$criteria->compare('type',$this->type);
+		$criteria->compare('exp',$this->exp,true);
+		$criteria->compare('lv',$this->lv,true);
+		$criteria->compare('gold',$this->gold,true);
+		$criteria->compare('items',$this->items,true);
+		$criteria->compare('con_login',$this->con_login,true);
+		$criteria->compare('login_time',$this->login_time,true);
+		$criteria->compare('vip',$this->vip,true);
+		$criteria->compare('aid',$this->aid,true);
 		$criteria->compare('code',$this->code,true);
 		$criteria->compare('inviter',$this->inviter,true);
 		$criteria->compare('create_time',$this->create_time,true);
@@ -137,5 +154,16 @@ class User extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return User the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
 	}
 }

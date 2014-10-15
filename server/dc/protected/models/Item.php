@@ -6,24 +6,18 @@
  * The followings are the available columns in table 'dc_item':
  * @property string $item_id
  * @property string $name
- * @property string $des
+ * @property string $icon
+ * @property string $desc
  * @property string $img
- * @property double $price
+ * @property string $price
+ * @property integer $rq
+ * @property integer $exp
+ * @property integer $type
  * @property string $create_time
  * @property string $update_time
  */
 class Item extends CActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return Item the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
-
 	/**
 	 * @return string the associated database table name
 	 */
@@ -40,12 +34,12 @@ class Item extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('price', 'numerical'),
-			array('name, img', 'length', 'max'=>255),
-			array('create_time', 'length', 'max'=>10),
+			array('rq, exp, type', 'numerical', 'integerOnly'=>true),
+			array('name, icon, img', 'length', 'max'=>255),
+			array('price, create_time', 'length', 'max'=>10),
 			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('item_id, name, des, img, price, create_time, update_time', 'safe', 'on'=>'search'),
+			// @todo Please remove those attributes that should not be searched.
+			array('item_id, name, icon, desc, img, price, rq, exp, type, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,43 +54,76 @@ class Item extends CActiveRecord
 		);
 	}
 
+    public function behaviors()
+    {
+        return array(
+            //'behavior' => 'ItemBehavior',
+        );
+    }
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
 	public function attributeLabels()
 	{
 		return array(
-			'item_id' => 'Item',
-			'name' => 'Name',
-			'des' => 'des',
-			'img' => 'Img',
-			'price' => 'Price',
-			'create_time' => 'Create Time',
-			'update_time' => 'Update Time',
+			'item_id' => '物品编号',
+			'name' => '名称',
+			'icon' => '标志',
+			'desc' => '描述',
+			'img' => '图片地址',
+			'price' => '价格',
+			'rq' => '人气变化',
+			'exp' => '增加经验',
+			'type' => '类别',
+			'create_time' => '创建时间',
+			'update_time' => '更新时间',
 		);
 	}
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 *
+	 * Typical usecase:
+	 * - Initialize the model fields with values from filter form.
+	 * - Execute this method to get CActiveDataProvider instance which will filter
+	 * models according to data in model fields.
+	 * - Pass data provider to CGridView, CListView or any similar widget.
+	 *
+	 * @return CActiveDataProvider the data provider that can return the models
+	 * based on the search/filter conditions.
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('item_id',$this->item_id,true);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('des',$this->des,true);
+		$criteria->compare('icon',$this->icon,true);
+		$criteria->compare('desc',$this->desc,true);
 		$criteria->compare('img',$this->img,true);
-		$criteria->compare('price',$this->price);
+		$criteria->compare('price',$this->price,true);
+		$criteria->compare('rq',$this->rq);
+		$criteria->compare('exp',$this->exp);
+		$criteria->compare('type',$this->type);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return Item the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
 	}
 }

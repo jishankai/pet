@@ -7,7 +7,7 @@ class ImageController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - randomApi,infoApi',
+            'getUserId - recommendApi,randomApi,infoApi,shareApi',
             array(
                 'COutputCache + randomApi',
                 'duration' => 300,
@@ -17,6 +17,7 @@ class ImageController extends Controller
                     'sql' => "SELECT MAX(update_time) FROM dc_image",
                 ),
             ),
+            /*
             array(
                 'COutputCache + favoriteApi',
                 'duration' => 300,
@@ -24,35 +25,45 @@ class ImageController extends Controller
                 'varyBySession' => true,
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
-                    'sql' => 'SELECT MAX(update_time) FROM dc_friend WHERE usr_id = :usr_id',
+                    'sql' => 'SELECT MAX(i.update_time) FROM dc_follow f LEFT JOIN dc_image i ON f.aid=i.aid WHERE usr_id = :usr_id',
                     'params' => array(
                         'usr_id' => $this->usr_id,
                     ),
                 ),
             ),
+                */
+
+            array(
+                'COutputCache + topicApi',
+                'duration' => 3600,
+            )
         );
     }
 
-    public function actionUploadApi()
+    public function actionUploadApi($aid)
     {
         $model = new Image;
 
         if (isset($_POST['comment'])) {
-        Yii::trace("Image: ".$_POST['comment'], 'access');
+            Yii::trace("Image: ".$_POST['comment'], 'access');
         }
         /*
         if (isset($_FILES['image'])) {
         Yii::trace("Image: ".$_FILES['image'], 'access');
         }
-        */
-        $cmtlen = (strlen($_POST['comment'])+mb_strlen($_POST['comment'],"UTF8"))/2;
+         */
+        //$cmtlen = (strlen($_POST['comment'])+mb_strlen($_POST['comment'],"UTF8"))/2;
+        $cmtlen = mb_strlen($_POST['comment'],"UTF8");
         if ($cmtlen>40) {
             throw new PException('描述不合要求');
         }
-        
-        if (isset($_FILES['image'])) {
-            $model->usr_id = $this->usr_id;
-            $model->cmt = $_POST['comment'];
+
+        if (isset($_FILES['image'])&&isset($aid)) {
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $model->aid = $aid;
+                $model->cmt = $_POST['comment'];
+            /*
             preg_match("/#\s*([^#]*)\s*#/",$_POST['comment'],$matches);
             #Yii::trace($_POST['comment'].$matches[0].'...'.$matches[1], 'access');
             if (isset($matches[1])) {
@@ -66,25 +77,66 @@ class ImageController extends Controller
                 //Yii::trace('topic:'.$topic_id.$matches[1].$topic->topic_id, 'access');
                 if (isset($topic)) {
                     $model->topic_id = $topic->topic_id;
+                    $model->topic_name = $topic->name;
+                } else {
+                    $model->topic_name = $matches[1];
                 }
             }
-            $model->create_time = time();
-            $img_count = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryScalar();
+             */
+                if (isset($_POST['topic_id'])) {
+                    $model->topic_id = $_POST['topic_id'];
+                    $model->topic_name = $_POST['topic_name'];
+                } else {
+                    $model->topic_name = $_POST['topic_name'];
+                }
+                if (isset($_POST['relates'])) {
+                    $model->relates = $_POST['relates'];
+                }
+                $model->create_time = time();
+                $img_count = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
 
-            $fname = basename($_FILES['image']['name']);
-            #$success = Yii::app()->s3->upload( $_FILES['image']['tmp_name'], 'upload/'.$fname, 'pet4jishankaitest' );
-            $path = Yii::app()->basePath.'/../images/upload/'.$model->usr_id.'_'.$img_count.'.'.$fname;
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
-                $model->url = $model->usr_id.'_'.$img_count.'.'.$fname;
-                $model->save();
-                
-                //events
-                $user = User::model()->findByPk($this->usr_id);
-                $user->uploadImage();
+                $fname = basename($_FILES['image']['name']);
+                #$success = Yii::app()->s3->upload( $_FILES['image']['tmp_name'], 'upload/'.$fname, 'pet4jishankaitest' );
+                $path = Yii::app()->basePath.'/../images/upload/'.$model->aid.'_'.$img_count.'.'.$fname;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
+                    $model->url = $model->aid.'_'.$img_count.'.'.$fname;
+                    $model->save();
+
+                    //events
+                    $user = User::model()->findByPk($this->usr_id);
+                    $ex_gold = $user->gold;
+                    $ex_exp = $user->exp;
+                    $ex_lv = $user->lv;
+                    $user->uploadImage($aid);
+
+                    $news = new News;
+                    $news->aid = $aid;
+                    $news->type = 3;
+                    $news->create_time = time();
+                    $user = User::model()->findByPk($this->usr_id);
+                    $news->content = serialize(array(
+                        'usr_id'=>$user->usr_id,
+                        'u_name'=>$user->name,
+                        'img_id'=>$model->img_id,
+                        'img_url'=>$model->url,
+                    ));
+                    $news->save();
+                    
+                    if (isset($_POST['relates'])) {
+                        $usr_ids = explode(',',$model->relates);
+                        foreach ($usr_ids as $usr_id) {
+                            Talk::model()->sendMsg(NPC_IMAGE_USRID, $usr_id, $user->name."[".$model->img_id."]在爱宠的照片中@了你，没想到你人缘还不错，还真让本喵吃惊呀");
+                        }
+                    }
+                }
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollback();
+                throw $e;
             }
         }
 
-        $this->echoJsonData(array($model));
+        $this->echoJsonData(array('image'=>$model, 'exp'=>$user->exp-$ex_exp, 'gold'=>$user->gold-$ex_gold, 'lv'=>$user->lv-$ex_lv));
     }
 
     public function actionLikeApi($img_id)
@@ -110,10 +162,15 @@ class ImageController extends Controller
             $user = User::model()->findByPk($this->usr_id);
             $user->like();
 
+            $animal = Animal::model()->findByPk($image->aid);
+            $animal->t_rq+=5;
+            $animal->d_rq+=5;
+            $animal->w_rq+=5;
+            $animal->m_rq+=5;
+            $animal->saveAttributes(array('t_rq','d_rq','w_rq','m_rq'));
+
             //events
-            if ($image->usr_id!=$this->usr_id) {
-                PMail::create($image->usr_id, $user, $user->name.'赞了你');
-            }
+            //PMail::create($image->usr_id, $user, $user->name.'赞了你');
 
             $transaction->commit();
 
@@ -164,32 +221,29 @@ class ImageController extends Controller
         $this->echoJsonData(array('isSuccess'=>true));
     }
 
-    public function actionFavoriteApi($img_id=NULL)
+    public function actionFavoriteApi($img_id=9999999999)
     {
-        $follow_1 = Yii::app()->db->createCommand('SELECT follow_id FROM dc_friend WHERE usr_id = :usr_id AND relation IN (0,1)')->bindValue(':usr_id', $this->usr_id)->queryColumn();
-        $follow_2 = Yii::app()->db->createCommand('SELECT usr_id FROM dc_friend WHERE follow_id = :usr_id AND relation IN (0,-1)')->bindValue(':usr_id', $this->usr_id)->queryColumn();
+        $dependency = new CDbCacheDependency("SELECT MAX(i.update_time) FROM dc_follow f LEFT JOIN dc_image i ON f.aid=i.aid WHERE usr_id = :usr_id");
+        $dependency->params[':usr_id'] = $this->usr_id;
+        $r = Yii::app()->db->cache(3600, $dependency)->createCommand('SELECT i.img_id, i.url, i.cmt, i.likes, i.likers, i.aid, a.tx, a.name, a.type, i.create_time FROM dc_image i INNER JOIN dc_follow f ON f.aid=i.aid LEFT JOIN dc_animal a ON i.aid=a.aid WHERE usr_id=:usr_id AND img_id<:img_id ORDER BY img_id DESC LIMIT 30')->bindValues(array(
+            ':usr_id' => $this->usr_id,
+            ':img_id' => $img_id,
+        ))->queryAll();
 
-        $follow_ids = array_merge($follow_1, $follow_2);
-
-        $c = new CDbCriteria;
-        $c->compare('t.usr_id', $follow_ids);
-        $c->limit = 10;
-        $c->order = 'img_id DESC';
-        if(isset($img_id)) {
-            $c->compare('img_id', '<'.$img_id);
-        }
-        $imgs = Image::model()->with('usr')->findAll($c);
-        /*
-        $images = array();
-        foreach ($imgs as $img) {
-            $user = $img->usr;
-            $images[] = array_merge($user->getAttributes(), $img->getAttributes());
-        }
-         */
-
-        $this->echoJsonData(array($imgs));
+        $this->echoJsonData($r);
     }
 
+    public function actionRecommendApi($img_id=NULL)
+    {
+        if (isset($img_id)) {
+            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url FROM dc_image i WHERE i.img_id<:img_id ORDER BY i.create_time DESC LIMIT 30')->bindValue(':img_id', $img_id)->queryAll();        
+        } else {
+            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url FROM dc_image i ORDER BY i.create_time DESC LIMIT 30')->queryAll();        
+        }
+
+        $this->echoJsonData(array($images));
+    }
+    
     public function actionRandomApi($img_id=NULL)
     {
         if (isset($img_id)) {
@@ -201,18 +255,29 @@ class ImageController extends Controller
         $this->echoJsonData(array($images));
     }
 
-    public function actionInfoApi($img_id)
+    public function actionInfoApi($img_id, $usr_id)
     {
         $dependency = new CDbCacheDependency("SELECT update_time FROM dc_image WHERE img_id = :img_id");
         $dependency->params[':img_id'] = $img_id;
         $image = Image::model()->cache(3600, $dependency)->findByPk($img_id);
 
+        $is_follow = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_follow WHERE aid=:aid AND usr_id=:usr_id ')->bindValues(array(
+            ':aid' => $image->aid,
+            ':usr_id' => $usr_id,
+        ))->queryScalar();
+
         if (isset($image->likers)&&$image->likers!='') {
             $liker_tx = Yii::app()->db->createCommand("SELECT tx FROM dc_user WHERE usr_id IN ($image->likers)")->queryColumn();
         }
         
+        if (isset($image->senders)&&$image->senders!='') {
+            $sender_tx = Yii::app()->db->createCommand("SELECT tx FROM dc_user WHERE usr_id IN ($image->senders)")->queryColumn();
+        }
+        
         $this->echoJsonData(array(
             'image'=>$image,
+            'is_follow'=>$is_follow,
+            'sender_tx'=>isset($sender_tx)?$sender_tx:NULL,
             'liker_tx'=>isset($liker_tx)?$liker_tx:NULL,
         )); 
     }
@@ -224,6 +289,9 @@ class ImageController extends Controller
 
         $image = Image::model()->findByPk($img_id);
         $user = User::model()->findByPk($this->usr_id);
+        $ex_gold = $user->gold;
+        $ex_exp = $user->exp;
+        $ex_lv = $user->lv;
 
         /*
         $comment = array(
@@ -233,11 +301,62 @@ class ImageController extends Controller
             'create_time' => time(),
         );
          */
-
-        $image->comments = $image->comments.';'.'usr_id:'.$this->usr_id.','.'name:'.$user->name.','.'body:'.$body.','.'create_time:'.time();
+        if (isset($_POST['reply_id'])) {
+            $image->comments = 'usr_id:'.$this->usr_id.','.'name:'.$user->name.','.'reply_id:'.$_POST['reply_id'].','.'reply_name:'.$_POST['reply_name'].','.'body:'.$body.','.'create_time:'.time().';'.$image->comments;
+            //PMail::create($_POST['reply_id'], $user, $user->name.'在'.$image->img_id.'回复了你');
+        } else {
+            $image->comments = 'usr_id:'.$this->usr_id.','.'name:'.$user->name.','.'body:'.$body.','.'create_time:'.time().';'.$image->comments;
+        }
+        
 
         if ($image->saveAttributes(array('comments'))) {
-            $this->echoJsonData(array('isSuccess'=>TRUE));
+            $animal = Animal::model()->findByPk($image->aid);
+            $animal->t_rq+=5;
+            $animal->d_rq+=5;
+            $animal->w_rq+=5;
+            $animal->m_rq+=5;
+            $animal->saveAttributes(array('t_rq','d_rq','w_rq','m_rq'));
+
+            $session = Yii::app()->session;
+            if (isset($session['comment_count'])) {
+                $session['comment_count']+=1;
+            } else {
+                $session['comment_count']=1;
+            }
+            
+            if ($session['comment_count']<=15) {
+                $user->comment();
+            }
+            if (isset($_POST['reply_id'])) {
+                Talk::model()->sendMsg(NPC_IMAGE_USRID, $_POST['reply_id'], "[".$image->img_id."]".$user->name."回复了你：".$body);
+            } else {
+                Talk::model()->sendMsg(NPC_IMAGE_USRID, $animal->master_id, "[".$image->img_id."]".$user->name."评论了你：".$body);
+            }
+
+            $this->echoJsonData(array('exp'=>$user->exp-$ex_exp, 'gold'=>$user->gold-$ex_gold, 'lv'=>$user->lv-$ex_lv));
         }
+    }
+
+    public function actionTopicApi()
+    {
+        $r = Yii::app()->db->createCommand('SELECT topic_id, topic FROM dc_topic ORDER BY topic_id DESC')->queryAll();
+
+        $this->echoJsonData($r);       
+    }
+    
+    public function actionShareApi($img_id)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $image = Image::model()->findByPk($img_id);
+            $image->shares++;
+            $image->saveAttributes(array('shares'));
+
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+        $this->echoJsonData(array('isSuccess'=>TRUE));
     }
 }

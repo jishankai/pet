@@ -32,6 +32,7 @@ return array(
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			//'ipFilters'=>array('0.0.0.0','::1'),
             'ipFilters'=>false,
+            'generatorPaths'=>array('application.gii'),
 		),
 	),
 
@@ -99,7 +100,7 @@ return array(
         ),
         'sessionCache' => array(
             'class' => 'CMemCache',
-            'keyPrefix' => 'PetSession',
+            'keyPrefix' => 'PetTestSession',
             'servers' => array(
                 array(
                     'host' => '127.0.0.1',
@@ -119,20 +120,35 @@ return array(
             'class' => 'CCacheHttpSession',
             'cacheID' => 'sessionCache',
             'sessionName' => 'SID',
-            'timeout' => 86400,
+            'timeout' => mktime(0,0,0,date('m'),date('d')+1,date('Y'))-time(),
             'cookieMode' => 'none',
         ),
 
         'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=pet',
+            'connectionString' => 'mysql:host=localhost;dbname=pet_test',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => '',
             'charset' => 'utf8mb4',
-            'class' => 'CDbConnection',
+            'class' => 'DbConnectionMan',
             'schemaCachingDuration' => 3600,
             'enableProfiling'=>true,
             'enableParamLogging'=>true,
+            'enableSlave'=>true,
+            'slaves'=>array(
+                array(
+                    'connectionString' => 'mysql:host=127.0.0.1;port=3307;dbname=pet_test',
+                    'username' => 'root',
+                    'password' => '',
+                    'charset' => 'utf8mb4',
+                ),
+                array(
+                    'connectionString' => 'mysql:host=127.0.0.1;port=3308;dbname=pet_test',
+                    'username' => 'root',
+                    'password' => '',
+                    'charset' => 'utf8mb4',
+                ),
+            ),
         ),
         'errorHandler'=>array(
             // use 'site/error' action to display errors

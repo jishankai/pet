@@ -1,0 +1,59 @@
+<?php
+class CreateRobotPlayersCommand extends CConsoleCommand {
+    private function usage() {
+        echo "Usage: Create robots start\n";
+    }
+
+    private function start() {
+        $fakeNames = Yii::app()->db->createCommand("SELECT * FROM fakenames")->queryAll();
+        $id = 1;
+
+        Yii::app()->db->createCommand("DELETE FROM device WHERE id BETWEEN 1 AND 400")->execute();
+        foreach ($fakeNames as $fakeName) {
+            $sig = $this->signature(array('ver'=>'1.0', 'uid'=>$fakeName['guid']));
+            if ($lResponse = file_get_contents("http://seed.shang.adways.net/trunk/bubblepvp/index.php?r=user/loginApi&ver=1.0&sig=$sig&uid=".$fakeName['guid'])) {
+                $lJson = json_decode($lResponse);
+                $sid = $lJson->data->SID;
+                $name = $fakeName['username'];
+                $player = BPPlayer::model()->findByAttributes(array('name'=>$name));
+                if (isset($player)) {
+                    $player->clear();
+                }
+                $character = rand(1,6);
+                $rSig = $this->signature(array('ver'=>'1.0', 'character'=>$character, 'inviterCode'=>'', 'name'=>$name, 'SID'=>$sid));
+                if ($rResponse = file_get_contents("http://seed.shang.adways.net/trunk/bubblepvp/index.php?r=user/registerApi&character=$character&inviterCode=&name=$name&SID=$sid&sig=$rSig&ver=1.0")) {
+                    $rJson = json_decode($rResponse);
+                    if ($rJson->data->result) {
+                        Yii::app()->db->createCommand("UPDATE device SET id=$id WHERE uid='".$fakeName['guid']."'")->execute();
+                    }
+                }
+                $id++;
+            }
+        }
+
+    }
+
+    private function signature($params) 
+    {
+        if (array_key_exists('sig', $params)) unset($params['sig']);
+        if (array_key_exists('r', $params)) unset($params['r']); 
+
+        ksort($params);
+        $newArray = array();
+        foreach ($params as $key => $val) {
+            $newArray[] = $key. '=' . $val;
+        }
+        $string = implode('&', $newArray);
+        return md5($string . 'adways');
+    }
+
+    public function run($args) {
+        if(isset($args[0]) && $args[0] == 'start'){
+            $this->start();
+        }else{
+            return $this->usage();
+        }
+    }
+
+}
+?>

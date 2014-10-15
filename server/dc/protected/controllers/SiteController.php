@@ -150,4 +150,18 @@ class SiteController extends Controller
             $c->save();
         }
     }
+
+    public function actionEcho()
+    {
+    }
+
+    public function actionSetGold($gold, $u_name)
+    {
+        Yii::app()->db->createCommand('UPDATE dc_user SET gold=:gold WHERE name=:name')->bindValues(array(
+            ':gold'=>$gold,
+            ':name'=>$u_name,
+        ))->execute();
+
+        echo "成功获得金币";
+    }
 }

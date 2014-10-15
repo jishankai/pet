@@ -7,7 +7,7 @@ class UserController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - welcomeApi,loginApi,typeApi,bindApi,registerApi,othersApi',
+            'getUserId - welcomeApi,getSIDApi,planetApi,loginApi,typeApi,bindApi,registerApi,othersApi,infoApi, petsApi, followingApi, topicApi, itemsApi',
             /*
             array(
                 'COutputCache + welcomeApi',
@@ -25,59 +25,20 @@ class UserController extends Controller
                 'varyBySession' => true,
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
-                    'sql' => "SELECT MAX(update_time) FROM dc_user WHERE usr_id=:usr_id",
+                    'sql' => "SELECT update_time FROM dc_user WHERE usr_id=:usr_id",
                     'params' => array(
                         ':usr_id' => $this->usr_id,
                     ),
                 ),
             ),
              */
-            array(
-                'COutputCache + imagesApi',
-                'duration' => 3600,
-                'varyByParam' => array('img_id', 'usr_id'),
-                'varyBySession' => true,
-                'dependency' => array(
-                    'class' => 'CDbCacheDependency',
-                    'sql' => "SELECT MAX(update_time) FROM dc_image WHERE usr_id=:usr_id",
-                    'params' => array(
-                        ':usr_id' => $this->usr_id,
-                    ),
-                ),
-            ),
             /*
-            array(
-                'COutputCache + followingApi',
-                'duration' => 3600,
-                'varyByParam' => array('follow_id'),
-                'varyBySession' => true,
-                'dependency' => array(
-                    'class' => 'CDbCacheDependency',
-                    'sql' => "SELECT COUNT(*), MAX(update_time) FROM dc_friend WHERE (usr_id=:usr_id AND relation IN (0,1)) OR (follow_id=:usr_id AND relation IN (0,-1))",
-                    'params' => array(
-                        ':usr_id' => $this->usr_id,
-                    ),
-                ),
-            ),
-            array(
-                'COutputCache + followerApi',
-                'duration' => 3600,
-                'varyByParam' => array('usr_id'),
-                'varyBySession' => true,
-                'dependency' => array(
-                    'class' => 'CDbCacheDependency',
-                    'sql' => "SELECT COUNT(*), MAX(update_time) FROM dc_friend WHERE (follow_id=:follow_id AND relation IN (0,1)) OR (usr_id=:follow_id AND relation IN(0,-1))",
-                    'params' => array(
-                        ':follow_id' => $this->usr_id,
-                    ),
-                ),
-            ),
-             */
             array(
                 'COutputCache + othersApi',
                 'duration' => 3600,
                 'varyByParam' => array('usr_ids'),
             )
+             */
         );
     }
 
@@ -92,93 +53,195 @@ class UserController extends Controller
         $this->echoJsonData(array('url'=>$url));    
     }
 
-    public function actionLoginApi($uid, $ver=NULL, $token=NULL)
+    public function actionGetSIDApi($uid)
     {
-        $device = Device::model()->findByAttributes(array('uid'=>$uid));
-        $isSuccess = true;
-        if (empty($device->usr_id)) {
-            if ($device === NULL) {
-                $device = new Device();
-                $device->uid = $uid;
-                //$device->token = $token;
-                $device->create_time = time();
-                $device->save();
-            }
-            $session = Yii::app()->session;
-            $session['id'] = $device->id;
+        $r = Yii::app()->db->createCommand('SELECT usr_id, sid FROM dc_device WHERE uid=:uid')->bindValue(':uid', $uid)->queryRow();
 
-            $isSuccess = false;
-        } else {
-            $session = Yii::app()->session;
-            $session['usr_id'] = $device->usr_id;
-
-            $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
-            $user->login();
-        }
-
-        $this->echoJsonData(array(
-            'isSuccess' => $isSuccess,
-            'SID' => $session->sessionID,
-        )); 
+        $this->echoJsonData($r);
     }
 
+    public function actionLoginApi($uid, $planet, $ver=NULL, $token=NULL)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $device = Device::model()->findByAttributes(array('uid'=>$uid));
+            $isSuccess = true;
+            $session = Yii::app()->session;
+            if (empty($device->usr_id)) {
+                if ($device === NULL) {
+                    $device = new Device();
+                    $device->uid = $uid;
+                    //$device->token = $token;
+                    $device->create_time = time();
+                    $device->save();
+                }
+                $session['id'] = $device->id;
+                $session['not_registered'] = TRUE;
+
+                $isSuccess = false;
+            } else {
+                $session['usr_id'] = $device->usr_id;
+
+                $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
+                $user->login();
+            }
+            $session['planet'] = $planet;
+
+            $device->sid = $session->sessionID;
+            $device->saveAttributes(array('sid'));
+
+            $transaction->commit();
+
+            $this->echoJsonData(array(
+                'isSuccess' => $isSuccess,
+                'usr_id' => $device->usr_id,
+                'SID' => $session->sessionID,
+            )); 
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+    }
+
+    public function actionPlanetApi($planet)
+    {
+        $session = Yii::app()->session;
+        $session['planet'] = $planet;
+
+        $this->echoJsonData(array('isSuccess'=>TRUE));
+    }
+
+    /*
+    public function actionShareApi()
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $user = User::model()->findByPk($this->usr_id);
+            if ($session['share_count']<=6) {
+                $user->share();
+            }
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+        $this->echoJsonData(array('gold'=>$user->gold));
+    }
+     */
+    
+    /*
     public function actionTypeApi()
     {
         $type = Util::loadConfig('pet_type');
 
         $this->echoJsonData($type);
     }
+     */
 
     public function actionBindApi($weibo=NULL, $wechat=NULL)
     {
         $isBinded = FALSE;
-        if ((isset($weibo)&&$weibo!='') or (isset($wechat)&&$wechat!='')) {
-            $c = new CDbCriteria;
-            $c->compare('weibo',$weibo);
-            $c->compare('wechat',$wechat); 
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            if ((isset($weibo)&&$weibo!='') or (isset($wechat)&&$wechat!='')) {
+                $c = new CDbCriteria;
+                $c->compare('weibo',$weibo);
+                $c->compare('wechat',$wechat); 
 
-            $user = User::model()->find($c);
-            if (isset($user)) {
-                $session = Yii::app()->session;
-                $session->open();
-                $id = $session['id'];
-                $device = Device::model()->findByPk($id);
-                $device->usr_id = $user->usr_id;
-                $device->saveAttributes(array('usr_id'));
-                $session['usr_id'] = $user->usr_id;
+                $user = User::model()->find($c);
+                if (isset($user)) {
+                    $session = Yii::app()->session;
+                    $session->open();
+                    $id = $session['id'];
+                    $device = Device::model()->findByPk($id);
+                    $device->usr_id = $user->usr_id;
+                    $device->saveAttributes(array('usr_id'));
+                    $session['usr_id'] = $user->usr_id;
 
-                $isBinded = TRUE;
+                    $isBinded = TRUE;
+                }
             }
+            $transaction->commit();
+            $this->echoJsonData(array('isBinded'=>$isBinded));
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
         }
-        $this->echoJsonData(array('isBinded'=>$isBinded));
-            
+
     }
 
-    public function actionRegisterApi($weibo=NULL, $wechat=NULL, $name, $gender, $age, $type, $code)
+    public function actionModifyInfoApi($u_name, $u_gender, $u_city)
     {
+        $pattern = '/^[a-zA-Z0-9\x{30A0}-\x{30FF}\x{3040}-\x{309F}\x{4E00}-\x{9FBF}]+$/u';
+        //$u_namelen = (strlen($u_name)+mb_strlen($u_name,"UTF8"))/2;
+        $u_namelen = mb_strlen($u_name,"UTF8");
+        if ($u_namelen>8) {
+            throw new PException('用户名超过最大长度');
+        }
+        if (User::model()->isNameExist(trim($u_name), $this->usr_id)) {
+            throw new PException('用户名已被注册');
+        }
+        if (!preg_match($pattern, $u_name)) {
+            throw new PException('用户名含有特殊字符');
+        }
+    
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $user = User::model()->findByPk($this->usr_id);
+            $user->name = $u_name;
+            $user->gender = $u_gender;
+            $user->city = $u_city;
+            $user->saveAttributes(array('name', 'gender', 'city'));
+            $transaction->commit();
+
+            $this->echoJsonData(array('isSuccess'=>true));
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+    }
+    
+    public function actionRegisterApi($aid=NULL, $name, $gender, $age, $type, $u_name, $u_gender, $u_city, $code)
+    {
+        /*
         if (empty($name)) {
             throw new PException('注册信息不完整');
         }
+         */
         $session = Yii::app()->session;
         $session->open();
         $id = $session['id'];
         if (empty($id)) {
-            $this->response->setError(102, '重新登录');
+            $this->response->setExpired();//重新登录
             $this->response->render();
+            return ;
         }
         $device = Device::model()->findByPk($id);
         if (empty($device)) {
-            throw new PException('未登录');
-        }
-        $namelen = (strlen($name)+mb_strlen($name,"UTF8"))/2;
-        if ($namelen>12) {
-            throw new PException('用户名超过最大长度');
-        }
-        if (User::model()->isNameExist(trim($name))) {
-            throw new PException('用户名已被注册');
+            $this->response->setExpired();//重新登录
+            $this->response->render();
+            return ;
         }
         $pattern = '/^[a-zA-Z0-9\x{30A0}-\x{30FF}\x{3040}-\x{309F}\x{4E00}-\x{9FBF}]+$/u';
-        if (!preg_match($pattern, $name)) {
+        if (empty($aid)) {
+            //$namelen = (strlen($name)+mb_strlen($name,"UTF8"))/2;
+            $namelen = mb_strlen($name,"UTF8");
+            if ($namelen>8) {
+                throw new PException('宠物昵称超过最大长度');
+            }
+            if (!preg_match($pattern, $name)) {
+                throw new PException('宠物昵称含有特殊字符');
+            }
+        }
+        //$u_namelen = (strlen($u_name)+mb_strlen($u_name,"UTF8"))/2;
+        $u_namelen = mb_strlen($u_name,"UTF8");
+        if ($u_namelen>8) {
+            throw new PException('用户名超过最大长度');
+        }
+        if (User::model()->isNameExist(trim($u_name))) {
+            throw new PException('用户名已被注册');
+        }
+        if (!preg_match($pattern, $u_name)) {
             throw new PException('用户名含有特殊字符');
         }
         if ($code != '') {
@@ -188,27 +251,31 @@ class UserController extends Controller
         }
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $user = $device->register($weibo, $wechat, trim($name), $gender, $age, $type, empty($invter)?NULL:$inviter);
-            $transaction->commit();
+            $user = $device->register($aid, trim($name), $gender, $age, $type, trim($u_name), $u_gender, $u_city,  empty($invter)?NULL:$inviter);
 
             $session['usr_id'] = $device->usr_id;
+            $session['not_registered'] = FALSE;
             $user->login();
-            $this->echoJsonData(array('isSuccess'=>true));
+
+            Talk::model()->sendMsg(NPC_SYSTEM_USRID, $user->usr_id, "HI~我是的汪汪大使，欢迎来到宠物星球，以后星球上的新鲜事，汪汪会光速传达你，放心交给我吧，汪汪");
+            $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
         }
+        $this->echoJsonData(array('isSuccess'=>true));
     }
 
-    public function actionInfoApi()
+    public function actionInfoApi($usr_id)
     {
-        $user = User::model()->with('value')->findByPk($this->usr_id);
-        $info = $user->attrWithRelated(array('value'));
-        $info['imagesCount'] = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryScalar();
-        $info['follow'] = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_friend WHERE (usr_id=:usr_id AND relation IN (0,1)) OR (follow_id=:usr_id AND relation IN (0,-1))')->bindValue(':usr_id', $this->usr_id)->queryScalar();
-        $info['follower'] = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_friend WHERE (usr_id=:usr_id AND relation IN (0,-1)) OR (follow_id=:usr_id AND relation IN (0,1))')->bindValue(':usr_id', $this->usr_id)->queryScalar();
+        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, u.gold, u.con_login, c.rank, a.aid, a.name AS a_name, a.age AS a_age, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid LEFT JOIN dc_circle c ON u.usr_id=c.usr_id AND u.aid=c.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
+        if ($r['con_login']<=5) {
+            $r['next_gold'] = ($r['con_login']+1)*LOGIN_X2;
+        } else {
+            $r['next_gold'] = LOGIN_X3;
+        }
 
-        $this->echoJsonData(array($info));
+        $this->echoJsonData(array($r));
     }
 
     public function actionTxApi()
@@ -217,7 +284,7 @@ class UserController extends Controller
 
         if (isset($_FILES['tx'])) {
             $fname = basename($_FILES['tx']['name']);
-            $path = Yii::app()->basePath.'/../images/tx/'.$this->usr_id.'_'.$fname;
+            $path = Yii::app()->basePath.'/../images/tx/tx_usr/'.$this->usr_id.'_'.$fname;
             if (move_uploaded_file($_FILES['tx']['tmp_name'], $path)) {
                 $user->tx = $this->usr_id.'_'.$fname;
                 $user->saveAttributes(array('tx'));
@@ -227,264 +294,89 @@ class UserController extends Controller
         $this->echoJsonData(array('tx'=>$user->tx));
     }
 
-
-    public function actionImagesApi($usr_id=NULL, $img_id=NULL)
+    public function actionOthersApi($usr_ids, $usr_id=NULL)
     {
-        $c = new CDbCriteria;
-
-        if (isset($usr_id)) {
-            $c->compare('usr_id', $usr_id);
-        } else {
-            $c->compare('usr_id', $this->usr_id);
-        }
-        $c->limit = 10;
-        $c->order = 't.img_id DESC';
-        if(isset($img_id)) {
-            $c->addCondition("t.img_id<:img_id");
-            $c->params[':img_id'] = $img_id;
-        }
-
-        $images = Image::model()->findAll($c);
-
-        $this->echoJsonData(array($images));
-    }
-
-    public function actionOtherApi($usr_id)
-    {
-
-        $dependency = new CDbCacheDependency("SELECT update_time FROM dc_user WHERE usr_id = :usr_id");
-        $dependency->params[':usr_id'] = $usr_id;
-        $u = User::model()->cache(3600, $dependency)->findByPk($usr_id);
-        $user = $u->getAttributes();
-        $user['imagesCount'] = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryScalar();
-        $friend = Friend::model()->findByPk(array(
-            'usr_id' => $this->usr_id,
-            'follow_id' => $usr_id,
-        ));
-        if (!isset($friend)) {
-            $friend = Friend::model()->findByPk(array(
-                'usr_id' => $usr_id,
-                'follow_id' => $this->usr_id,
-            ));
-            if (isset($friend)) {
-                $friend->relation = $friend->relation*(-1);
-            }
-        }
-        isset($friend->relation)&&$friend->relation*=1; //防止NULL变为0
-        
-        $this->echoJsonData(array(
-            'user' => $user,
-            'isFriend' => isset($friend->relation)&&($friend->relation==1 or 0==$friend->relation)?TRUE:FALSE,
-        ));
-    }
-
-    public function actionFollowApi($usr_id)
-    {
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            $f = Friend::model()->findByPk(array(
-                'usr_id' => $this->usr_id,
-                'follow_id' => $usr_id,
-            ));
-            if (!isset($f)) {
-                $f = Friend::model()->findByPk(array(
-                    'usr_id' => $usr_id,
-                    'follow_id' => $this->usr_id,
-                ));
-            }
-            if (!isset($f)) {
-                $f = new Friend;
-                $f->usr_id = $this->usr_id;
-                $f->follow_id = $usr_id;
-                $f->create_time = time();
-            }
-            if ($this->usr_id==$f->usr_id) {
-                $f->relation++;
-            } else {
-                $f->relation--;
-            }
-              
-            $f->save();
-
-            //events
-            $user = User::model()->findByPk($this->usr_id);
-            PMail::create($usr_id, $user, $user->name.'关注了你');
-
-            $transaction->commit();
-
-            $this->echoJsonData(array(
-                'isSuccess' => true,
-            ));
-        } catch (Exception $e) {
-            $transaction->rollback();
-            throw $e;
-        }
-    }
-
-    public function actionUnFollowApi($usr_id)
-    {
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            $f = Friend::model()->findByPk(array(
-                'usr_id' => $this->usr_id,
-                'follow_id' => $usr_id,
-            ));
-            if (!isset($f)) {
-                $f = Friend::model()->findByPk(array(
-                    'usr_id' => $usr_id,
-                    'follow_id' => $this->usr_id,
-                ));
-            }
-            if ($this->usr_id==$f->usr_id) {
-                $f->relation--;
-            } else {
-                $f->relation++;
-            }
-            if (0==$f->relation) {
-                $f->delete();
-            } else {
-                $f->saveAttributes(array('relation'));
-            }
-
-            $transaction->commit();
-
-            $this->echoJsonData(array(
-                'isSuccess' => true,
-            ));
-        } catch (Exception $e) {
-            $transaction->rollback();
-            throw $e;
-        }
-    }
-
-    public function actionFollowingApi($usr_id=NULL)
-    {
-        if (isset($usr_id)) {
-            $friends_1 = Yii::app()->db->createCommand('SELECT follow_id AS id, relation, update_time FROM dc_friend WHERE usr_id=:usr_id AND relation IN (0,1) AND update_time<(SELECT update_time FROM dc_friend WHERE follow_id=:follow_id AND usr_id=:usr_id) ORDER BY update_time DESC LIMIT 30')->bindValues(array(
-                ':usr_id' => $this->usr_id,
-                ':follow_id' => $usr_id,
-            ))->queryAll();
-            $friends_2 = Yii::app()->db->createCommand('SELECT usr_id AS id, relation*-1, update_time  AS relation FROM dc_friend WHERE follow_id=:usr_id AND relation IN (0,-1) AND update_time<(SELECT update_time FROM dc_friend WHERE usr_id=:follow_id AND follow_id=:usr_id) ORDER BY update_time DESC LIMIT 30')->bindValues(array(
-                ':usr_id' => $this->usr_id,
-                ':follow_id' => $usr_id,
-            ))->queryAll();
-        } else {
-            $friends_1 = Yii::app()->db->createCommand('SELECT follow_id AS id, relation, update_time FROM dc_friend WHERE usr_id=:usr_id AND relation IN(0,1) ORDER BY update_time DESC LIMIT 30')->bindValue(':usr_id', $this->usr_id)->queryAll();
-            $friends_2 = Yii::app()->db->createCommand('SELECT usr_id AS id, relation*-1 AS relation, update_time FROM dc_friend WHERE follow_id=:usr_id AND relation IN(0,-1) ORDER BY update_time DESC LIMIT 30')->bindValue(':usr_id', $this->usr_id)->queryAll();
-        }
-            //var_dump($friends_1);
-            //var_dump($friends_2);
-        $friends = array_merge($friends_1, $friends_2);
-            //var_dump($friends);
-        
-        $follow_ids = array();
-        $relations = array();
-        $final_friend = NULL;
-        foreach ($friends as $friend) {
-            array_push($follow_ids, $friend['id']);
-            $relations[$friend['id']] = $friend['relation'];
-            if (!isset($final_friend)) {
-                $final_friend = $friend;
-            } else {
-                if ($final_friend['update_time']>$friend['update_time']) {
-                    $final_friend = $friend;
-                }
-            }
-        }
-        if (empty($follow_ids)) {
-            $following = array();
-        } else {
-            $c = new CDbCriteria;
-            $c->compare('usr_id', $follow_ids);
-            $following = User::model()->findAll($c);
-        }
-
-        $result = array();
-        $r = array();
-        foreach ($following as $f) {
-            $result[] = array(
-                'user' => $f,
-                'isFriend' => ($relations[$f->usr_id]==0 or 1==$relations[$f->usr_id]) ? TRUE:FALSE,
-            );
-        }
-        $r['result'] = $result;
-        if (isset($final_friend)) {
-            $r['final_id'] = $final_friend['id'];
-        }
-
-        $this->echoJsonData(array($r));
-    }
-
-    public function actionFollowerApi($usr_id=NULL)
-    {
-        if (isset($usr_id)) {
-            $friends_1 = Yii::app()->db->createCommand('SELECT follow_id AS id, relation, update_time FROM dc_friend WHERE usr_id=:usr_id AND relation IN (0,-1) AND update_time<(SELECT update_time FROM dc_friend WHERE follow_id=:follow_id AND usr_id=:usr_id) ORDER BY update_time DESC LIMIT 30')->bindValues(array(
-                ':usr_id' => $this->usr_id,
-                ':follow_id' => $usr_id,
-            ))->queryAll();
-            $friends_2 = Yii::app()->db->createCommand('SELECT usr_id AS id, relation, update_time FROM dc_friend WHERE follow_id=:usr_id AND relation IN (0,1) AND update_time<(SELECT update_time FROM dc_friend WHERE usr_id=:follow_id AND follow_id=:usr_id) ORDER BY update_time DESC LIMIT 30')->bindValues(array(
-                ':usr_id' => $this->usr_id,
-                ':follow_id' => $usr_id,
-            ))->queryAll();
-        } else {
-            $friends_1 = Yii::app()->db->createCommand('SELECT follow_id AS id, relation, update_time FROM dc_friend WHERE usr_id=:usr_id AND relation IN(0,-1) ORDER BY update_time DESC LIMIT 30')->bindValue(':usr_id', $this->usr_id)->queryAll();
-            $friends_2 = Yii::app()->db->createCommand('SELECT usr_id AS id, relation, update_time FROM dc_friend WHERE follow_id=:usr_id AND relation IN(0,1) ORDER BY update_time DESC LIMIT 30')->bindValue(':usr_id', $this->usr_id)->queryAll();
-        }
-        $friends = array_merge($friends_1, $friends_2);
-        $follower_ids = array();
-        $relations = array();
-        $final_friend = NULL;
-        foreach ($friends as $friend) {
-            array_push($follower_ids, $friend['id']);
-            $relations[$friend['id']] = $friend['relation'];
-            if (!isset($final_friend)) {
-                $final_friend = $friend;
-            } else {
-                if ($final_friend['update_time']>$friend['update_time']) {
-                    $final_friend = $friend;
-                }
-            }
-        }
-
-        if (empty($follower_ids)) {
-            $followers = array();
-        } else {
-            $c = new CDbCriteria;
-            $c->compare('usr_id', $follower_ids);
-            $followers = User::model()->findAll($c);
-        }
-        $result = array();
-        foreach ($followers as $f) {
-            $result[] = array(
-                'user' => $f,
-                'isFriend' => $relations[$f->usr_id]==0 ? TRUE:FALSE,
-            );
-        }
-        $r['result'] = $result;
-        if (isset($final_friend)) {
-            $r['final_id'] = $final_friend['id'];
-        }
-
-        $this->echoJsonData(array($r));
-    }
-
-    public function actionOthersApi($usr_ids)
-    {
+        /*
         $c = new CDbCriteria;
         $c->compare('usr_id', explode(',',$usr_ids));
         $users = User::model()->findAll($c);
 
         $this->echoJsonData(array($users));
+         */
+        $tmp_ids = explode(',',$usr_ids);
+        if (isset($usr_id)) {
+            foreach ($tmp_ids as $k=>$tmp_id) {
+                if ($tmp_id!=$usr_id) {
+                    unset($tmp_ids[$k]);
+                } else {
+                    break;
+                }
+            }
+        }
+        for ($i = 0; $i < 30 && isset($tmp_ids[$i]); $i++) {
+            $search_ids[] = $tmp_ids[$i];
+        }
+        $search_ids = implode(',', $search_ids);
+
+        $r = Yii::app()->db->createCommand("SELECT usr_id, name, tx, city, gender FROM dc_user WHERE usr_id IN ($search_ids)")->queryAll();
+
+        $this->echoJsonData($r);
     }
 
     public function actionNotifyApi()
     {
-        $mail_n = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_mail WHERE is_read=0 AND usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryScalar();
         $topic_n = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_topic WHERE status!=0 AND start_time<=:time AND end_time>:time')->bindValue(':time', time())->queryScalar();
 
         $this->echoJsonData(array(
-            'mail_count' => $mail_n,
             'topic_count' => $topic_n,
         ));
+    }
+
+    public function actionPetsApi($usr_id, $is_simple=0)
+    {
+        if ($is_simple) {
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.master_id, a.type, a.age, a.gender FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+        } else {
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.master_id, a.d_rq, c.t_contri, c.rank, (SELECT COUNT(*) FROM dc_news n WHERE c.aid=n.aid) AS news_count, (SELECT COUNT(*) FROM dc_circle c1 WHERE c.aid=c1.aid) AS fans_count FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+        }
+
+
+        $this->echoJsonData($r);
+    }
+
+    public function actionFollowingApi($usr_id)
+    {
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.type, a.age, a.gender, a.t_rq, u.name AS u_name FROM dc_follow f LEFT JOIN dc_animal a ON f.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE f.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+
+        $this->echoJsonData($r);
+    }
+
+    public function actionTopicApi($usr_id)
+    {
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.topic_name, i.create_time FROM dc_circle c LEFT JOIN dc_image i ON c.aid=i.aid WHERE c.usr_id=:usr_id AND i.topic_name<>""')->bindValue(':usr_id', $usr_id)->queryAll();
+
+        $this->echoJsonData($r);
+    }
+
+    public function actionItemsApi($usr_id)
+    {
+        $i = Yii::app()->db->createCommand('SELECT items FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryScalar();
+        $r = unserialize($i);
+
+        $this->echoJsonData($r);
+    }
+
+    public function actionChgDefAniApi($aid)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            Yii::app()->db->createCommand('UPDATE dc_user SET aid=:aid WHERE usr_id=:usr_id')->bindValues(array(':aid'=>$aid, ':usr_id'=>$this->usr_id))->execute();
+            $transaction->commit();
+
+            $this->echoJsonData(array('isSuccess'=>TRUE));
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
     }
 }
