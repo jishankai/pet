@@ -125,7 +125,7 @@ class ImageController extends Controller
                     if (isset($_POST['relates'])) {
                         $usr_ids = explode(',',$model->relates);
                         foreach ($usr_ids as $usr_id) {
-                            Talk::model()->sendMsg(NPC_IMAGE_USRID, $usr_id, $user->name."在爱宠的照片中@了你，没想到你人缘还不错，还真让本喵吃惊呀");
+                            Talk::model()->sendMsg(NPC_IMAGE_USRID, $usr_id, $user->name."[".$model->img_id."]在爱宠的照片中@了你，没想到你人缘还不错，还真让本喵吃惊呀");
                         }
                     }
                 }
@@ -328,9 +328,9 @@ class ImageController extends Controller
                 $user->comment();
             }
             if (isset($_POST['reply_id'])) {
-                Talk::model()->sendMsg(NPC_IMAGE_USRID, $_POST['reply_id'], $user->name."回复了你：".$body);
+                Talk::model()->sendMsg(NPC_IMAGE_USRID, $_POST['reply_id'], "[".$image->img_id."]".$user->name."回复了你：".$body);
             } else {
-                Talk::model()->sendMsg(NPC_IMAGE_USRID, $animal->master_id, $user->name."评论了你：".$body);
+                Talk::model()->sendMsg(NPC_IMAGE_USRID, $animal->master_id, "[".$image->img_id."]".$user->name."评论了你：".$body);
             }
 
             $this->echoJsonData(array('exp'=>$user->exp-$ex_exp, 'gold'=>$user->gold-$ex_gold, 'lv'=>$user->lv-$ex_lv));
