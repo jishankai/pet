@@ -31,7 +31,7 @@ class SummaryDayRankCommand extends CConsoleCommand {
         $total_a = Yii::app()->db->createCommand('SELECT COUNT(aid), SUM(d_rq) FROM dc_animal')->queryRow();
         $all_gold = $total_member*RANK_REWARD_E;
         $total_popularity = $total_a['SUM(d_rq)'];
-        $reward_count = $total_a['COUNT(aid)']*30/100;
+        $reward_count = round($total_a['COUNT(aid)']*30/100);
         for ($i = 0; $i <$reward_count; $i++) {
             $aid = $r[$i]['aid'];
             $single_popularity = $r[$i]['d_rq'];
@@ -39,14 +39,14 @@ class SummaryDayRankCommand extends CConsoleCommand {
             if ($total_gold!=0) {
                 $circles = Circle::model()->findAllByAttributes(array('aid'=>$aid));
                 foreach ($circles as $circle) {
-                    $result_money = $total_gold*$circle->d_contri/$single_popularity;
+                    $result_money = round($total_gold*$circle->d_contri/$single_popularity);
                     $user = User::model()->findByPk($circle->usr_id);
                     $user->gold+=$result_money;
                     $user->saveAttributes(array('gold'));
 
                     $self_rank = $i+1;
                     $msg = "您的王国/家族在人气日排行榜中获得第".$self_rank."名，您获得".$result_money."金币奖励";
-                    Talk::model()->sendMsg(SYSTEM_USERID, $user->usr_id, $msg);
+                    Talk::model()->sendMsg(NPC_SYSTEM_USERID, $user->usr_id, $msg);
                 }
             }
         }
