@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>灭蚊大作战-微信HTML5在线朋友圈游戏-46465</title>
+    <title>保护萌主，拍死寄生虫！</title>
     <meta charset="utf-8"/>
 	<meta name="viewport" content="initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, width=device-width,target-densitydpi=device-dpi"/>
     <script  type="text/javascript" src="assets/games/dcz/scripts/createjs.js"></script>
@@ -95,10 +95,10 @@ display: none;
 	
 	<script type="text/javascript">
 	    window.shareData = {
-	        "imgUrl": "http://web10.916d.com/html5/dwz/img/dwz.jpg",
-	        "timeLineLink": "http://game.apiwck.com/wxgame/dwz",
-	        "tTitle": "我是蚊子君,专治血气旺盛的2B青年,你敢pia我?",
-	        "tContent": "就咬你，有脾气?"
+	        "imgUrl": "",
+	        "timeLineLink": "",
+	        "tTitle": "保护萌主，拍死寄生虫！",
+	        "tContent": "怎么可以让这些臭虫打扰到萌主大人睡觉，20秒钟拍死虫子！"
 	    };
 
 	    if (isDesktop)
@@ -124,7 +124,7 @@ display: none;
 	            GameLayerBG.ontouchstart = gameTapEvent;
 	        } else {
 	            GameLayerBG.onmousedown = gameTapEvent;
-	            document.getElementById('landscape-text').innerHTML = '点我开始pia蚊虫';
+	            document.getElementById('landscape-text').innerHTML = '点我开始拍虫子';
 	            document.getElementById('landscape').onclick = winOpen;
 	        }
 	        gameInit();
@@ -136,7 +136,7 @@ display: none;
 			if(rtnMsg == 'false'){
 				var btn = document.getElementById('ready-btn');
 				btn.className = 'btn';
-				btn.innerHTML = '蚊子已经快被你pia成稀有物种了,手下留情啊！' 			
+				btn.innerHTML = '虫子已经快被你拍成稀有物种了,手下留情啊！' 			
 			}else{
 				var btn = document.getElementById('ready-btn');
 				btn.className = 'btn';
@@ -355,7 +355,7 @@ display: none;
 	        }
 	        document.getElementById('GameScoreLayer-bast').innerHTML = '最佳&nbsp;&nbsp;' + bast;
 	        l.style.display = 'block';
-	        window.shareData.tTitle = '我pia死了' + _gameScore + '个小蚊子，不服来挑战！！！'
+	        window.shareData.tTitle = '我为萌主拍死了' + _gameScore + '个虫子，不服来挑战！！！'
 	    }
 	    function hideGameScoreLayer() {
 	        var l = document.getElementById('GameScoreLayer');
@@ -370,11 +370,11 @@ display: none;
 	        hideGameScoreLayer();
 	        showWelcomeLayer();
 	    }
-	    var mebtnopenurl = 'http://web10.916d.com/';
-		var gototop='http://web10.916d.com/html5';
+	    var mebtnopenurl = '';
+		var gototop='';
 	    function shareText(score) {
 	        if (score <= 49)
-	            return '一夜pia了'+score+'只蚊子!<br/>亲爱的,你知道自己为什么贫血了吧!还需加油哦!';
+	            return '什么！才拍死了'+score+'只!<br/>萌主大人被吵醒了，真是罪该万死……';
 	        if (score <= 99)
 	            return '酷！一夜pia了'+score+'只蚊子!<br/>好棒哦!蚊香杀虫剂什么的都弱爆了.';
 	        if (score <= 149)
@@ -459,12 +459,8 @@ display: none;
 			</div>
 			<br/>
 			<div id="GameScoreLayer-share" class="BOX">
-				<div id="mebtn" class="btn BOX-S" onClick="window.open(mebtnopenurl)">&nbsp;更多游戏！</div>
+				<div id="mebtn" class="btn BOX-S" onClick="window.open(mebtnopenurl)">&nbsp;宠物星球下载</div>
 				
-			</div>
-			<br>
-			<div id="GameScoreLayer-share" class="BOX">
-			<div id="mebtn" class="btn BOX-S" ><a href="http://web10.916d.com/html5/xiaopingguo" style="color:#fff;text-decoration:none;">推选小苹果！</a></div>
 			</div>
 		</div>
 	</div>
@@ -473,13 +469,13 @@ display: none;
 		<div class="welcome-bg FILL"></div>
 		<div class="FILL BOX-M" style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:5;">
 			<div style="margin:0 8% 0 9%;">
-				<div style="font-size:2.6em; color:#FEF002;">蚊子统治世界了！</div><br/>
-				<div style="font-size:2.2em; color:#fff; line-height:1.5em;">从离你最近的蚊子开始，<br/>20秒内看你能pia死多少只！<br/></div><br/><br/>
+				<div style="font-size:2.6em; color:#FEF002;">保护萌主，拍死寄生虫！</div><br/>
+				<div style="font-size:2.2em; color:#fff; line-height:1.5em;">怎么可以让这些臭虫打扰萌主大人睡觉<br/>20秒拍死虫子！<br/></div><br/><br/>
 				<div id="ready-btn" class="btn loading" style="display:inline-block; margin:0 auto; width:8em; height:1.7em; line-height:1.7em; font-size:2.2em; color:#fff;"></div>
 			<br/><br/>
 			
-			<div style="font-size:1.2em; color:#fff; line-height:1.5em;">www.46465.com<br/>微信小游戏<br/>点击下方玩更多游戏<br/></div>
-			<div style="display:inline-block; margin:0 auto; width:8em; height:1em; line-height:1.7em; font-size:1.7em; color:#fff;" ><a href="http://web10.916d.com/">更多游戏</a></div>
+			<div style="font-size:1.2em; color:#fff; line-height:1.5em;">宠物星球·宠来宠趣<br/>荣誉出品<br/></div>
+			<div style="display:inline-block; margin:0 auto; width:8em; height:1em; line-height:1.7em; font-size:1.7em; color:#fff;" ><a href="">宠物星球下载</a></div>
 		
 			</div>
 		</div>
