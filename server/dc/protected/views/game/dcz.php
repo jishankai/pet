@@ -376,13 +376,13 @@ display: none;
 	        if (score <= 49)
 	            return '什么！才拍死了'+score+'只!<br/>萌主大人被吵醒了，真是罪该万死……';
 	        if (score <= 99)
-	            return '酷！一夜pia了'+score+'只蚊子!<br/>好棒哦!蚊香杀虫剂什么的都弱爆了.';
+	            return '太厉害了！拍死了'+score+'只虫子呢!<br/>奖励飞吻一个，萌主爱你~么么哒~.';
 	        if (score <= 149)
-	            return '帅呆了！一夜pia了'+score+'只蚊子!<br/>方圆100里以内的蚊子全部被你赶尽杀绝了!';
+	            return '真是醉了！居然打死了'+score+'只!<br/>星球大使终于同意你和萌主在一起了!';
 	        if (score <= 199)
-	            return '太牛了！一夜pia了'+score+'只蚊子!<br/>蚊子就要灭绝了,阿弥陀佛罪过罪过.';
+	            return '肿么了！居然打死了'+score+'只!<br/>太帅了，宠物星球的萌主们排队求包养！';
 
-	        return '膜拜ing！一夜pia了'+score+'只蚊子!<br/>亲，我想你不是地球人!再也没人能超越你了!';
+	        return '肿么了！居然打死了'+score+'只!<br/>亲，你真的是地球人吗，再也没人能超越你了！';
 	    }
 
 	    function toStr(obj) {
@@ -469,8 +469,8 @@ display: none;
 		<div class="welcome-bg FILL"></div>
 		<div class="FILL BOX-M" style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:5;">
 			<div style="margin:0 8% 0 9%;">
-				<div style="font-size:2.6em; color:#FEF002;">保护萌主，拍死寄生虫！</div><br/>
-				<div style="font-size:2.2em; color:#fff; line-height:1.5em;">怎么可以让这些臭虫打扰萌主大人睡觉<br/>20秒拍死虫子！<br/></div><br/><br/>
+				<div style="font-size:2.6em; color:#FEF002;">保护萌主<br/>拍死寄生虫</div><br/>
+				<div style="font-size:2.2em; color:#fff; line-height:1.5em;">怎么可以让这些臭虫打扰萌主大人睡觉<br/>20秒拍死虫子<br/></div><br/><br/>
 				<div id="ready-btn" class="btn loading" style="display:inline-block; margin:0 auto; width:8em; height:1.7em; line-height:1.7em; font-size:2.2em; color:#fff;"></div>
 			<br/><br/>
 			
