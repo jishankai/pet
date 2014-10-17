@@ -12,6 +12,7 @@ class OSS extends CApplicationComponent {
 	private $_oss;
 	public $aKey; // AWS Access key
 	public $sKey; // AWS Secret key	
+    public $endpoint;
 
 	private function getInstance(){
 		if ($this->_oss === NULL)
@@ -27,7 +28,7 @@ class OSS extends CApplicationComponent {
 		if ( $this->aKey === NULL || $this->sKey === NULL )
 			throw new CException('OSS Keys are not set.');
 			
-		$this->_oss = OSSClient::factory(array('AccessKeyId'=>$this->aKey,'AccessKeySecret'=>$this->sKey));
+		$this->_oss = OSSClient::factory(array('AccessKeyId'=>$this->aKey,'AccessKeySecret'=>$this->sKey,'Endpoint'=>$this->endpoint));
 	}
 
     public function upload($bucket, $key, $content)
