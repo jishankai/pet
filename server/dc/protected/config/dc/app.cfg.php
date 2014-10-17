@@ -19,6 +19,6 @@
     define('AWS_S3_BUCKET', 'jishankai4test');
 
     //OSS
-    define('OSS_ACCESS_KEY', '');
-    define('OSS_SECRET_KEY', '');
+    define('OSS_ACCESS_KEY', 'k81GLIYHXaGKTuFD');
+    define('OSS_SECRET_KEY', 'XO1qXBf1kIwxgoeyxoAkyAshxcNiJo');
     

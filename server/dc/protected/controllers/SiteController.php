@@ -170,7 +170,8 @@ class SiteController extends Controller
         if(isset($_FILES['image']))
         {   
             $fname = basename($_FILES['image']['name']);
-            $rtn = Yii::app()->oss->upload_file('pet4welcome', $fname, fopen($_FILES['image']['tmp_name'],'r'), $_FILES['image']['size']); 
+            var_dump(Yii::app()->oss->get_obj_content('pet4upload', '身份证照片.jpg'));
+            //$rtn = Yii::app()->oss->upload_file('pet4welcome', $fname, fopen($_FILES['image']['tmp_name'],'r'), $_FILES['image']['size']); 
             $this->redirect('http://pet4welcome.oss-cn-beijing.aliyuncs.com/'.$fname);
         }           
 
