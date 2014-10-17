@@ -84,7 +84,7 @@ class AnimalController extends Controller
 
     public function actionInfoApi($aid)
     {
-        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.master_id, a.t_rq, u.name AS u_name, u.tx AS u_tx, c.rank AS u_rank, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans, (SELECT COUNT(*) FROM dc_follow f WHERE f.aid=a.aid) AS followers FROM dc_animal a JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN dc_circle c ON a.aid=c.aid WHERE a.aid=:aid')->bindValue(':aid', $aid)->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.master_id, a.t_rq, u.name AS u_name, u.tx AS u_tx, c.rank AS u_rank, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans, (SELECT COUNT(*) FROM dc_follow f WHERE f.aid=a.aid) AS followers FROM dc_animal a JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN dc_circle c ON a.aid=c.aid AND a.master_id=c.usr_id WHERE a.aid=:aid')->bindValue(':aid', $aid)->queryRow();
 
         $this->echoJsonData($r);
     }
