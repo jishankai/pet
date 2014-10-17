@@ -164,4 +164,17 @@ class SiteController extends Controller
 
         echo "成功获得金币";
     }
+
+    public function actionWelcome()
+    {
+        if(isset($_FILES['image']))
+        {   
+            $fname = basename($_FILES['image']['name']);
+            $rtn = Yii::app()->oss->upload_file('pet4welcome', $fname, fopen($_FILES['image']['tmp_name'],'r'), $_FILES['image']['size']); 
+            $this->redirect('http://pet4welcome.oss-cn-beijing.aliyuncs.com/'.$fname);
+        }           
+
+        $this->render('welcome'); 
+
+    }
 }

@@ -112,6 +112,7 @@ class AnimalController extends Controller
 
         if (isset($_FILES['tx'])) {
             $fname = basename($_FILES['tx']['name']);
+            //$rtn = Yii::app()->oss->upload_file('pet4tx', 'tx_ani/'.$aid.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
             $path = Yii::app()->basePath.'/../images/tx/tx_ani/'.$aid.'_'.$fname;
             if (move_uploaded_file($_FILES['tx']['tmp_name'], $path)) {
                 $a->tx = $aid.'_'.$fname;
@@ -363,6 +364,7 @@ class AnimalController extends Controller
     {
         if (isset($_FILES['voice'])) {
             $fname = basename($_FILES['voice']['name']);
+            //$rtn = Yii::app()->oss->upload_file('pet4voices', $aid.'_'.$fname, fopen($_FILES['voice']['tmp_name'],'r'), $_FILES['voice']['size']); 
             $path = Yii::app()->basePath.'/../assets/voices/ani/voice_'.date('y-m-d').'_'.$aid;
             if (move_uploaded_file($_FILES['voice']['tmp_name'], $path)) {
                 $transaction = Yii::app()->db->beginTransaction();

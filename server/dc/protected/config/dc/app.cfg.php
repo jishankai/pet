@@ -14,6 +14,11 @@
     define('DEBUG_MODE', true);         //send notification use which signature
 
     //AWS
-    define('AWS_ACCESS_KEY', 'AKIAIRPVR5BVTAKME3XQ');
-    define('AWS_SECRET_KEY', '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');
+    define('AWS_ACCESS_KEY', '');
+    define('AWS_SECRET_KEY', '');
     define('AWS_S3_BUCKET', 'jishankai4test');
+
+    //OSS
+    define('OSS_ACCESS_KEY', '');
+    define('OSS_SECRET_KEY', '');
+    
