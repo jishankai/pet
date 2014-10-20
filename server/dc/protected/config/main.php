@@ -144,7 +144,7 @@ return array(
             'enableSlave'=>true,
             'slaves'=>array(
                 array(
-                    'connectionString' => 'mysql:host='.MYSQL_SLAVE_SERVER.'dbname='.MYSQL_DB_NAME,
+                    'connectionString' => 'mysql:host='.MYSQL_SLAVE_SERVER.';dbname='.MYSQL_DB_NAME,
                     'username' => MYSQL_SLAVE_USER,
                     'password' => MYSQL_SLAVE_PASSWORD,
                     'charset' => 'utf8mb4',
