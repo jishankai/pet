@@ -97,7 +97,7 @@ class OSS extends CApplicationComponent {
 
             return $obj;
         } catch (\Aliyun\OSS\Exceptions\OSSException $ex) {
-            throw new PException("Error: " . $ex->getErrorCode());
+            return ;
         } catch (\Aliyun\Common\Exceptions\ClientException $ex) {
             throw new PException("ClientError: " . $ex->getMessage());
         }
