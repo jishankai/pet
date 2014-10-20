@@ -93,13 +93,13 @@ class ImageController extends Controller
                     $model->relates = $_POST['relates'];
                 }
                 $model->create_time = time();
-                $img_count = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_image WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
 
                 $fname = basename($_FILES['image']['name']);
                 #$success = Yii::app()->s3->upload( $_FILES['image']['tmp_name'], 'upload/'.$fname, 'pet4jishankaitest' );
-                $path = Yii::app()->basePath.'/../images/upload/'.$model->aid.'_'.$img_count.'.'.$fname;
+                //$rtn = Yii::app()->oss->upload_file('pet4upload', $model->aid.'_'.$fname, fopen($_FILES['image']['tmp_name'],'r'), $_FILES['image']['size']); 
+                $path = Yii::app()->basePath.'/../images/upload/'.$model->aid.'_'.$fname;
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
-                    $model->url = $model->aid.'_'.$img_count.'.'.$fname;
+                    $model->url = $model->aid.'_'.$fname;
                     $model->save();
 
                     //events

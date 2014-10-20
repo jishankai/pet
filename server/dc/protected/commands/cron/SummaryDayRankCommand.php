@@ -46,7 +46,7 @@ class SummaryDayRankCommand extends CConsoleCommand {
 
                     $self_rank = $i+1;
                     $msg = "您的王国/家族在人气日排行榜中获得第".$self_rank."名，您获得".$result_money."金币奖励";
-                    Talk::model()->sendMsg(NPC_SYSTEM_USERID, $user->usr_id, $msg);
+                    Talk::model()->sendMsg(NPC_SYSTEM_USRID, $user->usr_id, $msg);
                 }
             }
         }

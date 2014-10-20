@@ -84,7 +84,7 @@ class AnimalController extends Controller
 
     public function actionInfoApi($aid)
     {
-        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.master_id, a.t_rq, u.name AS u_name, u.tx AS u_tx, c.rank AS u_rank, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans, (SELECT COUNT(*) FROM dc_follow f WHERE f.aid=a.aid) AS followers FROM dc_animal a JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN dc_circle c ON a.aid=c.aid WHERE a.aid=:aid')->bindValue(':aid', $aid)->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.master_id, a.t_rq, u.name AS u_name, u.tx AS u_tx, c.rank AS u_rank, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans, (SELECT COUNT(*) FROM dc_follow f WHERE f.aid=a.aid) AS followers FROM dc_animal a JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN dc_circle c ON a.aid=c.aid AND a.master_id=c.usr_id WHERE a.aid=:aid')->bindValue(':aid', $aid)->queryRow();
 
         $this->echoJsonData($r);
     }
@@ -112,6 +112,7 @@ class AnimalController extends Controller
 
         if (isset($_FILES['tx'])) {
             $fname = basename($_FILES['tx']['name']);
+            //$rtn = Yii::app()->oss->upload_file('pet4tx', 'tx_ani/'.$aid.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
             $path = Yii::app()->basePath.'/../images/tx/tx_ani/'.$aid.'_'.$fname;
             if (move_uploaded_file($_FILES['tx']['tmp_name'], $path)) {
                 $a->tx = $aid.'_'.$fname;
@@ -363,6 +364,7 @@ class AnimalController extends Controller
     {
         if (isset($_FILES['voice'])) {
             $fname = basename($_FILES['voice']['name']);
+            //$rtn = Yii::app()->oss->upload_file('pet4voices', $aid.'_'.$fname, fopen($_FILES['voice']['tmp_name'],'r'), $_FILES['voice']['size']); 
             $path = Yii::app()->basePath.'/../assets/voices/ani/voice_'.date('y-m-d').'_'.$aid;
             if (move_uploaded_file($_FILES['voice']['tmp_name'], $path)) {
                 $transaction = Yii::app()->db->beginTransaction();

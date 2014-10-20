@@ -69,6 +69,13 @@ return array(
             'sKey'=>AWS_SECRET_KEY,
         ),
 
+        'oss'=>array(
+            'class'=>'ext.aliyun.OSS',
+            'aKey'=>OSS_ACCESS_KEY,
+            'sKey'=>OSS_SECRET_KEY,
+            'endpoint'=>OSS_ENDPOINT,
+        ),
+
         'file'=>array(
             'class'=>'application.extensions.file.CFile',
         ),

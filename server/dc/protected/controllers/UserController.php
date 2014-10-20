@@ -284,6 +284,7 @@ class UserController extends Controller
 
         if (isset($_FILES['tx'])) {
             $fname = basename($_FILES['tx']['name']);
+            //$rtn = Yii::app()->oss->upload_file('pet4tx', 'tx_usr/'.$this->usr_id.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
             $path = Yii::app()->basePath.'/../images/tx/tx_usr/'.$this->usr_id.'_'.$fname;
             if (move_uploaded_file($_FILES['tx']['tmp_name'], $path)) {
                 $user->tx = $this->usr_id.'_'.$fname;
