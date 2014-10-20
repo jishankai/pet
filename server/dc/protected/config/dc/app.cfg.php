@@ -30,4 +30,5 @@
     define('MYSQL_SLAVE_USER', '');
     define('MYSQL_MASTER_PASSWORD', '');
     define('MYSQL_SLAVE_PASSWORD', '');
+    define('MYSQL_DB_NAME', '');
     

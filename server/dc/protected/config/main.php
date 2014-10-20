@@ -132,7 +132,7 @@ return array(
         ),
 
         'db'=>array(
-            'connectionString' => 'mysql:host='.MYSQL_MASTER_SERVER.';dbname=pet_test',
+            'connectionString' => 'mysql:host='.MYSQL_MASTER_SERVER.';dbname='.MYSQL_DB_NAME,
             'emulatePrepare' => true,
             'username' => MYSQL_MASTER_USER,
             'password' => MYSQL_MASTER_PASSWORD,
@@ -170,18 +170,20 @@ return array(
                     'class'=>'CFileLogRoute',
                     'levels'=>'error, warning',
                 ),
+                /*
                 array(
                     'class'=>'CFileLogRoute',
                     'levels'=>'trace',
-                'logFile'=>'json.log',
-                'categories'=>'json',
-            ),
-            array(
-                'class'=>'CFileLogRoute',
-                'levels'=>'trace',
-                'logFile'=>'access.log',
-                'categories'=>'access',
-            ),
+                    'logFile'=>'json.log',
+                    'categories'=>'json',
+                ),
+                array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'trace',
+                    'logFile'=>'access.log',
+                    'categories'=>'access',
+                ),
+                 */
                 /*
                 array(
                     'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
@@ -190,7 +192,7 @@ return array(
                     //'ipFilters'=>array('127.0.0.1','192.168.1.*', 88.23.23.0/24),
                 )
                 // uncomment the following to show log messages on web pages
-                */
+                 */
                 /*
                 array(
                     'class'=>'CWebLogRoute',
@@ -198,14 +200,14 @@ return array(
                     'categories'=>'system.db.*',
                 ),
                  */
+            ),
         ),
-		),
-	),
+    ),
 
-	// application-level parameters that can be accessed
-	// using Yii::app()->params['paramName']
-	'params'=>array(
-		// this is used in contact page
-		'adminEmail'=>'webmaster@pet.server.com',
-	),
+    // application-level parameters that can be accessed
+    // using Yii::app()->params['paramName']
+    'params'=>array(
+        // this is used in contact page
+        'adminEmail'=>'webmaster@pet.server.com',
+    ),
 );
