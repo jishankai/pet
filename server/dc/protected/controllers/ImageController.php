@@ -96,7 +96,7 @@ class ImageController extends Controller
 
                 $fname = basename($_FILES['image']['name']);
                 #$success = Yii::app()->s3->upload( $_FILES['image']['tmp_name'], 'upload/'.$fname, 'pet4jishankaitest' );
-                $rtn = Yii::app()->oss->upload_file('pet4upload', $model->aid.'_'.$fname, fopen($_FILES['image']['tmp_name'],'r'), $_FILES['image']['size']); 
+                $rtn = Yii::app()->oss->upload_file(OSS_PREFIX.'4upload', $model->aid.'_'.$fname, fopen($_FILES['image']['tmp_name'],'r'), $_FILES['image']['size']); 
                 if ($rtn) {
                     $model->url = $model->aid.'_'.$fname;
                     $model->save();

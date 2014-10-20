@@ -22,6 +22,7 @@
     define('OSS_ACCESS_KEY', '');
     define('OSS_SECRET_KEY', '');
     define('OSS_ENDPOINT', '');
+    define('OSS_PREFIX', '');
 
     //MYSQL
     define('MYSQL_MASTER_SERVER', '');

@@ -32,8 +32,8 @@ class TalkController extends Controller
             $path = Yii::app()->basePath.'/../assets/talks/'.$talk->content;
             if (file_exists($path)) {
                 $arr = array();
-                $buf = file_get_contents($path);
-                //$buf = Yii::app()->oss->get_obj_content('pet4talks', $talk->content);
+                //$buf = file_get_contents($path);
+                $buf = Yii::app()->oss->get_obj_content(OSS_PREFIX.'4talks', $talk->content);
                 $messages = unserialize($buf);
                 if ($messages!=FALSE) {
                     foreach ($messages as $k=>$message) {
@@ -47,8 +47,8 @@ class TalkController extends Controller
                         }
                     }
                     $buf = serialize($messages);
-                    file_put_contents($path, $buf);
-                    //Yii::app()->oss->upload('pet4talks', $talk->content, $buf);
+                    //file_put_contents($path, $buf);
+                    Yii::app()->oss->upload(OSS_PREFIX.'4talks', $talk->content, $buf);
                 }
 
                 if (isset($arr[$talk->talk_id])) {
@@ -89,8 +89,8 @@ class TalkController extends Controller
             }
             $path = Yii::app()->basePath.'/../assets/talks/'.$talk->content;
             if (file_exists($path)) {
-                $buf = file_get_contents($path);
-                //$buf = Yii::app()->oss->get_obj_content('pet4talks', $talk->content);
+                //$buf = file_get_contents($path);
+                $buf = Yii::app()->oss->get_obj_content(OSS_PREFIX.'4talks', $talk->content);
                 $messages = unserialize($buf);
             } else {
                 $messages = array();
@@ -103,8 +103,8 @@ class TalkController extends Controller
             );
             array_unshift($messages, $msg);
             $buf = serialize($messages);
-            file_put_contents($path, $buf);
-            //Yii::app()->oss->upload('pet4talks', $talk->content, $buf);
+            //file_put_contents($path, $buf);
+            Yii::app()->oss->upload(OSS_PREFIX.'4talks', $talk->content, $buf);
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();

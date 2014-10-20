@@ -112,7 +112,7 @@ class AnimalController extends Controller
 
         if (isset($_FILES['tx'])) {
             $fname = basename($_FILES['tx']['name']);
-            $rtn = Yii::app()->oss->upload_file('pet4tx', 'tx_ani/'.$aid.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
+            $rtn = Yii::app()->oss->upload_file(OSS_PREFIX.'4tx', 'tx_ani/'.$aid.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
             if ($rtn) {
                 $a->tx = $aid.'_'.$fname;
                 $a->saveAttributes(array('tx'));
@@ -363,7 +363,7 @@ class AnimalController extends Controller
     {
         if (isset($_FILES['voice'])) {
             $fname = basename($_FILES['voice']['name']);
-            $rtn = Yii::app()->oss->upload_file('pet4voices', 'ani/voice_'.date('y-m-d').'_'.$aid, fopen($_FILES['voice']['tmp_name'],'r'), $_FILES['voice']['size']); 
+            $rtn = Yii::app()->oss->upload_file(OSS_PREFIX.'4voices', 'ani/voice_'.date('y-m-d').'_'.$aid, fopen($_FILES['voice']['tmp_name'],'r'), $_FILES['voice']['size']); 
             if ($rtn) {
                 $transaction = Yii::app()->db->beginTransaction();
                 try {
