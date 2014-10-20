@@ -16,9 +16,10 @@ class TalkBehavior extends CActiveRecordBehavior
             $talk->content = $usra_id.'&'.$usrb_id;
             $talk->save();
         }
-        $path = Yii::app()->basePath.'/../assets/talks/'.$talk->content;
-        if (file_exists($path)) {
-            $buf = file_get_contents($path);
+        $obj = Yii::app()->oss->get_obj(OSS_PREFIX.'4talks', $talk->content);
+        if (isset($obj)) {
+            //$buf = file_get_contents($path);
+            $obj = Yii::app()->oss->get_obj_content(OSS_PREFIX.'4talks', $talk->content);
             $messages = unserialize($buf);
         } else {
             $messages = array();
@@ -31,6 +32,7 @@ class TalkBehavior extends CActiveRecordBehavior
         );
         array_unshift($messages, $msg);
         $buf = serialize($messages);
-        file_put_contents($path, $buf);
+        //file_put_contents($path, $buf);
+        Yii::app()->oss->upload(OSS_PREFIX.'4talks', $talk->content, $buf);
     }
 }

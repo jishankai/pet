@@ -84,4 +84,22 @@ class OSS extends CApplicationComponent {
             throw new PException("ClientError: " . $ex->getMessage());
         }
     }
+
+    public function get_obj($bucket, $key)
+    {
+        try {
+            $oss = $this->getInstance();
+            $obj = $oss->getObject(array(
+                'Bucket' => $bucket,
+                'Key' => $key,
+                'Range' => array(0,3),
+            ));
+
+            return $obj;
+        } catch (\Aliyun\OSS\Exceptions\OSSException $ex) {
+            throw new PException("Error: " . $ex->getErrorCode());
+        } catch (\Aliyun\Common\Exceptions\ClientException $ex) {
+            throw new PException("ClientError: " . $ex->getMessage());
+        }
+    }
 }

@@ -29,8 +29,8 @@ class TalkController extends Controller
 
         $r = array();
         foreach ($talks as $talk) {
-            $path = Yii::app()->basePath.'/../assets/talks/'.$talk->content;
-            if (file_exists($path)) {
+            $obj = Yii::app()->oss->get_obj(OSS_PREFIX.'4talks',$talk->content);
+            if (isset($obj)) {
                 $arr = array();
                 //$buf = file_get_contents($path);
                 $buf = Yii::app()->oss->get_obj_content(OSS_PREFIX.'4talks', $talk->content);
@@ -87,8 +87,8 @@ class TalkController extends Controller
                 $talk->content = $this->usr_id.'&'.$usr_id;
                 $talk->save();
             }
-            $path = Yii::app()->basePath.'/../assets/talks/'.$talk->content;
-            if (file_exists($path)) {
+            $obj = Yii::app()->oss->get_obj(OSS_PREFIX.'4talks',$talk->content);
+            if (isset($obj)) {
                 //$buf = file_get_contents($path);
                 $buf = Yii::app()->oss->get_obj_content(OSS_PREFIX.'4talks', $talk->content);
                 $messages = unserialize($buf);
