@@ -399,13 +399,12 @@ class AnimalController extends Controller
 
     public function actionVoiceDownApi($aid)
     {
-        $path = 'assets/voices/ani/voice_'.date('y-m-d').'_'.$aid;
-        if (file_exists($path)) {
-            $this->echoJsonData(array('url'=>$path));
+        $obj = Yii::app()->oss->get_obj(OSS_PREFIX.'4voices', 'voice_'.date('y-m-d').'_'.$aid);
+        if ($obj) {
+            $this->echoJsonData(array('url'=>'voice_'.date('y-m-d').'_'.$aid));
         } else {
             throw new PException('音频文件不存在');
         }
-
     }
 
     public function actionIsTouchedApi($aid)

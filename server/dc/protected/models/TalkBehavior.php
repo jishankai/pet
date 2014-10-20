@@ -19,7 +19,7 @@ class TalkBehavior extends CActiveRecordBehavior
         $obj = Yii::app()->oss->get_obj(OSS_PREFIX.'4talks', $talk->content);
         if (isset($obj)) {
             //$buf = file_get_contents($path);
-            $obj = Yii::app()->oss->get_obj_content(OSS_PREFIX.'4talks', $talk->content);
+            $buf = Yii::app()->oss->get_obj_content(OSS_PREFIX.'4talks', $talk->content);
             $messages = unserialize($buf);
         } else {
             $messages = array();

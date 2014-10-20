@@ -44,13 +44,15 @@ class UserController extends Controller
 
     public function actionWelcomeApi()
     {
+        /*
         srand(floor(time()/(60*60*24)));
         $max_img_id = Yii::app()->db->createCommand('SELECT MAX(img_id) FROM dc_image')->queryScalar();
         $img_id = $max_img_id;
         //$img_id = rand(1, $max_img_id);
         $url = Yii::app()->db->createCommand("SELECT url FROM dc_image WHERE img_id=$img_id")->queryScalar();
+         */
 
-        $this->echoJsonData(array('url'=>$url));    
+        $this->echoJsonData(array('url'=>'69402d88gw1dw385jywzkj.jpg'));    
     }
 
     public function actionGetSIDApi($uid)
