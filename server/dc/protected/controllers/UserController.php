@@ -72,6 +72,7 @@ class UserController extends Controller
                     $device = new Device();
                     $device->uid = $uid;
                     $device->usr_id = 0;
+                    $device->sid = '';
                     //$device->token = $token;
                     $device->create_time = time();
                     $device->save();
