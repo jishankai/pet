@@ -20,17 +20,17 @@ class RankController extends Controller
                    foreach ($r as $k=>$v) {
                        $rank[$v['aid']] = $k;    
                        if (isset($prev_rank[$v['aid']])&&$prev_rank[$v['aid']]>$k) {
-                           $r[$k]['change'] = 1;
+                           $r[$k]['vary'] = 1;
                        } else if (isset($prev_rank[$v['aid']])&&$prev_rank[$v['aid']]<$k) {
-                           $r[$k]['change'] = -1;
+                           $r[$k]['vary'] = -1;
                        } else {
-                           $r[$k]['change'] = 0;
+                           $r[$k]['vary'] = 0;
                        }
                    }
                } else {
                    foreach ($r as $k=>$v) {
                        $rank[$v['aid']] = $k;    
-                       $r[$k]['change'] = 0;
+                       $r[$k]['vary'] = 0;
                    }
                }
                Yii::app()->cache->set('t_rq_rank', $rank, 3600*24*365);               
@@ -39,7 +39,7 @@ class RankController extends Controller
            case 1:
                $r = Yii::app()->cache->get('d_rq_rank');
                if (!isset($r) OR $r==FALSE) {
-                   $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, d_rq, 0 AS change  FROM dc_animal ORDER BY d_rq DESC')->queryAll();
+                   $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, d_rq, 0 AS vary  FROM dc_animal ORDER BY d_rq DESC')->queryAll();
                    Yii::app()->cache->set('d_rq_rank', $r, 3600*24);               
                }
                break;
@@ -47,7 +47,7 @@ class RankController extends Controller
            case 2:
                $r = Yii::app()->cache->get('w_rq_rank');
                if (!isset($r) OR $r==FALSE) {
-                   $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, w_rq, 0 AS change  FROM dc_animal ORDER BY w_rq DESC')->queryAll();
+                   $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, w_rq, 0 AS vary  FROM dc_animal ORDER BY w_rq DESC')->queryAll();
                    Yii::app()->cache->set('w_rq_rank', $r, 3600*24*7);               
                }
                break;
@@ -55,7 +55,7 @@ class RankController extends Controller
            case 3:
                $r = Yii::app()->cache->get('m_rq_rank');
                if (!isset($r) OR $r==FALSE) {
-                   $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, m_rq, 0 AS change  FROM dc_animal ORDER BY m_rq DESC')->queryAll();
+                   $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, m_rq, 0 AS vary  FROM dc_animal ORDER BY m_rq DESC')->queryAll();
                    Yii::app()->cache->set('m_rq_rank', $r, 3600*24*30);               
                }
                break;
@@ -77,17 +77,17 @@ class RankController extends Controller
                    foreach ($r as $k=>$v) {
                        $rank[$v['usr_id']] = $k;    
                        if (isset($prev_rank[$v['usr_id']])&&$prev_rank[$v['usr_id']]>$k) {
-                           $r[$k]['change'] = 1;
+                           $r[$k]['vary'] = 1;
                        } else if (isset($prev_rank[$v['usr_id']])&&$prev_rank[$v['usr_id']]<$k) {
-                           $r[$k]['change'] = -1;
+                           $r[$k]['vary'] = -1;
                        } else {
-                           $r[$k]['change'] = 0;
+                           $r[$k]['vary'] = 0;
                        }
                    }
                } else {
                    foreach ($r as $k=>$v) {
                        $rank[$v['usr_id']] = $k;    
-                       $r[$k]['change'] = 0;
+                       $r[$k]['vary'] = 0;
                    }
                }
                Yii::app()->cache->set($aid.'_t_rank', $rank, 3600*24*365);               

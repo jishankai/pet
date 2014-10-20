@@ -14,17 +14,17 @@ class SummaryMonthContributionRankCommand extends CConsoleCommand {
                 foreach ($r as $k=>$v) {
                     $rank[$v['usr_id']] = $k;    
                     if (isset($prev_rank[$v['usr_id']])&&$prev_rank[$v['usr_id']]>$k) {
-                        $r[$k]['change'] = 1;
+                        $r[$k]['vary'] = 1;
                     } else if (isset($prev_rank[$v['usr_id']])&&$prev_rank[$v['usr_id']]<$k) {
-                        $r[$k]['change'] = -1;
+                        $r[$k]['vary'] = -1;
                     } else {
-                        $r[$k]['change'] = 0;
+                        $r[$k]['vary'] = 0;
                     }
                 }
             } else {
                 foreach ($r as $k=>$v) {
                     $rank[$v['usr_id']] = $k;    
-                    $r[$k]['change'] = 0;
+                    $r[$k]['vary'] = 0;
                 }
             }
             Yii::app()->cache->set($aid.'_m_rank_report', $rank, 3600*24*30);               

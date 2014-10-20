@@ -12,17 +12,17 @@ class SummaryDayRankCommand extends CConsoleCommand {
             foreach ($r as $k=>$v) {
                 $rank[$v['aid']] = $k;    
                 if (isset($prev_rank[$v['aid']])&&$prev_rank[$v['aid']]>$k) {
-                    $r[$k]['change'] = 1;
+                    $r[$k]['vary'] = 1;
                 } else if (isset($prev_rank[$v['aid']])&&$prev_rank[$v['aid']]<$k) {
-                    $r[$k]['change'] = -1;
+                    $r[$k]['vary'] = -1;
                 } else {
-                    $r[$k]['change'] = 0;
+                    $r[$k]['vary'] = 0;
                 }
             }
         } else {
             foreach ($r as $k=>$v) {
                 $rank[$v['aid']] = $k;    
-                $r[$k]['change'] = 0;
+                $r[$k]['vary'] = 0;
             }
         }
 
