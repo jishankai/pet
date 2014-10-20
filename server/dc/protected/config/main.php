@@ -92,18 +92,18 @@ return array(
          */
 
         'cache' => array(
+            /*
             'class' => 'CFileCache',
             'directoryLevel' => 4,
-        /*
-        'class' => 'CMemCache',
-        'servers' => array(
-            array(
-                'host' => 'cache4test.5edo1u.cfg.apne1.cache.amazonaws.com',
-                'port' => 11211,
-                'weight' => 100,
-            ),  
-        ),
-         */  
+             */
+            'class' => 'CMemCache',
+            'servers' => array(
+                array(
+                    'host' => '127.0.0.1',
+                    'port' => 11211,
+                    'weight' => 100,
+                ),  
+            ),
         ),
         'sessionCache' => array(
             'class' => 'CMemCache',
@@ -132,10 +132,10 @@ return array(
         ),
 
         'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=pet_test',
+            'connectionString' => 'mysql:host='.MYSQL_MASTER_SERVER.';dbname=pet_test',
             'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => '',
+            'username' => MYSQL_MASTER_USER,
+            'password' => MYSQL_MASTER_PASSWORD,
             'charset' => 'utf8mb4',
             'class' => 'DbConnectionMan',
             'schemaCachingDuration' => 3600,
@@ -144,17 +144,19 @@ return array(
             'enableSlave'=>true,
             'slaves'=>array(
                 array(
-                    'connectionString' => 'mysql:host=127.0.0.1;port=3307;dbname=pet_test',
-                    'username' => 'root',
-                    'password' => '',
+                    'connectionString' => 'mysql:host='.MYSQL_SLAVE_SERVER.'dbname=pet_test',
+                    'username' => MYSQL_SLAVE_USER,
+                    'password' => MYSQL_SLAVE_PASSWORD,
                     'charset' => 'utf8mb4',
                 ),
+                /*
                 array(
-                    'connectionString' => 'mysql:host=127.0.0.1;port=3308;dbname=pet_test',
+                    'connectionString' => 'mysql:host=127.0.0.1;port=3306;dbname=pet',
                     'username' => 'root',
                     'password' => '',
                     'charset' => 'utf8mb4',
                 ),
+                 */
             ),
         ),
         'errorHandler'=>array(

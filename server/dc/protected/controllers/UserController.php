@@ -60,7 +60,7 @@ class UserController extends Controller
         $this->echoJsonData($r);
     }
 
-    public function actionLoginApi($uid, $planet, $ver=NULL, $token=NULL)
+    public function actionLoginApi($uid, $ver=NULL, $token=NULL)
     {
         $transaction = Yii::app()->db->beginTransaction();
         try {
@@ -85,7 +85,6 @@ class UserController extends Controller
                 $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
                 $user->login();
             }
-            $session['planet'] = $planet;
 
             $device->sid = $session->sessionID;
             $device->saveAttributes(array('sid'));
@@ -105,9 +104,6 @@ class UserController extends Controller
 
     public function actionPlanetApi($planet)
     {
-        $session = Yii::app()->session;
-        $session['planet'] = $planet;
-
         $this->echoJsonData(array('isSuccess'=>TRUE));
     }
 
@@ -284,9 +280,8 @@ class UserController extends Controller
 
         if (isset($_FILES['tx'])) {
             $fname = basename($_FILES['tx']['name']);
-            //$rtn = Yii::app()->oss->upload_file('pet4tx', 'tx_usr/'.$this->usr_id.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
-            $path = Yii::app()->basePath.'/../images/tx/tx_usr/'.$this->usr_id.'_'.$fname;
-            if (move_uploaded_file($_FILES['tx']['tmp_name'], $path)) {
+            $rtn = Yii::app()->oss->upload_file('pet4tx', 'tx_usr/'.$this->usr_id.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
+            if ($rtn) {
                 $user->tx = $this->usr_id.'_'.$fname;
                 $user->saveAttributes(array('tx'));
             }

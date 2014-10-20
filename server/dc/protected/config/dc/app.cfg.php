@@ -22,4 +22,12 @@
     define('OSS_ACCESS_KEY', '');
     define('OSS_SECRET_KEY', '');
     define('OSS_ENDPOINT', '');
+
+    //MYSQL
+    define('MYSQL_MASTER_SERVER', '');
+    define('MYSQL_SLAVE_SERVER', '');
+    define('MYSQL_MASTER_USER', '');
+    define('MYSQL_SLAVE_USER', '');
+    define('MYSQL_MASTER_PASSWORD', '');
+    define('MYSQL_SLAVE_PASSWORD', '');
     

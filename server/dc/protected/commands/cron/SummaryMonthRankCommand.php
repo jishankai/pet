@@ -27,6 +27,7 @@ class SummaryMonthRankCommand extends CConsoleCommand {
         }
 
         //奖励计算
+        /*
         $total_member = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_user')->queryScalar();
         $total_a = Yii::app()->db->createCommand('SELECT COUNT(aid), SUM(m_rq) FROM dc_animal')->queryRow();
         $all_gold = $total_member*RANK_REWARD_E;
@@ -50,6 +51,7 @@ class SummaryMonthRankCommand extends CConsoleCommand {
                 }
             }
         }
+         */
         Yii::app()->cache->set('m_rq_rank_report', $rank, 3600*24*30);               
         Yii::app()->cache->set('m_rq_rank', $r, 3600*24*30);               
     }

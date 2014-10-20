@@ -112,9 +112,8 @@ class AnimalController extends Controller
 
         if (isset($_FILES['tx'])) {
             $fname = basename($_FILES['tx']['name']);
-            //$rtn = Yii::app()->oss->upload_file('pet4tx', 'tx_ani/'.$aid.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
-            $path = Yii::app()->basePath.'/../images/tx/tx_ani/'.$aid.'_'.$fname;
-            if (move_uploaded_file($_FILES['tx']['tmp_name'], $path)) {
+            $rtn = Yii::app()->oss->upload_file('pet4tx', 'tx_ani/'.$aid.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
+            if ($rtn) {
                 $a->tx = $aid.'_'.$fname;
                 $a->saveAttributes(array('tx'));
             }
@@ -364,9 +363,8 @@ class AnimalController extends Controller
     {
         if (isset($_FILES['voice'])) {
             $fname = basename($_FILES['voice']['name']);
-            //$rtn = Yii::app()->oss->upload_file('pet4voices', $aid.'_'.$fname, fopen($_FILES['voice']['tmp_name'],'r'), $_FILES['voice']['size']); 
-            $path = Yii::app()->basePath.'/../assets/voices/ani/voice_'.date('y-m-d').'_'.$aid;
-            if (move_uploaded_file($_FILES['voice']['tmp_name'], $path)) {
+            $rtn = Yii::app()->oss->upload_file('pet4voices', 'ani/voice_'.date('y-m-d').'_'.$aid, fopen($_FILES['voice']['tmp_name'],'r'), $_FILES['voice']['size']); 
+            if ($rtn) {
                 $transaction = Yii::app()->db->beginTransaction();
                 try {
                     $user = User::model()->findByPk($this->usr_id);
@@ -582,7 +580,7 @@ class AnimalController extends Controller
         ));
     }
 
-    public function actionRecommendApi($type=NULL, $page=0)
+    public function actionRecommendApi($type=NULL, $page=0, $from=1)
     {
         if (isset($type)) {
             $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE type=:type ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
@@ -593,7 +591,7 @@ class AnimalController extends Controller
             $session = Yii::app()->session;
 
             $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.from=:from ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
-                ':from'=>$session['planet'],
+                ':from'=>$from,
                 ':m'=>30*$page,
             ))->queryAll();
         }
@@ -601,7 +599,7 @@ class AnimalController extends Controller
         $this->echoJsonData(array($r));
     }
 
-    public function actionPopularApi($type=NULL, $page=0)
+    public function actionPopularApi($type=NULL, $page=0, $from=1)
     {
         if (isset($type)) {
             $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE type=:type ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
@@ -612,7 +610,7 @@ class AnimalController extends Controller
             $session = Yii::app()->session;
 
             $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.from=:from ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
-                ':from'=>$session['planet'],
+                ':from'=>$from,
                 ':m'=>30*$page,
             ))->queryAll();
         }
