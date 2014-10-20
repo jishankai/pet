@@ -71,6 +71,7 @@ class UserController extends Controller
                 if ($device === NULL) {
                     $device = new Device();
                     $device->uid = $uid;
+                    $device->usr_id = 0;
                     //$device->token = $token;
                     $device->create_time = time();
                     $device->save();
