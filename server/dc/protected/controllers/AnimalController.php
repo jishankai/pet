@@ -399,7 +399,7 @@ class AnimalController extends Controller
 
     public function actionVoiceDownApi($aid)
     {
-        $obj = Yii::app()->oss->get_obj(OSS_PREFIX.'4voices', 'voice_'.date('y-m-d').'_'.$aid);
+        $obj = Yii::app()->oss->get_obj(OSS_PREFIX.'4voices', 'ani/voice_'.date('y-m-d').'_'.$aid);
         if ($obj) {
             $this->echoJsonData(array('url'=>'voice_'.date('y-m-d').'_'.$aid));
         } else {
