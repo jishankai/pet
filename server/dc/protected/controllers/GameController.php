@@ -1,4 +1,4 @@
-<?
+<?php
 
 class GameController extends Controller
 {
