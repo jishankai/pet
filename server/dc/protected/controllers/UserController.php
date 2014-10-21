@@ -52,7 +52,7 @@ class UserController extends Controller
         $url = Yii::app()->db->createCommand("SELECT url FROM dc_image WHERE img_id=$img_id")->queryScalar();
          */
 
-        $this->echoJsonData(array('url'=>'69402d88gw1dw385jywzkj.jpg'));    
+        $this->echoJsonData(array('url'=>'home.jpg'));    
     }
 
     public function actionGetSIDApi($uid)
