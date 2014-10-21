@@ -333,19 +333,24 @@ class AnimalController extends Controller
 
     public function actionExitApi($aid)
     {
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            $circle = Circle::model()->findByPk(array(
-                'aid' => $aid,
-                'usr_id' => $this->usr_id,
-            ));
-            $circle->delete();
-            $transaction->commit();
+        $rtn = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_circle WHERE usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryScalar();
+        if ($rtn<=1) {
+            throw new PException('这是您唯一的联萌！');
+        } else {
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $circle = Circle::model()->findByPk(array(
+                    'aid' => $aid,
+                    'usr_id' => $this->usr_id,
+                ));
+                $circle->delete();
+                $transaction->commit();
 
-            $this->echoJsonData(array('isSuccess'=>true));
-        } catch (Exception $e) {
-            $transaction->rollback();
-            throw $e;
+                $this->echoJsonData(array('isSuccess'=>true));
+            } catch (Exception $e) {
+                $transaction->rollback();
+                throw $e;
+            }
         }
     }
 
