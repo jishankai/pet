@@ -257,13 +257,13 @@ class UserController extends Controller
             $session['not_registered'] = FALSE;
             $user->login();
 
-            Talk::model()->sendMsg(NPC_SYSTEM_USRID, $user->usr_id, "HI~我是的汪汪大使，欢迎来到宠物星球，以后星球上的新鲜事，汪汪会光速传达你，放心交给我吧，汪汪");
+            Talk::model()->sendMsg(NPC_SYSTEM_USRID, $user->usr_id, "HI~我是的事务官，欢迎来到宠物星球，以后星球上的新鲜事，本汪会光速传达你，放心交给我吧，汪汪");
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
         }
-        $this->echoJsonData(array('isSuccess'=>true));
+        $this->echoJsonData(array('usr_id'=>$user->usr_id));
     }
 
     public function actionInfoApi($usr_id)
