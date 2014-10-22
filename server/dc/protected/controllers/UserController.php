@@ -263,7 +263,7 @@ class UserController extends Controller
             $transaction->rollback();
             throw $e;
         }
-        $this->echoJsonData(array('usr_id'=>$user->usr_id));
+        $this->echoJsonData(array('usr_id'=>$user->usr_id, 'aid'=>$user->aid));
     }
 
     public function actionInfoApi($usr_id)
