@@ -282,7 +282,7 @@ class UserController extends Controller
     {
         $user = User::model()->findByPk($this->usr_id);
 
-        $tx = $this->usr_id.'_'.$fname;
+        $tx = '';
         if (isset($_FILES['tx'])) {
             $fname = basename($_FILES['tx']['name']);
             $rtn = Yii::app()->oss->upload_file(OSS_PREFIX.'4tx', 'tx_usr/'.$this->usr_id.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
