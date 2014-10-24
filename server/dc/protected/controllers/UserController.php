@@ -287,6 +287,7 @@ class UserController extends Controller
             $fname = basename($_FILES['tx']['name']);
             $rtn = Yii::app()->oss->upload_file(OSS_PREFIX.'4tx', 'tx_usr/'.$this->usr_id.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
             if ($rtn) {
+                $tx = $this->usr_id.'_'.$fname;
                 if (isset($user)) {
                     $user->tx = $tx;
                     $user->saveAttributes(array('tx'));

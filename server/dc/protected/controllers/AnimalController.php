@@ -115,6 +115,7 @@ class AnimalController extends Controller
             $fname = basename($_FILES['tx']['name']);
             $rtn = Yii::app()->oss->upload_file(OSS_PREFIX.'4tx', 'tx_ani/'.$aid.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
             if ($rtn) {
+                $tx = $aid.'_'.$fname;
                 if (isset($a)) {
                     $a->tx = $tx;
                     $a->saveAttributes(array('tx'));
