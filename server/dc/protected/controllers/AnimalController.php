@@ -110,16 +110,23 @@ class AnimalController extends Controller
     {
         $a = Animal::model()->findByPk($aid);
 
+        $tx = $aid.'_'.$fname;
         if (isset($_FILES['tx'])) {
             $fname = basename($_FILES['tx']['name']);
             $rtn = Yii::app()->oss->upload_file(OSS_PREFIX.'4tx', 'tx_ani/'.$aid.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
             if ($rtn) {
-                $a->tx = $aid.'_'.$fname;
-                $a->saveAttributes(array('tx'));
+                if (isset($a)) {
+                    $a->tx = $tx;
+                    $a->saveAttributes(array('tx'));
+                } else {
+                    Yii::app()->session->add('tx_ani', array('aid'=>$aid,'tx'=>$tx));
+                }
+            } else {
+                throw new PException('未上传成功');
             }
         }
 
-        $this->echoJsonData(array('tx'=>$a->tx));
+        $this->echoJsonData(array('tx'=>$tx));
     }
 
 

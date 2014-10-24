@@ -53,6 +53,22 @@ class Controller extends CController
             $this->response->render();
         } else {
             $this->usr_id = $session['usr_id'];
+            
+            //规避头像上传500问题
+            if (isset($session['tx_usr'])) {
+                $user = User::model()->findByPk($this->usr_id);
+                $user->tx = $session['tx_usr'];
+                $user->saveAttributes(array('tx'));
+                $session->remove('tx_usr');
+            }
+            if (isset($session['tx_ani'])) {
+                $animal = Animal::model()->findByPk($session['tx_ani']['aid']);
+                $animal->tx = $session['tx_usr']['tx'];
+                $animal->saveAttributes(array('tx'));
+                $session->remove('tx_ani');
+            }
+            // ------------------
+
             $filterChain->run(); 
         }
     }

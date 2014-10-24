@@ -282,16 +282,22 @@ class UserController extends Controller
     {
         $user = User::model()->findByPk($this->usr_id);
 
+        $tx = $this->usr_id.'_'.$fname;
         if (isset($_FILES['tx'])) {
             $fname = basename($_FILES['tx']['name']);
             $rtn = Yii::app()->oss->upload_file(OSS_PREFIX.'4tx', 'tx_usr/'.$this->usr_id.'_'.$fname, fopen($_FILES['tx']['tmp_name'],'r'), $_FILES['tx']['size']); 
             if ($rtn) {
-                $user->tx = $this->usr_id.'_'.$fname;
-                $user->saveAttributes(array('tx'));
+                if (isset($user)) {
+                    $user->tx = $tx;
+                    $user->saveAttributes(array('tx'));
+                } else {
+                    Yii::app()->session->add('tx_usr', $tx);
+                }
+            } else {
+                throw new PException('未上传成功');
             }
         }
-
-        $this->echoJsonData(array('tx'=>$user->tx));
+        $this->echoJsonData(array('tx'=>$tx));
     }
 
     public function actionOthersApi($usr_ids, $usr_id=NULL)
