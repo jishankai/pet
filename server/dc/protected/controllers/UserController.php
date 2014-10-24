@@ -229,7 +229,7 @@ class UserController extends Controller
             if ($namelen>8) {
                 throw new PException('宠物昵称超过最大长度');
             }
-            if (!preg_match($pattern, $name)) {
+            if (!preg_match($pattern, trim($name))) {
                 throw new PException('宠物昵称含有特殊字符');
             }
         }
@@ -241,7 +241,7 @@ class UserController extends Controller
         if (User::model()->isNameExist(trim($u_name))) {
             throw new PException('用户名已被注册');
         }
-        if (!preg_match($pattern, $u_name)) {
+        if (!preg_match($pattern, trim($u_name))) {
             throw new PException('用户名含有特殊字符');
         }
         if ($code != '') {
