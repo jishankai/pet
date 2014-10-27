@@ -10,4 +10,11 @@ class ImageBehavior extends CActiveRecordBehavior
     {
         
     }
+
+    public function deleteImage()
+    {
+        Yii::app()->oss->delete_obj('pet4upload', $this->url);
+
+        $this->delete();
+    }
 }
