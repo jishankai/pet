@@ -9,8 +9,8 @@
 	<?php echo CHtml::link(CHtml::encode($data->img_id), array('view', 'id'=>$data->img_id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('usr_id')); ?>:</b>
-	<?php echo CHtml::encode($data->usr_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('aid')); ?>:</b>
+	<?php echo CHtml::encode($data->aid); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('topic_id')); ?>:</b>

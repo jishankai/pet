@@ -22,7 +22,7 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'img_id',
-		'usr_id',
+		'aid',
 		'topic_id',
 		'url',
 		'cmt',

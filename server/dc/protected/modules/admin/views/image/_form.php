@@ -16,9 +16,9 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'usr_id'); ?>
-<?php echo $form->dropDownList($model,'usr_id',CHtml::listData(User::model()->findAll(), 'usr_id', 'name')); ?>    
-		<?php echo $form->error($model,'usr_id'); ?>
+		<?php echo $form->labelEx($model,'aid'); ?>
+<?php echo $form->dropDownList($model,'aid',CHtml::listData(User::model()->findAll(), 'aid', 'name')); ?>    
+		<?php echo $form->error($model,'aid'); ?>
 	</div>
 
 	<div class="row">

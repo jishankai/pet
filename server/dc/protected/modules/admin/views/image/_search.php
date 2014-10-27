@@ -17,8 +17,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'usr_id'); ?>
-<?php echo $form->dropDownList($model,'usr_id',CHtml::listData(User::model()->findAll(), 'usr_id', 'name')); ?>    
+		<?php echo $form->label($model,'aid'); ?>
+<?php echo $form->dropDownList($model,'aid',CHtml::listData(User::model()->findAll(), 'aid', 'name')); ?>    
 	</div>
 
 	<div class="row">
