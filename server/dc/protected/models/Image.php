@@ -67,7 +67,7 @@ class Image extends CActiveRecord
     public function behaviors()
     {
         return array(
-            //'behavior' => 'ImageBehavior',
+            'behavior' => 'ImageBehavior',
         );
     }
 
