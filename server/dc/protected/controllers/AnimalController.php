@@ -342,6 +342,10 @@ class AnimalController extends Controller
     public function actionExitApi($aid)
     {
         $rtn = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_circle WHERE usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryScalar();
+        $default_aid = Yii::app()->db->createCommand('SELECT aid FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryScalar();
+        if ($aid==$default_aid) {
+            throw new PException('您不能退出默认联萌');
+        }
         if ($rtn<=1) {
             throw new PException('这是您唯一的联萌！');
         } else {
