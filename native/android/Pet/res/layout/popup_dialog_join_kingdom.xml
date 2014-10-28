@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    
+    >
+    <LinearLayout 
+       
+        android:id="@+id/note_layout"
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/diglog_note_background"
+    android:layout_marginTop="15dp"
+    >
+         <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="你是否愿意无论是顺境或逆境，"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+         />
+          <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="捧了人家可要对人家负责呀~"
+        android:textColor="@color/white"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginRight="38dp"
+        android:textSize="14sp"
+        
+         />
+           <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="一定要让TA成为宇宙中最闪亮的萌星~"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:textSize="14sp"
+        
+         />
+           <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="直到永远吗？"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        
+         />
+    </LinearLayout>
+   
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/red_ball_delete"
+        android:layout_alignRight="@+id/note_layout"
+        android:layout_alignEnd="@+id/note_layout"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="0dp"/>
+
+    <TextView
+        android:layout_below="@+id/note_layout"
+        android:id="@+id/textView3"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:text="没问题" 
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:background="@drawable/button"/>
+     <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="温馨提示：每个人只能捧红10个萌星"
+        android:layout_below="@+id/textView3"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_centerHorizontal="true"
+         />
+
+</RelativeLayout>
+</LinearLayout>
+

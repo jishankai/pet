@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/framelayout"
+    android:focusable="true"
+    android:focusableInTouchMode="true" >
+    <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/blur_view_top">
+    <View android:layout_width="match_parent"
+        android:layout_height="98dp"
+        android:background="@color/white"
+        android:id="@+id/top_white_view"/>
+    <com.aidigame.hisun.pet.view.PullToRefreshAndMoreView
+        android:id="@+id/activity_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        
+    </com.aidigame.hisun.pet.view.PullToRefreshAndMoreView>
+
+</LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="98dp"
+        android:background="@color/orange_red"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingBottom="6dp" >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:padding="12dp"
+            android:src="@drawable/back_white" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/back"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:text="\@ 用户"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/sure_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/back"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_green"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0.05dp"
+            android:layout_below="@+id/back"
+            android:background="@color/orange_red" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="6dp"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp" >
+
+            <EditText
+                android:id="@+id/input_topic_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:paddingLeft="15dp"
+                android:textColor="@color/white"
+                android:textSize="14sp" 
+                android:layout_toLeftOf="@+id/textView2"/>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/input_topic_et"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/search" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/input_topic_et"
+                android:background="@color/white" 
+                android:layout_toLeftOf="@+id/textView2"/>
+            <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="搜索"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:textSize="14sp" />
+        </RelativeLayout>
+
+        
+    </RelativeLayout>
+
+    
+</FrameLayout>

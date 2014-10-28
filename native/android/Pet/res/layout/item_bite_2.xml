@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+     <ImageView
+                 android:id="@+id/cloud1"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_above="@+id/s_layout"
+                 android:layout_marginBottom="-70dp"
+                 android:layout_alignParentRight="true"
+                 android:src="@drawable/cloud_yellow" />
+                <ImageView
+                 android:id="@+id/cloud2"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_centerVertical="true"
+                 android:layout_below="@+id/s_layout"
+                 android:layout_marginTop="-40dp"
+                 android:src="@drawable/cloud_yellow" />
+    
+    <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="为萌萌的TA记录每天的欢乐吧"
+            android:textColor="#7f97b3"
+            android:textSize="16sp" />
+    
+    
+    <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/textView2"
+            android:text="00:28"
+            android:textColor="#7f97b3"
+            android:textSize="18sp" 
+            android:visibility="invisible"/>
+   
+    <RelativeLayout
+            android:id="@+id/s_layout"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerHorizontal="true"
+             android:layout_below="@+id/textView3"
+             android:layout_marginTop="0dp"
+             android:background="@drawable/bite_green_circle"
+             android:orientation="vertical"
+             android:gravity="center" >
+              <com.aidigame.hisun.pet.view.BallProgressView
+             android:id="@+id/ballprogressview"
+             android:layout_width="150dp"
+             android:layout_height="150dp"
+             android:layout_centerHorizontal="true"
+             android:background="@drawable/bite_gray_background" />
+               <LinearLayout
+            android:id="@+id/middle_layout"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerHorizontal="true"
+             android:layout_marginTop="10dp"
+             android:background="@drawable/bite_green_circle"
+             android:orientation="vertical"
+             android:gravity="center" >
+              <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bite_start" 
+                android:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0:20/0:30"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="visible"
+                android:layout_marginTop="5dp" />
+
+           
+             
+         </LinearLayout>
+             </RelativeLayout>
+      
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/s_layout"
+            android:layout_marginRight="-20dp"
+            android:layout_toLeftOf="@+id/s_layout"
+            android:src="@drawable/bite_re_record" 
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/s_layout"
+            android:layout_marginLeft="-20dp"
+            android:layout_below="@+id/s_layout"
+            android:src="@drawable/bite_update"
+            android:visibility="visible" />
+
+</RelativeLayout>

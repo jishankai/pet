@@ -3,24 +3,35 @@ package com.aidigame.hisun.pet.adapter;
 import java.util.ArrayList;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 
 import android.content.Context;
 import android.provider.ContactsContract.Contacts.Data;
+import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+/**
+ * 评论列表
+ * @author admin
+ *
+ */
 public class CommentListViewAdapter extends BaseAdapter{
 	Context context;
-	ArrayList<UserImagesJson.Comments> listComment;
-	public CommentListViewAdapter(Context context,ArrayList<UserImagesJson.Comments> listComment){
+	ArrayList<PetPicture.Comments> listComment;
+	ClickUserName clickUserName;
+	public CommentListViewAdapter(Context context,ArrayList<PetPicture.Comments> listComment){
 		this.context=context;
 		this.listComment=listComment;
 	}
-	public void update(ArrayList<UserImagesJson.Comments> listComment){
+	public void update(ArrayList<PetPicture.Comments> listComment){
 		this.listComment=listComment;
 	}
 
@@ -52,20 +63,80 @@ public class CommentListViewAdapter extends BaseAdapter{
 			holder.nameTextView=(TextView)convertView.findViewById(R.id.textView1);
 			holder.body=(TextView)convertView.findViewById(R.id.textView2);
 			holder.time=(TextView)convertView.findViewById(R.id.textView3);
+			holder.layout=(RelativeLayout)convertView.findViewById(R.id.layout);
 			convertView.setTag(holder);
 		}else{
 			holder=(Holder)convertView.getTag();
 		}
-		UserImagesJson.Comments comments=listComment.get(position);
-		holder.nameTextView.setText(""+(comments.name==null?"":comments.name)+":");
+		final PetPicture.Comments comments=listComment.get(position);
+		if(comments.isReply){
+			String[] str=comments.reply_name.split("@");
+			if(str.length>1){
+				String html="<html><body>"
+						+ "<font color=\"#fb6137\">"
+						+""+(comments.name==null?"":comments.name)
+						+ "</font>"
+						+"回复"
+						+ "<font color=\"#fb6137\">"
+						+""+(str[1]==null?"":str[1])
+						+ "</font>"
+						+":"
+						+ "</body></html>";
+				holder.nameTextView.setText(Html.fromHtml(html));
+			}else{
+				String html="<html><body>"
+						+ "<font color=\"#fb6137\">"
+						+""+(comments.name==null?"":comments.name)
+						+ "</font>"
+						+":"
+						+ "</body></html>";
+				holder.nameTextView.setText(Html.fromHtml(html));
+			}
+			
+		}else{
+			String html="<html><body>"
+					+ "<font color=\"#fb6137\">"
+					+""+(comments.name==null?"":comments.name)
+					+ "</font>"
+					+":"
+					+ "</body></html>";
+			holder.nameTextView.setText(Html.fromHtml(html));
+		}
+		
 		holder.body.setText(""+(comments.body==null?"":comments.body));
 		holder.time.setText(""+judgeTime(comments.create_time));
+		
+		holder.nameTextView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(clickUserName!=null){
+					clickUserName.clickUserName(comments);
+				}
+			}
+		});
+//		holder.layout.setClickable(true);
+		/*holder.layout.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				// TODO Auto-generated method stub
+				if(arg1.getAction()==MotionEvent.ACTION_UP){
+					if(clickUserName!=null){
+						clickUserName.clickUserName(comments);
+					}
+				}
+				return true;
+			}
+		});*/
 		return convertView;
 	}
 	class Holder{
 		TextView nameTextView;
 		TextView body;
 		TextView time;
+		RelativeLayout layout;
 	}
 	public String judgeTime(long time2){
 		long time1=System.currentTimeMillis()/1000;
@@ -147,7 +218,19 @@ public class CommentListViewAdapter extends BaseAdapter{
 		}else{
 			sb.append("后");
 		}
-		return sb.toString();
+		if(time<60){
+			return "刚刚";
+		}else{
+			return sb.toString();
+		}
+		
 	}
+	public void setClickUserName(ClickUserName clickUserName){
+		this.clickUserName=clickUserName;
+	}
+	public static interface ClickUserName{
+		void clickUserName(PetPicture.Comments cmt);
+	}
+	
 
 }

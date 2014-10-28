@@ -11,7 +11,7 @@
 	<string name="feather_generic_error_title">错误</string>
 	<string name="feather_save">完成</string>
 	<string name="feather_rotate">旋转</string>
-	<string name="feather_tool_temperature">热情</string>
+	<string name="feather_tool_temperature">色温</string>
 	<string name="feather_view_file">查看图片</string>
 	<string name="feather_colorsplash_free">游离彩色</string>
 	<string name="feather_stickers_dialog_first_time">安装 Aviary 的免费高分辨率精美贴纸包即可开始使用。</string>
@@ -47,7 +47,7 @@
 	<string name="feather_whiten">漂白</string>
 	<string name="feather_adjust">方向</string>
 	<string name="feather_text">文本</string>
-	<string name="feather_borders">帧</string>
+	<string name="feather_borders">边框</string>
 	<string name="feather_attention">注意</string>
 	<string name="feather_edit_bottom_text">编辑底部文本</string>
 	<string name="feather_keep_editing">继续编辑</string>
@@ -80,7 +80,7 @@
 	<string name="feather_revert_dialog_message">您将丢失您所做的所有更改。您确定要恢复到原始图片吗？</string>
 	<string name="feather_apply">应用</string>
 	<string name="feather_red_eye">消除红眼</string>
-	<string name="feather_tool_colorsplash">溅</string>
+	<string name="feather_tool_colorsplash">涂色</string>
 	<string name="feather_saturation">饱和度</string>
 	<string name="feather_tool">工具</string>
 	<string name="feather_remove">删除</string>

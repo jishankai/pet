@@ -1,0 +1,1296 @@
+com.aidigame.hisun.pet.BuildConfig
+com.aidigame.hisun.pet.CrashHandler:
+    public static final java.lang.String TAG
+com.aidigame.hisun.pet.R:
+    10:10:public R()
+com.aidigame.hisun.pet.R$anim
+com.aidigame.hisun.pet.R$array
+com.aidigame.hisun.pet.R$attr
+com.aidigame.hisun.pet.R$color
+com.aidigame.hisun.pet.R$dimen
+com.aidigame.hisun.pet.R$drawable
+com.aidigame.hisun.pet.R$id
+com.aidigame.hisun.pet.R$integer
+com.aidigame.hisun.pet.R$layout
+com.aidigame.hisun.pet.R$menu
+com.aidigame.hisun.pet.R$raw
+com.aidigame.hisun.pet.R$string
+com.aidigame.hisun.pet.R$style
+com.aidigame.hisun.pet.R$styleable:
+    5606:5606:public R$styleable()
+com.aidigame.hisun.pet.adapter.ContributeRankListAdapter$Holder:
+    boolean isFocus
+com.aidigame.hisun.pet.adapter.HomeViewPagerAdapter:
+    19:20:public void update(java.util.ArrayList)
+com.aidigame.hisun.pet.adapter.MenuViewPagerAdapter
+com.aidigame.hisun.pet.adapter.PopularRankListAdapter$Holder:
+    boolean isFocus
+com.aidigame.hisun.pet.adapter.PopularRankListAdapter$MyOnPreeDrawListener
+com.aidigame.hisun.pet.adapter.UserActivityAdapter2$ItemClickListener
+com.aidigame.hisun.pet.adapter.UserFocusAdapter$Holder:
+    android.widget.TextView job
+com.aidigame.hisun.pet.blur.Blur:
+    private static final java.lang.String TAG
+    13:13:public Blur()
+com.aidigame.hisun.pet.blur.ImageUtils
+com.aidigame.hisun.pet.http.HttpUtil:
+    101:101:public HttpUtil()
+    414:452:public static boolean changePlant(android.content.Context,int,android.os.Handler)
+    1362:1401:public static int userShareNumsApi(android.content.Context,android.os.Handler)
+    1974:2022:public static boolean marketList(android.content.Context,int,android.os.Handler)
+    2789:2824:public static com.aidigame.hisun.pet.http.json.UserImagesJson downloadOtherUserHomepage(android.os.Handler,int,com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
+    3466:3529:public static boolean otherUserInfo(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.os.Handler,android.app.Activity)
+    3839:3913:public static java.lang.String downloadIconImage(java.lang.String,java.lang.String,android.os.Handler,android.app.Activity)
+    3986:4017:public static void deleteImage(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
+    4356:4383:public static com.aidigame.hisun.pet.http.json.MessagJson getMailList(int,boolean,android.os.Handler,android.content.Context)
+    4391:4426:public static boolean deleteMail(com.aidigame.hisun.pet.bean.TalkMessage)
+    5002:5052:public static void deleteTalk(android.content.Context,int,android.os.Handler)
+    5525:5531:public static java.lang.String judgeError(int)
+com.aidigame.hisun.pet.http.JsonUtil:
+    10:10:public JsonUtil()
+    13:35:public static boolean getErrorMessage(java.lang.String,android.app.Activity)
+com.aidigame.hisun.pet.http.json.ActivityJson:
+    public int state
+    public java.lang.String version
+    public java.lang.String confVersion
+    public long currentTime
+com.aidigame.hisun.pet.http.json.InfoJson:
+    public int state
+    public int errorCode
+    public java.lang.String errorMessage
+    public java.lang.String version
+    public java.lang.String confVersion
+    public long currentTime
+    public java.util.ArrayList data
+    public com.aidigame.hisun.pet.bean.User user
+    28:28:public InfoJson()
+com.aidigame.hisun.pet.http.json.InfoJson$Data
+com.aidigame.hisun.pet.http.json.MessagJson
+com.aidigame.hisun.pet.http.json.MessagJson$Data
+com.aidigame.hisun.pet.http.json.MessagJson$DataSystem
+com.aidigame.hisun.pet.http.json.UpdateImageJson
+com.aidigame.hisun.pet.http.json.UpdateImageJson$Data
+com.aidigame.hisun.pet.http.json.UserImagesJson$Comments
+com.aidigame.hisun.pet.http.json.UserJson:
+    public int state
+    public java.lang.String version
+    public java.lang.String confVersion
+    public long currentTime
+    public int final_id
+    int mode
+    43:46:public UserJson(java.lang.String,int)
+    52:144:private void parseJson(java.lang.String)
+com.aidigame.hisun.pet.http.json.UserJson$Data
+com.aidigame.hisun.pet.service.BlurImageBroadcastReceiver:
+    public static final java.lang.String BLUR_BITMAP_CHANGED
+com.aidigame.hisun.pet.service.LocationSvc:
+    private static final java.lang.String TAG
+com.aidigame.hisun.pet.ui.AdviceActivity$4:
+    android.widget.Toast toast
+com.aidigame.hisun.pet.ui.AlbumPictureBackground:
+    public static final int MODE_REGISTER
+    public static final int MODE_CHANGE_ICON
+    public static final int MODE_TOPIC
+com.aidigame.hisun.pet.ui.ChoseClassActivity:
+    int race
+    android.widget.ImageView backIV
+    java.lang.String classsName
+    108:112:public void addClassName()
+    172:194:private void choseClass(int)
+    197:208:private void addOtherName()
+    217:230:private void choseRace(int)
+    233:245:private void addCatRaceName()
+    249:261:private void addDogRaceName()
+com.aidigame.hisun.pet.ui.ChoseKingActivity:
+    java.lang.String race
+    java.lang.String style
+    382:526:private void showRaceWindow()
+com.aidigame.hisun.pet.ui.ChoseKingActivity$7:
+    1:411:ChoseKingActivity$7(com.aidigame.hisun.pet.ui.ChoseKingActivity)
+com.aidigame.hisun.pet.ui.ChoseKingActivity$8
+com.aidigame.hisun.pet.ui.ChoseKingActivity$9:
+    1:462:ChoseKingActivity$9(com.aidigame.hisun.pet.ui.ChoseKingActivity,java.lang.String[])
+com.aidigame.hisun.pet.ui.ContributeRankListActivity:
+    int length
+    int itemtH
+    int itemNum
+    public int position
+com.aidigame.hisun.pet.ui.ContributeRankListActivity$People
+com.aidigame.hisun.pet.ui.DetailActivity:
+    java.lang.String[] urls
+    int distance
+    int yDown
+com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity:
+    195:196:public void setDialogGoListener(com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity$DialogGoListener)
+com.aidigame.hisun.pet.ui.DialogNoteActivity:
+    147:148:public void setDialogGoListerer(com.aidigame.hisun.pet.ui.DialogNoteActivity$DialogNoteGoListener)
+com.aidigame.hisun.pet.ui.ModifyPetInfoActivity:
+    public static final int DISMISS_PROGRESS
+    public static final int SHOW_PROGRESS
+    int classs
+com.aidigame.hisun.pet.ui.NewHomeActivity:
+    public static final int HOMEFRAGMENT
+    public static final int MARKETFRAGMENT
+    public static final int MESSAGEFRAGMENT
+    public static final int ACTIVITYFRAGMENT
+    public static final int SETUPFRAGMENT
+com.aidigame.hisun.pet.ui.PetKingdomActivity:
+    android.widget.ImageView takePictureIV
+    998:1022:private void setBlurImageBackground()
+com.aidigame.hisun.pet.ui.PlayJokeActivity:
+    com.aidigame.hisun.pet.bean.User user
+    433:433:public void initView3()
+com.aidigame.hisun.pet.ui.PopularRankListActivity:
+    int length
+    int itemtH
+    int itemNum
+    506:582:private void parseJson(java.lang.String,int)
+com.aidigame.hisun.pet.ui.ShakeActivity:
+    com.aidigame.hisun.pet.bean.User user
+    425:425:public void initView3()
+com.aidigame.hisun.pet.ui.ShowTopicActivity:
+    public static final int DOWNLOAD_IMAGE_TX
+com.aidigame.hisun.pet.ui.SubmitPictureActivity:
+    public static final int DISMISS_PROGRESS
+    public static final int SHOW_PROGRESS
+    public static final int UPLOAD_IMAGE_SUCCESS
+    public static final int UPLOAD_IMAGE_FAILS
+com.aidigame.hisun.pet.ui.TakePictureBackground:
+    public static final int MODE_REGISTER
+    public static final int MODE_CHANGE_ICON
+    public static final int MODE_TOPIC
+    public static final int MODE_ACTIVITY
+com.aidigame.hisun.pet.ui.TouchActivity:
+    android.view.View view4
+com.aidigame.hisun.pet.ui.UserDossierActivity:
+    734:758:private void setBlurImageBackground()
+com.aidigame.hisun.pet.util.DeviceNetInfoUtil:
+    public static final int NET_CONNECTED_LOGIN_IN
+    28:28:public DeviceNetInfoUtil()
+    72:84:public static boolean isNetworkConnected(android.content.Context)
+    93:100:public static boolean isWifiConnected(android.content.Context)
+    108:115:public static boolean isMobileConnected(android.content.Context)
+    123:131:public static int getConnectedType(android.content.Context)
+    139:146:public static java.lang.String getConnectedTypeName(android.content.Context)
+    154:174:public static java.lang.String getIp()
+    182:189:public static java.lang.String getMac(android.content.Context)
+com.aidigame.hisun.pet.util.ImageUtil:
+    31:31:public ImageUtil()
+    39:41:public static android.graphics.Bitmap scaleImage(java.lang.String,int)
+    44:46:public static android.graphics.Bitmap scaleImage(android.graphics.Bitmap,float,float)
+    55:86:public static java.lang.String compressImage(android.graphics.Bitmap,int)
+    121:124:public static android.graphics.Bitmap rotateImage(android.graphics.Bitmap,float)
+    133:140:public static android.graphics.Bitmap scaleImageByView(android.graphics.Bitmap,android.view.View)
+    148:151:public static android.graphics.Bitmap getBitmapFromImageView(android.widget.ImageView)
+    163:194:public static android.graphics.Bitmap addColor(android.graphics.Bitmap,int,int,int,int)
+    201:217:public static void deleteFile(java.lang.String)
+    222:234:public static android.graphics.Bitmap chartlet(android.graphics.Bitmap,int,int,android.graphics.Bitmap)
+    244:444:public static android.graphics.Bitmap fastblur(android.graphics.Bitmap,int)
+    448:452:public static void drawBitmap(android.view.SurfaceHolder,android.graphics.Bitmap)
+    454:459:public static android.graphics.Bitmap getBitmapFromSurfaceView(android.view.SurfaceView)
+com.aidigame.hisun.pet.util.LogUtil:
+    5:5:public LogUtil()
+com.aidigame.hisun.pet.util.StringUtil:
+    47:47:public StringUtil()
+    62:84:public static java.lang.String convert(java.lang.String)
+    93:138:public static java.lang.String revert(java.lang.String)
+    190:207:public static void setImageViaStream(java.lang.String,android.widget.ImageView,android.graphics.BitmapFactory$Options)
+com.aidigame.hisun.pet.util.UiUtil:
+    14:14:public UiUtil()
+com.aidigame.hisun.pet.util.UserStatusUtil:
+    30:30:public UserStatusUtil()
+    157:181:public static boolean isXinlangAuth(android.app.Activity)
+com.aidigame.hisun.pet.widget.AudioRecordAndPlayer:
+    java.lang.String tempFile
+    java.lang.String finalFile
+    android.view.View clickView
+    36:41:public AudioRecordAndPlayer(android.view.View,android.content.Context)
+    53:99:private void initViewListener()
+    116:153:public void startRecord()
+    222:227:public java.lang.String getFinalFile()
+    292:292:public java.lang.String getFilePath()
+    312:343:private void startBufferedWrite(java.io.File)
+com.aidigame.hisun.pet.widget.AudioRecordAndPlayer$1
+com.aidigame.hisun.pet.widget.AudioRecordAndPlayer$2
+com.aidigame.hisun.pet.widget.PLAWaterfull$ContentTask:
+    148:181:public java.util.ArrayList parseNewsJSON(java.lang.String)
+com.aidigame.hisun.pet.widget.PLAWaterfull$StaggeredAdapter$ViewHolder:
+    android.widget.TextView timeView
+com.aidigame.hisun.pet.widget.ShakeSensor:
+    private static final int SHAKE_SPEED
+    private static final int UPDATE_INTERVAL_TIME
+com.aidigame.hisun.pet.widget.ShowDialog:
+    9:9:public ShowDialog()
+com.aidigame.hisun.pet.widget.ShowMore:
+    524:530:public void onlyCanShare()
+com.aidigame.hisun.pet.widget.WeixinShare:
+    34:34:public WeixinShare()
+    37:57:public static boolean getToken()
+    75:98:public static boolean shareText(java.lang.String)
+    106:126:public static void sharePicture(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,int)
+    174:187:public static void shareHttpLink(java.lang.String,java.lang.String)
+    189:202:public static byte[] bmpToByteArray(android.graphics.Bitmap,boolean)
+    206:227:private static android.graphics.Bitmap compressImage(android.graphics.Bitmap)
+com.aidigame.hisun.pet.widget.WeixinShare$1
+com.aidigame.hisun.pet.widget.XinlangShare:
+    37:37:public XinlangShare()
+com.aidigame.hisun.pet.widget.fragment.ActivityFragment:
+    public static final int WHAT_DID_LOAD_DATA
+    public static final int WHAT_DID_REFRESH
+    private static final int WHAT_DID_MORE
+    public static final int LOAD_ACTIVITY_LIST
+    public static final int UPDATE_ADAPTER
+com.aidigame.hisun.pet.widget.fragment.DialogExpGoldConAdd:
+    android.app.AlertDialog alertDialog
+    143:144:public boolean isVisible()
+com.aidigame.hisun.pet.widget.fragment.Function4Fragment
+com.aidigame.hisun.pet.widget.fragment.HomeFragment:
+    android.widget.RelativeLayout relativeLayout1
+    public static final int MESSAGE_DOWNLOAD_IMAGE
+    public static final int UPDATE_WATERFULL
+    public static final int DISMISS_PROGRESS
+    public static final int SHOW_PROGRESS
+    public static final int SHOW_HEADER
+    public static final int SHOW_FOOTER
+    public static final int HIDE_HEADER
+    public static final int HIDE_FOOTER
+    public static final int SHOW_BACKGROUND_CONTROL
+    public static final int HIDE_BACKGROUND_CONTROL
+    245:245:public void setNewWaterFull()
+    1113:1117:public void showBlurImage()
+    1137:1167:public void judgeAcountType()
+    1169:1173:public void setBlurImageBackground()
+com.aidigame.hisun.pet.widget.fragment.KingdomPeoples:
+    436:460:private void setBlurImageBackground()
+com.aidigame.hisun.pet.widget.fragment.KingdomTrends:
+    339:364:private void setBlurImageBackground()
+com.aidigame.hisun.pet.widget.fragment.MenuFragment:
+    public static final int USER_INFO
+com.aidigame.hisun.pet.widget.fragment.MessageFragment:
+    com.aidigame.hisun.pet.http.json.MessagJson json_system
+com.aidigame.hisun.pet.widget.fragment.PetGiftList:
+    float animHeight
+    263:288:private void setBlurImageBackground()
+com.aidigame.hisun.pet.widget.fragment.UserActivity:
+    float animHeight
+    280:280:public android.view.View getView()
+com.aidigame.hisun.pet.widget.fragment.UserFocus:
+    float animHeight
+    325:350:private void setBlurImageBackground()
+com.aidigame.hisun.pet.widget.fragment.UserGiftList:
+    242:267:private void setBlurImageBackground()
+com.aidigame.hisun.pet.widget.fragment.UserKingdomList:
+    289:314:private void setBlurImageBackground()
+com.android.vending.billing.IInAppBillingService$Stub:
+    private static final java.lang.String DESCRIPTOR
+    static final int TRANSACTION_isBillingSupported
+    static final int TRANSACTION_getSkuDetails
+    static final int TRANSACTION_getBuyIntent
+    static final int TRANSACTION_getPurchases
+    static final int TRANSACTION_consumePurchase
+    38:40:public IInAppBillingService$Stub()
+    58:58:public android.os.IBinder asBinder()
+com.android.vending.billing.IInAppBillingService$Stub$Proxy:
+    186:186:public java.lang.String getInterfaceDescriptor()
+com.android.widget.R:
+    9:9:public R()
+com.android.widget.R$color
+com.android.widget.R$drawable:
+    16:16:public R$drawable()
+com.android.widget.R$id:
+    21:21:public R$id()
+com.android.widget.R$layout:
+    31:31:public R$layout()
+com.android.widget.R$string:
+    35:35:public R$string()
+com.dodowaterfall.widget.FlowTag
+com.haarman.listviewanimations.itemmanipulation.ExpandableListItemAdapter$ExpandCollapseHelper:
+    285:285:private ExpandableListItemAdapter$ExpandCollapseHelper()
+com.haarman.listviewanimations.itemmanipulation.SwipeDismissListViewTouchListener:
+    116:117:public void allowSwipe()
+com.huewu.pla.lib.internal.PLA_AbsListView$LayoutParams:
+    2844:2845:public PLA_AbsListView$LayoutParams(int,int)
+com.huewu.pla.lib.internal.PLA_AbsListView$OnScrollListener:
+    public static final int SCROLL_STATE_IDLE
+    public static final int SCROLL_STATE_TOUCH_SCROLL
+    public static final int SCROLL_STATE_FLING
+com.huewu.pla.lib.internal.PLA_AdapterView$AdapterDataSetObserver:
+    836:837:public void clearSavedState()
+com.huewu.pla.lib.internal.PLA_AdapterView$OnItemSelectedListener:
+    public abstract void onItemSelected(com.huewu.pla.lib.internal.PLA_AdapterView,android.view.View,int,long)
+    public abstract void onNothingSelected(com.huewu.pla.lib.internal.PLA_AdapterView)
+com.huewu.pla.sample.PullToRefreshSampleActivity$StaggeredAdapter$ViewHolder:
+    android.widget.TextView timeView
+com.huewu.pla.sample.R:
+    9:9:public R()
+com.huewu.pla.sample.R$attr:
+    10:10:public R$attr()
+com.huewu.pla.sample.R$drawable
+com.huewu.pla.sample.R$id:
+    116:116:public R$id()
+com.huewu.pla.sample.R$layout:
+    189:189:public R$layout()
+com.huewu.pla.sample.R$string:
+    198:198:public R$string()
+com.huewu.pla.sample.R$style
+com.huewu.pla.sample.R$styleable:
+    221:221:public R$styleable()
+com.nineoldandroids.animation.Animator:
+    public abstract long getStartDelay()
+    public abstract void setStartDelay(long)
+    public abstract long getDuration()
+    public abstract void setInterpolator(android.view.animation.Interpolator)
+    183:187:public void removeAllListeners()
+    217:217:public void setupStartValues()
+    229:229:public void setupEndValues()
+    240:240:public void setTarget(java.lang.Object)
+com.nineoldandroids.animation.AnimatorInflater:
+    private static final int AnimatorSet_ordering
+    private static final int PropertyAnimator_propertyName
+    private static final int Animator_interpolator
+    private static final int Animator_duration
+    private static final int Animator_startOffset
+    private static final int Animator_repeatCount
+    private static final int Animator_repeatMode
+    private static final int Animator_valueFrom
+    private static final int Animator_valueTo
+    private static final int Animator_valueType
+    private static final int TOGETHER
+    private static final int VALUE_TYPE_FLOAT
+    42:42:public AnimatorInflater()
+com.nineoldandroids.animation.AnimatorSet:
+    140:151:public void playTogether(java.util.Collection)
+    179:189:public void playSequentially(java.util.List)
+    200:204:public java.util.ArrayList getChildAnimations()
+    216:224:public void setTarget(java.lang.Object)
+    234:237:public void setInterpolator(android.view.animation.Interpolator)
+    378:378:public long getStartDelay()
+    402:402:public long getDuration()
+    429:432:public void setupStartValues()
+    436:439:public void setupEndValues()
+com.nineoldandroids.animation.AnimatorSet$Builder:
+    1084:1092:public com.nineoldandroids.animation.AnimatorSet$Builder after(com.nineoldandroids.animation.Animator)
+    1105:1108:public com.nineoldandroids.animation.AnimatorSet$Builder after(long)
+com.nineoldandroids.animation.AnimatorSet$Dependency:
+    static final int WITH
+    static final int AFTER
+com.nineoldandroids.animation.Keyframe:
+    201:202:public void setFraction(float)
+    232:232:public java.lang.Class getType()
+com.nineoldandroids.animation.KeyframeSet:
+    85:111:public static varargs com.nineoldandroids.animation.KeyframeSet ofKeyframe(com.nineoldandroids.animation.Keyframe[])
+com.nineoldandroids.animation.ObjectAnimator:
+    private static final boolean DBG
+    142:142:public java.lang.String getPropertyName()
+    173:176:private ObjectAnimator(java.lang.Object,com.nineoldandroids.util.Property)
+    193:195:public static varargs com.nineoldandroids.animation.ObjectAnimator ofInt(java.lang.Object,java.lang.String,int[])
+    211:213:public static varargs com.nineoldandroids.animation.ObjectAnimator ofInt(java.lang.Object,com.nineoldandroids.util.Property,int[])
+    250:252:public static varargs com.nineoldandroids.animation.ObjectAnimator ofFloat(java.lang.Object,com.nineoldandroids.util.Property,float[])
+    297:300:public static varargs com.nineoldandroids.animation.ObjectAnimator ofObject(java.lang.Object,com.nineoldandroids.util.Property,com.nineoldandroids.animation.TypeEvaluator,java.lang.Object[])
+    322:325:public static varargs com.nineoldandroids.animation.ObjectAnimator ofPropertyValuesHolder(java.lang.Object,com.nineoldandroids.animation.PropertyValuesHolder[])
+    438:438:public java.lang.Object getTarget()
+    448:457:public void setTarget(java.lang.Object)
+    461:466:public void setupStartValues()
+    470:475:public void setupEndValues()
+com.nineoldandroids.animation.PreHoneycombCompat:
+    167:167:private PreHoneycombCompat()
+com.nineoldandroids.animation.PropertyValuesHolder:
+    250:260:public static varargs com.nineoldandroids.animation.PropertyValuesHolder ofKeyframe(java.lang.String,com.nineoldandroids.animation.Keyframe[])
+    281:291:public static varargs com.nineoldandroids.animation.PropertyValuesHolder ofKeyframe(com.nineoldandroids.util.Property,com.nineoldandroids.animation.Keyframe[])
+    337:344:public varargs void setKeyframes(com.nineoldandroids.animation.Keyframe[])
+    551:565:private void setupValue(java.lang.Object,com.nineoldandroids.animation.Keyframe)
+    576:577:void setupStartValue(java.lang.Object)
+    588:589:void setupEndValue(java.lang.Object)
+com.nineoldandroids.animation.PropertyValuesHolder$FloatPropertyValuesHolder:
+    901:905:public PropertyValuesHolder$FloatPropertyValuesHolder(java.lang.String,com.nineoldandroids.animation.FloatKeyframeSet)
+    908:915:public PropertyValuesHolder$FloatPropertyValuesHolder(com.nineoldandroids.util.Property,com.nineoldandroids.animation.FloatKeyframeSet)
+com.nineoldandroids.animation.PropertyValuesHolder$IntPropertyValuesHolder:
+    765:769:public PropertyValuesHolder$IntPropertyValuesHolder(java.lang.String,com.nineoldandroids.animation.IntKeyframeSet)
+    772:779:public PropertyValuesHolder$IntPropertyValuesHolder(com.nineoldandroids.util.Property,com.nineoldandroids.animation.IntKeyframeSet)
+com.nineoldandroids.animation.TimeAnimator
+com.nineoldandroids.animation.TimeAnimator$TimeListener
+com.nineoldandroids.animation.ValueAnimator:
+    private static final long DEFAULT_FRAME_DELAY
+    static final int ANIMATION_START
+    static final int ANIMATION_FRAME
+    static final int STOPPED
+    static final int RUNNING
+    static final int SEEKED
+    public static final int RESTART
+    public static final int REVERSE
+    public static final int INFINITE
+    329:331:public static varargs com.nineoldandroids.animation.ValueAnimator ofPropertyValuesHolder(com.nineoldandroids.animation.PropertyValuesHolder[])
+    352:355:public static varargs com.nineoldandroids.animation.ValueAnimator ofObject(com.nineoldandroids.animation.TypeEvaluator,java.lang.Object[])
+    476:476:public com.nineoldandroids.animation.PropertyValuesHolder[] getValues()
+    524:524:public long getDuration()
+    692:692:public long getStartDelay()
+    715:715:public static long getFrameDelay()
+    728:729:public static void setFrameDelay(long)
+    762:767:public java.lang.Object getAnimatedValue(java.lang.String)
+    789:789:public int getRepeatCount()
+    809:809:public int getRepeatMode()
+    830:835:public void removeAllUpdateListeners()
+    844:851:public void removeUpdateListener(com.nineoldandroids.animation.ValueAnimator$AnimatorUpdateListener)
+    878:878:public android.view.animation.Interpolator getInterpolator()
+    1009:1018:public void reverse()
+    1239:1239:public static int getCurrentAnimationsCount()
+    1249:1252:public static void clearAllAnimations()
+com.nineoldandroids.util.NoSuchPropertyException
+com.nineoldandroids.util.Property:
+    55:55:public static com.nineoldandroids.util.Property of(java.lang.Class,java.lang.Class,java.lang.String)
+    76:76:public boolean isReadOnly()
+    104:104:public java.lang.Class getType()
+com.nineoldandroids.util.ReflectiveProperty
+com.nineoldandroids.view.ViewHelper:
+    9:9:private ViewHelper()
+    12:12:public static float getAlpha(android.view.View)
+    24:24:public static float getPivotX(android.view.View)
+    28:33:public static void setPivotX(android.view.View,float)
+    36:36:public static float getPivotY(android.view.View)
+    40:45:public static void setPivotY(android.view.View,float)
+    48:48:public static float getRotation(android.view.View)
+    52:57:public static void setRotation(android.view.View,float)
+    60:60:public static float getRotationX(android.view.View)
+    64:69:public static void setRotationX(android.view.View,float)
+    72:72:public static float getRotationY(android.view.View)
+    76:81:public static void setRotationY(android.view.View,float)
+    84:84:public static float getScaleX(android.view.View)
+    88:93:public static void setScaleX(android.view.View,float)
+    96:96:public static float getScaleY(android.view.View)
+    100:105:public static void setScaleY(android.view.View,float)
+    108:108:public static float getScrollX(android.view.View)
+    112:117:public static void setScrollX(android.view.View,int)
+    120:120:public static float getScrollY(android.view.View)
+    124:129:public static void setScrollY(android.view.View,int)
+    132:132:public static float getTranslationX(android.view.View)
+    144:144:public static float getTranslationY(android.view.View)
+    156:156:public static float getX(android.view.View)
+    160:165:public static void setX(android.view.View,float)
+    168:168:public static float getY(android.view.View)
+    172:177:public static void setY(android.view.View,float)
+com.nineoldandroids.view.ViewHelper$Honeycomb:
+    179:179:private ViewHelper$Honeycomb()
+    181:181:static float getAlpha(android.view.View)
+    189:189:static float getPivotX(android.view.View)
+    193:194:static void setPivotX(android.view.View,float)
+    197:197:static float getPivotY(android.view.View)
+    201:202:static void setPivotY(android.view.View,float)
+    205:205:static float getRotation(android.view.View)
+    209:210:static void setRotation(android.view.View,float)
+    213:213:static float getRotationX(android.view.View)
+    217:218:static void setRotationX(android.view.View,float)
+    221:221:static float getRotationY(android.view.View)
+    225:226:static void setRotationY(android.view.View,float)
+    229:229:static float getScaleX(android.view.View)
+    233:234:static void setScaleX(android.view.View,float)
+    237:237:static float getScaleY(android.view.View)
+    241:242:static void setScaleY(android.view.View,float)
+    245:245:static float getScrollX(android.view.View)
+    249:250:static void setScrollX(android.view.View,int)
+    253:253:static float getScrollY(android.view.View)
+    257:258:static void setScrollY(android.view.View,int)
+    261:261:static float getTranslationX(android.view.View)
+    269:269:static float getTranslationY(android.view.View)
+    277:277:static float getX(android.view.View)
+    281:282:static void setX(android.view.View,float)
+    285:285:static float getY(android.view.View)
+    289:290:static void setY(android.view.View,float)
+com.nineoldandroids.view.ViewPropertyAnimator:
+    public abstract long getDuration()
+    public abstract long getStartDelay()
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator setStartDelay(long)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator setInterpolator(android.view.animation.Interpolator)
+    public abstract void start()
+    public abstract void cancel()
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator x(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator xBy(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator y(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator yBy(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator rotation(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator rotationBy(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator rotationX(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator rotationXBy(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator rotationY(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator rotationYBy(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator translationXBy(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator translationY(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator translationYBy(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator scaleX(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator scaleXBy(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator scaleY(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator scaleYBy(float)
+    public abstract com.nineoldandroids.view.ViewPropertyAnimator alphaBy(float)
+com.nineoldandroids.view.ViewPropertyAnimatorHC:
+    private static final int NONE
+    private static final int TRANSLATION_X
+    private static final int TRANSLATION_Y
+    private static final int SCALE_X
+    private static final int SCALE_Y
+    private static final int ROTATION
+    private static final int ROTATION_X
+    private static final int ROTATION_Y
+    private static final int X
+    private static final int Y
+    private static final int ALPHA
+    private static final int TRANSFORM_MASK
+    237:242:public long getDuration()
+    248:253:public long getStartDelay()
+    259:265:public com.nineoldandroids.view.ViewPropertyAnimator setStartDelay(long)
+    270:272:public com.nineoldandroids.view.ViewPropertyAnimator setInterpolator(android.view.animation.Interpolator)
+    283:284:public void start()
+    288:301:public void cancel()
+    305:306:public com.nineoldandroids.view.ViewPropertyAnimator x(float)
+    311:312:public com.nineoldandroids.view.ViewPropertyAnimator xBy(float)
+    317:318:public com.nineoldandroids.view.ViewPropertyAnimator y(float)
+    323:324:public com.nineoldandroids.view.ViewPropertyAnimator yBy(float)
+    329:330:public com.nineoldandroids.view.ViewPropertyAnimator rotation(float)
+    335:336:public com.nineoldandroids.view.ViewPropertyAnimator rotationBy(float)
+    341:342:public com.nineoldandroids.view.ViewPropertyAnimator rotationX(float)
+    347:348:public com.nineoldandroids.view.ViewPropertyAnimator rotationXBy(float)
+    353:354:public com.nineoldandroids.view.ViewPropertyAnimator rotationY(float)
+    359:360:public com.nineoldandroids.view.ViewPropertyAnimator rotationYBy(float)
+    371:372:public com.nineoldandroids.view.ViewPropertyAnimator translationXBy(float)
+    377:378:public com.nineoldandroids.view.ViewPropertyAnimator translationY(float)
+    383:384:public com.nineoldandroids.view.ViewPropertyAnimator translationYBy(float)
+    389:390:public com.nineoldandroids.view.ViewPropertyAnimator scaleX(float)
+    395:396:public com.nineoldandroids.view.ViewPropertyAnimator scaleXBy(float)
+    401:402:public com.nineoldandroids.view.ViewPropertyAnimator scaleY(float)
+    407:408:public com.nineoldandroids.view.ViewPropertyAnimator scaleYBy(float)
+    419:420:public com.nineoldandroids.view.ViewPropertyAnimator alphaBy(float)
+    481:483:private void animatePropertyBy(int,float)
+com.nineoldandroids.view.ViewPropertyAnimatorICS:
+    private static final long RETURN_WHEN_NULL
+    36:40:public long getDuration()
+    45:49:public com.nineoldandroids.view.ViewPropertyAnimator setStartDelay(long)
+    54:58:public long getStartDelay()
+    63:67:public com.nineoldandroids.view.ViewPropertyAnimator setInterpolator(android.view.animation.Interpolator)
+    105:109:public void start()
+    113:117:public void cancel()
+    121:125:public com.nineoldandroids.view.ViewPropertyAnimator x(float)
+    130:134:public com.nineoldandroids.view.ViewPropertyAnimator xBy(float)
+    139:143:public com.nineoldandroids.view.ViewPropertyAnimator y(float)
+    148:152:public com.nineoldandroids.view.ViewPropertyAnimator yBy(float)
+    157:161:public com.nineoldandroids.view.ViewPropertyAnimator rotation(float)
+    166:170:public com.nineoldandroids.view.ViewPropertyAnimator rotationBy(float)
+    175:179:public com.nineoldandroids.view.ViewPropertyAnimator rotationX(float)
+    184:188:public com.nineoldandroids.view.ViewPropertyAnimator rotationXBy(float)
+    193:197:public com.nineoldandroids.view.ViewPropertyAnimator rotationY(float)
+    202:206:public com.nineoldandroids.view.ViewPropertyAnimator rotationYBy(float)
+    220:224:public com.nineoldandroids.view.ViewPropertyAnimator translationXBy(float)
+    229:233:public com.nineoldandroids.view.ViewPropertyAnimator translationY(float)
+    238:242:public com.nineoldandroids.view.ViewPropertyAnimator translationYBy(float)
+    247:251:public com.nineoldandroids.view.ViewPropertyAnimator scaleX(float)
+    256:260:public com.nineoldandroids.view.ViewPropertyAnimator scaleXBy(float)
+    265:269:public com.nineoldandroids.view.ViewPropertyAnimator scaleY(float)
+    274:278:public com.nineoldandroids.view.ViewPropertyAnimator scaleYBy(float)
+    292:296:public com.nineoldandroids.view.ViewPropertyAnimator alphaBy(float)
+com.nineoldandroids.view.ViewPropertyAnimatorPreHC:
+    private static final int NONE
+    private static final int TRANSLATION_X
+    private static final int TRANSLATION_Y
+    private static final int SCALE_X
+    private static final int SCALE_Y
+    private static final int ROTATION
+    private static final int ROTATION_X
+    private static final int ROTATION_Y
+    private static final int X
+    private static final int Y
+    private static final int ALPHA
+    private static final int TRANSFORM_MASK
+    244:249:public long getDuration()
+    255:260:public long getStartDelay()
+    266:272:public com.nineoldandroids.view.ViewPropertyAnimator setStartDelay(long)
+    277:279:public com.nineoldandroids.view.ViewPropertyAnimator setInterpolator(android.view.animation.Interpolator)
+    290:291:public void start()
+    295:308:public void cancel()
+    312:313:public com.nineoldandroids.view.ViewPropertyAnimator x(float)
+    318:319:public com.nineoldandroids.view.ViewPropertyAnimator xBy(float)
+    324:325:public com.nineoldandroids.view.ViewPropertyAnimator y(float)
+    330:331:public com.nineoldandroids.view.ViewPropertyAnimator yBy(float)
+    336:337:public com.nineoldandroids.view.ViewPropertyAnimator rotation(float)
+    342:343:public com.nineoldandroids.view.ViewPropertyAnimator rotationBy(float)
+    348:349:public com.nineoldandroids.view.ViewPropertyAnimator rotationX(float)
+    354:355:public com.nineoldandroids.view.ViewPropertyAnimator rotationXBy(float)
+    360:361:public com.nineoldandroids.view.ViewPropertyAnimator rotationY(float)
+    366:367:public com.nineoldandroids.view.ViewPropertyAnimator rotationYBy(float)
+    378:379:public com.nineoldandroids.view.ViewPropertyAnimator translationXBy(float)
+    384:385:public com.nineoldandroids.view.ViewPropertyAnimator translationY(float)
+    390:391:public com.nineoldandroids.view.ViewPropertyAnimator translationYBy(float)
+    396:397:public com.nineoldandroids.view.ViewPropertyAnimator scaleX(float)
+    402:403:public com.nineoldandroids.view.ViewPropertyAnimator scaleXBy(float)
+    408:409:public com.nineoldandroids.view.ViewPropertyAnimator scaleY(float)
+    414:415:public com.nineoldandroids.view.ViewPropertyAnimator scaleYBy(float)
+    426:427:public com.nineoldandroids.view.ViewPropertyAnimator alphaBy(float)
+    488:490:private void animatePropertyBy(int,float)
+com.nostra13.universalimageloader.cache.disc.BaseDiscCache:
+    private static final java.lang.String ERROR_ARG_NULL
+    40:41:public BaseDiscCache(java.io.File)
+com.nostra13.universalimageloader.cache.disc.LimitedDiscCache:
+    private static final int INVALID_SIZE
+    55:56:public LimitedDiscCache(java.io.File,int)
+com.nostra13.universalimageloader.cache.disc.impl.FileCountLimitedDiscCache:
+    40:41:public FileCountLimitedDiscCache(java.io.File,int)
+com.nostra13.universalimageloader.cache.disc.impl.LimitedAgeDiscCache
+com.nostra13.universalimageloader.cache.disc.impl.TotalSizeLimitedDiscCache:
+    private static final int MIN_NORMAL_CACHE_SIZE_IN_MB
+    private static final int MIN_NORMAL_CACHE_SIZE
+com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator
+com.nostra13.universalimageloader.cache.memory.BaseMemoryCache
+com.nostra13.universalimageloader.cache.memory.LimitedMemoryCache
+com.nostra13.universalimageloader.cache.memory.impl.FIFOLimitedMemoryCache
+com.nostra13.universalimageloader.cache.memory.impl.LRULimitedMemoryCache
+com.nostra13.universalimageloader.cache.memory.impl.LargestLimitedMemoryCache
+com.nostra13.universalimageloader.cache.memory.impl.LimitedAgeMemoryCache
+com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache
+com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache
+com.nostra13.universalimageloader.utils.DiscCacheUtils
+com.nostra13.universalimageloader.utils.ImageSizeUtils:
+    private static final int DEFAULT_MAX_BITMAP_DIMENSION
+    45:46:private ImageSizeUtils()
+com.nostra13.universalimageloader.utils.IoUtils:
+    public static final int DEFAULT_BUFFER_SIZE
+    public static final int CONTINUE_LOADING_PERCENTAGE
+    36:37:private IoUtils()
+com.nostra13.universalimageloader.utils.L:
+    private static final java.lang.String LOG_FORMAT
+    32:33:private L()
+    37:38:public static void enableLogging()
+    42:43:public static void disableLogging()
+    66:67:public static varargs void e(java.lang.Throwable,java.lang.String,java.lang.Object[])
+com.nostra13.universalimageloader.utils.MemoryCacheUtils:
+    private static final java.lang.String URI_AND_SIZE_SEPARATOR
+    private static final java.lang.String WIDTH_AND_HEIGHT_SEPARATOR
+    38:39:private MemoryCacheUtils()
+    67:73:public static java.util.List findCachedBitmapsForImageUri(java.lang.String,com.nostra13.universalimageloader.cache.memory.MemoryCacheAware)
+    83:89:public static java.util.List findCacheKeysForImageUri(java.lang.String,com.nostra13.universalimageloader.cache.memory.MemoryCacheAware)
+    99:108:public static void removeFromCache(java.lang.String,com.nostra13.universalimageloader.cache.memory.MemoryCacheAware)
+com.nostra13.universalimageloader.utils.StorageUtils:
+    private static final java.lang.String EXTERNAL_STORAGE_PERMISSION
+    private static final java.lang.String INDIVIDUAL_DIR_NAME
+    38:39:private StorageUtils()
+com.sina.sso.RemoteSSO$Stub:
+    private static final java.lang.String DESCRIPTOR
+    static final int TRANSACTION_getPackageName
+    static final int TRANSACTION_getActivityName
+    static final int TRANSACTION_getLoginUserName
+    13:16:public RemoteSSO$Stub()
+    34:34:public android.os.IBinder asBinder()
+com.sina.sso.RemoteSSO$Stub$Proxy:
+    85:85:public java.lang.String getInterfaceDescriptor()
+com.squareup.okhttp.Address:
+    72:72:public int getUriPort()
+    88:88:public javax.net.ssl.HostnameVerifier getHostnameVerifier()
+    96:96:public com.squareup.okhttp.OkAuthenticator getAuthenticator()
+    104:104:public java.util.List getTransports()
+com.squareup.okhttp.Connection:
+    274:274:public com.squareup.okhttp.internal.spdy.SpdyConnection getSpdyConnection()
+com.squareup.okhttp.ConnectionPool:
+    private static final int MAX_CONNECTIONS_TO_CLEANUP
+    private static final long DEFAULT_KEEP_ALIVE_DURATION_MS
+    130:133:java.util.List getConnections()
+    142:149:private void waitForCleanupCallableToRun()
+    157:157:public synchronized int getConnectionCount()
+    162:166:public synchronized int getSpdyConnectionCount()
+    171:175:public synchronized int getHttpConnectionCount()
+    265:273:public void evictAll()
+com.squareup.okhttp.Dispatcher:
+    37:45:public synchronized void enqueue(java.net.HttpURLConnection,com.squareup.okhttp.Request,com.squareup.okhttp.Response$Receiver)
+    48:53:public synchronized void cancel(java.lang.Object)
+com.squareup.okhttp.Dispatcher$RealResponseBody:
+    70:70:public java.lang.String contentType()
+    74:74:public long contentLength()
+    78:78:public java.io.InputStream byteStream()
+com.squareup.okhttp.Failure:
+    34:34:public com.squareup.okhttp.Request request()
+    38:38:public java.lang.Throwable exception()
+com.squareup.okhttp.HttpResponseCache:
+    private static final int VERSION
+    private static final int ENTRY_METADATA
+    private static final int ENTRY_BODY
+    private static final int ENTRY_COUNT
+    338:339:public void delete()
+    342:342:public synchronized int getWriteAbortCount()
+    346:346:public synchronized int getWriteSuccessCount()
+    350:350:public long getSize()
+    354:354:public long getMaxSize()
+    358:359:public void flush()
+    362:363:public void close()
+    366:366:public java.io.File getDirectory()
+    370:370:public boolean isClosed()
+    392:392:public synchronized int getNetworkCount()
+    396:396:public synchronized int getHitCount()
+    400:400:public synchronized int getRequestCount()
+com.squareup.okhttp.MediaType
+com.squareup.okhttp.OkHttpClient:
+    125:126:public com.squareup.okhttp.OkHttpClient setProxy(java.net.Proxy)
+    143:144:public com.squareup.okhttp.OkHttpClient setProxySelector(java.net.ProxySelector)
+    159:160:public com.squareup.okhttp.OkHttpClient setCookieHandler(java.net.CookieHandler)
+    179:179:public java.net.ResponseCache getResponseCache()
+    231:232:public com.squareup.okhttp.OkHttpClient setAuthenticator(com.squareup.okhttp.OkAuthenticator)
+    246:247:public com.squareup.okhttp.OkHttpClient setConnectionPool(com.squareup.okhttp.ConnectionPool)
+    262:263:public com.squareup.okhttp.OkHttpClient setFollowProtocolRedirects(boolean)
+    327:328:void enqueue(com.squareup.okhttp.Request,com.squareup.okhttp.Response$Receiver)
+    335:336:public void cancel(java.lang.Object)
+com.squareup.okhttp.Request:
+    private final java.net.URL url
+    private final java.lang.String method
+    45:51:private Request(com.squareup.okhttp.Request$Builder)
+    54:54:public java.net.URL url()
+    58:58:public java.lang.String urlString()
+    62:62:public java.lang.String method()
+    66:66:public java.lang.String header(java.lang.String)
+    70:70:public java.util.List headers(java.lang.String)
+    74:74:public java.util.Set headerNames()
+    38:38:synthetic Request(com.squareup.okhttp.Request$Builder,com.squareup.okhttp.Request$1)
+com.squareup.okhttp.Request$1
+com.squareup.okhttp.Request$Body:
+    97:97:public Request$Body()
+    103:103:public com.squareup.okhttp.MediaType contentType()
+    119:126:public static com.squareup.okhttp.Request$Body create(com.squareup.okhttp.MediaType,java.lang.String)
+    132:135:public static com.squareup.okhttp.Request$Body create(com.squareup.okhttp.MediaType,byte[])
+    152:155:public static com.squareup.okhttp.Request$Body create(com.squareup.okhttp.MediaType,java.io.File)
+com.squareup.okhttp.Request$Body$1
+com.squareup.okhttp.Request$Body$2
+com.squareup.okhttp.Request$Builder
+com.squareup.okhttp.Response:
+    64:64:public com.squareup.okhttp.Request request()
+    68:68:public int code()
+    72:72:public java.lang.String header(java.lang.String)
+    76:77:public java.lang.String header(java.lang.String,java.lang.String)
+    81:81:public java.util.List headers(java.lang.String)
+    85:85:public java.util.Set headerNames()
+    89:89:public int headerCount()
+    93:93:public java.lang.String headerName(int)
+    97:97:public java.lang.String headerValue(int)
+    101:101:public com.squareup.okhttp.Response$Body body()
+    111:111:public com.squareup.okhttp.Response redirectedBy()
+com.squareup.okhttp.Response$Body:
+    116:116:public java.lang.String contentType()
+    120:120:public long contentLength()
+    public abstract java.io.InputStream byteStream()
+    126:141:public byte[] bytes()
+    151:151:public java.io.Reader charStream()
+    160:160:public java.lang.String string()
+com.squareup.okhttp.Response$Builder:
+    188:189:public com.squareup.okhttp.Response$Builder header(java.lang.String,java.lang.String)
+    207:208:public com.squareup.okhttp.Response$Builder redirectedBy(com.squareup.okhttp.Response)
+com.squareup.okhttp.Route:
+    59:59:public java.net.InetSocketAddress getSocketAddress()
+    64:64:public boolean isModernTls()
+com.squareup.okhttp.RouteDatabase:
+    55:55:public synchronized int failedRoutesCount()
+com.squareup.okhttp.internal.Base64:
+    33:34:private Base64()
+com.squareup.okhttp.internal.DiskLruCache:
+    static final java.lang.String JOURNAL_FILE
+    static final java.lang.String JOURNAL_FILE_TEMP
+    static final java.lang.String JOURNAL_FILE_BACKUP
+    static final java.lang.String MAGIC
+    static final java.lang.String VERSION_1
+    static final long ANY_SEQUENCE_NUMBER
+    private static final java.lang.String CLEAN
+    private static final java.lang.String DIRTY
+    private static final java.lang.String REMOVE
+    private static final java.lang.String READ
+    475:475:public java.io.File getDirectory()
+    483:483:public long getMaxSize()
+    491:493:public synchronized void setMaxSize(long)
+    501:501:public synchronized long size()
+    605:605:public boolean isClosed()
+    616:619:public synchronized void flush()
+    661:661:private static java.lang.String inputStreamToString(java.io.InputStream)
+    88:88:static synthetic java.lang.String access$1700(java.io.InputStream)
+com.squareup.okhttp.internal.DiskLruCache$Editor:
+    733:745:public java.io.InputStream newInputStream(int)
+    753:754:public java.lang.String getString(int)
+    792:799:public void set(int,java.lang.String)
+    824:830:public void abortUnlessCommitted()
+com.squareup.okhttp.internal.DiskLruCache$Snapshot:
+    694:694:public java.lang.String getString(int)
+    699:699:public long getLength(int)
+com.squareup.okhttp.internal.FaultRecoveringOutputStream
+com.squareup.okhttp.internal.StrictLineReader:
+    private static final byte CR
+    private static final byte LF
+com.squareup.okhttp.internal.Util:
+    53:54:private Util()
+    85:96:public static void pokeInt(byte[],int,int,java.nio.ByteOrder)
+    123:131:public static void closeQuietly(java.net.Socket)
+    235:243:public static java.lang.String readFully(java.io.Reader)
+    297:304:public static int copy(java.io.InputStream,java.io.OutputStream)
+com.squareup.okhttp.internal.http.HeaderParser:
+    110:111:private HeaderParser()
+com.squareup.okhttp.internal.http.HttpAuthenticator:
+    74:75:private HttpAuthenticator()
+com.squareup.okhttp.internal.http.HttpDate:
+    86:87:private HttpDate()
+com.squareup.okhttp.internal.http.HttpEngine:
+    public static final int HTTP_CONTINUE
+com.squareup.okhttp.internal.http.HttpTransport:
+    private static final int DISCARD_STREAM_TIMEOUT_MILLIS
+    public static final int DEFAULT_CHUNK_LENGTH
+com.squareup.okhttp.internal.http.HttpTransport$ChunkedInputStream:
+    private static final int NO_CHUNK_YET
+com.squareup.okhttp.internal.http.HttpURLConnectionImpl:
+    static final int HTTP_TEMP_REDIRECT
+    private static final int MAX_REDIRECTS
+com.squareup.okhttp.internal.http.RawHeaders:
+    237:241:public java.util.Set names()
+    265:272:public java.util.List values(java.lang.String)
+com.squareup.okhttp.internal.http.RequestHeaders:
+    129:129:public java.net.URI getUri()
+    165:165:public java.lang.String getTransferEncoding()
+    189:189:public java.lang.String getIfModifiedSince()
+    193:193:public java.lang.String getIfNoneMatch()
+com.squareup.okhttp.internal.http.ResponseHeaders:
+    211:211:public java.net.URI getUri()
+    219:219:public java.util.Date getServedDate()
+    223:223:public java.util.Date getLastModified()
+    227:227:public java.util.Date getExpires()
+    231:231:public boolean isNoCache()
+    235:235:public boolean isNoStore()
+    239:239:public int getMaxAgeSeconds()
+    243:243:public int getSMaxAgeSeconds()
+    247:247:public boolean isPublic()
+    251:251:public boolean isMustRevalidate()
+    255:255:public java.lang.String getEtag()
+    263:263:public java.lang.String getContentEncoding()
+    271:271:public java.lang.String getConnection()
+com.squareup.okhttp.internal.http.RouteSelector:
+    private static final int TLS_MODE_MODERN
+    private static final int TLS_MODE_COMPATIBLE
+    private static final int TLS_MODE_NULL
+com.squareup.okhttp.internal.spdy.FrameWriter:
+    public abstract void synReply(boolean,int,java.util.List)
+    public abstract void headers(int,java.util.List)
+    public abstract void data(boolean,int,byte[])
+    public abstract void settings(com.squareup.okhttp.internal.spdy.Settings)
+    public abstract void noop()
+com.squareup.okhttp.internal.spdy.Http20Draft04:
+    static final int TYPE_DATA
+    static final int TYPE_HEADERS
+    static final int TYPE_PRIORITY
+    static final int TYPE_RST_STREAM
+    static final int TYPE_SETTINGS
+    static final int TYPE_PUSH_PROMISE
+    static final int TYPE_PING
+    static final int TYPE_GOAWAY
+    static final int TYPE_WINDOW_UPDATE
+    static final int FLAG_END_STREAM
+    static final int FLAG_END_HEADERS
+    static final int FLAG_PRIORITY
+    static final int FLAG_PONG
+    static final int FLAG_END_FLOW_CONTROL
+com.squareup.okhttp.internal.spdy.Http20Draft04$Writer:
+    222:222:public synchronized void synReply(boolean,int,java.util.List)
+    227:227:public synchronized void headers(int,java.util.List)
+    236:237:public void data(boolean,int,byte[])
+    245:245:public synchronized void settings(com.squareup.okhttp.internal.spdy.Settings)
+    249:249:public synchronized void noop()
+com.squareup.okhttp.internal.spdy.Ping:
+    55:56:public long roundTripTime()
+    65:68:public long roundTripTime(long,java.util.concurrent.TimeUnit)
+com.squareup.okhttp.internal.spdy.Settings:
+    static final int DEFAULT_INITIAL_WINDOW_SIZE
+    static final int FLAG_CLEAR_PREVIOUSLY_PERSISTED_SETTINGS
+    static final int PERSIST_VALUE
+    static final int PERSISTED
+    static final int UPLOAD_BANDWIDTH
+    static final int DOWNLOAD_BANDWIDTH
+    static final int ROUND_TRIP_TIME
+    static final int MAX_CONCURRENT_STREAMS
+    static final int CURRENT_CWND
+    static final int DOWNLOAD_RETRANS_RATE
+    static final int INITIAL_WINDOW_SIZE
+    static final int CLIENT_CERTIFICATE_VECTOR_SIZE
+    static final int FLOW_CONTROL_OPTIONS
+    static final int COUNT
+    static final int FLOW_CONTROL_OPTIONS_DISABLED
+    112:112:int size()
+    116:117:int getUploadBandwidth(int)
+    121:122:int getDownloadBandwidth(int)
+    126:127:int getRoundTripTime(int)
+    131:132:int getMaxConcurrentStreams(int)
+    136:137:int getCurrentCwnd(int)
+    141:142:int getDownloadRetransRate(int)
+    151:152:int getClientCertificateVectorSize(int)
+    157:159:boolean isFlowControlDisabled()
+com.squareup.okhttp.internal.spdy.Spdy3:
+    static final int TYPE_DATA
+    static final int TYPE_SYN_STREAM
+    static final int TYPE_SYN_REPLY
+    static final int TYPE_RST_STREAM
+    static final int TYPE_SETTINGS
+    static final int TYPE_NOOP
+    static final int TYPE_PING
+    static final int TYPE_GOAWAY
+    static final int TYPE_HEADERS
+    static final int TYPE_WINDOW_UPDATE
+    static final int TYPE_CREDENTIAL
+    static final int FLAG_FIN
+    static final int FLAG_UNIDIRECTIONAL
+    static final int VERSION
+com.squareup.okhttp.internal.spdy.Spdy3$Writer:
+    404:414:public synchronized void synReply(boolean,int,java.util.List)
+    418:428:public synchronized void headers(int,java.util.List)
+    445:446:public synchronized void data(boolean,int,byte[])
+    468:482:public synchronized void settings(com.squareup.okhttp.internal.spdy.Settings)
+    485:491:public synchronized void noop()
+com.squareup.okhttp.internal.spdy.SpdyConnection:
+    109:109:public synchronized int openStreamCount()
+    180:181:void writeSynReply(int,boolean,java.util.List)
+    223:235:public com.squareup.okhttp.internal.spdy.Ping ping()
+    265:266:public void noop()
+com.squareup.okhttp.internal.spdy.SpdyConnection$Builder:
+    371:372:public SpdyConnection$Builder(boolean,java.net.Socket)
+    375:376:public SpdyConnection$Builder(boolean,java.io.InputStream,java.io.OutputStream)
+    383:384:public SpdyConnection$Builder(java.lang.String,boolean,java.net.Socket)
+    398:399:public com.squareup.okhttp.internal.spdy.SpdyConnection$Builder handler(com.squareup.okhttp.internal.spdy.IncomingStreamHandler)
+    403:404:public com.squareup.okhttp.internal.spdy.SpdyConnection$Builder spdy3()
+    408:409:public com.squareup.okhttp.internal.spdy.SpdyConnection$Builder http20Draft04()
+com.squareup.okhttp.internal.spdy.SpdyStream:
+    public static final int WINDOW_UPDATE_THRESHOLD
+    109:109:public com.squareup.okhttp.internal.spdy.SpdyConnection getConnection()
+    113:113:public java.util.List getRequestHeaders()
+    141:141:public synchronized com.squareup.okhttp.internal.spdy.ErrorCode getErrorCode()
+    151:170:public void reply(java.util.List,boolean)
+    181:181:public long getReadTimeoutMillis()
+    327:327:int getPriority()
+    331:331:int getSlot()
+com.squareup.okhttp.internal.tls.OkHostnameVerifier:
+    private static final int ALT_DNS_NAME
+    private static final int ALT_IPA_NAME
+com.squareup.picasso.Cache:
+    public abstract int size()
+    public abstract int maxSize()
+    public abstract void clear()
+com.squareup.picasso.Cache$1:
+    54:54:public int size()
+    58:58:public int maxSize()
+    62:62:public void clear()
+com.squareup.picasso.Callback$EmptyCallback
+com.squareup.picasso.ContactsPhotoBitmapHunter$ContactPhotoStreamIcs:
+    92:92:private ContactsPhotoBitmapHunter$ContactPhotoStreamIcs()
+com.squareup.picasso.DeferredRequestCreator:
+    30:31:DeferredRequestCreator(com.squareup.picasso.RequestCreator,android.widget.ImageView)
+com.squareup.picasso.Dispatcher:
+    private static final int RETRY_DELAY
+    private static final int AIRPLANE_MODE_ON
+    private static final int AIRPLANE_MODE_OFF
+    static final int REQUEST_SUBMIT
+    static final int REQUEST_CANCEL
+    static final int REQUEST_GCED
+    static final int HUNTER_COMPLETE
+    static final int HUNTER_RETRY
+    static final int HUNTER_DECODE_FAILED
+    static final int HUNTER_DELAY_NEXT_BATCH
+    static final int REQUEST_BATCH_COMPLETE
+    static final int REQUEST_COMPLETE
+    static final int NETWORK_STATE_CHANGE
+    static final int AIRPLANE_MODE_CHANGE
+    private static final java.lang.String DISPATCHER_THREAD_NAME
+    private static final int BATCH_DELAY
+    private static final boolean USE_BATCH
+    99:102:void shutdown()
+com.squareup.picasso.Dispatcher$NetworkBroadcastReceiver:
+    private static final java.lang.String EXTRA_AIRPLANE_STATE
+    303:304:void unregister()
+com.squareup.picasso.Downloader$Response:
+    50:57:public Downloader$Response(android.graphics.Bitmap,boolean)
+com.squareup.picasso.FetchAction
+com.squareup.picasso.GetAction
+com.squareup.picasso.LruCache:
+    125:125:public final synchronized int size()
+    130:130:public final synchronized int maxSize()
+    140:140:public final synchronized int hitCount()
+    145:145:public final synchronized int missCount()
+    150:150:public final synchronized int putCount()
+    155:155:public final synchronized int evictionCount()
+com.squareup.picasso.OkHttpDownloader:
+    static final java.lang.String RESPONSE_SOURCE_ANDROID
+    static final java.lang.String RESPONSE_SOURCE_OKHTTP
+    61:62:public OkHttpDownloader(android.content.Context,long)
+    95:95:protected com.squareup.okhttp.OkHttpClient getClient()
+com.squareup.picasso.Picasso:
+    public static final java.lang.String LOG_TAG
+    public static final java.lang.String SCHEME_CUSTOM
+    164:165:public void cancelRequest(com.squareup.picasso.Target)
+    232:235:public com.squareup.picasso.RequestCreator load(int)
+    240:240:public boolean isDebugging()
+    245:246:public void setDebugging(boolean)
+    250:253:public com.squareup.picasso.StatsSnapshot getSnapshot()
+    257:258:public void clearCache()
+    266:281:public void shutdown()
+com.squareup.picasso.Picasso$Builder:
+    450:457:public com.squareup.picasso.Picasso$Builder downloader(com.squareup.picasso.Downloader)
+    462:469:public com.squareup.picasso.Picasso$Builder executor(java.util.concurrent.ExecutorService)
+    474:481:public com.squareup.picasso.Picasso$Builder memoryCache(com.squareup.picasso.Cache)
+    486:493:public com.squareup.picasso.Picasso$Builder listener(com.squareup.picasso.Picasso$Listener)
+    503:510:public com.squareup.picasso.Picasso$Builder requestTransformer(com.squareup.picasso.Picasso$RequestTransformer)
+    515:516:public com.squareup.picasso.Picasso$Builder debugging(boolean)
+com.squareup.picasso.PicassoExecutorService:
+    private static final int CORE_POOL_SIZE
+    private static final int MAX_CORE_POOL_SIZE
+com.squareup.picasso.Request:
+    127:127:public com.squareup.picasso.Request$Builder buildUpon()
+com.squareup.picasso.Request$Builder:
+    149:151:public Request$Builder(android.net.Uri)
+    154:156:public Request$Builder(int)
+    163:179:private Request$Builder(com.squareup.picasso.Request)
+    195:200:public com.squareup.picasso.Request$Builder setUri(android.net.Uri)
+    204:205:public com.squareup.picasso.Request$Builder useOptions(android.graphics.BitmapFactory$Options)
+    228:233:public com.squareup.picasso.Request$Builder setResourceId(int)
+    252:256:public com.squareup.picasso.Request$Builder clearResize()
+    265:269:public com.squareup.picasso.Request$Builder centerCrop()
+    274:275:public com.squareup.picasso.Request$Builder clearCenterCrop()
+    292:293:public com.squareup.picasso.Request$Builder clearCenterInside()
+    298:299:public com.squareup.picasso.Request$Builder rotate(float)
+    304:308:public com.squareup.picasso.Request$Builder rotate(float,float,float)
+    313:317:public com.squareup.picasso.Request$Builder clearRotation()
+    163:163:synthetic Request$Builder(com.squareup.picasso.Request,com.squareup.picasso.Request$Builder)
+com.squareup.picasso.RequestCreator:
+    69:76:public com.squareup.picasso.RequestCreator placeholder(int)
+    88:92:public com.squareup.picasso.RequestCreator placeholder(android.graphics.drawable.Drawable)
+    109:116:public com.squareup.picasso.RequestCreator error(android.graphics.drawable.Drawable)
+    163:164:public com.squareup.picasso.RequestCreator withOptions(android.graphics.BitmapFactory$Options)
+    193:194:public com.squareup.picasso.RequestCreator centerCrop()
+    208:209:public com.squareup.picasso.RequestCreator rotate(float)
+    214:215:public com.squareup.picasso.RequestCreator rotate(float,float,float)
+    262:274:public android.graphics.Bitmap get()
+    283:294:public void fetch()
+    334:367:public void into(com.squareup.picasso.Target)
+com.squareup.picasso.Stats:
+    private static final int REQUESTED_COMPLETED
+    private static final int CACHE_HIT
+    private static final int CACHE_MISS
+    private static final int BITMAP_DECODE_FINISHED
+    private static final int BITMAP_TRANSFORMED_FINISHED
+    private static final java.lang.String STATS_THREAD_NAME
+    71:72:void shutdown()
+    96:96:synchronized com.squareup.picasso.StatsSnapshot createSnapshot()
+com.squareup.picasso.StatsSnapshot
+com.squareup.picasso.Target
+com.squareup.picasso.TargetAction
+com.squareup.picasso.UrlConnectionDownloader:
+    static final java.lang.String RESPONSE_SOURCE
+com.squareup.picasso.UrlConnectionDownloader$ResponseCacheIcs:
+    89:89:private UrlConnectionDownloader$ResponseCacheIcs()
+com.squareup.picasso.Utils:
+    static final java.lang.String THREAD_PREFIX
+    static final java.lang.String THREAD_IDLE_NAME
+    static final int DEFAULT_READ_TIMEOUT
+    static final int DEFAULT_CONNECT_TIMEOUT
+    private static final java.lang.String PICASSO_CACHE
+    private static final int KEY_PADDING
+    private static final int MIN_DISK_CACHE_SIZE
+    private static final int MAX_DISK_CACHE_SIZE
+    private static final int MAX_MEM_CACHE_SIZE
+    public static final long FADE_DURATION
+    55:57:private Utils()
+    73:76:static void checkNotMain()
+com.squareup.picasso.Utils$ActivityManagerHoneycomb:
+    202:202:private Utils$ActivityManagerHoneycomb()
+com.squareup.picasso.Utils$BitmapHoneycombMR1:
+    226:226:private Utils$BitmapHoneycombMR1()
+com.squareup.picasso.Utils$OkHttpLoaderCreator:
+    232:232:private Utils$OkHttpLoaderCreator()
+it.sephiroth.android.library.ab.AB:
+    public static final boolean LOG_ENABLED
+    public static final java.lang.String LOG_TAG
+    62:63:public void doABTest(java.lang.CharSequence,it.sephiroth.android.library.ab.ABTest)
+it.sephiroth.android.library.ab.ABSettingsFactory:
+    9:9:ABSettingsFactory()
+it.sephiroth.android.library.ab.ABSettingsFactory$ABSettingsManager:
+    protected static final java.lang.String DIR_NAME
+    protected static final java.lang.String FILE_NAME
+    protected static final java.lang.String PREF_NAME
+it.sephiroth.android.library.ab.ABSharedPreference:
+    private static final java.lang.String KEY_UUID
+it.sephiroth.android.library.ab.ABTest
+it.sephiroth.android.library.imagezoom.easing.Back
+it.sephiroth.android.library.imagezoom.easing.Bounce
+it.sephiroth.android.library.imagezoom.easing.Circ
+it.sephiroth.android.library.imagezoom.easing.Elastic
+it.sephiroth.android.library.imagezoom.easing.Quart
+it.sephiroth.android.library.imagezoom.easing.Sine
+it.sephiroth.android.library.imagezoom.utils.IDisposable
+it.sephiroth.android.library.media.ExifInterfaceExtended:
+    private static final java.lang.String LOG_TAG
+    public static final java.lang.String TAG_JPEG_FILESIZE
+    public static final java.lang.String TAG_JPEG_FILE_DATETIME
+    public static final java.lang.String TAG_JPEG_IMAGE_WIDTH
+    public static final java.lang.String TAG_JPEG_IMAGE_HEIGHT
+    public static final java.lang.String TAG_JPEG_QUALITY
+    public static final java.lang.String TAG_JPEG_PROCESS
+    public static final java.lang.String TAG_EXIF_MAKE
+    public static final java.lang.String TAG_EXIF_MODEL
+    public static final java.lang.String TAG_EXIF_DATETIME
+    public static final java.lang.String TAG_EXIF_DATETIME_DIGITIZED
+    public static final java.lang.String TAG_EXIF_DATETIME_ORIGINAL
+    public static final java.lang.String TAG_EXIF_COPYRIGHT
+    public static final java.lang.String TAG_EXIF_ARTIST
+    public static final java.lang.String TAG_EXIF_SOFTWARE
+    public static final java.lang.String TAG_EXIF_ORIENTATION
+    public static final java.lang.String TAG_EXIF_FLASH
+    public static final java.lang.String TAG_EXIF_FOCAL_LENGHT
+    public static final java.lang.String TAG_EXIF_EXPOSURE_TIME
+    public static final java.lang.String TAG_EXIF_FNUMBER
+    public static final java.lang.String TAG_EXIF_APERTURE
+    public static final java.lang.String TAG_EXIF_BRIGHTNESS
+    public static final java.lang.String TAG_EXIF_MAXAPERTURE
+    public static final java.lang.String TAG_EXIF_SUBJECT_DISTANCE
+    public static final java.lang.String TAG_EXIF_EXPOSURE_BIAS
+    public static final java.lang.String TAG_EXIF_DIGITAL_ZOOM_RATIO
+    public static final java.lang.String TAG_EXIF_FOCAL_LENGTH_35_MM
+    public static final java.lang.String TAG_EXIF_SENSING_METHOD
+    public static final java.lang.String TAG_EXIF_WHITE_BALANCE
+    public static final java.lang.String TAG_EXIF_METERING_MODE
+    public static final java.lang.String TAG_EXIF_EXPOSURE_PROGRAM
+    public static final java.lang.String TAG_EXIF_EXPOSURE_MODE
+    public static final java.lang.String TAG_EXIF_ISO_SPEED_RATINGS
+    public static final java.lang.String TAG_EXIF_LIGHT_SOURCE
+    public static final java.lang.String TAG_EXIF_SUBJECT_DISTANCE_RANGE
+    public static final java.lang.String TAG_EXIF_X_RESOLUTION
+    public static final java.lang.String TAG_EXIF_Y_RESOLUTION
+    public static final java.lang.String TAG_EXIF_RESOLUTION_UNIT
+    public static final java.lang.String TAG_EXIF_PIXEL_X_DIMENSION
+    public static final java.lang.String TAG_EXIF_PIXEL_Y_DIMENSION
+    public static final java.lang.String TAG_EXIF_FOCAL_PLANE_X_RESOLUTION
+    public static final java.lang.String TAG_EXIF_FOCAL_PLANE_RESOLUTION_UNIT
+    public static final java.lang.String TAG_EXIF_FOCAL_PLANE_Y_RESOLUTION
+    public static final java.lang.String TAG_EXIF_SCENE_CAPTURE_TYPE
+    public static final java.lang.String TAG_EXIF_SHUTTER_SPEED_VALUE
+    public static final java.lang.String TAG_EXIF_VERSION
+    public static final java.lang.String TAG_EXIF_COLOR_SPACE
+    public static final java.lang.String TAG_EXIF_COMPRESSION
+    public static final java.lang.String TAG_EXIF_SHARPNESS
+    public static final java.lang.String TAG_EXIF_CONTRAST
+    public static final java.lang.String TAG_EXIF_SATURATION
+    public static final java.lang.String TAG_EXIF_GAIN_CONTROL
+    public static final java.lang.String TAG_EXIF_GPS_LATITUDE
+    public static final java.lang.String TAG_EXIF_GPS_LATITUDE_REF
+    public static final java.lang.String TAG_EXIF_GPS_LONGITUDE
+    public static final java.lang.String TAG_EXIF_GPS_LONGITUDE_REF
+    public static final java.lang.String TAG_EXIF_GPS_ALTITUDE
+    public static final java.lang.String TAG_EXIF_GPS_ALTITUDE_REF
+    public static final java.lang.String TAG_EXIF_GPS_SPEED_REF
+    public static final java.lang.String TAG_EXIF_GPS_SPEED
+    public static final int ORIENTATION_UNDEFINED
+    public static final int ORIENTATION_NORMAL
+    public static final int ORIENTATION_FLIP_HORIZONTAL
+    public static final int ORIENTATION_ROTATE_180
+    public static final int ORIENTATION_FLIP_VERTICAL
+    public static final int ORIENTATION_TRANSPOSE
+    public static final int ORIENTATION_ROTATE_90
+    public static final int ORIENTATION_TRANSVERSE
+    public static final int ORIENTATION_ROTATE_270
+    public static final int RESOLUTION_UNIT_INCHES
+    public static final int RESOLUTION_UNIT_CENTIMETERS
+    public static final int RESOLUTION_UNIT_MILLIMETERS
+    public static final int RESOLUTION_UNIT_MICROMETERS
+    696:696:public java.util.Set keySet()
+    747:753:public double getAttributeDouble(java.lang.String,double)
+    763:778:public double getApertureSize()
+    813:828:public double getResolutionUnit(int)
+    843:853:public double getCCDWidth()
+    935:936:public byte[] getThumbnail()
+    954:954:public int getJpegQuality()
+    962:977:public boolean getLatLong(float[])
+    986:989:public java.lang.String getLatitude()
+    998:1001:public java.lang.String getLongitude()
+    1005:1025:public java.lang.String getGpsSpeed()
+    1037:1045:public double getAltitude(double)
+    1058:1066:public long getDateTime(java.lang.String)
+    1078:1078:public static java.lang.String formatDate(java.util.Date)
+    1123:1123:public boolean removeAttribute(java.lang.String)
+    1130:1131:public void removeAll()
+    1150:1175:private static float convertRationalLatLonToFloat(java.lang.String,java.lang.String)
+    1181:1199:private static java.lang.String convertRationalLatLonToString(java.lang.String,java.lang.String)
+    1204:1215:private static double convertURationalToDouble(java.lang.String,double)
+it.sephiroth.android.library.util.MathUtils
+it.sephiroth.android.library.util.ViewHelperFactory:
+    private static final java.lang.String LOG_TAG
+    8:8:public ViewHelperFactory()
+it.sephiroth.android.library.widget.AbsHListView$AdapterDataSetObserver:
+    1:1:public bridge synthetic void clearSavedState()
+it.sephiroth.android.library.widget.AbsHListView$LayoutParams:
+    5337:5338:public AbsHListView$LayoutParams(int,int)
+it.sephiroth.android.library.widget.AbsHListView$OnScrollListener:
+    public static final int SCROLL_STATE_IDLE
+    public static final int SCROLL_STATE_TOUCH_SCROLL
+    public static final int SCROLL_STATE_FLING
+it.sephiroth.android.library.widget.AdapterView$AdapterDataSetObserver:
+    851:852:public void clearSavedState()
+it.sephiroth.android.library.widget.EdgeEffect:
+    private static final java.lang.String TAG
+    private static final int RECEDE_TIME
+    private static final int PULL_TIME
+    private static final int PULL_DECAY_TIME
+    private static final float MAX_ALPHA
+    private static final float HELD_EDGE_SCALE_Y
+    private static final float MAX_GLOW_HEIGHT
+    private static final float PULL_GLOW_BEGIN
+    private static final float PULL_EDGE_BEGIN
+    private static final int MIN_VELOCITY
+    private static final float EPSILON
+    public static final int DIRECTION_VERTICAL
+    public static final int DIRECTION_HORIZONTAL
+    private static final int MIN_WIDTH
+    private static final int STATE_IDLE
+    private static final int STATE_PULL
+    private static final int STATE_ABSORB
+    private static final int STATE_RECEDE
+    private static final int STATE_PULL_DECAY
+    private static final int PULL_DISTANCE_EDGE_FACTOR
+    private static final int PULL_DISTANCE_GLOW_FACTOR
+    private static final float PULL_DISTANCE_ALPHA_GLOW_FACTOR
+    private static final int VELOCITY_EDGE_FACTOR
+    private static final int VELOCITY_GLOW_FACTOR
+it.sephiroth.android.library.widget.OverScroller:
+    private static final int DEFAULT_DURATION
+    private static final int SCROLL_MODE
+    private static final int FLING_MODE
+    118:119:public OverScroller(android.content.Context,android.view.animation.Interpolator,float,float)
+    136:137:public OverScroller(android.content.Context,android.view.animation.Interpolator,float,float,boolean)
+    174:175:public final void forceFinished(boolean)
+    192:192:public final int getCurrY()
+    212:212:public final int getStartX()
+    221:221:public final int getStartY()
+    230:230:public final int getFinalX()
+    239:239:public final int getFinalY()
+    253:253:public final int getDuration()
+    272:274:public void extendDuration(int)
+    291:292:public void setFinalX(int)
+    309:310:public void setFinalY(int)
+    383:384:public void startScroll(int,int,int,int)
+    507:508:public void notifyVerticalEdgeReached(int,int,int)
+    524:524:public boolean isOverScrolled()
+    550:552:public int timePassed()
+it.sephiroth.android.library.widget.OverScroller$SplineOverScroller:
+    private static final float GRAVITY
+    private static final float INFLEXION
+    private static final float START_TENSION
+    private static final float END_TENSION
+    private static final float P1
+    private static final float P2
+    private static final int NB_SAMPLES
+    private static final int SPLINE
+    private static final int CUBIC
+    private static final int BALLISTIC
+    728:730:void setFinalPosition(int)
+    733:737:void extendDuration(int)
+    597:597:static synthetic void access$1(it.sephiroth.android.library.widget.OverScroller$SplineOverScroller,boolean)
+    606:606:static synthetic int access$8(it.sephiroth.android.library.widget.OverScroller$SplineOverScroller)
+org.intellij.lang.annotations.Identifier
+org.intellij.lang.annotations.Language
+org.intellij.lang.annotations.Pattern
+org.intellij.lang.annotations.PrintFormat
+org.intellij.lang.annotations.PrintFormatPattern
+org.intellij.lang.annotations.RegExp
+org.intellij.lang.annotations.Subst
+org.jetbrains.annotations.Nls
+org.jetbrains.annotations.NonNls
+org.jetbrains.annotations.NotNull
+org.jetbrains.annotations.Nullable
+org.jetbrains.annotations.PropertyKey
+org.jetbrains.annotations.TestOnly

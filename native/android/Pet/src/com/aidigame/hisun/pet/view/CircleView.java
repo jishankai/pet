@@ -15,8 +15,9 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 
-public class CircleView extends View {
+public class CircleView extends ImageView {
 
 	public CircleView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -56,9 +57,15 @@ public class CircleView extends View {
 			e.printStackTrace();
 		}
 	}
+	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		// TODO Auto-generated method stub
+		super.onSizeChanged(w, h, oldw, oldh);
+		mDstB = makeDst(getMeasuredWidth(), getMeasuredHeight());
+	}
 
-	public void setImageBitmap(Bitmap bitmap) {
-		this.bitmap = bitmap;
+	public void setImageBitmap(Bitmap path) {
+		this.bitmap=path;
 		invalidate();
 	}
 
@@ -77,18 +84,20 @@ public class CircleView extends View {
 		options.inSampleSize=8;
 
 		if (null == bitmap) {
+			options.inSampleSize=1;
 			bitmap = BitmapFactory
-					.decodeResource(getResources(), R.drawable.a11,options);
+					.decodeResource(getResources(), R.drawable.pet_icon,options);
 		}
 		if (null == mDstB) {
-			mDstB = makeDst(getWidth(), getHeight());
+			mDstB = makeDst(getMeasuredWidth(), getMeasuredHeight());
 		}
 
-		bitmapRect.set(0, 0, getWidth(), getHeight());
+		bitmapRect.set(0, 0, getMeasuredWidth(), getMeasuredHeight());
 		canvas.save();
 		canvas.setDrawFilter(pdf);
 		canvas.drawBitmap(mDstB, 0, 0, paint);
 		paint.setXfermode(xfermode);
+		if(bitmap!=null)
 		canvas.drawBitmap(bitmap, null, bitmapRect, paint);
 		paint.setXfermode(null);
 		canvas.restore();

@@ -15,6 +15,8 @@ import android.graphics.BitmapFactory;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
+import com.aidigame.hisun.pet.ui.ShowTopicActivity;
+import com.aidigame.hisun.pet.ui.SubmitPictureActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.tencent.mm.sdk.openapi.BaseReq;
 import com.tencent.mm.sdk.openapi.BaseResp;
@@ -22,6 +24,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.SendAuth;
 import com.tencent.mm.sdk.openapi.SendMessageToWX;
+import com.tencent.mm.sdk.openapi.SendMessageToWX.Req;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.mm.sdk.openapi.WXImageObject;
 import com.tencent.mm.sdk.openapi.WXMediaMessage;
@@ -131,9 +134,12 @@ public class WeixinShare {
 		Bitmap bitmap=BitmapFactory.decodeFile(data.path,options);
 		WXImageObject imgObj = new WXImageObject(bitmap);
 		
+		
+		
 		WXMediaMessage msg = new WXMediaMessage();
 		msg.mediaObject = imgObj;
-		
+		msg.description="雷达报告发现一只萌宠，快去宠物星球围观吧";
+		msg.title="宠物星球";
 //		Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, true);
 //		bmp.recycle();
 		byte[] temp=scaleSize(data.path);
@@ -148,12 +154,36 @@ public class WeixinShare {
 		}else{
 			req.scene = SendMessageToWX.Req.WXSceneTimeline;
 		}
+		
 //		req.scene = isTimelineCb.isChecked() ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
+		
 		boolean flag=Constants.api.sendReq(req);
+		/*if(flag){
+			if(Constants.whereShare==0){
+				ShowTopicActivity.showTopicActivity.shareNumChange();
+			}else if(Constants.whereShare==1){
+				SubmitPictureActivity.submitPictureActivity.addShares(true);
+			}
+		}*/
 		return flag;
 	}
 	private static String buildTransaction(final String type) {
 		return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+	}
+	public static void shareHttpLink(String url,String content){
+		WXWebpageObject object=new WXWebpageObject();
+		object.webpageUrl="http://weixin.qq.com/r/uXQmPtnEdIQLrZ1d9yGr";
+		WXMediaMessage msg=new WXMediaMessage(object);
+		msg.title="宠物星球";
+		msg.description="关注我们";
+//	    msg.thumbData = Util.bmpToByteArray(thumb, true); // thumb是链接带的图片。（注：微信分享图片，分享链接的缩略图，必须要150×150的固定尺寸，单位是px）
+		SendMessageToWX.Req req=new SendMessageToWX.Req();
+		req.transaction=buildTransaction("webpage");
+		req.message=msg;
+		 // 第一个是分享大盘朋友圈，后面是分享给好友
+        req.scene = SendMessageToWX.Req.WXSceneTimeline;// SendMessageToWX.Req.WXSceneSession;
+        boolean flag=Constants.api.sendReq(req);
+        LogUtil.i("me", "分享 关注宠物星球链接="+flag);
 	}
 	public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();

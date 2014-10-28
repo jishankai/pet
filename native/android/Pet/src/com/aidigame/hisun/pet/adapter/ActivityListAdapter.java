@@ -6,9 +6,11 @@ import org.json.JSONArray;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,65 +23,48 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.json.ActivityJson;
 import com.aidigame.hisun.pet.http.json.ActivityJson.Data;
 import com.aidigame.hisun.pet.util.StringUtil;
-
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+/**
+ * 活动列表
+ * @author admin
+ *
+ */
 public class ActivityListAdapter extends BaseAdapter {
+	ImageLoader imageLoader;
+	DisplayImageOptions displayImageOptions;
 	Context context;
 	ArrayList<ActivityJson.Data> list;
 	public ActivityListAdapter(Context context,ArrayList<ActivityJson.Data> list){
 		this.context=context;
 		this.list=list;
-		loadData();
+		//显示没有图片
+	    Bitmap nobmp=BitmapFactory.decodeResource(context.getResources(), R.drawable.noimg);
+		Matrix matrix=new Matrix();
+		matrix.postScale(Constants.screen_width/(nobmp.getWidth()*1f), Constants.screen_width/(nobmp.getWidth()*1f));
+		nobmp=Bitmap.createBitmap(nobmp, 0, 0, nobmp.getWidth(), nobmp.getHeight(),matrix,true);
+		BitmapFactory.Options opts=new BitmapFactory.Options();
+		opts.inJustDecodeBounds=false;
+		opts.inSampleSize=2;
+		opts.inPreferredConfig=Bitmap.Config.RGB_565;
+		opts.inPurgeable=true;
+		opts.inInputShareable=true;
+		displayImageOptions=new DisplayImageOptions.Builder()
+		                    .showImageOnLoading(new BitmapDrawable(nobmp))
+		                    .cacheInMemory(true)
+		                    .cacheOnDisc(true)
+		                    .bitmapConfig(Config.RGB_565)
+		                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		                    .decodingOptions(opts)
+		                    .build();
+		                    
 	}
 	public  void updateList(ArrayList<ActivityJson.Data> list) {
 		this.list=list;
 	}
-	public void  loadData(){/*
-		ActivityJson json=new ActivityJson();
-		json.data=new ActivityJson.Data();
-		json.data.gold="一等奖：宠物贝贝摄影写真；二等奖：宝贝牌狗窝";
-		json.data.time="2014-6-21至2014-6-29";
-		json.data.total="189/200人";
-		json.data.url=R.drawable.signing;
-		json.data.status=1;
-		json.data.name="有情狗终成眷属";
-		list.add(json);
-		json=new ActivityJson();
-		json.data=new ActivityJson.Data();
-		json.data.gold="一等奖：宠物贝贝摄影写真；二等奖：睡的香牌狗窝";
-		json.data.time="2014-6-21至2014-6-29";
-		json.data.total="199/300人";
-		json.data.url=R.drawable.signing;
-		json.data.status=1;
-		json.data.name="谁最靓？";
-		list.add(json);
-		json=new ActivityJson();
-		json.data=new ActivityJson.Data();
-		json.data.gold="一等奖：滴水不沾宠物靴；二等奖：宝贝牌狗窝";
-		json.data.time="2014-5-20至2014-6-1";
-		json.data.total="189/200人";
-		json.data.url=R.drawable.signed;
-		json.data.status=2;
-		json.data.name="有我萌吗？";
-		list.add(json);
-		json=new ActivityJson();
-		json.data=new ActivityJson.Data();
-		json.data.gold="一等奖：不怕黑牌宠物遮阳伞；二等奖：宝贝牌狗窝";
-		json.data.time="2014-3-21至2014-4-29";
-		json.data.total="189/200人";
-		json.data.url=R.drawable.signed;
-		json.data.status=2;
-		json.data.name="有情狗终成眷属";
-		list.add(json);
-		json=new ActivityJson();
-		json.data=new ActivityJson.Data();
-		json.data.gold="一等奖：宠物贝贝摄影写真；二等奖：宝贝牌狗窝";
-		json.data.time="2014-3-11至2014-4-19";
-		json.data.total="189/200人";
-		json.data.url=R.drawable.signed;
-		json.data.status=2;
-		json.data.name="有情狗终成眷属";
-		list.add(json);
-	*/}
 
 	@Override
 	public int getCount() {
@@ -117,25 +102,38 @@ public class ActivityListAdapter extends BaseAdapter {
 			holder=(Holder)convertView.getTag();
 		}
 		ActivityJson.Data data=list.get(position);
-		if(data.imgPath!=null&&StringUtil.judgeImageExists(data.imgPath)){
-			BitmapFactory.Options opts=new BitmapFactory.Options();
-			opts.inJustDecodeBounds=true;
-			opts.inSampleSize=2;
-			BitmapFactory.decodeFile(data.imgPath, opts);
-			Matrix matrix=new Matrix();
-			matrix.postScale(Constants.screen_width/(opts.outWidth*1f), Constants.screen_width/(opts.outWidth*1f));
-			opts.inJustDecodeBounds=false;
-			opts.inSampleSize=2;
-			Bitmap bmp=BitmapFactory.decodeFile(data.imgPath,opts);
-			Bitmap temp=Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
-			if(!bmp.isRecycled()){
-				bmp.recycle();
-			}
-			holder.advertiseImage.setImageBitmap(temp);
-		}else{
+	    final ImageView temp=holder.advertiseImage;
+	    imageLoader=ImageLoader.getInstance();
+	    imageLoader.loadImage(Constants.ACTIVITY_IMAGE+data.img,  displayImageOptions, new ImageLoadingListener() {
 			
-		}
-		
+			@Override
+			public void onLoadingStarted(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLoadingFailed(String imageUri, View view,
+					FailReason failReason) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+				// TODO Auto-generated method stub
+				Matrix matrix=new Matrix();
+				matrix.postScale(Constants.screen_width/(loadedImage.getWidth()*1f), Constants.screen_width/(loadedImage.getWidth()*1f));
+				loadedImage=Bitmap.createBitmap(loadedImage, 0, 0, loadedImage.getWidth(), loadedImage.getHeight(), matrix, true);
+				temp.setImageBitmap(loadedImage);
+			}
+			
+			@Override
+			public void onLoadingCancelled(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		if(data.end_time*1000>System.currentTimeMillis()){
 			holder.joinImage.setImageResource(R.drawable.activity_green);
 //			holder.joinImage.setClickable(true);

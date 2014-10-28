@@ -1,17 +1,30 @@
 package com.aidigame.hisun.pet.util;
 
+import java.util.ArrayList;
+
+import android.R.anim;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.view.View;
 
+import com.aidigame.hisun.pet.bean.Animal;
+import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
-import com.aidigame.hisun.pet.ui.SubmitPictureActivity;
-import com.aidigame.hisun.pet.ui.UnregisterNoteActivity;
+import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
+import com.aidigame.hisun.pet.ui.ChoseStarActivity;
+import com.aidigame.hisun.pet.ui.ShowTopicActivity;
+import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.widget.XinlangShare;
+import com.aidigame.hisun.pet.widget.fragment.DialogExpGoldConAdd;
+import com.aidigame.hisun.pet.widget.fragment.DialogGoRegister;
+import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
+import com.aidigame.hisun.pet.widget.fragment.MenuFragment;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 public class UserStatusUtil {
@@ -20,10 +33,10 @@ public class UserStatusUtil {
 	 * @param context
 	 * @return
 	 */
-	public static boolean isLoginSuccess(final Activity context){
+	public static boolean isLoginSuccess(final Activity context,View view,View blackView){
 		boolean flag=false;
 		LogUtil.i("me", "判断是否登录成功="+Constants.isSuccess);
-		if(Constants.isSuccess){
+		if(Constants.isSuccess/*false*/){
 			flag=true;
 			if(Constants.user==null){
 				downLoadUserInfo(context);
@@ -36,13 +49,12 @@ public class UserStatusUtil {
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						HttpUtil.login(context, null);
+						HttpUtil.login(context,null);
 					}
 				}).start();
 				flag=true;
 			}else{
-				Intent intent=new Intent(context,UnregisterNoteActivity.class);
-				context.startActivity(intent);
+				new DialogGoRegister(view, context,blackView,0);
 			}
 			
 		}
@@ -53,14 +65,32 @@ public class UserStatusUtil {
 	 * @param context
 	 */
 	public static void downLoadUserInfo(final Activity context){
-		if(Constants.isSuccess){
+		final Handler handler=HandleHttpConnectionException.getInstance().getHandler(context);
+		if(Constants.isSuccess&&Constants.user==null){
 			new Thread(new Runnable() {
-				
+				 
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
 					//加载用户信息
-					boolean flag=HttpUtil.info(null,context);
+					User user=HttpUtil.info(context,handler,Constants.user.userId);
+					
+					if(user!=null){
+						Constants.user=user;
+						final ArrayList<Animal> temp=HttpUtil.usersKingdom(context,Constants.user, 1, handler);
+						Constants.user.aniList=temp;
+						context.runOnUiThread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								if(HomeFragment.homeFragment!=null)HomeFragment.homeFragment.initArcView();
+								if(MenuFragment.menuFragment!=null)MenuFragment.menuFragment.setViews();
+							}
+						});
+					}
+					
+					
 				}
 			}).start();
 		}
@@ -149,6 +179,73 @@ public class UserStatusUtil {
 			flag=true;
 		}
 		return flag;
+	}
+	/**
+	 * 判断用户 金币，经验，官职，等级，是否变化
+	 * @param user
+	 * @param context
+	 */
+	public static void checkUserExpGoldLvRankChange(final User user,final Activity context,final View view){
+		if(user==null)return;
+		context.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if(user.exp-Constants.user.exp>0){
+					if(user.exp<0)return;
+					DialogExpGoldConAdd dialogExpGoldConAdd=new DialogExpGoldConAdd(context, 1,user.exp- Constants.user.exp,view);
+					Constants.user.exp=user.exp;
+				}
+				if(user.coinCount-Constants.user.coinCount>0){
+					if(user.coinCount<0)return;
+					if(MenuFragment.menuFragment!=null){
+						MenuFragment.menuFragment.goldTv.setText(""+user.coinCount);
+					}
+					DialogExpGoldConAdd dialogExpGoldConAdd=new DialogExpGoldConAdd(context, 2,user.coinCount- Constants.user.coinCount,view);
+					Constants.user.coinCount=user.coinCount;
+				}
+				if(user.lv-Constants.user.lv>0){
+					
+				}
+                if(user.rankCode-Constants.user.rankCode>0){
+					
+				}
+				
+			}
+		});
+	}
+	public static void setDefaultKingdom(){
+		if(MenuFragment.menuFragment!=null){
+			/*
+			 * 官职
+			 * 王国头像列表
+			 */
+			MenuFragment.menuFragment.setViews();
+		}
+		if(HomeFragment.homeFragment!=null){
+			/*
+			 * 1.相机是否显示
+			 * 2.快捷按钮
+			 */
+			if(Constants.user.userId==Constants.user.currentAnimal.master_id){
+				HomeFragment.homeFragment.cameraBt.setVisibility(View.VISIBLE);
+			}else{
+				HomeFragment.homeFragment.cameraBt.setVisibility(View.INVISIBLE);
+			}
+			HomeFragment.homeFragment.initArcView();
+		}
+		if(UserDossierActivity.userDossierActivity!=null){
+			/*
+			 * 1.用户王国列表
+			 * 2.资料中间栏
+			 */
+			UserDossierActivity.userDossierActivity.addNewKingdom();
+			UserDossierActivity.userDossierActivity.setUserInfo(Constants.user);
+		}
+		if(ShowTopicActivity.showTopicActivity!=null){
+			ShowTopicActivity.showTopicActivity.setViews();
+		}
 	}
 
 }

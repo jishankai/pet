@@ -92,19 +92,19 @@ for(int i=0;i<array2.length();i++){
 	}
 	
 	if(json.contains("name")){
-		user.nickName=jb1.getString("name");
+		user.pet_nickName=jb1.getString("name");
 	}
 	
 	if(json.contains("gender")){
-		user.gender=jb1.getInt("gender");
+		user.a_gender=jb1.getInt("gender");
 	}
 	
 	if(json.contains("tx")){
-		user.iconUrl=jb1.getString("tx");
+		user.pet_iconUrl=jb1.getString("tx");
 	}
 	
 	if(json.contains("age")){
-		user.age=""+jb1.getInt("age");
+		user.a_age=""+jb1.getInt("age");
 	}
 	
 	if(json.contains("type")){
@@ -146,6 +146,7 @@ for(int i=0;i<array2.length();i++){
 	public static class Data{
 		public User user;
 		public boolean isFriend;
+		public boolean isSelected=false;
 		@Override
 		public int hashCode() {
 			final int prime = 31;

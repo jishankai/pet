@@ -458,6 +458,14 @@ public class ImageUtil {
 		view.draw(canvas);
 		return bmp;
 	}
+	public static Bitmap getImageFromView(View view){
+		int width=view.getWidth();
+		int height=view.getHeight();
+		Bitmap bmp=Bitmap.createBitmap(width,height,Config.ARGB_8888);
+		Canvas canvas=new Canvas(bmp);
+		view.draw(canvas);
+		return bmp;
+	}
 	public static Bitmap getBitmapFromView(View view,Context context){
 		long l1=System.currentTimeMillis();
 		Bitmap bmp=Bitmap.createBitmap(view.getWidth(),view.getHeight(),Config.ARGB_8888);
@@ -472,8 +480,30 @@ public class ImageUtil {
 //		opts.inSampleSize=2;
 		LogUtil.i("scroll",""+( System.currentTimeMillis()-l1));
 //		return BitmapFactory.decodeByteArray(pixls, 0,baos.size(), opts);
-		Bitmap newImg = com.aidigame.hisun.pet.blur.Blur.fastblur(context, bmp, 18);
+		Matrix matrix=new Matrix();
+		matrix.postScale(0.4f, 0.4f);
+		bmp=Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
+		Bitmap newImg = com.aidigame.hisun.pet.blur.Blur.fastblur(context, bmp, 30);//18,50
+		
 		return newImg;
+	}
+	/**
+	 * 压缩图片为png格式的
+	 * @param bitmap
+	 * @return
+	 */
+	public static String compressImage(Bitmap bitmap,String end){
+		String fileName=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+"_"+end+".png";
+		FileOutputStream fos=null;
+		try {
+			fos = new FileOutputStream(fileName);
+			bitmap.compress(CompressFormat.PNG, 80, fos);
+			return fileName;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 		
 	}
 

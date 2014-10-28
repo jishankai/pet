@@ -3,7 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white" >
+    android:id="@+id/framelayout" >
+    <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/blur_view_top" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,8 +23,7 @@
             android:text="意见反馈"
             android:layout_centerInParent="true"
            android:textColor="@color/white"
-           android:textSize="22sp"
-           android:textStyle="bold"
+           android:textSize="20sp"
              />
         
         <ImageView
@@ -28,19 +32,19 @@
             android:layout_height="48dp"
             android:src="@drawable/back_white"
             android:layout_alignParentLeft="true"
-            android:padding="8dp" 
-            android:layout_marginLeft="5dp"/>
+            android:padding="12dp" />
 
     </RelativeLayout>
+    
     <EditText 
         android:id="@+id/editText1"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="10dp"
         android:minHeight="200dp"
-        android:background="#f5f5f5"
-        
-        android:hint="请您在此为阿猫阿狗，留下宝贵的意见和建议哦~我们会越来越好的~谢谢~"
+        android:background="@drawable/dialog_frame_transparent"
+        android:textSize="14sp"
+        android:hint="想表扬，想吐槽，有好点子，通通告诉我们吧，宠物星球会在您的帮助下进步的~谢谢~"
         android:gravity="top|left"
         android:padding="5dp"/>
     <TextView 
@@ -54,9 +58,11 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_margin="10dp"
-        android:background="#f5f5f5"
+        android:background="@drawable/dialog_frame_transparent"
         android:gravity="center_vertical"
         android:text=""
+        android:textSize="14sp"
+        android:hint="您的手机号、QQ号或电子邮箱"
         android:padding="5dp"/>
 
     <Button
@@ -70,5 +76,5 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp" />
-
+</LinearLayout>
 </LinearLayout>

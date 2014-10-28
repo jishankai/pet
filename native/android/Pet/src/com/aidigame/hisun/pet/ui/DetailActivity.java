@@ -7,36 +7,61 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Bitmap.Config;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.ShowTopicHorizontalAdapter;
+import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.ActivityJson;
+import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
+import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.HorizontalListView2;
-import com.aidigame.hisun.pet.view.MyScrollowView;
-import com.aidigame.hisun.pet.widget.ShowWaterFull1;
+import com.aidigame.hisun.pet.widget.PLAWaterfull;
+import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 /**
  * 活动详情页
  * @author admin
  *
  */
 public class DetailActivity extends Activity {
+	public View popupParent;
+	public RelativeLayout black_layout;
+	FrameLayout frameLayout;
+	View viewTopWhite;
+	public static DetailActivity detailActivity;
+	DisplayImageOptions displayImageOptions;
+	HandleHttpConnectionException handleHttpConnectionException;
 	LinearLayout waterFullParent;
-	ActivityJson.Data data;
+	public ActivityJson.Data data;
 	HorizontalListView2 horizontalListView2;
-	ShowWaterFull1 showWaterFull1;
+//	ShowWaterFull1 showWaterFull1;
+	PLAWaterfull plaWaterfull;
 	TextView popularTv,newestTv;
 	String[] urls;
 	ShowTopicHorizontalAdapter horizontalAdapter;
@@ -47,6 +72,30 @@ public class DetailActivity extends Activity {
 		UiUtil.setScreenInfo(this);
 		setContentView(R.layout.activity_detail);
 		data=(ActivityJson.Data)getIntent().getSerializableExtra("data");
+		detailActivity=this;
+		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
+		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
+		popupParent=(View)findViewById(R.id.popup_parent);
+		Bitmap nobmp=BitmapFactory.decodeResource(this.getResources(), R.drawable.noimg);
+		Matrix matrix=new Matrix();
+		matrix.postScale(Constants.screen_width/(nobmp.getWidth()*1f), Constants.screen_width/(nobmp.getWidth()*1f));
+		nobmp=Bitmap.createBitmap(nobmp, 0, 0, nobmp.getWidth(), nobmp.getHeight(),matrix,true);
+		BitmapFactory.Options opts=new BitmapFactory.Options();
+		opts.inJustDecodeBounds=false;
+		opts.inSampleSize=2;
+		opts.inPreferredConfig=Bitmap.Config.RGB_565;
+		opts.inPurgeable=true;
+		opts.inInputShareable=true;
+		displayImageOptions=new DisplayImageOptions.Builder()
+		                    .showImageOnLoading(new BitmapDrawable(nobmp))
+		                    .cacheInMemory(true)
+		                    .cacheOnDisc(true)
+		                    .bitmapConfig(Config.RGB_565)
+		                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		                    .decodingOptions(opts)
+		                    .build();
+		
+		setBlurImageBackground();
 		
 		horizontalListView2=(HorizontalListView2)findViewById(R.id.show_topic_listview);
 		horizontalListView2.setOnItemClickListener(new OnItemClickListener() {
@@ -56,9 +105,9 @@ public class DetailActivity extends Activity {
 					int position, long id) {
 				// TODO Auto-generated method stub
 				if(data.txs==null)return;
-				Intent intent=new Intent(DetailActivity.this,UsersListActivity.class);
+				Intent intent=new Intent(DetailActivity.this,AnimalsListActivity.class);
 				intent.putExtra("title", "参与用户");
-				intent.putExtra("likers", data.txs);
+				intent.putExtra("aids", data.txs);
 				DetailActivity.this.startActivity(intent);
 			}
 		});
@@ -80,7 +129,7 @@ public class DetailActivity extends Activity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				boolean result=HttpUtil.loadActivityInfo(data);
+				boolean result=HttpUtil.loadActivityInfo(data,handleHttpConnectionException.getHandler(DetailActivity.this),DetailActivity.this);
 				if(result){
 					runOnUiThread(new Runnable() {
 						public void run() {
@@ -97,8 +146,9 @@ public class DetailActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				showWaterFull1=new ShowWaterFull1(DetailActivity.this, waterFullParent,data);
-				showWaterFull1.setMode(1);
+				/*showWaterFull1=new ShowWaterFull1(DetailActivity.this, waterFullParent,data,5);
+				showWaterFull1.setMode(1);*/
+				plaWaterfull=new PLAWaterfull(DetailActivity.this, waterFullParent, 5);
 				popularTv.setTextColor(getResources().getColor(R.color.gray_deep));
 				newestTv.setTextColor(getResources().getColor(R.color.orange_red));
 			}
@@ -111,14 +161,18 @@ public class DetailActivity extends Activity {
 				// TODO Auto-generated method stub
 				newestTv.setTextColor(getResources().getColor(R.color.gray_deep));
 				popularTv.setTextColor(getResources().getColor(R.color.orange_red));
-				showWaterFull1=new ShowWaterFull1(DetailActivity.this, waterFullParent,data);
-				showWaterFull1.setMode(0);
+				/*showWaterFull1=new ShowWaterFull1(DetailActivity.this, waterFullParent,data,4);
+				showWaterFull1.setMode(0);*/
+				plaWaterfull=new PLAWaterfull(DetailActivity.this, waterFullParent, 4);
 			}
 		});
-		showWaterFull1=new ShowWaterFull1(this, waterFullParent,data);
+		
+       
+       plaWaterfull=new PLAWaterfull(this, waterFullParent, 5);
+      /* showWaterFull1=new ShowWaterFull1(this, waterFullParent,data,5);
 		showWaterFull1.setMode(0);
         MyScrollowView my=(MyScrollowView)findViewById(R.id.scrollowview);
-        my.setLasyView(showWaterFull1.getScrollView());
+        my.setLasyView(showWaterFull1.getScrollView());*/
 
 		findViewById(R.id.back).setOnClickListener(new OnClickListener() {
 			
@@ -146,9 +200,10 @@ public class DetailActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(data.txs==null)return;
-				Intent intent=new Intent(DetailActivity.this,UsersListActivity.class);
+				Intent intent=new Intent(DetailActivity.this,AnimalsListActivity.class);
 				intent.putExtra("title", "参与用户");
-				intent.putExtra("likers", data.txs);
+				intent.putExtra("aids", data.txs);
+				
 				DetailActivity.this.startActivity(intent);
 			}
 		});
@@ -157,32 +212,104 @@ public class DetailActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent=new Intent(DetailActivity.this,TakePictureBackground.class);
-				intent.putExtra("activity", data.topic);
-				intent.putExtra("mode",TakePictureBackground.MODE_ACTIVITY);
-				DetailActivity.this.startActivity(intent);
+				if(!UserStatusUtil.isLoginSuccess(DetailActivity.this, popupParent, black_layout)){
+					return;
+				}
+				if(Constants.user!=null&&Constants.user.currentAnimal!=null&&Constants.user.userId==Constants.user.currentAnimal.master_id){
+					Intent intent=new Intent(DetailActivity.this,TakePictureBackground.class);
+					intent.putExtra("activity", data.topic);
+					intent.putExtra("mode",TakePictureBackground.MODE_ACTIVITY);
+					intent.putExtra("topic_id", data.topic_id);
+					intent.putExtra("topic_name", data.topic);
+					DetailActivity.this.startActivity(intent);
+				}else{
+					Toast.makeText(DetailActivity.this, "只有用户主人才可以发照片奥~", Toast.LENGTH_LONG).show();
+				}
+				
 			}
 		});
 		setView();
 		
+		
+		
+		
+	}
+
+	/**
+	 * 设置毛玻璃背景，列表滑动时顶部变透明并显示列表
+	 */
+    int touchSlop;
+    int distance;
+    boolean isRecord=false;
+    int yDown;
+	private void setBlurImageBackground() {
+		// TODO Auto-generated method stub
+		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
+		viewTopWhite=(View)findViewById(R.id.top_white_view);
+		touchSlop=ViewConfiguration.get(this).getScaledTouchSlop();
+        new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				while(HomeFragment.blurBitmap==null){
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
+						frameLayout.setAlpha(0.9342857f);
+					}
+				});
+			}
+		}).start();
+       
 	}
 	public void setView(){
-		if(data.imgPath!=null){
-			BitmapFactory.Options opts=new BitmapFactory.Options();
-			opts.inJustDecodeBounds=true;
-			opts.inSampleSize=1;
-			BitmapFactory.decodeFile(data.imgPath, opts);
-			Matrix matrix=new Matrix();
-			matrix.postScale(Constants.screen_width/(opts.outWidth*1f), Constants.screen_width/(opts.outWidth*1f));
-			Bitmap bmp=BitmapFactory.decodeFile(data.imgPath);
-			Bitmap temp=Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
-			if(!bmp.isRecycled()){
-				bmp.recycle();
+		ImageLoader imageLoader=ImageLoader.getInstance();
+		imageLoader.loadImage(Constants.ACTIVITY_IMAGE+data.img,displayImageOptions, new ImageLoadingListener() {
+			
+			@Override
+			public void onLoadingStarted(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				
 			}
-			ImageView imageView=(ImageView)findViewById(R.id.imageView1);
-			imageView.setImageBitmap(temp);
-		}
-		
+			
+			@Override
+			public void onLoadingFailed(String imageUri, View view,
+					FailReason failReason) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+				// TODO Auto-generated method stub
+				Matrix matrix=new Matrix();
+				matrix.postScale(Constants.screen_width/(loadedImage.getWidth()*1f), Constants.screen_width/(loadedImage.getWidth()*1f));
+				
+				Bitmap temp=Bitmap.createBitmap(loadedImage, 0, 0, loadedImage.getWidth(), loadedImage.getHeight(), matrix, true);
+//				if(!loadedImage.isRecycled()){
+//					loadedImage.recycle();
+//				}
+				ImageView imageView=(ImageView)findViewById(R.id.imageView1);
+				imageView.setImageBitmap(temp);
+			}
+			
+			@Override
+			public void onLoadingCancelled(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		TextView time=null,reward=null,people=null,topic=null,des=null;
 		time=(TextView)findViewById(R.id.textView4);
 		topic=(TextView)findViewById(R.id.textView2);
@@ -211,7 +338,9 @@ public class DetailActivity extends Activity {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					final String[] urls=HttpUtil.getOthersList(data.txs, null,DetailActivity.this);
+//							HttpUtil.getOthersList(data.txs, null,DetailActivity.this);
+					final ArrayList<Animal> urls=HttpUtil.otherAnimals(handleHttpConnectionException.getHandler(DetailActivity.this), data.txs,1 , DetailActivity.this);
+							
 					runOnUiThread(new Runnable() {
 						
 						@Override
@@ -219,12 +348,12 @@ public class DetailActivity extends Activity {
 							// TODO Auto-generated method stub
 							if(urls!=null){
 								ArrayList<String> arrs=new ArrayList<String>();
-								   for(String str:urls){
-									   if(!StringUtil.isEmpty(str)){
-										   arrs.add(str);
+								   for(Animal str:urls){
+									   if(!StringUtil.isEmpty(str.pet_iconUrl)){
+										   arrs.add(str.pet_iconUrl);
 									   }
 								   }
-								 horizontalAdapter=new ShowTopicHorizontalAdapter(DetailActivity.this, arrs);
+								 horizontalAdapter=new ShowTopicHorizontalAdapter(DetailActivity.this, arrs,true);
 								   horizontalListView2.setAdapter(horizontalAdapter);
 							}
 						}

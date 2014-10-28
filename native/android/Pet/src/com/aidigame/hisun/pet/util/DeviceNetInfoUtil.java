@@ -6,12 +6,15 @@ import java.util.Enumeration;
 
 import org.apache.http.conn.util.InetAddressUtils;
 
+import com.aidigame.hisun.pet.constant.Constants;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.widget.Toast;
 /**
  * 
  * @author shichunxiang
@@ -35,7 +38,7 @@ public class DeviceNetInfoUtil {
 	 *    context.unregisterReceiver(receiver);
 	 * }
 	 */
-	public static BroadcastReceiver receiver=new BroadcastReceiver(){
+	public static class NetworkStatusChangeReceiver extends BroadcastReceiver{
 		public void onReceive(Context context, android.content.Intent intent) {
 			ConnectivityManager cm=(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo wifiInfo=cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -43,14 +46,20 @@ public class DeviceNetInfoUtil {
 			//注意wifiInfo与mobileInfo可能为空
 			if(mobileInfo!=null&&mobileInfo.isConnected()){
 				//连接网络
+				Constants.netStatus=true;
+//				Toast.makeText(context, "手机移动网络已连接", Toast.LENGTH_LONG).show();
 			}else if(wifiInfo!=null&&wifiInfo.isConnected()){
 				//连接网络
+//				Toast.makeText(context, "wifi网络已连接", Toast.LENGTH_LONG).show();
+				Constants.netStatus=true;
 			}
-			/*if(!mobileInfo.isConnected()&&!wifiInfo.isConnected()){
+			if(!mobileInfo.isConnected()&&!wifiInfo.isConnected()){
 				//未连接网络
+				Toast.makeText(context, "网络连接异常", Toast.LENGTH_LONG).show();
+				Constants.netStatus=false;
 			}else{
 				//连接网络
-			}*/
+			}
 		};
 	};
 	/**

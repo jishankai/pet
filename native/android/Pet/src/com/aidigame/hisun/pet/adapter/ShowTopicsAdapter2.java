@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,52 +23,78 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
-import com.aidigame.hisun.pet.ui.OtherUserTopicActivity;
+import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.ui.ShowTopicActivity;
-import com.aidigame.hisun.pet.ui.UserHomepageActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
+import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.TopicView;
 import com.aidigame.hisun.pet.widget.ShowDialog;
-
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+/**
+ * 王国资料界面    发布的图片列表
+ */
 public class ShowTopicsAdapter2 extends BaseAdapter  {
+	DisplayImageOptions displayImageOptions;//显示图片的格式
+    ImageLoader imageLoader;
 	Activity context;
-	ArrayList<UserImagesJson.Data> datas;
+	ArrayList<PetPicture> petPictures;
 	int mode;//1 个人主页;2其他人主页 
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			if(msg.what==Constants.ERROR_MESSAGE){
 				ShowDialog.show((String)msg.obj, context);
 			}else{
-				TextView tv=(TextView)msg.obj;
+				/*TextView tv=(TextView)msg.obj;
 				tv.setText(""+msg.arg1);
-				notifyDataSetChanged();
+				notifyDataSetChanged();*/
 			}
 
 		};
 	};
-	public ShowTopicsAdapter2(Context context,ArrayList<UserImagesJson.Data> datas,int mode){
+	public ShowTopicsAdapter2(Context context,ArrayList<PetPicture> petPictures,int mode){
 		this.context=(Activity)context;
-		this.datas=datas;
+		this.petPictures=petPictures;
 		this.mode=mode;
+	BitmapFactory.Options options=new BitmapFactory.Options();
+	options.inJustDecodeBounds=false;
+	options.inSampleSize=4;
+	options.inPreferredConfig=Bitmap.Config.RGB_565;
+	options.inPurgeable=true;
+	options.inInputShareable=true;
+	displayImageOptions=new DisplayImageOptions
+            .Builder()
+            .showImageOnLoading(R.drawable.noimg)
+	        .cacheInMemory(true)
+	        .cacheOnDisc(true)
+	        .bitmapConfig(Bitmap.Config.RGB_565)
+	        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+	        .decodingOptions(options)
+            .build();
 	}
-	public void updateTopics(ArrayList<UserImagesJson.Data> datas){
-		this.datas=datas;
+	public void updateTopics(ArrayList<PetPicture> petPictures){
+		this.petPictures=petPictures;
+		this.notifyDataSetInvalidated();
 		this.notifyDataSetChanged();
 	}
 
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return datas.size();
+		return petPictures.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return datas.get(position);
+		return petPictures.get(position);
 	}
 
 	@Override
@@ -75,6 +106,7 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
+		LogUtil.i("scroll", "getView:："+"position="+position);
 		Holder  holder=null;
 	    if(convertView==null){
 	    	holder=new Holder();
@@ -88,22 +120,30 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 	    }else{
 	    	holder=(Holder)convertView.getTag();
 	    }
-	    UserImagesJson.Data data=datas.get(position);
+	    PetPicture data=petPictures.get(position);
 	    //TODO  
-	    if(data.likersString!=null&&data.likersString.contains(""+Constants.user.userId)){
-			holder.heart.setImageResource(R.drawable.heart_white);
+	    if(Constants.user!=null&&data.likers!=null&&data.likers.contains(""+Constants.user.userId)){
+	    	if(data.animal.type>100&&data.animal.type<200){
+	    		holder.heart.setImageResource(R.drawable.fish_red);
+			}else if(data.animal.type>200&&data.animal.type<300){
+				holder.heart.setImageResource(R.drawable.bone_red);
+			}
+	    	 holder.tv5.setTextColor(context.getResources().getColor(R.color.orange_red));
 		}else{
-			holder.heart.setImageResource(R.drawable.heart_red);
+			if(data.animal.type>100&&data.animal.type<200){
+	    		holder.heart.setImageResource(R.drawable.fish_white);
+			}else if(data.animal.type>200&&data.animal.type<300){
+				holder.heart.setImageResource(R.drawable.bone_white);
+			}
+			holder.tv5.setTextColor(Color.WHITE);
 		}
-		    if(data.path==null){
-		    	convertView.setVisibility(View.GONE);
-		    }else{
 		    	convertView.setVisibility(View.VISIBLE);
-				    holder.image.setImageBitmap(data.path,context);
+		    	Object isFirst=holder.image.getTag();
+				    loadTopicImage(holder.image,data);
 				    holder.lLayout.setClickable(true);
 				    holder.lLayout.setOnClickListener(new ItemClickListener(holder, position, 2));
 				    holder.image.setOnClickListener(new ItemClickListener(holder, position, 3));
-				    if(data.user!=null){
+				    if(data.animal!=null){
 					    holder.tv4.setText(""+judgeTime(data.create_time));
 					    holder.tv5.setText(""+data.likes);
 					    	
@@ -113,9 +153,37 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 					    
 					    	
 				    }
-		    }
 
 		return convertView;
+	}
+	public void loadTopicImage(TopicView topic,final PetPicture data){
+		imageLoader =ImageLoader.getInstance();
+    	imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+data.url, topic, displayImageOptions, new ImageLoadingListener() {
+			
+			@Override
+			public void onLoadingStarted(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLoadingFailed(String imageUri, View view,
+					FailReason failReason) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+				// TODO Auto-generated method stub
+			}
+			
+			@Override
+			public void onLoadingCancelled(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	class Holder{
 		TopicView image;
@@ -126,56 +194,6 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 	public String judgeTime(long time2){
 		long time1=System.currentTimeMillis()/1000;
 		long time=time1-time2;
-		/*int[] oldTimes=getTimeArray(time2*1000);
-		int[] nowTimes=getTimeArray(time1);*/
-		/*for(int i=0;i<oldTimes.length;i++){
-			int t=0;
-			switch (i) {
-			case 0:
-				t=nowTimes[0]-oldTimes[0];
-				if(t<=0){
-					continue;
-				}else{
-					return t+"年前";
-				}	
-			case 1:
-				t=nowTimes[1]-oldTimes[1];
-				if(t<=0){
-					continue;
-				}else{
-					return t+"个月前";
-				}	
-			case 2:
-				t=nowTimes[2]-oldTimes[2];
-				if(t<=0){
-					continue;
-				}else{
-					return t+"天前";
-				}	
-			case 3:
-				t=nowTimes[3]-oldTimes[3];
-				if(t<=0){
-					continue;
-				}else{
-					return t+"个小时前";
-				}	
-			case 4:
-				t=nowTimes[4]-oldTimes[4];
-				if(t<=0){
-					continue;
-				}else{
-					return t+"分钟前";
-				}	
-			case 5:
-				t=nowTimes[5]-oldTimes[5];
-				if(t<0){
-					continue;
-				}else{
-					return t+"秒前";
-				}
-				
-			}
-		}*/
 
 		 String str="";
          StringBuffer sb=new StringBuffer();
@@ -189,7 +207,7 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 		if(time<60){
 			sb.append( str+time+"秒");
 		}else if(time/(60)<60){
-			sb.append( str+time/(60)+"分");
+			sb.append( str+time/(60)+"分钟");
 		}else if(time/(60*60)<24){
 			sb.append(  str+time/(60*60)+"个小时");
 		}else if(time/(60*60*24)<30){
@@ -204,7 +222,11 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 		}else{
 			sb.append("后");
 		}
-		return sb.toString();
+		if(time<60){
+			return "刚刚";
+		}else{
+			return sb.toString();
+		}
 	}
 	public int[] getTimeArray(long time){
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
@@ -231,57 +253,57 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 			LogUtil.i("me", "type="+type);
 			switch (type) {
 			case 1:
-				if(datas.get(position).user==null||datas.get(position).usr_id==Constants.user.userId){
-					Intent intent1=new Intent(context,UserHomepageActivity.class);
-					context.startActivity(intent1);
-				}else{
-					Intent intent1=new Intent(context,OtherUserTopicActivity.class);
-					intent1.putExtra("data", datas.get(position));
-					context.startActivity(intent1);
-				}
 //                context.finish();
 				break;
 			case 2:
-				final UserImagesJson.Data data=datas.get(position);
+				if(context instanceof PetKingdomActivity){
+					PetKingdomActivity p=(PetKingdomActivity)context;
+					if(!UserStatusUtil.isLoginSuccess(context, p.popupParent, p.black_layout)){
+						return;
+					}
+					
+				}
+				
+				final PetPicture petPicture=petPictures.get(position);
 				final TextView tv=holder.tv5;
+				final ImageView iv=holder.heart;
 				new Thread(new Runnable() {
 					
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						HttpUtil.likeImage(data,tv,handler);
+						
+						boolean flag=HttpUtil.likeImage(petPicture,handler);
+						if(flag){
+							handler.post(new Runnable() {
+								
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+									tv.setText(""+petPicture.likes);
+									tv.setTextColor(context.getResources().getColor(R.color.orange_red));
+									if(petPicture.animal.type>200&&petPicture.animal.type<300){
+							    		iv.setImageResource(R.drawable.bone_red);
+									}else if(petPicture.animal.type>100&&petPicture.animal.type<200){
+										iv.setImageResource(R.drawable.fish_red);
+									}
+								}
+							});
+							
+						}
 					}
 				}).start();
 				break;
 			case 3:
-               new Thread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						HttpUtil.imageInfo(datas.get(position),null,context);
-						context.runOnUiThread(new Runnable() {
-							
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								Intent intent3=new Intent(context,ShowTopicActivity.class);
-								intent3.putExtra("data", datas.get(position));
-								if(mode==1){
-									intent3.putExtra("from", "UserHomepageActivity");
-								}else{
-									intent3.putExtra("from", "OtherUserTopicActivity");
-									if(ShowTopicActivity.showTopicActivity!=null)
-										ShowTopicActivity.showTopicActivity.finish();
-								}
-								ShowTopicActivity.datas=datas;
-								context.startActivity(intent3);
-							}
-						});
-					}
-				}).start();
-				
-//				context.finish();
+				if(ShowTopicActivity.showTopicActivity!=null){
+					ShowTopicActivity.showTopicActivity.imageView.setImageDrawable(null);
+					ShowTopicActivity.showTopicActivity.finish();
+				}
+				Intent intent3=new Intent(context,ShowTopicActivity.class);
+				intent3.putExtra("PetPicture", petPictures.get(position));
+				intent3.putExtra("from_w", 2);
+				ShowTopicActivity.petPictures=petPictures;
+				context.startActivity(intent3);
 				break;
 			}
 		}

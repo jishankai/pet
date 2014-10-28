@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+     <ImageView
+                 android:id="@+id/cloud1"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/textView2"
+                 android:layout_alignParentRight="true"
+                 android:src="@drawable/cloud_yellow" />
+                <ImageView
+                 android:id="@+id/cloud2"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:layout_below="@+id/imageView1"
+                 android:src="@drawable/cloud_yellow" />
+                 <ImageView
+                 android:id="@+id/cloud3"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentRight="true"
+                 android:layout_marginBottom="-40dp"
+                 android:layout_above="@+id/imageView11"
+                 android:src="@drawable/cloud_yellow" />
+    <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:text=""
+            android:textColor="#7f97b3"
+            android:textSize="16sp" />
+     <TextView
+            android:id="@+id/t2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="上传成功，期待明天的萌叫叫哦"
+            android:layout_below="@+id/textView2"
+            android:textColor="#7f97b3"
+            android:textSize="16sp" />
+<ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/t2"
+            android:layout_marginTop="8dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:src="@drawable/play_ball_red" />
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/shake_over_background" />
+        
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView11"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal"
+            android:background="#E4E1DD"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+             <ImageView
+             android:id="@+id/imageView3"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginRight="30dp"
+             android:layout_centerVertical="true"
+             android:layout_toLeftOf="@+id/imageView4"
+             android:src="@drawable/shake_weixin" 
+             />
+        
+         <ImageView
+             android:id="@+id/imageView4"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerHorizontal="true"
+             android:layout_centerVertical="true"
+             android:src="@drawable/shake_friend" />
+          <ImageView
+             android:id="@+id/imageView5"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="30dp"
+             android:layout_toRightOf="@+id/imageView4"
+             android:src="@drawable/shake_xinlang" />
+        </RelativeLayout>
+
+</RelativeLayout>

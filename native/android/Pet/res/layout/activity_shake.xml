@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
+        
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+<RelativeLayout
+        android:id="@+id/share_bitmap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@drawable/shake_background"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="摇一摇"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/close_view"
+            android:layout_width="48dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="8dp" />
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:id="@+id/viewpager"
+            android:layout_height="280dp"
+            android:layout_below="@+id/textView1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+            
+        </android.support.v4.view.ViewPager>
+
+        
+        
+        
+        
+          <!-- <ImageView 
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/shake_circle"/> -->
+        <com.aidigame.hisun.pet.view.RoundImageView
+            android:id="@+id/roundImageView1"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            imagecontrol:border_thickness="3dp"
+            
+            imagecontrol:border_inside_color="@color/orange_red"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16.5dp"
+            android:layout_marginLeft="13.7dp"
+            android:src="@drawable/pet_icon" 
+            android:scaleType="centerCrop"
+            /><!-- imagecontrol:border_outside_color="@color/orange_red" 
+             -->
+       
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            
+            android:layout_toRightOf="@+id/roundImageView1"
+            android:layout_alignBottom="@+id/roundImageView1"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="20dp"
+            android:text="帮"
+            android:textColor="#7f97b3"
+            android:textSize="12sp" />
+         <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView3"
+            android:layout_alignBaseline="@+id/textView3"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="5dp"
+            android:text="猫君"
+            android:textColor="#fc75b1"
+            android:textSize="12sp" />
+         <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView4"
+            android:layout_alignBaseline="@+id/textView4"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="5dp"
+            android:text="摇一摇"
+            android:textColor="#7f97b3"
+            android:textSize="12sp" />
+         <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/roundImageView1"
+            android:layout_marginBottom="10dp"
+            android:layout_alignLeft="@+id/textView3"
+            android:text="今天还有"
+            android:textColor="#7f97b3"
+            android:textSize="12sp" />
+         <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView6"
+            android:layout_alignBaseline="@+id/textView6"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="5dp"
+            android:text="2"
+            android:textColor="#fc75b1"
+            android:textSize="12sp" />
+         <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView7"
+            android:layout_alignBaseline="@+id/textView7"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="5dp"
+            android:text="次机会哦~"
+            android:textColor="#7f97b3"
+            android:textSize="12sp" />
+         <RelativeLayout 
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:id="@+id/porgress_layout"
+             >
+            
+             
+         </RelativeLayout>
+
+         
+        
+    </RelativeLayout>
+</RelativeLayout>

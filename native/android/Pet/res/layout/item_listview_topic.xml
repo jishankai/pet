@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:clickable="true" >
 
-        <com.aidigame.hisun.pet.view.CircleView
+        <com.aidigame.hisun.pet.view.RoundImageView
             android:id="@+id/imageView1"
             android:layout_width="42dp"
             android:layout_height="42dp"
@@ -75,7 +75,6 @@
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        
         android:layout_centerInParent="true"/>
         <LinearLayout 
             android:id="@+id/heart_linearLayout"
@@ -104,6 +103,7 @@
         android:text="35"
         android:singleLine="true"
         android:textSize="16sp"
+        android:textColor="@color/white"
         android:layout_gravity="center" 
         android:paddingLeft="10dp"
         android:paddingRight="5dp"/>

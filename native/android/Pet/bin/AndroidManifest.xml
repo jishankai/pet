@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aidigame.hisun.pet"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="14"
+    android:versionName="Beta1.1.2" >
 
     <uses-sdk
         android:minSdkVersion="12"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="17" />
     
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -14,15 +14,41 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
-
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.REORDER_TASKS"/>
     <application
         android:name="com.aidigame.hisun.pet.PetApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
+        <!-- 百度定位服务 -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+           <!--  <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2" >
+                </action>
+            </intent-filter> -->
+        </service>
+
+        <!-- meta-data需要写在application中 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="zfwQ25D6IxRuo3nRLDdLccNF" />
+        
         
         
         
@@ -98,45 +124,25 @@
             
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
         <activity android:name="com.aidigame.hisun.pet.ui.ShowPictureActivity"
-            android:theme="@android:style/Theme.Translucent"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.HomeActivity"
-            
+        
+         <activity android:name="com.aidigame.hisun.pet.ui.NewHomeActivity"
+            android:windowSoftInputMode="adjustNothing"
              android:configChanges="keyboardHidden|orientation|navigation"
-            android:launchMode="singleInstance">
+             android:launchMode="singleInstance"
+            ><!--  -->
             
         </activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.UserHomepageActivity"
-            android:theme="@android:style/Theme.Translucent"
-             android:configChanges="keyboardHidden|orientation|navigation"></activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.OtherUserTopicActivity"
-             android:configChanges="keyboardHidden|orientation|navigation"
-            ></activity>
         <activity android:name="com.aidigame.hisun.pet.FirstPageActivity"
            
             android:theme="@android:style/Theme.Translucent"
              android:configChanges="keyboardHidden|orientation|navigation">
-                        <intent-filter >
+                       <!--  <intent-filter >
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            </intent-filter> -->
         </activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.IntroduceActivity"
-            android:theme="@android:style/Theme.Translucent"
-             android:configChanges="keyboardHidden|orientation|navigation"></activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.RegisterActivity"
-            android:theme="@android:style/Theme.Translucent"
-             android:configChanges="keyboardHidden|orientation|navigation"></activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.PictureAlbumActivity"
-            android:theme="@android:style/Theme.Translucent"
-             android:configChanges="keyboardHidden|orientation|navigation"></activity>
         <activity android:name="com.aidigame.hisun.pet.ui.ChoseClassActivity"
-            android:theme="@android:style/Theme.Translucent"
-             android:configChanges="keyboardHidden|orientation|navigation"></activity>
-        <activity android:name="com.aidigame.hisun.pet.ui.UnregisterNoteActivity"
-            android:theme="@android:style/Theme.Translucent"
-             android:configChanges="keyboardHidden|orientation|navigation"></activity>
-                <activity android:name="com.aidigame.hisun.pet.ui.SetupActivity"
             android:theme="@android:style/Theme.Translucent"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
                 <activity android:name="com.aidigame.hisun.pet.ui.TakePictureBackground"
@@ -145,45 +151,109 @@
                 <activity android:name="com.aidigame.hisun.pet.ui.AlbumPictureBackground"
             android:theme="@android:style/Theme.Translucent"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
-                <activity android:name="com.aidigame.hisun.pet.ui.AcountVisibilty"
-            android:theme="@android:style/Theme.Translucent"
-             android:configChanges="keyboardHidden|orientation|navigation"></activity>
                   <activity android:name="com.aidigame.hisun.pet.ui.UsersListActivity"
             android:theme="@android:style/Theme.Translucent"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
-                  <!--  -->
-                  <activity android:name="com.aidigame.hisun.pet.ui.MenuActivity"
-                      android:theme="@android:style/Theme.Translucent.NoTitleBar"
-             android:configChanges="keyboardHidden|orientation|navigation"></activity>
-                   <activity android:name="com.aidigame.hisun.pet.ui.ScanActivitys"
-            android:theme="@android:style/Theme.Translucent"
-             android:configChanges="keyboardHidden|orientation|navigation"></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.DetailActivity"
-            android:theme="@android:style/Theme.Translucent"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.AwardDetailActivity"
-            android:theme="@android:style/Theme.Translucent"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.AdviceActivity"
-            android:theme="@android:style/Theme.Translucent"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
                     
                     <activity android:name="com.aidigame.hisun.pet.ui.MessageActivity"
             android:theme="@android:style/Theme.Translucent"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <service android:name="org.OpenUDID.OpenUDID_service">
-	                      <intent-filter>
-		                    <action android:name="org.OpenUDID.GETUDID" />
-	                      </intent-filter>
-                   </service>
+                    <activity android:name="com.aidigame.hisun.pet.ui.ChoseStarActivity"
+             android:configChanges="keyboardHidden|orientation|navigation">
+                        <intent-filter >
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+                    </activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity"
+             android:configChanges="keyboardHidden|orientation|navigation">
+                    </activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.ChoseKingActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation">
+                                                 <!-- <intent-filter >
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter> -->
+                    </activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.NewRegisterActivity"
+             android:configChanges="keyboardHidden|orientation|navigation"
+             android:theme="@style/SampleTheme.Light"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.ChatActivity"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.PetKingdomActivity"
+             android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.UserDossierActivity"
+             android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.PlayGameActivity"
+             android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.ReceiverAddressActivity"
+             android:configChanges="keyboardHidden|orientation|navigation"
+             android:theme="@style/SampleTheme.Light">
+
+                    </activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.TopicListActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.AtUserListActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.GiftInfoActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.ContributeRankListActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.PopularRankListActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.ModifyPetInfoActivity"
+                        android:theme="@style/SampleTheme.Light"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.ChosePetActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.AboutUsActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                      <activity android:name="com.aidigame.hisun.pet.ui.MyItemActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                      <activity android:name="com.aidigame.hisun.pet.ui.AnimalsListActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.FAQActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.ShakeActivity"
+                        android:theme="@style/Theme.Transparent"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity"
+                        android:theme="@style/Theme.Transparent"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.PlayJokeActivity"
+                        android:theme="@style/Theme.Transparent"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                      <activity android:name="com.aidigame.hisun.pet.ui.DialogNoteActivity"
+                        android:theme="@style/Theme.Transparent"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.BiteActivity"
+                        android:theme="@style/Theme.Transparent"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.TouchActivity"
+                        android:theme="@style/Theme.Transparent"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.AddGoldContriExpActivity"
+                        android:theme="@android:style/Theme.Holo.Light.Dialog"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.wxapi.WXEntryActivity"
+                        android:theme="@android:style/Theme.NoDisplay"
+                        android:configChanges="keyboardHidden|orientation|navigation"
+                        android:exported="true"></activity>
+                   <service android:name="com.aidigame.hisun.pet.service.LocationSvc"></service>
+                  
+                   
+                   
+                   
+                   <receiver android:name="com.aidigame.hisun.pet.util.DeviceNetInfoUtil$NetworkStatusChangeReceiver">
+                       <intent-filter >
+                           <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                       </intent-filter>
+                   </receiver>
     </application>
 
 </manifest>

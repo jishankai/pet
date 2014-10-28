@@ -2,6 +2,8 @@ package com.aidigame.hisun.pet.http.json;
 
 import java.util.ArrayList;
 
+import com.aidigame.hisun.pet.bean.User;
+
 import android.R.integer;
 
 /**
@@ -31,6 +33,7 @@ public class InfoJson {
 	public String confVersion;
 	public long currentTime;
 	public ArrayList<Data> data;
+	public User user;
 	
 	
 	

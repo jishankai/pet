@@ -25,9 +25,6 @@ import android.widget.TextView;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
-import com.aidigame.hisun.pet.ui.HomeActivity;
-import com.aidigame.hisun.pet.ui.OtherUserTopicActivity;
-import com.aidigame.hisun.pet.ui.UserHomepageActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
 
 public class MyListView extends ListView implements OnScrollListener {
@@ -159,63 +156,27 @@ public class MyListView extends ListView implements OnScrollListener {
 		}
 	}
 	public void setVisibiltyGone(){
-		if(activity instanceof UserHomepageActivity){
-			UserHomepageActivity ha=(UserHomepageActivity)activity;
-			ha.userInfoRelativeLayout.setVisibility(View.GONE);
-		}
-		if(activity instanceof OtherUserTopicActivity){
-			OtherUserTopicActivity ha=(OtherUserTopicActivity)activity;
-			ha.userLayout.setVisibility(View.GONE);
-		}
+		
 	}
 	public void setVisibiltyVision(){
-		if(activity instanceof UserHomepageActivity){
-			UserHomepageActivity ha=(UserHomepageActivity)activity;
-			ha.userInfoRelativeLayout.setVisibility(View.VISIBLE);
-		}
-		if(activity instanceof OtherUserTopicActivity){
-			OtherUserTopicActivity ha=(OtherUserTopicActivity)activity;
-			ha.userLayout.setVisibility(View.VISIBLE);
-		}
+		
 	}
 	/**
 	 * 主界面，关注列表下拉 更新
 	 */
 	public void homeActivity(){
-		if(activity instanceof HomeActivity){
-			HomeActivity ha=(HomeActivity)activity;
-			UserImagesJson.Data data=ha.datas.get(ha.datas.size()-1);
-			ha.last_id=data.img_id;
-			HttpUtil.downloadUserHomepage(ha.handler, data.img_id,1,activity);
-			LogUtil.i("exception", "执行更行==================");
-		}
 	}
 	/**
 	 * 用户个人主页图片列表下拉刷新
 	 */
 	public void userHomeActivity(){
-		if(activity instanceof UserHomepageActivity){
-			UserHomepageActivity ha=(UserHomepageActivity)activity;
-			UserImagesJson.Data data=ha.datas.get(ha.datas.size()-1);
-			ha.lastImage_id=data.img_id;
-			HttpUtil.downloadUserHomepage(ha.handler, data.img_id,0,activity);
-			LogUtil.i("exception", "执行更行==================");
-		}
+		
 	}
 	/**
 	 * 用户个人主页图片列表下拉刷新
 	 */
 	public void otherUserHomeActivity(){
-		if(activity instanceof OtherUserTopicActivity){
-			OtherUserTopicActivity ha=(OtherUserTopicActivity)activity;
-			
-			
-			if(ha.datas.size()>0){
-				UserImagesJson.Data data=ha.datas.get(ha.datas.size()-1);
-				ha.last_id=data.img_id;
-				HttpUtil.downloadOtherUserHomepage(ha.handler, data.img_id,data,activity);
-			}
-		}
+		
 	}
 	public boolean onTouchEvent(MotionEvent event) {
 

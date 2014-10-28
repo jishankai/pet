@@ -1,6 +1,15 @@
 <resources>
 
-    <string name="app_name">阿猫阿狗</string>
+    <string name="app_name">宠物星球</string>
     <string name="golde_decribe">\"爱时尚\"专业宠物摄影机构 写真一套</string>
+    <string name="menu_unregister_note1">宠物星球，我是大萌星</string>
+    <string name="menu_unregister_note2">快来打造最闪亮萌星！</string>
+    <string name="menu_note3">搜索萌星~</string>
+     <string name="register_note1">萌星档案</string>
+      <string name="register_note2">用户档案</string>
+      <string name="shake_note1">哎呦~运气不错哦~为萌星摇出</string>
+      <string name="shake_note2">换个萌星试试吧~</string>
+      <string name="touch_note1">摸萌照，听萌星叫叫，萌萌印心中~</string>
+       <string name="homefragment_note1">萌照推荐</string>
 
 </resources>

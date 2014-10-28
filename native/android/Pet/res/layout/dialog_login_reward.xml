@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
+    android:orientation="vertical" 
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="每日登陆奖励" 
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+10"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        android:textColor="@color/orange_red"
+         android:layout_marginBottom="5dp"/>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/gold_big"
+        android:layout_marginBottom="15dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_height="wrap_content"
+        android:textColor="#606060"
+        android:text="拿去花，甭客气~" 
+        android:gravity="center"
+        android:lineSpacingExtra="5dp"/>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+        <TextView
+        android:id="@+id/textView5"
+        android:textColor="#606060"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="您已经连续来了1天，明日将受到15" />
+         <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/gold_image" 
+            android:layout_marginLeft="3dp"/>
+        
+    </LinearLayout>
+     <ImageView 
+          android:layout_width="150dp"
+          android:layout_height="67dp"
+          android:layout_marginTop="15dp"
+          android:src="@drawable/cat_dog"/><!--  android:layout_width="120dp"
+          android:layout_height="53dp" -->
+
+    <TextView
+        android:id="@+id/button1"
+        android:layout_width="180dp"
+        android:layout_height="35dp"
+        android:text="收下啦"
+        android:background="@drawable/button"
+        android:textColor="@color/white"
+        android:textSize="16sp" 
+        android:gravity="center"
+       
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp"
+        android:layout_marginBottom="10dp"/>
+    
+
+</LinearLayout>

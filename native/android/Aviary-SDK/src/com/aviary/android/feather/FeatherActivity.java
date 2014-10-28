@@ -2,10 +2,10 @@
  * AVIARY API TERMS OF USE
  * Full Legal Agreement
  * The following terms and conditions and the terms and conditions at
- * http://www.aviary.com/terms (collectively, the “Terms”) govern your use
+ * http://www.aviary.com/terms (collectively, the 鈥淭erms鈥�) govern your use
  * of any and all data, text, software, tools, documents and other materials
  * associated with the application programming interface offered by Aviary, Inc.
- * (the "API"). By clicking on the “Accept” button, OR BY USING OR ACCESSING
+ * (the "API"). By clicking on the 鈥淎ccept鈥� button, OR BY USING OR ACCESSING
  * ANY PORTION OF THE API, you or the entity or company that you represent are
  * unconditionally agreeing to be bound by the terms, including those available
  * by hyperlink from within this document, and are becoming a party to the
@@ -23,7 +23,7 @@
  * agreement ("Agreement"), Aviary, Inc. ("Aviary") grants Licensee a
  * non-exclusive, revocable, nonsublicensable, nontransferable license to
  * download and use the API solely to embed a launchable Aviary application
- * within Licensee’s mobile or website application (“App”) and to access
+ * within Licensee鈥檚 mobile or website application (鈥淎pp鈥�) and to access
  * data from Aviary in connection with such application. Licensee may not
  * install or use the API for any other purpose without Aviary's prior written
  * consent.
@@ -55,7 +55,7 @@
  * whenever the API is displayed to the end user. (c) it may not otherwise use
  * the Aviary logo without specific written permission from Aviary; and (d) any
  * use of the Aviary logo on an App page shall be less prominent than the logo
- * or mark that primarily describes the Licensee website, and Licensee’s use
+ * or mark that primarily describes the Licensee website, and Licensee鈥檚 use
  * of the Aviary logo shall not imply any endorsement of the Licensee website by
  * Aviary.
  * 
@@ -98,7 +98,7 @@
  * reviewing and becoming familiar with any such modification. Such
  * modifications are effective upon first posting or notification and use of the
  * Aviary API by Licensee following any such notification constitutes
- * Licensee’s acceptance of the terms and conditions of this Agreement as
+ * Licensee鈥檚 acceptance of the terms and conditions of this Agreement as
  * modified.
  * 
  * We may update this agreement from time to time, as needed. We don't
@@ -276,6 +276,8 @@ import it.sephiroth.android.library.widget.AdapterView;
 import it.sephiroth.android.library.widget.AdapterView.OnItemClickListener;
 import it.sephiroth.android.library.widget.HListView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -294,12 +296,15 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore.Images.Media;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -313,6 +318,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -368,7 +374,10 @@ import com.aviary.android.feather.widget.AviaryToast;
  */
 public class FeatherActivity extends MonitoredActivity implements OnToolbarClickListener, OnImageDownloadListener, OnToolListener, FeatherContext,
 		OnBitmapChangeListener, OnBottomBarItemClickListener, OnRestoreStateListener, OnItemClickListener {
-
+    ///////////////////////
+	//Add by SCX
+	public ImageView back;
+	//////////////////////
 	private static final int ALERT_CONFIRM_EXIT = 0;
 	private static final int ALERT_DOWNLOAD_ERROR = 1;
 	private static final int ALERT_REVERT_IMAGE = 2;
@@ -540,7 +549,7 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 
 	@Override
 	public void onCreate( Bundle savedInstanceState ) {
-
+		Log.i("onItemClick", "onItemClick");
 		long t1 = DateTimeUtils.tick();
 
 		onPreCreate();
@@ -912,7 +921,43 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 
 		mToolbar = (AviaryNavBarViewFlipper) findViewById( R.id.aviary_navbar );
 		mBottomBarFlipper = (AviaryBottomBarViewFlipper) findViewById( R.id.aviary_bottombar );
-
+        ///////////////////////
+        //Add by SCX
+		final int mode=getIntent().getIntExtra("mode", 0);//0 相册 
+		
+		
+        back=(ImageView)findViewById(R.id.imageview_back);
+        back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				/*if("SubmitPicture".equals(getIntent().getStringExtra("from"))){
+					FeatherActivity.this.finish();
+					
+					return;
+				}*/
+				getIntent().putExtra("cancel", true);
+				FeatherActivity.this.setResult(RESULT_OK, getIntent());
+				FeatherActivity.this.finish();
+			}
+		});
+       ImageView  back2=(ImageView)findViewById(R.id.imageview_back2);
+        back2.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				/*if("SubmitPicture".equals(getIntent().getStringExtra("from"))){
+					FeatherActivity.this.finish();
+					return;
+				}*/
+				getIntent().putExtra("cancel", true);
+				FeatherActivity.this.setResult(RESULT_OK, getIntent());
+				FeatherActivity.this.finish();
+			}
+		});
+        //////////////////////
 		mToolsList = mBottomBarFlipper.getToolsListView();
 
 		mDrawingViewContainer = (ViewGroup) findViewById( R.id.drawing_view_container );
@@ -1386,6 +1431,7 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 	@Override
 	protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
 		super.onActivityResult( requestCode, resultCode, data );
+		
 		mMainController.onActivityResult( requestCode, resultCode, data );
 	}
 
@@ -1492,6 +1538,7 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 
 			Bundle extras = new Bundle();
 			extras.putParcelable( "data", bitmap );
+			Log.i("me", "aviary设置返回的地址是："+service.getDestImageUri().toString());
 			onSetResult( RESULT_OK, new Intent().setData( service.getDestImageUri() ).setAction( "inline-data" ).putExtras( extras ) );
 			finish();
 
@@ -1549,13 +1596,52 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 		} else {
 			// no output uri declared, save the image in a new path
 			// and return it
+			
+			/*
+			 * aviary 原代码
+			 */
 
-			String url = Media.insertImage( getContentResolver(), bitmap, "title", "modified with Aviary Feather" );
+			/*String url = Media.insertImage( getContentResolver(), bitmap, "title", "modified with Aviary Feather" );
 			if ( url != null ) {
 				saveUri = Uri.parse( url );
 				getContentResolver().notifyChange( saveUri, null );
 			}
-			onSetResult( RESULT_OK, new Intent().setData( saveUri ).putExtras( extras ) );
+			onSetResult( RESULT_OK, new Intent().setData( saveUri ).putExtras( extras ) );*/
+			
+			
+			/*
+			 * 我的修改，部分手机，使用Media.insertImage(),返回数据位空
+			 */
+			
+			String path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+".jpg";
+			FileOutputStream fos=null;
+			FileOutputStream fos1=null;
+			try {
+				fos = new FileOutputStream(new File(path));
+				bitmap.compress(CompressFormat.JPEG, 60, fos);
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				/*bitmap=BitmapFactory.decodeFile(path);
+				path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+".png";
+				fos1 = new FileOutputStream(new File(path));
+				bitmap.compress(CompressFormat.PNG, 100, fos1);*/
+				String url="file://"+path;
+				if ( url != null ) {
+					saveUri = Uri.parse( url );
+					getContentResolver().notifyChange( saveUri, null );
+				}
+				onSetResult( RESULT_OK, new Intent().setData( saveUri ).putExtras( extras ) );
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
 		}
 
 		final Bitmap b = bitmap;
@@ -1837,7 +1923,7 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 	@Override
 	public void onItemClick( AdapterView<?> parent, View view, int position, long id ) {
 		logger.info( "onItemClick: " + position );
-
+        Log.i("onItemClick", "onItemClick");
 		if ( null != view && parent.isEnabled() && parent.getAdapter() != null ) {
 			int type = parent.getAdapter().getItemViewType( position );
 
@@ -1867,7 +1953,7 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 	@Override
 	public boolean onRestoreBegin() {
 		logger.info( "onRestoreBegin" );
-
+		Log.i("onItemClick", "onRestoreBegin");
 		if ( null != mMainController ) {
 			if ( null != mMainController.getOriginalBitmap() ) {
 				if ( !mMainController.getPanelIsRendering() && mMainController.getBitmapIsChangedOrChanging() ) {
@@ -1884,6 +1970,7 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 	@Override
 	public void onRestoreChanged() {
 		logger.info( "onRestoreChanged" );
+		Log.i("onItemClick", "onRestoreChanged");
 
 		mToolbar.toggleRestore( true );
 		Tracker.recordTag( "prepost: RestoreOriginalShown" );
@@ -1892,6 +1979,7 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 
 	@Override
 	public void onRestoreEnd() {
+		Log.i("onItemClick", "onRestoreEnd");
 		logger.info( "onRestoreEnd" );
 		mImageRestore.setDisplayedChild( 0 );
 		mToolbar.toggleRestore( false );

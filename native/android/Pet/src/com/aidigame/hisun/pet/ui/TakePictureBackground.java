@@ -10,8 +10,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 
-import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
@@ -24,6 +24,7 @@ public class TakePictureBackground extends Activity {
 	int mode=-1;
 	String filename;
 	String activityName;
+	Animal animal;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			
@@ -35,6 +36,9 @@ public class TakePictureBackground extends Activity {
 					intent3.putExtra("mode", 1);
 					intent3.putExtra("path", Constants.Picture_Camera+File.separator+filename);
 					intent3.putExtra("activity", activityName);
+					intent3.putExtra("topic_id", getIntent().getIntExtra("topic_id", -1));
+					intent3.putExtra("topic_name", getIntent().getStringExtra("topic_name") );
+					intent3.putExtra("animal", animal);
 					TakePictureBackground.this.startActivity(intent3);
 				}
 				
@@ -53,6 +57,7 @@ public class TakePictureBackground extends Activity {
 		setContentView(R.layout.activity_take_picture_background);
 		mode=getIntent().getIntExtra("mode", -1);
 		activityName=getIntent().getStringExtra("activity");
+		animal=(Animal)getIntent().getSerializableExtra("animal");
 		switch (mode) {
 		case -1:
 			this.finish();

@@ -5,7 +5,7 @@
     <color name="gray_deep">#3e3e3e</color>
     <color name="brown">#432D20</color>
     <color name="brown_deep">#51493D</color>
-    <color name="gray_light">#F2F0EB</color>
+    <color name="gray_light">#ffF2F0EB</color>
     <color name="black">#000000</color>
     <color name="black_light">#413F2F</color>
     <color name="first_background">#FBF5EE</color>
@@ -15,4 +15,12 @@
     <color name="user_home_nums_unchecked">#787777</color>
     <color name="user_home_nums_checked">#fb6137</color>
     <color name="listview_item_selected_background">@android:color/transparent</color>
+    <color name="blur_view_top">#c0ffffff</color>
+    <color name="ball_gray">#e1e1e1</color>
+    <color name="ball_blue">#92d1f4</color>
+    <color name="gray1">#bcbcbc</color>
+    <!--  <color name="transparent">#00000000</color> -->
+    <color name="window_black_bagd">#90000000</color>
+    <color name="set_up_text_gray">#a2a2a2</color>
+    <color name="dossier_tab_color">#f5f5f5</color>
 </resources>

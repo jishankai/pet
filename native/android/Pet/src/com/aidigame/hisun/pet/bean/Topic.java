@@ -1,28 +1,54 @@
 package com.aidigame.hisun.pet.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-import android.graphics.Bitmap;
+import com.aidigame.hisun.pet.http.json.ActivityJson.Reward;
 
+/**
+ * 话题
+ * @author admin
+ *
+ */
 public class Topic implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3554359157475118701L;
-	public String url;//·������url
-	public String bmpPath;//���ص����� ��Ϊnull���ձ�ʾ��δ����
+	public int topic_id=-1;//默认值为-1，表明是自己创建的话题
+	public boolean isSelected;//在话题列表中，用于判断是否选中
+	public String  topic;
+	public String reward;
+	public String img;
+	public String imgPath;
+	public long start_time;
+	public long end_time;
+	public int people;
+	public String remark;
+	public String txs;
+	public String des;
+	public ArrayList<Reward> rewards;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((topic == null) ? 0 : topic.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Topic other = (Topic) obj;
+		if (topic == null) {
+			if (other.topic != null)
+				return false;
+		} else if (!topic.equals(other.topic))
+			return false;
+		return true;
+	}
 
-	public String describe;
 
-	public long time;
-	public int likesNum;
-	public User user;
 	
-	public int img_id;//
-	public int usr_id;
-
-
-
-
 
 }

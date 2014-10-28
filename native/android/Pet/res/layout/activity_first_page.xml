@@ -11,9 +11,11 @@
         android:scaleType="fitCenter"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/first_background" 
         
-        />
+        
+        
+        /><!-- android:src="@drawable/first_background"  -->
+        
 <!-- 
     <LinearLayout
         android:layout_width="match_parent"

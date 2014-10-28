@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.http.json;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -11,7 +12,11 @@ import android.R.integer;
 import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.http.json.LoginJson.Data;
 
-public class MessagJson {
+public class MessagJson implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5584179880978296681L;
 	public int state;
 	public int errorCode;//0  正常；1  异常；2 SID过期
 	public String errorMessage;
@@ -74,14 +79,14 @@ public class MessagJson {
 									dataSystem.create_time=o2.getLong("create_time");
 									dataSystem.fromUser=new User();
 									dataSystem.fromUser.userId=o2.getInt("from_id");
-									dataSystem.fromUser.iconUrl=o2.getString("tx");
-									dataSystem.fromUser.nickName=o2.getString("name");
-									dataSystem.fromUser.gender=o2.getInt("gender");
+									dataSystem.fromUser.pet_iconUrl=o2.getString("tx");
+									dataSystem.fromUser.pet_nickName=o2.getString("name");
+									dataSystem.fromUser.a_gender=o2.getInt("gender");
 									dataSystem.is_system=o2.getInt("is_system")==0?false:true;
 									if(dataSystem.is_system){
 										String temp=o2.getString("body");
-										int index=temp.indexOf(dataSystem.fromUser.nickName);
-										index+=dataSystem.fromUser.nickName.length();
+										int index=temp.indexOf(dataSystem.fromUser.pet_nickName);
+										index+=dataSystem.fromUser.pet_nickName.length();
 										dataSystem.body=temp.substring(index);
 									}else{
 										dataSystem.body=o2.getString("body");
@@ -108,7 +113,7 @@ public class MessagJson {
 			
 		}
 	}
-	public static class DataSystem{
+	public static class DataSystem implements Serializable{
 		public String mail_id;
 		public User fromUser;
 		public String body;
@@ -117,6 +122,7 @@ public class MessagJson {
 		public long create_time;
 		public String update_time;
 		public String is_deleted;
+		public boolean isRequest=false;
 		@Override
 		public int hashCode() {
 			final int prime = 31;

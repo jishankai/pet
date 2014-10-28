@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout 
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    
+    >
+    <LinearLayout 
+       
+        android:id="@+id/note_layout"
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@drawable/diglog_note_background"
+    android:layout_marginTop="15dp"
+    >
+         <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="陌生人你还没有获得居留资格哟~"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+         />
+          <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册飞船马上起飞"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        
+         />
+           <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="递交居留申请，走起啊~"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        
+         />
+    </LinearLayout>
+   
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/red_ball_delete"
+        android:layout_alignRight="@+id/note_layout"
+        android:layout_alignEnd="@+id/note_layout"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="0dp"/>
+
+    <TextView
+        android:layout_below="@+id/note_layout"
+        android:id="@+id/textView4"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:text="走起" 
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
+        android:background="@drawable/button"/>
+
+</RelativeLayout>
+</LinearLayout>
+

@@ -18,10 +18,11 @@ import com.aidigame.hisun.pet.FirstPageActivity;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
-import com.aidigame.hisun.pet.ui.IntroduceActivity;
-import com.aidigame.hisun.pet.ui.SetupActivity;
+import com.aidigame.hisun.pet.ui.NewHomeActivity;
+import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.ui.ShowTopicActivity;
-import com.aidigame.hisun.pet.ui.UnregisterNoteActivity;
+import com.aidigame.hisun.pet.ui.SubmitPictureActivity;
+import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuth;
@@ -34,6 +35,7 @@ import com.sina.weibo.sdk.net.WeiboParameters;
 import com.sina.weibo.sdk.openapi.UsersAPI;
 
 public class XinlangShare {
+	public static ShareXinlangResultListener listener;
 	public static void xinlangAuth(final Activity context){
 		WeiboAuth weiboAuth=new WeiboAuth(context, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
 		weiboAuth.authorize(new WeiboAuthListener() {
@@ -94,16 +96,11 @@ public class XinlangShare {
 								Constants.accessToken=accessToken;
 								LogUtil.i("me", ""+arg0);
 								getXinLangInfo(context);
-								if (context instanceof UnregisterNoteActivity) {
-									Intent intent1=new Intent(context,IntroduceActivity.class);
-									context.startActivity(intent1);
-									context.finish();
-								}
 								if (context instanceof ShowTopicActivity) {
 									
 								}
-								if(context instanceof SetupActivity){
-									SetupActivity.getXinlangAuth=true;
+								if(context instanceof NewHomeActivity){
+									NewHomeActivity.homeActivity.setupFragment.getXinlangToken(true);
 								}
 								
 								Toast.makeText(context, "获取新浪微博授权成功", Toast.LENGTH_LONG).show();
@@ -125,11 +122,12 @@ public class XinlangShare {
 			}
 		}, WeiboAuth.OBTAIN_AUTH_CODE);
 	}
+	
 	public static void sharePicture(UserImagesJson.Data data,final Context context){
 		boolean flag=false;
 		WeiboParameters parameters=new WeiboParameters();
 		if(data.comment==null||"".equals(data.comment)){
-			parameters.put("status", "宠物秀秀");
+			parameters.put("status", data.des);
 		}else{
 			parameters.put("status", data.comment);
 		}
@@ -143,7 +141,8 @@ public class XinlangShare {
 			@Override
 			public void onWeiboException(WeiboException arg0) {
 				// TODO Auto-generated method stub
-				LogUtil.i("exception", "新浪微博分享照片异常"+arg0.getMessage());
+				LogUtil.i("exception", "新浪微博分享照片异常"+arg0.getMessage()+";token="+Constants.accessToken.getToken());
+				LogUtil.i("me","分享到新浪微博操作失败，原因是"+arg0.getMessage() +";token="+Constants.accessToken.getToken());
 				Toast.makeText(context, "分享到新浪微博操作失败，原因是"+arg0.getMessage(), Toast.LENGTH_LONG).show();
 			}
 			
@@ -151,7 +150,24 @@ public class XinlangShare {
 			public void onComplete(String arg0) {
 				// TODO Auto-generated method stub
 				LogUtil.i("exception", "新浪微博分享照片返回结果："+arg0);
+				LogUtil.i("exception",";token="+Constants.accessToken.getToken());
+				LogUtil.i("me",";token="+Constants.accessToken.getToken());
 				Toast.makeText(context, "成功分享到新浪微博", Toast.LENGTH_LONG).show();
+				/*if(context instanceof ShowTopicActivity){
+					ShowTopicActivity sh=(ShowTopicActivity)context;
+					sh.shareNumChange();
+				}*/
+				if(Constants.whereShare==1){
+					
+					SubmitPictureActivity.submitPictureActivity.addShares(false);
+				}else if(Constants.whereShare==2){
+					PetKingdomActivity.petKingdomActivity.shareNumChange();
+				}else if(Constants.whereShare==3){
+					UserDossierActivity.userDossierActivity.shareNumChange();
+				}
+				if(listener!=null){
+					listener.resultOk();
+				}
 				/*
 				 * 06-22 10:08:09.660: I/exception(12548): 新浪微博分享照片返回结果：
 				 * {"created_at":"Sun Jun 22 10:07:57 +0800 2014","id":3724203955699228,
@@ -259,5 +275,9 @@ public class XinlangShare {
         	}
         	
         }
+    }
+   
+	public static interface ShareXinlangResultListener{
+    	void resultOk();
     }
 }

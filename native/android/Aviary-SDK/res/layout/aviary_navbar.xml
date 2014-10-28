@@ -12,14 +12,22 @@
         android:gravity="center_vertical"
         android:paddingLeft="12dip" >
 
-        <com.aviary.android.feather.widget.AviaryTextView
+       <!--  <com.aviary.android.feather.widget.AviaryTextView
             android:id="@+id/navbar_text1"
             style="?attr/aviaryNavTitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:focusable="false"
-            android:text="@string/feather_edit_your_photo" />
+            android:text="@string/feather_edit_your_photo"
+             /> -->
+        <ImageView 
+            android:id="@+id/imageview_back"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/back_white"
+            android:padding="5dp"/>
 
         <ProgressBar
             android:id="@+id/navbar_progress1"
@@ -58,15 +66,23 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:paddingLeft="12dip" >
+         <ImageView 
+            android:id="@+id/imageview_back2"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/back"
+            android:padding="5dp"/>
 
         <TextSwitcher
             android:id="@+id/navbar_text2"
             style="?aviaryNavTitleStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:animateFirstView="false" />
+
+            android:layout_centerInParent="true"
+            android:animateFirstView="false" />      <!--        android:layout_alignParentLeft="true"
+                                                                 android:layout_centerVertical="true" -->
 
         <ProgressBar
             android:id="@+id/navbar_progress2"

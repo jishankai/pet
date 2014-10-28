@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingTop="10dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
+   
     android:paddingBottom="10dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:clickable="true"
+    android:id="@+id/layout"
     
      >
 
@@ -16,8 +19,10 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="14sp" 
-        android:textColor="@color/orange_red"
-        android:layout_marginLeft="5dp"/>
+       
+        android:layout_marginLeft="15dp"
+        
+        android:layout_alignParentLeft="true"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -27,7 +32,10 @@
         android:textSize="14sp" 
         android:textColor="#757575"
         android:layout_weight="1" 
-        android:layout_marginLeft="10dp"/>
+        android:clickable="false"
+        android:layout_marginLeft="15dp"
+        android:enabled="false"
+        android:layout_below="@+id/textView1"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -35,6 +43,17 @@
         android:layout_height="wrap_content"
         android:text="TextView" 
         android:textSize="14sp" 
-        android:textColor="#b4b4b4"/>
+        android:clickable="false"
+        android:enabled="false"
+        android:layout_marginRight="15dp"
+        android:textColor="#b4b4b4"
+        android:layout_alignParentRight="true"
+        />
+    <View 
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#b4b4b4"/>
 
-</LinearLayout>
+</RelativeLayout>

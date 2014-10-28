@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.util;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.constant.Constants;
 
 import android.app.Activity;
@@ -17,6 +18,7 @@ public class UiUtil {
 	 */
 	public static void setScreenInfo(Context context){
 		Activity activity=(Activity)context;
+		PetApplication.petApp.activityList.add(activity);
 		//垂直显示
 		activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		//没有标题

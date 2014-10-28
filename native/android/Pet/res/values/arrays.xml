@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string-array  name="gender">
         <item >公</item>
@@ -9,5 +9,228 @@
         <item >汪星人</item>
         <item >喵星人</item>
     </string-array>
-    
+    <string-array name="stars">
+        <item>喵喵</item>
+        <item>汪汪</item>
+    </string-array>
+    <string-array name="dog_race">
+        <item >泰迪犬</item><!--201  -->
+        <item >博美犬</item>
+        <item >马尔济斯犬</item>
+        <item >约克夏梗</item>
+        <item >贵宾犬</item>
+        <item >蝴蝶犬</item>
+        <item >八哥犬</item>
+        <item >西施犬</item>
+        <item >比熊犬</item>
+        <item >北京犬</item>
+        <item >迷你杜宾</item>
+        <item >拉萨犬</item>
+        <item >冠毛犬</item>
+        <item >小型雪纳瑞</item>
+        <item >柯基犬</item>
+        <item >巴吉度犬</item>
+        <item >哈士奇</item>
+        <item >松狮</item>
+        <item >牧羊犬</item>
+        <item >柴犬</item>
+        <item >斗牛犬</item>
+        <item >萨摩耶犬</item>
+         <item >腊肠犬</item>
+        <item >猎兔犬</item>
+        <item >惠比特犬</item>
+        <item >拉布拉多</item>
+        <item >大麦町犬（斑点狗）</item>
+        <item >爱斯基摩犬</item>
+        <item >沙皮犬</item>
+        <item >山地犬</item>
+        <item >无毛犬</item>
+        <item >雪纳瑞</item>
+        <item >藏獒</item>
+        <item >史毕诺犬</item>
+        <item >卡斯罗</item>
+        <item >罗威纳犬</item>
+        <item >阿拉斯加雪橇犬</item>
+        <item >金毛</item>
+        <item >柯利犬</item>
+        <item >波尔多犬</item>
+        <item >法国狼犬</item>
+        <item >雪达犬</item>
+        <item >奇努克犬</item>
+        <item >威玛犬</item>
+        <item >比利时马林诺斯犬</item>
+        <item >寻回犬</item>
+        <item >浣熊犬</item>
+        <item >迦南犬</item>
+        <item >猎犬</item>
+        <item >梗犬</item>
+        <item >牧羊犬</item>
+        <item >吉娃娃</item>
+        <item >混血</item><!--253  -->
+    </string-array>
+    <!-- 08-25 11:36:50.130: I/me(6828): 种族列表返回结果：{"currentTime":1408937803,
+    "data":{"3":{"301":"其他"},"2":{"240":"波尔多犬","241":"法国狼犬","245":"比利时马林诺斯犬",
+    "244":"威玛犬","243":"奇努克犬","242":"雪达犬","249":"猎犬","248":"迦南犬","247":"浣熊犬",
+    "246":"寻回犬","202":"博美犬","203":"马尔济斯犬","204":"约克夏梗","205":"贵宾犬","230":"山地犬",
+    "201":"泰迪犬","206":"蝴蝶犬","207":"八哥犬","208":"西施犬","209":"比熊犬","239":"柯利犬",
+    "232":"雪纳瑞","231":"无毛犬","234":"史毕诺犬","233":"藏獒","236":"罗威纳犬","235":"卡斯罗",
+    "238":"金毛","237":"阿拉斯加雪橇犬","211":"迷你杜宾","212":"拉萨犬","210":"北京犬","215":"柯基犬",
+    "216":"巴吉度犬","213":"冠毛犬","214":"小型雪纳瑞","219":"牧羊犬","217":"哈士奇","218":"松狮","220":"柴犬",
+    "250":"梗犬","221":"斗牛犬","251":"牧羊犬","222":"萨摩耶犬","252":"吉娃娃","223":"腊肠犬","224":"猎兔犬",
+    "225":"惠比特犬","226":"拉布拉多","227":"大麦町犬（斑点狗）","228":"爱斯基摩犬","229":"沙皮犬","253":"混血"},
+    "1":{"134":"波米拉猫","116":"短毛猫","135":"东方猫","117":"俄罗斯蓝猫","132":"美国刚毛猫","114":"暹罗猫",
+    "133":"哈瓦那棕猫","115":"苏格兰折耳猫","112":"褴褛猫","113":"拉邦猫","136":"混血","110":"巴厘猫",
+    "111":"土耳其安哥拉猫","118":"孟买猫","119":"埃及猫","109":"西伯利亚森林猫","108":"美国短尾猫",
+    "107":"土耳其梵猫","106":"索马利猫","105":"伯曼猫","104":"缅因猫","103":"挪威猫","131":"呵叻猫",
+    "102":"波斯猫","130":"沙特尔猫","101":"布偶猫","125":"日本短尾猫","126":"东奇尼猫","127":"卷毛猫",
+    "128":"马恩岛猫","121":"缅甸猫","122":"阿比西尼亚猫","123":"新加坡猫","124":"中国狸花猫","129":"奥西猫",
+    "120":"斯芬克斯猫"}},"errorMessage":"","errorCode":0,"state":0,"confVersion":"1.0","version":"1.0"} -->
+    <string-array name="cat_race">
+        <item >布偶猫</item><!--  101-->
+        <item >波斯猫</item>
+        <item >挪威猫</item>
+        <item >缅因猫</item>
+        <item >伯曼猫</item>
+        <item >索马利猫</item>
+        <item >土耳其梵猫</item>
+        <item >美国短尾猫</item>
+        <item >西伯利亚森林猫</item>
+        <item >巴厘猫</item>
+        <item >土耳其安哥拉猫</item>
+        <item >褴褛猫</item>
+        <item >拉邦猫</item>
+        <item >暹罗猫</item>
+        <item >苏格兰折耳猫</item>
+        <item >短毛猫</item>
+        <item >俄罗斯蓝猫</item>
+        <item >孟买猫</item>
+        <item >埃及猫</item>
+        <item >斯芬克斯猫</item>
+        <item >缅甸猫</item>
+        <item >阿比西尼亚猫</item>
+        <item >新加坡猫</item>
+        <item >中国狸花猫</item>
+        <item >日本短尾猫</item>
+        <item >东奇尼猫</item>
+        <item >卷毛猫</item>
+        <item >马恩岛猫</item>
+        <item >奥西猫</item>
+        <item >沙特尔猫</item>
+        <item >呵叻猫</item>
+        <item >美国刚毛猫</item>
+        <item >哈瓦那棕猫</item>
+        <item >波米拉猫</item>
+        <item >东方猫</item>
+        <item >混血</item><!--  136-->
+        
+    </string-array>
+    <string-array name="faq_list1">
+
+         <item >萌星与捧TA</item>
+          <item >贡献度</item>
+           <item >萌星人气值</item>
+            <item >经验值</item>
+             <item >金币</item>
+              <item >送礼物</item>
+    </string-array>
+
+    <string-array name="faq_item_1_q">
+        <item >萌星是什么？</item>
+        <item >捧TA是什么？</item>
+        <item >如何捧TA？</item>
+        <item >如何创建萌星？</item>
+        <item >如何不捧了？</item>
+    </string-array>
+    <string-array name="faq_item_1_a">
+        <item >“萌星”是指宠物星球上的萌宠，纯真可爱的萌宠们，就像是宇宙中耀眼闪烁的明星，让无数地球人争相成为TA们的粉丝。</item>
+        <item >地球人遇见心仪的萌宠，可以选择捧TA，成为萌星的粉丝，通过点赞送礼物帮TA增加人气。</item>
+        <item >点击萌星资料右上角 “+”，在弹窗中选择“捧TA”，每个地球人最多只能捧10个萌星哦~</item>
+        <item >在侧边栏点击用户头像进入个人档案，点击萌星列表底部的加号创建新萌星。</item>
+        <item >在侧边栏点击用户头像进入个人档案，在萌星上向左滑动后选择“不捧了”。需要注意的是，地球人不能不捧自己创建的萌星和当前仅有的萌星。</item>
+    </string-array>
+    <string-array name="faq_item_2_q">
+        <item >贡献度是什么？</item>
+        <item >什么是贡献排行榜？</item>
+        <item >什么是萌星的粉丝等级？</item>
+
+    </string-array>
+    <string-array name="faq_item_2_a">
+        <item >贡献度体现了地球人对萌星做出的贡献，给萌星送礼物会增加贡献度。</item>
+        <item >是粉丝对萌星做出的贡献排行榜，分为日贡献榜、周贡献榜、月贡献榜和总贡献榜。周榜、月榜排行前十的小伙伴可得到奖励，每个榜单在榜单周期结束当天的24:00结算并发放奖励。（暂未开放）</item>
+        <item >粉丝等级分为8级，分别是“凉粉、淡粉、狠粉、灰常粉、超级粉、铁杆粉、脑残粉、骨灰粉”，粉丝等级出现在萌星主页的各个角落，升级时还会获得奖励呦~
+</item>
+
+    </string-array>
+    <string-array name="faq_item_3_q">
+        <item >萌星人气值是什么？</item>
+        <item >如何增加人气值？</item>
+        <item >人气值为什么会降低？</item>
+        <item >什么是星球人气排行榜？</item>
+    </string-array>
+    <string-array name="faq_item_3_a">
+        <item >人气值是体现萌星在宠物星球受欢迎程度的数值。人气排名高的萌星是名副其实的明星，会得到欢迎页推荐的明星待遇，还有机会参加宠物星球举办的粉丝活动呢~。</item>
+        <item >萌星收到礼物、被赞、被评论、被关注会增加人气值。</item>
+        <item >萌星收到捣乱礼物和被捣捣乱都会降低人气值。</item>
+        <item >星球人气排行榜是萌星的人气排行榜，分成日人气榜、周人气榜、月人气榜和总人气榜。在每个榜单排行前三的萌星可得到金币奖励，每个榜单会在榜单周期结束当天的24:00结算并发放奖励。（暂未开放）</item>
+    </string-array>
+    <string-array name="faq_item_4_q">
+        <item >如何获得经验值？</item>
+        <item >经验值有什么用？</item>
+         <item >经验值等级是什么？</item>
+    </string-array>
+    <string-array name="faq_item_4_a">
+        <item >地球人每天登录应用、发布新照片、评论照片和送礼物、萌印象、萌叫叫、摇一摇都可以获得一定数量的经验值。</item>
+        <item >经验值体现了地球人在宠物星球的独特资历，经验值可以提升经验等级，等级升级后会得到的奖励金币。</item>
+        <item >经验值等级分成50个等级，在经验值达到当前级别的上限后会升级并获得奖励金币，等级越高升级时得到的奖励金币越多。</item>
+    </string-array>
+    <string-array name="faq_item_5_q">
+        <item >如何获得金币？</item>
+        <item >金币可以用来做什么？</item>
+    </string-array>
+    <string-array name="faq_item_5_a">
+        <item >有两种方式可以获得金币：\n登录应用、分享照片、摇一摇、萌印象、游乐园、经验等级提升、官衔提升和参与宠物星球丰富的活动均有机会获得金币奖励。\n充值来拥有更多金币！（暂未开放）</item>
+        <item >金币可以购买礼物送给喜欢的萌星来为TA增加人气。</item>
+    </string-array>
+    <string-array name="faq_item_6_q">
+        <item >什么是虚拟礼物和现实礼物？</item>
+        <item >为什么需要送礼物？</item>
+        <item >如何送礼物？</item>
+        <item >如何送出现实礼物？</item>
+    </string-array>
+    <string-array name="faq_item_6_a">
+        <item >宠物星球的礼物分为虚拟礼物和现实礼物，虚拟礼物仅存在于宠物星球的世界中，现实礼物是派送到主人家里的真实礼品，收到虚拟礼物和现实礼物都可以增加萌星的人气值。</item>
+        <item >给萌星送礼物可以增加萌星的人气值和地球人的贡献度，粉丝们可以共同努力将萌星打造成全宇宙最闪亮萌星。</item>
+        <item >您可以在送礼物弹窗中点击礼物直接送出，也可以先在商城购买完礼物之后在萌星主页送出礼物。</item>
+        <item >首先在礼物商城或送礼物弹框中购买礼物并选择赠送，之后萌星的经纪人会收到填写收货地址的私信通知，宠物星球的工作人员会在得到收货地址后的5个工作日内发出快递并私信通知您快递单号，经纪人收到礼物后会晒出礼物来感谢有爱的地球人的。</item>
+    </string-array>
+   <!--  <string-array name="job_cat">
+        <item>喵小二</item>
+        <item>喵小奴</item>
+        <item>喵侍卫</item>
+        <item>喵总管</item>
+        <item>喵骑士</item>
+        <item>喵护法</item>
+        <item>喵精灵</item>
+        <item>喵天使</item>
+    </string-array>
+        <string-array name="job_dog">
+        <item>汪小二</item>
+        <item>汪小粉</item>
+        <item>汪侍卫</item>
+        <item>汪总管</item>
+        <item>汪骑士</item>
+        <item>汪护法</item>
+        <item>汪精灵</item>
+        <item>汪天使</item>
+    </string-array> -->
+    <string-array name="job">
+        <item>凉粉</item>
+        <item>淡粉</item>
+        <item>狠粉</item>
+        <item>灰常粉</item>
+        <item>超级粉</item>
+        <item>铁杆粉</item>
+        <item>脑残粉</item>
+        <item>骨灰粉</item>
+    </string-array>
 </resources>

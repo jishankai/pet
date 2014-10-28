@@ -2,14 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
+    android:id="@+id/parent_layout"
     android:background="@color/background_transparent">
-
+        
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/blur_view_top">
     <View
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/orange_title_height"
         android:background="#80fb6137" />
-
+<ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="12dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/back_white" />
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
@@ -27,5 +39,5 @@
         android:textColor="@color/black"
         android:layout_marginLeft="24dp" 
         android:layout_marginRight="24dp" />
-
+</RelativeLayout>
 </RelativeLayout>

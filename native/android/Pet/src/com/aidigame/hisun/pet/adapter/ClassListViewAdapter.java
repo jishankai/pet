@@ -10,7 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
+/**
+ * 选择种族列表
+ * @author admin
+ *
+ */
 public class ClassListViewAdapter extends BaseAdapter {
     Context context;
     ArrayList<String> list;

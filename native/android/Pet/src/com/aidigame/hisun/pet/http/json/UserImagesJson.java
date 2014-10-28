@@ -11,7 +11,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.os.ParcelableCompat;
 
+import com.aidigame.hisun.pet.PetApplication;
+import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Animal;
+import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.util.StringUtil;
 /**
  * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
  * "data":[{
@@ -35,6 +40,7 @@ public class UserImagesJson  implements Serializable{
 	public String confVersion;
 	public long currentTime;
 	public ArrayList<Data> datas;
+	public ArrayList<PetPicture> petPictures;
 
 	public UserImagesJson(){
 		
@@ -48,11 +54,12 @@ public class UserImagesJson  implements Serializable{
 			/*
 			 * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0",
 			 * "confVersion":"1.0",
-			 * "data": "data":[{
-                           *"like":0,"likers":null,"url":"40_0.1402052236803.jpg",
-                           *"file":"","usr_id":"40","comment":"",
-                           *"create_time":1402052240,"img_id":"5",
-                           *"update_time":null}],
+			 * "data": [[{"img_id":"2501","aid":"1000000219","topic_id":"0","topic_name":"",
+			 * "relates":"","cmt":"Dddddd","url":"1000000219_3.1409797583.png",
+			 * "likes":"2","likers":"231,230","gifts":"0","senders":"",
+			 * "comments":"","shares":"0","create_time":"1409797581",
+			 * "update_time":"2014-09-04 05:05:49",
+			 * "is_deleted":"\u0000"}]],
 			 * "currentTime":1402043245}
 			 * 
 			 * 
@@ -70,53 +77,88 @@ public class UserImagesJson  implements Serializable{
 			this.confVersion = jsonObject.getString("confVersion");
 			this.currentTime = jsonObject.getLong("currentTime");
 			this.datas=new ArrayList<Data>();
-			JSONArray jsonData1 = (JSONArray)jsonObject.getJSONArray("data");
+			petPictures=new ArrayList<PetPicture>();
+			String dataStr=jsonObject.getString("data");
 			JSONArray jsonData=null;
-			if(jsonData1.length()>=1){
-				jsonData =(JSONArray)jsonData1.get(0);
+			
+			if(!StringUtil.isEmpty(dataStr)&&dataStr.contains("[[")){
+				if("[[]]".equals(dataStr))return;
+				JSONArray jsonData1 = (JSONArray)jsonObject.getJSONArray("data");
+				
+				if(jsonData1.length()>=1){
+					jsonData =(JSONArray)jsonData1.get(0);
+				}else{
+					//TODO 没有数据，提示异常
+					jsonData=new JSONArray();
+				}
+			}else if(!StringUtil.isEmpty(dataStr)&&!"null".equals(dataStr)){
+				jsonData = (JSONArray)jsonObject.getJSONArray("data");
+				/*
+				 * {"img_id":"2528","url":"1000000220_4.1409912082.png",
+				 * "cmt":"","likes":"0","aid":"1000000220",
+				 * "tx":"1000000220_headImage.png","name":"01",
+				 * "create_time":"1409912087"}
+				 */
 			}else{
-				//TODO 没有数据，提示异常
-				jsonData=new JSONArray();
+				return;
 			}
+			
 			JSONObject object=null;
-			Data data=null;
+//			Data data=null;
+			PetPicture temp=null;
 			String likersString=null;
 			String[] strs=null;
 			String str=null;
 			for(int i=0;i<jsonData.length();i++){
 				object=jsonData.getJSONObject(i);
-				data=new Data();
-				data.url=object.getString("url");
+//				data=new Data();
+				temp=new PetPicture();
+				temp.url=object.getString("url");
 				if(json.contains("likes")){
-					data.likes=object.getInt("likes");
+					temp.likes=object.getInt("likes");
 				}
 				if(json.contains("likers")){
 					likersString=object.getString("likers");
-					data.likersString=likersString;
+					temp.likers=likersString;
 				}
-				data.img_id=object.getInt("img_id");
-				if(likersString!=null){
-					strs=likersString.split(",");
-					if(strs.length==1&&strs[0].equals("null")){
-						
-					}else{
-						data.likers=new ArrayList<Integer>();
-						for(int j=0;j<strs.length; j++){
-							str=strs[j];
-							if(str!=null&&!"".equals(str)&&!" ".equals(str)&&!"null".equals(str)){
-								data.likers.add(Integer.parseInt(str));
-							}
+				temp.img_id=object.getInt("img_id");
+				
+				temp.animal=new Animal();
+				if (json.contains("aid")&&json.contains("cmt")){
+					temp.animal.a_id=object.getLong("aid");
+					temp.cmt=object.getString("cmt");
+					temp.create_time=object.getLong("create_time");
+					if(json.contains("\"type\"")){
+						temp.animal.type=object.getInt("type");
+						int ty=temp.animal.type;
+						if(temp.animal.type>200&&temp.animal.type<300){
+							 ty-=201;
+							  
+							  String[] strArray=PetApplication.petApp.getResources().getStringArray(R.array.dog_race);
+							  if(ty<strArray.length){
+								  temp.animal.race=strArray[ty];
+							  }else{
+								  temp.animal.race=strArray[0];
+							  }
+						}else if(temp.animal.type>100&&temp.animal.type<200){
+							ty-=101;
+							  
+							  String[] strArray=PetApplication.petApp.getResources().getStringArray(R.array.cat_race);
+							  if(ty<strArray.length){
+								  temp.animal.race=strArray[ty];
+							  }else{
+								  temp.animal.race=strArray[0];
+							  }
 						}
 					}
 					
 				}
-				if (json.contains("usr_id")&&json.contains("cmt")){
-					data.usr_id=object.getInt("usr_id");
-					data.comment=object.getString("cmt");
-					data.create_time=object.getLong("create_time");
+				if(json.contains("\"name\"")){
+					temp.animal.pet_nickName=object.getString("name");
+					temp.animal.pet_iconUrl=object.getString("tx");
 				}
 
-				datas.add(data);
+				petPictures.add(temp);
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -210,6 +252,9 @@ public class UserImagesJson  implements Serializable{
 		public ArrayList<String> likers_icons_urls;
 		public String likers_icons_url_strString;
 		
+		
+		
+		public String des;
 		@Override
 		public int hashCode() {
 			final int prime = 31;

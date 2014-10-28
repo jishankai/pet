@@ -384,6 +384,17 @@ public class HorizontalListView2 extends AdapterView<ListAdapter> {
             return viewRect.contains((int) e.getRawX(), (int) e.getRawY());
         }
 	};
+	
+	public boolean onFilterTouchEventForSecurity(MotionEvent event) {
+		return false;
+		
+	};
+	public void moveToNext(int width){
+		synchronized(HorizontalListView2.this){
+			mNextX += width;
+		}
+		requestLayout();
+	}
 
 	
 

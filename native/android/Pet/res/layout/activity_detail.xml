@@ -1,43 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" >
-
-    <LinearLayout
-        android:id="@+id/title_linearlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/orange_red" >
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/back_white" 
-            android:padding="8dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:layout_gravity="center_vertical"
-            android:text="线上活动详情" 
-            android:textColor="@color/white"/>
-
-    </LinearLayout>
-    <ImageView
-        android:layout_below="@+id/title_linearlayout"
-        android:id="@+id/imageView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:src="@drawable/signing" />
-    <com.aidigame.hisun.pet.view.MyScrollowView 
+    android:orientation="vertical"
+    android:id="@+id/framelayout" >
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blur_view_top">
+    <View android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/white"
+        android:id="@+id/top_white_view"
+        
+        />
+    
+    <ScrollowView 
         android:id="@+id/scrollowview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/imageView1">
+        android:layout_below="@+id/top_white_view">
             <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
@@ -46,7 +28,27 @@
         
         
         >
-
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/signing" />
+            <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="28dp"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_marginRight="100dp"
+        android:src="@drawable/activity_green"
+        android:visibility="invisible" />
+        </RelativeLayout>
+       
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
@@ -291,7 +293,7 @@
                 </LinearLayout>
         
     </LinearLayout>
-    </com.aidigame.hisun.pet.view.MyScrollowView>
+    </ScrollowView>
 
 
     <TextView
@@ -309,14 +311,42 @@
         android:textColor="@color/white"
         android:visibility="visible"/>
 
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="28dp"
-        android:layout_marginRight="100dp"
-        android:src="@drawable/activity_green" />
+    
 
 </RelativeLayout>
+ <LinearLayout
+        android:id="@+id/title_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/orange_red" >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/back_white" 
+            android:padding="12dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_marginRight="48dp"
+            android:layout_gravity="center_vertical"
+            android:text="线上活动详情" 
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+     <RelativeLayout 
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/black_layout">
+          <View 
+              android:id="@+id/popup_parent"
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_centerInParent="true"/>
+      </RelativeLayout>
+    
+</FrameLayout>

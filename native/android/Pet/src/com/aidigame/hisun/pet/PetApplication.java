@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet;
 
+import java.io.File;
 import java.util.LinkedList;
 
 import android.app.Activity;
@@ -15,16 +16,19 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.service.LocationSvc;
 import com.aidigame.hisun.pet.util.LogUtil;
-import com.aidigame.hisun.pet.widget.ShowDialog;
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
-import com.sina.weibo.sdk.auth.WeiboAuth;
-import com.sina.weibo.sdk.auth.WeiboAuthListener;
-import com.sina.weibo.sdk.exception.WeiboException;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 
 import dalvik.system.VMRuntime;
 
@@ -40,16 +44,14 @@ public class PetApplication extends Application{
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
+		/*
+		 * 定位位置
+		 */
+		/*Intent intent = new Intent();
+		intent.setClass(this, LocationSvc.class);
+		startService(intent);*/
 		
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				/*OpenUDID_manager.sync(PetApplication.this);
-				handler.sendEmptyMessageAtTime(1, 10);*/
-			}
-		}).start();
+		
 		
 		VMRuntime.getRuntime().setTargetHeapUtilization(TARGET_HEAP_UTILIZATION);
 		final int HEAP_SIZE = 10 * 1024* 1024 ; 
@@ -62,13 +64,28 @@ public class PetApplication extends Application{
 		constants=new Constants();
 		
 		
+		
+		/*
+		 * 配置ImageLoaderConfiguration
+		 */
+		//图片缓存路径
+		File cacheDir=StorageUtils.getOwnCacheDirectory(getApplicationContext(), "pet/imageloader/cache");
+		ImageLoaderConfiguration config=new ImageLoaderConfiguration
+				.Builder(getApplicationContext())
+		        .threadPriority(Thread.NORM_PRIORITY-2)//
+		        .denyCacheImageMultipleSizesInMemory()
+		        .discCache(new UnlimitedDiscCache(cacheDir))
+		        .discCacheSize(100*1024*1024)
+		        .tasksProcessingOrder(QueueProcessingType.LIFO)
+//		        .memoryCacheSize(2*1024*1024)
+		        .threadPoolSize(2)//建议小于5个
+//				.memoryCache(new WeakMemoryCache())
+//		        .writeDebugLogs()//当应用发布时移出
+		        .build();//构建完成
+		ImageLoader.getInstance().init(config);
+		
 	}
-	@Override
-	public void onTerminate() {
-		// TODO Auto-generated method stub
-		super.onTerminate();
-	}
-	
+
 	
 
 }

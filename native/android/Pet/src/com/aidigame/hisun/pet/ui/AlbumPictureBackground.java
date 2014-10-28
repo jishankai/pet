@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
@@ -27,6 +28,7 @@ public class AlbumPictureBackground extends Activity {
 	int mode=-1;
 	String filename;
 	String path;
+	Animal animal;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			if(msg.obj!=null){
@@ -34,6 +36,7 @@ public class AlbumPictureBackground extends Activity {
 				Intent intent3=new Intent(AlbumPictureBackground.this,SubmitPictureActivity.class);
 				intent3.setData(uri);
 				intent3.putExtra("mode", 0);
+				intent3.putExtra("animal", animal);
 				uri.getPath();
 				LogUtil.i("me", "图库返回的uri="+uri.toString());
 				LogUtil.i("me", "图库返回的uri.getPath()="+uri.getPath());
@@ -57,6 +60,7 @@ public class AlbumPictureBackground extends Activity {
 			this.finish();
 			break;
 		}
+		animal=(Animal)getIntent().getSerializableExtra("animal");
 		Intent intent=new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 		this.startActivityForResult(intent, 22);
 		
@@ -105,10 +109,10 @@ public class AlbumPictureBackground extends Activity {
     					return;
                     }*/
                 }else{
-                	Toast.makeText(this, "您选择的图片宽高比例不符合规范。", 2000).show();
+                	/*Toast.makeText(this, "您选择的图片宽高比例不符合规范。", 2000).show();
                 	Intent intent=new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 					this.startActivityForResult(intent, 22);
-					return;
+					return;*/
                 }
 			}
 			loadBitmap(data.getData());

@@ -6,21 +6,34 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.AbsListView.OnScrollListener;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.ActivityJson;
 import com.aidigame.hisun.pet.http.json.ActivityJson.Reward;
+import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
-
+import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
+/**
+ * 奖品详情
+ * @author admin
+ *
+ */
 public class AwardDetailActivity extends Activity {
+	LinearLayout frameLayout;
+	HandleHttpConnectionException handleHttpConnectionException;
 	ActivityJson.Data data;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +41,15 @@ public class AwardDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);;
 		setContentView(R.layout.activity_award_detail);
+		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		data=(ActivityJson.Data)getIntent().getSerializableExtra("data");
+		setBlurImageBackground();
 		new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				boolean flag=HttpUtil.loadRewardInfo(data);
+				boolean flag=HttpUtil.loadRewardInfo(data,handleHttpConnectionException.getHandler(AwardDetailActivity.this),AwardDetailActivity.this);
 				if(flag){
 					runOnUiThread(new Runnable() {
 						public void run() {
@@ -145,5 +160,38 @@ public class AwardDetailActivity extends Activity {
 		}
 		
 	}
+	/**
+	 * 设置毛玻璃背景，列表滑动时顶部变透明并显示列表
+	 */
+
+	private void setBlurImageBackground() {
+		// TODO Auto-generated method stub
+		frameLayout=(LinearLayout)findViewById(R.id.framelayout);
+        new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				while(HomeFragment.blurBitmap==null){
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
+						frameLayout.setAlpha(0.9342857f);
+					}
+				});
+			}
+		}).start();
+	}
+
 
 }

@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
+
+    <LinearLayout
+        android:id="@+id/trends_fans_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="79dp" >
+            <View android:layout_height="match_parent"
+                android:layout_width="2dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/gray_light"/>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/trends_fans" 
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"/>
+
+            
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                               <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/time_clock"
+                                 />
+
+                               <TextView
+                                   android:id="@+id/fans_time_tv"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:text="2分钟前"
+                                   android:textSize="12sp"
+                                   android:textColor="@color/gray_deep" 
+                                   android:layout_marginLeft="5dp"/>
+                               
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/fans_describe_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="大和尚 成为了 猫君 的粉丝"
+                            android:lineSpacingExtra="5dp"
+                            android:layout_marginTop="10dp"
+                            android:textSize="16sp" />
+
+        </LinearLayout>
+        
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/trends_join_kingdom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="89dp" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" >
+            <View android:layout_height="match_parent"
+                android:layout_width="2dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/gray_light"/>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/trends_join_kingdom" 
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"/>
+
+            
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="89dp"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                               <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/time_clock"
+                                 />
+
+                               <TextView
+                                   android:id="@+id/join_kingdom_time_tv"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:text="2014-7-5"
+                                   android:textSize="12sp"
+                                   android:textColor="@color/gray_deep" 
+                                   android:layout_marginLeft="5dp"/>
+                               
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/join_kingdom_describe_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="大和尚  加入了 猫君国  成为了 猫君国 平民"
+                            android:layout_marginTop="10dp"
+                            android:textSize="16sp" 
+                            android:lineSpacingExtra="5dp"
+                            android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+        
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/trends_publish_images_layout"
+        android:layout_width="match_parent"
+        android:layout_height="179dp" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" >
+            <View android:layout_height="match_parent"
+                android:layout_width="2dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/gray_light"/>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/trends_publish_images" 
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"/>
+
+            
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                               <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/time_clock"
+                                 />
+
+                               <TextView
+                                   android:id="@+id/publish_images_time_tv"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:text="2014-7-5"
+                                   android:textSize="12sp"
+                                   android:textColor="@color/gray_deep" 
+                                   android:layout_marginLeft="5dp"/>
+                               
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/publish_images_describe_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anna 发布了一张 猫君 的照片"
+                            android:layout_marginTop="10dp"
+                            android:lineSpacingExtra="5dp"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/publish_image_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="90dp"
+                            android:src="@drawable/signed" />
+
+        </LinearLayout>
+        
+    </LinearLayout>
+     <LinearLayout
+        android:id="@+id/trends_make_trouble_layout"
+        android:layout_width="match_parent"
+        android:layout_height="109dp" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" >
+            <View android:layout_height="match_parent"
+                android:layout_width="2dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/gray_light"/>
+
+            <ImageView
+                android:id="@+id/trends_make_trouble_iv"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/kingdom_trend_trouble" 
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"/>
+
+            
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="109dp"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                               <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/time_clock"
+                                 />
+
+                               <TextView
+                                   android:id="@+id/make_trouble_time_tv"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:text="2014-7-5"
+                                   android:textSize="12sp"
+                                   android:textColor="@color/gray_deep" 
+                                   android:layout_marginLeft="5dp"/>
+                               
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/make_trouble_describe_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anna  向  猫君  扔了一个炸弹 人气 -10"
+                            android:layout_marginTop="10dp"
+                            android:textSize="16sp" 
+                            android:lineSpacingExtra="5dp"
+                            android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+        
+    </LinearLayout>
+     <LinearLayout
+        android:id="@+id/trends_bite_layout"
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <View android:layout_height="match_parent"
+                android:layout_width="2dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/gray_light"/>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/trends_bite" 
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"/>
+
+            
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                               <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/time_clock"
+                                 />
+
+                               <TextView
+                                   android:id="@+id/bite_time_tv"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:text="2014-7-5"
+                                   android:textSize="12sp"
+                                   android:textColor="@color/gray_deep" 
+                                   android:layout_marginLeft="5dp"/>
+                               
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/bite_describe_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="猫君 今天心情很好，开心的叫了叫"
+                            android:layout_marginTop="10dp"
+                            android:textSize="16sp" 
+                            android:lineSpacingExtra="5dp"
+                            android:layout_marginBottom="5dp"/>
+
+                        <ImageView
+                            android:id="@+id/bite_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/trend_touch_text" />
+
+        </LinearLayout>
+        
+    </LinearLayout>
+     <LinearLayout
+        android:id="@+id/trends_send_gift_layout"
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" >
+            <View android:layout_height="match_parent"
+                android:layout_width="2dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/gray_light"/>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/trends_send_gift" 
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"/>
+
+            
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                               <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/time_clock"
+                                 />
+
+                               <TextView
+                                   android:id="@+id/send_gift_time_tv"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:text="2分钟前"
+                                   android:textSize="12sp"
+                                   android:textColor="@color/gray_deep" 
+                                   android:layout_marginLeft="5dp"/>
+                               
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/send_gift_describe_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="喵小儿-大和尚送给了 猫君 一个魔法棒 人气 +10"
+                            android:lineSpacingExtra="5dp"
+                            android:layout_marginTop="10dp"
+                            android:textSize="16sp" />
+                        <ImageView
+                            android:id="@+id/send_gift_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/trend_send_gift_text" />
+        </LinearLayout>
+        
+        
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/trends_play_with_layout"
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+            <View android:layout_height="match_parent"
+                android:layout_width="2dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/gray_light"/>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="49dp"
+                android:layout_height="49dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/trends_play_with" 
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"/>
+
+            
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp" >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                               <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/time_clock"
+                                 />
+
+                               <TextView
+                                   android:id="@+id/play_with_time_tv"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:text="2014-7-5"
+                                   android:textSize="12sp"
+                                   android:textColor="@color/gray_deep" 
+                                   android:layout_marginLeft="5dp"/>
+                               
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/play_with_describe_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Anna 在逗一逗中获得了99分的好成绩"
+                            android:layout_marginTop="10dp"
+                            android:textSize="16sp" 
+                            android:lineSpacingExtra="5dp"
+                            android:layout_marginBottom="5dp"/>
+
+                        <ImageView
+                            android:id="@+id/play_with_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/trend_play_with_text" />
+
+        </LinearLayout>
+        
+    </LinearLayout>
+
+</LinearLayout>

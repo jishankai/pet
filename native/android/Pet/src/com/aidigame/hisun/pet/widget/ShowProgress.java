@@ -4,6 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,7 +20,8 @@ public class ShowProgress {
 	LinearLayout parent;
 	View view;
 	RelativeLayout  allRelativeLayout;
-	public ShowProgress(Context context,String info,LinearLayout parent) {
+	ImageView cicleIV;
+	public ShowProgress(Context context,LinearLayout parent) {
 		// TODO Auto-generated constructor stub
 		this.context=context;
 		this.info=info;
@@ -26,9 +31,10 @@ public class ShowProgress {
 
 	private void initView() {
 		// TODO Auto-generated method stub
-		view=LayoutInflater.from(context).inflate(R.layout.widget_progress, null);
+		view=LayoutInflater.from(context).inflate(R.layout.item_loading_progress, null);
 		allRelativeLayout=(RelativeLayout)view.findViewById(R.id.parent);
 		allRelativeLayout.setClickable(true);
+		cicleIV=(ImageView)view.findViewById(R.id.imageView2);
 		allRelativeLayout.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -38,16 +44,23 @@ public class ShowProgress {
 			}
 		});
 		view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
+		parent.setVisibility(View.VISIBLE);
+		parent.removeAllViews();
 		parent.addView(view);
-		TextView tView=(TextView)view.findViewById(R.id.textView1);
-		if(info!=null)tView.setText(info);
+		
+		startAnimation();
 	}
 	public void progressCancel(){
 		parent.removeView(view);
+		parent.setVisibility(View.INVISIBLE);
 	}
 	public void showProgress(){
-		parent.removeAllViews();;
-		parent.addView(view);
+		initView();
+	}
+	public void startAnimation(){
+		Animation anim=AnimationUtils.loadAnimation(context, R.anim.anim_rotate);
+		cicleIV.clearAnimation();
+		cicleIV.startAnimation(anim);
 	}
 
 }

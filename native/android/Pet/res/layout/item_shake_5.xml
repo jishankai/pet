@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+        
+         <ImageView 
+        android:id="@+id/cloud1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cloud_yellow"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentRight="true"/>
+    <ImageView 
+        android:id="@+id/cloud2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cloud_yellow"
+        android:layout_below="@+id/textView234"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="15dp"/>
+    <ImageView 
+        android:id="@+id/cloud3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cloud_yellow"
+       
+        android:layout_below="@+id/cloud2"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentRight="true"/>
+    <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="摇一摇，摇到外婆桥"
+            android:textColor="#7f97b3"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="猫君今天的摇一摇次数用完啦~"
+            android:textColor="#7f97b3"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textView234"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView23"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="@string/shake_note2"
+            android:textColor="#7f97b3"
+            android:textSize="16sp" />
+        <ImageView
+             android:id="@+id/imageView1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerHorizontal="true"
+             android:layout_below="@+id/textView234"
+             android:layout_marginTop="70dp"
+             android:src="@drawable/shake4_backg" />
+        
+
+</RelativeLayout>
