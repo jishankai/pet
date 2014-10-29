@@ -15,7 +15,7 @@ class ToolController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			'postOnly + delete,replace,clear', // we only allow deletion via POST request
 		);
 	}
 
@@ -36,7 +36,7 @@ class ToolController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','change'),
+				'actions'=>array('admin','replace','clear'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -45,7 +45,7 @@ class ToolController extends Controller
 		);
 	}
 
-    public function actionChange()
+    public function actionReplace()
     {
         $error=FALSE;
         $result=FALSE;
@@ -68,7 +68,38 @@ class ToolController extends Controller
                 }
             }
         }
-        $this->render('change',array('error'=>$error,'result'=>$result)); 
+        $this->render('replace',array('error'=>$error,'result'=>$result)); 
+    }
+
+    public function actionClear()
+    {
+        $error  = FALSE;
+        $result = FALSE;
+        if (isset($_POST['u_name'])&&$_POST['u_name']!='') {
+            $u_name = $_POST['u_name'];
+            $usr_id = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $u_name)->queryScalar();
+            if (!$usr_id) {
+                $error='用户名'.$u_name.'不存在';
+            } else {
+                $device_id = Yii::app()->db->createCommand('SELECT id FROM dc_device WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryScalar();
+                if ($device_id) {
+                    $transaction = Yii::app()->db->beginTransaction();
+                    try {
+                        Yii::app()->db->createCommand('UPDATE dc_device SET usr_id=:usr_id WHERE id=:id')->bindValues(array(':usr_id'=>0, ':id'=>$device_id))->execute();
+                        Yii::app()->db->createCommand('DELETE FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->execute();
+                        Yii::app()->db->createCommand('DELETE FROM dc_image WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->execute();
+                        $result = TRUE;
+                        $transaction->commit();
+                    } catch (Exception $e) {
+                        $transaction->rollback();
+                        throw $e;
+                    }
+                } else {
+                    $error='没有设备绑定'.$from_name.'用户';
+                }
+            }
+        }
+        $this->render('clear',array('error'=>$error,'result'=>$result)); 
     }
 
 	/**
