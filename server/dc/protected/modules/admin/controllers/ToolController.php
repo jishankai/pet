@@ -56,16 +56,16 @@ class ToolController extends Controller
             $to_id   = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $to_name)->queryScalar();
             if (!$from_id) {
                 $error='用户名'.$from_name.'不存在';
-            }
-            if (!$to_id) {
+            } else if (!$to_id) {
                 $error='用户名'.$to_name.'不存在';
-            }
-            $device_id = Yii::app()->db->createCommand('SELECT id FROM dc_device WHERE usr_id=:usr_id')->bindValue(':usr_id', $from_id)->queryScalar();
-            if ($device_id) {
-                Yii::app()->db->createCommand('UPDATE dc_device SET usr_id=:usr_id WHERE id=:id')->bindValues(array(':usr_id'=>$to_id, ':id'=>$device_id))->execute();
-                $result = TRUE;
             } else {
-                $error='没有设备绑定'.$from_name.'用户';
+                $device_id = Yii::app()->db->createCommand('SELECT id FROM dc_device WHERE usr_id=:usr_id')->bindValue(':usr_id', $from_id)->queryScalar();
+                if ($device_id) {
+                    Yii::app()->db->createCommand('UPDATE dc_device SET usr_id=:usr_id WHERE id=:id')->bindValues(array(':usr_id'=>$to_id, ':id'=>$device_id))->execute();
+                    $result = TRUE;
+                } else {
+                    $error='没有设备绑定'.$from_name.'用户';
+                }
             }
         }
         $this->render('change',array('error'=>$error,'result'=>$result)); 
