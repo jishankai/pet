@@ -57,7 +57,7 @@
                             array('label'=>'图片', 'url'=>array('/admin/image/index'), 'visible'=>!Yii::app()->user->isGuest),
                             array('label'=>'活动', 'url'=>array('/admin/topic/index'), 'visible'=>!Yii::app()->user->isGuest),
                             array('label'=>'商品', 'url'=>array('/admin/item/index'), 'visible'=>!Yii::app()->user->isGuest),
-                            array('label'=>'工具', 'url'=>array('/site/api'), 'visible'=>!Yii::app()->user->isGuest),
+                            array('label'=>'工具', 'url'=>array('/admin/tool/index'), 'visible'=>!Yii::app()->user->isGuest),
 							array('label'=>'登出 ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 						),
 					)); ?>
