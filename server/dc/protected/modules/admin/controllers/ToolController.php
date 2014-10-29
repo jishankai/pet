@@ -47,27 +47,28 @@ class ToolController extends Controller
 
     public function actionChange()
     {
-
+        $error=FALSE;
+        $result=FALSE;
         if (isset($_POST['from_name'])&&$_POST['from_name']!=''&&isset($_POST['to_name'])&&$_POST['to_name']=!'') {
             $from_name = $_POST['from_name'];
             $to_name   = $_POST['to_name'];
             $from_id = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $from_name)->queryScalar();
             $to_id   = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $to_name)->queryScalar();
             if (!$from_id) {
-                throw new PException('用户名'.$from_name.'不存在');
+                $error='用户名'.$from_name.'不存在';
             }
             if (!$to_id) {
-                throw new PException('用户名'.$to_name.'不存在');
+                $error='用户名'.$to_name.'不存在';
             }
             $device_id = Yii::app()->db->createCommand('SELECT id FROM dc_device WHERE usr_id=:usr_id')->bindValue(':usr_id', $from_id)->queryScalar();
             if ($device_id) {
                 Yii::app()->db->createCommand('UPDATE dc_device SET usr_id=:usr_id WHERE id=:id')->bindValues(array(':usr_id'=>$to_id, ':id'=>$device_id))->execute();
-                $this->render('change',array('result'=>TRUE));
+                $result = TRUE;
             } else {
-                throw new PException('没有设备绑定'.$from_name.'用户');
+                $error='没有设备绑定'.$from_name.'用户';
             }
         }
-        $this->render('change'); 
+        $this->render('change',array('error'=>$error,'result'=>$result)); 
     }
 
 	/**

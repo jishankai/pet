@@ -21,7 +21,10 @@ $this->menu=array(
 <br/>
 <?php echo CHtml::submitButton('替换'); ?>  
 <br/>
-<?php if(isset($result)): ?>  
+<?php if($error): ?>  
+<span style="color:red"><?php echo $error; ?></span>  
+<?php endif; ?>
+<?php if($result): ?>  
 <span style="color:green">Success!!!</span>  
 <?php endif; ?>
 <?php echo CHtml::endForm(); ?>  
