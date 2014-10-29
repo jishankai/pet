@@ -28,7 +28,7 @@ class ToolController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view', 'change'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -47,10 +47,10 @@ class ToolController extends Controller
 
     public function actionChange()
     {
-        $from_name = $_POST['from_name'];
-        $to_name   = $_POST['to_name'];
 
-        if (isset($from_name)&&$from_name!=''&&isset($to_name)&&$to_name='') {
+        if (isset($_POST['from_name'])&&$_POST['from_name']!=''&&isset($_POST['to_name'])&&$_POST['to_name']='') {
+            $from_name = $_POST['from_name'];
+            $to_name   = $_POST['to_name'];
             $from_id = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $from_name)->queryScalar();
             $to_id   = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $to_name)->queryScalar();
             if (!$from_id) {
