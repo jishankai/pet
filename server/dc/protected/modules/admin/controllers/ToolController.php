@@ -54,17 +54,17 @@ class ToolController extends Controller
             $from_id = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $from_name)->queryScalar();
             $to_id   = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $to_name)->queryScalar();
             if (!$from_id) {
-                throw new CHttpException(404,'用户名'.$from_name.'不存在');
+                throw new PException('用户名'.$from_name.'不存在');
             }
             if (!$to_id) {
-                throw new CHttpException(404,'用户名'.$to_name.'不存在');
+                throw new PException('用户名'.$to_name.'不存在');
             }
             $device_id = Yii::app()->db->createCommand('SELECT id FROM dc_device WHERE usr_id=:usr_id')->bindValue(':usr_id', $from_id)->queryScalar();
             if ($device_id) {
                 Yii::app()->db->createCommand('UPDATE dc_device SET usr_id=:usr_id WHERE id=:id')->bindValues(array(':usr_id'=>$to_id, ':id'=>$device_id))->execute();
                 $this->render('change',array('result'=>TRUE));
             } else {
-                throw new CHttpException(404,'没有设备绑定'.$from_name.'用户');
+                throw new PException('没有设备绑定'.$from_name.'用户');
             }
         }
         $this->render('change'); 
