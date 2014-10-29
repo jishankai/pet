@@ -48,7 +48,7 @@ class ToolController extends Controller
     public function actionChange()
     {
 
-        if (isset($_POST['from_name'])&&$_POST['from_name']!=''&&isset($_POST['to_name'])&&$_POST['to_name']='') {
+        if (isset($_POST['from_name'])&&$_POST['from_name']!=''&&isset($_POST['to_name'])&&$_POST['to_name']=!'') {
             $from_name = $_POST['from_name'];
             $to_name   = $_POST['to_name'];
             $from_id = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE name=:name')->bindValue(':name', $from_name)->queryScalar();
