@@ -95,7 +95,7 @@ class ToolController extends Controller
                         throw $e;
                     }
                 } else {
-                    $error='没有设备绑定'.$from_name.'用户';
+                    $error='没有设备绑定'.$u_name.'用户';
                 }
             }
         }
