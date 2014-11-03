@@ -286,7 +286,7 @@ class UserBehavior extends CActiveRecordBehavior
     }
     
     public function showTxImage(){
-        return CHtml::image('http://pet4tx.oss-cn-beijing.aliyuncs.com/usr/'.$this->owner->tx, $this->owner->tx, array('max-width'=>'240px','max-height'=>'320px'));
+        return CHtml::image('http://pet4tx.oss-cn-beijing.aliyuncs.com/tx_usr/'.$this->owner->tx, $this->owner->tx, array('max-width'=>'240px','max-height'=>'320px'));
     }   
 
     public function getGender()
