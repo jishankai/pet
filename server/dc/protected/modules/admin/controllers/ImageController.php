@@ -122,7 +122,10 @@ class ImageController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Image');
+        $dataProvider=new CActiveDataProvider('Image',array(
+            'criteria'=>array(
+                'order'=>'create_time DESC',
+            )));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

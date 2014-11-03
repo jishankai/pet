@@ -46,17 +46,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'filter'=>$model,
 	'columns'=>array(
 		#'usr_id',
-		#'wechat',
 		'name',
-	    array('name'=>'gender','value'=>'$data->gender==1?"公":"母"', 'filter'=>array(1=>"公",2=>"母")),
+        array('name'=>'gender', 'value'=>'$data->getGender()'),
 		#'tx',
 		'age',
 		array('name'=>'type', 'value'=>'User::model()->getTypeName($data->type)', 'filter'=>Util::loadConfig('pet_type')),
-		'code',
-		'weibo',
-		#'inviter',
         array('name'=>'create_time','value'=>'date("Y-m-d H:i:s",$data->create_time)'),
-		#'update_time',
 		array(
 			'class'=>'CButtonColumn',
 		),
