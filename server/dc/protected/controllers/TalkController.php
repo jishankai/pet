@@ -165,7 +165,7 @@ class TalkController extends Controller
         try {
             $talk = Talk::model()->findByPk($talk_id);
             $talk->is_block = 1;
-            $user->saveAttributes(array('is_block'));
+            $talk->saveAttributes(array('is_block'));
 
             $transaction->commit();
         } catch (Exception $e) {

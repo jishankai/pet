@@ -129,7 +129,7 @@ class Image extends CActiveRecord
 		$criteria->compare('senders',$this->senders,true);
 		$criteria->compare('comments',$this->comments,true);
 		$criteria->compare('shares',$this->shares,true);
-		$criteria->compare('reports',$this->reports,true);
+		$criteria->compare('reports',$this->reports);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 		$criteria->compare('is_deleted',$this->is_deleted);
