@@ -179,7 +179,7 @@ class TalkController extends Controller
     {
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            Yii::app()->db->createCommand('UPDATE dc_talk SET is_block=0 WHERE (usra_id=:usra_id AND usrb_id=:usrb_id) OR (usrb_id=:usra_id AND usra_id=:usrb_id) AND is_block=:usra_id')->bindValues(array(':usra_id'=>$this->usr_id, ':usrb_id'=>$usr_id))->execute();
+            Yii::app()->db->createCommand('UPDATE dc_talk SET is_block=0 WHERE (usra_id=:usra_id AND usrb_id=:usrb_id) OR (usrb_id=:usra_id AND usra_id=:usrb_id) AND is_block=:usra_id')->bindValues(array(':usra_id'=>$usr_id, ':usrb_id'=>$this->usr_id))->execute();
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
