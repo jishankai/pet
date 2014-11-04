@@ -190,8 +190,8 @@ class TalkController extends Controller
 
     public function actionBlockListApi()
     {
-        $usra_ids = Yii::app()->db->createCommand('SELECT usra_id FROM dc_talk WHERE usrb_id=:usr_id AND is_block=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryColumn(); 
-        $usrb_ids = Yii::app()->db->createCommand('SELECT usrb_id FROM dc_talk WHERE usra_id=:usr_id AND is_block=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryColumn(); 
+        $usra_ids = Yii::app()->db->createCommand('SELECT usra_id FROM dc_talk WHERE usrb_id=:usr_id AND is_block!=0 AND is_block!=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryColumn(); 
+        $usrb_ids = Yii::app()->db->createCommand('SELECT usrb_id FROM dc_talk WHERE usra_id=:usr_id AND is_block!=0 AND is_block!=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryColumn(); 
         $usr_ids = array_merge($usra_ids, $usrb_ids);
         if (empty($usr_ids)) {
             $r = array();
