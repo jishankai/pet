@@ -164,7 +164,7 @@ class TalkController extends Controller
         $transaction = Yii::app()->db->beginTransaction();
         try {
             $talk = Talk::model()->findByPk($talk_id);
-            $talk->is_block = 1;
+            $talk->is_block = $talk->usra_id==$this->usr_id?$talk->usrb_id:$talk->usra_id;
             $talk->saveAttributes(array('is_block'));
 
             $transaction->commit();
