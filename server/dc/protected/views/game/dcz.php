@@ -46,7 +46,7 @@
     .GameLayer {position:absolute;bottom:0;left:0;}
     .block {position:absolute;border-top:1px solid #1D70B6; background-repeat: no-repeat; background-position: center;}
     .t1,.t2,.t3,.t4,.t5 { background-size:auto 100%;background-image:url(assets/games/dcz/02.png);}
-    .tt1,.tt2,.tt3,.tt4,.tt5 { background-size:auto 86%;background-image:url(assets/games/dcz/03.jpg);}
+    .tt1,.tt2,.tt3,.tt4,.tt5 { background-size:auto 86%;background-image:url(assets/games/dcz/03.png);}
     .bl {border-left:1px solid #1D70B6;}
     @-ms-keyframes flash {
     	0% { opacity: 1; }
