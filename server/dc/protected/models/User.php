@@ -22,8 +22,10 @@
  * @property string $aid
  * @property string $code
  * @property string $inviter
+ * @property integer $reports
  * @property string $create_time
  * @property string $update_time
+ * @property integer $is_ban
  *
  * The followings are the available model relations:
  * @property Animal[] $animals
@@ -50,13 +52,13 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('gender, city, age', 'numerical', 'integerOnly'=>true),
+			array('gender, city, age, reports, is_ban', 'numerical', 'integerOnly'=>true),
 			array('name, tx, weibo, qq', 'length', 'max'=>45),
             array('exp, lv, gold, con_login, login_time, vip, aid, inviter, create_time', 'length', 'max'=>10),
 			array('code', 'length', 'max'=>6),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('usr_id, name, tx, gender, city, weibo, qq, age, exp, lv, gold, items, con_login, login_time, vip, aid, code, inviter, create_time, update_time', 'safe', 'on'=>'search'),
+			array('usr_id, name, tx, gender, city, weibo, qq, age, exp, lv, gold, items, con_login, login_time, vip, aid, code, inviter, reports, create_time, update_time, is_ban', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -107,8 +109,10 @@ class User extends CActiveRecord
 			'aid' => '宠物编号',
 			'code' => '邀请码',
 			'inviter' => '邀请者',
+			'reports' => '举报数',
 			'create_time' => '创建时间',
 			'update_time' => '更新时间',
+			'is_ban' => '禁言',
 		);
 	}
 
@@ -148,8 +152,10 @@ class User extends CActiveRecord
 		$criteria->compare('aid',$this->aid,true);
 		$criteria->compare('code',$this->code,true);
 		$criteria->compare('inviter',$this->inviter,true);
+		$criteria->compare('reports',$this->reports);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
+		$criteria->compare('is_ban',$this->is_ban);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

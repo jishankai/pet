@@ -7,6 +7,7 @@
  * @property string $usra_id
  * @property string $usrb_id
  * @property string $content
+ * @property string $is_block
  * @property string $create_time
  * @property string $update_time
  */
@@ -28,11 +29,11 @@ class Talk extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('usra_id, usrb_id, create_time', 'length', 'max'=>10),
+			array('usra_id, usrb_id, is_block, create_time', 'length', 'max'=>10),
 			array('content', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('usra_id, usrb_id, content, create_time, update_time', 'safe', 'on'=>'search'),
+			array('usra_id, usrb_id, content, is_block, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,6 +64,7 @@ class Talk extends CActiveRecord
 			'usra_id' => '用户A编号',
 			'usrb_id' => '用户B编号',
 			'content' => '聊天内容',
+            'is_block' => '禁言',
 			'create_time' => '创建时间',
 			'update_time' => '更新时间',
 		);
@@ -89,6 +91,7 @@ class Talk extends CActiveRecord
 		$criteria->compare('usra_id',$this->usra_id,true);
 		$criteria->compare('usrb_id',$this->usrb_id,true);
 		$criteria->compare('content',$this->content,true);
+		$criteria->compare('is_block',$this->is_block,true);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 

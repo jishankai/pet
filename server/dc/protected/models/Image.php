@@ -17,6 +17,7 @@
  * @property string $senders
  * @property string $comments
  * @property string $shares
+ * @property string $reports
  * @property string $create_time
  * @property string $update_time
  * @property integer $is_deleted
@@ -42,13 +43,13 @@ class Image extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('is_deleted', 'numerical', 'integerOnly'=>true),
+			array('reports, is_deleted', 'numerical', 'integerOnly'=>true),
 			array('aid, topic_id, likes, gifts, shares, create_time', 'length', 'max'=>10),
 			array('topic_name', 'length', 'max'=>45),
 			array('relates, cmt, url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('img_id, aid, topic_id, topic_name, relates, cmt, url, likes, likers, gifts, senders, comments, shares, create_time, update_time, is_deleted', 'safe', 'on'=>'search'),
+			array('img_id, aid, topic_id, topic_name, relates, cmt, url, likes, likers, gifts, senders, comments, shares, reports, create_time, update_time, is_deleted', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -90,6 +91,7 @@ class Image extends CActiveRecord
 			'senders' => '赠送礼物用户',
 			'comments' => '评论',
 			'shares' => '分享数',
+			'reports' => '举报数',
 			'create_time' => '创建时间',
 			'update_time' => '更新时间',
 			'is_deleted' => '是否删除',
@@ -127,6 +129,7 @@ class Image extends CActiveRecord
 		$criteria->compare('senders',$this->senders,true);
 		$criteria->compare('comments',$this->comments,true);
 		$criteria->compare('shares',$this->shares,true);
+		$criteria->compare('reports',$this->reports,true);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 		$criteria->compare('is_deleted',$this->is_deleted);

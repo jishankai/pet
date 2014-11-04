@@ -14,10 +14,11 @@ class TalkController extends Controller
     public function actionListApi()
     {
         $c = new CDbCriteria;
-        $c->addCondition('usra_id=:usra_id OR usrb_id=:usrb_id');
+        $c->addCondition('usra_id=:usra_id OR usrb_id=:usrb_id AND is_block!=:usr_id');
         //$c->limit = 30;
         $c->params[':usra_id'] = $this->usr_id;
         $c->params[':usrb_id'] = $this->usr_id;
+        $c->params[':usr_id'] = $this->usr_id;
         $c->order = 'update_time DESC';
         /*
         if(isset($talk_id)) {
@@ -158,4 +159,46 @@ class TalkController extends Controller
         $this->echoJsonData(array('isSuccess'=>TRUE));
     }
 
+    public function actionBlockApi($talk_id)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $talk = Talk::model()->findByPk($talk_id);
+            $talk->is_block = 1;
+            $user->saveAttributes(array('is_block'));
+
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+        $this->echoJsonData(array('isSuccess'=>TRUE));
+    }
+
+    public function actionUnBlockApi($usr_id)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            Yii::app()->db->createCommand('UPDATE dc_talk SET is_block=0 WHERE (usra_id=:usra_id AND usrb_id=:usrb_id) OR (usrb_id=:usra_id AND usra_id=:usrb_id) AND is_block=:usra_id')->bindValues(array(':usra_id'=>$this->usr_id, ':usrb_id'=>$usr_id))->execute();
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+        $this->echoJsonData(array('isSuccess'=>TRUE));
+    }
+
+    public function actionBlockListApi()
+    {
+        $usra_ids = Yii::app()->db->createCommand('SELECT usra_id FROM dc_talk WHERE usrb_id=:usr_id AND is_block=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryColumn(); 
+        $usrb_ids = Yii::app()->db->createCommand('SELECT usrb_id FROM dc_talk WHERE usra_id=:usr_id AND is_block=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryColumn(); 
+        $usr_ids = array_merge($usra_ids, $usrb_ids);
+        if (empty($usr_ids)) {
+            $r = array();
+        } else {
+            $r = Yii::app()->db->createCommand('SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN (:usr_ids)')->bindValue(':usr_ids', implode(',',$usr_ids))->queryAll();
+        }
+
+        $this->echoJsonData($r); 
+    }
 }

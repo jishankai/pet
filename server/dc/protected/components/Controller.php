@@ -68,6 +68,12 @@ class Controller extends CController
                 $session->remove('tx_ani');
             }
             // ------------------
+            //用户是否被禁
+            $rtn = Yii::app()->db->createCommand('SELECT usr_id FROM dc_user WHERE is_ban=1 AND usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryScalar();
+            if ($rtn) {
+                throw new PException('您因违反用户协议被禁止使用此功能');
+            }
+            // ------------------
 
             $filterChain->run(); 
         }

@@ -358,4 +358,20 @@ class ImageController extends Controller
         }
         $this->echoJsonData(array('isSuccess'=>TRUE));
     }
+
+    public function actionReportApi($img_id)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $image = Image::model()->findByPk($img_id);
+            $image->reports++;
+            $image->saveAttributes(array('reports'));
+
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+        $this->echoJsonData(array('isSuccess'=>TRUE));
+    }
 }

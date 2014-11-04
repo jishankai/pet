@@ -48,9 +48,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		#'usr_id',
 		'name',
         array('name'=>'gender', 'value'=>'$data->getGender()'),
-		#'tx',
+        array('name'=>'tx', 'value'=>'$data->showTxImage()','type'=>'html'),
 		'age',
-		array('name'=>'type', 'value'=>'User::model()->getTypeName($data->type)', 'filter'=>Util::loadConfig('pet_type')),
         array('name'=>'create_time','value'=>'date("Y-m-d H:i:s",$data->create_time)'),
 		array(
 			'class'=>'CButtonColumn',

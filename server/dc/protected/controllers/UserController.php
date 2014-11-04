@@ -386,4 +386,20 @@ class UserController extends Controller
             throw $e;
         }
     }
+    
+    public function actionReportApi($usr_id)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $user = User::model()->findByPk($usr_id);
+            $user->reports++;
+            $user->saveAttributes(array('reports'));
+
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+        $this->echoJsonData(array('isSuccess'=>TRUE));
+    }
 }
