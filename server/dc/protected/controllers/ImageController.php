@@ -235,9 +235,10 @@ class ImageController extends Controller
     public function actionRecommendApi($img_id=NULL)
     {
         if (isset($img_id)) {
-            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url, i.cmt AS cmt FROM dc_image i WHERE i.img_id<:img_id ORDER BY i.likes DESC LIMIT 30')->bindValue(':img_id', $img_id)->queryAll();        
+            $create_time = Yii::app()->db->createCommand('SELECT create_time FROM dc_image i WHERE i.img_id==:img_id')->bindValue(':img_id',$img_id)->queryScalar();
+            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url, i.cmt AS cmt FROM dc_image i WHERE i.img_id<:img_id AND i.create_time<:create_time ORDER BY i.likes DESC, i.create_time DESC LIMIT 30')->bindValues(array(':img_id'=>$img_id, ':create_time'=>$create_time))->queryAll();        
         } else {
-            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url, i.cmt AS cmt FROM dc_image i ORDER BY i.likes DESC LIMIT 30')->queryAll();        
+            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url, i.cmt AS cmt FROM dc_image i ORDER BY i.likes DESC, i.create_time DESC LIMIT 30')->queryAll();        
         }
 
         $this->echoJsonData(array($images));
