@@ -30,6 +30,8 @@ class SummaryDayContributionRankCommand extends CConsoleCommand {
             Yii::app()->cache->set($aid.'_d_rank_report', $rank, 3600*24);               
             Yii::app()->cache->set($aid.'_d_rank', $r, 3600*24);               
         }
+        //贡献清零
+        Yii::app()->db->createCommand('UPDATE dc_circle SET d_contri=0')->execute();
     }
 
     public function run($args) {

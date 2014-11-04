@@ -55,6 +55,9 @@ class SummaryDayRankCommand extends CConsoleCommand {
 
         Yii::app()->cache->set('d_rq_rank_report', $rank, 3600*24);               
         Yii::app()->cache->set('d_rq_rank', $r, 3600*24);               
+
+        //人气清零
+        Yii::app()->db->createCommand('UPDATE dc_animal SET d_rq=0')->execute();
     }
 
     public function run($args) {

@@ -53,6 +53,9 @@ class SummaryWeekRankCommand extends CConsoleCommand {
          */
         Yii::app()->cache->set('w_rq_rank_report', $rank, 3600*24*7);               
         Yii::app()->cache->set('w_rq_rank', $r, 3600*24*7);               
+
+        //人气清零
+        Yii::app()->db->createCommand('UPDATE dc_animal SET w_rq=0')->execute();
     }
 
     public function run($args) {
