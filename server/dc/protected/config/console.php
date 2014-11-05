@@ -10,6 +10,8 @@ require_once(dirname(__FILE__).'/dc/const.cfg.php');
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'阿猫阿狗',
+    'theme'=>'blackboot',
+    'defaultController'=>'site/login',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -19,6 +21,19 @@ return array(
 		'application.models.*',
 		'application.components.*',
         'application.extensions.*',
+	),
+
+	'modules'=>array(
+        // uncomment the following to enable the Gii tool         
+        'admin',
+        'gii'=>array(
+			'class'=>'system.gii.GiiModule',
+			'password'=>false,
+			// If removed, Gii defaults to localhost only. Edit carefully to taste.
+			//'ipFilters'=>array('0.0.0.0','::1'),
+            'ipFilters'=>false,
+            'generatorPaths'=>array('application.gii'),
+		),
 	),
 
     // add behaviors to application.
@@ -54,6 +69,13 @@ return array(
             'sKey'=>AWS_SECRET_KEY,
         ),
 
+        'oss'=>array(
+            'class'=>'ext.aliyun.OSS',
+            'aKey'=>OSS_ACCESS_KEY,
+            'sKey'=>OSS_SECRET_KEY,
+            'endpoint'=>OSS_ENDPOINT,
+        ),
+
         'file'=>array(
             'class'=>'application.extensions.file.CFile',
         ),
@@ -70,18 +92,18 @@ return array(
          */
 
         'cache' => array(
+            /*
             'class' => 'CFileCache',
             'directoryLevel' => 4,
-        /*
-        'class' => 'CMemCache',
-        'servers' => array(
-            array(
-                'host' => 'cache4test.5edo1u.cfg.apne1.cache.amazonaws.com',
-                'port' => 11211,
-                'weight' => 100,
-            ),  
-        ),
-         */  
+             */
+            'class' => 'CMemCache',
+            'servers' => array(
+                array(
+                    'host' => '127.0.0.1',
+                    'port' => 11211,
+                    'weight' => 100,
+                ),  
+            ),
         ),
         'sessionCache' => array(
             'class' => 'CMemCache',
@@ -110,10 +132,10 @@ return array(
         ),
 
         'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=pet_test',
+            'connectionString' => 'mysql:host='.MYSQL_MASTER_SERVER.';dbname='.MYSQL_DB_NAME,
             'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => '',
+            'username' => MYSQL_MASTER_USER,
+            'password' => MYSQL_MASTER_PASSWORD,
             'charset' => 'utf8mb4',
             'class' => 'DbConnectionMan',
             'schemaCachingDuration' => 3600,
@@ -122,17 +144,19 @@ return array(
             'enableSlave'=>true,
             'slaves'=>array(
                 array(
-                    'connectionString' => 'mysql:host=127.0.0.1;port=3307;dbname=pet_test',
-                    'username' => 'root',
-                    'password' => '',
+                    'connectionString' => 'mysql:host='.MYSQL_SLAVE_SERVER.';dbname='.MYSQL_DB_NAME,
+                    'username' => MYSQL_SLAVE_USER,
+                    'password' => MYSQL_SLAVE_PASSWORD,
                     'charset' => 'utf8mb4',
                 ),
+                /*
                 array(
-                    'connectionString' => 'mysql:host=127.0.0.1;port=3308;dbname=pet_test',
+                    'connectionString' => 'mysql:host=127.0.0.1;port=3306;dbname=pet',
                     'username' => 'root',
                     'password' => '',
                     'charset' => 'utf8mb4',
                 ),
+                 */
             ),
         ),
         'errorHandler'=>array(
@@ -146,18 +170,20 @@ return array(
                     'class'=>'CFileLogRoute',
                     'levels'=>'error, warning',
                 ),
+                /*
                 array(
                     'class'=>'CFileLogRoute',
                     'levels'=>'trace',
-                'logFile'=>'json.log',
-                'categories'=>'json',
-            ),
-            array(
-                'class'=>'CFileLogRoute',
-                'levels'=>'trace',
-                'logFile'=>'access.log',
-                'categories'=>'access',
-            ),
+                    'logFile'=>'json.log',
+                    'categories'=>'json',
+                ),
+                array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'trace',
+                    'logFile'=>'access.log',
+                    'categories'=>'access',
+                ),
+                 */
                 /*
                 array(
                     'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
@@ -166,7 +192,7 @@ return array(
                     //'ipFilters'=>array('127.0.0.1','192.168.1.*', 88.23.23.0/24),
                 )
                 // uncomment the following to show log messages on web pages
-                */
+                 */
                 /*
                 array(
                     'class'=>'CWebLogRoute',
@@ -174,14 +200,14 @@ return array(
                     'categories'=>'system.db.*',
                 ),
                  */
+            ),
         ),
-		),
-	),
+    ),
 
-	// application-level parameters that can be accessed
-	// using Yii::app()->params['paramName']
-	'params'=>array(
-		// this is used in contact page
-		'adminEmail'=>'webmaster@pet.server.com',
-	),
+    // application-level parameters that can be accessed
+    // using Yii::app()->params['paramName']
+    'params'=>array(
+        // this is used in contact page
+        'adminEmail'=>'sunyi@aidigame.com',
+    ),
 );
