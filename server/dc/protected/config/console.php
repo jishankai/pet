@@ -10,8 +10,6 @@ require_once(dirname(__FILE__).'/dc/const.cfg.php');
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'阿猫阿狗',
-    'theme'=>'blackboot',
-    'defaultController'=>'site/login',
 
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -21,19 +19,6 @@ return array(
 		'application.models.*',
 		'application.components.*',
         'application.extensions.*',
-	),
-
-	'modules'=>array(
-        // uncomment the following to enable the Gii tool         
-        'admin',
-        'gii'=>array(
-			'class'=>'system.gii.GiiModule',
-			'password'=>false,
-			// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			//'ipFilters'=>array('0.0.0.0','::1'),
-            'ipFilters'=>false,
-            'generatorPaths'=>array('application.gii'),
-		),
 	),
 
     // add behaviors to application.
