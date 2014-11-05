@@ -7,7 +7,7 @@ class ImageController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - recommendApi,randomApi,infoApi,shareApi',
+            'getUserId - recommendApi,randomApi,infoApi,shareApi,recoApi',
             array(
                 'COutputCache + randomApi',
                 'duration' => 300,
