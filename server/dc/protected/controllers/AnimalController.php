@@ -176,7 +176,7 @@ class AnimalController extends Controller
             $animal->m_rq+=5;
             $animal->saveAttributes(array('t_rq','d_rq','w_rq','m_rq'));
 
-            $news = new News;
+            $news = new Newe;
             $news->aid = $aid;
             $news->type = 1;
             $news->create_time = time();
@@ -549,12 +549,18 @@ class AnimalController extends Controller
                     $image->saveAttributes(array('gifts', 'senders'));
                 }
 
+                $session = Yii::app()->session;
                 if ($is_shake) {
-                    $session = Yii::app()->session;
                     if (isset($session[$aid.'_shake_count'])) {
                         $session[$aid.'_shake_count']-=1;
                     } else {
                         $session[$aid.'_shake_count']=3;
+                    }
+                } else {
+                    if (isset($session[$aid.'_gift_count'])) {
+                        $session[$aid.'_gift_count']+=1;
+                    } else {
+                        $session[$aid.'_gift_count']=1;
                     }
                 }
 
@@ -604,10 +610,7 @@ class AnimalController extends Controller
                 ':m'=>30*$page,
             ))->queryAll();
         } else {
-            $session = Yii::app()->session;
-
-            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.from=:from ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
-                ':from'=>$from,
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
                 ':m'=>30*$page,
             ))->queryAll();
         }
@@ -623,10 +626,7 @@ class AnimalController extends Controller
                 ':m'=>30*$page,
             ))->queryAll();
         } else {
-            $session = Yii::app()->session;
-
-            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE a.from=:from ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
-                ':from'=>$from,
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
                 ':m'=>30*$page,
             ))->queryAll();
         }
@@ -720,5 +720,53 @@ class AnimalController extends Controller
             $transaction->rollback();
             throw $e;
         }
+    }
+
+    public function actionMineApi()
+    {
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a,tx, a,msg, a.t_rq, c.rank, c.t_contri FROM dc_circle c INNER JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id ORDER BY c.t_contri DESC')->bindValue(':usr_id', $this->usr_id)->queryAll();
+        
+        $session = Yii::app()->session;
+        $max_rq = Yii::app()->db->createCommand('SELECT MAX(t_rq) FROM dc_animal')->queryScalar();
+        foreach ($r as $k=>$v) {
+            $r['k']['images'] = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY update_time LIMIT 4')->bindValue(':aid', $v['aid'])->queryAll();
+            $r['k']['percent'] = ceil($v['t_rq']*100/$max_rq);
+            $r['k']['shake_count'] = $session[$aid.'_shake_count'];
+            $r['k']['gift_count'] = $session[$aid.'_gift_count'];
+            $r['k']['is_touched'] = $session[$aid.'touch_count'];
+            $r['k']['is_voiced'] = $session[$aid.'_is_voiced'];
+        }        
+
+        $this->echoJsonData(array($r));
+    }
+
+    public function actionModifyMsg($aid)
+    {
+        $is_master = Yii::app()->db->createCommand('SELECT aid FROM dc_animal WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(
+            ':aid' => $aid,
+            ':usr_id' => $this->usr_id,
+        ))->queryScalar();
+        if (!$is_master) {
+            throw new PException('不是经纪人，无权更改!');
+        }
+
+        $msg = $_POST['msg'];
+        $msglen = mb_strlen($msg,"UTF8");
+        if ($msglen>20) {
+            throw new PException('文本超过规定长度');
+        }
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            Yii::app()->db->createCommand('UPDATE dc_animal SET msg=:msg WHERE aid=:aid')->bindValues(array(
+                ':msg'=>$msg,
+                ':aid'=>$aid,
+            ))->execute();
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+
+        $this->echoJsonData(array('isSuccess'=>true));
     }
 }
