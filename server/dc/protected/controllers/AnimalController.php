@@ -740,7 +740,7 @@ class AnimalController extends Controller
         $this->echoJsonData(array($r));
     }
 
-    public function actionModifyMsg($aid)
+    public function actionModifyMsgApi($aid)
     {
         $is_master = Yii::app()->db->createCommand('SELECT aid FROM dc_animal WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(
             ':aid' => $aid,

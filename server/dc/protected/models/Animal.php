@@ -7,6 +7,7 @@
  * @property string $aid
  * @property string $name
  * @property string $tx
+ * @property string $msg
  * @property integer $gender
  * @property integer $from
  * @property integer $type
@@ -44,12 +45,12 @@ class Animal extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('gender, from, type, age, d_rq, w_rq, m_rq, t_rq', 'numerical', 'integerOnly'=>true),
-			array('name, tx', 'length', 'max'=>45),
+			array('name, tx, msg', 'length', 'max'=>45),
             array('address, items', 'length', 'max'=>255),
 			array('master_id, create_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('aid, name, tx, gender, from, type, age, address, master_id, items, d_rq, w_rq, m_rq, t_rq, create_time, update_time', 'safe', 'on'=>'search'),
+			array('aid, name, tx, msg, gender, from, type, age, address, master_id, items, d_rq, w_rq, m_rq, t_rq, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -82,6 +83,7 @@ class Animal extends CActiveRecord
 			'aid' => '宠物编号',
 			'name' => '名字',
 			'tx' => '头像地址',
+            'msg' => '宣言',
 			'gender' => '性别',
 			'from' => '星球',
 			'type' => '种族',
@@ -119,6 +121,7 @@ class Animal extends CActiveRecord
 		$criteria->compare('aid',$this->aid,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('tx',$this->tx,true);
+		$criteria->compare('msg',$this->msg,true);
 		$criteria->compare('gender',$this->gender);
 		$criteria->compare('from',$this->from);
 		$criteria->compare('type',$this->type);
