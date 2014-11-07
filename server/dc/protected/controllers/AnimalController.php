@@ -729,12 +729,12 @@ class AnimalController extends Controller
         $session = Yii::app()->session;
         $max_rq = Yii::app()->db->createCommand('SELECT MAX(t_rq) FROM dc_animal')->queryScalar();
         foreach ($r as $k=>$v) {
-            $r['k']['images'] = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY update_time LIMIT 4')->bindValue(':aid', $v['aid'])->queryAll();
-            $r['k']['percent'] = ceil($v['t_rq']*100/$max_rq);
-            $r['k']['shake_count'] = $session[$aid.'_shake_count'];
-            $r['k']['gift_count'] = $session[$aid.'_gift_count'];
-            $r['k']['is_touched'] = $session[$aid.'touch_count'];
-            $r['k']['is_voiced'] = $session[$aid.'_is_voiced'];
+            $r[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY update_time LIMIT 4')->bindValue(':aid', $v['aid'])->queryAll();
+            $r[$k]['percent'] = ceil($v['t_rq']*100/$max_rq);
+            $r[$k]['shake_count'] = $session[$aid.'_shake_count'];
+            $r[$k]['gift_count'] = $session[$aid.'_gift_count'];
+            $r[$k]['is_touched'] = $session[$aid.'touch_count'];
+            $r[$k]['is_voiced'] = $session[$aid.'_is_voiced'];
         }        
 
         $this->echoJsonData(array($r));

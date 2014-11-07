@@ -403,7 +403,7 @@ class UserController extends Controller
         $this->echoJsonData(array('isSuccess'=>TRUE));
     }
 
-    public function actionRecommendApi($page=0)
+    public function actionRecommendApi($page=0, $usr_id=0)
     {
         $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, u.name AS u_name, u.tx AS u_tx, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a LEFT JOIN dc_user u ON a.master_id=u.usr_id ORDER BY a.d_rq DESC LIMIT :m,30')->bindValues(array(
             ':m'=>30*$page,
@@ -411,8 +411,13 @@ class UserController extends Controller
 
         $max_rq = Yii::app()->db->createCommand('SELECT MAX(t_rq) FROM dc_animal')->queryScalar();
         foreach ($r as $k=>$v) {
-            $r['k']['images'] = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY update_time LIMIT 5')->bindValue(':aid', $v['aid'])->queryAll();
-            $r['k']['percent'] = ceil($v['t_rq']*100/$max_rq);
+            $in_circle = Yii::app()->db->createCommand('SELECT aid FROM dc_circle WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(
+                ':aid' => $v['aid'],
+                ':usr_id' => $usr_id,
+            ))->queryScalar();
+            $r[$k]['in_circle'] = $in_circle?1:0;
+            $r[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY update_time LIMIT 5')->bindValue(':aid', $v['aid'])->queryAll();
+            $r[$k]['percent'] = ceil($v['t_rq']*100/$max_rq);
         }
 
         $this->echoJsonData(array($r));
