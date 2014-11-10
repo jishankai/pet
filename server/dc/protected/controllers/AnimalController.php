@@ -743,7 +743,7 @@ class AnimalController extends Controller
 
     public function actionModifyMsgApi($aid)
     {
-        $is_master = Yii::app()->db->createCommand('SELECT aid FROM dc_animal WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(
+        $is_master = Yii::app()->db->createCommand('SELECT aid FROM dc_animal WHERE aid=:aid AND master_id=:usr_id')->bindValues(array(
             ':aid' => $aid,
             ':usr_id' => $this->usr_id,
         ))->queryScalar();
