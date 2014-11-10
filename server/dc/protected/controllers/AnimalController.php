@@ -176,7 +176,7 @@ class AnimalController extends Controller
             $animal->m_rq+=5;
             $animal->saveAttributes(array('t_rq','d_rq','w_rq','m_rq'));
 
-            $news = new Newe;
+            $news = new News;
             $news->aid = $aid;
             $news->type = 1;
             $news->create_time = time();
