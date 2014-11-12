@@ -469,7 +469,8 @@ class UserController extends Controller
                 $inviter->inviter($user->name, $invite_aid);
             }
 
-            $this->echoJsonData(array('isSuccess'=>TRUE));
+            $a_tx = Yii::app()->db->createCommand('SELECT tx FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $invite_aid)->queryScalar();
+            $this->echoJsonData(array('aid'=>$invite_aid, 'tx'=>$a_tx));
         } else {
             throw new PException('邀请码不正确');
         }
