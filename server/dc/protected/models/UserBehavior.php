@@ -86,7 +86,7 @@ class UserBehavior extends CActiveRecordBehavior
     public function inviter($invited_name, $aid)
     {
         $a_name = Yii::app()->db->createCommand('SELECT name FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
-        Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->usr_id, $invited_name.'成功填写您分享的邀请码，成为'.$a_name.'的粉丝！这是您的300金币，不客气~');
+        Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, $invited_name.'成功填写您分享的邀请码，成为'.$a_name.'的粉丝！这是您的300金币，不客气~');
         $this->onInviter = array($this, 'addGold');
         $this->onInviter(new CEvent($this, array('on'=>'inviter'))); 
     }
