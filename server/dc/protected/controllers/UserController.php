@@ -271,7 +271,7 @@ class UserController extends Controller
 
     public function actionInfoApi($usr_id)
     {
-        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, u.gold, u.con_login, c.rank, a.aid, a.name AS a_name, a.age AS a_age, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid LEFT JOIN dc_circle c ON u.usr_id=c.usr_id AND u.aid=c.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, u.gold, u.con_login, u.inviter, c.rank, a.aid, a.name AS a_name, a.age AS a_age, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid LEFT JOIN dc_circle c ON u.usr_id=c.usr_id AND u.aid=c.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
         if ($r['con_login']<=5) {
             $r['next_gold'] = ($r['con_login']+1)*LOGIN_X2;
         } else {
@@ -445,6 +445,7 @@ class UserController extends Controller
         if (isset($invite_aid)) {
             $aids = Yii::app()->db->createCommand('SELECT aid FROM dc_circle WHERE usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryColumn();
             if (!in_array($invite_aid,$aids)) {
+                Yii::app()->db->createCommand('UPDATE dc_user SET inviter=:inviter WHERE usr_id=:usr_id')->bindValues(array(':inviter'=>$inviter,':usr_id'=>$this->usr_id))->execute();
                 $circle = new Circle();
                 $circle->aid = $invite_aid;
                 $circle->usr_id = $this->usr_id;
@@ -470,7 +471,7 @@ class UserController extends Controller
             }
 
             $a_tx = Yii::app()->db->createCommand('SELECT tx FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $invite_aid)->queryScalar();
-            $this->echoJsonData(array('aid'=>$invite_aid, 'tx'=>$a_tx));
+            $this->echoJsonData(array('aid'=>$invite_aid, 'tx'=>$a_tx, 'u_name'=>$inviter->name));
         } else {
             throw new PException('邀请码不正确');
         }
