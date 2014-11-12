@@ -725,6 +725,7 @@ class AnimalController extends Controller
     public function actionMineApi()
     {
         $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.msg, a.t_rq, a.master_id, c.rank, c.t_contri FROM dc_circle c INNER JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id ORDER BY c.t_contri DESC')->bindValue(':usr_id', $this->usr_id)->queryAll();
+        $code = Yii::app()->db->createCommand('SELECT code FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryScalar();
         
         $session = Yii::app()->session;
         $max_rq = Yii::app()->db->createCommand('SELECT MAX(t_rq) FROM dc_animal')->queryScalar();
@@ -736,6 +737,7 @@ class AnimalController extends Controller
             $r[$k]['gift_count'] = $session[$aid.'_gift_count'];
             $r[$k]['is_touched'] = $session[$aid.'touch_count'];
             $r[$k]['is_voiced'] = $session[$aid.'_is_voiced'];
+            $r[$k]['invite_code'] = $code.'@'.dechex($aid);
         }        
 
         $this->echoJsonData(array($r));

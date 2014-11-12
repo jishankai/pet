@@ -10,7 +10,7 @@ class UserBehavior extends CActiveRecordBehavior
         ))->queryScalar();
     }
 
-    public function getthisIdByCode($code)
+    public function getUserIdByCode($code)
     { 
         return Yii::app()->db->createCommand("SELECT usr_id FROM dc_user WHERE code=:code")->bindValue(':code',$code)->queryScalar();
     }  
@@ -75,6 +75,20 @@ class UserBehavior extends CActiveRecordBehavior
     {
         $this->onComment = array($this, 'addExp');
         $this->onComment(new CEvent($this, array('on'=>'comment'))); 
+    }
+
+    public function invite()
+    {
+        $this->onInvite = array($this, 'addGold');
+        $this->onInvite(new CEvent($this, array('on'=>'invite'))); 
+    }
+
+    public function inviter($invited_name, $aid)
+    {
+        $a_name = Yii::app()->db->createCommand('SELECT name FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
+        Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->usr_id, $invited_name.'成功填写您分享的邀请码，成为'.$a_name.'的粉丝！这是您的300金币，不客气~');
+        $this->onInviter = array($this, 'addGold');
+        $this->onInviter(new CEvent($this, array('on'=>'inviter'))); 
     }
 
     public function touch()
@@ -153,6 +167,16 @@ class UserBehavior extends CActiveRecordBehavior
     public function onComment($event)
     {
         $this->raiseEvent('onComment', $event);
+    }
+
+    public function onInvite($event)
+    {
+        $this->raiseEvent('onInvite', $event);
+    }
+
+    public function onInviter($event)
+    {
+        $this->raiseEvent('onInviter', $event);
     }
 
     public function onTouch($event)
@@ -259,6 +283,12 @@ class UserBehavior extends CActiveRecordBehavior
                  break;
              case 'rankUp':
                  $this->owner->gold+=$event->params['rank']*RANKUP_A;
+                 break;
+             case 'invite':
+                 $this->owner->gold+=300;
+                 break;
+             case 'inviter':
+                 $this->owner->gold+=300;
                  break;
             default:
                 // code...

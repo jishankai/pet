@@ -14,11 +14,10 @@ class TalkController extends Controller
     public function actionListApi()
     {
         $c = new CDbCriteria;
-        $c->addCondition('usra_id=:usra_id OR usrb_id=:usrb_id AND is_block!=:usr_id');
+        $c->addCondition('(usra_id=:usra_id OR usrb_id=:usrb_id) AND is_block=0');
         //$c->limit = 30;
         $c->params[':usra_id'] = $this->usr_id;
         $c->params[':usrb_id'] = $this->usr_id;
-        $c->params[':usr_id'] = $this->usr_id;
         $c->order = 'update_time DESC';
         /*
         if(isset($talk_id)) {

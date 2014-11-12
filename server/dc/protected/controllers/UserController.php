@@ -245,13 +245,44 @@ class UserController extends Controller
             throw new PException('用户名含有特殊字符');
         }
         if ($code != '') {
-            if (!$inviter = User::model()->getUserIdByCode(strtolower(trim($code)))) {
+            $c = explode('@',$code);
+            $invite_code = $c[0];
+            if (!$inviter = User::model()->getUserIdByCode(strtolower(trim($invite_code)))) {
                 throw new PException('邀请ID不存在');
             }
+            $invite_aid = hexdec($c[1]); 
         }
         $transaction = Yii::app()->db->beginTransaction();
         try {
             $user = $device->register($aid, trim($name), $gender, $age, $type, trim($u_name), $u_gender, $u_city,  empty($invter)?NULL:$inviter);
+
+            //邀请码处理
+            if (isset($invite_aid)) {
+                if ($invite_aid!=$aid) {
+                    $circle = new Circle();
+                    $circle->aid = $invite_aid;
+                    $circle->usr_id = $user->usr_id;
+                    $circle->save();
+
+                    $f = Follow::model()->findByPk(array(
+                        'usr_id' => $user->usr_id,
+                        'aid' => $invite_aid,
+                    ));
+                    if (!isset($f)) {
+                        $f = new Follow;
+                        $f->usr_id = $user->usr_id;
+                        $f->aid = $invite_aid;
+                        $f->create_time = time();
+                        $f->save();
+                    }
+                } 
+                //奖励
+                $user->invite();
+                if (isset($inviter)) {
+                    $inviter = User::model()->findByPk($inviter);
+                    $inviter->inviter();
+                }
+            }
 
             $session['usr_id'] = $device->usr_id;
             $session['not_registered'] = FALSE;
@@ -423,4 +454,52 @@ class UserController extends Controller
         $this->echoJsonData(array($r));
     }
 
+    public function actionInputCodeApi($code)
+    {
+        $user = User::model()->findByPk($this->usr_id);
+        if (isset($user->inviter)&&$user->inviter!=0) {
+            throw new PException('您已经填过邀请码');
+        }
+        if ($code != '') {
+            $c = explode('@',$code);
+            $invite_code = $c[0];
+            if (!$inviter = User::model()->getUserIdByCode(strtolower(trim($invite_code)))) {
+                throw new PException('邀请ID不存在');
+            }
+            $invite_aid = hexdec($c[1]); 
+        }
+
+        //邀请码处理
+        if (isset($invite_aid)) {
+            $aids = Yii::app()->db->createCommand('SELECT aid FROM dc_circle WHERE usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryColumn();
+            if (!in_array($invite_aid,$aids)) {
+                $circle = new Circle();
+                $circle->aid = $invite_aid;
+                $circle->usr_id = $this->usr_id;
+                $circle->save();
+
+                $f = Follow::model()->findByPk(array(
+                    'usr_id' => $this->usr_id,
+                    'aid' => $invite_aid,
+                ));
+                if (!isset($f)) {
+                    $f = new Follow;
+                    $f->usr_id = $this->usr_id;
+                    $f->aid = $invite_aid;
+                    $f->create_time = time();
+                    $f->save();
+                }
+            }
+            //奖励
+            $user->invite();
+            if (isset($inviter)) {
+                $inviter = User::model()->findByPk($inviter);
+                $inviter->inviter($user->name, $invite_aid);
+            }
+
+            $this->echoJsonData(array('isSuccess'=>TRUE));
+        } else {
+            throw new PException('邀请码不正确');
+        }
+    }
 }
