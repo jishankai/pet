@@ -86,8 +86,8 @@ class ToolController extends Controller
                     $transaction = Yii::app()->db->beginTransaction();
                     try {
                         Yii::app()->db->createCommand('UPDATE dc_device SET usr_id=:usr_id WHERE id=:id')->bindValues(array(':usr_id'=>0, ':id'=>$device_id))->execute();
-                        Yii::app()->db->createCommand('DELETE FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->execute();
-                        Yii::app()->db->createCommand('DELETE FROM dc_image WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->execute();
+                        //Yii::app()->db->createCommand('DELETE FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->execute();
+                        //Yii::app()->db->createCommand('DELETE FROM dc_image WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->execute();
                         $result = TRUE;
                         $transaction->commit();
                     } catch (Exception $e) {
