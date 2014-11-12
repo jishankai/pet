@@ -256,34 +256,6 @@ class UserController extends Controller
         try {
             $user = $device->register($aid, trim($name), $gender, $age, $type, trim($u_name), $u_gender, $u_city,  empty($invter)?NULL:$inviter);
 
-            //邀请码处理
-            if (isset($invite_aid)) {
-                if ($invite_aid!=$aid) {
-                    $circle = new Circle();
-                    $circle->aid = $invite_aid;
-                    $circle->usr_id = $user->usr_id;
-                    $circle->save();
-
-                    $f = Follow::model()->findByPk(array(
-                        'usr_id' => $user->usr_id,
-                        'aid' => $invite_aid,
-                    ));
-                    if (!isset($f)) {
-                        $f = new Follow;
-                        $f->usr_id = $user->usr_id;
-                        $f->aid = $invite_aid;
-                        $f->create_time = time();
-                        $f->save();
-                    }
-                } 
-                //奖励
-                $user->invite();
-                if (isset($inviter)) {
-                    $inviter = User::model()->findByPk($inviter);
-                    $inviter->inviter();
-                }
-            }
-
             $session['usr_id'] = $device->usr_id;
             $session['not_registered'] = FALSE;
             $user->login();
