@@ -6,7 +6,7 @@ class GameController extends Controller
     {
         return array(
             'checkUpdate',
-            'checkSig',
+            'checkSig - dcz',
         );
     }
 
