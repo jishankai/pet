@@ -7,7 +7,7 @@ class UserController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - welcomeApi,getSIDApi,planetApi,loginApi,typeApi,bindApi,registerApi,othersApi,infoApi, petsApi, followingApi, topicApi, itemsApi, recommendApi',
+            'getUserId - welcomeApi,getSIDApi,planetApi,loginApi,typeApi,bindApi,registerApi,othersApi,infoApi,petsApi,followingApi,topicApi,itemsApi,recommendApi,searchApi',
             /*
             array(
                 'COutputCache + welcomeApi',
@@ -466,14 +466,22 @@ class UserController extends Controller
             //奖励
             $user->invite();
             if (isset($inviter)) {
-                $inviter = User::model()->findByPk($inviter);
-                $inviter->inviter($user->name, $invite_aid);
+                $inviter_obj = User::model()->findByPk($inviter);
+                $inviter_obj->inviter($user->name, $invite_aid);
             }
 
             $a_tx = Yii::app()->db->createCommand('SELECT tx FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $invite_aid)->queryScalar();
-            $this->echoJsonData(array('aid'=>$invite_aid, 'tx'=>$a_tx, 'u_name'=>$inviter->name));
+            $this->echoJsonData(array('aid'=>$invite_aid, 'tx'=>$a_tx, 'inviter'=>$inviter, 'u_name'=>$inviter_obj->name));
         } else {
             throw new PException('邀请码不正确');
         }
     }
+
+    public function actionSearchApi($name, $page=0)
+    {
+        $r = Yii::app()->db->createCommand("SELECT usr_id, name, tx, gender, city FROM dc_user WHERE name LIKE '%$name%' ORDER BY usr_id ASC LIMIT :m, 30")->bindValue(':m', 30*$page)->queryAll();
+
+        $this->echoJsonData(array($r));
+    }
+
 }
