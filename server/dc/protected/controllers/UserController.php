@@ -99,6 +99,7 @@ class UserController extends Controller
                 'isSuccess' => $isSuccess,
                 'usr_id' => $device->usr_id,
                 'SID' => $session->sessionID,
+                'version' => LOGIN_VERSION,
             )); 
         } catch (Exception $e) {
             $transaction->rollback();
@@ -432,42 +433,47 @@ class UserController extends Controller
         if (isset($user->inviter)&&$user->inviter!=0) {
             throw new PException('您已经填过邀请码');
         }
-        if ($code != '') {
-            $c = explode('@',$code);
-            $invite_code = $c[0];
-            if (!$inviter = User::model()->getUserIdByCode(strtolower(trim($invite_code)))) {
-                throw new PException('邀请ID不存在');
-            }
-            $invite_aid = hexdec($c[1]); 
+        $c = explode('@',$code);
+        $invite_code = $c[0];
+        if (!$inviter = User::model()->getUserIdByCode(strtolower(trim($invite_code)))) {
+            throw new PException('邀请ID不存在');
         }
+        $invite_aid = hexdec($c[1]); 
 
         //邀请码处理
         if (isset($invite_aid)) {
             $aids = Yii::app()->db->createCommand('SELECT aid FROM dc_circle WHERE usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryColumn();
-            if (!in_array($invite_aid,$aids)) {
-                Yii::app()->db->createCommand('UPDATE dc_user SET inviter=:inviter WHERE usr_id=:usr_id')->bindValues(array(':inviter'=>$inviter,':usr_id'=>$this->usr_id))->execute();
-                $circle = new Circle();
-                $circle->aid = $invite_aid;
-                $circle->usr_id = $this->usr_id;
-                $circle->save();
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                if (!in_array($invite_aid,$aids)) {
+                    Yii::app()->db->createCommand('UPDATE dc_user SET inviter=:inviter WHERE usr_id=:usr_id')->bindValues(array(':inviter'=>$inviter,':usr_id'=>$this->usr_id))->execute();
+                    $circle = new Circle();
+                    $circle->aid = $invite_aid;
+                    $circle->usr_id = $this->usr_id;
+                    $circle->save();
 
-                $f = Follow::model()->findByPk(array(
-                    'usr_id' => $this->usr_id,
-                    'aid' => $invite_aid,
-                ));
-                if (!isset($f)) {
-                    $f = new Follow;
-                    $f->usr_id = $this->usr_id;
-                    $f->aid = $invite_aid;
-                    $f->create_time = time();
-                    $f->save();
+                    $f = Follow::model()->findByPk(array(
+                        'usr_id' => $this->usr_id,
+                        'aid' => $invite_aid,
+                    ));
+                    if (!isset($f)) {
+                        $f = new Follow;
+                        $f->usr_id = $this->usr_id;
+                        $f->aid = $invite_aid;
+                        $f->create_time = time();
+                        $f->save();
+                    }
                 }
-            }
-            //奖励
-            $user->invite();
-            if (isset($inviter)) {
-                $inviter_obj = User::model()->findByPk($inviter);
-                $inviter_obj->inviter($user->name, $invite_aid);
+                //奖励
+                $user->invite();
+                if (isset($inviter)) {
+                    $inviter_obj = User::model()->findByPk($inviter);
+                    $inviter_obj->inviter($user->name, $invite_aid);
+                }
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollback();
+                throw $e;
             }
 
             $a_tx = Yii::app()->db->createCommand('SELECT tx FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $invite_aid)->queryScalar();
@@ -482,6 +488,13 @@ class UserController extends Controller
         $r = Yii::app()->db->createCommand("SELECT usr_id, name, tx, gender, city FROM dc_user WHERE name LIKE '%$name%' ORDER BY usr_id ASC LIMIT :m, 30")->bindValue(':m', 30*$page)->queryAll();
 
         $this->echoJsonData(array($r));
+    }
+
+    public function actionUpgradeApi($version)
+    {
+        $c = Util::loadConfig($version);
+
+        $this->echoJsonData(array('upgrade_content'=>$c)); 
     }
 
 }

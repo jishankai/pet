@@ -4,7 +4,8 @@
     define('APPFILEMD5KEY', 'appFileMD5Key_030197af1c1adadebd4508e791631d4a'); 
 	define('TOKEN_SECRET_KEY', 'tokenSecretKey_abc');
     define('DB_MAX_INT', 999999999);
-    define('VERSION', '1.0');
+    define('VERSION', '1.0.0');
+    define('LOGIN_VERSION', '1.0.0');
 	define('CONF_VERSION', '1.0');
     define('SIGKEY', 'dog&cat');
 	
