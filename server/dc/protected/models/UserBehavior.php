@@ -28,9 +28,8 @@ class UserBehavior extends CActiveRecordBehavior
     {
         $session = Yii::app()->session;
         isset($session[date("m.d.y").'_like']) ? ($session[date("m.d.y").'_like']+=1) : ($session[date("m.d.y").'_like']=1); 
-        Yii::trace($session[date("m.d.y").'_like'], 'access');
         if ($session[date("m.d.y").'_like']<=20) {
-           # $this->onLike = array($this, 'addExp');
+            $this->onLike = array($this, 'addGold');
         }
 
         $this->onLike(new CEvent($this, array('on'=>'like'))); 
@@ -44,6 +43,9 @@ class UserBehavior extends CActiveRecordBehavior
         ))->queryScalar();
         #Yii::trace('today_count:'.mktime(0,0,0,date('m'),date('d'),date('Y')).'  '.$today_count, 'access');
         if ($today_count<=10) {
+            if ($today_count<=6) {
+                $this->onUpload = array($this, 'addGold');
+            }
             $this->onUpload = array($this, 'addExp');
             $this->onUpload(new CEvent($this, array('on'=>'upload'))); 
         }
@@ -71,8 +73,11 @@ class UserBehavior extends CActiveRecordBehavior
         $this->onGift(new CEvent($this, array('on'=>'gift', 'is_shake'=>$is_shake))); 
     }
     
-    public function comment()
+    public function comment($comment_count)
     {
+        if ($comment_count<=3) {
+            $this->onComment = array($this, 'addGold');
+        }
         $this->onComment = array($this, 'addExp');
         $this->onComment(new CEvent($this, array('on'=>'comment'))); 
     }
@@ -273,10 +278,13 @@ class UserBehavior extends CActiveRecordBehavior
                 }
                 break;
              case 'touch':
-                 $this->owner->gold+=rand(1,6);
+                 $this->owner->gold+=rand(5,10);
                  break;
              case 'share':
                  $this->owner->gold+=SHARE_X1;
+                 break;
+             case 'like':
+                 $this->owner->gold+=1;    
                  break;
              case 'levelUp':
                  $this->owner->gold+=($this->owner->lv/5+1)*LEVELUP_A;
@@ -289,6 +297,22 @@ class UserBehavior extends CActiveRecordBehavior
                  break;
              case 'inviter':
                  $this->owner->gold+=300;
+                 break;
+             case 'upload':
+                 $this->owner->gold+=PHOTO_GOLD;
+                 break;
+             case 'comment':
+                 $r = rand(1,10);
+                 if ($r<=4) {
+                     $g = 1;
+                 } else if ($r<=7) {
+                     $g = 2;
+                 } else if ($r<=9) {
+                     $g = 3;
+                 } else {
+                     $g = 4;
+                 }
+                 $this->owner->gold+=$g;
                  break;
             default:
                 // code...

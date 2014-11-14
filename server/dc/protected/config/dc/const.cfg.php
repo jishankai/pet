@@ -10,6 +10,7 @@
 
     define('PHOTO_X1', 10);
     define('PHOTO_X2', 0);
+    define('PHOTO_GOLD', 5);
 
     define('SHARE_X1', 5);
     define('SHARE_X2', 0);

@@ -331,7 +331,7 @@ class ImageController extends Controller
             }
             
             if ($session['comment_count']<=15) {
-                $user->comment();
+                $user->comment($session['comment_count']);
             }
             if (isset($_POST['reply_id'])) {
                 Talk::model()->sendMsg(NPC_IMAGE_USRID, $_POST['reply_id'], "[".$image->img_id."]".$user->name."回复了你：".$body);
