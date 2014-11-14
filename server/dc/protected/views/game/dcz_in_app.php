@@ -458,10 +458,6 @@ display: none;
 				<div class="btn BOX-S" onClick="share()">分享到朋友圈</div>&nbsp;
 			</div>
 			<br/>
-			<div id="GameScoreLayer-share" class="BOX">
-				<div id="mebtn" class="btn BOX-S" onClick="window.open(mebtnopenurl)">&nbsp;宠物星球下载</div>
-				
-			</div>
 		</div>
 	</div>
 
