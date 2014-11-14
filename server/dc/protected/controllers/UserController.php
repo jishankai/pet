@@ -494,7 +494,11 @@ class UserController extends Controller
     {
         $c = Util::loadConfig($version);
 
-        $this->echoJsonData(array('upgrade_content'=>$c)); 
+        $this->echoJsonData(array(
+            'android_url'=>'',
+            'ios_url'=>'', 
+            'upgrade_content'=>$c
+        )); 
     }
 
 }
