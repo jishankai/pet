@@ -455,7 +455,6 @@ display: none;
 			<br/>
 			<div id="GameScoreLayer-btn" class="BOX">
 				<div class="btn BOX-S" onClick="replayBtn()">重来</div>&nbsp;
-				<div class="btn BOX-S" onClick="share()">分享到朋友圈</div>&nbsp;
 			</div>
 			<br/>
 		</div>
