@@ -370,7 +370,7 @@ display: none;
 	        hideGameScoreLayer();
 	        showWelcomeLayer();
 	    }
-	    var mebtnopenurl = '';
+	    var mebtnopenurl = 'http://home4pet.aidigame.com';
 		var gototop='';
 	    function shareText(score) {
 	        if (score <= 49)
@@ -475,7 +475,7 @@ display: none;
 			<br/><br/>
 			
 			<div style="font-size:1.2em; color:#fff; line-height:1.5em;">宠物星球·宠来宠趣<br/>荣誉出品<br/></div>
-			<div style="display:inline-block; margin:0 auto; width:8em; height:1em; line-height:1.7em; font-size:1.7em; color:#fff;" ><a href="">宠物星球下载</a></div>
+			<div style="display:inline-block; margin:0 auto; width:8em; height:1em; line-height:1.7em; font-size:1.7em; color:#fff;" ><a href="http://home4pet.aidigame.com">宠物星球下载</a></div>
 		
 			</div>
 		</div>
