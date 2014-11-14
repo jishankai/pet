@@ -74,12 +74,12 @@ return array(
     1301 => array(
         'type' => 0,
         'price'=> 58,
-        'rq'   => 88,
+        'rq'   => 80,
     ),  
     1302 => array(
         'type' => 0,
         'price'=> 58,
-        'rq'   => 88,
+        'rq'   => 80,
     ),  
     1303 => array(
         'type' => 0,
