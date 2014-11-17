@@ -409,7 +409,7 @@ class UserController extends Controller
 
     public function actionRecommendApi($page=0, $usr_id=0)
     {
-        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.master_id, u.name AS u_name, u.tx AS u_tx, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a LEFT JOIN dc_user u ON a.master_id=u.usr_id ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.master_id, u.name AS u_name, u.tx AS u_tx, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a LEFT JOIN dc_user u ON a.master_id=u.usr_id ORDER BY a.d_rq DESC, u.update_time DESC LIMIT :m,30')->bindValues(array(
             ':m'=>30*$page,
         ))->queryAll();
 
