@@ -413,7 +413,7 @@ class UserController extends Controller
             ':m'=>30*$page,
         ))->queryAll();
 
-        $max_rq = Yii::app()->db->createCommand('SELECT MAX(t_rq) FROM dc_animal')->queryScalar();
+        $max_users = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal')->queryScalar();
         foreach ($r as $k=>$v) {
             $in_circle = Yii::app()->db->createCommand('SELECT aid FROM dc_circle WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(
                 ':aid' => $v['aid'],
@@ -421,7 +421,8 @@ class UserController extends Controller
             ))->queryScalar();
             $r[$k]['in_circle'] = $in_circle?1:0;
             $r[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY update_time DESC LIMIT 5')->bindValue(':aid', $v['aid'])->queryAll();
-            $r[$k]['percent'] = ceil($v['t_rq']*100/$max_rq);
+            $rank = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal WHERE t_rq>:t_rq')->bindValue(':t_rq', $v['t_rq'])->queryScalar();
+            $r[$k]['percent'] = ceil($rank*100/$max_users);
         }
 
         $this->echoJsonData(array($r));
