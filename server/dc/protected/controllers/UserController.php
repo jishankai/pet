@@ -496,6 +496,7 @@ class UserController extends Controller
 
         $this->echoJsonData(array(
             'android_url'=>'',
+            'android_byte'=>0,
             'ios_url'=>'', 
             'upgrade_content'=>$c
         )); 

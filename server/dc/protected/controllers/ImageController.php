@@ -159,6 +159,7 @@ class ImageController extends Controller
             $image->saveAttributes(array('likes', 'likers'));
 
             $user = User::model()->findByPk($this->usr_id);
+            $ex_gold = $user->gold;
             $user->like();
 
             $animal = Animal::model()->findByPk($image->aid);
@@ -173,7 +174,7 @@ class ImageController extends Controller
 
             $transaction->commit();
 
-            $this->echoJsonData(array('isSuccess'=>true));
+            $this->echoJsonData(array('gold'=>$user->gold-$ex_gold));
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
