@@ -420,7 +420,7 @@ class UserController extends Controller
                 ':usr_id' => $usr_id,
             ))->queryScalar();
             $r[$k]['in_circle'] = $in_circle?1:0;
-            $r[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY update_time LIMIT 5')->bindValue(':aid', $v['aid'])->queryAll();
+            $r[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY update_time DESC LIMIT 5')->bindValue(':aid', $v['aid'])->queryAll();
             $r[$k]['percent'] = ceil($v['t_rq']*100/$max_rq);
         }
 

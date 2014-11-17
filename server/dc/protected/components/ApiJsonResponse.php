@@ -71,7 +71,8 @@ class ApiJsonResponse
         if ($exception instanceof PException) {
             $this->errorMessage = $exception->getMessage();
         } else {
-            $this->errorMessage = YII_DEBUG ? $exception->__toString() : "System Exception";
+            //$this->errorMessage = YII_DEBUG ? $exception->__toString() : "System Exception";
+            $this->errorMessage = "系统错误";
         }
     }
 
