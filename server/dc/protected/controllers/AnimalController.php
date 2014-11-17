@@ -730,7 +730,7 @@ class AnimalController extends Controller
         foreach ($r as $k=>$v) {
             $aid = $v['aid'];
             $r[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY update_time DESC LIMIT 4')->bindValue(':aid', $aid)->queryAll();
-            $rank = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal WHERE t_rq>:t_rq')->bindValue(':t_rq', $v['t_rq'])->queryScalar();
+            $rank = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal WHERE t_rq<=:t_rq')->bindValue(':t_rq', $v['t_rq'])->queryScalar();
             $r[$k]['percent'] = ceil($rank*100/$max_users);
             $r[$k]['shake_count'] = $session[$aid.'_shake_count'];
             $r[$k]['gift_count'] = $session[$aid.'_gift_count'];
