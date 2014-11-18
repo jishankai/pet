@@ -337,7 +337,7 @@ class AnimalController extends Controller
 
             $transaction->commit();
 
-            $this->echoJsonData(array('percent'=>$percent));
+            $this->echoJsonData(array('isSuccess'=>TRUE, 'percent'=>$percent));
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
