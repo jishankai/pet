@@ -330,9 +330,14 @@ class AnimalController extends Controller
             ));
             $news->save();
 
+            $max_users = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal')->queryScalar();
+            $t_rq = Yii::app()->db->createCommand('SELECT t_rq FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
+            $rank = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal WHERE t_rq<=:t_rq')->bindValue(':t_rq', $t_rq)->queryScalar();
+            $percent = ceil($rank*100/$max_users);
+
             $transaction->commit();
 
-            $this->echoJsonData(array('isSuccess'=>TRUE));
+            $this->echoJsonData(array('percent'=>$percent));
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
