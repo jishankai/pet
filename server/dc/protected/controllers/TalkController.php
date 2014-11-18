@@ -65,7 +65,7 @@ class TalkController extends Controller
                     $r[] = $arr;
                 }
             } else {
-                break;
+                continue;
             }
         }
         $this->echoJsonData($r);
