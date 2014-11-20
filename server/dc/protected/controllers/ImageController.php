@@ -174,7 +174,7 @@ class ImageController extends Controller
 
             $transaction->commit();
 
-            $this->echoJsonData(array('gold'=>$user->gold-$ex_gold));
+            $this->echoJsonData(array('isSuccess'=>TRUE, 'gold'=>$user->gold-$ex_gold));
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
