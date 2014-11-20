@@ -123,15 +123,9 @@ public class ModifyPetInfoActivity extends Activity {
 					    
 					}
 				}).start();
-				/*Intent intent1=new Intent(NewRegisterActivity.this,HomeActivity.class);
-				NewRegisterActivity.this.startActivity(intent1);
-				NewRegisterActivity.this.finish();*/
 				break;
 			case Constants.LOGIN_SUCCESS:
 				handler.sendEmptyMessage(DISMISS_PROGRESS);
-				/*Intent intent=new Intent(NewRegisterActivity.this,HomeActivity.class);
-				NewRegisterActivity.this.startActivity(intent);
-				NewRegisterActivity.this.finish();*/
 				break;
 			case Constants.REGISTER_FAIL:
 				handler.sendEmptyMessage(DISMISS_PROGRESS);
@@ -169,7 +163,7 @@ public class ModifyPetInfoActivity extends Activity {
 		mode=getIntent().getIntExtra("mode", 1);
 		TextView title=(TextView)findViewById(R.id.textView11);
 		if(mode==1){
-			title.setText("修改联萌信息");
+			title.setText("修改萌星资料");
 		}else
 		if(mode==2){
 			title.setText("修改用户资料");
@@ -177,24 +171,34 @@ public class ModifyPetInfoActivity extends Activity {
 		camera_album=(LinearLayout)findViewById(R.id.album_camera_register);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		//显示没有图片
-	    Bitmap nobmp=BitmapFactory.decodeResource(this.getResources(), R.drawable.noimg);
-		Matrix matrix=new Matrix();
-		matrix.postScale(Constants.screen_width/(nobmp.getWidth()*1f), Constants.screen_width/(nobmp.getWidth()*1f));
-		nobmp=Bitmap.createBitmap(nobmp, 0, 0, nobmp.getWidth(), nobmp.getHeight(),matrix,true);
 		BitmapFactory.Options opts=new BitmapFactory.Options();
 		opts.inJustDecodeBounds=false;
 		opts.inSampleSize=4;
 		opts.inPreferredConfig=Bitmap.Config.RGB_565;
 		opts.inPurgeable=true;
 		opts.inInputShareable=true;
-		displayImageOptions=new DisplayImageOptions.Builder()
-		                    .showImageOnLoading(new BitmapDrawable(nobmp))
-		                    .cacheInMemory(true)
-		                    .cacheOnDisc(true)
-		                    .bitmapConfig(Config.RGB_565)
-		                    .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		                    .decodingOptions(opts)
-		                    .build();
+		if(mode==1){
+			displayImageOptions=new DisplayImageOptions.Builder()
+            .showImageOnLoading(R.drawable.pet_icon)
+            .showImageOnFail(R.drawable.pet_icon)
+            .cacheInMemory(true)
+            .cacheOnDisc(true)
+            .bitmapConfig(Config.RGB_565)
+            .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+            .decodingOptions(opts)
+            .build();
+		}else{
+			displayImageOptions=new DisplayImageOptions.Builder()
+			 .showImageOnLoading(R.drawable.user_icon)
+	            .showImageOnFail(R.drawable.user_icon)
+            .cacheInMemory(true)
+            .cacheOnDisc(true)
+            .bitmapConfig(Config.RGB_565)
+            .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+            .decodingOptions(opts)
+            .build();
+		}
+		
 		
 		initView();
 	}
@@ -207,7 +211,7 @@ public class ModifyPetInfoActivity extends Activity {
 	private void initView() {
 		// TODO Auto-generated method stub
 		setBlurImageBackground();
-		
+		StringUtil.umengOnResume(this);
 		back=(ImageView)findViewById(R.id.back);
 		viewPager=(ViewPager)findViewById(R.id.viewpager);
 		view1=LayoutInflater.from(this).inflate(R.layout.item_register_view1, null);
@@ -339,33 +343,7 @@ public class ModifyPetInfoActivity extends Activity {
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
-		if(HomeFragment.blurBitmap==null){
-			frameLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.blur));
-		}
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+		
 	}
 	private void initUserListener() {
 		// TODO Auto-generated method stub
@@ -451,6 +429,7 @@ public class ModifyPetInfoActivity extends Activity {
 						user.u_nick=userNameStr;
 						user.u_gender=Integer.parseInt(userSexStr);
 						user.uid=code;
+						
 						user.u_iconPath=userIconPath;
 						user.city=userCityCode;
 					new Thread(new Runnable() {
@@ -461,6 +440,8 @@ public class ModifyPetInfoActivity extends Activity {
 							boolean flag=HttpUtil.modifyUserInfo(handleHttpConnectionException.getHandler(ModifyPetInfoActivity.this),user,ModifyPetInfoActivity.this);
 							if(flag){
 								User user=HttpUtil.info(ModifyPetInfoActivity.this,handleHttpConnectionException.getHandler(ModifyPetInfoActivity.this),Constants.user.userId);
+								user.currentAnimal=Constants.user.currentAnimal;
+								user.aniList=Constants.user.aniList;
 								Constants.user=user;
 								if(user!=null){
 									/*
@@ -607,24 +588,6 @@ public class ModifyPetInfoActivity extends Activity {
 							
 						}
 					}).show();
-			}
-		});
-		petRaceLayout.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-//				viewPager.setVisibility(View.INVISIBLE);
-				 Intent intent=new Intent(ModifyPetInfoActivity.this,ChoseClassActivity.class);
-               if(mode==3){
-            	  
-   				intent.putExtra("mode", 1);//选择狗的种族
-                  
-               }else if(mode==4){
-            	   intent.putExtra("mode", 2);//选择猫的种族
-               }
-               ModifyPetInfoActivity.this.startActivityForResult(intent,1);
-				
 			}
 		});
 		petMale.setOnClickListener(new OnClickListener() {
@@ -929,8 +892,9 @@ public class ModifyPetInfoActivity extends Activity {
 			options.inSampleSize=StringUtil.topicImageGetScaleByDPI(this);
 			if(isUserIcon){
 				userIconPath=path;
+				
 				user_bmp=BitmapFactory.decodeFile(path,options);
-	               if(user_bmp!=null){
+	               /*if(user_bmp!=null){
 					      path=ImageUtil.compressImage(user_bmp,"usr_icon");
 					      if(!StringUtil.isEmpty(path)){
 					    	  userIconPath=path;
@@ -940,12 +904,17 @@ public class ModifyPetInfoActivity extends Activity {
 						    	  userIconPath=path;
 						      }
 					      }
-					}
-				userIcon.setImageBitmap(BitmapFactory.decodeFile(path,options));
+					}*/
+				if(StringUtil.isEmpty(userIconPath)){
+					Toast.makeText(this, "图片保存地址为空", Toast.LENGTH_LONG).show();
+				}else{
+					userIcon.setImageBitmap(BitmapFactory.decodeFile(path,options));
+				}
+				
 			}else{
 				petIconPath=path;
 				pet_bmp=BitmapFactory.decodeFile(path,options);
-				if(pet_bmp!=null){
+				/*if(pet_bmp!=null){
 					path=ImageUtil.compressImage(pet_bmp,"pet_icon");
 				      if(!StringUtil.isEmpty(path)){
 				    	  petIconPath=path;
@@ -955,8 +924,13 @@ public class ModifyPetInfoActivity extends Activity {
 				    		  petIconPath=path;
 					      }
 				      }
+				}*/
+				if(StringUtil.isEmpty(petIconPath)){
+					Toast.makeText(this, "图片保存地址为空", Toast.LENGTH_LONG).show();
+				}else{
+					petIcon.setImageBitmap(BitmapFactory.decodeFile(path,options));
 				}
-				petIcon.setImageBitmap(BitmapFactory.decodeFile(path,options));
+				
 			}
 		}
 	}
@@ -975,6 +949,13 @@ public class ModifyPetInfoActivity extends Activity {
 		
 		return flag;
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	    
 	
 
 }

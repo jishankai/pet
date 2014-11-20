@@ -247,30 +247,6 @@ public class DetailActivity extends Activity {
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
 		touchSlop=ViewConfiguration.get(this).getScaledTouchSlop();
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
        
 	}
 	public void setView(){
@@ -362,5 +338,17 @@ public class DetailActivity extends Activity {
 			}).start();
 			}
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

@@ -3,25 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/framelayout"  >
+    android:id="@+id/framelayout"  
+    android:background="@drawable/blur">
     <RelativeLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/blur_view_top" >
+    ><!--  android:background="@color/blur_view_top" -->
     <View android:layout_width="match_parent"
         android:layout_height="96.1dp"
         android:id="@+id/top_white_view"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:clickable="true"/>
     <GridView 
         android:layout_below="@+id/top_white_view"
         android:id="@+id/market_gridview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="3"
+        android:numColumns="1"
         android:gravity="center_horizontal"
-        android:layout_marginLeft="15dp"
-        ></GridView>
+        android:layout_marginBottom="30dp"
+       
+        ></GridView><!--  android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" -->
      <GridView 
          android:layout_below="@+id/top_white_view"
         android:id="@+id/market_real_gridview"
@@ -74,6 +80,7 @@
         android:background="@color/orange_red"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:clickable="true"
         android:paddingBottom="6dp" >
 
         <ImageView
@@ -91,9 +98,9 @@
             android:layout_alignBottom="@+id/back"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
-            android:text="虚拟礼物"
+            android:text="礼物商城"
             android:textColor="@color/white"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/gift_box_iv"
@@ -179,13 +186,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/gift_box_iv"
-            android:layout_alignEnd="@+id/gift_box_iv"
+            android:layout_alignRight="@+id/gift_box_iv"
             
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:text="5"
             android:layout_marginTop="-2dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:background="@drawable/ball_green_gray" />

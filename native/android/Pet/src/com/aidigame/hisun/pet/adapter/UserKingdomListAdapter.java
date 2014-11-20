@@ -16,6 +16,8 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.ViewTreeObserver.OnPreDrawListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -56,6 +58,7 @@ public class UserKingdomListAdapter extends BaseAdapter {
 	ArrayList<Animal> list;
 	UserDossierActivity context;
 	User user;
+	boolean isShowingButton=false;
 	HandleHttpConnectionException handleHttpConnectionException;
 	public UserKingdomListAdapter(ArrayList<Animal> list,UserDossierActivity context,User user){
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
@@ -146,24 +149,25 @@ public class UserKingdomListAdapter extends BaseAdapter {
 		ViewTreeObserver viewTreeObserver=holder.progressParentLayout.getViewTreeObserver();
 	    if(position==list.size()-1&&Constants.user!=null&&Constants.user.userId==user.userId){
 	    	holder.joinRlaout.setVisibility(View.VISIBLE);
-	    	holder.joinRlaout.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					if(Constants.user!=null&&Constants.user.aniList!=null){
-						if(Constants.user.aniList.size()<10){
-							Intent intent=new Intent(context,ChoseAcountTypeActivity.class);
-							intent.putExtra("from", 1);
-							context.startActivity(intent);
-						}else{
-							DialogGoRegister dialog=new DialogGoRegister(context.popupParent, context, context.black_layout, 1);
-						}
-						
-					}
-				}
-			});
+	    	
 	    }
+	    holder.joinRlaout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(Constants.user!=null&&Constants.user.aniList!=null){
+					if(Constants.user.aniList.size()<10){
+						Intent intent=new Intent(context,ChoseAcountTypeActivity.class);
+						intent.putExtra("from", 1);
+						context.startActivity(intent);
+					}else{
+						DialogGoRegister dialog=new DialogGoRegister(context.popupParent, context, context.black_layout, 1);
+					}
+					
+				}
+			}
+		});
 		viewTreeObserver.addOnPreDrawListener(new OnPreDrawListener() {
 			boolean hasMeasured=false;
 			@Override
@@ -213,6 +217,36 @@ public class UserKingdomListAdapter extends BaseAdapter {
 		holder.peoplesNumTv.setText(""+animal.fans);
 		ImageLoader imageLoader=ImageLoader.getInstance();
 		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl, holder.iconCircleView, displayImageOptions);
+		
+		holder.leftLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(Constants.isSuccess&&Constants.user!=null&&Constants.user.userId==user.userId){
+					showButtons(animal);
+				}else{
+					if(PetKingdomActivity.petKingdomActivity!=null){
+						if(PetKingdomActivity.petKingdomActivity.loadedImage1!=null){
+							if(!PetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
+								PetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
+								PetKingdomActivity.petKingdomActivity.loadedImage1=null;
+							}
+							PetKingdomActivity.petKingdomActivity.linearLayout2.setBackgroundDrawable(null);
+						}
+						PetKingdomActivity.petKingdomActivity.finish();
+					}
+					if(PetKingdomActivity.petKingdomActivity!=null)PetKingdomActivity.petKingdomActivity.finish();
+					Intent intent=new Intent(context,PetKingdomActivity.class);
+					intent.putExtra("animal", animal);
+					context.startActivity(intent);
+					
+					context.progresslayout.setVisibility(View.INVISIBLE);
+					context.progresslayout.setClickable(false);
+					isShowingButton=false;
+				}
+			}
+		});
 		/*holder.quitKingdomLayout.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -424,5 +458,160 @@ public class UserKingdomListAdapter extends BaseAdapter {
 		ImageView greenKingHatIv;
 		RoundImageView iconCircleView;
 	}
+	private void showButtons(final Animal animal) {
+		// TODO Auto-generated method stub
+		isShowingButton=true;
+		long l1=System.currentTimeMillis();
+		LogUtil.i("scroll",""+( System.currentTimeMillis()-l1));
+		final View view=LayoutInflater.from(context).inflate(R.layout.popup_user_dossier, null);
+		Animation animation=AnimationUtils.loadAnimation(context, R.anim.anim_translate_showtopic_addcommentlayout_in);
+		view.clearAnimation();
+		view.setAnimation(animation);
+		animation.start();
+		
+		context.progresslayout.removeAllViews();
+		context.progresslayout.addView(view);
+		context.progresslayout.setBackgroundResource(R.color.window_black_bagd);
+		context.progresslayout.setVisibility(View.VISIBLE);
+//		context.progresslayout.setClickable(true);
+		TextView camera=(TextView)view.findViewById(R.id.textView1);
+		TextView album=(TextView)view.findViewById(R.id.textView2);
+		TextView cancel=(TextView)view.findViewById(R.id.textView3);
+		camera.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(PetKingdomActivity.petKingdomActivity!=null)PetKingdomActivity.petKingdomActivity.finish();
+				Intent intent=new Intent(context,PetKingdomActivity.class);
+				intent.putExtra("animal", animal);
+				context.startActivity(intent);
+				
+				context.progresslayout.setVisibility(View.INVISIBLE);
+				context.progresslayout.setClickable(false);
+				isShowingButton=false;
+				
+				
+			}
+		});
+		album.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				  new Thread(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							final boolean flag=HttpUtil.setDefaultKingdom(context,animal, handleHttpConnectionException.getHandler(context));
+							if(flag){
+								final User newA=HttpUtil.info(context,handleHttpConnectionException.getHandler(context),Constants.user.userId);
+								newA.aniList=Constants.user.aniList;
+								newA.currentAnimal=animal;
+								Constants.user=newA;
+								Constants.user.currentAnimal=animal;
+								handleHttpConnectionException.getHandler(context).post(new Runnable() {
+									
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										list.remove(animal);
+										list.add(0,animal);
+										notifyDataSetChanged();
+										UserStatusUtil.setDefaultKingdom();
+									}
+								});
+							}else{
+                             handleHttpConnectionException.getHandler(context).post(new Runnable() {
+									
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										Toast.makeText(context, "操作失败", Toast.LENGTH_LONG).show();
+										context.progresslayout.setVisibility(View.INVISIBLE);
+										context.progresslayout.setClickable(false);
+										isShowingButton=false;
+									}
+								});
+							}
+							
+						}
+					}).start();
+				context.progresslayout.setVisibility(View.INVISIBLE);
+				context.progresslayout.setClickable(false);
+						isShowingButton=false;
+				
+				
+			}
+		});
+		cancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(Constants.user!=null&&Constants.user.userId==animal.master_id){
+					Toast.makeText(context, "不能不捧自己创建的萌星", Toast.LENGTH_LONG).show();
+					context.progresslayout.setVisibility(View.INVISIBLE);
+					context.progresslayout.setClickable(false);
+					isShowingButton=false;
+					return;
+				}
+				if(Constants.user!=null&&Constants.user.currentAnimal!=null&&animal.a_id==Constants.user.currentAnimal.a_id){
+					Toast.makeText(context, "不能不捧最爱萌星，请将其他萌星设为最爱", Toast.LENGTH_LONG).show();
+					context.progresslayout.setVisibility(View.INVISIBLE);
+					context.progresslayout.setClickable(false);
+					isShowingButton=false;
+					return;
+				}
+				DialogQuitKingdom dialog=new DialogQuitKingdom(context.popupParent, context, context.black_layout, animal);
+				dialog.setResultListener(new DialogQuitKingdom.ResultListener() {
+					
+					@Override
+					public void getResult(boolean isSuccess) {
+						// TODO Auto-generated method stub
+						
+						if(isSuccess){
+							
+							context.userKingdomsChanged(animal);
+							
+						}
+						
+					}
+				});
+				context.progresslayout.setVisibility(View.INVISIBLE);
+				context.progresslayout.setClickable(false);
+				isShowingButton=false;
+			}
+		});
+		context.progresslayout.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_UP:
+					Animation animation=AnimationUtils.loadAnimation(context, R.anim.anim_translate_showtopic_addcommentlayout_out);
+					view.clearAnimation();
+					view.setAnimation(animation);
+					animation.start();
+					handleHttpConnectionException.getHandler(context).postDelayed(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							context.progresslayout.setVisibility(View.INVISIBLE);
+							context.progresslayout.setClickable(false);
+							isShowingButton=false;
+						}
+					}, 300);
+					break;
+				}
+				return true;
+			}
+		});
+	}
+	
 
 }

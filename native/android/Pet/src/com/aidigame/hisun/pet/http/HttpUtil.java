@@ -27,6 +27,8 @@ import java.util.UUID;
 
 
 
+
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -97,6 +99,7 @@ import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.widget.ShowDialog;
+import com.umeng.analytics.MobclickAgent;
 
 public class HttpUtil {
 
@@ -236,12 +239,685 @@ public class HttpUtil {
 				  }else if(status==1){
 					  return false;
 				  }else if(status==2){
-					  return register(handler,user,activity);
+					  return modifyUserInfo(handler, user, activity);
 				  }
 			}
 			
 		return false;
 	}
+	/**
+	 * 举报图片
+	 * @param handler
+	 * @param animal
+	 * @param msg
+	 * @param activity
+	 * @return
+	 */
+	public static boolean reportPicture(Handler handler, int img_id,Activity activity) {
+		String url = "http://" + Constants.REPORT_IMAGE;
+		DefaultHttpClient client = new DefaultHttpClient();
+		String value="";
+		String SIG = null;
+		String param=null;
+			value = "img_id="+img_id;
+			
+			SIG = getMD5Value(value);
+			param = img_id
+					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+		LogUtil.i("me", "value" + value);
+		
+		
+		url = url + param;
+		HttpGet get = new HttpGet(url);
+		String result=connect(client, handler, get);
+			LogUtil.i("me", "修改信息url==" + url);
+			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+				LogUtil.i("me", "修改信息返回结果==" + result);
+				  int status=handleResult(activity,result,handler);
+				  if(status==0){
+					  /*
+					   * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
+					   * "data":{"isSuccess":true},"currentTime":1415607031}
+					   */
+//					  RegisterJson loginJson = parseRegisterJson(result,handler);
+					  try {
+					  JSONObject jo=new JSONObject(result);
+					  String dataStr=jo.getString("data");
+					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
+						
+							return jo.getJSONObject("data").getBoolean("isSuccess");
+						
+					  }
+					  } catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							if(handler!=null)
+							handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
+					}
+				  }else if(status==1){
+					  return false;
+				  }else if(status==2){
+					  return reportPicture(handler, img_id, activity);
+				  }
+			}
+			
+		return false;
+	}
+	
+	public static boolean reportUser(Handler handler, int usr_id,Activity activity) {
+		String url = "http://" + Constants.REPORT_USER;
+		DefaultHttpClient client = new DefaultHttpClient();
+		String value="";
+		String SIG = null;
+		String param=null;
+			value = "usr_id="+usr_id;
+			
+			SIG = getMD5Value(value);
+			param = usr_id
+					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+		LogUtil.i("me", "value" + value);
+		
+		
+		url = url + param;
+		HttpGet get = new HttpGet(url);
+		String result=connect(client, handler, get);
+			LogUtil.i("me", "修改信息url==" + url);
+			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+				LogUtil.i("me", "修改信息返回结果==" + result);
+				  int status=handleResult(activity,result,handler);
+				  if(status==0){
+					  /*
+					   * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
+					   * "data":{"isSuccess":true},"currentTime":1415607031}
+					   */
+//					  RegisterJson loginJson = parseRegisterJson(result,handler);
+					  try {
+					  JSONObject jo=new JSONObject(result);
+					  String dataStr=jo.getString("data");
+					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
+						
+							return jo.getJSONObject("data").getBoolean("isSuccess");
+						
+					  }
+					  } catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							if(handler!=null)
+							handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
+					}
+				  }else if(status==1){
+					  return false;
+				  }else if(status==2){
+					  return reportUser(handler, usr_id, activity);
+				  }
+			}
+			
+		return false;
+	}
+	
+	public static boolean blockOther(Handler handler, int talk_id,Activity activity) {
+		String url = "http://" + Constants.BLOCK_OTHER;
+		DefaultHttpClient client = new DefaultHttpClient();
+		String value="";
+		String SIG = null;
+		String param=null;
+			value = "talk_id="+talk_id;
+			
+			SIG = getMD5Value(value);
+			param = talk_id
+					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+		LogUtil.i("me", "value" + value);
+		
+		
+		url = url + param;
+		HttpGet get = new HttpGet(url);
+		String result=connect(client, handler, get);
+			LogUtil.i("me", "修改信息url==" + url);
+			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+				LogUtil.i("me", "修改信息返回结果==" + result);
+				  int status=handleResult(activity,result,handler);
+				  if(status==0){
+					  /*
+					   * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
+					   * "data":{"isSuccess":true},"currentTime":1415607031}
+					   */
+//					  RegisterJson loginJson = parseRegisterJson(result,handler);
+					  try {
+					  JSONObject jo=new JSONObject(result);
+					  String dataStr=jo.getString("data");
+					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
+						
+							return jo.getJSONObject("data").getBoolean("isSuccess");
+						
+					  }
+					  } catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							if(handler!=null)
+							handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
+					}
+				  }else if(status==1){
+					  return false;
+				  }else if(status==2){
+					  return blockOther(handler, talk_id, activity);
+				  }
+			}
+			
+		return false;
+	}
+	/**
+	 * 取消拉黑
+	 * @param handler
+	 * @param talk_id
+	 * @param activity
+	 * @return
+	 */
+	public static boolean unBlockOther(Handler handler, int usr_id,Activity activity) {
+		String url = "http://" + Constants.UNBLOCK_OTHER;
+		DefaultHttpClient client = new DefaultHttpClient();
+		String value="";
+		String SIG = null;
+		String param=null;
+			value = "usr_id="+usr_id;
+			
+			SIG = getMD5Value(value);
+			param = usr_id
+					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+		LogUtil.i("me", "value" + value);
+		
+		
+		url = url + param;
+		HttpGet get = new HttpGet(url);
+		String result=connect(client, handler, get);
+			LogUtil.i("me", "修改信息url==" + url);
+			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+				LogUtil.i("me", "修改信息返回结果==" + result);
+				  int status=handleResult(activity,result,handler);
+				  if(status==0){
+					  /*
+					   * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
+					   * "data":{"isSuccess":true},"currentTime":1415607031}
+					   */
+//					  RegisterJson loginJson = parseRegisterJson(result,handler);
+					  try {
+					  JSONObject jo=new JSONObject(result);
+					  String dataStr=jo.getString("data");
+					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
+						
+							return jo.getJSONObject("data").getBoolean("isSuccess");
+						
+					  }
+					  } catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							if(handler!=null)
+							handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
+					}
+				  }else if(status==1){
+					  return false;
+				  }else if(status==2){
+					  return unBlockOther(handler, usr_id, activity);
+				  }
+			}
+			
+		return false;
+	}
+	
+	public static String updateVersionInfo(Handler handler, String version,Activity activity) {
+		String url = "http://" + Constants.VERSION_INFO;
+		DefaultHttpClient client = new DefaultHttpClient();
+		String value="";
+		String SIG = null;
+		String param=null;
+  		String v=new String(version.getBytes(Charset.forName("UTF-8")), Charset.forName("UTF-8"));
+  		try {
+  			v = URLEncoder.encode(v, "UTF-8");
+  		} catch (UnsupportedEncodingException e1) {
+  			// TODO Auto-generated catch block
+  			e1.printStackTrace();
+  		}
+			value = "version="+version;
+			
+			SIG = getMD5Value(value);
+			param = v
+					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+		LogUtil.i("me", "value" + value);
+		
+		
+		url = url + param;
+		HttpGet get = new HttpGet(url);
+		String result=connect(client, handler, get);
+			LogUtil.i("me", "修改信息url==" + url);
+			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+				LogUtil.i("me", "修改信息返回结果==" + result);
+				  int status=handleResult(activity,result,handler);
+				  if(status==0){
+					  /*
+					   *{"state":0,"errorCode":0,"errorMessage":"","version":"1.0.0",
+					   *"confVersion":"1.0",
+					   *"data":{"android_url":"","ios_url":"",,"android_byte":9901044,
+					   *"upgrade_content":"\u66f4\u65b0\u5185\u5bb9\\n1.\u6ca1\u6709 2.\u6709"},
+					   *"currentTime":1415950452}
+					   */
+//					  RegisterJson loginJson = parseRegisterJson(result,handler);
+					  try {
+					  JSONObject jo=new JSONObject(result);
+					  String dataStr=jo.getString("data");
+					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
+						    Constants.android_url=jo.getJSONObject("data").getString("android_url");
+						    Constants.apk_size=jo.getJSONObject("data").getLong("android_byte");
+							return jo.getJSONObject("data").getString("upgrade_content");
+						
+					  }
+					  } catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							if(handler!=null)
+							handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
+					}
+				  }else if(status==1){
+					  return null;
+				  }else if(status==2){
+					  return updateVersionInfo(handler, version, activity);
+				  }
+			}
+			
+		return null;
+	}
+	
+	
+	public static Animal  userInviteCode(Handler handler, String code,Activity activity) {
+		String url = "http://" + Constants.USE_INVITECODE;
+		DefaultHttpClient client = new DefaultHttpClient();
+		String value="";
+		String SIG = null;
+		String param=null;
+		Animal animal=null;
+			value = "code="+code;
+			
+			SIG = getMD5Value(value);
+			param = code
+					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+		LogUtil.i("me", "value" + value);
+		
+		
+		url = url + param;
+		HttpGet get = new HttpGet(url);
+		String result=connect(client, handler, get);
+			LogUtil.i("me", "修改信息url==" + url);
+			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+				LogUtil.i("me", "修改信息返回结果==" + result);
+				  int status=handleResult(activity,result,handler);
+				  if(status==0){
+					  /*
+					   *{"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
+					   *"data":{"aid":309,"tx":"309_1414581941593_pet_icon.jpg"},"currentTime":1415785097}
+					   */
+//					  RegisterJson loginJson = parseRegisterJson(result,handler);
+					  try {
+					  JSONObject jo=new JSONObject(result);
+					  String dataStr=jo.getString("data");
+					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
+						animal=new Animal();
+						JSONObject jo1=jo.getJSONObject("data");
+						animal.a_id=jo1.getLong("aid");
+						animal.pet_iconUrl=jo1.getString("tx");
+						if(dataStr.contains("inviter")){
+							Constants.user.inviter=jo1.getInt("inviter");
+						}
+							return animal;
+						
+					  }
+					  } catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							if(handler!=null)
+							handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
+					}
+				  }else if(status==1){
+					  return null;
+				  }else if(status==2){
+					  return userInviteCode(handler, code, activity);
+				  }
+			}
+			
+		return null;
+	}
+	
+	/**
+	 * 修改宠物宣言 或 今天的状态
+	 * @param handler
+	 * @param user
+	 * @param activity
+	 * @return
+	 */
+	
+	public static boolean modifyPetAnnounceInfo(Handler handler, Animal animal,String msg,Activity activity) {
+		String url = "http://" + Constants.PET_MODIFY_ANOUNCE;
+		DefaultHttpClient client = new DefaultHttpClient();
+		String value="";
+		String SIG = null;
+		String param=null;
+			value = "aid="+animal.a_id;
+			
+			SIG = getMD5Value(value);
+			param = animal.a_id
+					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+		LogUtil.i("me", "value" + value);
+		
+		ArrayList<NameValuePair> pairs=new ArrayList<NameValuePair>();
+    	NameValuePair pair=new BasicNameValuePair("msg",msg);//URLEncoder.encode(comment, "UTF-8")
+		pairs.add(pair);
+    	User user=null;
+		
+		
+		
+		
+		
+		url = url + param;
+		HttpGet get = new HttpGet(url);
+		HttpPost post=new HttpPost(url);
+		
+		String result=connectPost(client, handler, post,pairs);
+			LogUtil.i("me", "修改信息url==" + url);
+			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+				LogUtil.i("me", "修改信息返回结果==" + result);
+				  int status=handleResult(activity,result,handler);
+				  if(status==0){
+//					  RegisterJson loginJson = parseRegisterJson(result,handler);
+					  try {
+						  JSONObject jo=new JSONObject(result);
+						  String dataStr=jo.getString("data");
+						  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
+							
+								return jo.getJSONObject("data").getBoolean("isSuccess");
+							
+						  }
+						  } catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+								if(handler!=null)
+								handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
+						}
+				  }else if(status==1){
+					  return false;
+				  }else if(status==2){
+					  return modifyPetAnnounceInfo(handler, animal, msg, activity);
+				  }
+			}
+			
+		return false;
+	}
+	
+	
+	/**
+	 * 我的萌星
+	 * @param handler
+	 * @param user
+	 * @param activity
+	 * @return
+	 */
+	public static ArrayList<Animal> myPetCard(Handler handler,Activity activity) {
+		String url = "http://" + Constants.MY_PET_CARD;
+		DefaultHttpClient client = new DefaultHttpClient();
+		ArrayList<Animal> animals=new ArrayList<Animal>();
+		Animal animal=null;
+		String value="";
+		String SIG = null;
+		String param=null;
+			value = "";
+			
+			SIG = getMD5Value(value);
+			param = "&sig=" + SIG + "&SID=" + Constants.SID;
+		LogUtil.i("me", "value" + value);
+		/*
+		 *  shake  次数 null  
+		 */
+		
+		url = url + param;
+		HttpGet get = new HttpGet(url);
+		String result=connect(client, handler, get);
+			LogUtil.i("me", "修改信息url==" + url);
+			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+				LogUtil.i("me", "修改信息返回结果==" + result);
+				  int status=handleResult(activity,result,handler);
+				  if(status==0){
+//					  RegisterJson loginJson = parseRegisterJson(result,handler);
+					  
+					  JSONObject jo1=null;
+						/*
+						 *[[{"aid":"309","name":"\u963f\u9ec4",
+						 *"tx":"309_1414581941593_pet_icon.jpg","msg":"",
+						 *"t_rq":"825","rank":"0","t_contri":"818",
+						 *"images":[{"img_id":"259","url":"309_1414206413260.png"},
+						 *{"img_id":"271","url":"309_1414235855186.png"}],
+						 *"percent":8,"shake_count":null,"gift_count":null,"is_touched":null,"is_voiced":null，"invite_code":"qf2wh3@155"}]]
+						 */
+				
+					  try {
+							jo1 = new JSONObject(result);
+							JSONObject jo=null;
+							 String dataStr=jo1.getString("data");
+							 if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
+								 JSONArray j=jo1.getJSONArray("data");
+								 JSONArray ja=null;
+								 JSONArray j2=null;
+								 PetPicture pp=null;
+								 if(j.length()>0){
+									 ja=j.getJSONArray(0);
+								 }
+								  if(ja!=null){
+									  for(int i=0;i<ja.length();i++){
+										  animal=new Animal();
+										  jo=ja.getJSONObject(i);
+										  animal.a_id=jo.getLong("aid");
+										  animal.master_id=jo.getInt("master_id");
+										  animal.pet_nickName=jo.getString("name");
+										  animal.pet_iconUrl=jo.getString("tx");
+										  animal.announceStr=jo.getString("msg");
+										  animal.u_rankCode=jo.getInt("rank");
+										  animal.invite_code=jo.getString("invite_code");
+										  if(StringUtil.isEmpty(animal.announceStr)){
+											  animal.announceStr="点击创建独一无二的萌宣言吧~";
+										  }
+										  if(animal.u_rankCode==0){
+											  animal.u_rank="经纪人";
+										  }else{
+											  String[] jobs=null;
+											  jobs=StringUtil.getUserJobs();
+											  if(jobs!=null){
+												  animal.u_rank=jobs[animal.u_rankCode-1];
+											  }
+										  }
+										  animal.t_contri=jo.getInt("t_contri");
+										  animal.t_rq=jo.getInt("t_rq");
+										  String temp=jo.getString("shake_count");
+										  if(StringUtil.isEmpty(temp)||"null".equals(temp)){
+											  animal.shake_count=3;
+										  }else{
+											  animal.shake_count=jo.getInt("shake_count");
+										  }
+										  temp=null;
+										  temp=jo.getString("gift_count");
+										  if(StringUtil.isEmpty(temp)||"null".equals(temp)){
+											  animal.send_gift_count=0;
+										  }else{
+											  animal.send_gift_count=jo.getInt("gift_count");
+										  }
+										  temp=null;
+										  temp=jo.getString("is_touched");
+										  if(StringUtil.isEmpty(temp)||"null".equals(temp)){
+											  animal.touch_count=0;
+										  }else{
+											  animal.shake_count=jo.getInt("is_touched");
+										  }
+										  temp=null;
+										  temp=jo.getString("is_voiced");
+										  if(StringUtil.isEmpty(temp)||"null".equals(temp)){
+											  animal.touch_count=0;
+										  }else{
+											  animal.shake_count=jo.getInt("is_voiced");
+										  }
+										  
+										  
+										  animal.percent=jo.getInt("percent");
+										  String imagesStr=jo.getString("images");
+										  if(!StringUtil.isEmpty(imagesStr)&&!"false".equals(imagesStr)&&!"null".equals(imagesStr)){
+											  j2=jo.getJSONArray("images");
+											  if(j2!=null&&j2.length()>0){
+												  animal.picturs=new ArrayList<PetPicture>();
+												  for(int k=0;k<j2.length();k++){
+													  pp=new PetPicture();
+													  pp.img_id=j2.getJSONObject(k).getInt("img_id");
+													  pp.url=j2.getJSONObject(k).getString("url");
+													  animal.picturs.add(pp);
+												  }
+												  animals.add(animal);
+												 
+											  }else{
+												  animals.add(animal);
+											  }
+										  }else{
+											  animals.add(animal);
+										  }
+										  
+										  
+										  
+									  }
+								  }
+							 }
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					  
+					  
+					  
+					  return animals;
+				  }else if(status==1){
+					  return animals;
+				  }else if(status==2){
+					  return myPetCard(handler,activity);
+				  }
+			}
+			
+		return animals;
+	}
+	/**
+	 * 我的萌星  若注册传递 usr_id 参数
+	 * @param handler
+	 * @param user
+	 * @param activity
+	 * @return
+	 */
+	public static ArrayList<Animal> petRecommend(Handler handler,Activity activity,int page,int usr_id) {
+		String url = "http://" + Constants.PET_RECOMMEND;
+		DefaultHttpClient client = new DefaultHttpClient();
+		ArrayList<Animal> animals=new ArrayList<Animal>();
+		Animal animal=null;
+		String value="";
+		String SIG = null;
+		String param=null;
+			value = "page="+page+"&usr_id="+usr_id;
+			
+			SIG = getMD5Value(value);
+			param = "&sig=" + SIG + "&SID=" + Constants.SID+"&page="+page+"&usr_id="+usr_id;
+		LogUtil.i("me", "value" + value);
+		
+
+		url = url + param;
+		HttpGet get = new HttpGet(url);
+		String result=connect(client, handler, get);
+			LogUtil.i("me", "修改信息url==" + url);
+			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+				LogUtil.i("me", "修改信息返回结果==" + result);
+				  int status=handleResult(activity,result,handler);
+				  if(status==0){
+//					  RegisterJson loginJson = parseRegisterJson(result,handler);
+					  JSONObject jo1=null;
+						/*
+						 * [[{"aid":"255","name":"guww","tx":"255_1414110572513.jpg",
+						 * "gender":"2","u_name":"cc","u_tx":"261_1414110597980.jpg",
+						 * "t_rq":"0","fans":"1","in_circle":0,
+						 * "images":[{"img_id":"265","url":"242_1414234955642.png"},
+						 *          {"img_id":"267","url":"242_1414235083276.png"},
+						 *          {"img_id":"268","url":"242_1414235215420.png"},
+						 *          {"img_id":"290","url":"242_1414244472779.jpg"},
+						 *          {"img_id":"286","url":"242_1414240382259.png"}],"percent":0}]],
+						 */
+					try {
+						jo1 = new JSONObject(result);
+						JSONObject jo=null;
+						 String dataStr=jo1.getString("data");
+						 if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
+							 JSONArray j=jo1.getJSONArray("data");
+							 JSONArray ja=null;
+							 JSONArray j2=null;
+							 PetPicture pp=null;
+							 if(j.length()>0){
+								 ja=j.getJSONArray(0);
+							 }
+							  if(ja!=null){
+								  for(int i=0;i<ja.length();i++){
+									  animal=new Animal();
+									  jo=ja.getJSONObject(i);
+									  animal.a_id=jo.getLong("aid");
+									  animal.pet_nickName=jo.getString("name");
+									  animal.pet_iconUrl=jo.getString("tx");
+									  animal.a_gender=jo.getInt("gender");
+									  animal.master_id=jo.getInt("master_id");
+									  animal.u_name=jo.getString("u_name");
+									  animal.u_tx=jo.getString("u_tx");
+									  animal.t_rq=jo.getInt("t_rq");
+									  animal.fans=jo.getInt("fans");
+									  int in_circle=jo.getInt("in_circle");
+									  if(in_circle==0){
+										  animal.hasJoinOrCreate=false;
+									  }else{
+										  animal.hasJoinOrCreate=true;
+									  }
+									  animal.percent=jo.getInt("percent");
+									  String imagesStr=jo.getString("images");
+									  if(!StringUtil.isEmpty(imagesStr)&&!"false".equals(imagesStr)&&!"null".equals(imagesStr)){
+										  j2=jo.getJSONArray("images");
+										  if(j2!=null&&j2.length()>0){
+											  animal.picturs=new ArrayList<PetPicture>();
+											  for(int k=0;k<j2.length();k++){
+												  pp=new PetPicture();
+												  pp.img_id=j2.getJSONObject(k).getInt("img_id");
+												  pp.url=j2.getJSONObject(k).getString("url");
+												  animal.picturs.add(pp);
+											  }
+											  if(animal.picturs.size()>0)
+											  animals.add(animal);
+											 
+										  }else{
+											  continue;
+										  }
+									  }else{
+										  continue;
+									  }
+									  
+									  
+									  
+								  }
+							  }
+						 }
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					  return animals;
+				  }else if(status==1){
+					  return animals;
+				  }else if(status==2){
+					  return petRecommend(handler,activity,page,usr_id);
+				  }
+			}
+			
+		return animals;
+	}
+	
 	public static boolean modifyPetInfo(Handler handler, User user,Activity activity) {
 		String url = "http://" + Constants.PET_MODIFY;
 		DefaultHttpClient client = new DefaultHttpClient();
@@ -279,7 +955,7 @@ public class HttpUtil {
 			  }else if(status==1){
 				  return false;
 			  }else if(status==2){
-				  return register(handler,user,activity);
+				  return modifyPetInfo(handler, user, activity);
 			  }
 		}
 			
@@ -315,19 +991,28 @@ public class HttpUtil {
 		LogUtil.i("scroll", "Constants.OPEN_UDID=="+Constants.OPEN_UDID);
 		String result=connect(client, handler, get);
 			LogUtil.i("me", "登陆url==" + url);
+			
 			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
 			LogUtil.i("me", "登陆的返回结果" + result);
-				LoginJson loginJson = parseJson(result);
-				if(loginJson!=null){
-					Constants.isSuccess = loginJson.data.isSuccess;
-					Constants.SID = loginJson.data.SID;
-					SharedPreferences sPreferences=PetApplication.petApp.getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
-					Editor editor=sPreferences.edit();
-					editor.putString("SID", Constants.SID);
-					editor.putBoolean("isRegister", Constants.isSuccess);
-					editor.commit();
-					return true;
-				}
+			int status=handleResult((Activity)context,result,handler);
+			  if(status==0){
+				  LoginJson loginJson = parseJson(result);
+					if(loginJson!=null){
+						Constants.isSuccess = loginJson.data.isSuccess;
+						Constants.SID = loginJson.data.SID;
+						SharedPreferences sPreferences=PetApplication.petApp.getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+						Editor editor=sPreferences.edit();
+						editor.putString("SID", Constants.SID);
+						editor.putBoolean("isRegister", Constants.isSuccess);
+						editor.commit();
+						return true;
+					}
+			  }else if(status==1){
+				  return false;
+			  }else if(status==2){
+				  return login(context, handler);
+			  }
+				
 			}
 			return false;
 	}
@@ -552,7 +1237,7 @@ public class HttpUtil {
 							  if(StringUtil.isEmpty(path)){
 								  path="pet_icon";
 							  }
-							  animal.isTouched=true;
+							  animal.isTouched=j2.getBoolean("is_touched");;
 							  animal.touchedPath=path;
 							  return animal;
 						  }
@@ -673,6 +1358,7 @@ public class HttpUtil {
 							  animal.from=Integer.parseInt(aidStr.substring(0, 1));
 							  animal.type=object.getInt("type");
 							  animal.a_age=object.getInt("age");
+							  if(animal.a_age<=0)animal.a_age=1;
 							  animal.a_age_str=getAge(animal.a_age);
 							  
 							  animal.master_id=object.getInt("master_id");
@@ -809,18 +1495,22 @@ public class HttpUtil {
 								  switch (category) {
 									case 0:
 										animal.t_rq=j2.getInt("t_rq");
+										animal.rq=animal.t_rq;
 										break;
 
 									case 1:
 										animal.d_rq=j2.getInt("d_rq");
+										animal.rq=animal.d_rq;
 										break;
 
 									case 2:
 										animal.w_rq=j2.getInt("w_rq");
+										animal.rq=animal.w_rq;
 										break;
 
 									case 3:
 										animal.m_rq=j2.getInt("m_rq");
+										animal.rq=animal.m_rq;
 										break;
 									}
 								  animal.change=j2.getInt("vary");
@@ -835,7 +1525,7 @@ public class HttpUtil {
 										  }
 									  }
 								  }
-								  if(i<1000)
+								  if(i<100)
 								  animalList.add(animal);
 								  
 							  }
@@ -946,8 +1636,12 @@ public class HttpUtil {
 									animal.m_contri=j2.getInt("m_contri");
 									break;
 								}
+								  if(dataStr.contains("\"vary\":")){
+									  animal.change=j2.getInt("vary");
+								  }else{
+									  animal.change=0;
+								  }
 								  
-								  animal.change=j2.getInt("vary");
 								  animal.ranking=i+1;
 								  animalList.add(animal);
 							  }
@@ -1016,8 +1710,10 @@ public class HttpUtil {
 							  JSONObject joJsonObject=null;
 							  JSONObject jo=null;
 							  PetNews petNews=null;
+							  boolean isCorrect=false;
 							  petNewsList=new ArrayList<PetNews>();
 							  for(int i=0;i<jaArray.length();i++){
+								  isCorrect=false;
 								  joJsonObject=jaArray.getJSONObject(i);
 								  petNews=new PetNews();
 								  petNews.nid=joJsonObject.getInt("nid");
@@ -1025,7 +1721,7 @@ public class HttpUtil {
 								  
 								  petNews.type=joJsonObject.getInt("type");
 								  String content=joJsonObject.getString("content");
-								  petNews.create_time=joJsonObject.getLong("create_time")*1000;
+								  petNews.create_time=joJsonObject.getLong("create_time");
 								  if(StringUtil.isEmpty(content)||"null".equals(content)||"false".equals(content)){
 									  petNews.content=false;
 									  petNewsList.add(petNews);
@@ -1033,7 +1729,8 @@ public class HttpUtil {
 								  }else{
 									  petNews.content=true;
 								  }
-								  if(petNews.type==1){
+								  //type==1   暂时
+								  if(petNews.type==-1){
 									  jo=joJsonObject.getJSONObject("content");
 									  petNews.u_name=jo.getString("u_name");
 									  petNews.usr_id=jo.getInt("usr_id");
@@ -1057,6 +1754,26 @@ public class HttpUtil {
 //									  petNews.a_name=jo.getString("a_name");
 									  petNews.item_id=jo.getInt("item_id");
 //									  petNews.item_name=jo.getString("item_name");、
+									  
+									  if(petNews.item_id>=1101&&petNews.item_id<=1104){
+										  isCorrect=true;
+									  }
+									  if(petNews.item_id>=1201&&petNews.item_id<=1204){
+										  isCorrect=true;
+									  }
+									  if(petNews.item_id>=1301&&petNews.item_id<=1304){
+										  isCorrect=true;
+									  }
+									  if(petNews.item_id>=1401&&petNews.item_id<=1404){
+										  isCorrect=true;
+									  }
+									  if(petNews.item_id>=2101&&petNews.item_id<=2104){
+										  isCorrect=true;
+									  }
+									  if(!isCorrect){
+										  continue;
+									  }
+									  
 									  if(content.contains("\"rank\"")){
 										  petNews.rank=jo.getInt("rank");
 										  if(petNews.rank==0){
@@ -1085,6 +1802,24 @@ public class HttpUtil {
 //									  petNews.a_name=jo.getString("a_name");
 									  petNews.item_id=jo.getInt("item_id");
 //									  petNews.item_name=jo.getString("item_name");
+									  if(petNews.item_id>=1101&&petNews.item_id<=1104){
+										  isCorrect=true;
+									  }
+									  if(petNews.item_id>=1201&&petNews.item_id<=1204){
+										  isCorrect=true;
+									  }
+									  if(petNews.item_id>=1301&&petNews.item_id<=1304){
+										  isCorrect=true;
+									  }
+									  if(petNews.item_id>=1401&&petNews.item_id<=1404){
+										  isCorrect=true;
+									  }
+									  if(petNews.item_id>=2101&&petNews.item_id<=2104){
+										  isCorrect=true;
+									  }
+									  if(!isCorrect){
+										  continue;
+									  }
 									  petNews.rank=jo.getInt("rank");
 									  if(petNews.rank==0){
 										  petNews.job="经纪人";
@@ -1231,7 +1966,7 @@ public class HttpUtil {
 	 * @param mode 0加入王国；1退出王国
 	 * @return
 	 */
-	public static boolean joinOrQuitKingdom(Context context,Animal animal,Handler handler,int mode) {
+	public static Animal joinOrQuitKingdom(Context context,Animal animal,Handler handler,int mode) {
 		String url = "http://" + Constants.IP + Constants.JOIN_KINGDOM;
 		if(mode==1){
 			 url = "http://" + Constants.IP + Constants.EXIT_KINGDOM;
@@ -1247,7 +1982,8 @@ public class HttpUtil {
 		try {
 			String result = connect(client, handler, get);
             /*
-             * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0","data":[{"usr_id":"185","name":"\u8def","tx":"","gender":"1","city":"1000","age":"0","exp":"1","lv":"0","aid":"1000000180","a_name":"\u4ed6","a_tx":""}],"currentTime":1409652826}
+             * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0.0","confVersion":"1.0",
+             * "data":{"isSuccess":true,"percent":98},"currentTime":1416314044}
              */
 			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
 				LogUtil.i("me", "url" + url);
@@ -1256,11 +1992,16 @@ public class HttpUtil {
 				  if(status==0){
 					  JSONObject j1=new JSONObject(result);
 					  JSONObject j2=j1.getJSONObject("data");
+					  String dataStr=j1.getString("data");
 					  flag=j2.getBoolean("isSuccess");
+					  if(!StringUtil.isEmpty(dataStr)&&dataStr.contains("percent"))
+					  animal.percent=j2.getInt("percent");
 					  if(flag){
+						 
 						  if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()>0){
 							flag=setDefaultKingdom(context,Constants.user.aniList.get(0), handler); 
 						  }
+						  return animal;
 						 
 					  }
 				  }else if(status==1){
@@ -1277,7 +2018,7 @@ public class HttpUtil {
 			if(handler!=null)
 				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
 		}
-		return flag;
+		return null;
 	}
 	/**
 	 * 分享数目变化api
@@ -1330,7 +2071,7 @@ public class HttpUtil {
 							  if(dataStr.contains("rank")){
 								  user.rankCode=j2.getInt("rank"); 
 							  }
-				        		 sendLevelChangeReceiver(context, user.lv, user.exp, user.coinCount, user.rankCode, 0, false);
+				        		 sendLevelChangeReceiver(context, user.lv, user.exp, user.coinCount, user.rankCode, 0, false,0);
 						  }
 						  
 					  }
@@ -1500,9 +2241,30 @@ public class HttpUtil {
 						 Gift gift=null;
 						 int index=0;
 						  Iterator iterator=j2.keys();
+						  boolean isCorrect=false;
 						  while(iterator.hasNext()){
 							  gift=new Gift();
+							  isCorrect=false;
 							  gift.no=Integer.parseInt(iterator.next().toString());
+							  if(gift.no>=1101&&gift.no<=1104){
+								  isCorrect=true;
+							  }
+							  if(gift.no>=1201&&gift.no<=1204){
+								  isCorrect=true;
+							  }
+							  if(gift.no>=1301&&gift.no<=1304){
+								  isCorrect=true;
+							  }
+							  if(gift.no>=1401&&gift.no<=1404){
+								  isCorrect=true;
+							  }
+							  if(gift.no>=2101&&gift.no<=2104){
+								  isCorrect=true;
+							  }
+							  
+							  if(!isCorrect){
+								  continue;
+							  }
 							  index=total.indexOf(gift);
 							  if(index!=-1){
 								  gift=total.get(index);
@@ -1756,9 +2518,30 @@ public class HttpUtil {
 						 Gift gift=null;
 						 int index=0;
 						  Iterator iterator=j2.keys();
+						  boolean isCorrect=false;
 						  while(iterator.hasNext()){
 							  gift=new Gift();
+							  isCorrect=false;
 							  gift.no=Integer.parseInt(iterator.next().toString());
+							  if(gift.no>=1101&&gift.no<=1104){
+								  isCorrect=true;
+							  }
+							  if(gift.no>=1201&&gift.no<=1204){
+								  isCorrect=true;
+							  }
+							  if(gift.no>=1301&&gift.no<=1304){
+								  isCorrect=true;
+							  }
+							  if(gift.no>=1401&&gift.no<=1404){
+								  isCorrect=true;
+							  }
+							  if(gift.no>=2101&&gift.no<=2104){
+								  isCorrect=true;
+							  }
+							  
+							  if(!isCorrect){
+								  continue;
+							  }
 							  index=total.indexOf(gift);
 							  if(index!=-1){
 								  gift=total.get(index);
@@ -2147,7 +2930,17 @@ public class HttpUtil {
 											  animal.u_rank=jobs[animal.u_rankCode-1];
 										  }
 									  }
-									  animalList.add(animal);
+									  if(from==1){
+										  if(animal.from==1){
+											  animalList.add(animal); 
+										  }
+									  }else if(from==2){
+										  if(animal.from==2)
+										  animalList.add(animal);
+									  }else{
+										  animalList.add(animal);
+									  }
+									  
 								  }
 								  return animalList;
 							  }
@@ -2510,7 +3303,7 @@ public class HttpUtil {
 					  }if(dataStr.contains("\"lv\"")){
 						  lv=jsonObject.getInt("lv");
 					  }
-	        		sendLevelChangeReceiver(activity, lv, exp, gold, 0, 0, false);
+	        		sendLevelChangeReceiver(activity, lv, exp, gold, 0, 0, false,0);
 	        		petPicture.updateVoiceSuccess=true;
 	        		if(exp!=-1){
 	        			petPicture.updateVoiceSuccess=true;
@@ -2828,7 +3621,11 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 	 * 
 	 * @param topic
 	 */
-	public static boolean likeImage(PetPicture petPicture,Handler handler) {
+	public static boolean likeImage(PetPicture petPicture,Handler handler,final Context context) {
+	
+		
+		
+		
 		boolean flag=false;
 		String url = "http://" + Constants.IP + Constants.LIKE_IMAGE_PATH;
 		DefaultHttpClient client = new DefaultHttpClient();
@@ -2849,26 +3646,55 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 					if(json.errorCode==0){
 						petPicture.likes+=1;
 						
-						/*if(petPicture.like_txUrlList==null){
-							petPicture.like_txUrlList=new ArrayList<String>();
-							petPicture.like_txUrlList.add(Constants.user.u_iconUrl);
-						}else{
-							petPicture.like_txUrlList.add(Constants.user.u_iconUrl);
-						}*/
-						if(StringUtil.isEmpty(petPicture.likers)){
+						/*
+						 * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0.0",
+						 * "confVersion":"1.0","data":{"gold":1},"currentTime":1416228827}
+						 */
+						try {
+						JSONObject jo=new JSONObject(result);
+						String dataStr=jo.getString("data");
+						if(!StringUtil.isEmpty(dataStr)&&!"null".equals(dataStr)&&!"false".equals(dataStr)){
+							JSONObject jb;
 							
-							petPicture.likers=""+Constants.user.userId;
-						}else{
-							petPicture.likers+=","+Constants.user.userId;
+								jb = jo.getJSONObject("data");
+							
+							if(jb!=null){
+								int gold= jb.getInt("gold");
+								
+								sendLevelChangeReceiver(context,0,0,gold,0,0,false,0);
+							
+								if(StringUtil.isEmpty(petPicture.likers)){
+									
+									petPicture.likers=""+Constants.user.userId;
+								}else{
+									petPicture.likers+=","+Constants.user.userId;
+								}
+								if(petPicture.like_txUrlList!=null&&Constants.user.u_iconUrl!=null){
+									petPicture.like_txUrlList.add(Constants.user.u_iconUrl);
+								}else if(Constants.user.u_iconUrl!=null){
+									petPicture.like_txUrlList=new ArrayList<String>();
+									petPicture.like_txUrlList.add(Constants.user.u_iconUrl);
+								}
+								if(handler!=null){
+									handler.post(new Runnable() {
+										
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											LogUtil.i("mi", "点赞数目更新");
+											MobclickAgent.onEvent(context, "like");
+										}
+									});
+								}
+								return true;
+							}
+							
 						}
-						if(petPicture.like_txUrlList!=null&&Constants.user.u_iconUrl!=null){
-							petPicture.like_txUrlList.add(Constants.user.u_iconUrl);
-						}else if(Constants.user.u_iconUrl!=null){
-							petPicture.like_txUrlList=new ArrayList<String>();
-							petPicture.like_txUrlList.add(Constants.user.u_iconUrl);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
 						
-						return true;
 					}if(json.errorCode==-1){
 						LogUtil.i("exception","您已经点过赞了");
 						
@@ -3440,6 +4266,77 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 									  user.province=AddressData.PROVINCES[0];
 									  user.city=AddressData.CITIES[0-10][0];
 								  }
+							    animalList.add(user);
+							 }
+							return animalList;
+						}
+					}
+				}
+				}
+		}catch (JSONException e) {
+			// TODO Auto-generated catch block
+//			if(ShowDialog.count==0)
+//			ShowDialog.show(Constants.NOTE_MESSAGE_2, activity);
+			e.printStackTrace();
+			if(handler!=null)
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
+		} 
+		return animalList;
+	}
+	
+	/**
+	 * 获取黑名单列表
+	 * @param likers
+	 * @param handler
+	 * @param activity
+	 * @param mode
+	 * @return
+	 */
+	public static ArrayList<User> getBlockList(Handler handler,Activity activity) {
+		String url =Constants.BLOCK_LIST;
+		DefaultHttpClient client = new DefaultHttpClient();
+		String value = "";
+		String SIG = getMD5Value(value);
+		String param ="sig=" + SIG + "&SID="
+				+Constants.SID ;
+		url = url + param;
+		boolean flag=false;
+		ArrayList<User> animalList=null;
+		HttpGet get = new HttpGet(url);
+		try {
+			String result =connect(client, handler, get);
+			LogUtil.i("me","获取一串用户信息的url="+url);
+			
+			JSONObject jsonObject=null;
+			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+				LogUtil.i("me", "获取一串用户信息的返回结果" + result);
+				UserJson json=new UserJson();
+				json.datas=new ArrayList<UserJson.Data>();
+				JSONObject object1=new JSONObject(result);
+				json.errorCode=object1.getInt("errorCode");
+				if(judgeSID(json.errorCode)){
+					return getBlockList(handler, activity);
+				}
+				json.errorMessage=object1.getString("errorMessage");
+				if(json.errorCode==0){
+					JSONArray array=object1.getJSONArray("data");
+					if(array!=null&&array.length()>0){
+//						JSONArray array=object2.getJSONArray(0);
+						if(array!=null&&array.length()>0){
+							/*
+							 *{"usr_id":"231","name":"01","tx":"231_userHeadImage.png",
+							 *"city":"1000","gender":"1"}
+							 *data":[{"usr_id":"315","name":"\u6211\u7231\u4e48\u4e48\u54d2","tx":"315_1414160303402_usr_icon.png"}],"
+							 */
+							JSONObject object3=null;
+							User user=null;
+							animalList=new ArrayList<User>();
+							for(int i=0;i<array.length();i++){
+								object3=array.getJSONObject(i);
+								user=new User();
+								user.userId=object3.getInt("usr_id");
+								user.u_nick=object3.getString("name");
+								user.u_iconUrl=object3.getString("tx");
 							    animalList.add(user);
 							 }
 							return animalList;
@@ -4145,7 +5042,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			if(handler!=null)
-				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
 		}
     	return false;
     }
@@ -4217,7 +5114,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			if(handler!=null)
-				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
 		}
     	return false;
     }
@@ -4269,7 +5166,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			if(handler!=null)
-				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
 		}
     	return null;
     }
@@ -4318,7 +5215,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 							user.lv=j1.getInt("lv");
 							if(result.contains("rank"))
 							user.rankCode=j1.getInt("rank");
-							sendLevelChangeReceiver(context,user.lv,user.exp,user.coinCount,0,0,false);
+							sendLevelChangeReceiver(context,user.lv,user.exp,user.coinCount,0,0,false,0);
 							return user;
 						}
 				  }else if(status==1){
@@ -4524,7 +5421,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			if(handler!=null)
-				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
 		}
 		return talk_id;
 	}
@@ -4545,6 +5442,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			SIG=getMD5Value(value);
 			param= SIG + "&SID=" + Constants.SID+"&talk_id="+talk_id;
 		}
+		 LogUtil.i("mi", "===获取消息");
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		ArrayList<TalkMessage> talkMessages=null;
@@ -4652,7 +5550,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			if(handler!=null)
-				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
 		}
 		return talkMessages;
 	}
@@ -4702,7 +5600,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   					  user.lv=j1.getInt("lv");
   					  user.coinCount=j1.getInt("gold");
   					  user.rankCode=j1.getInt("rank");
-  					  sendLevelChangeReceiver(context, user.lv, user.exp, user.coinCount, user.rankCode, 0, false);
+  					  sendLevelChangeReceiver(context, user.lv, user.exp, user.coinCount, user.rankCode, 0, false,0);
   					  return user;
   				  }else if(status==1){
   				  }else if(status==2){
@@ -4716,7 +5614,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   			// TODO Auto-generated catch block
   			e.printStackTrace();
   			if(handler!=null)
-				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
   		}
   		return user;
   	}
@@ -4763,7 +5661,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   			// TODO Auto-generated catch block
   			e.printStackTrace();
   			if(handler!=null)
-				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
   		}
   		return user;
   	}
@@ -4811,7 +5709,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			if(handler!=null)
-				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
 		}
 		return count;
 	}
@@ -4856,7 +5754,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 						  }if(dataStr.contains("\"lv\"")){
 							  lv=data.getInt("lv");
 						  }
-						  sendLevelChangeReceiver(context, lv, exp, gold, 0, 0, false);
+						  sendLevelChangeReceiver(context, lv, exp, gold, 0, 0, false,0);
 					  }
 					  return true;
 				  }else if(status==1){
@@ -4871,7 +5769,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			if(handler!=null)
-				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
 		}
 		return false;
 	}
@@ -4906,12 +5804,12 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		try {
 			String result =connect(client, handler, get);
             /*
-             * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
-             * "data":
-             *[[{"aid":"1000000222","name":"lolno","tx":"",
-             *"gender":"2","from":"0","type":"107","age":"55","t_rq":"0",
-             *"fans":"5"}]]
-             *,"currentTime":1409652826}
+             * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0",
+             * "confVersion":"1.0",
+             * "data":[[{"aid":"300","name":"\u5c0f\u6cf0\u6cf0",
+             * "tx":"300_1414138207headImage.png","gender":"1","from":"2",
+             * "type":"201","age":"27","t_rq":"1946","fans":"3"}]],
+             * "currentTime":1415088926}
              */
 			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
 				LogUtil.i("me", "url" + url);
@@ -4994,10 +5892,96 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			if(handler!=null)
-				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
 		}
 		return animalList;
 	}
+    public static ArrayList<User> searchUser(Context context,String name,int page,Handler handler) {
+  		String url = "http://" + Constants.IP + Constants.SEARCH_USER;
+  		DefaultHttpClient client = new DefaultHttpClient();
+  		boolean flag=false;
+  		String value = "";
+  		name=new String(name.getBytes(Charset.forName("UTF-8")), Charset.forName("UTF-8"));
+  		try {
+  			name = URLEncoder.encode(name, "UTF-8");
+  		} catch (UnsupportedEncodingException e1) {
+  			// TODO Auto-generated catch block
+  			e1.printStackTrace();
+  		}
+  		String SIG = "";
+  		String param = "";
+  			value="page="+page;
+  			SIG=getMD5Value(value);
+  			param= SIG + "&SID=" + Constants.SID+"&page="+page+"&name="+name;
+  		url = url + param;
+  		HttpGet get = new HttpGet(url);
+  		ArrayList<User> users=null;
+  		try {
+  			String result =connect(client, handler, get);
+              /*
+               {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
+               "data":[[{"usr_id":"317","name":"\u697c\u697c","tx":"317_1415103222519_usr_icon.jpg",
+               "gender":"1","city":"1610"}]],"currentTime":1415863596}
+               */
+  			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+  				LogUtil.i("me", "url" + url);
+  				LogUtil.i("me", "info返回结果" + result);
+  				int status=handleResult(context,result,handler);
+  				  if(status==0){
+  					  JSONObject j1=new JSONObject(result);
+  					  String dataStr=j1.getString("data");
+  					  if(!StringUtil.isEmpty(dataStr)&&!"null".equals(dataStr)){
+  					  JSONArray j2=j1.getJSONArray("data");
+  					  JSONArray ja=null;
+  					  JSONObject j4=null;
+  					  User user=null;
+  					  if(j2!=null&&j2.length()>0){
+  						 ja=j2.getJSONArray(0);
+  							  if(ja!=null&&ja.length()>0){
+  								  users=new ArrayList<User>();
+  								  for(int i=0;i<ja.length();i++){
+  									j4=ja.getJSONObject(i);
+  	  								user=new User();
+  	  								user.userId=j4.getInt("usr_id");
+  	  								user.u_nick=j4.getString("name");
+  	  								user.u_iconUrl=j4.getString("tx");
+  	  								user.u_gender=j4.getInt("gender");
+  	  								user.locationCode=j4.getInt("city");
+  	  							 String temp=""+user.locationCode;
+  	  						  if(temp.length()==4){
+  	  							  int p=Integer.parseInt(temp.substring(0, 2));
+  	  							  user.province=AddressData.PROVINCES[p-10];
+  	  							  int p2=Integer.parseInt(temp.substring(2, 4));
+  	  							  user.city=AddressData.CITIES[p-10][p2];
+  	  						  }else{
+  	  							  user.province=AddressData.PROVINCES[0];
+  	  							  user.city=AddressData.CITIES[0][0];
+  	  						  }
+  	  						  users.add(user);
+  								  }
+  								 return users;
+  								
+  							  }
+  							 
+  						  }
+  					  }
+  				  }else if(status==1){
+  				  }else if(status==2){
+  					  
+  					  return searchUser(context, name, page, handler);
+  					 
+  				  }
+  				
+  				
+  			}
+  		} catch (JSONException e) {
+  			// TODO Auto-generated catch block
+  			e.printStackTrace();
+  			if(handler!=null)
+  				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
+  		}
+  		return users;
+  	}
     public static void deleteTalk(Context context,int talk_id,Handler handler) {
 		String url = "http://" + Constants.IP + Constants.TALK_DELETE;
 		DefaultHttpClient client = new DefaultHttpClient();
@@ -5046,7 +6030,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			if(handler!=null)
-				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
 		}
 //		return card;
 	}
@@ -5127,7 +6111,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		}catch (JSONException e) {
 			// TODO Auto-generated catch block
 			if(handler!=null)
-				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
 		}
 		
 
@@ -5263,6 +6247,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			JSONObject data = jsonObject.getJSONObject("data");
 			
 			loginJson.data.isSuccess = data.getBoolean("isSuccess");
+			Constants.realVersion=data.getString("version");
 		    String userIdStr=data.getString("usr_id");
 		 /*   if(!StringUtil.isEmpty(userIdStr)&&!"null".equals(userIdStr)&&!"false".equals(userIdStr)){
 		    	Constants.user=new User();
@@ -5337,7 +6322,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
              * [{"usr_id":"254","name":"\u6c64\u91cc\u53ef\u5f97",
              * "tx":"254_1411010757445.jpg","gender":"1","city":"1900",
              * "age":"0","exp":"1104","lv":"9","gold":"429","con_login":"12",
-             * "rank":"2","aid":"2000000241","a_name":"Joke","a_age":"2",
+             * "rank":"2","aid":"2000000241","a_name":"Joke","a_age":"2","inviter":"0",
              * "a_tx":"2000000241_1411010687969.jpg","next_gold":30}]
              * "currentTime":1409652826}
              */
@@ -5354,7 +6339,14 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 					user.u_nick=obj.getString("name");
 					user.u_iconUrl=obj.getString("tx");
 					user.u_gender=obj.getInt("gender");
-					user.rankCode=obj.getInt("rank");
+					user.inviter=obj.getInt("inviter");
+					String temp=obj.getString("rank");
+					if("null".equals(temp)){
+						user.rankCode=0;
+					}else{
+						user.rankCode=obj.getInt("rank");
+					}
+					
 					if(user.rankCode==0){
 						 user.rank="经纪人";
 							  
@@ -5551,6 +6543,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		
     	int errorCode=jsonObject.getInt("errorCode");
     	int state=jsonObject.getInt("state");
+    	String version=jsonObject.getString("version");
 		if(state==2){
 			login(context,null);
 			return 2;
@@ -5563,6 +6556,8 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			return 1;
 		}
 		if (errorCode==0) {
+			Constants.VERSION=version;
+			Constants.CON_VERSION=jsonObject.getString("confVersion");
 			return 0;
 		}
 		} catch (JSONException e) {
@@ -5594,6 +6589,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		}
 	}
 	public static String getAge(int age){
+		if(age==0)age=1;
 		int y=age/12;
 		  int m=age%12;
 		  String ageStr="";
@@ -5609,25 +6605,56 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		  }
 		  return ageStr;
 	}
-	public static void sendLevelChangeReceiver(Context context,int lv,int exp,int gold,int rank,int con_login,boolean isLogin){
+	public static void sendLevelChangeReceiver(Context context,int lv,int exp,int gold,int rank,int con_login,boolean isLogin,int con_tri){
+		
 		Intent intent=new Intent(context,DialogNoteActivity.class);
+		if(exp>0){
+			intent.putExtra("mode", 4);
+	    	intent.putExtra("num", exp);
+	    	context.startActivity(intent);
+	    	try {
+				Thread.sleep(600);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		if(gold>0){
+			intent.putExtra("mode", 6);
+	    	intent.putExtra("num", gold);
+	    	context.startActivity(intent);
+	    	try {
+				Thread.sleep(600);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		if(con_tri>0){
+			intent.putExtra("mode", 5);
+	    	intent.putExtra("num", con_tri);
+	    	context.startActivity(intent);
+		}
 		if(lv!=0&&lv>0){
 			intent.putExtra("mode", 2);
 			intent.putExtra("num", gold);
 			
 			context.startActivity(intent);
+			return ;
 		}else if(isLogin){
 			intent.putExtra("mode", 1);
 			intent.putExtra("num", con_login);
 			context.startActivity(intent);
+			return;
 	    }else if(rank!=0&&rank>0){
 	    	intent.putExtra("mode", 3);
 	    	intent.putExtra("num", gold);
 	    	intent.putExtra("rank", rank);
 	    	context.startActivity(intent);
+	    	return;
 	    }
-		
-		
 	}
 	public static void setConnectionTime(DefaultHttpClient client,int time){
 		client.getParams().setIntParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, time);
@@ -5654,6 +6681,35 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			}
 		}catch(ConnectTimeoutException e){
 			if(handler!=null)
+				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+		}catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			if(handler!=null)
+			handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			if(handler!=null)
+			handler.sendEmptyMessage(HandleHttpConnectionException.Network_Status_Error);
+		}
+		return result;
+	}
+	public static String connectPost(DefaultHttpClient client,Handler  handler,HttpPost post,ArrayList<NameValuePair> pairs ){
+		String result=null;
+		try {
+			HttpResponse response=null;
+			post.setEntity(new UrlEncodedFormEntity(pairs,"UTF-8"));
+			setConnectionTime(client, 30000);
+			response = client.execute(post);
+			int resultCode = response.getStatusLine().getStatusCode();
+			result = EntityUtils.toString(response.getEntity());
+			if (resultCode == HttpStatus.SC_OK) {  
+			}else{
+				judgeHttpStatus(resultCode,handler);
+			}
+		}catch(ConnectTimeoutException e){
+			if(handler!=null)
 				handler.sendEmptyMessage(HandleHttpConnectionException.Network_Status_Error);
 		}catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
@@ -5667,5 +6723,35 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			handler.sendEmptyMessage(HandleHttpConnectionException.Network_Status_Error);
 		}
 		return result;
+	}
+	public static String getJsonString(JSONObject jo,String key){
+		String str=null;
+		try {
+			str=jo.getString(key);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return str;
+	}
+	public static long getJsonLong(JSONObject jo,String key){
+		long  num=0;
+		try {
+			num=jo.getLong(key);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return num;
+	}
+	public static int getJsonInt(JSONObject jo,String key){
+		int  num=0;
+		try {
+			num=jo.getInt(key);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return num;
 	}
 }

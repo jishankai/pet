@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:id="@+id/framelayout"
     android:focusable="true"
+    android:background="@drawable/blur"
     android:focusableInTouchMode="true" >
     <RelativeLayout 
     android:layout_width="match_parent"
@@ -15,12 +16,31 @@
         android:layout_height="103dp"
         android:background="@color/white"
         android:id="@+id/top_white_view"/>
-     <ListView android:layout_width="match_parent"
+    <!--  <ListView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listview"
         android:layout_below="@+id/top_white_view"
         
-        android:layout_above="@+id/listview2"></ListView>
+        android:layout_above="@+id/listview2"></ListView> -->
+     
+     
+     <me.maxwin.view.XListView
+         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listview"
+        android:layout_below="@+id/top_white_view"
+        
+        android:layout_above="@+id/listview2"
+        android:scrollbars="vertical"
+         android:fastScrollEnabled="true"
+        android:divider="@null"
+        xmlns:pla="http://schemas.android.com/apk/res-auto"
+        pla:plaLandscapeColumnNumber="1"
+       pla:plaColumnNumber="1"
+        />
+     
+     
+     
      <ListView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listview2"
@@ -59,7 +79,7 @@
             android:orientation="horizontal"
             android:layout_alignBottom="@+id/imageView1"
             android:layout_centerHorizontal="true"
-            android:gravity="center_vertical">
+            android:gravity="bottom">
             <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -69,14 +89,21 @@
             android:textColor="@color/white" />
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="120dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/market_spinner_selected"
+           
             android:gravity="center"
-            
-            android:text="喵星人气总榜"
-            android:textColor="@color/white" />
+            android:textSize="18sp"
+            android:text="人气总榜"
+            android:textColor="@color/white" /><!--  android:background="@drawable/market_spinner_selected" -->
+        <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/spinner1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                />
         </LinearLayout>
 
         <TextView
@@ -87,6 +114,7 @@
             android:background="@drawable/find_me"
             android:layout_alignBottom="@+id/imageView1"
             android:textColor="@color/white"
+            android:visibility="gone"
             android:layout_marginRight="15dp"/>
         <TextView
             android:id="@+id/chose_race_tv"
@@ -95,9 +123,9 @@
             android:layout_marginLeft="10dp"
             android:background="@drawable/market_spinner_selected"
             android:gravity="center"
-            android:layout_below="@+id/textView3"
+            android:layout_below="@+id/imageView1"
             android:layout_marginTop="5dp"
-            android:text="所有种族"
+            android:text="所有"
             android:textColor="@color/white" />
         
 

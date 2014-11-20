@@ -17,6 +17,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ListAdapter;
@@ -76,12 +77,28 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 		super(context, attrs);
 		initWithContext(context);
 	}
-
+	/**
+	 * 重写该方法，达到使ListView适应ScrollView的效果
+	 */
+	public boolean isForScrollView=false;
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    	// TODO Auto-generated method stub
+    	if(isForScrollView){
+    		int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
+    				MeasureSpec.AT_MOST);
+    		super.onMeasure(widthMeasureSpec, expandSpec);
+    	}else{
+    		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    	}
+    	
+    	
+    }
 	public XListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		initWithContext(context);
 	}
-
+	
 	private void initWithContext(Context context) {
 		mScroller = new Scroller(context, new DecelerateInterpolator());
 		// XListView need the scroll event, and it will dispatch the event to

@@ -116,7 +116,7 @@ for(int i=0;i<array2.length();i++){
 	}
 	
 	if(json.contains("inviter")){
-		user.inviter=jb1.getString("inviter");
+		user.inviter=jb1.getInt("inviter");
 	}
 	
 	if(json.contains("create_time")){

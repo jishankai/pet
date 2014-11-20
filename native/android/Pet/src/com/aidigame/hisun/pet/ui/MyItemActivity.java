@@ -18,6 +18,8 @@ import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -47,7 +49,7 @@ public class MyItemActivity extends Activity implements OnClickListener{
 	    
 	    ImageView back;
 		GridView gridView;
-		UserGiftGridViewAdapter adapter;
+		MarketGridViewAdapter adapter;
 		HandleHttpConnectionException handleHttpConnectionException;
 		ArrayList<Gift> giftList;
 	@Override
@@ -68,7 +70,7 @@ public class MyItemActivity extends Activity implements OnClickListener{
 		gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		giftList=new ArrayList<Gift>();
 		setBlurImageBackground();
-		adapter=new UserGiftGridViewAdapter(this,giftList);
+		adapter=new MarketGridViewAdapter(this,giftList);
         new Thread(new Runnable() {
 			
 			@Override
@@ -83,7 +85,7 @@ public class MyItemActivity extends Activity implements OnClickListener{
 							// TODO Auto-generated method stub
 							if(temp!=null){
 								giftList=temp;
-								adapter.update(giftList);
+								adapter.updateList(giftList);
 								adapter.notifyDataSetChanged();
 //								setBlurImageBackground();
 							}
@@ -114,30 +116,7 @@ public class MyItemActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				MyItemActivity.this.runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+       
        
         gridView.setOnScrollListener(new OnScrollListener() {
 				
@@ -166,9 +145,28 @@ public class MyItemActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		case R.id.back:
+			if(NewHomeActivity.homeActivity!=null){
+				ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+				am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+			}else{
+				Intent intent=new Intent(this,NewHomeActivity.class);
+				this.startActivity(intent);
+			}
 			this.finish();
 			break;
 		}
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

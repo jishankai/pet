@@ -2,9 +2,13 @@ package com.aidigame.hisun.pet.adapter;
 
 import java.util.ArrayList;
 
+import u.aly.co;
+
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.PetPicture;
+import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
+import com.aidigame.hisun.pet.util.StringUtil;
 
 import android.content.Context;
 import android.provider.ContactsContract.Contacts.Data;
@@ -16,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 /**
@@ -64,13 +69,31 @@ public class CommentListViewAdapter extends BaseAdapter{
 			holder.body=(TextView)convertView.findViewById(R.id.textView2);
 			holder.time=(TextView)convertView.findViewById(R.id.textView3);
 			holder.layout=(RelativeLayout)convertView.findViewById(R.id.layout);
+			holder.warning_iv=(ImageView)convertView.findViewById(R.id.warning_iv);
 			convertView.setTag(holder);
 		}else{
 			holder=(Holder)convertView.getTag();
 		}
 		final PetPicture.Comments comments=listComment.get(position);
+		
+		if(!StringUtil.isEmpty(Constants.CON_VERSION)&&"1.0".equals(Constants.CON_VERSION)){
+			holder.warning_iv.setVisibility(View.VISIBLE);
+		}else{
+			holder.warning_iv.setVisibility(View.INVISIBLE);
+		}
+		
 		if(comments.isReply){
+			
 			String[] str=comments.reply_name.split("@");
+			if(comments.reply_name.contains("@")){
+				str=comments.reply_name.split("@");
+			}else if(comments.reply_name.contains("&")){
+				str=comments.reply_name.split("&");
+			}else if(!StringUtil.isEmpty(comments.reply_name)){
+				str=new String[2];
+				str[0]=comments.name;
+				str[1]=comments.reply_name;
+			}
 			if(str.length>1){
 				String html="<html><body>"
 						+ "<font color=\"#fb6137\">"
@@ -105,8 +128,27 @@ public class CommentListViewAdapter extends BaseAdapter{
 		
 		holder.body.setText(""+(comments.body==null?"":comments.body));
 		holder.time.setText(""+judgeTime(comments.create_time));
-		
-		holder.nameTextView.setOnClickListener(new OnClickListener() {
+		holder.warning_iv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(clickUserName!=null){
+					clickUserName.reportComment();
+				}
+			}
+		});
+		/*holder.nameTextView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(clickUserName!=null){
+					clickUserName.clickUserName(comments);
+				}
+			}
+		});*/
+		holder.layout.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -116,20 +158,7 @@ public class CommentListViewAdapter extends BaseAdapter{
 				}
 			}
 		});
-//		holder.layout.setClickable(true);
-		/*holder.layout.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View arg0, MotionEvent arg1) {
-				// TODO Auto-generated method stub
-				if(arg1.getAction()==MotionEvent.ACTION_UP){
-					if(clickUserName!=null){
-						clickUserName.clickUserName(comments);
-					}
-				}
-				return true;
-			}
-		});*/
+		
 		return convertView;
 	}
 	class Holder{
@@ -137,6 +166,7 @@ public class CommentListViewAdapter extends BaseAdapter{
 		TextView body;
 		TextView time;
 		RelativeLayout layout;
+		ImageView warning_iv;
 	}
 	public String judgeTime(long time2){
 		long time1=System.currentTimeMillis()/1000;
@@ -230,6 +260,7 @@ public class CommentListViewAdapter extends BaseAdapter{
 	}
 	public static interface ClickUserName{
 		void clickUserName(PetPicture.Comments cmt);
+		void reportComment();
 	}
 	
 

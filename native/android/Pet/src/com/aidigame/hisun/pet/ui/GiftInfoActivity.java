@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Gift;
+import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 /**
@@ -70,30 +71,7 @@ public class GiftInfoActivity extends Activity implements OnClickListener{
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
 		blurLayout=(LinearLayout)findViewById(R.id.layout);
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						blurLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						blurLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+       
 	}
 	@Override
 	public void onClick(View v) {
@@ -117,5 +95,17 @@ public class GiftInfoActivity extends Activity implements OnClickListener{
 			break;
 		}
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

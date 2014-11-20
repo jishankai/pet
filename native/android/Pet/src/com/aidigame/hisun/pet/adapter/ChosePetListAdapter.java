@@ -46,7 +46,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 /**
- * 类似  围观群众 界面  用户信息列表
+ * 设置    设置最爱萌星界面
  * @author admin
  *
  */
@@ -70,7 +70,7 @@ public class ChosePetListAdapter extends BaseAdapter {
 		options.inInputShareable=true;
 		displayImageOptions=new DisplayImageOptions
 	            .Builder()
-	            .showImageOnLoading(R.drawable.noimg)
+	            .showImageOnLoading(R.drawable.pet_icon)
 		        .cacheInMemory(true)
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
@@ -159,17 +159,18 @@ public class ChosePetListAdapter extends BaseAdapter {
 		}else{
 //			holder.gender.setImageResource();
 		}
+		holder.ageTv.setText(data.a_age_str);
 		if(Constants.user!=null&&Constants.user.currentAnimal!=null&&Constants.user.currentAnimal.a_id==data.a_id){
 			holder.hatIv.setVisibility(View.VISIBLE);
 			holder.setTv.setVisibility(View.VISIBLE);
-			holder.setTv.setText("最爱");
+			holder.setTv.setText("已是最爱");
 			holder.setTv.setBackgroundResource(R.drawable.button);
 			
 		}else{
 			holder.hatIv.setVisibility(View.INVISIBLE);
 			holder.setTv.setVisibility(View.VISIBLE);
 			holder.setTv.setBackgroundResource(R.drawable.button_green);
-			holder.setTv.setText("设为最爱");
+			holder.setTv.setText("最爱萌星");
 		}
 		holder.name.setText(""+data.pet_nickName);
 		holder.raceTv.setText(""+data.race);

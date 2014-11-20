@@ -43,6 +43,9 @@ public class EraserView_user_drawPath extends View {
         
 	}
 	public void setBitmap(Bitmap bmp,int w,int h){
+		if(bmp==null){
+			bmp=BitmapFactory.decodeResource(getResources(), R.drawable.pet_icon);
+		}
 		setScreenWH();
 		float scalX=w/(bmp.getWidth()*1f);
 		float scalY=h/(bmp.getHeight()*1f);
@@ -91,7 +94,7 @@ public class EraserView_user_drawPath extends View {
 
       private Bitmap createBitmapFromSRC() {
           return BitmapFactory.decodeResource(getResources(),
-                                              R.drawable.a11);
+                                              R.drawable.pet_icon);
       }
 
       /**
@@ -212,20 +215,26 @@ public class EraserView_user_drawPath extends View {
       }
       
       private void touch_start(float x, float y) {
-          mPath.reset();
-          
-          mPath.moveTo(x, y);
-          mX = x;
-          mY = y;
-      }
-      private void touch_move(float x, float y) {
-          float dx = Math.abs(x - mX);
-          float dy = Math.abs(y - mY);
-          if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-              mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+    	  if(mPath!=null){
+    		  mPath.reset();
+              
+              mPath.moveTo(x, y);
               mX = x;
               mY = y;
-          }
+    	  }
+         
+      }
+      private void touch_move(float x, float y) {
+    	  if(mPath!=null){
+              float dx = Math.abs(x - mX);
+              float dy = Math.abs(y - mY);
+              if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+                  mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+                  mX = x;
+                  mY = y;
+              }
+    	  }
+
       }
       private void touch_up() {
           mPath.lineTo(mX, mY);
@@ -277,6 +286,14 @@ public class EraserView_user_drawPath extends View {
       }
       public static interface OnEraserOverListener{
     	  void onEraserOver();
+      }
+      public void recyleBmp(){
+    	  if(mBitmap!=null){
+    		  if(!mBitmap.isRecycled())
+    		  mBitmap.recycle();
+    		  mBitmap=null;
+    	  }
+    	  setBackgroundDrawable(null);
       }
   }
 	

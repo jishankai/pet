@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -40,13 +42,14 @@ import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.MarketGridViewAdapter;
+import com.aidigame.hisun.pet.adapter.MarketGridViewAdapter.ClickGiftListener;
 import com.aidigame.hisun.pet.adapter.MarketRealGridViewAdapter;
 import com.aidigame.hisun.pet.bean.Gift;
 import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
-import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity;
+import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1;
 import com.aidigame.hisun.pet.ui.GiftInfoActivity;
 import com.aidigame.hisun.pet.ui.MyItemActivity;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
@@ -57,6 +60,7 @@ import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView.PullToRefreshAndMoreListener;
+import com.umeng.analytics.MobclickAgent;
 /**
  * 礼物商城界面
  * @author admin
@@ -85,6 +89,7 @@ public class MarketFragment extends Fragment implements PullToRefreshAndMoreList
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		view=inflater.inflate(R.layout.fragment_market, null);
+		homeActivity=NewHomeActivity.homeActivity;
 		return view;
 	}
 
@@ -93,6 +98,7 @@ public class MarketFragment extends Fragment implements PullToRefreshAndMoreList
 		// TODO Auto-generated method stub
 		super.onViewCreated(view, savedInstanceState);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
+		homeActivity=NewHomeActivity.homeActivity;
 		initView();
 	}
 	public void setHomeActivity(NewHomeActivity activity){
@@ -144,7 +150,65 @@ public class MarketFragment extends Fragment implements PullToRefreshAndMoreList
 	    giftBox.setOnClickListener(this);
 	    moreCoinTV.setOnClickListener(this);
 	    back.setOnClickListener(this);
-	    gridView.setOnItemClickListener(new OnItemClickListener() {
+	   adapter.setClickGiftListener(new ClickGiftListener() {
+		
+		@Override
+		public void clickGift(final Gift gift) {
+			// TODO Auto-generated method stub
+			if(!UserStatusUtil.isLoginSuccess(homeActivity,popup_parent,black_layout)){
+				
+				return;
+			}
+			if(isBuying){
+				Toast.makeText(homeActivity, "正在购买礼物", Toast.LENGTH_LONG).show();
+				return;
+			}
+			if(Constants.user.coinCount-gift.price<0){
+				Toast.makeText(homeActivity, "Sorry~余额不足(⊙o⊙)哦~", Toast.LENGTH_LONG).show();
+				return;
+			}
+			isBuying=true;
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					gift.buyingNum=1;
+					final User user=HttpUtil.buyGift(homeActivity,gift, handleHttpConnectionException.getHandler(homeActivity));
+					handleHttpConnectionException.getHandler(homeActivity).post(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							if(user!=null){
+								newGift++;
+								Map<String,String> map=new HashMap<String, String>();
+								map.put("level", ""+gift.level);
+								map.put("name", ""+gift.name);
+								map.put("id", ""+gift.no);
+								MobclickAgent.onEvent(homeActivity, "buy_gift",map);
+								Toast.makeText(homeActivity, "大人，您购买的"+gift.name+"，小的已经给您送到储物箱了", Toast.LENGTH_LONG).show();
+								coinNumTV.setText(""+user.coinCount);
+								Constants.user.coinCount=user.coinCount;
+								if(MenuFragment.menuFragment!=null){
+									MenuFragment.menuFragment.setViews();
+								}
+							}else{
+								Toast.makeText(homeActivity, "购买礼物失败", Toast.LENGTH_LONG).show();
+							}
+							if(newGift>0){
+								boxNumTV.setText(""+newGift);
+								boxNumTV.setVisibility(View.VISIBLE);
+								giftBox.setVisibility(View.VISIBLE);
+							}
+							isBuying=false;
+						}
+					});
+				}
+			}).start();
+		}
+	});
+/*	    gridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, final int arg2,
@@ -197,7 +261,7 @@ public class MarketFragment extends Fragment implements PullToRefreshAndMoreList
 					}
 				}).start();
 			}
-		});
+		});*/
 	    realGridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -223,34 +287,7 @@ public class MarketFragment extends Fragment implements PullToRefreshAndMoreList
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)view.findViewById(R.id.framelayout);
 		viewTopWhite=(View)view.findViewById(R.id.top_white_view);
-		if(HomeFragment.blurBitmap==null){
-			frameLayout.setBackgroundDrawable(homeActivity.getResources().getDrawable(R.drawable.blur));
-		}
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				homeActivity.runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
-       
+		
         gridView.setOnScrollListener(new OnScrollListener() {
 				
 				@Override
@@ -337,17 +374,18 @@ public class MarketFragment extends Fragment implements PullToRefreshAndMoreList
 			if(ShowTopicActivity.showTopicActivity!=null&&from==1){
 				ActivityManager am=(ActivityManager)homeActivity.getSystemService(Context.ACTIVITY_SERVICE);
 				
-				am.moveTaskToFront(DialogGiveSbGiftActivity.dialogGiveSbGiftActivity.getTaskId(), 0);
+				am.moveTaskToFront(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.getTaskId(), 0);
 				
 				return;
 			}else if(PetKingdomActivity.petKingdomActivity!=null&&from==2){
                 ActivityManager am=(ActivityManager)homeActivity.getSystemService(Context.ACTIVITY_SERVICE);
 				
-				am.moveTaskToFront(DialogGiveSbGiftActivity.dialogGiveSbGiftActivity.getTaskId(), 0);
+				am.moveTaskToFront(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.getTaskId(), 0);
 				
 				return;
 			}else if(from==3){
-				
+				homeActivity.showHomeFragment(1);
+				return;
 			}
 			homeActivity.toggle();
 			break;

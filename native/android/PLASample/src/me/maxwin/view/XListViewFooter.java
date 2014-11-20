@@ -76,7 +76,8 @@ public class XListViewFooter extends LinearLayout {
 	 * loading status
 	 */
 	public void loading() {
-		mHintView.setVisibility(View.GONE);
+		mHintView.setVisibility(View.VISIBLE);
+		mHintView.setText(getResources().getString(R.string.xlistview_header_hint_loading));
 		mProgressBar.setVisibility(View.VISIBLE);
 	}
 

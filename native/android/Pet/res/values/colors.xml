@@ -2,6 +2,7 @@
 <resources>
     <color name="white">#FEFEFF</color>
     <color name="orange_red">#d0fb6137</color>
+    <color name="orange_red1">#fc7b51</color>
     <color name="gray_deep">#3e3e3e</color>
     <color name="brown">#432D20</color>
     <color name="brown_deep">#51493D</color>

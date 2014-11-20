@@ -54,6 +54,7 @@ import com.buihha.audiorecorder.Mp3Recorder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.umeng.analytics.MobclickAgent;
 /**
  * 叫一叫界面
  * @author admin
@@ -88,6 +89,7 @@ public class BiteActivity extends Activity {
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_bite);
 		mp3Recorder=new Mp3Recorder();
+		MobclickAgent.onEvent(this, "shout_button");
 		progressLayout=(LinearLayout)findViewById(R.id.progressLayout);
 		animal=(Animal)getIntent().getSerializableExtra("animal");
 		shareBitmapLayout=(RelativeLayout)findViewById(R.id.share_bitmap_layout);
@@ -309,12 +311,6 @@ public class BiteActivity extends Activity {
 					break;
 				case MotionEvent.ACTION_UP:
 					if(!islongClick){
-						/*LogUtil.i("scroll", "手势抬起。。。。。。");
-						timeTv.setVisibility(View.INVISIBLE);
-						pressIv.setVisibility(View.VISIBLE);
-						ballProgressView.setStop(true);
-						ballProgressView.reset();
-						islongClick=false;*/
 						
 					}else {
 						if(recordTime<2){
@@ -327,7 +323,6 @@ public class BiteActivity extends Activity {
 						}
 						ballProgressView.setStop(true);
 						viewPager.setCurrentItem(1,false);
-//						audioRecordAndPlayer.stopRecord();
 						try {
 							mp3Recorder.stopRecording();
 							audioRecordAndPlayer.recordFileName=mp3Recorder.fileName;
@@ -511,8 +506,6 @@ public class BiteActivity extends Activity {
     	/*
     	 * 圆宽88像素  左边事391像素
     	 */
-//    	final ImageView progressIv=(ImageView)view3.findViewById(R.id.progress);
-//    	final ImageView backgroundIv=(ImageView)view3.findViewById(R.id.background_iv);
     	final TextView timeTV=(TextView)view3.findViewById(R.id.textView3);
     	timeTV.setText(timeStr);
     	ImageView cloudIV1=(ImageView)view3.findViewById(R.id.imageView2);
@@ -531,69 +524,29 @@ public class BiteActivity extends Activity {
 				final PetPicture picture=HttpUtil.post(petPicture, BiteActivity.this);
 				
 				File file=new File(audioRecordAndPlayer.recordFileName);
-				
-//				max=(int)((backgroundIv.getMeasuredWidth())*(394f/478f));
-//				while(/*progress<=max*/!petPicture.updateVoiceSuccess){
-//					try {
-//						Thread.sleep(50);
-//						progress+=5;
 						runOnUiThread(new Runnable() {
 							
 							@Override
 							public void run() {
 								// TODO Auto-generated method stub
 								if(picture.updateVoiceSuccess){
-//									ViewGroup.LayoutParams params=progressIv.getLayoutParams();
-//									params.width=progress;
-//									progressIv.setLayoutParams(params);
 									if(progress==max){
 										viewPager.setCurrentItem(3,false);
 										share(view4);
+										MobclickAgent.onEvent(BiteActivity.this, "shout_suc");
 										Toast.makeText(BiteActivity.this, "上传音频成功", Toast.LENGTH_LONG).show();
+										if(NewHomeActivity.homeActivity!=null){
+											NewHomeActivity.homeActivity.homeFragment.homeMyPet.adapter.updateTV("叫过了",0);
+										}
 									}
 								}else{
 									Toast.makeText(BiteActivity.this, "上传音频失败", Toast.LENGTH_LONG).show();
-//									ViewGroup.LayoutParams params=progressIv.getLayoutParams();
-//									params.width=0;
-//									progress=0;
-//									progressIv.setLayoutParams(params);
+
 								}
 								
 								
 							}
 						});
-//					} catch (InterruptedException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//				}
-					
-					
-//					if(progress>=max)progress=max;
-//					progress=max;
-//					runOnUiThread(new Runnable() {
-//						
-//						@Override
-//						public void run() {
-//							// TODO Auto-generated method stub
-//							if(picture.updateVoiceSuccess){
-//								ViewGroup.LayoutParams params=progressIv.getLayoutParams();
-//								params.width=progress;
-//								progressIv.setLayoutParams(params);
-//								if(progress==max){
-//									viewPager.setCurrentItem(3,false);
-//									share(view4);
-//								}
-//							}else{
-//								ViewGroup.LayoutParams params=progressIv.getLayoutParams();
-//								params.width=0;
-//								progress=0;
-//								progressIv.setLayoutParams(params);
-//							}
-//							
-//							
-//						}
-//					});
 				
 			}
 		}).start();
@@ -774,7 +727,7 @@ public class BiteActivity extends Activity {
 					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
-					data.des="我家萌宠“"+animal.pet_nickName+"”今天乖巧的冲我撒娇，来听听吧。http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+					data.des="我家萌星"+animal.pet_nickName+"今天乖巧的冲我撒娇，来听听吧。http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
 					if(UserStatusUtil.hasXinlangAuth(BiteActivity.this)){
 						
 						XinlangShare.sharePicture(data,BiteActivity.this);
@@ -796,5 +749,25 @@ public class BiteActivity extends Activity {
 			}
 		});
 	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		if(audioRecordAndPlayer!=null){
+			audioRecordAndPlayer.stopAudio();
+		}
+		super.onDestroy();
+	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
     
 }

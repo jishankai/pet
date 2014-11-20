@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import net.simonvt.numberpicker.NumberPicker;
 import net.simonvt.numberpicker.NumberPicker.OnValueChangeListener;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -94,34 +97,7 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 		phoneET=(EditText)findViewById(R.id.phone_num_et);
 		addressLayout=(LinearLayout)findViewById(R.id.address_layout);
 		blurLayout=(LinearLayout)findViewById(R.id.blur_layout);
-		if(HomeFragment.blurBitmap==null){
-			blurLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.blur));
-			new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					while(HomeFragment.blurBitmap==null){
-						try {
-							Thread.sleep(50);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-					runOnUiThread(new Runnable() {
-						
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							blurLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						}
-					});
-				}
-			}).start();
-		}else{
-			blurLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-		}
+		
 		
 //		blurLayout.setBackgroundResource(R.color.orange_red);
 		postCodeET=(EditText)findViewById(R.id.post_code_et);
@@ -214,6 +190,14 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.back:
+			if(NewHomeActivity.homeActivity!=null){
+				ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+				am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+			}else{
+				Intent intent=new Intent(this,NewHomeActivity.class);
+				this.startActivity(intent);
+			}
+			
 			this.finish();
 			break;
 		case R.id.save_tv:
@@ -340,5 +324,17 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 		}
 		
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

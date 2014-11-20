@@ -23,7 +23,7 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             
-            android:src="@drawable/a11"
+            android:src="@drawable/user_icon"
             android:visibility="visible" />
         
     <RelativeLayout

@@ -1,6 +1,7 @@
 package com.aidigame.hisun.pet.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import android.R.integer;
 
@@ -37,6 +38,25 @@ public class Animal implements Serializable{
 	public int w_rq;//周人气
 	public int m_rq;//月人气
 	public int t_contri;
+	public int rq;
+	
+	
+	
+
+	
+	public String announceStr;
+	
+	
+	public int percent;//击败了多少萌星
+	public int shake_count=3;
+	public int send_gift_count=0;
+	public int touch_count=3;
+	public int isVoiced=1;
+	public String invite_code;
+	
+	
+	
+	public ArrayList<PetPicture> picturs;
 	
 	
 	public int from;//星球

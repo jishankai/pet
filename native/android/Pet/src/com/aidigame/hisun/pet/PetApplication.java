@@ -1,30 +1,16 @@
 package com.aidigame.hisun.pet;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Application;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
-import com.aidigame.hisun.pet.service.LocationSvc;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
@@ -44,15 +30,7 @@ public class PetApplication extends Application{
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-		/*
-		 * 定位位置
-		 */
-		/*Intent intent = new Intent();
-		intent.setClass(this, LocationSvc.class);
-		startService(intent);*/
-		
-		
-		
+	
 		VMRuntime.getRuntime().setTargetHeapUtilization(TARGET_HEAP_UTILIZATION);
 		final int HEAP_SIZE = 10 * 1024* 1024 ; 
 		VMRuntime.getRuntime().setMinimumHeapSize(HEAP_SIZE);
@@ -63,7 +41,31 @@ public class PetApplication extends Application{
 		activityList=new LinkedList<Activity>();
 		constants=new Constants();
 		
-		
+		File file=new File(Constants.Picture_Root_Path);
+		if(!file.exists()){
+			file.mkdir();
+		}
+		String path=Constants.Picture_Root_Path+File.separator+".nomedia";
+		File file2=new File(path);
+		if(file2.exists()){
+			if(file2.isDirectory())
+			{
+				file2.delete();
+				try {
+					file2.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}else{
+			try {
+				file2.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		/*
 		 * 配置ImageLoaderConfiguration

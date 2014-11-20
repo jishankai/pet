@@ -3,6 +3,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/user_dossier_kingdoms"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     >
     <TextView
         android:id="@+id/textView1"
@@ -16,6 +18,8 @@
     <View android:layout_width="300dp"
         android:layout_height="1.5dp"
         android:id="@+id/line1"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:layout_below="@+id/textView1"
         android:background="@drawable/line_user_dossier_kingdoms"/>
 
@@ -34,17 +38,19 @@
         android:layout_height="1.5dp"
         android:id="@+id/line2"
         android:layout_below="@+id/textView2"
-        android:background="@drawable/line_user_dossier_kingdoms"/>
+        android:background="@drawable/line_user_dossier_kingdoms"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"/>
     <TextView
         android:id="@+id/textView3"
         android:layout_width="300dp"
         android:layout_height="43dp"
         android:text="不捧了"
-        android:paddingTop="5dp"
+        
         android:gravity="center"
         android:textSize="18sp"
        android:layout_below="@+id/line2"
-        android:layout_marginTop="4dp"
+       
         android:textColor="@color/gray_deep"
         android:layout_centerHorizontal="true" /><!--  android:layout_alignParentBottom="true" -->
 

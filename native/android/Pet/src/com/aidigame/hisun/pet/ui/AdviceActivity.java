@@ -1,6 +1,12 @@
 package com.aidigame.hisun.pet.ui;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -17,9 +23,17 @@ import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
+import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
+import com.umeng.fb.FeedbackAgent;
+import com.umeng.fb.model.Conversation;
+import com.umeng.fb.model.Conversation.SyncListener;
+import com.umeng.fb.model.DevReply;
+import com.umeng.fb.model.Reply;
+import com.umeng.fb.model.UserInfo;
 /**
  * 意见反馈
  * @author admin
@@ -33,7 +47,9 @@ public class AdviceActivity extends Activity {
 	EditText adviceET;
 	EditText contactET;
 	String advice,contact;
-	boolean isClickable=false;
+	boolean isClickable=false,contactFlag=false;
+	LinearLayout progressLayout;
+	ShowProgress showProgress;
 	boolean isSendingMail=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +57,13 @@ public class AdviceActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
 		setContentView(R.layout.activity_advice);
-		setBlurImageBackground(); 
 		submit=(Button) findViewById(R.id.button1);
+		progressLayout=(LinearLayout)findViewById(R.id.progresslayout);
+		FeedbackAgent f=new FeedbackAgent(AdviceActivity.this);
+		UserInfo uInfo=f.getUserInfo();
+		if(uInfo!=null)
+		contact=uInfo.getContact().get("plain");
+		
 		adviceET=(EditText)findViewById(R.id.editText1);
 		contactET=(EditText)findViewById(R.id.editText2);
 		findViewById(R.id.imageView1).setOnClickListener(new OnClickListener() {
@@ -50,6 +71,13 @@ public class AdviceActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(NewHomeActivity.homeActivity!=null){
+					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+				}else{
+					Intent intent=new Intent(AdviceActivity.this,NewHomeActivity.class);
+					AdviceActivity.this.startActivity(intent);
+				}
 				AdviceActivity.this.finish();
 			}
 		});
@@ -71,141 +99,121 @@ public class AdviceActivity extends Activity {
 			@Override
 			public void afterTextChanged(Editable s) {
 				// TODO Auto-generated method stub
-				advice=adviceET.getText().toString();
-				contact=contactET.getText().toString();
-				if(StringUtil.isEmpty(advice)&&StringUtil.isEmpty(contact)){
-					/*isClickable=true;
-					submit.setBackgroundResource(R.drawable.button);*/
+				if(s.length()<=0){
+					contactFlag=false;
+					submit.setBackgroundResource(R.drawable.button_gray);
+					return;
 				}
-			}
-		});;
-           contactET.addTextChangedListener(new TextWatcher() {
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				// TODO Auto-generated method stub
 				advice=adviceET.getText().toString();
 				contact=contactET.getText().toString();
+				isClickable=true;
 				if(!StringUtil.isEmpty(advice)&&!StringUtil.isEmpty(contact)){
-					isClickable=true;
+					
+					if(isClickable&&contactFlag)
 					submit.setBackgroundResource(R.drawable.button);
 				}
 			}
 		});;
+		if(!StringUtil.isEmpty(contact)){
+			contactET.setText(contact);
+			contactFlag=true;
+			contactET.setEnabled(false);
+		}else{
+			 contactET.addTextChangedListener(new TextWatcher() {
+					
+					@Override
+					public void onTextChanged(CharSequence s, int start, int before, int count) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void beforeTextChanged(CharSequence s, int start, int count,
+							int after) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void afterTextChanged(Editable s) {
+						// TODO Auto-generated method stub
+						if(s.length()<=0){
+							contactFlag=false;
+							submit.setBackgroundResource(R.drawable.button_gray);
+							return;
+						}
+						advice=adviceET.getText().toString();
+						contact=contactET.getText().toString();
+						contactFlag=true;
+						if(!StringUtil.isEmpty(advice)&&!StringUtil.isEmpty(contact)){
+							
+							if(contactFlag&&isClickable)
+							submit.setBackgroundResource(R.drawable.button);
+						}
+					}
+				});;
+		}
+          
          submit.setOnClickListener(new OnClickListener() {
 			Toast toast;
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(isClickable){
-					Intent intent=new Intent(Intent.ACTION_SEND);
-					intent.setType("message/rfc822");
-					intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"shichunxiang0@sina.cn"});
-					
-					intent.putExtra(Intent.EXTRA_SUBJECT, "提个意见");
-					intent.putExtra(Intent.EXTRA_TEXT, advice+"/r/n"+contact);
-					AdviceActivity.this.startActivity(Intent.createChooser(intent, "发送"));
-					/*if(isSendingMail){
-						if(toast!=null)toast.cancel();
-						toast=Toast.makeText(AdviceActivity.this, "正在发送邮件", Toast.LENGTH_LONG);
-						toast.show();
-						return;
+				if(isClickable&&contactFlag){
+					if(showProgress==null){
+						showProgress=new ShowProgress(AdviceActivity.this, progressLayout);
+					}else{
+						showProgress.showProgress();
 					}
-					isSendingMail=true;
-					final Mail mail=new Mail("shichunxiang0@sina.cn","android123456");
-					String[] toMail=new String[]{"994381607@qq.com"};
-					mail.setTo(toMail);
-					mail.setFrom("shichunxiang");
-					mail.setSubject("意见反馈");
-					mail.setBody(advice+"/r/n"+contact);
-//						 m.addAttachment("/sdcard/filelocation"); 
-						new Thread(new Runnable() {
-							
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								
-								try {
-									final boolean flag=mail.send();
-									runOnUiThread(new Runnable() {
-										
-										@Override
-										public void run() {
-											// TODO Auto-generated method stub
-											if(flag){
-												if(toast!=null)toast.cancel();
-												toast=Toast.makeText(AdviceActivity.this, "邮件发送成功", Toast.LENGTH_LONG);
-												toast.show();
-												isSendingMail=false;
-											}else{
-												if(toast!=null)toast.cancel();
-												toast=Toast.makeText(AdviceActivity.this, "邮件发送失败", Toast.LENGTH_LONG);
-												toast.show();
-												isSendingMail=false;
-											}
-										}
-									});
-									
-								} catch (Exception e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-									isSendingMail=false;
-								}
-							}
-						}).start();*/
+					
+					FeedbackAgent f=new FeedbackAgent(AdviceActivity.this);
+					Conversation c=f.getDefaultConversation();
+					c.addUserReply(advice);
+					c.sync(new SyncListener() {
+						
+						@Override
+						public void onSendUserReply(List<Reply> arg0) {
+							// TODO Auto-generated method stub
+							LogUtil.i("mi","发送用户反馈信息");
+							Toast.makeText(AdviceActivity.this, "意见信息发送成功", Toast.LENGTH_LONG).show();
+							showProgress.progressCancel();
+						}
+						
+						@Override
+						public void onReceiveDevReply(List<DevReply> arg0) {
+							// TODO Auto-generated method stub
+							LogUtil.i("mi","huo去服务器返回信息");
+						}
+					});
+					
+					UserInfo ui=f.getUserInfo();
+					if(ui==null)ui=new UserInfo();
+					Map<String,String> contactMap=ui.getContact();
+					if(contactMap==null)contactMap=new HashMap<String,String>();
+					contactMap.put("plain", contact);
+					ui.setContact(contactMap);
+					f.setUserInfo(ui);
+					
+					
+					
+					
 				}
 			}
 		});
 	
 	}
-	/**
-	 * 设置毛玻璃背景，列表滑动时顶部变透明并显示列表
-	 */
-
-	private void setBlurImageBackground() {
-		// TODO Auto-generated method stub
-		frameLayout=(LinearLayout)findViewById(R.id.framelayout);
-		if(HomeFragment.blurBitmap==null){
-			frameLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.blur));
-		}
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
-	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 
 }

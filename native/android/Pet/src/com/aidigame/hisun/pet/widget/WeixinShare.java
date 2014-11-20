@@ -2,6 +2,7 @@ package com.aidigame.hisun.pet.widget;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 
 import android.R.integer;
@@ -30,6 +31,7 @@ import com.tencent.mm.sdk.openapi.WXImageObject;
 import com.tencent.mm.sdk.openapi.WXMediaMessage;
 import com.tencent.mm.sdk.openapi.WXTextObject;
 import com.tencent.mm.sdk.openapi.WXWebpageObject;
+import com.tencent.mm.sdk.platformtools.Util;
 
 public class WeixinShare {
 	public static boolean getToken(){
@@ -97,33 +99,7 @@ public class WeixinShare {
 		LogUtil.i("exception", "分享文字返回结果："+flag);
 		return flag;
 	}
-	/**
-	 * 分享文字加图片
-	 * @param context
-	 * @param mode 1 微信联系人；2 朋友圈
-	 */
-	public static void sharePicture(UserImagesJson.Data data,int mode){
-		WXWebpageObject webpage = new WXWebpageObject();
-		webpage.webpageUrl = "http://www.baidu.com";
-		WXMediaMessage msg = new WXMediaMessage(webpage);
-		msg.title = "1";
-		msg.description = "1";
-		byte[] temp=scaleSize(data.path);
-		if(temp==null)return;
-		msg.thumbData = temp;
-		
-		SendMessageToWX.Req req = new SendMessageToWX.Req();
-		req.transaction = buildTransaction("webpage");
-		req.message = msg;
-		if(mode==2){
-			req.scene = SendMessageToWX.Req.WXSceneTimeline;
-		}else{
-			req.scene =SendMessageToWX.Req.WXSceneSession;
-		}
-		
-		boolean flag=Constants.api.sendReq(req);
-		LogUtil.i("exception", "上传图片成功"+flag);
-	}
+
 	/**
 	 * 只分享照片
 	 * @param context
@@ -142,8 +118,11 @@ public class WeixinShare {
 		msg.title="宠物星球";
 //		Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE, THUMB_SIZE, true);
 //		bmp.recycle();
-		byte[] temp=scaleSize(data.path);
-		msg.thumbData = temp;  // 设置缩略图  大小要小于32kb
+//		byte[] temp=scaleSize(data.path);
+		 Bitmap bmp = BitmapFactory.decodeFile(data.path);
+         Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 150, 150, true);
+         bmp.recycle();
+		msg.thumbData =  Util.bmpToByteArray(thumbBmp,true);  // 设置缩略图  大小要小于32kb
 
 		SendMessageToWX.Req req = new SendMessageToWX.Req();
 		req.transaction = buildTransaction("img");
@@ -170,20 +149,27 @@ public class WeixinShare {
 	private static String buildTransaction(final String type) {
 		return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
 	}
-	public static void shareHttpLink(String url,String content){
-		WXWebpageObject object=new WXWebpageObject();
-		object.webpageUrl="http://weixin.qq.com/r/uXQmPtnEdIQLrZ1d9yGr";
-		WXMediaMessage msg=new WXMediaMessage(object);
-		msg.title="宠物星球";
-		msg.description="关注我们";
-//	    msg.thumbData = Util.bmpToByteArray(thumb, true); // thumb是链接带的图片。（注：微信分享图片，分享链接的缩略图，必须要150×150的固定尺寸，单位是px）
-		SendMessageToWX.Req req=new SendMessageToWX.Req();
-		req.transaction=buildTransaction("webpage");
-		req.message=msg;
-		 // 第一个是分享大盘朋友圈，后面是分享给好友
+	public static boolean shareHttpLink(String url,String content,Context context){
+		WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = url; // 点击跳转的地址。
+        LogUtil.i("me", "url==="+url+";webpage.webpageUrl ==="+webpage.webpageUrl);
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        msg.title = "痒痒痒，快给本宫挠挠！"; // 链接标题
+        msg.description ="涅斯特" ; // 链接内容
+        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.bug);
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 150, 150, true);
+        bmp.recycle();
+        msg.thumbData =  Util.bmpToByteArray(thumbBmp, true); ; // thumb是链接带的图片。（注：微信分享图片，分享链接的缩略图，必须要150×150的固定尺寸，单位是px）
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("webpage");
+        req.message = msg;
+        // 第一个是分享大盘朋友圈，后面是分享给好友
         req.scene = SendMessageToWX.Req.WXSceneTimeline;// SendMessageToWX.Req.WXSceneSession;
+       
         boolean flag=Constants.api.sendReq(req);
         LogUtil.i("me", "分享 关注宠物星球链接="+flag);
+        return flag;
 	}
 	public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -226,120 +212,6 @@ public class WeixinShare {
         Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);//把ByteArrayInputStream数据生成图片  
         return bitmap;  
     }
-	public static byte[] scaleSize(String path){
-		int mode=1;
-		if(path.endsWith("png")){
-			mode=1;
-		}else{
-			mode=2;
-		}
-		ByteArrayOutputStream bos=new ByteArrayOutputStream();
-		Bitmap bmp=BitmapFactory.decodeFile(path);
-		if(mode==1){
-			bmp.compress(CompressFormat.PNG, 100, bos);
-		}else{
-			bmp.compress(CompressFormat.JPEG, 100, bos);
-		}
-		bmp.recycle();
-		if(bos.size()<29){
-			return bos.toByteArray();
-		}
-		BitmapFactory.Options options=new BitmapFactory.Options();
-		options.inSampleSize=2;
-	    bmp=BitmapFactory.decodeFile(path, options);
-	   try {
-		bos.close();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	    bos=new ByteArrayOutputStream();
-	    if(mode==1){
-			bmp.compress(CompressFormat.PNG, 100, bos);
-		}else{
-			bmp.compress(CompressFormat.JPEG, 100, bos);
-		}
-	    if(bos.size()/1024<29){
-	    	return bos.toByteArray();
-	    }
-	    
-	    options=new BitmapFactory.Options();
-		options.inSampleSize=4;
-	    bmp=BitmapFactory.decodeFile(path, options);
-	   try {
-		bos.close();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	    bos=new ByteArrayOutputStream();
-	    if(mode==1){
-			bmp.compress(CompressFormat.PNG, 100, bos);
-		}else{
-			bmp.compress(CompressFormat.JPEG, 100, bos);
-		}
-	    if(bos.size()/1024<29){
-	    	return bos.toByteArray();
-	    }
-	    
-	    options=new BitmapFactory.Options();
-		options.inSampleSize=8;
-	    bmp=BitmapFactory.decodeFile(path, options);
-	   try {
-		bos.close();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	    bos=new ByteArrayOutputStream();
-	    if(mode==1){
-			bmp.compress(CompressFormat.PNG, 100, bos);
-		}else{
-			bmp.compress(CompressFormat.JPEG, 100, bos);
-		}
-	    if(bos.size()/1024<29){
-	    	return bos.toByteArray();
-	    }
-	    
-	    options=new BitmapFactory.Options();
-		options.inSampleSize=16;
-	    bmp=BitmapFactory.decodeFile(path, options);
-	   try {
-		bos.close();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	    bos=new ByteArrayOutputStream();
-	    if(mode==1){
-			bmp.compress(CompressFormat.PNG, 100, bos);
-		}else{
-			bmp.compress(CompressFormat.JPEG, 100, bos);
-		}
-	    if(bos.size()/1024<29){
-	    	return bos.toByteArray();
-	    }
-	    
-	    options=new BitmapFactory.Options();
-		options.inSampleSize=32;
-	    bmp=BitmapFactory.decodeFile(path, options);
-	   try {
-		bos.close();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	    bos=new ByteArrayOutputStream();
-	    if(mode==1){
-			bmp.compress(CompressFormat.PNG, 100, bos);
-		}else{
-			bmp.compress(CompressFormat.JPEG, 100, bos);
-		}
-	    if(bos.size()/1024<29){
-	    	return bos.toByteArray();
-	    }
-	    return null;
-		
-	}
+
 
 }

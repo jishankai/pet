@@ -3,7 +3,9 @@ package com.aidigame.hisun.pet.ui;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
+import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction;
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
@@ -51,13 +54,6 @@ public class ChosePetActivity extends Activity {
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			if(msg.what==1){
-				/*UserJson json=(UserJson)msg.obj;
-				if(json!=null&&json.datas!=null&&json.datas.size()>0){
-					for(UserJson.Data data:json.datas){
-						list.add(data);
-					}
-					adapter.notifyDataSetChanged();
-				}*/
 			}
 		};
 	};
@@ -86,7 +82,9 @@ public class ChosePetActivity extends Activity {
 					int position, long id) {
 				// TODO Auto-generated method stub
 				Intent intent=new Intent(ChosePetActivity.this,PetKingdomActivity.class);
+				intent.putExtra("animal", list.get(position));
 				ChosePetActivity.this.startActivity(intent);
+				
 			}
 		});
 		
@@ -95,6 +93,13 @@ public class ChosePetActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(NewHomeActivity.homeActivity!=null){
+					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+				}else{
+					Intent intent=new Intent(ChosePetActivity.this,NewHomeActivity.class);
+					ChosePetActivity.this.startActivity(intent);
+				}
 				ChosePetActivity.this.finish();
 			}
 		});
@@ -139,33 +144,7 @@ public class ChosePetActivity extends Activity {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
-		if(HomeFragment.blurBitmap==null){
-			frameLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.blur));
-		}
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-//						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+		
 		 listView.setOnScrollListener(new OnScrollListener() {
 				
 				@Override
@@ -188,6 +167,18 @@ public class ChosePetActivity extends Activity {
 				}
 			});
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 	
 

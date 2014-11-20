@@ -43,7 +43,8 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  */
 public class ChoseKingListViewAdapter extends BaseAdapter {
 	DisplayImageOptions displayImageOptions;//显示图片的格式
-	
+	DisplayImageOptions displayImageOptions2;//显示图片的格式
+	DisplayImageOptions displayImageOptions3;//显示图片的格式
 	ArrayList<Animal> list;
 	ChoseKingActivity context;
 	LinearLayout currentShowInfoLayout;
@@ -65,7 +66,27 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 		options.inInputShareable=true;
 		displayImageOptions=new DisplayImageOptions
 	            .Builder()
-	            .showImageOnLoading(R.drawable.shake_failure_icon)
+	            .showImageOnLoading(R.drawable.pet_icon)
+		        .cacheInMemory(true)
+		        .cacheOnDisc(true)
+		        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
+		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		        .decodingOptions(options)
+                .build();
+		displayImageOptions2=new DisplayImageOptions
+	            .Builder()
+	            .showImageOnLoading(R.drawable.image_default)
+	            
+		        .cacheInMemory(true)
+		        .cacheOnDisc(true)
+		        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
+		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		        .decodingOptions(options)
+                .build();
+		displayImageOptions3=new DisplayImageOptions
+	            .Builder()
+	            .showImageOnLoading(R.drawable.user_icon)
+	            
 		        .cacheInMemory(true)
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
@@ -139,8 +160,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 		}else if(data.a_gender==2){
 			holder.petSex.setImageResource(R.drawable.female1);
 		}
-		holder.join.setBackgroundResource(R.drawable.button_green);
-		holder.join.setText("加入");
+		holder.join.setBackgroundResource(R.drawable.support_green);
 		holder.join.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -171,8 +191,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 			}
 		});
 		if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.contains(data)){
-			holder.join.setBackgroundResource(R.drawable.button);
-			holder.join.setText("已加入");
+			holder.join.setBackgroundResource(R.drawable.support_gray);
 			holder.join.setClickable(false);
 		}
 		ImageLoader imageLoader=ImageLoader.getInstance();
@@ -227,25 +246,25 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 									if(card.list!=null){
 										if(card.list.size()>=1){
 											holder.image1.setTag(card.list.get(0));
-											imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+card.list.get(0).url, holder.image1, displayImageOptions,new MyImageLoaderListener(imagsLayout));
+											imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+card.list.get(0).url, holder.image1, displayImageOptions2,new MyImageLoaderListener(imagsLayout));
 										}
 										if(card.list.size()>=2){
 											holder.image1.setTag(card.list.get(0));
-											imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+card.list.get(1).url, holder.image2, displayImageOptions,new MyImageLoaderListener(imagsLayout));
+											imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+card.list.get(1).url, holder.image2, displayImageOptions2,new MyImageLoaderListener(imagsLayout));
 										}
 										if(card.list.size()>=3){
 											holder.image1.setTag(card.list.get(0));
-											imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+card.list.get(2).url, holder.image3, displayImageOptions,new MyImageLoaderListener(imagsLayout));
+											imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+card.list.get(2).url, holder.image3, displayImageOptions2,new MyImageLoaderListener(imagsLayout));
 										}
 										if(card.list.size()>=4){
 											holder.image1.setTag(card.list.get(0));
-											imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+card.list.get(3).url, holder.image4, displayImageOptions,new MyImageLoaderListener(imagsLayout));
+											imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+card.list.get(3).url, holder.image4, displayImageOptions2,new MyImageLoaderListener(imagsLayout));
 										}
 										
 									}
 								}
 								if(card.user!=null){
-									imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+card.user.u_iconUrl, holder.userIcon, displayImageOptions);
+									imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+card.user.u_iconUrl, holder.userIcon, displayImageOptions3);
 									if(card.user.u_gender==1){
 										holder.userSex.setImageResource(R.drawable.male1);
 									}else{
@@ -298,7 +317,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 			}else{
 				width=imageWidth;
 			}
-			Bitmap loadedImage=BitmapFactory.decodeResource(context.getResources(), R.drawable.shake_failure_icon);
+			Bitmap loadedImage=BitmapFactory.decodeResource(context.getResources(), R.drawable.image_default);
 			
 			int height=(int)(width*2f/3f);
 			float scale1=width*1f/(loadedImage.getWidth()*1f);

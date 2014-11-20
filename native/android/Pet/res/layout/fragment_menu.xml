@@ -22,7 +22,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="#abeb7150">
+    android:background="@drawable/blur"
+    ><!-- android:background="#abeb7150" -->
 
        
         <LinearLayout 
@@ -36,11 +37,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-       <View 
+      <!--  <View 
            android:layout_width="match_parent"
-           android:layout_height="54dp"/>
+           android:layout_height="54dp"/> -->
         <RelativeLayout android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            
+            <TextView 
+                 android:id="@+id/rq_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/menu_rq"
+                android:text="萌星人气榜"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:paddingTop="2dp"
+                android:textSize="12sp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_marginLeft="15dp"/>
 
             <ImageView
                 android:id="@+id/imageView7"
@@ -49,7 +68,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="47dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:src="@drawable/menu_message" 
                 android:layout_marginRight="30dp"/>
             <TextView 
@@ -65,8 +84,8 @@
             android:gravity="center"
             android:textSize="10sp"
             android:textColor="@color/white"
-            android:text="1"
-            android:visibility="visible"/><!-- android:layout_alignEnd="@+id/imageView7"
+            android:text="0"
+            android:visibility="invisible"/><!-- android:layout_alignEnd="@+id/imageView7"
             android:layout_alignTop="@+id/imageView7"
             android:layout_marginTop="-5dp"
                                                android:layout_marginRight="-5dp" -->
@@ -77,7 +96,7 @@
                 android:background="@drawable/icon_shadow"
                 android:scaleType="fitXY"
                 android:layout_centerHorizontal="true"
-           android:layout_marginTop="10dp"/>
+           android:layout_marginTop="50dp"/>
            <!--  <ImageView 
                 android:id="@+id/icon_shadow"
                 android:layout_width="102dp"
@@ -90,17 +109,21 @@
             android:id="@+id/imageView_left_3"
             android:layout_width="85dp"
             android:layout_height="85dp"
+            android:src="@drawable/user_icon"
            android:layout_centerHorizontal="true"
-           android:layout_marginTop="22dp"/>
+           android:layout_marginTop="62dp"/>
             <TextView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/orange_red"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:text="LV.9"
                 android:id="@+id/level_tv"
+                android:gravity="center"
                 android:background="@drawable/user_level_background"
                 android:layout_alignRight="@+id/imageView_left_3"
-                android:layout_alignBottom="@+id/imageView_left_3"/>
+                android:layout_alignBottom="@+id/imageView_left_3"
+                android:layout_marginBottom="-5dp"
+                android:layout_marginRight="-20dp"/>
             <RelativeLayout 
                 android:id="@+id/user_info_layout"
                 android:layout_width="match_parent"
@@ -162,7 +185,8 @@
                 android:text="陌生人"
                 android:layout_toLeftOf="@+id/gold_coin_tv"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="14sp"
+                
                 android:singleLine="true"
                 android:gravity="center" />
                   <View 
@@ -185,7 +209,7 @@
                 android:gravity="center"
                 android:layout_alignLeft="@+id/v3"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
                  </RelativeLayout>
 
             
@@ -338,7 +362,14 @@
               android:layout_alignParentLeft="true"
               android:layout_centerInParent="true"
               android:src="@drawable/cat_dog" />
-                     <TextView 
+                     <LinearLayout 
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_toRightOf="@+id/imageView1"
+                         android:orientation="vertical"
+                         android:gravity="center_horizontal"
+                         android:layout_marginLeft="15dp">
+                         <TextView 
                          android:id="@+id/tv1"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
@@ -346,18 +377,18 @@
                          android:text="@string/menu_unregister_note1"
                          android:textSize="12sp"
                          android:gravity="center_horizontal"
-                         android:textColor="@color/white"
-                         android:layout_marginLeft="15dp"/>
+                         android:textColor="@color/white"/>
                          <TextView android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          android:layout_toRightOf="@+id/imageView1"
                          android:text="@string/menu_unregister_note2"
-                         android:layout_below="@+id/tv1"
-                         android:gravity="center_horizontal"
+                         android:gravity="center"
                          android:textColor="@color/white"
                          android:layout_marginTop="5dp"
-                         android:textSize="12sp"
-                         android:layout_marginLeft="18dp"/>
+                         android:background="@drawable/menu_join"
+                         android:textSize="12sp"/>
+                     </LinearLayout>
+                     
                           </RelativeLayout>
                      </RelativeLayout>
                 
@@ -619,7 +650,7 @@
 
     </RelativeLayout>
     <View android:layout_width="match_parent"
-            android:layout_height="100dp"/>
+            android:layout_height="158dp"/>
 </LinearLayout>
        
    <!--  <RelativeLayout
@@ -649,73 +680,7 @@
 
 </LinearLayout>
 </ScrollView>
-<LinearLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-         <LinearLayout 
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <LinearLayout 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/search_box"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:paddingLeft="5dp"
-            android:layout_weight="1"
-            >
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:padding="4dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/search_right"
-                    android:rotation="270" />
-                <EditText 
-                    android:id="@+id/search_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:background="@null"
-                    android:hint="@string/menu_note3"
-                    android:textColorHint="#e66139"
-                    android:text=""
-                    android:textSize="14sp"
-                    android:textColor="@color/white"/>
-                
-                 <ImageView
-                    android:id="@+id/clear_input_iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:scaleType="fitXY"
-                    android:visibility="invisible"
-                    android:src="@drawable/red_ball_close" />
-            </LinearLayout>
-            <TextView 
-                android:id="@+id/cancel_search_tv"
-                android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="取消"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:layout_marginRight="20dp"
-                    android:visibility="gone"
-                    />
-        </LinearLayout>
-        <ListView android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/listview"
-            android:visibility="gone"></ListView>
-    
-</LinearLayout>
     <RelativeLayout 
           android:layout_width="match_parent"
           android:layout_height="match_parent"

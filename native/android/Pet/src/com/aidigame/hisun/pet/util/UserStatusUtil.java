@@ -21,7 +21,6 @@ import com.aidigame.hisun.pet.ui.ChoseStarActivity;
 import com.aidigame.hisun.pet.ui.ShowTopicActivity;
 import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.widget.XinlangShare;
-import com.aidigame.hisun.pet.widget.fragment.DialogExpGoldConAdd;
 import com.aidigame.hisun.pet.widget.fragment.DialogGoRegister;
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 import com.aidigame.hisun.pet.widget.fragment.MenuFragment;
@@ -179,41 +178,6 @@ public class UserStatusUtil {
 			flag=true;
 		}
 		return flag;
-	}
-	/**
-	 * 判断用户 金币，经验，官职，等级，是否变化
-	 * @param user
-	 * @param context
-	 */
-	public static void checkUserExpGoldLvRankChange(final User user,final Activity context,final View view){
-		if(user==null)return;
-		context.runOnUiThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				if(user.exp-Constants.user.exp>0){
-					if(user.exp<0)return;
-					DialogExpGoldConAdd dialogExpGoldConAdd=new DialogExpGoldConAdd(context, 1,user.exp- Constants.user.exp,view);
-					Constants.user.exp=user.exp;
-				}
-				if(user.coinCount-Constants.user.coinCount>0){
-					if(user.coinCount<0)return;
-					if(MenuFragment.menuFragment!=null){
-						MenuFragment.menuFragment.goldTv.setText(""+user.coinCount);
-					}
-					DialogExpGoldConAdd dialogExpGoldConAdd=new DialogExpGoldConAdd(context, 2,user.coinCount- Constants.user.coinCount,view);
-					Constants.user.coinCount=user.coinCount;
-				}
-				if(user.lv-Constants.user.lv>0){
-					
-				}
-                if(user.rankCode-Constants.user.rankCode>0){
-					
-				}
-				
-			}
-		});
 	}
 	public static void setDefaultKingdom(){
 		if(MenuFragment.menuFragment!=null){

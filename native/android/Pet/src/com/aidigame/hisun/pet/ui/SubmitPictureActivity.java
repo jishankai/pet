@@ -43,7 +43,6 @@ import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.WeixinShare;
 import com.aidigame.hisun.pet.widget.XinlangShare;
-import com.aidigame.hisun.pet.widget.fragment.DialogExpGoldConAdd;
 import com.aviary.android.feather.FeatherActivity;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuth;
@@ -53,6 +52,7 @@ import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.AsyncWeiboRunner;
 import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.net.WeiboParameters;
+import com.umeng.analytics.MobclickAgent;
 /**
  * 发布图片界面
  * @author admin
@@ -404,6 +404,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 					petPicture2.topic_name="#"+petPicture.topic_name+"#";
 					petPicture2.relates=relatesId;
 					petPicture2.relatesString=relateString;
+					MobclickAgent.onEvent(SubmitPictureActivity.this, "photo");
 					if(!StringUtil.isEmpty(petPicture2.url)){
 //						HttpUtil.imageInfo(petPicture2, handler, SubmitPictureActivity.this);
 						handler.sendEmptyMessage(DISMISS_PROGRESS);
@@ -763,7 +764,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			public void run() {
 				// TODO Auto-generated method stub
              final User user=HttpUtil.imageShareNumsApi(SubmitPictureActivity.this,petPicture.img_id, handleHttpConnectionException.getHandler(SubmitPictureActivity.this));
-             UserStatusUtil.checkUserExpGoldLvRankChange(user, SubmitPictureActivity.this, progressLayout);
+            
 						if(over){
 							new Thread(new Runnable() {
 								
@@ -802,5 +803,17 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 		
 		
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

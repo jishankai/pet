@@ -394,19 +394,19 @@ public class PullToRefreshAndMoreView extends LinearLayout implements OnTouchLis
 		Log.i("me", "updateHeaderView=========="+currentStatus);
 		if(lastStatus==currentStatus)return;
 		if(currentStatus==STATUS_PULL_DOWN_TO_REFRESH){
-			header_description.setText("下拉可以刷新");
+			header_description.setText("下拉刷新");
 			header_arrow.setVisibility(View.VISIBLE);
 			header_progressBar.setVisibility(View.GONE);
 			changeHeaderArrowDirection();
 			lastUpdateRefreshAtTime=refreshUpdatedAtTime(lastUpdateRefreshAtTime, header_update_at);
 		}else if(currentStatus==STATUS_PULL_DOWN_RELEASE_TO_REFRESH){
-			header_description.setText("释放立即刷新");
+			header_description.setText("松开刷新");
 			header_arrow.setVisibility(View.VISIBLE);
 			header_progressBar.setVisibility(View.GONE);
 			changeHeaderArrowDirection();
 			Log.i("me", "STATUS_PULL_DOWN_RELEASE_TO_REFRESH==========");
 		}else if(currentStatus==STATUS_PULL_DOWN_REFRESHING){
-			header_description.setText("正在刷新");
+			header_description.setText("一大波萌星正在接近~");
 			header_arrow.setVisibility(View.GONE);
 			header_progressBar.setVisibility(View.VISIBLE);
 			listView.setPressed(false);
@@ -433,19 +433,19 @@ public class PullToRefreshAndMoreView extends LinearLayout implements OnTouchLis
 	private void updateFooterView(){
 		if(lastStatus==footCurrentStatus)return;
 		if(footCurrentStatus==STATUS_PULL_UP_TO_MORE){
-			footer_description.setText("上拉进行加载");
+			footer_description.setText("上拉刷新");
 			footer_arrow.setVisibility(View.VISIBLE);
 			footer_progressBar.setVisibility(View.GONE);
 			changeFooterArrowDirection();
 			lastUpdateMoreAtTime=refreshUpdatedAtTime(lastUpdateMoreAtTime, footer_update_at);
 			
 		}else if(footCurrentStatus==STATUS_PULL_UP_RELEASE_TO_MORE){
-			footer_description.setText("释放立即加载");
+			footer_description.setText("松开刷新");
 			footer_arrow.setVisibility(View.VISIBLE);
 			footer_progressBar.setVisibility(View.GONE);
 			changeFooterArrowDirection();
 		}else if(footCurrentStatus==STATUS_PULL_UP_LOADING_MORE){
-			footer_description.setText("正在加载");
+			footer_description.setText("一大波萌星正在接近~");
 			footer_arrow.setVisibility(View.GONE);
 			footer_progressBar.setVisibility(View.VISIBLE);
 		}

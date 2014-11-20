@@ -3,7 +3,9 @@ package com.aidigame.hisun.pet.ui;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.adapter.SimpleUsersListAdapter;
 import com.aidigame.hisun.pet.adapter.UsersListAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.User;
@@ -45,12 +48,14 @@ public class UsersListActivity extends Activity {
 	public View popup_parent;
 	public RelativeLayout black_layout;
 	UsersListAdapter adapter;
+	SimpleUsersListAdapter adapter2;
 	ArrayList<User> list;
 	ListView  listView;
 	String likerString;
 	String senderString;
 	ImageView back;
-	TextView title;
+	TextView title,noteTv;
+	int mode=0;//0, 围观群众；1，设置黑名单
 	HandleHttpConnectionException handleHttpConnectionException;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
@@ -62,11 +67,13 @@ public class UsersListActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
+		mode=getIntent().getIntExtra("mode", 0);
 		setContentView(R.layout.activity_users_list);
 		listView=(ListView)findViewById(R.id.users_list_listview);
 		listView.setDivider(null);
 		back=(ImageView)findViewById(R.id.imageView1);
 		title=(TextView)findViewById(R.id.textView1);
+		noteTv=(TextView)findViewById(R.id.note_tv);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		setBlurImageBackground();
 		popup_parent=findViewById(R.id.popup_parent);
@@ -74,9 +81,12 @@ public class UsersListActivity extends Activity {
 		likerString=getIntent().getStringExtra("likers");
 		senderString=getIntent().getStringExtra("senders");
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
-		list=new ArrayList<User>();
-		adapter=new UsersListAdapter(this, list,null,getIntent().getIntExtra("animalType", 1));
-		listView.setAdapter(adapter);
+		if(mode==1){
+			title.setText("解除黑名单");
+		}else if(mode==0){
+			
+		}
+		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -98,9 +108,36 @@ public class UsersListActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(isTaskRoot()){
+					if(NewHomeActivity.homeActivity!=null){
+						ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+						am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+					}else{
+						Intent intent=new Intent(UsersListActivity.this,NewHomeActivity.class);
+						UsersListActivity.this.startActivity(intent);
+					}
+				}
 				UsersListActivity.this.finish();
 			}
 		});
+		
+		if(mode==1){
+			list=new ArrayList<User>();
+			adapter2=new SimpleUsersListAdapter(this, list, handler);
+			listView.setAdapter(adapter2);
+			loadData2();
+		}else{
+			list=new ArrayList<User>();
+			adapter=new UsersListAdapter(this, list,null,getIntent().getIntExtra("animalType", 1));
+			listView.setAdapter(adapter);
+			loadData1();
+		}
+
+	}
+	/**
+	 * 围观群众界面
+	 */
+	public void loadData1(){
 		new Thread(new Runnable() {
 			ArrayList<User> temp,temp1;
 			@Override
@@ -140,6 +177,38 @@ public class UsersListActivity extends Activity {
 			}
 		}).start();
 	}
+	
+	
+	public void loadData2(){
+		new Thread(new Runnable() {
+			ArrayList<User> temp;
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				temp=HttpUtil.getBlockList(handler, UsersListActivity.this);
+				if(temp!=null&&temp.size()>0){
+					for(int i=0;i<temp.size();i++){
+						list.add(temp.get(i));
+					}
+				}
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						adapter2.updateList(list);
+						adapter2.notifyDataSetChanged();
+						if(mode==1){
+							if(list.size()==0){
+								listView.setVisibility(View.GONE);
+								noteTv.setVisibility(View.VISIBLE);
+							}
+						}
+					}
+				});
+			}
+		}).start();
+	}
 	/**
 	 * 设置毛玻璃背景，列表滑动时顶部变透明并显示列表
 	 */
@@ -148,33 +217,7 @@ public class UsersListActivity extends Activity {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
-		if(HomeFragment.blurBitmap==null){
-			frameLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.blur));
-		}
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-//						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+		
 		 listView.setOnScrollListener(new OnScrollListener() {
 				
 				@Override
@@ -197,6 +240,18 @@ public class UsersListActivity extends Activity {
 				}
 			});
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 	
 

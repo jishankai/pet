@@ -21,8 +21,8 @@
         >
         <com.aidigame.hisun.pet.view.RoundImageView
             android:id="@+id/icon_circleView"
-            android:layout_width="42dp"
-            android:layout_height="42dp"/>
+            android:layout_width="54dp"
+            android:layout_height="54dp"/>
         
     <RelativeLayout
         android:layout_width="match_parent"
@@ -139,17 +139,9 @@
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
-        android:text="捧TA"
-        android:gravity="center"
-        android:textSize="14sp" 
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:textColor="@color/white"
-        android:background="@drawable/button_green"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/support_green"/>
 
     </LinearLayout>
     <View 
@@ -183,6 +175,7 @@
 
             <LinearLayout
                 android:id="@+id/images_layout"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" 
                 android:orientation="horizontal"
@@ -193,14 +186,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/shake_failure_icon" />
+                    android:src="@drawable/image_default" />
 
                 <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/shake_failure_icon" />
+                    android:src="@drawable/image_default" />
              
             </LinearLayout>
             
@@ -216,14 +209,14 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/shake_failure_icon" />
+                    android:src="@drawable/image_default" />
 
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/shake_failure_icon" />
+                    android:src="@drawable/image_default" />
              
             </LinearLayout>
 
@@ -246,11 +239,13 @@
             <com.aidigame.hisun.pet.view.RoundImageView
                 android:id="@+id/user_icon_circle"
                 android:layout_width="52dp"
+                android:layout_marginTop="5dp"
                 android:layout_height="52dp"/>
          <LinearLayout 
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:orientation="horizontal"
+             android:layout_marginTop="5dp"
              android:gravity="center_horizontal">
 
              <ImageView

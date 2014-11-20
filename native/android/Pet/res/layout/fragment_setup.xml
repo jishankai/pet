@@ -4,7 +4,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/framelayout" >
+        android:id="@+id/framelayout" 
+        android:background="@drawable/blur">
          
         <LinearLayout 
     android:layout_width="match_parent"
@@ -122,6 +123,40 @@
             android:id="@+id/view"
             android:background="#beb5a5"/>   
             <LinearLayout
+        android:id="@+id/linearlayout12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="5dp"
+        android:clickable="true"
+        android:paddingBottom="5dp">
+        <TextView
+            android:id="@+id/tv122"
+             android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="填写邀请码"
+            android:layout_marginLeft="30dp"
+            android:textSize="14sp"
+             android:textColor="@color/black"
+            />
+
+        <ImageView
+            android:id="@+id/imageView124"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/back" 
+            android:rotation="180"
+            android:padding="4dp"
+            android:layout_marginRight="15dp"/>
+       
+    </LinearLayout>
+                <View android:layout_width="match_parent"
+            android:layout_height="0.2dp" 
+            android:id="@+id/view"
+            android:background="#beb5a5"/>  
+            <LinearLayout
         android:id="@+id/chose_pet_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -135,7 +170,7 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="设置默认宠物"
+            android:text="设置最爱萌星"
             android:layout_marginLeft="30dp"
             android:textSize="14sp"
              android:textColor="@color/black"
@@ -156,7 +191,40 @@
             android:id="@+id/view"
             android:background="#beb5a5"/>        
                 
-                
+                       <LinearLayout
+        android:id="@+id/linearlayout13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="5dp"
+        android:clickable="true"
+        android:paddingBottom="5dp">
+        <TextView 
+            android:id="@+id/tv133"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="解除黑名单"
+            android:layout_marginLeft="30dp"
+            android:textSize="14sp"
+             android:textColor="@color/black"
+            />
+
+        <ImageView
+            android:id="@+id/imageView135"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/back" 
+            android:rotation="180"
+            android:padding="4dp"
+            android:layout_marginRight="15dp"/>
+       
+    </LinearLayout>
+                <View android:layout_width="match_parent"
+            android:layout_height="0.2dp" 
+            android:id="@+id/view"
+            android:background="#beb5a5"/>        
                 
           
     <LinearLayout
@@ -336,7 +404,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingTop="5dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:paddingBottom="5dp">
         <TextView android:layout_width="match_parent"
             android:layout_weight="1"
@@ -391,6 +459,7 @@
     </LinearLayout>
                 <View android:layout_width="match_parent"
             android:layout_height="0.2dp" 
+             android:visibility="visible"
             android:background="#beb5a5"/>
         
            <LinearLayout
@@ -401,6 +470,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingTop="5dp"
+        android:visibility="visible"
         android:paddingBottom="5dp">
         <TextView android:layout_width="match_parent"
             android:layout_weight="1"
@@ -521,5 +591,20 @@
             />
         
     </RelativeLayout>
+           <RelativeLayout 
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/black_layout">
+          <View 
+              android:id="@+id/popup_parent"
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_centerInParent="true"/>
+      </RelativeLayout>
+      <LinearLayout 
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="horizontal"
+          android:id="@+id/progresslayout"></LinearLayout>
 </FrameLayout>
   

@@ -22,6 +22,24 @@
 -libraryjars libs/android-support-v4.jar
 -libraryjars libs/libammsdk.jar
 -libraryjars libs/universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar
+
+
+-libraryjars libs/umeng-feedback-v4.3.jar
+-libraryjars libs/umeng-analytics-v5.2.4.jar
+-keepclassmembers class * {
+   public <init>(org.json.JSONObject);
+}
+-keep public class com.aidigame.hisun.pet.R$*{
+    public static final int *;
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+
+
+-keep class com.miloisbadboy.**{*;}
 -keep class com.sina.weibo.sdk.**{*;}
 -keep class com.aviary.**{*;}
 -keep class com.buihha.audiorecorder.**{*;}
@@ -35,6 +53,8 @@
 -keep class com.aidigame.hisun.pet.wxapi.**{*;}
 -keep class com.aidigame.hisun.pet.constant.**{*;}
 -keep class com.costum.android.widget.**{*;}
+-keep class com.aidigame.hisun.pet.view.**{*;}
+-keep class com.aidigame.hisun.pet.view.GalleryFlow {*;}
 -keep class com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction {*;}
 -keep class com.aidigame.hisun.pet.view.arcmenu.**{*;}
 -keep public class * extends android.app.Activity

@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.EraserView_user_drawPath;
 import com.aidigame.hisun.pet.view.EraserView_user_drawPath.OnEraserOverListener;
 import com.aidigame.hisun.pet.widget.AudioRecordAndPlayer;
+import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.WeixinShare;
 import com.aidigame.hisun.pet.widget.XinlangShare;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -47,6 +49,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.umeng.analytics.MobclickAgent;
 /**
  * 摸一摸
  * @author admin
@@ -68,6 +71,8 @@ public class TouchActivity extends Activity {
 	RelativeLayout layout;
 	String imagePath;
 	boolean isTouched;
+	ShowProgress showProgress;
+	LinearLayout progressLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -76,8 +81,15 @@ public class TouchActivity extends Activity {
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_touch);
 		animal=(Animal)getIntent().getSerializableExtra("animal");
+		MobclickAgent.onEvent(this, "touch_button");
 		shareBitmapLayout=(RelativeLayout)findViewById(R.id.share_bitmap_layout);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
+		progressLayout=(LinearLayout)findViewById(R.id.progresslayout);
+		if(showProgress==null){
+			showProgress=new ShowProgress(this, progressLayout);
+		}else{
+			showProgress.showProgress();
+		}
 		new Thread(new Runnable() {
 			
 			@Override
@@ -86,11 +98,16 @@ public class TouchActivity extends Activity {
 				String pathString=null;
 						pathString=HttpUtil.getVoiceUrl(TouchActivity.this,animal.a_id, handleHttpConnectionException.getHandler(TouchActivity.this));
 						pathString=HttpUtil.downloadVoiceFile(pathString, handleHttpConnectionException.getHandler(TouchActivity.this));
-				if(pathString!=null){
+//						final boolean flag=HttpUtil.touchApi(TouchActivity.this,animal.a_id, handleHttpConnectionException.getHandler(TouchActivity.this));
+						
+						final Animal animal=HttpUtil.isTouched(TouchActivity.this,TouchActivity.this.animal, handleHttpConnectionException.getHandler(TouchActivity.this));
+						imagePath=animal.touchedPath;
+				           isTouched=animal.isTouched;
+						if(pathString!=null){
 					voicePath=pathString;
 //					audioRecordAndPlayer.playAudio(pathString);
-//					final boolean flag=HttpUtil.touchApi(animal.a_id, handleHttpConnectionException.getHandler(TouchActivity.this));
-					final Animal animal=HttpUtil.isTouched(TouchActivity.this,TouchActivity.this.animal, handleHttpConnectionException.getHandler(TouchActivity.this));
+					
+					
                     runOnUiThread(new Runnable() {
 						
 						@Override
@@ -108,6 +125,8 @@ public class TouchActivity extends Activity {
 					           isTouched=animal.isTouched;
 							}else{
 								viewPager.setCurrentItem(2);
+								if(showProgress!=null)
+									showProgress.progressCancel();
 							}
 						}
 					});
@@ -119,16 +138,18 @@ public class TouchActivity extends Activity {
 						public void run() {
 							// TODO Auto-generated method stub
 							final EraserView_user_drawPath eraserView=(EraserView_user_drawPath)view1.findViewById(R.id.eraser_view);
-					     
+					            
 					        	TextView tv2=(TextView)view1.findViewById(R.id.textView2);
 					        	tv2.setText(animal.pet_nickName+"还没有叫一叫");
 //					    		eraserView.setEnabled(false);
-					    		
-					    		if(StringUtil.isEmpty(animal.pet_iconUrl)){
+					        	loadBitmap(animal.touchedPath);
+					        	imagePath=animal.touchedPath;
+						           isTouched=animal.isTouched;
+					    		/*if(StringUtil.isEmpty(animal.pet_iconUrl)){
 					    			loadBitmap("pet_icon");
 					    		}else{
 					    			loadBitmap(animal.pet_iconUrl);
-					    		}
+					    		}*/
 						}
 					});
 				}
@@ -237,6 +258,7 @@ public class TouchActivity extends Activity {
 		
 		layout=(RelativeLayout)view1.findViewById(R.id.layout);
 		eraserView=(EraserView_user_drawPath)view1.findViewById(R.id.eraser_view);
+//		eraserView.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.pet_icon), eraserView.getMeasuredWidth(),eraserView.getMeasuredHeight());
         if(mode==1){
         	TextView tv2=(TextView)view1.findViewById(R.id.textView2);
     		tv2.setText(animal.pet_nickName+"还没有叫一叫");
@@ -261,6 +283,18 @@ public class TouchActivity extends Activity {
 						if(!StringUtil.isEmpty(voicePath)){
 							if(!isTouched){
 								final boolean flag=HttpUtil.touchApi(TouchActivity.this,animal.a_id, handleHttpConnectionException.getHandler(TouchActivity.this));
+								if(NewHomeActivity.homeActivity!=null){
+									runOnUiThread(new Runnable() {
+										
+										@Override
+										public void run() {
+											// TODO Auto-generated method stub
+											
+											NewHomeActivity.homeActivity.homeFragment.homeMyPet.adapter.updateTV("摸过了",0);
+										}
+									});
+									
+								}
 							}
 							runOnUiThread(new Runnable() {
 								
@@ -268,7 +302,7 @@ public class TouchActivity extends Activity {
 								public void run() {
 									// TODO Auto-generated method stub
 //									if(flag){
-										
+									MobclickAgent.onEvent(TouchActivity.this, "touch_suc");
 										eraserView.setEnabled(false);
 										viewPager.setCurrentItem(1);
 //									}else{
@@ -282,7 +316,8 @@ public class TouchActivity extends Activity {
 								@Override
 								public void run() {
 									// TODO Auto-generated method stub
-									imagePath=animal.pet_iconUrl;
+									MobclickAgent.onEvent(TouchActivity.this, "touch_suc");
+									imagePath=animal.touchedPath;
 									viewPager.setCurrentItem(1);
 								}
 							});
@@ -298,16 +333,20 @@ public class TouchActivity extends Activity {
 	public void loadBitmap(String url){
 		BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
-		options.inSampleSize=2;
+		options.inSampleSize=StringUtil.getScaleByDPI(TouchActivity.this);
 		options.inPreferredConfig=Bitmap.Config.RGB_565;
 		options.inPurgeable=true;
 		options.inInputShareable=true;
 		if("pet_icon".equals(url)){
 			eraserView.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.pet_icon),layout.getMeasuredWidth(),layout.getMeasuredHeight());
+			if(showProgress!=null)
+				showProgress.progressCancel();
 		}else{
+			
 			DisplayImageOptions displayImageOptions=new DisplayImageOptions
 		            .Builder()
-		            .showImageOnLoading(R.drawable.noimg)
+		            .showImageOnLoading(R.drawable.pet_icon)
+		            .showImageOnFail(R.drawable.pet_icon)
 			        .cacheInMemory(true)
 			        .cacheOnDisc(true)
 			        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
@@ -321,32 +360,46 @@ public class TouchActivity extends Activity {
 			}else{
 				path=Constants.ANIMAL_DOWNLOAD_TX+url;
 			}
-			imageLoader.loadImage(path, new ImageLoadingListener() {
+			imageLoader.loadImage(path,displayImageOptions, new ImageLoadingListener() {
 				
 				@Override
 				public void onLoadingStarted(String imageUri, View view) {
 					// TODO Auto-generated method stub
-					
+					if(showProgress!=null)
+					showProgress.progressCancel();
 				}
 				
 				@Override
 				public void onLoadingFailed(String imageUri, View view,
 						FailReason failReason) {
 					// TODO Auto-generated method stub
-					
+					if(showProgress!=null)
+					showProgress.progressCancel();
 				}
 				
 				@Override
 				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 					// TODO Auto-generated method stub
 					LogUtil.i("scroll", "layot.w="+layout.getWidth()+",layout.h="+layout.getHeight());
+					
 					eraserView.setBitmap(loadedImage,layout.getMeasuredWidth(),layout.getMeasuredHeight());
+					handleHttpConnectionException.getHandler(TouchActivity.this).postDelayed(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							if(showProgress!=null)
+								showProgress.progressCancel();
+						}
+					}, 4000);
+					
 				}
 				
 				@Override
 				public void onLoadingCancelled(String imageUri, View view) {
 					// TODO Auto-generated method stub
-					
+					if(showProgress!=null)
+					showProgress.progressCancel();
 				}
 			});
 		}
@@ -368,7 +421,7 @@ public class TouchActivity extends Activity {
 		}else{
 			BitmapFactory.Options options=new BitmapFactory.Options();
 			options.inJustDecodeBounds=false;
-			options.inSampleSize=2;
+			options.inSampleSize=StringUtil.getScaleByDPI(this);
 			options.inPreferredConfig=Bitmap.Config.RGB_565;
 			options.inPurgeable=true;
 			options.inInputShareable=true;
@@ -388,7 +441,8 @@ public class TouchActivity extends Activity {
 			}else{
 				path=Constants.ANIMAL_DOWNLOAD_TX+imagePath;
 			}
-		imageLoader.loadImage(path, new ImageLoadingListener() {
+			
+		imageLoader.loadImage(path,displayImageOptions, new ImageLoadingListener() {
 			
 			@Override
 			public void onLoadingStarted(String imageUri, View view) {
@@ -529,7 +583,7 @@ public class TouchActivity extends Activity {
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
 					if(WeixinShare.shareBitmap(data, 2)){
-						Toast.makeText(TouchActivity.this,"成功分享到微信。", Toast.LENGTH_LONG).show();
+//						Toast.makeText(TouchActivity.this,"成功分享到微信。", Toast.LENGTH_LONG).show();
 					}else{
 						Toast.makeText(TouchActivity.this,"分享到微信失败。", Toast.LENGTH_LONG).show();
 					}
@@ -565,7 +619,7 @@ public class TouchActivity extends Activity {
 					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
-					data.des="我在宠物星球里面摸了萌主“"+animal.pet_nickName+"”，“"+animal.pet_nickName+"”乖巧地冲我叫了一声，真可爱~http://home4pet.aidigame.com/(分享自@宠物星球社交应用）";
+					data.des="我在宠物星球里面摸了萌星"+animal.pet_nickName+"，“"+animal.pet_nickName+"”乖巧地冲我叫了一声，真可爱~http://home4pet.aidigame.com/(分享自@宠物星球社交应用）";
 					if(UserStatusUtil.hasXinlangAuth(TouchActivity.this)){
 						
 						XinlangShare.sharePicture(data,TouchActivity.this);
@@ -587,4 +641,28 @@ public class TouchActivity extends Activity {
 			}
 		});
 	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		if(andPlayer!=null){
+			andPlayer.stopAudio();
+		}
+		if(eraserView!=null){
+			eraserView.recyleBmp();
+		}
+		super.onDestroy();
+	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
+	      
 }

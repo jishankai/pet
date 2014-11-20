@@ -64,26 +64,4 @@
                 android:visibility="visible"/>
          </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" 
-            android:layout_below="@+id/middle_layout"
-            android:gravity="center_vertical"
-            android:visibility="gone"
-            >
-            <ImageView 
-                android:id="@+id/background_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/bite_update_progress"/>
-              <ImageView 
-                  android:id="@+id/progress"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:scaleType="fitXY"/>
-        </RelativeLayout>
-
 </RelativeLayout>

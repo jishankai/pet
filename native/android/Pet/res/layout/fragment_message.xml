@@ -3,29 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="@color/white"
-    android:id="@+id/framelayout">
+    android:background="@drawable/blur"
+    android:id="@+id/framelayout"><!-- android:background="@color/white" -->
+    
+    
+      <com.miloisbadboy.view.PullToRefreshView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:id="@+id/pullToRefreshView">
+
+     
+    <com.aidigame.hisun.pet.view.MyScrollView 
+        android:id="@+id/scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blur_view_top">
     <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="@color/blur_view_top"><!--  -->
+    ><!--  -->
     <View 
         android:id="@+id/top_white_view"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:background="@color/white"></View>
-    <com.costum.android.widget.PullAndLoadListView
+    <com.aidigame.hisun.pet.view.LinearLayoutForListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" 
-        android:id="@+id/pulltorefreshandmore"/>
-    <!-- <com.aidigame.hisun.pet.view.PullToRefreshAndMoreView 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/pulltorefreshandmore">
-    
-</com.aidigame.hisun.pet.view.PullToRefreshAndMoreView> -->
+        android:orientation="vertical"
+        android:id="@+id/pulltorefreshandmore">
+        </com.aidigame.hisun.pet.view.LinearLayoutForListView>
 </LinearLayout>
+</com.aidigame.hisun.pet.view.MyScrollView >
+</com.miloisbadboy.view.PullToRefreshView>
 <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -111,4 +123,10 @@
     </LinearLayout>
 
 </LinearLayout>
+  <LinearLayout 
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:id="@+id/progress_layout"></LinearLayout>
 </FrameLayout>

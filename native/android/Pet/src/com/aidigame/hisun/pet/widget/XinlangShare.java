@@ -129,7 +129,7 @@ public class XinlangShare {
 		if(data.comment==null||"".equals(data.comment)){
 			parameters.put("status", data.des);
 		}else{
-			parameters.put("status", data.comment);
+			parameters.put("status", data.des);
 		}
 		BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inSampleSize=2;
@@ -161,9 +161,7 @@ public class XinlangShare {
 					
 					SubmitPictureActivity.submitPictureActivity.addShares(false);
 				}else if(Constants.whereShare==2){
-					PetKingdomActivity.petKingdomActivity.shareNumChange();
 				}else if(Constants.whereShare==3){
-					UserDossierActivity.userDossierActivity.shareNumChange();
 				}
 				if(listener!=null){
 					listener.resultOk();

@@ -40,6 +40,7 @@ public class User implements Serializable{
 
 
 	public int userId;
+	public int inviter;//邀请码 自己使用的别人的邀请码
 	public String u_iconPath;
 	public String u_iconUrl;
 	public int u_gender;//1 公；2 母；3 其他
@@ -100,7 +101,7 @@ public class User implements Serializable{
 	
 	public String uid;
 	public int focus;//是否被关注   0 为 关注；1为未被关注
-	public String inviter;//邀请码 自己使用的别人的邀请码
+
 	
 	/*
 	 * "usr_id":"51","name":"\u5927\u54e5",

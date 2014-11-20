@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -34,36 +35,50 @@ import com.aidigame.hisun.pet.ui.AboutUsActivity;
 import com.aidigame.hisun.pet.ui.AdviceActivity;
 import com.aidigame.hisun.pet.ui.ChosePetActivity;
 import com.aidigame.hisun.pet.ui.FAQActivity;
+import com.aidigame.hisun.pet.ui.InviteOthersDialogActivity;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
 import com.aidigame.hisun.pet.ui.NewRegisterActivity;
+import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.ui.ReceiverAddressActivity;
+import com.aidigame.hisun.pet.ui.UpdateAPKActivity;
+import com.aidigame.hisun.pet.ui.UsersListActivity;
+import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
+import com.aidigame.hisun.pet.widget.PLAWaterfull;
+import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.WeixinShare;
 
 public class SetupFragment extends Fragment implements OnClickListener{
 	FrameLayout frameLayout;
 	View viewTopWhite;
 	ScrollView scrollView;
-	
-	TextView fileSizeTV,tv1,tv2,tv3,tv4,tv5,tv6;
+	public View popupParent;
+	public RelativeLayout black_layout;
+	TextView fileSizeTV,tv1,tv2,tv3,tv4,tv5,tv6,tv12,tv13;
 	View menuView;
 	NewHomeActivity homeActivity;
-	LinearLayout linearLayout1,linearLayout2,linearLayout3,
-	linearLayout6,linearLayout7,linearLayout8,linearLayout9,linearLayout10,linearLayout11,chosePetLayout;
+	LinearLayout linearLayout1,linearLayout2,linearLayout3,progressLayout,
+	linearLayout6,linearLayout7,linearLayout8,linearLayout9,linearLayout10,linearLayout11,chosePetLayout,linearlayout12,linearlayout13;
 	RelativeLayout linearLayout4,linearLayout5;
 	ImageView back;
-	ImageView setup_image1,iv3,iv4,iv5;
+	ImageView setup_image1,iv3,iv4,iv5,iv12,iv13;
 	ImageView setup_image3,setup_image4;
 	public static boolean getXinlangAuth=false;
+	ShowProgress showProgress;
 	int acount=-1;//1同步发送到新浪微博，2 绑定新浪微博；-1 Activity启动时进入onResume方法，啥也不做。
 	
+	
+	
+	Handler handler;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		menuView=inflater.inflate(R.layout.fragment_setup, null);
+		homeActivity=NewHomeActivity.homeActivity;
+		handler=HandleHttpConnectionException.getInstance().getHandler(homeActivity);
 		initView();
 		initListener();
 		return menuView;
@@ -72,6 +87,7 @@ public class SetupFragment extends Fragment implements OnClickListener{
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		homeActivity=NewHomeActivity.homeActivity;
 		super.onViewCreated(view, savedInstanceState);
 	}
 	public void setHomeActivity(NewHomeActivity activity){
@@ -92,11 +108,19 @@ public class SetupFragment extends Fragment implements OnClickListener{
 		setup_image3=(ImageView)menuView.findViewById(R.id.setup_imageview3);
 		setup_image4=(ImageView)menuView.findViewById(R.id.setup_imageview4);
 		
+		black_layout=(RelativeLayout)menuView.findViewById(R.id.black_layout);
+		popupParent=(View)menuView.findViewById(R.id.popup_parent);
+		
+		
 		fileSizeTV=(TextView)menuView.findViewById(R.id.cach_file_size);
 		
 		iv3=(ImageView)menuView.findViewById(R.id.imageView3);
 		iv4=(ImageView)menuView.findViewById(R.id.imageView4);
 		iv5=(ImageView)menuView.findViewById(R.id.imageView5);
+		iv12=(ImageView)menuView.findViewById(R.id.imageView124);
+		iv13=(ImageView)menuView.findViewById(R.id.imageView135);
+		tv12=(TextView)menuView.findViewById(R.id.tv122);
+		tv13=(TextView)menuView.findViewById(R.id.tv133);
 		tv1=(TextView)menuView.findViewById(R.id.tv1);
 		tv2=(TextView)menuView.findViewById(R.id.tv2);
 		tv3=(TextView)menuView.findViewById(R.id.tv3);
@@ -115,7 +139,15 @@ public class SetupFragment extends Fragment implements OnClickListener{
 		linearLayout10=(LinearLayout)menuView.findViewById(R.id.linearlayout10);
 		linearLayout11=(LinearLayout)menuView.findViewById(R.id.linearlayout11);
 		chosePetLayout=(LinearLayout)menuView.findViewById(R.id.chose_pet_layout);
-		
+		linearlayout12=(LinearLayout)menuView.findViewById(R.id.linearlayout12);
+		linearlayout13=(LinearLayout)menuView.findViewById(R.id.linearlayout13);
+		progressLayout=(LinearLayout)menuView.findViewById(R.id.progresslayout);
+		if(!StringUtil.isEmpty(Constants.CON_VERSION)&&"1.0".equals(Constants.CON_VERSION))
+		{
+			linearlayout12.setVisibility(View.GONE);
+		}else{
+			linearlayout12.setVisibility(View.VISIBLE);
+		}		
 		setBlurImageBackground();
 		setFileSize();
 		
@@ -239,33 +271,7 @@ public class SetupFragment extends Fragment implements OnClickListener{
 		viewTopWhite=(View)menuView.findViewById(R.id.top_white_view);
 		scrollView=(ScrollView)menuView.findViewById(R.id.scrollview);
 		touchSlop=ViewConfiguration.get(homeActivity).getScaledTouchSlop();
-		if(HomeFragment.blurBitmap==null){
-			frameLayout.setBackgroundDrawable(homeActivity.getResources().getDrawable(R.drawable.blur));
-		}
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				homeActivity.runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+		
         scrollView.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
@@ -335,15 +341,21 @@ public class SetupFragment extends Fragment implements OnClickListener{
 			linearLayout4.setEnabled(false);
 			linearLayout5.setEnabled(false);
 			linearLayout3.setEnabled(false);
+			linearlayout12.setEnabled(false);
+			linearlayout13.setEnabled(false);
 			iv3.setAlpha(0.3f);
 			iv4.setAlpha(0.3f);
 			iv5.setAlpha(0.3f);
+			iv12.setAlpha(0.3f);
+			iv13.setAlpha(0.3f);
 			tv1.setTextColor(homeActivity.getResources().getColor(R.color.set_up_text_gray));
 			tv2.setTextColor(homeActivity.getResources().getColor(R.color.set_up_text_gray));
 			tv3.setTextColor(homeActivity.getResources().getColor(R.color.set_up_text_gray));
 			tv4.setTextColor(homeActivity.getResources().getColor(R.color.set_up_text_gray));
 			tv5.setTextColor(homeActivity.getResources().getColor(R.color.set_up_text_gray));
 			tv6.setTextColor(homeActivity.getResources().getColor(R.color.set_up_text_gray));
+			tv12.setTextColor(homeActivity.getResources().getColor(R.color.set_up_text_gray));
+			tv13.setTextColor(homeActivity.getResources().getColor(R.color.set_up_text_gray));
 			
 		}
 		
@@ -353,7 +365,8 @@ public class SetupFragment extends Fragment implements OnClickListener{
 		linearLayout9.setOnClickListener(this);
 		linearLayout10.setOnClickListener(this);
 		linearLayout11.setOnClickListener(this);
-		
+		linearlayout12.setOnClickListener(this);
+		linearlayout13.setOnClickListener(this);
 	}
 	
 	@Override
@@ -449,13 +462,17 @@ public class SetupFragment extends Fragment implements OnClickListener{
 			
 			break;
 		case R.id.linearlayout6:
-			File file=new File(Constants.Picture_Root_Path);
-			if(file.exists()){
-				StringUtil.deleteFile(file);
-				fileSizeTV.setText("0kb");
-			}
+			deleteFile();
+			
 			break;
 		case R.id.linearlayout7:
+			if(Constants.realVersion!=null&&StringUtil.canUpdate(homeActivity, Constants.realVersion)){
+				Intent intent=new Intent(homeActivity,UpdateAPKActivity.class);
+				homeActivity.startActivity(intent);
+			}else{
+				Toast.makeText(homeActivity, "已是新版本", Toast.LENGTH_LONG).show();
+			}
+			
 			
 			break;
 		case R.id.linearlayout8:
@@ -477,6 +494,28 @@ public class SetupFragment extends Fragment implements OnClickListener{
 			Intent intent12=new Intent(homeActivity,ChosePetActivity.class);
 			intent12.putExtra("likers", "36,54,78,25,16,39,47,98,67");
 			homeActivity.startActivity(intent12);
+			break;
+		case R.id.linearlayout12:
+			if(Constants.user!=null&&Constants.user.inviter!=0){
+				Intent intent13=new Intent(homeActivity,InviteOthersDialogActivity.class);
+				intent13.putExtra("mode", 2);
+				homeActivity.startActivity(intent13);
+			}else
+			if(Constants.user!=null&&Constants.user.aniList!=null){
+				if(Constants.user.aniList.size()>=10){
+					DialogGoRegister dialog=new DialogGoRegister(popupParent, homeActivity,black_layout, 3);
+				}else{
+					Intent intent13=new Intent(homeActivity,InviteOthersDialogActivity.class);
+					intent13.putExtra("mode", 2);
+					homeActivity.startActivity(intent13);
+				}
+			}
+
+			break;
+		case R.id.linearlayout13:
+			Intent intent14=new Intent(homeActivity,UsersListActivity.class);
+			intent14.putExtra("mode", 1);
+			homeActivity.startActivity(intent14);
 			break;
 		}
 		editor.commit();
@@ -508,6 +547,35 @@ public class SetupFragment extends Fragment implements OnClickListener{
 		}
 		editor.commit();
 	};
+	
+	public void deleteFile(){
+		if(showProgress==null){
+			showProgress=new ShowProgress(homeActivity, progressLayout);
+		}else{
+			showProgress.showProgress();
+		}
+				File file=new File(Constants.Picture_Root_Path);
+				if(file.exists()){
+					StringUtil.deleteFile(file);
+					fileSizeTV.setText("0kb");
+				}
+				handler.postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						if(showProgress!=null)
+							showProgress.progressCancel();
+						if(HomeFragment.homeFragment!=null){
+							HomeFragment.homeFragment.uiRefresh();
+						}
+						File file=new File(Constants.Picture_Topic_Path);
+						if(!file.exists()){
+							file.mkdirs();
+						}
+					}
+				}, 2000);
+	}
 	
 	
 

@@ -4,20 +4,27 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
+import com.example.android.bitmapfun.util.ImageCache;
+import com.example.android.bitmapfun.util.ImageFetcher;
+import com.example.android.bitmapfun.util.ImageWorker;
+import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -31,6 +38,8 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 public class ShowPictureActivity extends Activity {
 	DisplayImageOptions displayImageOptions;
 	ImageView imageView;
+	ImageFetcher mImageFetcher;
+	int mode=0;//0,查看发布的照片；1，查看 头像
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -39,9 +48,9 @@ public class ShowPictureActivity extends Activity {
 		BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
 		options.inSampleSize=1;
-		options.inPreferredConfig=Bitmap.Config.RGB_565;
-		options.inPurgeable=true;
-		options.inInputShareable=true;
+//		options.inPreferredConfig=Bitmap.Config.RGB_565;
+//		options.inPurgeable=true;
+//		options.inInputShareable=true;
 		displayImageOptions=new DisplayImageOptions
 	            .Builder()
 	            .showImageOnLoading(R.drawable.noimg)
@@ -53,43 +62,51 @@ public class ShowPictureActivity extends Activity {
                 .build();
 		setContentView(R.layout.activity_show_picture);
 		String path=getIntent().getStringExtra("path");
+		mode=getIntent().getIntExtra("mode", 0);
 		final String url=getIntent().getStringExtra("url");
 		imageView=(ImageView)findViewById(R.id.imageView1);
 //		imageView.setImageURI(Uri.parse(path));
-		if(!StringUtil.isEmpty(url)){
-			final ImageLoader imageLoader=ImageLoader.getInstance();
-			imageLoader.loadImage(Constants.UPLOAD_IMAGE_RETURN_URL+url,new ImageLoadingListener() {
-				
-				@Override
-				public void onLoadingStarted(String imageUri, View view) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void onLoadingFailed(String imageUri, View view,
-						FailReason failReason) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-					// TODO Auto-generated method stub
-					imageView.setImageDrawable(new BitmapDrawable(loadedImage));
-				}
-				
-				@Override
-				public void onLoadingCancelled(String imageUri, View view) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
+		/*if(mode==0&&ShowTopicActivity.showTopicActivity!=null){
+			Bitmap bmp=ShowTopicActivity.showTopicActivity.getBitmap();
+			if(bmp!=null){
+				imageView.setImageBitmap(bmp);
+			}
+		}else{*/
+		if(mode==0){
+mImageFetcher=new ImageFetcher(this, Constants.screen_width, Constants.screen_height);
 			
+			if(!StringUtil.isEmpty(url)){
+				LogUtil.i("me", "照片手势缩放界面url="+Constants.UPLOAD_IMAGE_RETURN_URL+url);
+//				mImageFetcher.setWidth(Constants.screen_width);
+				mImageFetcher.setImageCache(new ImageCache(this, new ImageCacheParams(url)));
+				mImageFetcher.setLoadCompleteListener(new ImageWorker.LoadCompleteListener(){
+					@Override
+					public void  onComplete(Bitmap bitmap) {
+						// TODO Auto-generated method stub
+//						imageView.setImageBitmap(bitmap);
+						LogUtil.i("me", "照片手势缩放界面w="+imageView.getWidth()+",h="+imageView.getHeight()+",bitmap=null:"+(bitmap==null));
+					}
+					@Override
+					public void getPath(String path) {
+						// TODO Auto-generated method stub
+						LogUtil.i("me", "照片手势缩放界面path="+path);
+//						imageView.setImageBitmap(BitmapFactory.decodeFile(path));
+					}
+				});
+				
+				
+				mImageFetcher.loadImage(url, imageView,options);
+				
+			}
+		}else if(mode==1){
+			ImageLoader imageLoader=ImageLoader.getInstance();
+			imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+url, imageView/*,displayImageOptions*/);
+		} if(mode==2){
+			ImageLoader imageLoader=ImageLoader.getInstance();
+			imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+url, imageView/*,displayImageOptions*/);
 		}
-		BitmapFactory.Options options1=new BitmapFactory.Options();
-		options1.inSampleSize=1;
-		
+			
+//		}
 		imageView.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
@@ -105,6 +122,7 @@ public class ShowPictureActivity extends Activity {
 		@Override
 		public boolean onSingleTapUp(MotionEvent e) {
 			// TODO Auto-generated method stub
+			imageView.setImageBitmap(null);
 			ShowPictureActivity.this.finish();
 			return true;
 		}
@@ -141,5 +159,17 @@ public class ShowPictureActivity extends Activity {
 			return true;
 		}
 	});
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

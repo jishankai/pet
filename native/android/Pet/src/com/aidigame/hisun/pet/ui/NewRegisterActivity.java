@@ -173,7 +173,7 @@ public class NewRegisterActivity extends Activity {
 		from=getIntent().getIntExtra("from", 0);
 		TextView title=(TextView)findViewById(R.id.textView11);
 		if(from==1){
-			title.setText("创建联萌");
+			title.setText("创建联星");
 		}else
 		if(mode==5){
 			title.setText("修改用户资料");
@@ -209,11 +209,10 @@ public class NewRegisterActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onResume();
 //		viewPager.setVisibility(View.VISIBLE);
+		StringUtil.umengOnResume(this);
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
-		setBlurImageBackground();
-		
 		back=(ImageView)findViewById(R.id.back);
 		viewPager=(ViewPager)findViewById(R.id.viewpager);
 		view1=LayoutInflater.from(this).inflate(R.layout.item_register_view1, null);
@@ -259,9 +258,9 @@ public class NewRegisterActivity extends Activity {
 		petFemale=(ImageView)view1.findViewById(R.id.imageview_female);
 		tv1=(TextView)view1.findViewById(R.id.textView1);
 		if(mode==3){
-			tv1.setText("萌主信息");
+			tv1.setText("萌星信息");
 		}else if(mode==4){
-			tv1.setText("萌主信息");
+			tv1.setText("萌星信息");
 		}
 		initPetListener();
         
@@ -378,37 +377,6 @@ public class NewRegisterActivity extends Activity {
 	 * 设置毛玻璃背景，列表滑动时顶部变透明并显示列表
 	 */
 
-	private void setBlurImageBackground() {
-		// TODO Auto-generated method stub
-		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
-		if(HomeFragment.blurBitmap==null){
-			frameLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.blur));
-		}
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
-	}
 	private void initUserListener() {
 		// TODO Auto-generated method stub
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
@@ -679,6 +647,16 @@ public class NewRegisterActivity extends Activity {
 										handler.sendEmptyMessage(DISMISS_PROGRESS);
 										Toast.makeText(NewRegisterActivity.this,"注册成功" , Toast.LENGTH_LONG).show();
 										NewRegisterActivity.this.finish();
+										
+										if(!StringUtil.isEmpty(Constants.CON_VERSION)&&"1.0".equals(Constants.CON_VERSION)){
+											
+										}else{
+											Intent intent13=new Intent(NewRegisterActivity.this,InviteOthersDialogActivity.class);
+											intent13.putExtra("mode", 2);
+											NewRegisterActivity.this.startActivity(intent13);
+										}
+										
+										
 										if(MenuFragment.menuFragment!=null){
 											MenuFragment.menuFragment.setViews();
 										}
@@ -1176,6 +1154,7 @@ public class NewRegisterActivity extends Activity {
 				userIconPath=path;
 				user_bmp=BitmapFactory.decodeFile(path,options);
                if(user_bmp!=null){
+            	   
 				      path=ImageUtil.compressImage(user_bmp,"usr_icon");
 				      if(!StringUtil.isEmpty(path)){
 				    	  userIconPath=path;
@@ -1185,6 +1164,11 @@ public class NewRegisterActivity extends Activity {
 					    	  userIconPath=path;
 					      }
 				      }
+				}
+				if(StringUtil.isEmpty(userIconPath)){
+					Toast.makeText(this, "图片保存地址为空", Toast.LENGTH_LONG).show();
+				}else{
+					userIcon.setImageBitmap(BitmapFactory.decodeFile(path,options));
 				}
 				userIcon.setImageBitmap(BitmapFactory.decodeFile(path,options));
 			}else{
@@ -1202,7 +1186,12 @@ public class NewRegisterActivity extends Activity {
 					      }
 				      }
 				}
-				petIcon.setImageBitmap(BitmapFactory.decodeFile(path,options));
+				if(StringUtil.isEmpty(petIconPath)){
+					Toast.makeText(this, "图片保存地址为空", Toast.LENGTH_LONG).show();
+				}else{
+					petIcon.setImageBitmap(BitmapFactory.decodeFile(path,options));
+				}
+				
 			}
 		}
 	}
@@ -1280,5 +1269,14 @@ public class NewRegisterActivity extends Activity {
 		}).start();
 		
 	}
+
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	
+
 
 }

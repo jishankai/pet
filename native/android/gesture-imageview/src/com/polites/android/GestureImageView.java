@@ -391,7 +391,8 @@ public class GestureImageView extends ImageView  {
 	}
 
 	public void setImageBitmap(Bitmap image) {
-		this.drawable = new BitmapDrawable(getResources(), image);
+//		this.drawable = new BitmapDrawable(getResources(), image);
+		this.drawable=new BitmapDrawable(image);
 		initImage();
 	}
 

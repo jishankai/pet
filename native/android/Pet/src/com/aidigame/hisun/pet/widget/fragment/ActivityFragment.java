@@ -228,33 +228,7 @@ public class ActivityFragment extends Fragment {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)menuView.findViewById(R.id.framelayout);
 		viewTopWhite=(View)menuView.findViewById(R.id.top_white_view);
-		if(HomeFragment.blurBitmap==null){
-			frameLayout.setBackgroundDrawable(homeActivity.getResources().getDrawable(R.drawable.blur));
-		}
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				homeActivity.runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+		
 		 listView.setOnScrollListener(new OnScrollListener() {
 				
 				@Override

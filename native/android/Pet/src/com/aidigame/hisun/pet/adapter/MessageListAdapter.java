@@ -13,10 +13,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,16 +27,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.TalkMessage;
 import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.MessagJson;
 import com.aidigame.hisun.pet.ui.ChatActivity;
+import com.aidigame.hisun.pet.ui.NewHomeActivity;
+import com.aidigame.hisun.pet.ui.PetKingdomActivity;
+import com.aidigame.hisun.pet.ui.UserDossierActivity;
+import com.aidigame.hisun.pet.ui.WarningDialogActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
+import com.aidigame.hisun.pet.widget.fragment.DialogGoRegister;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -49,10 +58,12 @@ public class MessageListAdapter extends BaseAdapter {
 	Activity context;
 	
 	ArrayList<TalkMessage> datas;
+	LinearLayout progressLayout;
 	HandleHttpConnectionException handleHttpConnectionException;
-	public MessageListAdapter(Context context,ArrayList<TalkMessage> datas){
+	public MessageListAdapter(Context context,ArrayList<TalkMessage> datas,LinearLayout progressLayout){
 		this.context=(Activity)context;
 		this.datas=datas;
+		this.progressLayout=progressLayout;
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
@@ -62,7 +73,8 @@ public class MessageListAdapter extends BaseAdapter {
 		options.inInputShareable=true;
 		displayImageOptions=new DisplayImageOptions
 	            .Builder()
-	            .showImageOnLoading(R.drawable.noimg)
+	            .showImageOnLoading(R.drawable.user_icon)
+	            .showImageOnFail(R.drawable.user_icon)
 		        .cacheInMemory(true)
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
@@ -219,6 +231,8 @@ public class MessageListAdapter extends BaseAdapter {
 				}
 			}
 		});
+		
+	/*	
 		convertView.setOnTouchListener(new OnTouchListener() {
 			float startX;
 			float distance;
@@ -353,6 +367,30 @@ public class MessageListAdapter extends BaseAdapter {
 				}
 				return true;
 			}
+		});*/
+		convertView.setClickable(true);
+		convertView.setLongClickable(true);
+		convertView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(context,ChatActivity.class);
+				datas.get(position).sortMsgList();
+				intent.putExtra("msg", datas.get(position));
+				context.startActivity(intent);
+				datas.get(position).old_new_msg_num=0;
+				notifyDataSetChanged();
+			}
+		});
+		convertView.setOnLongClickListener(new OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View v) {
+				// TODO Auto-generated method stub
+				showButtons(position);
+				return true;
+			}
 		});
 		return convertView;
 	}
@@ -398,5 +436,155 @@ public class MessageListAdapter extends BaseAdapter {
 		LinearLayout rightLayout;
 		
 	}
+	boolean isShowingButton=false;
+	private void showButtons(final int position) {
+		// TODO Auto-generated method stub
+		isShowingButton=true;
+		long l1=System.currentTimeMillis();
+		LogUtil.i("scroll",""+( System.currentTimeMillis()-l1));
+		final View view=LayoutInflater.from(context).inflate(R.layout.popup_user_dossier, null);
+		Animation animation=AnimationUtils.loadAnimation(context, R.anim.anim_translate_showtopic_addcommentlayout_in);
+		view.clearAnimation();
+		view.setAnimation(animation);
+		animation.start();
+		
+		progressLayout.removeAllViews();
+		progressLayout.addView(view);
+		progressLayout.setBackgroundResource(R.color.window_black_bagd);
+		progressLayout.setVisibility(View.VISIBLE);
+//		context.progresslayout.setClickable(true);
+		TextView camera=(TextView)view.findViewById(R.id.textView2);
+		TextView album=(TextView)view.findViewById(R.id.textView1);
+		TextView cancel=(TextView)view.findViewById(R.id.textView3);
+		view.findViewById(R.id.line1).setVisibility(View.GONE);
+//		album.setVisibility(View.GONE);
+		camera.setText("删除");
+		cancel.setText("拉黑");
+		album.setText("发消息");
+		album.setVisibility(View.GONE);
+		album.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(context,ChatActivity.class);
+				datas.get(position).sortMsgList();
+				intent.putExtra("msg", datas.get(position));
+				context.startActivity(intent);
+				datas.get(position).old_new_msg_num=0;
+				notifyDataSetChanged();
+				progressLayout.setVisibility(View.INVISIBLE);
+				progressLayout.setClickable(false);
+				isShowingButton=false;
+			}
+		});
+		camera.setOnClickListener(new OnClickListener() {
+			Toast toast;
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(isDeleting){
+					if(toast!=null)toast.cancel();
+					toast=Toast.makeText(context, "正在删除消息,请稍后", Toast.LENGTH_LONG);
+					toast.show();
+					return;
+				}
+				if(position==-1)return;
+				
+				isDeleting=true;
+				    
+					
+						new Thread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								final TalkMessage dataSystem=datas.get(position);
+//								boolean flag=HttpUtil.deleteMail(dataSystem);
+								if(true){
+									SharedPreferences sp=context.getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+									Editor editor=sp.edit();
+									editor.putString("talk_"+dataSystem.position, "");
+									String talk_num=sp.getString("talk_num", null);
+									if(!StringUtil.isEmpty(talk_num)){
+										String[] strs=talk_num.split(",");
+										talk_num="";
+										for(int i=0;i<strs.length;i++){
+											if(strs[i].equals(""+dataSystem.position)){
+												
+											}else{
+												talk_num+=strs[i]+",";
+											}
+										}
+										editor.putString("talk_num", talk_num);
+									}
+									editor.commit();
+									
+									context.runOnUiThread(new Runnable() {
+										public void run() {
+											
+											Toast.makeText(context, "消息删除成功", Toast.LENGTH_SHORT).show();
+											datas.remove(dataSystem);
+											isDeleting=false;
+											NewHomeActivity.homeActivity.messageFragment.notifyDataChanged(datas);
+											progressLayout.setVisibility(View.INVISIBLE);
+											progressLayout.setClickable(false);
+											isShowingButton=false;
+										}
+									});
+									
+									
+								}else{
+									isDeleting=false;
+								}
+							}
+						}).start();
+				
+				
+			}
+		});
+		
+		cancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+					Intent intent=new Intent(context,WarningDialogActivity.class);
+					intent.putExtra("mode",4 );
+					intent.putExtra("talk_id", datas.get(position).position);
+					context.startActivity(intent);
+					progressLayout.setVisibility(View.INVISIBLE);
+					progressLayout.setClickable(false);
+				isShowingButton=false;
+			}
+		});
+		progressLayout.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_UP:
+					Animation animation=AnimationUtils.loadAnimation(context, R.anim.anim_translate_showtopic_addcommentlayout_out);
+					view.clearAnimation();
+					view.setAnimation(animation);
+					animation.start();
+					handleHttpConnectionException.getHandler(context).postDelayed(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							progressLayout.setVisibility(View.INVISIBLE);
+							progressLayout.setClickable(false);
+							isShowingButton=false;
+						}
+					}, 300);
+					break;
+				}
+				return true;
+			}
+		});
+	}
+
 
 }

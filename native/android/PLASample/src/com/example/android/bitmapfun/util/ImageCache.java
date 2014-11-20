@@ -19,10 +19,10 @@ package com.example.android.bitmapfun.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.LruCache;
 import android.util.Log;
-
 
 import java.io.File;
 
@@ -42,7 +42,7 @@ public class ImageCache {
 
     // Compression settings when writing images to disk cache
     private static final CompressFormat DEFAULT_COMPRESS_FORMAT = CompressFormat.JPEG;
-    private static final int DEFAULT_COMPRESS_QUALITY = 70;
+    private static final int DEFAULT_COMPRESS_QUALITY = 100;
 
     // Constants to easily toggle various caches
     private static final boolean DEFAULT_MEM_CACHE_ENABLED = true;
@@ -151,9 +151,9 @@ public class ImageCache {
         }
 
         // Add to memory cache
-        if (mMemoryCache != null && mMemoryCache.get(data) == null) {
-            mMemoryCache.put(data, bitmap);
-        }
+//        if (mMemoryCache != null && mMemoryCache.get(data) == null) {
+//            mMemoryCache.put(data, bitmap);
+//        }
 
         // Add to disk cache
         if (mDiskCache != null && !mDiskCache.containsKey(data)) {
@@ -186,11 +186,15 @@ public class ImageCache {
      * @param data Unique identifier for which item to get
      * @return The bitmap if found in cache, null otherwise
      */
-    public Bitmap getBitmapFromDiskCache(String data) {
+    public Bitmap getBitmapFromDiskCache(String data,BitmapFactory.Options options) {
         if (mDiskCache != null) {
-            return mDiskCache.get(data);
+            return mDiskCache.get(data,options);
         }
         return null;
+    }
+    public String getBitmapPathFromDisk(Context context,String name){
+    	
+    	return DiskLruCache.getFilePath(name);
     }
 
     public void clearCaches() {

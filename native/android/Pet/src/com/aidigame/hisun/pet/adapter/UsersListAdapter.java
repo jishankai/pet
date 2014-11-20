@@ -72,7 +72,7 @@ public class UsersListAdapter extends BaseAdapter {
 		options.inInputShareable=true;
 		displayImageOptions=new DisplayImageOptions
 	            .Builder()
-	            .showImageOnLoading(R.drawable.noimg)
+	            .showImageOnLoading(R.drawable.user_icon)
 		        .cacheInMemory(true)
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
@@ -117,6 +117,7 @@ public class UsersListAdapter extends BaseAdapter {
 			holder.provinceTV=(TextView)convertView.findViewById(R.id.textView3);
 			holder.cityTV=(TextView)convertView.findViewById(R.id.textView5);
 			holder.sendEmail=(TextView)convertView.findViewById(R.id.textView1);
+			holder.layout3=(LinearLayout)convertView.findViewById(R.id.linearlayout3);
 //			holder.layout=(LinearLayout)convertView.findViewById(R.id.linearlayout);
 			convertView.setTag(holder);
 		}else{
@@ -163,6 +164,7 @@ public class UsersListAdapter extends BaseAdapter {
 		holder.name.setText(""+data.u_nick);
 		holder.provinceTV.setText(""+data.province);
 		holder.cityTV.setText(""+data.city);
+		holder.layout3.setVisibility(View.VISIBLE);
 		/*holder.layout.setClickable(true);
 		holder.layout.setOnClickListener(new OnClickListener() {
 			
@@ -209,6 +211,7 @@ public class UsersListAdapter extends BaseAdapter {
 		TextView provinceTV;
 		TextView cityTV;
 		TextView sendEmail;
+		LinearLayout layout3;
 //		LinearLayout layout;
 	}
 

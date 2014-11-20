@@ -3,6 +3,9 @@ package com.aidigame.hisun.pet.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import me.maxwin.view.XListView;
+import me.maxwin.view.XListView.IXListViewListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,6 +14,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,6 +28,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
@@ -41,6 +46,7 @@ import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
+import com.huewu.pla.lib.internal.PLA_AdapterView;
 /**
  * 人气榜
  * @author admin
@@ -52,7 +58,7 @@ public class PopularRankListActivity extends Activity {
 	
 	RelativeLayout black_layout;
 	
-	public ListView listView/*,listView2*/;
+	public XListView listView/*,listView2*/;
 	TextView findMeTV,popularTV,starTV,raceTV;
 	PopularRankListAdapter adapter;
 //	PopularRankListAdapter adapter2;
@@ -64,7 +70,7 @@ public class PopularRankListActivity extends Activity {
 	public int myListIndex=-1;
 	 public int position;
 	 int category=0;
-	 int currentType=100;
+	 int currentType=0;
 	HandleHttpConnectionException handleHttpConnectionException;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +80,16 @@ public class PopularRankListActivity extends Activity {
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_popular_rank);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
+		
+		 SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+		  Editor editor=sp.edit();
+			 editor.putString("json", "");
+			 editor.putString("json1", "");
+			 editor.putString("json2", "");
+			 editor.putString("json3", "");
+		  editor.commit();
+		
+		
 		loadData(0);
 		initView();
 	}
@@ -85,57 +101,33 @@ public class PopularRankListActivity extends Activity {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
-        listView.setOnItemClickListener(new OnItemClickListener() {
+		listView.setOnItemClickListener(new com.huewu.pla.lib.internal.PLA_AdapterView.OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
+			public void onItemClick(PLA_AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
 				Intent intent=new Intent(PopularRankListActivity.this,PetKingdomActivity.class);
-				intent.putExtra("animal", peopleList.get(position));
+				intent.putExtra("animal", peopleList.get((int)id));
 				if(PetKingdomActivity.petKingdomActivity!=null){
+					if(PetKingdomActivity.petKingdomActivity.loadedImage1!=null){
+						if(!PetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
+							PetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
+							PetKingdomActivity.petKingdomActivity.loadedImage1=null;
+						}
+						PetKingdomActivity.petKingdomActivity.linearLayout2.setBackgroundDrawable(null);
+					}
 					PetKingdomActivity.petKingdomActivity.finish();
 				}
 				PopularRankListActivity.this.startActivity(intent);
 			}
 		});
-		 listView.setOnScrollListener(new OnScrollListener() {
+		/* listView.setOnScrollListener(new OnScrollListener() {
 				
 				@Override
 				public void onScrollStateChanged(AbsListView view, int scrollState) {
 					// TODO Auto-generated method stub
-				/*	if(adapter.currentArrowImageView!=null){
-						adapter.currentArrowImageView.setVisibility(View.GONE);
-						adapter.currentArrowImageView=null;
-//						listView2.setVisibility(View.GONE);
-						peopleList.get(adapter.index).showArrow=false;
-						
-						
-					}*/
+				
 					if(scrollState!=SCROLL_STATE_IDLE)return;
 					if(isFindMeScroll){
 						viewTopWhite.setVisibility(View.VISIBLE);
@@ -147,19 +139,7 @@ public class PopularRankListActivity extends Activity {
 					}else{
 						if(viewTopWhite.getVisibility()!=View.GONE){
 							viewTopWhite.setVisibility(View.GONE);
-							
-							/*if(isAllData){
-								isAllData=false;
-								myListIndex=0;
-								adapter.updateData(peopleList);
-								if(android.os.Build.VERSION.SDK_INT>8){
-									listView.smoothScrollToPosition(position);
-								}else{
-									listView.setSelection(position);
-								}
-								adapter.notifyDataSetChanged();
-							}*/
-							
+						
 						}
 					}
 				}
@@ -168,32 +148,10 @@ public class PopularRankListActivity extends Activity {
 				public void onScroll(AbsListView view, int firstVisibleItem,
 						int visibleItemCount, int totalItemCount) {
 					// TODO Auto-generated method stub
-					/*if(findMe){
-						adapter.updateData(peopleList);
-						adapter.notifyDataSetInvalidated();
-						findMe=false;
-					}*/
+				
 				}
-			});
-		/* listView.setOnTouchListener(new OnTouchListener() {
-			
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				if(isAllData){
-					isAllData=false;
-					adapter.updateData(peopleList);
-					if(android.os.Build.VERSION.SDK_INT>8){
-						listView.smoothScrollToPosition(position);
-					}else{
-						listView.setSelection(position);;
-					}
-					
-					adapter.notifyDataSetChanged();
-				}
-				return false;
-			}
-		});*/
+			});*/
+	
 	}
 /**
  * 
@@ -210,7 +168,7 @@ public class PopularRankListActivity extends Activity {
 				// TODO Auto-generated method stub
 				long animal_id=-1;
 				if(Constants.user!=null){
-					animal_id=Constants.user.currentAnimal.a_id;
+//					animal_id=Constants.user.currentAnimal.a_id;
 				}else{
 					animal_id=-1;
 				}
@@ -254,19 +212,39 @@ public class PopularRankListActivity extends Activity {
   
 	private void initView() {
 		// TODO Auto-generated method stub
-		listView=(ListView)findViewById(R.id.listview);
+		listView=(XListView)findViewById(R.id.listview);
 		findMeTV=(TextView)findViewById(R.id.textView3);
 		popularTV=(TextView)findViewById(R.id.textView2);
 		if(Constants.planet==2){
-			popularTV.setText("汪星人气总榜");
+			popularTV.setText("人气总榜");
 		}else{
-			popularTV.setText("喵星人气总榜");
+			popularTV.setText("人气总榜");
 		}
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
 		popup_parent=findViewById(R.id.popup_parent);
 		starTV=(TextView)findViewById(R.id.textView1);
 		raceTV=(TextView)findViewById(R.id.chose_race_tv);
 		adapter=new PopularRankListAdapter(this,peopleList,1);
+		listView.setPullRefreshEnable(false);
+		listView.setPullLoadEnable(true);
+		listView.setXListViewListener(new IXListViewListener() {
+			
+			@Override
+			public void onRefresh() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLoadMore() {
+				// TODO Auto-generated method stub
+				int start=0;
+				if(peopleList!=null&&peopleList.size()>0){
+					start=peopleList.get(peopleList.size()-1).ranking;
+				}
+				getMore(start);
+			}
+		});
 		listView.setAdapter(adapter);
 		setBlurImageBackground();
 		findMeTV.setOnClickListener(new OnClickListener() {
@@ -355,16 +333,18 @@ public class PopularRankListActivity extends Activity {
 	    TextView tv2=(TextView)view.findViewById(R.id.textView2);
 	    TextView tv3=(TextView)view.findViewById(R.id.textView3);
 	    TextView tv4=(TextView)view.findViewById(R.id.textView4);
-	    tv1.setText("喵星人气日榜");
-	    tv2.setText("喵星人气周榜");
-	    tv3.setText("喵星人气月榜");
-	    tv4.setText("喵星人气总榜");
+	    tv1.setText("昨日人气");
+	    tv2.setText("上周人气");
+	    tv3.setText("上月人气");
+	    tv4.setText("人气总榜");
+	    LinearLayout parent=(LinearLayout)view.findViewById(R.id.parent);
+		parent.setBackgroundResource(R.drawable.spinner_rank);
 	    popularWindow=new PopupWindow(view,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
 	    popularWindow.setFocusable(true);
 	    popularWindow.setBackgroundDrawable(new BitmapDrawable());
 	    popularWindow.setOutsideTouchable(true);
-	    popularWindow.showAsDropDown(popularTV, 0, -popularTV.getHeight());
-		popularTV.setVisibility(View.INVISIBLE);
+	    popularWindow.showAsDropDown(popularTV, -5, 5);//-popularTV.getHeight()
+//		popularTV.setVisibility(View.INVISIBLE);
 		popularWindow.setOnDismissListener(new OnDismissListener() {
 			
 			@Override
@@ -381,9 +361,9 @@ public class PopularRankListActivity extends Activity {
 				popularWindow.dismiss();
 				popularTV.setVisibility(View.VISIBLE);
 				if(Constants.planet==2){
-					popularTV.setText("汪星人气日榜");
+					popularTV.setText("昨日人气");
 				}else{
-					popularTV.setText("喵星人气日榜");
+					popularTV.setText("昨日人气");
 				}
 				loadDayData();
 			}
@@ -396,9 +376,9 @@ public class PopularRankListActivity extends Activity {
 				popularWindow.dismiss();
 				popularTV.setVisibility(View.VISIBLE);
 				if(Constants.planet==2){
-					popularTV.setText("汪星人气周榜");
+					popularTV.setText("上周人气");
 				}else{
-					popularTV.setText("喵星人气周榜");
+					popularTV.setText("上周人气");
 				}
 				loadWeekData();
 			}
@@ -411,9 +391,9 @@ public class PopularRankListActivity extends Activity {
 	        	popularWindow.dismiss();
 	        	popularTV.setVisibility(View.VISIBLE);
 	        	if(Constants.planet==2){
-	    			popularTV.setText("汪星人气月榜");
+	    			popularTV.setText("上月人气");
 	    		}else{
-	    			popularTV.setText("喵星人气月榜");
+	    			popularTV.setText("上月人气");
 	    		}
 	        	loadMonthData();
 	        }
@@ -426,9 +406,9 @@ public class PopularRankListActivity extends Activity {
 	        	popularWindow.dismiss();
 	        	popularTV.setVisibility(View.VISIBLE);
 	        	if(Constants.planet==2){
-	    			popularTV.setText("汪星人气总榜");
+	    			popularTV.setText("人气总榜");
 	    		}else{
-	    			popularTV.setText("喵星人气总榜");
+	    			popularTV.setText("人气总榜");
 	    		}
 	        	loadTotalData();
 	        }
@@ -526,18 +506,22 @@ public class PopularRankListActivity extends Activity {
 					  switch (category) {
 					case 0:
 						animal.t_rq=j2.getInt("t_rq");
+						animal.rq=animal.t_rq;
 						break;
 
 					case 1:
 						animal.d_rq=j2.getInt("d_rq");
+						animal.rq=animal.d_rq;
 						break;
 
 					case 2:
 						animal.w_rq=j2.getInt("w_rq");
+						animal.rq=animal.w_rq;
 						break;
 
 					case 3:
 						animal.m_rq=j2.getInt("m_rq");
+						animal.rq=animal.m_rq;
 						break;
 					}
 					  
@@ -551,7 +535,7 @@ public class PopularRankListActivity extends Activity {
 						  }
 					  }
 					  
-					  if(i<1000)
+					  if(i<2000)
 					  temp1.add(animal);
 				}
 				if(temp1.size()>=0){
@@ -585,7 +569,7 @@ public class PopularRankListActivity extends Activity {
 		View view=LayoutInflater.from(this).inflate(R.layout.popup_popular_1, null);
 	    TextView tv1=(TextView)view.findViewById(R.id.textView1);
 	    ListView listView=(ListView)view.findViewById(R.id.listview);
-	   String[] array=getResources().getStringArray(R.array.cat_race);
+	  /* String[] array=getResources().getStringArray(R.array.cat_race);
 	    final String[] strArray=new String[array.length+1];
 	    for(int i=0;i<strArray.length;i++){
 	    	if(i==0){
@@ -594,7 +578,11 @@ public class PopularRankListActivity extends Activity {
 	    		strArray[i]=array[i-1];
 	    	}
 	    	
-	    }
+	    }*/
+	   final String[] strArray=new String[3];
+	    strArray[0]="所有";
+	    strArray[1]="喵";
+	    strArray[2]="汪";
 	    PopularWindowAdapter adapter=new PopularWindowAdapter(this, strArray);
 	    listView.setAdapter(adapter);
 	    raceWindow=new PopupWindow(view,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
@@ -622,7 +610,8 @@ public class PopularRankListActivity extends Activity {
 				raceTV.setText(""+strArray[position]);
 				raceTV.setVisibility(View.VISIBLE);
 				raceWindow.dismiss();
-				String str="";
+				currentType=position;
+				/*String str="";
 				if(Constants.planet==2){
 					str="2";
 				}else{
@@ -633,8 +622,8 @@ public class PopularRankListActivity extends Activity {
 				}else{
 					str+="0"+(position);
 				}
-				final int type=Integer.parseInt(str);
-               getDataByType(type);
+				final int type=Integer.parseInt(str);*/
+               getDataByType(position);
 			}
 		});
 	}
@@ -682,31 +671,51 @@ public class PopularRankListActivity extends Activity {
 								  switch (category) {
 									case 0:
 										animal.t_rq=j2.getInt("t_rq");
+										animal.rq=animal.t_rq;
 										break;
 
 									case 1:
 										animal.d_rq=j2.getInt("d_rq");
+										animal.rq=animal.d_rq;
 										break;
 
 									case 2:
 										animal.w_rq=j2.getInt("w_rq");
+										animal.rq=animal.w_rq;
 										break;
 
 									case 3:
 										animal.m_rq=j2.getInt("m_rq");
+										animal.rq=animal.m_rq;
 										break;
 									}
 								  
 								  animal.change=j2.getInt("vary");
 								  animal.ranking=i+1;
-								  if(myList.size()>0&&animal.ranking==myList.get(myListIndex).ranking){
+								  if(type!=0){
+									  if(type==1){
+										  if(animal.type>100&&animal.type<200){
+											  
+										  }else{
+											  continue;
+										  }
+									  }else {
+                                         if(animal.type>200&&animal.type<300){
+											  
+										  }else{
+											  continue;
+										  }
+									  }
+								  }
+								  if(myList!=null&&myList.size()>0&&animal.ranking==myList.get(myListIndex).ranking){
 									  animal.hasJoinOrCreate=true;
 									  temp2.add(animal);
 								  }
-								  if(i<1000){
-									  if(type==100||type==200||animal.type==type){
+								  if(i<100){
+									  temp1.add(animal);
+									 /* if(type==100||type==200||animal.type==type){
 										  temp1.add(animal);
-									  }
+									  }*/
 									  
 								  }
 								 
@@ -734,6 +743,140 @@ public class PopularRankListActivity extends Activity {
 			}).start();
 	}
 
+	public void getMore(final int start){
+		 new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+					String json=sp.getString("json", null);
+					switch (category) {
+					case 0:
+						json=sp.getString("json", null);
+						break;
+
+					case 1:
+						json=sp.getString("json1", null);
+						break;
+
+					case 2:
+						json=sp.getString("json2", null);
+						break;
+
+					case 3:
+						json=sp.getString("json3", null);
+						break;
+					}
+					if(StringUtil.isEmpty(json)||"null".equals(json))return;
+					try {
+						JSONArray ja=new JSONArray(json);
+						if(ja!=null&&ja.length()>0){
+							final ArrayList<Animal> temp1=new ArrayList<Animal>();
+							final ArrayList<Animal>	temp2=new ArrayList<Animal>();
+							Animal animal=null;
+							JSONObject j2=null;
+							for(int i=start;i<ja.length()&&i<(start+100);i++){
+								j2=ja.getJSONObject(i);
+								  animal=new Animal();
+								  animal.type=j2.getInt("type");
+								 
+								  animal.a_id=j2.getInt("aid");
+								  animal.pet_nickName=j2.getString("name");
+								  animal.pet_iconUrl=j2.getString("tx");
+								  switch (category) {
+									case 0:
+										animal.t_rq=j2.getInt("t_rq");
+										animal.rq=animal.t_rq;
+										break;
+
+									case 1:
+										animal.d_rq=j2.getInt("d_rq");
+										animal.rq=animal.d_rq;
+										break;
+
+									case 2:
+										animal.w_rq=j2.getInt("w_rq");
+										animal.rq=animal.w_rq;
+										break;
+
+									case 3:
+										animal.m_rq=j2.getInt("m_rq");
+										animal.rq=animal.m_rq;
+										break;
+									}
+								  
+								  animal.change=j2.getInt("vary");
+								  animal.ranking=i+1;
+								  if(currentType!=0){
+									  if(currentType==1){
+										  if(animal.type>100&&animal.type<200){
+											  
+										  }else{
+											  continue;
+										  }
+									  }else {
+                                        if(animal.type>200&&animal.type<300){
+											  
+										  }else{
+											  continue;
+										  }
+									  }
+								  }
+								  if(myList.size()>0&&animal.ranking==myList.get(myListIndex).ranking){
+									  animal.hasJoinOrCreate=true;
+									  temp2.add(animal);
+								  }
+//								  if(i<2000){
+									  temp1.add(animal);
+									 /* if(type==100||type==200||animal.type==type){
+										  temp1.add(animal);
+									  }*/
+									  
+//								  }
+								 
+							}
+								runOnUiThread(new Runnable() {
+									public void run() {
+										for(int i=0;i<temp1.size();i++){
+											peopleList.add(temp1.get(i));
+										}
+										for(int i=0;i<temp2.size();i++){
+											myList.add(temp2.get(i));
+										}
+										isAllData=false;
+										myListIndex=0;
+										if(temp1.size()<10){
+											viewTopWhite.setVisibility(View.VISIBLE);
+										}
+										PopularRankListActivity.this.position=0;
+										PopularRankListActivity.this.adapter.updateData(peopleList);
+										PopularRankListActivity.this.adapter.notifyDataSetChanged();
+										if(listView!=null){
+											listView.stopLoadMore();
+										}
+									}
+								});
+							}
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}).start();
+	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 
 }

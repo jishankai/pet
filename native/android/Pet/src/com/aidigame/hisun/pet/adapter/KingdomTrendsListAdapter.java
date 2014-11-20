@@ -4,28 +4,31 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.aidigame.hisun.pet.R;
-import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.Gift;
-import com.aidigame.hisun.pet.bean.PetNews;
-import com.aidigame.hisun.pet.constant.Constants;
-import com.aidigame.hisun.pet.ui.NewHomeActivity;
-import com.aidigame.hisun.pet.util.StringUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Animal;
+import com.aidigame.hisun.pet.bean.Gift;
+import com.aidigame.hisun.pet.bean.PetNews;
+import com.aidigame.hisun.pet.bean.PetPicture;
+import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.ui.PetKingdomActivity;
+import com.aidigame.hisun.pet.ui.ShowTopicActivity;
+import com.aidigame.hisun.pet.util.StringUtil;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 /**
  * 王国资料界面  最新动态列表，适配器
  * @author admin
@@ -34,11 +37,11 @@ import android.widget.TextView;
 public class KingdomTrendsListAdapter extends BaseAdapter {
 	ArrayList<PetNews> list;
 	DisplayImageOptions displayImageOptions;//显示图片的格式
-	Context context;
+	PetKingdomActivity context;
 	Animal animal;
 	ArrayList<Gift> giftList;
 	String lastJob;
-	public KingdomTrendsListAdapter(ArrayList<PetNews> list,Context context,Animal animal){
+	public KingdomTrendsListAdapter(ArrayList<PetNews> list,PetKingdomActivity context,Animal animal){
 		this.list=list;
 		this.context=context;
 		BitmapFactory.Options options=new BitmapFactory.Options();
@@ -121,7 +124,7 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 		}else{
 			holder=(Holder)convertView.getTag();
 		}
-		PetNews petNews=list.get(position);
+		final PetNews petNews=list.get(position);
 		holder.biteLayout.setVisibility(View.GONE);
 		holder.fansLayout.setVisibility(View.GONE);
 		holder.imageLayout.setVisibility(View.GONE);
@@ -132,6 +135,8 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 		String htmlStr1="";
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		String timeString=sdf.format(new Date(petNews.create_time));
+		timeString=judgeTime(petNews.create_time);
+		//萌星<宠物昵称>信心满满地参加了<活动名称>大赛，明日之星就是TA！  参加活动
 		if(petNews.type==1){
 			holder.fansLayout.setVisibility(View.VISIBLE);
 			htmlStr1="<html>"
@@ -151,18 +156,18 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 		}else if(petNews.type==2){
 			htmlStr1="<html>"
 		             +"<body>"
-					    +"路人"
+//					    +"路人"
 		                +"<font color=\"#fb6137\">"
 		                +petNews.u_name+" "
 		                +"</font>"
-		                +"加入了 "
+		                +"被萌星 "
 		                +"<font color=\"#fb6137\">"
 		                +animal.pet_nickName+" "
 		                +"</font>"
-		                +"联萌，成为了一枚新出炉的"
-		                +"<font color=\"#fb6137\">"
-		                +lastJob
-		                +"</font>"
+		                +"的魅力折服，路人转粉啦~"
+//		                +"<font color=\"#fb6137\">"
+//		                +lastJob
+//		                +"</font>"
 		             +"</body>"
 		      + "</html>";
 			holder.kingdomLayout.setVisibility(View.VISIBLE);
@@ -176,7 +181,7 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 		                +"<font color=\"#fb6137\">"
 		                +petNews.u_name+" "
 		                +"</font>"
-		                +"发布了一张萌主 "
+		                +"发布了一张萌星 "
 		                +"<font color=\"#fb6137\">"
 		                +animal.pet_nickName+" "
 		                +"</font>"
@@ -202,18 +207,15 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 			                +"<font color=\"#fb6137\">"
 			                +petNews.u_name+" "
 			                +"</font>"
-			                +"送了"
-			                +"<font color=\"#fb6137\">"
-			                +animal.pet_nickName+" "
-			                +"</font>"
-			                +"一个"
+			                +"精心挑选了一个"
 			                +"<font color=\"#fb6137\">"
 			                +gift.name+" "
 			                +"</font>"
-			                +","
+			                +"送给"
 			                +"<font color=\"#fb6137\">"
 			                +animal.pet_nickName+" "
 			                +"</font>"
+			                +"，"
 			                +gift.effect_des
 			                +"人气"
 			                +"<font color=\"#fb6137\">"
@@ -229,7 +231,7 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 			                +"<font color=\"#fb6137\">"
 			                +petNews.u_name+" "
 			                +"</font>"
-			                +"对 "
+			                +"腹黑一笑，对 "
 			                +"<font color=\"#fb6137\">"
 			                +animal.pet_nickName+" "
 			                +"</font>"
@@ -238,9 +240,6 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 			                +gift.name+" "
 			                +"</font>"
 			                +","
-			                +"<font color=\"#fb6137\">"
-			                +animal.pet_nickName+" "
-			                +"</font>"
 			                +gift.effect_des
 			                +"人气"
 			                +"<font color=\"#fb6137\">"
@@ -256,7 +255,7 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 			holder.biteLayout.setVisibility(View.VISIBLE);
 			htmlStr1="<html>"
 		             +"<body>"
-					    +"萌主"
+					    +"萌星"
 		                +"<font color=\"#fb6137\">"
 		                +animal.pet_nickName+" "
 		                +"</font>"
@@ -274,11 +273,15 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 		                +petNews.u_name
 		                +" "
 		                +"</font>"
-		                +"在逗一逗游戏中 获得了 "
+		                +"在游乐园中为萌星 "
+		                +"<font color=\"#fb6137\">"
+		                +animal.pet_nickName
+		                +"</font>"
+		                +"消灭了"
 		                +"<font color=\"#fb6137\">"
 		                +"99 "
 		                +"</font>"
-		                +"的高分，实在太厉害啦！"
+		                +"只虫子！"
 		             +"</body>"
 		      + "</html>";
 			holder.playWithDesTv.setText(Html.fromHtml(htmlStr1));
@@ -287,16 +290,17 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 			Gift gift=new Gift();
 			gift.no=petNews.item_id;
 			int index=giftList.indexOf(gift);
+			if(index>=0){
 			gift=giftList.get(index);
 			holder.makeTroubleLayout.setVisibility(View.VISIBLE);
 			htmlStr1="<html>"
 		             +"<body>"
-					    +petNews.job
+		                +petNews.job
 					    +""
 		                +"<font color=\"#fb6137\">"
 		                +petNews.u_name+" "
 		                +"</font>"
-		                +"对 "
+		                +"腹黑一笑，对 "
 		                +"<font color=\"#fb6137\">"
 		                +animal.pet_nickName+" "
 		                +"</font>"
@@ -305,9 +309,6 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 		                +gift.name+" "
 		                +"</font>"
 		                +","
-		                +"<font color=\"#fb6137\">"
-		                +animal.pet_nickName+" "
-		                +"</font>"
 		                +gift.effect_des
 		                +"人气"
 		                +"<font color=\"#fb6137\">"
@@ -317,12 +318,57 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 		      + "</html>";
 			holder.makeTroubleDesTv.setText(Html.fromHtml(htmlStr1));
 			holder.makeTroubleTimeTv.setText(timeString);
+			}
+			
+			
+			
 		}
 		
 		
+		holder.sendGiftIv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				context.clickItem2();
+			}
+		});
+		holder.biteIv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				context.clickItem3();
+			}
+		});
+		holder.playWithIV.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				context.clickItem4();
+			}
+		});
 		
-		
-		
+		holder.imageLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				PetPicture pp=new PetPicture();
+				pp.img_id=petNews.img_id;
+				pp.url=petNews.img_url;
+				if(ShowTopicActivity.showTopicActivity!=null){
+					if(ShowTopicActivity.showTopicActivity.bmp!=null&&!ShowTopicActivity.showTopicActivity.bmp.isRecycled()){
+						ShowTopicActivity.showTopicActivity.bmp.recycle();
+					}
+					ShowTopicActivity.showTopicActivity.finish();
+				}
+				Intent intent=new Intent(context,ShowTopicActivity.class);
+				intent.putExtra("PetPicture", pp);
+				context.startActivity(intent);
+			}
+		});
 		
 		
 		
@@ -336,6 +382,43 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 		         makeTroubleDesTv,makeTroubleTimeTv,sendGiftDesTv,sendGiftTimeTv,
 		         biteDesTv,biteTimeTv,playWithDesTv,playWithTimeTv;
 		ImageView imageIv,playWithIV,sendGiftIv,biteIv;
+	}
+	public String judgeTime(long time2){
+		long time1=System.currentTimeMillis()/1000;
+		long time=time1-time2;
+
+		 String str="";
+         StringBuffer sb=new StringBuffer();
+         sb.append("");
+         int mode=0;
+         if(time<0){
+        	 time=-time;
+        	 mode=1;
+        	 sb.append("未来");
+         }
+		if(time<60){
+			sb.append( str+time+"秒");
+		}else if(time/(60)<60){
+			sb.append( str+time/(60)+"分钟");
+		}else if(time/(60*60)<24){
+			sb.append(  str+time/(60*60)+"个小时");
+		}else if(time/(60*60*24)<30){
+			sb.append(  str+time/(60*60*24)+"天");
+		}else if(time/(60*60*24*30)<12){
+			sb.append(  str+time/(60*60*24)+"个月");
+		}else if(time/(60*60*24*30*12)<1000){
+			sb.append( str+time/(60*60*24*30*12)+"年");
+		}
+		if(mode==0){
+			sb.append("前");
+		}else{
+			sb.append("后");
+		}
+		if(time<60){
+			return "刚刚";
+		}else{
+			return sb.toString();
+		}
 	}
 
 }

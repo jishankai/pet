@@ -19,6 +19,7 @@ import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.LogUtil;
+import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 
 public class AlbumPictureBackground extends Activity {
@@ -70,10 +71,6 @@ public class AlbumPictureBackground extends Activity {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if(resultCode==RESULT_OK){
-
-//				if(new File(Constants.Picture_Camera+File.separator+filename).exists()){
-
-//				}
 			
 			if(requestCode==11){
 				if(data.getBooleanExtra("cancel", false)){
@@ -159,5 +156,17 @@ public class AlbumPictureBackground extends Activity {
 		
 		
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

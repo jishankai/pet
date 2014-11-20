@@ -9,7 +9,7 @@
             android:layout_below="@+id/textView1"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="0dp"
-            android:text="摸摸萌照，听美妙叫叫~"
+            android:text="@string/touch_note1"
             android:textColor="#7f97b3"
             android:textSize="16sp" />
 
@@ -23,7 +23,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:src="@drawable/bite_icon_play" />
+            android:src="@drawable/emotion_normal" />
         
       <RelativeLayout 
             android:layout_width="match_parent"

@@ -5,14 +5,22 @@
     android:orientation="vertical"
     android:id="@+id/framelayout"
     android:focusable="true"
+    android:background="@drawable/blur"
     android:focusableInTouchMode="true" >
     <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:background="@color/blur_view_top">
+    <View 
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:visibility="gone"
+        android:background="@color/white"/>
     <View android:layout_width="match_parent"
         android:layout_height="96dp"
+        
         android:background="@color/white"
         android:id="@+id/top_white_view"/>
     
@@ -32,6 +40,7 @@
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="54dp" 
+        android:visibility="visible"
         android:background="@color/orange_red">
 
         <ImageView
@@ -52,15 +61,25 @@
             android:text="选择萌星"
             android:textColor="@color/white"
             android:textSize="20sp" />
+        <ImageView
+             android:id="@+id/chose_king_search3"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:layout_centerVertical="true"
+             android:layout_marginRight="8dp"
+             android:src="@drawable/search" />
         
     </RelativeLayout>
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/function_layout"
         android:layout_width="match_parent"
         android:layout_height="42dp" 
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:visibility="visible"
+        android:orientation="horizontal"
+        android:gravity="center"
         android:layout_below="@+id/relativeLayout1"
          android:background="@color/orange_red">
             
@@ -70,9 +89,10 @@
             android:layout_height="25dp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="8dp"
-            android:text="种族"
+            android:text="所有"
             android:gravity="center"
             android:textSize="14sp"
+            
             android:layout_centerVertical="true"
             android:textColor="@color/white"
             android:background="@drawable/market_spinner_selected"
@@ -86,6 +106,7 @@
             android:text="推荐"
             android:gravity="center"
             android:textSize="14sp"
+            android:layout_marginLeft="70dp"
             android:textColor="@color/white"
             android:background="@drawable/market_spinner_selected"
             />
@@ -97,8 +118,9 @@
              android:layout_alignParentRight="true"
              android:layout_centerVertical="true"
              android:layout_marginRight="8dp"
+             android:visibility="gone"
              android:src="@drawable/search" />
-        </RelativeLayout>
+        </LinearLayout>
          <LinearLayout 
              android:id="@+id/search_layout"
             android:layout_width="match_parent"
@@ -126,6 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@null"
+                android:singleLine="true"
                 android:paddingLeft="10dp"
                 android:textColor="@color/white"
                 android:textSize="14sp"

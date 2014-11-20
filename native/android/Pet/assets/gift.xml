@@ -2,31 +2,7 @@
 <gifts>
     <gift>
           <no>1101</no>
-          <name>毛线球</name>
-          <level>1</level>
-          <price>20</price>
-          <add_rq>20</add_rq>
-          <ratio>1</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>惊喜地伸出小爪子拨弄毛线球。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-   </gift>
-    <gift>
-          <no>1102</no>
-          <name>飞盘</name>
-          <level>1</level>
-          <price>20</price>
-          <add_rq>20</add_rq>
-          <ratio>1</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>纵身一跃，在空中叼住了飞盘，bingo！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-   </gift>
-    <gift>
-          <no>1103</no>
-          <name>铃铛</name>
+          <name>好大一条鱼</name>
           <level>1</level>
           <price>24</price>
           <add_rq>28</add_rq>
@@ -34,11 +10,35 @@
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>好奇的拨弄铃铛，叮铃~叮铃~</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>盯着大鱼，口水流出来了~</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+   </gift>
+    <gift>
+          <no>1102</no>
+          <name>甜蜜缤纷</name>
+          <level>1</level>
+          <price>18</price>
+          <add_rq>18</add_rq>
+          <ratio>1</ratio>
+          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
+          <detail_image></detail_image><!-- 详情图片 -->
+          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
+          <effect_des>舔了舔糖果，幸福到不行~</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+   </gift>
+    <gift>
+          <no>1103</no>
+          <name>萌铛铛</name>
+          <level>1</level>
+          <price>18</price>
+          <add_rq>18</add_rq>
+          <ratio>1</ratio>
+          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
+          <detail_image></detail_image><!-- 详情图片 -->
+          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
+          <effect_des>拨弄着铃铛，主人快被烦死了~</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>1104</no>
-          <name>蝴蝶结</name>
+          <name>女神蝴蝶结</name>
           <level>1</level>
           <price>24</price>
           <add_rq>28</add_rq>
@@ -46,338 +46,202 @@
            <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>乖巧地戴上了蝴蝶结，神气地走了两步。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>戴上了臭美哒蝴蝶结，照镜子去啦~</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
    
     <gift>
-          <no>1105</no>
-          <name>逗猫棒</name>
-          <level>1</level>
-          <price>28</price>
-          <add_rq>33</add_rq>
-          <ratio>1.2</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>顿时眼前一亮，挥舞着爪子扑了上去。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-   </gift>
-    <gift>
-          <no>1106</no>
-          <name>棒球</name>
-          <level>1</level>
-          <price>28</price>
-          <add_rq>33</add_rq>
-          <ratio>1.2</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>立刻精神抖擞地去追棒球了。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-   </gift>
-    <gift>
-          <no>1107</no>
-          <name>糖果</name>
-          <level>1</level>
-          <price>28</price>
-          <add_rq>33</add_rq>
-          <ratio>1.2</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>一脸幸福地舔了舔糖果。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-   </gift>
-    <gift>
           <no>1201</no>
-          <name>猫饼干</name>
+          <name>求陪玩</name>
           <level>2</level>
           <price>36</price>
-          <add_rq>48</add_rq>
-          <ratio>1.33</ratio>
+          <add_rq>45</add_rq>
+          <ratio>1.25</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>闻了闻猫饼干，满意地喵喵叫~</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-          
+          <effect_des>立刻精神抖擞地去追球球了~</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>1202</no>
-          <name>肉包子</name>
+          <name>带我飞</name>
           <level>2</level>
           <price>36</price>
-          <add_rq>48</add_rq>
-          <ratio>1.33</ratio>
+          <add_rq>45</add_rq>
+          <ratio>1.25</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>闻闻肉包子，狼吞虎咽地吃了起来。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>纵身一跃，宇宙翱翔~</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>1203</no>
-          <name>宠物小馒头</name>
+          <name>土豪零食</name>
           <level>2</level>
-          <price>36</price>
-          <add_rq>48</add_rq>
-          <ratio>1.33</ratio>
+          <price>45</price>
+          <add_rq>58</add_rq>
+          <ratio>1.28</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>悠哉地嚼着宠物小馒头。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>的吃货本质终于暴露在你面前啦！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>1204</no>
-          <name>磨牙棒</name>
-          <level>2</level>
-          <price>36</price>
-          <add_rq>48</add_rq>
-          <ratio>1.33</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>一口咬住了磨牙棒，谁要也不给！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-   </gift>
-    <gift>
-          <no>1205</no>
-          <name>宠物牵引绳</name>
-          <level>2</level>
-          <price>40</price>
-          <add_rq>58</add_rq>
-          <ratio>1.45</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>发现了新牵引绳，迫不及待地要出门逛逛。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-   </gift>
-    <gift>
-          <no>1206</no>
-          <name>宠物碗</name>
-          <level>2</level>
-          <price>40</price>
-          <add_rq>58</add_rq>
-          <ratio>1.45</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>疑惑地歪头看，咦~为什么是空的？</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-   </gift>
-    <gift>
-          <no>1207</no>
-          <name>魔法棒</name>
+          <name>萌力无边</name>
           <level>2</level>
           <price>45</price>
-          <add_rq>68</add_rq>
-          <ratio>1.5</ratio>
+          <add_rq>58</add_rq>
+          <ratio>1.28</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>瞪大了圆滴滴眼睛，好奇地伸爪拨弄。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>瞪大了圆圆滴眼睛，萌！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          
    </gift>
     <gift>
           <no>1301</no>
-          <name>围巾</name>
+          <name>喷香香</name>
           <level>3</level>
           <price>58</price>
-          <add_rq>88</add_rq>
-          <ratio>1.5</ratio>
+          <add_rq>80</add_rq>
+          <ratio>1.37</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>戴上了新围巾，兴奋异常地到处炫耀。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-          
+          <effect_des>现在香喷喷哒，快来亲一口！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>1302</no>
-          <name>乔巴帽子</name>
+          <name>撒气小兽</name>
           <level>3</level>
           <price>58</price>
-          <add_rq>88</add_rq>
-          <ratio>1.5</ratio>
+          <add_rq>80</add_rq>
+          <ratio>1.37</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>戴上新帽子活泼地冲你撒了个娇。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>对着小兽撒了一通气，可爽啦！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>1303</no>
-          <name>香波</name>
+          <name>求约会</name>
           <level>3</level>
           <price>65</price>
-          <add_rq>100</add_rq>
-          <ratio>1.55</ratio>
+          <add_rq>95</add_rq>
+          <ratio>1.46</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>洗完澡浑身香喷喷的。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-          
+          <effect_des>得看你的表现才会决定跟不跟你约会哦！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>1304</no>
-          <name>护毛素</name>
+          <name>暖男围巾</name>
           <level>3</level>
           <price>65</price>
-          <add_rq>100</add_rq>
-          <ratio>1.55</ratio>
+          <add_rq>95</add_rq>
+          <ratio>1.46</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>的毛皮更顺滑了，又干净又漂亮~</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-   </gift>
-    <gift>
-          <no>1305</no>
-          <name>宠物服饰</name>
-          <level>3</level>
-          <price>70</price>
-          <add_rq>110</add_rq>
-          <ratio>1.6</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>穿上新衣服，调皮地在地上打了个滚。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>顿时热乎乎的，夸赞你是暖男呢！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>1401</no>
-          <name>吹风机</name>
+          <name>温馨小窝</name>
           <level>4</level>
-          <price>85</price>
-          <add_rq>135</add_rq>
+          <price>88</price>
+          <add_rq>140</add_rq>
           <ratio>1.6</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>懒洋洋地吹着风，还打了个小哈欠。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>满意的躺到了新家里，身子暖暖哒~~</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>1402</no>
-          <name>猫窝</name>
+          <name>金饭碗</name>
           <level>4</level>
-          <price>100</price>
-          <add_rq>166</add_rq>
-          <ratio>1.66</ratio>
+          <price>88</price>
+          <add_rq>140</add_rq>
+          <ratio>1.6</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>惊奇地看着新窝，满意地钻进去睡觉了。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>捧着金饭碗，再也不愁木得粮食吃啦！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>1403</no>
-          <name>狗窝</name>
+          <name>深情比金坚</name>
           <level>4</level>
           <price>100</price>
-          <add_rq>166</add_rq>
-          <ratio>1.66</ratio>
+          <add_rq>200</add_rq>
+          <ratio>2</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>嗅了嗅新窝，放松地打着呼噜睡觉了~</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>戴上了新项圈，跑到镜子前臭美去了~~</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          
+   </gift>
+    <gift>
+          <no>1404</no>
+          <name>宇宙第一萌</name>
+          <level>4</level>
+          <price>120</price>
+          <add_rq>240</add_rq>
+          <ratio>2</ratio>
+          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
+          <detail_image></detail_image><!-- 详情图片 -->
+          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
+          <effect_des>戴上了皇冠，英姿飒爽的叫了一声！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>2101</no>
-          <name>臭鸡蛋</name>
+          <name>蛋蛋的忧伤</name>
           <level>1</level>
-          <price>40</price>
-          <add_rq>-5</add_rq>
-          <ratio>1</ratio>
+          <price>12</price>
+          <add_rq>-3</add_rq>
+          <ratio>0.25</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>被熏得晕头转向……</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>被扔鸡蛋啦，蛋黄碎了一地！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          
    </gift>
     <gift>
           <no>2102</no>
-          <name>石头</name>
+          <name>吓你一大跳</name>
           <level>1</level>
-          <price>42</price>
-          <add_rq>-8</add_rq>
-          <ratio>1</ratio>
+          <price>15</price>
+          <add_rq>-5</add_rq>
+          <ratio>0.33</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>被砸个正着，异常愤怒的叫了起来。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-          
+          <effect_des>碰到毛绒绒的虫纸啦，吓尿了！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>2103</no>
-          <name>水气球</name>
+          <name>臭气熏天</name>
           <level>1</level>
-          <price>42</price>
-          <add_rq>-8</add_rq>
-          <ratio>1</ratio>
+          <price>18</price>
+          <add_rq>-7</add_rq>
+          <ratio>0.38</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>被溅了一身的水，成了湿漉漉的可怜虫……</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>踩到了你扔的便便，顿时昏厥！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>2104</no>
-          <name>毛毛虫</name>
+          <name>特别小伙伴</name>
           <level>1</level>
-          <price>46</price>
+          <price>22</price>
           <add_rq>-10</add_rq>
-          <ratio>1</ratio>
+          <ratio>0.45</ratio>
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>警觉地瞅了一眼毛毛虫，嫌恶地跑开了。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>痒屎了，抓耳挠腮中。。。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
-    <gift>
-          <no>2201</no>
-          <name>鸡毛掸子</name>
-          <level>2</level>
-          <price>50</price>
-          <add_rq>-15</add_rq>
-          <ratio>1.1</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>惊慌的看着鸡毛掸子，畏惧地缩了缩脑袋。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-          
-   </gift>
-    <gift>
-          <no>2202</no>
-          <name>惨叫鸡</name>
-          <level>2</level>
-          <price>50</price>
-          <add_rq>-15</add_rq>
-          <ratio>1.1</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>被吓了一跳，惊慌地躲进沙发下面了。</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-   </gift>
-    <gift>
-          <no>2203</no>
-          <name>便便</name>
-          <level>2</level>
-          <price>58</price>
-          <add_rq>-20</add_rq>
-          <ratio>1.09</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>没有注意到便便，竟然一脚踩了上去！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-   </gift>
-    <gift>
-          <no>2301</no>
-          <name>仙人球</name>
-          <level>3</level>
-          <price>70</price>
-          <add_rq>-28</add_rq>
-          <ratio>1.2</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>竟一头撞上了仙人球，好痛痛……</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-          
-   </gift>
-    <gift>
-          <no>2302</no>
-          <name>炸弹</name>
-          <level>3</level>
-          <price>80</price>
-          <add_rq>-35</add_rq>
-          <ratio>1.2</ratio>
-          <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
-          <detail_image></detail_image><!-- 详情图片 -->
-          <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>惊慌失措地尖叫，主人快来保护我！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
-   </gift>
-</gifts>
-
+   

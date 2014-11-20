@@ -14,6 +14,7 @@ import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.LogUtil;
+import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 
 public class TakePictureBackground extends Activity {
@@ -58,6 +59,7 @@ public class TakePictureBackground extends Activity {
 		mode=getIntent().getIntExtra("mode", -1);
 		activityName=getIntent().getStringExtra("activity");
 		animal=(Animal)getIntent().getSerializableExtra("animal");
+		
 		switch (mode) {
 		case -1:
 			this.finish();
@@ -186,5 +188,17 @@ public class TakePictureBackground extends Activity {
 		
 
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

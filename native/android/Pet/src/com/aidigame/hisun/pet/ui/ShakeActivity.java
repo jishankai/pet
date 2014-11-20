@@ -43,6 +43,7 @@ import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.ImageUtil;
+import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
@@ -56,6 +57,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.umeng.analytics.MobclickAgent;
 /**
  * 摇一摇
  * @author admin
@@ -98,6 +100,7 @@ public class ShakeActivity extends Activity {
     	giftList=StringUtil.getGiftList(this);
     	animal=(Animal)getIntent().getSerializableExtra("animal");
     	mode=getIntent().getIntExtra("mode", 1);
+    	MobclickAgent.onEvent(this, "shake_button");
     	handleHttpConnectionException=HandleHttpConnectionException.getInstance();
     	shareBitmapLayout=(RelativeLayout)findViewById(R.id.share_bitmap_layout);
     	BitmapFactory.Options options=new BitmapFactory.Options();
@@ -138,6 +141,9 @@ public class ShakeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(shakeSensor!=null)
+				shakeSensor.stop();
+				
 				ShakeActivity.this.finish();
 			}
 		});;
@@ -277,7 +283,7 @@ public class ShakeActivity extends Activity {
 							int r=random.nextInt(1000)+1;
 							int index=0;
 							ArrayList<Integer> intList=null;
-							if(r>=1&&r<=600){
+							if(r>=1&&r<=800){
 								index=1;
 								intList=new ArrayList<Integer>();
 								for(int i=0;i<giftList.size();i++){
@@ -290,7 +296,7 @@ public class ShakeActivity extends Activity {
 								}
 								int r1=random.nextInt(intList.size());
 								gift=giftList.get(intList.get(r1));
-							}else if(r>=601&&r<=870){
+							}else if(r>=801&&r<=900){
 								index=1;
 								intList=new ArrayList<Integer>();
 								for(int i=0;i<giftList.size();i++){
@@ -302,7 +308,7 @@ public class ShakeActivity extends Activity {
 								}
 								int r1=random.nextInt(intList.size());
 								gift=giftList.get(intList.get(r1));
-							}else if(r>=871&&r<=1000){
+							}else if(r>=901&&r<=970){
 								index=1;
 								intList=new ArrayList<Integer>();
 								for(int i=0;i<giftList.size();i++){
@@ -315,8 +321,19 @@ public class ShakeActivity extends Activity {
 								}
 								int r1=random.nextInt(intList.size());
 								gift=giftList.get(intList.get(r1));
-							}else {
-								index=3;
+							}else if(r>=971&&r<=1000){
+								index=1;
+								intList=new ArrayList<Integer>();
+								for(int i=0;i<giftList.size();i++){
+                                   
+                                    	if(giftList.get(i).level==4&&giftList.get(i).add_rq>0){
+    										intList.add(i);
+    									}
+									
+									
+								}
+								int r1=random.nextInt(intList.size());
+								gift=giftList.get(intList.get(r1));
 							}
 							
 							optNumTv.setText(""+optortunity);
@@ -367,6 +384,12 @@ public class ShakeActivity extends Activity {
 										public void run() {
 											// TODO Auto-generated method stub
 											optNumTv.setText(""+optortunity);
+											MobclickAgent.onEvent(ShakeActivity.this, "shake_suc");
+											LogUtil.i("mi", "还剩"+optortunity+"次机会");
+											if(NewHomeActivity.homeActivity!=null){
+												LogUtil.i("mi", "还剩"+optortunity+"次机会");
+												NewHomeActivity.homeActivity.homeFragment.homeMyPet.adapter.updateTV("还剩"+optortunity+"次",gift.add_rq);
+											}
 										}
 									});
 								}
@@ -406,11 +429,11 @@ public class ShakeActivity extends Activity {
 				// TODO Auto-generated method stub
 				//送礼物
 				User user=HttpUtil.sendGift(ShakeActivity.this,gift, handleHttpConnectionException.getHandler(ShakeActivity.this));
-				UserStatusUtil.checkUserExpGoldLvRankChange(user, ShakeActivity.this, progressLayout);
+				
 				isSending=false;
 			}
 		}).start();
-		awardNameTv.setText(gift.name+"一个");
+		awardNameTv.setText(gift.name);
 		try {
 			awardIv.setImageBitmap(BitmapFactory.decodeStream(getResources().getAssets().open(""+gift.no+".png")));
 		} catch (IOException e) {
@@ -423,7 +446,7 @@ public class ShakeActivity extends Activity {
 	public void initView3(){
 		
 	}
-public void initView4(){
+    public void initView4(){
 	ImageView cloudIV1=(ImageView)view4.findViewById(R.id.cloud1);
 	ImageView cloudIV2=(ImageView)view4.findViewById(R.id.cloud2);
 	ImageView cloudIV3=(ImageView)view4.findViewById(R.id.cloud3);
@@ -518,7 +541,7 @@ public void initView4(){
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
 					if(WeixinShare.shareBitmap(data, 2)){
-						Toast.makeText(ShakeActivity.this,"成功分享到微信。", Toast.LENGTH_LONG).show();
+//						Toast.makeText(ShakeActivity.this,"成功分享到微信。", Toast.LENGTH_LONG).show();
 					}else{
 						Toast.makeText(ShakeActivity.this,"分享到微信失败。", Toast.LENGTH_LONG).show();
 					}
@@ -554,7 +577,7 @@ public void initView4(){
 					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
-					data.des="随便一摇就摇出了一个“"+gift.name+"”，好惊喜，你也想试试吗？http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+					data.des="随便一摇就摇出了一个"+gift.name+"，好惊喜，你也想试试吗？http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
 					if(UserStatusUtil.hasXinlangAuth(ShakeActivity.this)){
 						
 						XinlangShare.sharePicture(data,ShakeActivity.this);
@@ -579,7 +602,26 @@ public void initView4(){
 	 @Override
 	    protected void onDestroy() {
 	    	// TODO Auto-generated method stub
-	    	if(PetKingdomActivity.petKingdomActivity!=null)PetKingdomActivity.petKingdomActivity.kingdomTrends.onRefresh();
+	    	if(PetKingdomActivity.petKingdomActivity!=null)PetKingdomActivity.petKingdomActivity.kingdomTrends.onRefresh(null);
+	    	if(shakeSensor!=null)
+	    	shakeSensor.stop();
+	    	if(NewHomeActivity.homeActivity!=null){
+				LogUtil.i("mi", "还剩"+optortunity+"次机会");
+				NewHomeActivity.homeActivity.homeFragment.homeMyPet.adapter.tv=null;
+				NewHomeActivity.homeActivity.homeFragment.homeMyPet.adapter.contriTV=null;
+			}
 	    	super.onDestroy();
 	    }
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 }

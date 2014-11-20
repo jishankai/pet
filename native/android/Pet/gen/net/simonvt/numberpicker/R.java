@@ -21,28 +21,28 @@ public final class R {
 		public static final int virtualButtonPressedDrawable = 0x7f01007b;
 	}
 	public static final class color {
-		public static final int transparent = 0x7f090006;
+		public static final int transparent = 0x7f090002;
 	}
 	public static final class drawable {
-		public static final int item_background_holo_dark = 0x7f02015e;
-		public static final int item_background_holo_light = 0x7f02015f;
-		public static final int list_focused_holo = 0x7f020168;
-		public static final int list_longpressed_holo = 0x7f020169;
-		public static final int list_pressed_holo_dark = 0x7f02016a;
-		public static final int list_pressed_holo_light = 0x7f02016b;
-		public static final int list_selector_background_transition_holo_dark = 0x7f02016c;
-		public static final int list_selector_background_transition_holo_light = 0x7f02016d;
-		public static final int list_selector_disabled_holo_dark = 0x7f02016e;
-		public static final int list_selector_disabled_holo_light = 0x7f02016f;
-		public static final int np_numberpicker_selection_divider = 0x7f02018b;
+		public static final int item_background_holo_dark = 0x7f02014c;
+		public static final int item_background_holo_light = 0x7f02014d;
+		public static final int list_focused_holo = 0x7f020156;
+		public static final int list_longpressed_holo = 0x7f020157;
+		public static final int list_pressed_holo_dark = 0x7f020158;
+		public static final int list_pressed_holo_light = 0x7f020159;
+		public static final int list_selector_background_transition_holo_dark = 0x7f02015a;
+		public static final int list_selector_background_transition_holo_light = 0x7f02015b;
+		public static final int list_selector_disabled_holo_dark = 0x7f02015c;
+		public static final int list_selector_disabled_holo_light = 0x7f02015d;
+		public static final int np_numberpicker_selection_divider = 0x7f020179;
 	}
 	public static final class id {
-		public static final int np__decrement = 0x7f060034;
-		public static final int np__increment = 0x7f060033;
-		public static final int np__numberpicker_input = 0x7f060235;
+		public static final int np__decrement = 0x7f0a0034;
+		public static final int np__increment = 0x7f0a0033;
+		public static final int np__numberpicker_input = 0x7f0a028e;
 	}
 	public static final class layout {
-		public static final int number_picker_with_selector_wheel = 0x7f0300ab;
+		public static final int number_picker_with_selector_wheel = 0x7f0300b8;
 	}
 	public static final class style {
 		public static final int NPWidget = 0x7f07000b;

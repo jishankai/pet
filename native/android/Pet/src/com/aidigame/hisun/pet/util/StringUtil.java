@@ -23,6 +23,7 @@ import com.aidigame.hisun.pet.bean.TalkMessage;
 import com.aidigame.hisun.pet.bean.TalkMessage.Msg;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.content.Context;
@@ -34,15 +35,21 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.method.KeyListener;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class StringUtil {
 	public static String timeFormat(long time){
@@ -233,7 +240,8 @@ public class StringUtil {
 						j1=new JSONObject(json);
 						ja=j1.getJSONArray("msg");
 							talkMessage=new TalkMessage();
-							talkMessage.position=Integer.parseInt(strs[i]);
+//							talkMessage.position=Integer.parseInt(strs[i]);
+							talkMessage.usr_id=Integer.parseInt(strs[i]);
 							
 							if(ja!=null&&ja.length()>0){
 								list=new ArrayList<TalkMessage.Msg>();
@@ -248,6 +256,10 @@ public class StringUtil {
 								}
 								talkMessage.msgList=list;
 								talkMessage.usr_id=j1.getInt("usr_id");
+								if(json.contains("\"position\"")){
+									talkMessage.position=j1.getInt("position");
+								}
+								
 								talkMessage.usr_name=j1.getString("usr_name");
 								talkMessage.usr_tx=j1.getString("usr_tx");
 								talkMessage.sortMsgList();
@@ -319,7 +331,8 @@ public class StringUtil {
 		SharedPreferences sp=context.getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
     	Editor editor=sp.edit();
     	if(datasMail.size()>0){
-    		String numString=sp.getString("talk_num", null);
+//    		String numString=sp.getString("talk_num", null);
+    		String numString="";
         	if(!StringUtil.isEmpty(numString)){
         		String[] strs=numString.split(",");
         		boolean has=false;
@@ -366,6 +379,7 @@ public class StringUtil {
             	}
             	jo.put("msg", ja);
             	jo.put("usr_id", mailList.usr_id);
+            	jo.put("position", mailList.position);
             	jo.put("usr_name", mailList.usr_name);
             	jo.put("usr_tx", mailList.usr_tx);
             	jo.put("old_new_msg_num", mailList.old_new_msg_num);
@@ -376,6 +390,9 @@ public class StringUtil {
     			e.printStackTrace();
     		}
     	editor.commit();
+	}else{
+		editor.putString("talk_num", "");
+		editor.commit();
 	}
 	}
 	/**
@@ -383,6 +400,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static int getNewMessageNum(Context context,Handler handleHttpConnectionException){
+		 LogUtil.i("mi", "===获取消息数目");
 		ArrayList<TalkMessage> datasMail=null;
 		datasMail=StringUtil.getTalkHistory(PetApplication.petApp);
 		if(datasMail==null){
@@ -639,6 +657,41 @@ public class StringUtil {
 			e.printStackTrace();
 		}
 		return "1.0";
+	}
+	public static boolean canUpdate(Context context,String newVersion){
+		boolean flag=false;
+		String old=getAPKVersionName(context);
+		int a=old.compareTo(newVersion);
+		if(a<0){
+			return true;
+		}
+		return false;
+	}
+	public static void editTextEnter(EditText et){
+		et.setOnEditorActionListener(new OnEditorActionListener() {
+			
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				// TODO Auto-generated method stub
+				if(event.getKeyCode()==KeyEvent.KEYCODE_ENTER){
+					
+					return true;
+				}
+				return false;
+			}
+		});
+	}
+	
+	
+	
+	/**
+	 * 友盟统计使用
+	 */
+	public static void umengOnResume(Context context){
+		MobclickAgent.onResume(context);;
+	}
+    public static void umengOnPause(Context context){
+    	MobclickAgent.onPause(context);
 	}
 
 

@@ -78,14 +78,14 @@ public class DialogQuitKingdom {
 						/*
 						 * 退出王国
 						 */
-						final boolean flag=HttpUtil.joinOrQuitKingdom(context,animal, handleHttpConnectionException.getHandler(context), 1);
+						final Animal  an=HttpUtil.joinOrQuitKingdom(context,animal, handleHttpConnectionException.getHandler(context), 1);
 					    
 					    	handleHttpConnectionException.getHandler(context).post(new Runnable() {
 								
 								@Override
 								public void run() {
 									// TODO Auto-generated method stub
-									if(flag){
+									if(an!=null){
 								    	animal.is_join=false;
 								    	animal.fans--;
 									if(Constants.user!=null&&Constants.user.aniList!=null){
@@ -101,7 +101,12 @@ public class DialogQuitKingdom {
 										Toast.makeText(context, "退出王国失败", 1000).show();
 									}
 									if(listener!=null){
-										listener.getResult(flag);
+										if(an!=null){
+											listener.getResult(true);
+										}else{
+											listener.getResult(false);
+										}
+										
 									}
 									
 								}

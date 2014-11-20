@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -43,8 +42,10 @@ import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.LoginJson;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.ui.ChoseStarActivity;
+import com.aidigame.hisun.pet.ui.InviteOthersDialogActivity;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
+import com.aidigame.hisun.pet.ui.PopularRankListActivity;
 import com.aidigame.hisun.pet.ui.TopicListActivity;
 import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -61,20 +62,16 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.umeng.analytics.MobclickAgent;
 public class MenuFragment extends Fragment implements OnClickListener{
 	ImageLoader imageLoader;
-	DisplayImageOptions displayImageOptions;
+	DisplayImageOptions displayImageOptions,displayImageOptions1;
 	ScrollView scrollView;
 	
 	public static MenuFragment menuFragment;
 	RoundImageView round1,round2,round3;
 	ImageView hat_king1,hat_king2,hat_king3;
-	EditText searchET;
-//	boolean isSearch=false;
-	TextView cancelSearchTV;
-	ListView searchListView;
-	ArrayList<Animal> searchAnimalList;
-	SearchPetListAdapter searchPetListAdapter;
+	TextView rqTv;
 	LinearLayout infoLayout;
 	public View popup_parent;
 	public RelativeLayout black_layout;
@@ -93,7 +90,6 @@ public class MenuFragment extends Fragment implements OnClickListener{
 	HorizontalListView2 gallery;
 	ImageView preIv,nextIv,messageIv,sexIv,clearInputIv;
 	BaseAdapter galleryAdapter;
-	ArrayList<View> viewList;
 	ArrayList<Animal> animalList;
 
 	
@@ -119,6 +115,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		homeActivity=NewHomeActivity.homeActivity;
 		menuView=inflater.inflate(R.layout.fragment_menu, null);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		menuFragment=this;
@@ -132,7 +129,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onViewCreated(view, savedInstanceState);
-		
+		homeActivity=NewHomeActivity.homeActivity;
 		LogUtil.i("me", "onViewCreated(View view, Bundle savedInstanceState)");
 		
 	}
@@ -156,10 +153,6 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		
 		
 	}
-	public void setHomeActivity(NewHomeActivity activity){
-		this.homeActivity=activity;
-        
-	}
 	@Override
 	public void onStart() {
 		// TODO Auto-generated method stub
@@ -178,6 +171,16 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		displayImageOptions=new DisplayImageOptions
 	            .Builder()
 	            .showImageOnLoading(R.drawable.pet_icon)
+		        .cacheInMemory(false)
+		        .cacheOnDisc(true)
+		        .bitmapConfig(Bitmap.Config.RGB_565)
+		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		        .decodingOptions(options)
+                .build();
+		displayImageOptions1=new DisplayImageOptions
+	            .Builder()
+	            .showImageOnLoading(R.drawable.user_icon)
+	            .showImageOnFail(R.drawable.user_icon)
 		        .cacheInMemory(false)
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
@@ -241,9 +244,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		gallery=(HorizontalListView2)menuView.findViewById(R.id.gallery);
 		preIv=(ImageView)menuView.findViewById(R.id.left_viewpager);
 		nextIv=(ImageView)menuView.findViewById(R.id.right_viewpager);
-		clearInputIv=(ImageView)menuView.findViewById(R.id.clear_input_iv);
-		clearInputIv.setOnClickListener(this);
-		
+		rqTv=(TextView)menuView.findViewById(R.id.rq_tv);
 
 		
 		round1=(RoundImageView)menuView.findViewById(R.id.round1);
@@ -257,6 +258,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		nextIv.setOnClickListener(this);
 		no_pet_layout=(RelativeLayout)menuView.findViewById(R.id.no_pet_layout);
 		no_pet_layout.setOnClickListener(this);
+		rqTv.setOnClickListener(this);
 		animalList=new ArrayList<Animal>();
 		sexIv=(ImageView)menuView.findViewById(R.id.imageView8);
 		levelTv=(TextView)menuView.findViewById(R.id.level_tv);
@@ -423,17 +425,6 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		
 		messageIv=(ImageView)menuView.findViewById(R.id.imageView7);
 		messageIv.setOnClickListener(this);
-		viewList=new ArrayList<View>();
-		View view1=LayoutInflater.from(homeActivity).inflate(R.layout.item_gallery_view, null);
-//		viewList.add(view1);
-		View view2=LayoutInflater.from(homeActivity).inflate(R.layout.item_gallery_view, null);
-//		viewList.add(view2);
-		View view3=LayoutInflater.from(homeActivity).inflate(R.layout.item_gallery_view, null);
-//		viewList.add(view3);
-		for(int i=0;i<4;i++){
-			view3=LayoutInflater.from(homeActivity).inflate(R.layout.item_gallery_view, null);
-			viewList.add(view3);
-		}
 		homeLayout.setOnClickListener(this);
 		marketLayout.setOnClickListener(this);
 		messageLayout.setOnClickListener(this);
@@ -449,89 +440,8 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		}
 		
 		infoLayout=(LinearLayout)menuView.findViewById(R.id.info_layout);
-		searchET=(EditText)menuView.findViewById(R.id.search_et);
-		cancelSearchTV=(TextView)menuView.findViewById(R.id.cancel_search_tv);
-		searchListView=(ListView)menuView.findViewById(R.id.listview);
-		searchListView.setDivider(null);
-		searchAnimalList=new ArrayList<Animal>();
-		searchPetListAdapter=new SearchPetListAdapter(homeActivity, searchAnimalList);
-		searchListView.setAdapter(searchPetListAdapter);
-		cancelSearchTV.setOnClickListener(this);
-		searchListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				
-				Intent intent=new Intent(homeActivity,PetKingdomActivity.class);
-				intent.putExtra("animal", searchAnimalList.get(position));
-				homeActivity.startActivity(intent);
-			}
-		});
-		/*searchET.setOnFocusChangeListener(new OnFocusChangeListener() {
-			
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				// TODO Auto-generated method stub
-				if(hasFocus){
-					cancelSearchTV.setVisibility(View.VISIBLE);
-					searchListView.setVisibility(View.VISIBLE);
-					clearInputIv.setVisibility(View.VISIBLE);
-					infoLayout.setVisibility(View.INVISIBLE);
-					
-//					isSearch=true;
-				}
-			}
-		});*/
-		searchET.setOnKeyListener(new OnKeyListener() {
-			
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				// TODO Auto-generated method stub
-				if(keyCode==KeyEvent.KEYCODE_ENTER){
-					final String name=searchET.getText().toString();
-					if(StringUtil.isEmpty(name)){
-						Toast.makeText(homeActivity, "搜索内容不能为空", Toast.LENGTH_LONG).show();
-						return false;
-					}
-					searchPet(name);
-					return true;
-				}
-				return false;
-			}
-		});
-		searchET.addTextChangedListener(new TextWatcher() {
-			
-			@Override
-			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-				// TODO Auto-generated method stub
-				if(arg0.length()>0){
-					cancelSearchTV.setText("搜索");
-					isSearching=true;
-					cancelSearchTV.setVisibility(View.VISIBLE);
-					searchListView.setVisibility(View.VISIBLE);
-					clearInputIv.setVisibility(View.VISIBLE);
-					infoLayout.setVisibility(View.INVISIBLE);
-				}else{
-					cancelSearchTV.setText("取消");
-					isSearching=false;
-				}
-			}
-			
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-					int arg3) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void afterTextChanged(Editable arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		
+		
 		if(!Constants.isSuccess){
 			levelTv.setVisibility(View.INVISIBLE);
 			sexIv.setVisibility(View.INVISIBLE);
@@ -543,7 +453,6 @@ public class MenuFragment extends Fragment implements OnClickListener{
 	 * 界面初始化，头像，昵称，性别 等 
 	 */
 	public void setViews(){
-		userIcon.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.user_icon));
 		if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()>0){
 			animalList=Constants.user.aniList;
 			galleryAdapter.notifyDataSetChanged();
@@ -553,19 +462,17 @@ public class MenuFragment extends Fragment implements OnClickListener{
 			userNameTve.setText(Constants.user.u_nick);//昵称//种族
 			
 			imageLoader=ImageLoader.getInstance();
-			imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+Constants.user.u_iconUrl, userIcon, displayImageOptions,new ImageLoadingListener(){
+			imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+Constants.user.u_iconUrl, userIcon, displayImageOptions1,new ImageLoadingListener(){
 
 				@Override
 				public void onLoadingStarted(String imageUri, View view) {
 					// TODO Auto-generated method stub
-					userIcon.setImageResource(R.drawable.user_icon);
 				}
 
 				@Override
 				public void onLoadingFailed(String imageUri, View view,
 						FailReason failReason) {
 					// TODO Auto-generated method stub
-					userIcon.setImageResource(R.drawable.user_icon);
 				}
 
 				@Override
@@ -590,7 +497,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
 			}
 			goldTv.setText(""+Constants.user.coinCount);
 			if(Constants.user.currentAnimal!=null){
-				jobTv.setText("萌星 "+Constants.user.currentAnimal.pet_nickName+"的"+Constants.user.rank);
+				jobTv.setText(""+Constants.user.currentAnimal.pet_nickName+"的"+Constants.user.rank);
 				levelTv.setText("Lv."+Constants.user.lv);
 				if(Constants.user.aniList!=null){
 					animalList=Constants.user.aniList;
@@ -606,10 +513,13 @@ public class MenuFragment extends Fragment implements OnClickListener{
 			sexIv.setVisibility(View.INVISIBLE);
 			mailText.setVisibility(View.INVISIBLE);
 			no_pet_layout.setVisibility(View.VISIBLE);
-			userIcon.setImageResource(R.drawable.user_icon);
 		}else{
 			no_pet_layout.setVisibility(View.INVISIBLE);
 		}
+	
+	}
+	
+	public void getNewsNum(){
 		//获取消息和活动数目
 		new Thread(new Runnable() {
 					
@@ -625,9 +535,13 @@ public class MenuFragment extends Fragment implements OnClickListener{
 							@Override
 							public void run() {
 								// TODO Auto-generated method stub
+								
 								if(mail_count!=0){
 									mailText.setVisibility(View.VISIBLE);
-									mailText.setText(""+mail_count);
+									mailText.setText(""+(mail_count));
+									if(HomeFragment.homeFragment!=null){
+										HomeFragment.homeFragment.message_num_tv.setText(""+(mail_count));
+									}
 								}else{
 									mailText.setVisibility(View.INVISIBLE);
 								}
@@ -645,66 +559,15 @@ public class MenuFragment extends Fragment implements OnClickListener{
 					}
 				}).start();
 	}
+	
 	/**
 	 * 设置毛玻璃背景，列表滑动时顶部变透明并显示列表
 	 */
-	boolean isSearching=false;
-    public void searchPet(final String name){
-    	
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				final ArrayList<Animal> animals=HttpUtil.searchUserOrPet(homeActivity,name, -1, handleHttpConnectionException.getHandler(homeActivity));
-				homeActivity.runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						if(animals!=null){
-							searchAnimalList=animals;
-							searchPetListAdapter.updateList(animals);
-							searchPetListAdapter.notifyDataSetChanged();
-						}else{
-							Toast.makeText(homeActivity, "没有搜索到名字为 "+name+" 的宠物", Toast.LENGTH_LONG).show();
-						}
-						isSearching=false;
-					}
-				});
-			}
-		}).start();
-    }
+
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
 		scrollView=(ScrollView)menuView.findViewById(R.id.scrollview);
-		if(HomeFragment.blurBitmap==null){
-			scrollView.setBackgroundDrawable(getResources().getDrawable(R.drawable.blur));
-		}
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				homeActivity.runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						scrollView.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						scrollView.setAlpha(0.9342857f);
-					}
-				});
-			}
-		})/*.start()*/;
+		
 	}
 
    int count=0;
@@ -736,7 +599,13 @@ public class MenuFragment extends Fragment implements OnClickListener{
 			homeActivity.showSetupFragment();
 			break;
 		case R.id.home_linearLayout_left:
-			homeActivity.showHomeFragment();
+			if(homeActivity.homeFragment==null){
+				homeActivity.showHomeFragment();
+				homeActivity.toggle();
+			}else{
+				homeActivity.showHomeFragment();
+			}
+			
 			break;
 		case R.id.market_linearLayout_left:
 			homeActivity.showMarketFragment();
@@ -771,50 +640,32 @@ public class MenuFragment extends Fragment implements OnClickListener{
 			gallery.moveToNext(width);
 
 			break;
-		case R.id.cancel_search_tv:
-			if(isSearching){
-				final String name=searchET.getText().toString();
-				if(StringUtil.isEmpty(name)){
-					Toast.makeText(homeActivity, "搜索内容不能为空", Toast.LENGTH_LONG).show();
-					return;
-				}
-				searchPet(name);
-			}else{
-				infoLayout.setVisibility(View.VISIBLE);
-				searchListView.setVisibility(View.INVISIBLE);
-				clearInputIv.setVisibility(View.INVISIBLE);
-				cancelSearchTV.setVisibility(View.GONE);
-				searchET.setText("");
-				StringUtil.hideSoftKeybord(homeActivity);
-				isSearching=false;
-			}
-			
-			break;
+		
 		case R.id.imageView7:
             if(!UserStatusUtil.isLoginSuccess(homeActivity,popup_parent,black_layout)){
 				return;
 			}
 			homeActivity.showMessageFragment();
 			mailText.setVisibility(View.INVISIBLE);
+			MobclickAgent.onEvent(homeActivity, "message");
 			mailText.setText(""+0);
+			if(HomeFragment.homeFragment!=null){
+				HomeFragment.homeFragment.message_num_tv.setVisibility(View.INVISIBLE);
+				HomeFragment.homeFragment.message_num_tv.setText("0");;
+			}
 			break;
-		case R.id.clear_input_iv:
-			searchET.setText("");
-			isSearching=false;
-			break;
+	
 		case R.id.no_pet_layout:
 			if(!UserStatusUtil.isLoginSuccess(homeActivity,popup_parent,black_layout)){
 				
 			}
 			break;
+		case R.id.rq_tv:
+			Intent intent5=new Intent(homeActivity,PopularRankListActivity.class);
+			homeActivity.startActivity(intent5);
+			MobclickAgent.onEvent(homeActivity, "rank");
+			break;
 		}
-	}
-	public void hideSearch(){
-		infoLayout.setVisibility(View.VISIBLE);
-		searchListView.setVisibility(View.INVISIBLE);
-		clearInputIv.setVisibility(View.INVISIBLE);
-		cancelSearchTV.setVisibility(View.GONE);
-		isSearching=false;
 	}
 	public class MyOnClickListener implements OnClickListener{
 

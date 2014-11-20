@@ -126,7 +126,7 @@ public class FirstPageActivity extends Activity{
 										FirstPageActivity.this.startActivity(intent);
 										FirstPageActivity.this.finish();
 									}
-								},1500);
+								},4000);
 									
 							}
 							

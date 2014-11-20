@@ -124,6 +124,9 @@ public class UserImagesJson  implements Serializable{
 				temp.img_id=object.getInt("img_id");
 				
 				temp.animal=new Animal();
+				if(json.contains("cmt")){
+					temp.cmt=object.getString("cmt");
+				}
 				if (json.contains("aid")&&json.contains("cmt")){
 					temp.animal.a_id=object.getLong("aid");
 					temp.cmt=object.getString("cmt");

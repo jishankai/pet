@@ -94,9 +94,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 				}
 				else if(Constants.whereShare==2){
 					
-					PetKingdomActivity.petKingdomActivity.shareNumChange();
 				}else if(Constants.whereShare==3){
-					UserDossierActivity.userDossierActivity.shareNumChange();
 				}
 			}
 			if(Constants.shareMode==1){
@@ -114,9 +112,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 					LogUtil.i("me", "SubmitPicture关闭掉===================4");
 					return;
 				}else if(Constants.whereShare==2){
-					PetKingdomActivity.petKingdomActivity.shareNumChange();
 				}else if(Constants.whereShare==3){
-					UserDossierActivity.userDossierActivity.shareNumChange();
 				}
 			}
 			

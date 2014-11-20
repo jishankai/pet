@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import android.R.color;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,9 +21,12 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -43,6 +47,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -75,27 +80,39 @@ import com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction.ClawFunctionChos
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 import com.aidigame.hisun.pet.widget.fragment.MarketFragment;
 import com.aviary.android.feather.library.utils.BitmapUtils;
+import com.example.android.bitmapfun.util.ImageCache;
+import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
+import com.example.android.bitmapfun.util.ImageFetcher;
+import com.example.android.bitmapfun.util.ImageWorker;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.umeng.analytics.MobclickAgent;
 /**
  * 图片详情界面
  * @author admin
  *
  */
 public class ShowTopicActivity extends Activity implements OnClickListener{
-	public View popupParent,paddingView;//PopupWindwo位置相关parent
+	public View popupParent/*,paddingView*/;//PopupWindwo位置相关parent
 	DisplayImageOptions displayImageOptions;
+	ImageFetcher mImageFetcher;
+	BitmapFactory.Options options;
+	public Bitmap bmp;
+	String bmpPath;
 	FrameLayout frameLayout;
 	RoundImageView bt2;
+	View line1,line2,report_line1;
+	TextView reportTV;
+	
+	
 	public ImageView imageView;
 	TextView tv1,tv2,tv3,tv4,tv31,giftNumTV,commentNumTV,shareNumTV,ageTV,topicName_tv,atUserTv;
-	ImageView bt4,bt1,bt3,add_comment,sendGiftIV,sexIV,addFocusTV;
+	ImageView bt4,bt1,bt3,add_comment,sendGiftIV,sexIV;
 	LinearLayout addcommentLayout;
 	public static ShowTopicActivity showTopicActivity;
-//	ListView comment_listView;
 	LinearLayoutForListView linearLayoutForListView;
 	LinearLayout progressLayout;
 	ShowProgress showProgress;
@@ -104,16 +121,14 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 	TextView send_comment_tv;
 	boolean show_add_comment=false;
 	boolean show_shareLayout=false;
-//	HorizontialListView horizontialListView;
 	HorizontalListView2 horizontialListView;
 	ShowTopicHorizontalAdapter adapter;
-	LinearLayout linearLayout1;
-	LinearLayout linearLayout2;
+	LinearLayout linearLayout2,linearLayout22;
 	ScrollView scrollview;
 	LinearLayout scrollParentLayout;
 	boolean relativelayout1gone=false;
 	int touchSlop;//滑动时间还是点击事件的分界点
-	RelativeLayout relativeLayout1,linearLayout33,click33,imageDesRelativelayout;
+	RelativeLayout relativeLayout1,linearLayout33,click33,imageDesRelativelayout,moreLayout;
 	public RelativeLayout black_layout;
 	boolean judgeFlag=true;
 	boolean hiden=false;
@@ -121,16 +136,16 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 	int from_w;//来自那块：1,主页；2，宠物资料界面，
 	LinearLayout shareLayout;
 	RelativeLayout clawFunctionLayout;
-//	RelativeLayout clawFunctionLayout;
+
 	ClawStyleFunction clawStyleFunction;
 	TextView tv5;
 	LinearLayout imageView2,imageView3,imageView4;
 	
 	HandleHttpConnectionException handleHttpConnectionException;
 	
-//	UserImagesJson.Data petPicture;
+
 	PetPicture petPicture;
-//	public static ArrayList<UserImagesJson.Data> petPictures;
+
 	public static ArrayList<PetPicture> petPictures;
 	int currentPosition=0;
 	int mode=0;//
@@ -140,8 +155,7 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 				ShowDialog.show((String)msg.obj, ShowTopicActivity.this);
 			}else if(msg.what==44){
 				if(adapter!=null){
-//					if(petPicture.like_txUrlList!=null)
-//					adapter.updateAdapter(petPicture.like_txUrlList);
+
 					adapter.setPetPicture(petPicture);
 					adapter.notifyDataSetChanged();
 				}
@@ -170,8 +184,9 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
 		setContentView(R.layout.activity_show_topic_new);
+		MobclickAgent.onEvent(ShowTopicActivity.this, "photopage");
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
-		BitmapFactory.Options options=new BitmapFactory.Options();
+		options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
 		options.inSampleSize=8;
 		options.inPreferredConfig=Bitmap.Config.RGB_565;
@@ -179,7 +194,8 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 		options.inInputShareable=true;
 		displayImageOptions=new DisplayImageOptions
 	            .Builder()
-	            .showImageOnLoading(R.drawable.noimg)
+	            .showImageOnLoading(R.drawable.pet_icon)
+	            .showImageOnFail(R.drawable.pet_icon)
 		        .cacheInMemory(true)
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
@@ -190,15 +206,91 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 		if(Constants.isSuccess&&Constants.user==null){
 			downLoadUserInfo();
 		}
-		
+		 mImageFetcher = new ImageFetcher(this, Constants.screen_width);
 		mode=getIntent().getIntExtra("mode", 0);
 		from_w=getIntent().getIntExtra("from_w", 1);
 		showTopicActivity=this;
 		initView();
+		reportImages();
 		initListener();
+		hideBottomInfo(true);
 		displayImage();
 		
 		
+	}
+	/**
+	 * 举报照片
+	 */
+	public void reportImages(){
+		report_line1=(View)findViewById(R.id.report_line1);
+		reportTV=(TextView)findViewById(R.id.report_tv);
+        findViewById(R.id.three_point_iv).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(show_add_comment){
+					show_add_comment=false;
+					replySb=false;
+//					commentET.setEnabled(false);;
+					Animation animation=AnimationUtils.loadAnimation(ShowTopicActivity.this, R.anim.anim_translate_showtopic_addcommentlayout_out);
+					
+					addcommentLayout.clearAnimation();
+					addcommentLayout.setAnimation(animation);;
+					animation.start();
+					handler.postDelayed(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							addcommentLayout.setVisibility(View.GONE);
+						}
+					}, 300);
+					
+				}
+					show_shareLayout=true;
+					TranslateAnimation trAnimation=new TranslateAnimation(0, 0, shareLayout.getHeight(),0 );
+					trAnimation.setDuration(300);
+					shareLayout.clearAnimation();
+					shareLayout.setAnimation(trAnimation);
+					shareLayout.setVisibility(View.VISIBLE);
+					moreLayout.setVisibility(View.VISIBLE);
+					reportTV.setVisibility(View.VISIBLE);
+					report_line1.setVisibility(View.VISIBLE);
+					trAnimation.start();
+					
+			}
+		});
+        reportTV.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(ShowTopicActivity.this,WarningDialogActivity.class);
+				intent.putExtra("mode", 2);
+				intent.putExtra("img_id", petPicture.img_id);
+				ShowTopicActivity.this.startActivity(intent);
+				
+				TranslateAnimation tAnimation=new TranslateAnimation(0, 0, 0,shareLayout.getHeight() );
+				
+				tAnimation.setDuration(500);
+			
+				shareLayout.clearAnimation();
+				shareLayout.setAnimation(tAnimation);
+				tAnimation.start();
+				handler.postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						show_shareLayout=false;
+						shareLayout.setVisibility(View.INVISIBLE);
+						moreLayout.setVisibility(View.INVISIBLE);
+					}
+				}, 500);
+				
+			}
+		});
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -210,6 +302,7 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 		progressLayout=(LinearLayout)findViewById(R.id.progress);
 		progressLayout.setVisibility(View.INVISIBLE);
 		imageDesRelativelayout=(RelativeLayout)findViewById(R.id.atuser_topic_des_layout);
+		moreLayout=(RelativeLayout)findViewById(R.id.morelayout);
 		tv1=(TextView)findViewById(R.id.textView1);
 		tv2=(TextView)findViewById(R.id.textView2);
 		tv3=(TextView)findViewById(R.id.textView3);
@@ -221,15 +314,175 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 		linearLayout33=(RelativeLayout)findViewById(R.id.linearlayout33);
 		click33=(RelativeLayout)findViewById(R.id.click33);
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
-		commentET=(EditText)findViewById(R.id.edit_comment);
-//		comment_listView=(ListView)findViewById(R.id.comments_listview);
+		
 		linearLayoutForListView=(LinearLayoutForListView)findViewById(R.id.comments_listview);
+		commentET=(EditText)findViewById(R.id.edit_comment);
 		send_comment_tv=(TextView)findViewById(R.id.send_comment);
+		addcommentLayout=(LinearLayout)findViewById(R.id.add_comment_linearlayout);
+		send_comment_tv.setText("取消");
 		send_comment_tv.setOnClickListener(this);
+		commentET.setOnEditorActionListener(new OnEditorActionListener() {
+				
+				@Override
+				public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+					// TODO Auto-generated method stub
+						
+								if(!canSend){
+					        		InputMethodManager m = (InputMethodManager)   
+											commentET.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);   
+											m.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS); 
+											addcommentLayout.setVisibility(View.GONE);
+											show_add_comment=false;
+											return true;
+					        	}
+					        	progressLayout.removeAllViews();
+					        	if(!UserStatusUtil.isLoginSuccess(ShowTopicActivity.this, progressLayout,black_layout)){
+					        		return true;
+					        	};
+					        	if(sendingComment){
+					        		Toast.makeText(ShowTopicActivity.this, "正在发送评论", Toast.LENGTH_LONG).show();
+					        		return true;
+					        	}
+					        	final String comment=commentET.getText().toString();
+					        	commentET.setText("");
+					        	if(replySb){
+					        		commentET.setHint("回复"+cmt.name);
+					        	}else{
+					        		commentET.setHint("写个评论呗");
+					        	}
+					        	/*commentET.setFocusable(true);
+					        	commentET.requestFocus();
+					        	InputMethodManager im=(InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+					        	im.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+					        	*/
+					        	if(StringUtil.isEmpty(comment)){
+					        		Toast.makeText(ShowTopicActivity.this, "评论内容不能为空。", Toast.LENGTH_SHORT).show();
+					        		return true;
+					        	}
+					        	if("写个评论呗".equals(comment)){
+					        		Toast.makeText(ShowTopicActivity.this, "评论内容不能为空。", Toast.LENGTH_SHORT).show();
+					        		return true;
+					        	}
+					        	comment.trim();
+//					        	commentET.setEnabled(false);
+					        	
+					        	sendingComment=true;
+					        	//测试 发表评论api
+					        	new Thread(new Runnable() {
+									
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub\
+										User temp=null;
+										if(replySb){
+											temp=HttpUtil.sendComment(ShowTopicActivity.this,comment, petPicture.img_id,cmt.usr_id,cmt.name,handleHttpConnectionException.getHandler(ShowTopicActivity.this));
+										}else{
+											temp=HttpUtil.sendComment(ShowTopicActivity.this,comment, petPicture.img_id,-1,"",handleHttpConnectionException.getHandler(ShowTopicActivity.this));
+										}
+										final User user=temp;
+										runOnUiThread(new Runnable() {
+											public void run() {
+												if(user!=null){
+													if(user.exp!=-1){
+														PetPicture.Comments comments=new PetPicture.Comments();
+														comments.usr_id=Constants.user.userId;
+														comments.create_time=System.currentTimeMillis()/1000;
+														comments.body=comment;
+														if(replySb){
+															comments.isReply=true;
+															comments.reply_id=cmt.usr_id;
+															comments.reply_name=Constants.user.u_nick+"@"+cmt.name;
+														}
+														comments.name=Constants.user.u_nick;
+														if(petPicture.commentsList==null){
+															petPicture.commentsList=new ArrayList<PetPicture.Comments>();
+															petPicture.commentsList.add(comments);
+														}else{
+															petPicture.commentsList.add(0, comments);
+														}
+														
+														commentNumTV.setText(""+petPicture.commentsList.size());
+														commentAdapter=new CommentListViewAdapter(ShowTopicActivity.this, petPicture.commentsList);
+														
+														commentAdapter.setClickUserName(new ClickUserName() {
+															
+															@Override
+															public void clickUserName(Comments cmt) {
+																// TODO Auto-generated method stub
+																if(!UserStatusUtil.isLoginSuccess(ShowTopicActivity.this,popupParent,black_layout))return;
+																sendComment(cmt);
+															}
+															@Override
+															public void reportComment() {
+																// TODO Auto-generated method stub
+																Intent intent=new Intent(ShowTopicActivity.this,WarningDialogActivity.class);
+																intent.putExtra("mode", 1);
+																intent.putExtra("img_id", petPicture.img_id);
+																ShowTopicActivity.this.startActivity(intent);
+															}
+														});
+														linearLayoutForListView.setAdapter(commentAdapter);
+//														Toast.makeText(ShowTopicActivity.this, "发表评论成功。", Toast.LENGTH_SHORT).show();
+														/*InputMethodManager m = (InputMethodManager) commentET.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+														if(m.isActive()){
+															m.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_NOT_ALWAYS);
+														}*/
+//														getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+														
+													}else{
+														Toast.makeText(ShowTopicActivity.this, "发表评论失败。", Toast.LENGTH_SHORT).show();
+													     
+													}
+													sendingComment=false;
+													commentET.setEnabled(true);
+													addcommentLayout.setVisibility(View.GONE);
+													show_add_comment=false;
+													replySb=false;
+												}else{
+													Toast.makeText(ShowTopicActivity.this, "评论发送失败", Toast.LENGTH_LONG).show();
+												}
+												
+											}
+										});
+									}
+								}).start();
+								
+						return true;
+				}
+			});
+		commentET.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+				if(s.length()>0){
+					canSend=true;
+					send_comment_tv.setText("发送");
+				}else{
+					canSend=false;
+					send_comment_tv.setText("取消");
+				}
+			}
+		});
 		atUserTv.setOnClickListener(this);
 		add_comment=(ImageView)findViewById(R.id.button44);
 		add_comment.setOnClickListener(this);
-		addcommentLayout=(LinearLayout)findViewById(R.id.add_comment_linearlayout);
+		line1=findViewById(R.id.line1);
+		line2=findViewById(R.id.line2);
+		
 		popupParent=findViewById(R.id.popup_parent);
 		petPicture=(PetPicture)getIntent().getSerializableExtra("PetPicture");
 		showProgress=new ShowProgress(this, progressLayout);
@@ -238,12 +491,7 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				/*try {
-					Thread.sleep(500000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
+				
 				final boolean flag=HttpUtil.imageInfo(petPicture,handleHttpConnectionException.getHandler(ShowTopicActivity.this),ShowTopicActivity.this);
 				
 					runOnUiThread(new Runnable() {
@@ -265,20 +513,19 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 			}
 		}).start();
 		
-		paddingView=findViewById(R.id.padding_view);
+//		paddingView=findViewById(R.id.padding_view);
 		getFrom();
 		if(petPictures!=null)
 		currentPosition=petPictures.indexOf(petPicture);
 		
 		sexIV=(ImageView)findViewById(R.id.sex_iv);
 		ageTV=(TextView)findViewById(R.id.age_tv);
-		addFocusTV=(ImageView)findViewById(R.id.add_focus_tv);
 		sendGiftIV=(ImageView)findViewById(R.id.send_gift_iv);
 		giftNumTV=(TextView)findViewById(R.id.gift_num_tv);
 		commentNumTV=(TextView)findViewById(R.id.comment_num_tv);
 		shareNumTV=(TextView)findViewById(R.id.share_num_tv);
-		linearLayout1=(LinearLayout)findViewById(R.id.linearLayout1);
 		linearLayout2=(LinearLayout)findViewById(R.id.linearlayout2);
+		linearLayout22=(LinearLayout)findViewById(R.id.linearlayout22);
 		scrollParentLayout=(LinearLayout)findViewById(R.id.scroll_parent);
 		scrollview=(ScrollView)findViewById(R.id.linearlayout32);
 		touchSlop=ViewConfiguration.get(this).getScaledTouchSlop();
@@ -287,7 +534,6 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 		
 		
 		relativeLayout1=(RelativeLayout)findViewById(R.id.relativeLayout1);
-//		createTitle=new CreateTitle(this,linearLayout1);
 		
 		
 		shareLayout=(LinearLayout)findViewById(R.id.share_linearlayout);
@@ -303,20 +549,7 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 	}
 	private void initListener(){
 		
-		/*linearLayout33.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if(petPicture.likers!=null){
-					Intent intent=new Intent(ShowTopicActivity.this,UsersListActivity.class);
-					intent.putExtra("likers", petPicture.likers);
-					intent.putExtra("title", "围观群众");
-					ShowTopicActivity.this.startActivity(intent);
-//					ShowTopicActivity.this.finish();
-				}
-			}
-		});*/
+		
 		horizontialListView.setEnabled(false);
 		click33.setOnTouchListener(new OnTouchListener() {
 			
@@ -336,7 +569,6 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 						
 						intent.putExtra("title", "围观群众");
 						ShowTopicActivity.this.startActivity(intent);
-//						ShowTopicActivity.this.finish();
 					}
 				}
 				return true;
@@ -345,7 +577,6 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 		bt1.setOnClickListener(this);
 		bt2.setOnClickListener(this);
 		bt3.setOnClickListener(this);
-		addFocusTV.setOnClickListener(this);
 		sendGiftIV.setOnClickListener(this);
 		giftNumTV.setOnClickListener(this);
 		imageView.setOnTouchListener(new OnTouchListener() {
@@ -361,7 +592,7 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 		/*
 		 * ScrollView判断滑到顶部和底部
 		 */
-		scrollview.setOnTouchListener(new OnTouchListener() {
+	/*	scrollview.setOnTouchListener(new OnTouchListener() {
 			float distance;
 			boolean isRecord;
 			float ydown=0;
@@ -441,11 +672,39 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 				}
 				return false;
 			}
-		});
+		});*/
 		tv5.setOnClickListener(this);
 		imageView2.setOnClickListener(this);
 		imageView3.setOnClickListener(this);
 		imageView4.setOnClickListener(this);
+		moreLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				TranslateAnimation tAnimation=new TranslateAnimation(0, 0, 0,shareLayout.getHeight() );
+				moreLayout.setVisibility(View.INVISIBLE);
+				show_shareLayout=false;
+				shareLayout.setVisibility(View.INVISIBLE);
+				
+				
+				tAnimation.setDuration(500);
+				
+				shareLayout.clearAnimation();
+				shareLayout.setAnimation(tAnimation);
+//				tAnimation.start();
+//				handler.postDelayed(new Runnable() {
+//					
+//					@Override
+//					public void run() {
+//						// TODO Auto-generated method stub
+//						show_shareLayout=false;
+//						shareLayout.setVisibility(View.INVISIBLE);
+//						
+//					}
+//				}, 500);
+			}
+		});
 	}
 	/**
 	 * 设置毛玻璃背景，
@@ -454,33 +713,7 @@ public class ShowTopicActivity extends Activity implements OnClickListener{
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
-		if(HomeFragment.blurBitmap==null){
-			frameLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.blur));
-		}
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+		
 	}
 	public void setViews(){
 		
@@ -603,6 +836,14 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 				if(!UserStatusUtil.isLoginSuccess(ShowTopicActivity.this,popupParent,black_layout))return;
 				sendComment(cmt);
 			}
+			@Override
+			public void reportComment() {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(ShowTopicActivity.this,WarningDialogActivity.class);
+				intent.putExtra("mode", 1);
+				intent.putExtra("img_id", petPicture.img_id);
+				ShowTopicActivity.this.startActivity(intent);
+			}
 		});
 		if(petPicture.gifts<=0){
 			giftNumTV.setText("木有收到礼物~送TA一个吧");
@@ -630,15 +871,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 //		comment_listView.setAdapter(commentAdapter);
 		linearLayoutForListView.setAdapter(commentAdapter);
 		if(petPicture.animal!=null){
-			if(Constants.user!=null&&petPicture.animal.master_id==Constants.user.userId){
-				addFocusTV.setVisibility(View.INVISIBLE);
-			}else if(petPicture.animal.is_follow){
-				addFocusTV.setVisibility(View.VISIBLE);
-				addFocusTV.setImageResource(R.drawable.button_green_right);
-			}else if(!petPicture.animal.is_follow){
-				addFocusTV.setVisibility(View.VISIBLE);
-				addFocusTV.setImageResource(R.drawable.button_green_add);
-			}
+		
 			sexIV.setVisibility(View.VISIBLE);
 			if(petPicture.animal.a_gender==1){
 				sexIV.setImageResource(R.drawable.male1);
@@ -703,7 +936,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 				@Override
 				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 					// TODO Auto-generated method stub
-					scrollview.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+					/*scrollview.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
 					int h=Constants.screen_height-scrollview.getMeasuredHeight();
 					if(h>0){
 						ViewGroup.LayoutParams params=paddingView.getLayoutParams();
@@ -713,7 +946,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 						ViewGroup.LayoutParams params=paddingView.getLayoutParams();
 						params.height=0;
 						paddingView.setLayoutParams(params);
-					}
+					}*/
 				}
 				
 				@Override
@@ -750,11 +983,47 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 	}
 	
 	boolean sendingComment=false;
+	boolean canSend=false;
+	boolean isClickLiking=false;
+	Toast toast;
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.button1:
+			
+			if(isTaskRoot()){
+				if(NewHomeActivity.homeActivity!=null){
+					Intent intent=NewHomeActivity.homeActivity.getIntent();
+					if(intent!=null){
+						intent.putExtra("mode", NewHomeActivity.HOMEFRAGMENT);
+						this.startActivity(intent);
+						return;
+					}
+					
+					
+					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+				}else{
+					Intent intent=new Intent(this,NewHomeActivity.class);
+					this.startActivity(intent);
+				}
+			}
+			if(bmp!=null){
+				if(!bmp.isRecycled())
+				bmp.recycle();
+				bmp=null;
+			}
+			imageView.setImageDrawable(null);
+			finish();
+			
+			
+			
+			/*if(bmp!=null){
+				if(!bmp.isRecycled())
+				bmp.recycle();
+				bmp=null;
+			}
 			Intent intent0=null;
 			if(NewHomeActivity.homeActivity==null){
 				intent0=new Intent(ShowTopicActivity.this,NewHomeActivity.class);
@@ -788,7 +1057,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 				ShowTopicActivity.this.startActivity(intent0);
 				imageView.setImageBitmap(null);
 				this.finish();
-			}
+			}*/
 			
 			break;
 		case R.id.button2:
@@ -803,7 +1072,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 			/*
 			 * 增加或删除关注
 			 */
-			addOrRemoveFocus();
+			
 			break;
 		case R.id.send_gift_iv:
 			/*
@@ -817,11 +1086,11 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 		case R.id.button3:
 			
 //			if(!UserStatusUtil.isLoginSuccess(this,popupParent,black_layout))return;
-			getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+//			getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 			if(show_add_comment){
 				show_add_comment=false;
 				replySb=false;
-				commentET.setEnabled(false);;
+//				commentET.setEnabled(false);;
 				Animation animation=AnimationUtils.loadAnimation(this, R.anim.anim_translate_showtopic_addcommentlayout_out);
 				
 				addcommentLayout.clearAnimation();
@@ -843,6 +1112,9 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 				shareLayout.clearAnimation();
 				shareLayout.setAnimation(trAnimation);
 				shareLayout.setVisibility(View.VISIBLE);
+				moreLayout.setVisibility(View.VISIBLE);
+				reportTV.setVisibility(View.GONE);
+				report_line1.setVisibility(View.GONE);
 				trAnimation.start();
 				
 			
@@ -860,13 +1132,23 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
         	replySb=false;
 			if(show_add_comment){
 				show_add_comment=false;
+				commentET.setVisibility(View.INVISIBLE);
 				addcommentLayout.setVisibility(View.GONE);
 			}else{
+				commentET.setVisibility(View.VISIBLE);
 				show_add_comment=true;
-				commentET.setEnabled(true);;
+//				getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+				commentET.setEnabled(true);
 				commentET.setFocusable(true);
 				commentET.setFocusableInTouchMode(true);
-				getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+				if(commentET.requestFocus(EditText.FOCUS_FORWARD)){
+					commentET.setSelection(0);;
+					InputMethodManager m = (InputMethodManager)   
+							commentET.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);   
+							m.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS); 
+//					getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+				};
+				
 				if(show_shareLayout){
 					show_shareLayout=false;
 					TranslateAnimation tAnimation=new TranslateAnimation(0, 0, 0,shareLayout.getHeight() );
@@ -880,6 +1162,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 						public void run() {
 							// TODO Auto-generated method stub
 							shareLayout.setVisibility(View.INVISIBLE);
+							moreLayout.setVisibility(View.INVISIBLE);
 						}
 					}, 300);
 					
@@ -895,6 +1178,14 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 
 			break;
         case R.id.send_comment:
+        	if(!canSend){
+        		InputMethodManager m = (InputMethodManager)   
+						commentET.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);   
+						m.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS); 
+						addcommentLayout.setVisibility(View.GONE);
+						show_add_comment=false;
+						return;
+        	}
         	progressLayout.removeAllViews();
         	if(!UserStatusUtil.isLoginSuccess(this, progressLayout,black_layout)){
         		return;
@@ -924,7 +1215,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
         		return;
         	}
         	comment.trim();
-        	commentET.setEnabled(false);
+//        	commentET.setEnabled(false);
         	
         	sendingComment=true;
         	//测试 发表评论api
@@ -972,15 +1263,24 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 											if(!UserStatusUtil.isLoginSuccess(ShowTopicActivity.this,popupParent,black_layout))return;
 											sendComment(cmt);
 										}
+										@Override
+										public void reportComment() {
+											// TODO Auto-generated method stub
+											Intent intent=new Intent(ShowTopicActivity.this,WarningDialogActivity.class);
+											intent.putExtra("mode", 1);
+											intent.putExtra("img_id", petPicture.img_id);
+											ShowTopicActivity.this.startActivity(intent);
+										}
 									});
 									linearLayoutForListView.setAdapter(commentAdapter);
+									MobclickAgent.onEvent(ShowTopicActivity.this, "comment");
 //									Toast.makeText(ShowTopicActivity.this, "发表评论成功。", Toast.LENGTH_SHORT).show();
 									/*InputMethodManager m = (InputMethodManager) commentET.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 									if(m.isActive()){
 										m.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, InputMethodManager.HIDE_NOT_ALWAYS);
 									}*/
-									getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-									UserStatusUtil.checkUserExpGoldLvRankChange(user, ShowTopicActivity.this, progressLayout);
+//									getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+									
 								}else{
 									Toast.makeText(ShowTopicActivity.this, "发表评论失败。", Toast.LENGTH_SHORT).show();
 								     
@@ -1002,13 +1302,22 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 //			
         	break;
 		case R.id.linearlayout2:
+			if(isClickLiking){
+				if(toast==null){
+//					toast=Toast.makeText(this, "点赞数据刷新中", Toast.LENGTH_LONG);
+//					toast.show();
+				}
+				
+				return ;
+			}
 			if(UserStatusUtil.isLoginSuccess(this,popupParent,black_layout)){
+				isClickLiking=true;
 				new Thread(new Runnable() {
 					
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						boolean flag=HttpUtil.likeImage(petPicture,handler);
+						boolean flag=HttpUtil.likeImage(petPicture,handler,ShowTopicActivity.this);
 						if(flag){
 							runOnUiThread(new Runnable() {
 								
@@ -1036,7 +1345,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 										bt4.setImageResource(R.drawable.bone_red);
 									}
 									 tv4.setTextColor(getResources().getColor(R.color.orange_red));
-									
+									 isClickLiking=false;
 									if(linearLayout33.getVisibility()==View.GONE)linearLayout33.setVisibility(View.VISIBLE);
 								}
 							});
@@ -1062,6 +1371,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 					// TODO Auto-generated method stub
 					show_shareLayout=false;
 					shareLayout.setVisibility(View.INVISIBLE);
+					moreLayout.setVisibility(View.INVISIBLE);
 				}
 			}, 500);
 
@@ -1072,76 +1382,25 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 				if(!flag){
 					Toast.makeText(this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
 					shareLayout.setVisibility(View.INVISIBLE);
+					moreLayout.setVisibility(View.INVISIBLE);
 					show_shareLayout=false;
 					return;
 				}
 			}
-			ImageLoader imageLoader=ImageLoader.getInstance();
-			imageLoader.loadImage(Constants.UPLOAD_IMAGE_RETURN_URL+petPicture.url, new ImageLoadingListener() {
-				
-				@Override
-				public void onLoadingStarted(String imageUri, View view) {
-					// TODO Auto-generated method stub
-					
+			UserImagesJson.Data data1=new UserImagesJson.Data();
+			if(bmpPath!=null){
+				data1.path=bmpPath;
+				Constants.shareMode=0;
+				Constants.whereShare=0;
+				if(WeixinShare.shareBitmap(data1, 1)){
+					MobclickAgent.onEvent(ShowTopicActivity.this, "photo_share");
+				}else{
+					Toast.makeText(ShowTopicActivity.this,"分享失败。", Toast.LENGTH_LONG).show();
 				}
-				
-				@Override
-				public void onLoadingFailed(String imageUri, View view,
-						FailReason failReason) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-					// TODO Auto-generated method stub
-					FileOutputStream fos=null;
-					String pathString=Constants.Picture_Root_Path+File.separator+""+System.currentTimeMillis()+".png";
-					try {
-						fos=new FileOutputStream(pathString);
-						loadedImage.compress(CompressFormat.PNG, 100, fos);
-						UserImagesJson.Data data=new UserImagesJson.Data();
-						if(imageUri.contains("file://")){
-							imageUri=imageUri.substring(7, imageUri.length());
-						}
-						data.path=pathString;
-						Constants.shareMode=0;
-						Constants.whereShare=0;
-						if(WeixinShare.shareBitmap(data, 1)){
-//							Toast.makeText(ShowTopicActivity.this,"成功分享到微信。", Toast.LENGTH_LONG).show();
-//							petPicture.shares++;
-//							shareNumTV.setText(""+petPicture.shares);
-						}else{
-							Toast.makeText(ShowTopicActivity.this,"分享失败。", Toast.LENGTH_LONG).show();
-						}
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}finally{
-						if(fos!=null){
-							try {
-								fos.close();
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-					}
-					
-					
-				}
-				
-				@Override
-				public void onLoadingCancelled(String imageUri, View view) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-			/*if(WeixinShare.shareBitmap(data, 1)){
-//				Toast.makeText(this,"成功分享到微信。", Toast.LENGTH_LONG).show();
 			}else{
-				Toast.makeText(this,"分享失败。", Toast.LENGTH_LONG).show();
-			}*/
+				Toast.makeText(this, "图片路径有误", Toast.LENGTH_LONG).show();
+			}
+			
 			TranslateAnimation tAnimation2=new TranslateAnimation(0, 0, 0,shareLayout.getHeight() );
 			
 			tAnimation2.setDuration(500);
@@ -1156,6 +1415,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 					// TODO Auto-generated method stub
 					show_shareLayout=false;
 					shareLayout.setVisibility(View.INVISIBLE);
+					moreLayout.setVisibility(View.INVISIBLE);
 				}
 			}, 500);
 			
@@ -1166,69 +1426,25 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 				if(!flag){
 					Toast.makeText(this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
 					shareLayout.setVisibility(View.INVISIBLE);
+					moreLayout.setVisibility(View.INVISIBLE);
 					show_shareLayout=false;
 					return;
 				}
 			}
-			ImageLoader imageLoader2=ImageLoader.getInstance();
-			imageLoader2.loadImage(Constants.UPLOAD_IMAGE_RETURN_URL+petPicture.url, new ImageLoadingListener() {
-				
-				@Override
-				public void onLoadingStarted(String imageUri, View view) {
-					// TODO Auto-generated method stub
-					
+			UserImagesJson.Data data2=new UserImagesJson.Data();
+			if(bmpPath!=null){
+				data2.path=bmpPath;
+				Constants.whereShare=0;
+				Constants.shareMode=1;
+				if(WeixinShare.shareBitmap(data2, 2)){
+					MobclickAgent.onEvent(ShowTopicActivity.this, "photo_share");
+				}else{
+					Toast.makeText(ShowTopicActivity.this,"分享到微信失败。", Toast.LENGTH_LONG).show();
 				}
-				
-				@Override
-				public void onLoadingFailed(String imageUri, View view,
-						FailReason failReason) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-					// TODO Auto-generated method stub
-					FileOutputStream fos=null;
-					String pathString=Constants.Picture_Root_Path+File.separator+""+System.currentTimeMillis()+".png";
-					try {
-						fos=new FileOutputStream(pathString);
-						loadedImage.compress(CompressFormat.PNG, 100, fos);
-						UserImagesJson.Data data=new UserImagesJson.Data();
-						if(imageUri.contains("file://")){
-							imageUri=imageUri.substring(7, imageUri.length());
-						}
-						data.path=pathString;
-						Constants.whereShare=0;
-						Constants.shareMode=1;
-						if(WeixinShare.shareBitmap(data, 2)){
-//							Toast.makeText(ShowTopicActivity.this,"成功分享到微信。", Toast.LENGTH_LONG).show();
-//							shareNumChange();
-						}else{
-							Toast.makeText(ShowTopicActivity.this,"分享到微信失败。", Toast.LENGTH_LONG).show();
-						}
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}finally{
-						if(fos!=null){
-							try {
-								fos.close();
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-					}
-					
-				}
-				
-				@Override
-				public void onLoadingCancelled(String imageUri, View view) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
+			}else{
+				Toast.makeText(this, "图片路径有误", Toast.LENGTH_LONG).show();
+			}
+			
 			
 			TranslateAnimation tAnimation3=new TranslateAnimation(0, 0, 0,shareLayout.getHeight() );
 			
@@ -1244,6 +1460,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 					// TODO Auto-generated method stub
 					show_shareLayout=false;
 					shareLayout.setVisibility(View.INVISIBLE);
+					moreLayout.setVisibility(View.INVISIBLE);
 				}
 			}, 500);
 			
@@ -1251,70 +1468,31 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 		case R.id.imageView4:
 			if(UserStatusUtil.hasXinlangAuth(this)){
 				shareLayout.setVisibility(View.INVISIBLE);
+				moreLayout.setVisibility(View.INVISIBLE);
 				show_shareLayout=false;
-				ImageLoader imageLoader3=ImageLoader.getInstance();
-				imageLoader3.loadImage(Constants.UPLOAD_IMAGE_RETURN_URL+petPicture.url, new ImageLoadingListener() {
-					
-					@Override
-					public void onLoadingStarted(String imageUri, View view) {
-						// TODO Auto-generated method stub
-						
+				UserImagesJson.Data data=new UserImagesJson.Data();
+				if(bmpPath!=null){
+					data.path=bmpPath;
+					if(StringUtil.isEmpty(petPicture.cmt)){
+						data.des="分享照片http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+					}else{
+						data.des=petPicture.cmt+"http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
 					}
 					
-					@Override
-					public void onLoadingFailed(String imageUri, View view,
-							FailReason failReason) {
-						// TODO Auto-generated method stub
-						
-					}
+				XinlangShare.sharePicture(data,ShowTopicActivity.this);
+				XinlangShare.listener=new XinlangShare.ShareXinlangResultListener() {
 					
 					@Override
-					public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+					public void resultOk() {
 						// TODO Auto-generated method stub
-						FileOutputStream fos=null;
-						String pathString=Constants.Picture_Root_Path+File.separator+""+System.currentTimeMillis()+".png";
-						try {
-							fos=new FileOutputStream(pathString);
-							loadedImage.compress(CompressFormat.PNG, 100, fos);
-							UserImagesJson.Data data=new UserImagesJson.Data();
-							data.path=pathString;
-							if(StringUtil.isEmpty(petPicture.cmt)){
-								data.des="分享照片http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
-							}else{
-								data.des=petPicture.cmt+"http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
-							}
-							
-						XinlangShare.sharePicture(data,ShowTopicActivity.this);
-						XinlangShare.listener=new XinlangShare.ShareXinlangResultListener() {
-							
-							@Override
-							public void resultOk() {
-								// TODO Auto-generated method stub
-								shareNumChange();
-							}
-						};
-						
-						} catch (FileNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}finally{
-							if(fos!=null){
-								try {
-									fos.close();
-								} catch (IOException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-						}
+						MobclickAgent.onEvent(ShowTopicActivity.this, "photo_share");
+						shareNumChange();
 					}
-					
-					@Override
-					public void onLoadingCancelled(String imageUri, View view) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
+				};
+				}else{
+					Toast.makeText(this, "图片路径有误", Toast.LENGTH_LONG).show();
+				}
+				
 				
 				
 			}
@@ -1344,6 +1522,14 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 	
 		replySb=true;
 		this.cmt=cmt;
+		commentET.setVisibility(View.VISIBLE);
+		if(commentET.requestFocus(EditText.FOCUS_FORWARD)){
+			commentET.setSelection(0);;
+			InputMethodManager m = (InputMethodManager)   
+					commentET.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);   
+					m.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS); 
+//			getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+		};
 		if(show_add_comment){
 //			show_add_comment=false;
 //			addcommentLayout.setVisibility(View.GONE);
@@ -1369,6 +1555,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 					public void run() {
 						// TODO Auto-generated method stub
 						shareLayout.setVisibility(View.INVISIBLE);
+						moreLayout.setVisibility(View.INVISIBLE);
 					}
 				}, 1000);
 				
@@ -1389,16 +1576,12 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 	private void sendGift() {
 		// TODO Auto-generated method stub
 		petPicture.animal.img_id=petPicture.img_id;
-		/*DialogGiveSbGift dgsg=new DialogGiveSbGift(this,petPicture.animal);
-		AlertDialog.Builder builder=new AlertDialog.Builder(this);
-		final AlertDialog dialog=builder.setView(dgsg.getView())
-				.show();*/
-		if(DialogGiveSbGiftActivity.dialogGiveSbGiftActivity!=null)DialogGiveSbGiftActivity.dialogGiveSbGiftActivity.finish();
-		Intent intent=new Intent(this,DialogGiveSbGiftActivity.class);
+		if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+		Intent intent=new Intent(this,DialogGiveSbGiftActivity1.class);
 		intent.putExtra("animal", petPicture.animal);
 		this.startActivity(intent);
-		DialogGiveSbGiftActivity dgb=DialogGiveSbGiftActivity.dialogGiveSbGiftActivity;
-		DialogGiveSbGiftActivity.dialogGoListener=new DialogGiveSbGiftActivity.DialogGoListener() {
+		DialogGiveSbGiftActivity1 dgb=DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity;
+		DialogGiveSbGiftActivity1.dialogGoListener=new DialogGiveSbGiftActivity1.DialogGoListener() {
 			
 			@Override
 			public void toDo() {
@@ -1406,19 +1589,19 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 				Intent intent=null;
 				MarketFragment.from=1;
 				if(NewHomeActivity.homeActivity==null){
-					intent=new Intent(DialogGiveSbGiftActivity.dialogGiveSbGiftActivity,NewHomeActivity.class);
+					intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,NewHomeActivity.class);
 				}else{
 					intent=NewHomeActivity.homeActivity.getIntent();
 				}
 				intent.putExtra("mode", NewHomeActivity.MARKETFRAGMENT);
-				DialogGiveSbGiftActivity.dialogGiveSbGiftActivity.startActivity(intent);
+				DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.startActivity(intent);
 				
 			}
 
 			@Override
 			public void closeDialog() {
 				// TODO Auto-generated method stub
-				DialogGiveSbGiftActivity.dialogGiveSbGiftActivity.finish();
+				DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
 			}
 			@Override
 			public void lastResult(boolean isSuccess) {
@@ -1440,6 +1623,7 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 					petPicture.senders+=","+Constants.user.userId;
 				}
 				if(petPicture.gift_txUrlList!=null&&Constants.user.u_iconUrl!=null){
+					if(!petPicture.gift_txUrlList.contains(Constants.user.u_iconUrl))
 					petPicture.gift_txUrlList.add(Constants.user.u_iconUrl);
 				}else if(Constants.user.u_iconUrl!=null){
 					petPicture.gift_txUrlList=new ArrayList<String>();
@@ -1469,67 +1653,16 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 		};
 		
 	}
-	/**
-	 * 添加或删除关注
-	 */
-	private void addOrRemoveFocus() {
-		// TODO Auto-generated method stub
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				boolean flag=false;
-				if(petPicture.animal.is_follow){
-					flag=HttpUtil.userDeleteFollow(petPicture.animal, null,ShowTopicActivity.this);
-					if(flag){
-						petPicture.animal.is_follow=false;
-						runOnUiThread(new Runnable() {
-							
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								Toast.makeText(ShowTopicActivity.this, "取消关注成功", Toast.LENGTH_SHORT).show();
-								addFocusTV.setImageResource(R.drawable.button_green_add);
-								petPicture.animal.is_follow=false;
-							}
-						});
-					}else{
-						/*
-						 * 取消关注失败
-						 */
-					}
-				}else{
-					flag=HttpUtil.userAddFollow(petPicture.animal, null,ShowTopicActivity.this);
-					if(flag){
-						petPicture.animal.is_follow=true;
-                       runOnUiThread(new Runnable() {
-							
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								Toast.makeText(ShowTopicActivity.this, "添加关注成功", Toast.LENGTH_SHORT).show();
-								addFocusTV.setImageResource(R.drawable.button_green_right);
-								petPicture.animal.is_follow=true;
-							}
-						});
-					}else{
-						/*
-						 * 添加关注失败
-						 */
-					}
-				}
-			}
-		}).start();
-		
-	}
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
-		if(show_add_comment){
-//			addcommentLayout.setVisibility(View.GONE);
-//			show_add_comment=false;
-		}
+		/*int action=event.getAction();
+		if(show_add_comment&&event.getAction()==KeyEvent.KEYCODE_BACK){
+			addcommentLayout.setVisibility(View.GONE);
+			show_add_comment=false;
+			
+		}*/
 		return super.onKeyDown(keyCode, event);
 	}
 	/**
@@ -1615,15 +1748,70 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 		options.inInputShareable=true;
 		displayImageOptions=new DisplayImageOptions
 	            .Builder()
-	            .showImageOnLoading(R.drawable.noimg)
+	            .showImageOnLoading(R.drawable.pet_icon)
+	            .showImageOnFail(R.drawable.pet_icon)
 		        .cacheInMemory(false)
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
 		        .decodingOptions(options)
                 .build();
+		mImageFetcher.setWidth(Constants.screen_width);
+		mImageFetcher.setImageCache(new ImageCache(this, new ImageCacheParams(petPicture.url)));
 		
-		ImageLoader imageLoader1=ImageLoader.getInstance();
+		mImageFetcher.setLoadCompleteListener(new ImageWorker.LoadCompleteListener(){
+			@Override
+			public void  onComplete(Bitmap bitmap) {
+				// TODO Auto-generated method stub
+				LogUtil.i("me", "获取图片宽高，宽="+options.outWidth+",高="+options.outHeight);
+				LogUtil.i("me", "照片详情页面，图片开始下载");
+				
+				
+				if(bitmap!=null){
+					if(StringUtil.isEmpty(petPicture.cmt)){
+						tv3.setVisibility(View.GONE);
+					}else{
+						tv3.setText(petPicture.cmt);
+					}
+					scrollview.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+					int h=Constants.screen_height-scrollview.getMeasuredHeight();
+					/*if(h>0){
+						ViewGroup.LayoutParams params=paddingView.getLayoutParams();
+						params.height=h;
+						paddingView.setLayoutParams(params);
+					}else{
+						ViewGroup.LayoutParams params=paddingView.getLayoutParams();
+						params.height=0;
+						paddingView.setLayoutParams(params);
+					}*/
+					LinearLayout.LayoutParams param=new LinearLayout.LayoutParams(Constants.screen_width, Constants.screen_height);
+					scrollview.setLayoutParams(param);
+					scrollview.post(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							scrollview.scrollTo(0, 0);
+						}
+					});
+					
+					
+					
+					ShowTopicActivity.this.bmp=bitmap;
+					ShowTopicActivity.this.bmpPath=mImageFetcher.getFilePath(ShowTopicActivity.this,petPicture.url);
+					LogUtil.i("me", "ShowTopicActivity.this="+ShowTopicActivity.this.bmpPath);
+				}
+				hideBottomInfo(false);
+				
+			}
+			@Override
+			public void getPath(String path) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/petPicture.url, imageView,options);
+		/*ImageLoader imageLoader1=ImageLoader.getInstance();
 		
 		imageLoader1.loadImage(Constants.UPLOAD_IMAGE_RETURN_URL+petPicture.url,displayImageOptions,new ImageLoadingListener() {
 			
@@ -1638,14 +1826,14 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 			public void onLoadingFailed(String imageUri, View view,
 					FailReason failReason) {
 				// TODO Auto-generated method stub
-				LogUtil.i("me", "照片详情页面，图片下载失败");
+				LogUtil.i("me", "照片详情页面，图片下载失败"+imageUri);
 			}
 			
 			@Override
 			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
 				// TODO Auto-generated method stub
-				LogUtil.i("me", "照片详情页面，图片下载成功");
-				loadBitmap(loadedImage);
+				LogUtil.i("me", "照片详情页面，图片下载成功 imagUri="+imageUri);
+//				loadBitmap(loadedImage);
 				if(StringUtil.isEmpty(petPicture.cmt)){
 					tv3.setVisibility(View.GONE);
 				}else{
@@ -1669,7 +1857,10 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 				// TODO Auto-generated method stub
 				LogUtil.i("me", "照片详情页面，图片下载被取消");
 			}
-		});
+		});*/
+	}
+	public Bitmap getBitmap(){
+		return bmp;
 	}
 	/**
 	 * 加载图片详细信息
@@ -1717,10 +1908,32 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 				// TODO Auto-generated method stub
 				
 				final User user=HttpUtil.imageShareNumsApi(ShowTopicActivity.this,petPicture.img_id, handleHttpConnectionException.getHandler(ShowTopicActivity.this));
-				if(!Constants.isSuccess)return;
-				UserStatusUtil.checkUserExpGoldLvRankChange(user, ShowTopicActivity.this, progressLayout);
+				/*if(!Constants.isSuccess)return;
+				UserStatusUtil.checkUserExpGoldLvRankChange(user, ShowTopicActivity.this, progressLayout);*/
 			}
 		}).start();
+	}
+	public void hideBottomInfo(boolean flag){
+		if(flag){
+			linearLayoutForListView.setVisibility(View.INVISIBLE);
+			linearLayout33.setVisibility(View.INVISIBLE);
+			line1.setVisibility(View.INVISIBLE);
+			line2.setVisibility(View.INVISIBLE);
+			imageDesRelativelayout.setVisibility(View.INVISIBLE);
+			linearLayout22.setVisibility(View.INVISIBLE);
+			linearLayout2.setVisibility(View.INVISIBLE);
+		}else{
+			linearLayoutForListView.setVisibility(View.VISIBLE);
+//			linearLayout33.setVisibility(View.VISIBLE);
+			line1.setVisibility(View.VISIBLE);
+			line2.setVisibility(View.VISIBLE);
+//			imageDesRelativelayout.setVisibility(View.VISIBLE);
+			
+			linearLayout22.setVisibility(View.VISIBLE);
+			linearLayout2.setVisibility(View.VISIBLE);
+		}
+		
+		
 	}
 	boolean onMore=false;
 	boolean onRefresh=false;
@@ -1869,4 +2082,16 @@ clawStyleFunction.setClawFunctionChoseListener(new ClawFunctionChoseListener() {
 			return sb.toString();
 		}
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 }

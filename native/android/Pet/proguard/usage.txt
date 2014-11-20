@@ -3,21 +3,6 @@ com.aidigame.hisun.pet.CrashHandler:
     public static final java.lang.String TAG
 com.aidigame.hisun.pet.R:
     10:10:public R()
-com.aidigame.hisun.pet.R$anim
-com.aidigame.hisun.pet.R$array
-com.aidigame.hisun.pet.R$attr
-com.aidigame.hisun.pet.R$color
-com.aidigame.hisun.pet.R$dimen
-com.aidigame.hisun.pet.R$drawable
-com.aidigame.hisun.pet.R$id
-com.aidigame.hisun.pet.R$integer
-com.aidigame.hisun.pet.R$layout
-com.aidigame.hisun.pet.R$menu
-com.aidigame.hisun.pet.R$raw
-com.aidigame.hisun.pet.R$string
-com.aidigame.hisun.pet.R$style
-com.aidigame.hisun.pet.R$styleable:
-    5606:5606:public R$styleable()
 com.aidigame.hisun.pet.adapter.ContributeRankListAdapter$Holder:
     boolean isFocus
 com.aidigame.hisun.pet.adapter.HomeViewPagerAdapter:
@@ -34,18 +19,21 @@ com.aidigame.hisun.pet.blur.Blur:
     13:13:public Blur()
 com.aidigame.hisun.pet.blur.ImageUtils
 com.aidigame.hisun.pet.http.HttpUtil:
-    101:101:public HttpUtil()
-    414:452:public static boolean changePlant(android.content.Context,int,android.os.Handler)
-    1362:1401:public static int userShareNumsApi(android.content.Context,android.os.Handler)
-    1974:2022:public static boolean marketList(android.content.Context,int,android.os.Handler)
-    2789:2824:public static com.aidigame.hisun.pet.http.json.UserImagesJson downloadOtherUserHomepage(android.os.Handler,int,com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
-    3466:3529:public static boolean otherUserInfo(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.os.Handler,android.app.Activity)
-    3839:3913:public static java.lang.String downloadIconImage(java.lang.String,java.lang.String,android.os.Handler,android.app.Activity)
-    3986:4017:public static void deleteImage(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
-    4356:4383:public static com.aidigame.hisun.pet.http.json.MessagJson getMailList(int,boolean,android.os.Handler,android.content.Context)
-    4391:4426:public static boolean deleteMail(com.aidigame.hisun.pet.bean.TalkMessage)
-    5002:5052:public static void deleteTalk(android.content.Context,int,android.os.Handler)
-    5525:5531:public static java.lang.String judgeError(int)
+    104:104:public HttpUtil()
+    1099:1137:public static boolean changePlant(android.content.Context,int,android.os.Handler)
+    2103:2142:public static int userShareNumsApi(android.content.Context,android.os.Handler)
+    2757:2805:public static boolean marketList(android.content.Context,int,android.os.Handler)
+    3582:3617:public static com.aidigame.hisun.pet.http.json.UserImagesJson downloadOtherUserHomepage(android.os.Handler,int,com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
+    4363:4426:public static boolean otherUserInfo(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.os.Handler,android.app.Activity)
+    4736:4810:public static java.lang.String downloadIconImage(java.lang.String,java.lang.String,android.os.Handler,android.app.Activity)
+    4883:4914:public static void deleteImage(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
+    5253:5280:public static com.aidigame.hisun.pet.http.json.MessagJson getMailList(int,boolean,android.os.Handler,android.content.Context)
+    5288:5323:public static boolean deleteMail(com.aidigame.hisun.pet.bean.TalkMessage)
+    5986:6036:public static void deleteTalk(android.content.Context,int,android.os.Handler)
+    6517:6523:public static java.lang.String judgeError(int)
+    6728:6735:public static java.lang.String getJsonString(org.json.JSONObject,java.lang.String)
+    6738:6745:public static long getJsonLong(org.json.JSONObject,java.lang.String)
+    6748:6755:public static int getJsonInt(org.json.JSONObject,java.lang.String)
 com.aidigame.hisun.pet.http.JsonUtil:
     10:10:public JsonUtil()
     13:35:public static boolean getErrorMessage(java.lang.String,android.app.Activity)
@@ -83,33 +71,31 @@ com.aidigame.hisun.pet.http.json.UserJson:
 com.aidigame.hisun.pet.http.json.UserJson$Data
 com.aidigame.hisun.pet.service.BlurImageBroadcastReceiver:
     public static final java.lang.String BLUR_BITMAP_CHANGED
-com.aidigame.hisun.pet.service.LocationSvc:
-    private static final java.lang.String TAG
+com.aidigame.hisun.pet.ui.AdviceActivity:
+    android.widget.LinearLayout frameLayout
 com.aidigame.hisun.pet.ui.AdviceActivity$4:
     android.widget.Toast toast
 com.aidigame.hisun.pet.ui.AlbumPictureBackground:
     public static final int MODE_REGISTER
     public static final int MODE_CHANGE_ICON
     public static final int MODE_TOPIC
-com.aidigame.hisun.pet.ui.ChoseClassActivity:
-    int race
-    android.widget.ImageView backIV
-    java.lang.String classsName
-    108:112:public void addClassName()
-    172:194:private void choseClass(int)
-    197:208:private void addOtherName()
-    217:230:private void choseRace(int)
-    233:245:private void addCatRaceName()
-    249:261:private void addDogRaceName()
+com.aidigame.hisun.pet.ui.AwardDetailActivity:
+    android.widget.LinearLayout frameLayout
 com.aidigame.hisun.pet.ui.ChoseKingActivity:
     java.lang.String race
     java.lang.String style
-    382:526:private void showRaceWindow()
-com.aidigame.hisun.pet.ui.ChoseKingActivity$7:
-    1:411:ChoseKingActivity$7(com.aidigame.hisun.pet.ui.ChoseKingActivity)
-com.aidigame.hisun.pet.ui.ChoseKingActivity$8
-com.aidigame.hisun.pet.ui.ChoseKingActivity$9:
-    1:462:ChoseKingActivity$9(com.aidigame.hisun.pet.ui.ChoseKingActivity,java.lang.String[])
+    391:535:private void showRaceWindow()
+com.aidigame.hisun.pet.ui.ChoseKingActivity$6:
+    1:420:ChoseKingActivity$6(com.aidigame.hisun.pet.ui.ChoseKingActivity)
+com.aidigame.hisun.pet.ui.ChoseKingActivity$7
+com.aidigame.hisun.pet.ui.ChoseKingActivity$8:
+    1:471:ChoseKingActivity$8(com.aidigame.hisun.pet.ui.ChoseKingActivity,java.lang.String[])
+com.aidigame.hisun.pet.ui.ChoseStarActivity:
+    android.widget.ImageView cloud1
+    android.widget.ImageView cloud2
+    android.widget.ImageView catImage
+    android.widget.ImageView dogImage
+    android.widget.ImageView imageView2
 com.aidigame.hisun.pet.ui.ContributeRankListActivity:
     int length
     int itemtH
@@ -120,10 +106,14 @@ com.aidigame.hisun.pet.ui.DetailActivity:
     java.lang.String[] urls
     int distance
     int yDown
-com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity:
-    195:196:public void setDialogGoListener(com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity$DialogGoListener)
+com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1:
+    200:201:public void setDialogGoListener(com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1$DialogGoListener)
+com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity:
+    com.aidigame.hisun.pet.util.HandleHttpConnectionException handleHttpConnectionException
 com.aidigame.hisun.pet.ui.DialogNoteActivity:
-    147:148:public void setDialogGoListerer(com.aidigame.hisun.pet.ui.DialogNoteActivity$DialogNoteGoListener)
+    238:239:public void setDialogGoListerer(com.aidigame.hisun.pet.ui.DialogNoteActivity$DialogNoteGoListener)
+com.aidigame.hisun.pet.ui.DialogPengTaSuccActivity:
+    238:239:public void setDialogGoListerer(com.aidigame.hisun.pet.ui.DialogPengTaSuccActivity$DialogNoteGoListener)
 com.aidigame.hisun.pet.ui.ModifyPetInfoActivity:
     public static final int DISMISS_PROGRESS
     public static final int SHOW_PROGRESS
@@ -136,20 +126,22 @@ com.aidigame.hisun.pet.ui.NewHomeActivity:
     public static final int SETUPFRAGMENT
 com.aidigame.hisun.pet.ui.PetKingdomActivity:
     android.widget.ImageView takePictureIV
-    998:1022:private void setBlurImageBackground()
+    1197:1197:private void setBlurImageBackground()
 com.aidigame.hisun.pet.ui.PlayJokeActivity:
     com.aidigame.hisun.pet.bean.User user
-    433:433:public void initView3()
+    445:445:public void initView3()
 com.aidigame.hisun.pet.ui.PopularRankListActivity:
     int length
     int itemtH
     int itemNum
-    506:582:private void parseJson(java.lang.String,int)
+    486:566:private void parseJson(java.lang.String,int)
 com.aidigame.hisun.pet.ui.ShakeActivity:
     com.aidigame.hisun.pet.bean.User user
-    425:425:public void initView3()
+    448:448:public void initView3()
 com.aidigame.hisun.pet.ui.ShowTopicActivity:
     public static final int DOWNLOAD_IMAGE_TX
+    android.widget.Toast toast
+    1696:1706:public void loadBitmap(android.graphics.Bitmap)
 com.aidigame.hisun.pet.ui.SubmitPictureActivity:
     public static final int DISMISS_PROGRESS
     public static final int SHOW_PROGRESS
@@ -163,7 +155,11 @@ com.aidigame.hisun.pet.ui.TakePictureBackground:
 com.aidigame.hisun.pet.ui.TouchActivity:
     android.view.View view4
 com.aidigame.hisun.pet.ui.UserDossierActivity:
-    734:758:private void setBlurImageBackground()
+    998:998:private void setBlurImageBackground()
+com.aidigame.hisun.pet.ui.WarningDialogActivity:
+    com.aidigame.hisun.pet.ui.WarningDialogActivity$ReportResultListener reportResultListener
+    303:304:public void setReportListener(com.aidigame.hisun.pet.ui.WarningDialogActivity$ReportResultListener)
+com.aidigame.hisun.pet.ui.WarningDialogActivity$ReportResultListener
 com.aidigame.hisun.pet.util.DeviceNetInfoUtil:
     public static final int NET_CONNECTED_LOGIN_IN
     28:28:public DeviceNetInfoUtil()
@@ -185,21 +181,23 @@ com.aidigame.hisun.pet.util.ImageUtil:
     163:194:public static android.graphics.Bitmap addColor(android.graphics.Bitmap,int,int,int,int)
     201:217:public static void deleteFile(java.lang.String)
     222:234:public static android.graphics.Bitmap chartlet(android.graphics.Bitmap,int,int,android.graphics.Bitmap)
-    244:444:public static android.graphics.Bitmap fastblur(android.graphics.Bitmap,int)
-    448:452:public static void drawBitmap(android.view.SurfaceHolder,android.graphics.Bitmap)
-    454:459:public static android.graphics.Bitmap getBitmapFromSurfaceView(android.view.SurfaceView)
+    238:242:public static void drawBitmap(android.view.SurfaceHolder,android.graphics.Bitmap)
+    244:249:public static android.graphics.Bitmap getBitmapFromSurfaceView(android.view.SurfaceView)
+    260:278:public static android.graphics.Bitmap getBitmapFromView(android.view.View,android.content.Context)
 com.aidigame.hisun.pet.util.LogUtil:
     5:5:public LogUtil()
 com.aidigame.hisun.pet.util.StringUtil:
-    47:47:public StringUtil()
-    62:84:public static java.lang.String convert(java.lang.String)
-    93:138:public static java.lang.String revert(java.lang.String)
-    190:207:public static void setImageViaStream(java.lang.String,android.widget.ImageView,android.graphics.BitmapFactory$Options)
+    54:54:public StringUtil()
+    69:91:public static java.lang.String convert(java.lang.String)
+    100:145:public static java.lang.String revert(java.lang.String)
+    197:214:public static void setImageViaStream(java.lang.String,android.widget.ImageView,android.graphics.BitmapFactory$Options)
+    671:683:public static void editTextEnter(android.widget.EditText)
+com.aidigame.hisun.pet.util.StringUtil$1
 com.aidigame.hisun.pet.util.UiUtil:
     14:14:public UiUtil()
 com.aidigame.hisun.pet.util.UserStatusUtil:
-    30:30:public UserStatusUtil()
-    157:181:public static boolean isXinlangAuth(android.app.Activity)
+    29:29:public UserStatusUtil()
+    156:180:public static boolean isXinlangAuth(android.app.Activity)
 com.aidigame.hisun.pet.widget.AudioRecordAndPlayer:
     java.lang.String tempFile
     java.lang.String finalFile
@@ -212,8 +210,10 @@ com.aidigame.hisun.pet.widget.AudioRecordAndPlayer:
     312:343:private void startBufferedWrite(java.io.File)
 com.aidigame.hisun.pet.widget.AudioRecordAndPlayer$1
 com.aidigame.hisun.pet.widget.AudioRecordAndPlayer$2
+com.aidigame.hisun.pet.widget.PLAWaterfull:
+    404:412:public void clearAndRefresh()
 com.aidigame.hisun.pet.widget.PLAWaterfull$ContentTask:
-    148:181:public java.util.ArrayList parseNewsJSON(java.lang.String)
+    156:189:public java.util.ArrayList parseNewsJSON(java.lang.String)
 com.aidigame.hisun.pet.widget.PLAWaterfull$StaggeredAdapter$ViewHolder:
     android.widget.TextView timeView
 com.aidigame.hisun.pet.widget.ShakeSensor:
@@ -222,15 +222,13 @@ com.aidigame.hisun.pet.widget.ShakeSensor:
 com.aidigame.hisun.pet.widget.ShowDialog:
     9:9:public ShowDialog()
 com.aidigame.hisun.pet.widget.ShowMore:
-    524:530:public void onlyCanShare()
+    551:557:public void onlyCanShare()
 com.aidigame.hisun.pet.widget.WeixinShare:
-    34:34:public WeixinShare()
-    37:57:public static boolean getToken()
-    75:98:public static boolean shareText(java.lang.String)
-    106:126:public static void sharePicture(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,int)
-    174:187:public static void shareHttpLink(java.lang.String,java.lang.String)
-    189:202:public static byte[] bmpToByteArray(android.graphics.Bitmap,boolean)
-    206:227:private static android.graphics.Bitmap compressImage(android.graphics.Bitmap)
+    36:36:public WeixinShare()
+    39:59:public static boolean getToken()
+    77:100:public static boolean shareText(java.lang.String)
+    175:188:public static byte[] bmpToByteArray(android.graphics.Bitmap,boolean)
+    192:213:private static android.graphics.Bitmap compressImage(android.graphics.Bitmap)
 com.aidigame.hisun.pet.widget.WeixinShare$1
 com.aidigame.hisun.pet.widget.XinlangShare:
     37:37:public XinlangShare()
@@ -240,11 +238,9 @@ com.aidigame.hisun.pet.widget.fragment.ActivityFragment:
     private static final int WHAT_DID_MORE
     public static final int LOAD_ACTIVITY_LIST
     public static final int UPDATE_ADAPTER
-com.aidigame.hisun.pet.widget.fragment.DialogExpGoldConAdd:
-    android.app.AlertDialog alertDialog
-    143:144:public boolean isVisible()
 com.aidigame.hisun.pet.widget.fragment.Function4Fragment
 com.aidigame.hisun.pet.widget.fragment.HomeFragment:
+    com.aidigame.hisun.pet.view.PullToRefreshAndMoreView focusListView
     android.widget.RelativeLayout relativeLayout1
     public static final int MESSAGE_DOWNLOAD_IMAGE
     public static final int UPDATE_WATERFULL
@@ -256,31 +252,23 @@ com.aidigame.hisun.pet.widget.fragment.HomeFragment:
     public static final int HIDE_FOOTER
     public static final int SHOW_BACKGROUND_CONTROL
     public static final int HIDE_BACKGROUND_CONTROL
-    245:245:public void setNewWaterFull()
-    1113:1117:public void showBlurImage()
-    1137:1167:public void judgeAcountType()
-    1169:1173:public void setBlurImageBackground()
-com.aidigame.hisun.pet.widget.fragment.KingdomPeoples:
-    436:460:private void setBlurImageBackground()
-com.aidigame.hisun.pet.widget.fragment.KingdomTrends:
-    339:364:private void setBlurImageBackground()
+    public android.widget.ListView listView
+    282:282:public void setNewWaterFull()
+    1004:1008:public void showBlurImage()
+    1028:1058:public void judgeAcountType()
+    1096:1100:public void setBlurImageBackground()
 com.aidigame.hisun.pet.widget.fragment.MenuFragment:
     public static final int USER_INFO
+    android.widget.ImageView clearInputIv
 com.aidigame.hisun.pet.widget.fragment.MessageFragment:
     com.aidigame.hisun.pet.http.json.MessagJson json_system
 com.aidigame.hisun.pet.widget.fragment.PetGiftList:
-    float animHeight
-    263:288:private void setBlurImageBackground()
+    155:155:public void onMore(com.miloisbadboy.view.PullToRefreshView)
 com.aidigame.hisun.pet.widget.fragment.UserActivity:
     float animHeight
     280:280:public android.view.View getView()
-com.aidigame.hisun.pet.widget.fragment.UserFocus:
-    float animHeight
-    325:350:private void setBlurImageBackground()
 com.aidigame.hisun.pet.widget.fragment.UserGiftList:
-    242:267:private void setBlurImageBackground()
-com.aidigame.hisun.pet.widget.fragment.UserKingdomList:
-    289:314:private void setBlurImageBackground()
+    155:155:public void onMore()
 com.android.vending.billing.IInAppBillingService$Stub:
     private static final java.lang.String DESCRIPTOR
     static final int TRANSACTION_isBillingSupported
@@ -292,17 +280,6 @@ com.android.vending.billing.IInAppBillingService$Stub:
     58:58:public android.os.IBinder asBinder()
 com.android.vending.billing.IInAppBillingService$Stub$Proxy:
     186:186:public java.lang.String getInterfaceDescriptor()
-com.android.widget.R:
-    9:9:public R()
-com.android.widget.R$color
-com.android.widget.R$drawable:
-    16:16:public R$drawable()
-com.android.widget.R$id:
-    21:21:public R$id()
-com.android.widget.R$layout:
-    31:31:public R$layout()
-com.android.widget.R$string:
-    35:35:public R$string()
 com.dodowaterfall.widget.FlowTag
 com.haarman.listviewanimations.itemmanipulation.ExpandableListItemAdapter$ExpandCollapseHelper:
     285:285:private ExpandableListItemAdapter$ExpandCollapseHelper()
@@ -329,12 +306,12 @@ com.huewu.pla.sample.R$drawable
 com.huewu.pla.sample.R$id:
     116:116:public R$id()
 com.huewu.pla.sample.R$layout:
-    189:189:public R$layout()
+    188:188:public R$layout()
 com.huewu.pla.sample.R$string:
-    198:198:public R$string()
+    197:197:public R$string()
 com.huewu.pla.sample.R$style
 com.huewu.pla.sample.R$styleable:
-    221:221:public R$styleable()
+    220:220:public R$styleable()
 com.nineoldandroids.animation.Animator:
     public abstract long getStartDelay()
     public abstract void setStartDelay(long)
@@ -1094,6 +1071,314 @@ com.squareup.picasso.Utils$BitmapHoneycombMR1:
     226:226:private Utils$BitmapHoneycombMR1()
 com.squareup.picasso.Utils$OkHttpLoaderCreator:
     232:232:private Utils$OkHttpLoaderCreator()
+com.umeng.analytics.AnalyticsConfig:
+    7:7:public AnalyticsConfig()
+    26:27:public static void setAppkey(java.lang.String)
+    30:31:public static void setChannel(java.lang.String)
+    58:64:public static void setLocation(double,double)
+com.umeng.analytics.MobclickAgent:
+    private static final java.lang.String a
+    23:23:public MobclickAgent()
+    36:36:public static void setAutoLocation(boolean)
+    42:43:public static void setCatchUncaughtExceptions(boolean)
+    46:47:public static void setWrapper(java.lang.String,java.lang.String)
+    53:54:public static void setSessionContinueMillis(long)
+    60:61:public static void setEnableEventBuffer(boolean)
+    67:68:public static void setOnlineConfigureListener(com.umeng.analytics.onlineconfig.UmengOnlineConfigureListener)
+    71:71:public static com.umeng.analytics.c getAgent()
+    79:86:public static void setOpenGLContext(javax.microedition.khronos.opengles.GL10)
+    93:94:public static void openActivityDurationTrack(boolean)
+    101:106:public static void onPageStart(java.lang.String)
+    112:117:public static void onPageEnd(java.lang.String)
+    124:126:public static void setDebugMode(boolean)
+    154:168:public static void onResume(android.content.Context,java.lang.String,java.lang.String)
+    177:178:public static void reportError(android.content.Context,java.lang.String)
+    185:186:public static void reportError(android.content.Context,java.lang.Throwable)
+    194:195:public static void flush(android.content.Context)
+    214:215:public static void onEvent(android.content.Context,java.lang.String,int)
+    225:231:public static void onEvent(android.content.Context,java.lang.String,java.lang.String,int)
+    240:246:public static void onEvent(android.content.Context,java.lang.String,java.lang.String)
+    272:277:public static void onEventDuration(android.content.Context,java.lang.String,long)
+    287:296:public static void onEventDuration(android.content.Context,java.lang.String,java.lang.String,long)
+    306:315:public static void onEventDuration(android.content.Context,java.lang.String,java.util.Map,long)
+    325:333:public static void onEventValue(android.content.Context,java.lang.String,java.util.Map,int)
+    341:342:public static void onEventBegin(android.content.Context,java.lang.String)
+    350:351:public static void onEventEnd(android.content.Context,java.lang.String)
+    359:360:public static void onEventBegin(android.content.Context,java.lang.String,java.lang.String)
+    368:369:public static void onEventEnd(android.content.Context,java.lang.String,java.lang.String)
+    378:383:public static void onKVEventBegin(android.content.Context,java.lang.String,java.util.Map,java.lang.String)
+    391:392:public static void onKVEventEnd(android.content.Context,java.lang.String,java.lang.String)
+    405:411:public static varargs void onSocialEvent(android.content.Context,java.lang.String,com.umeng.analytics.social.UMPlatformData[])
+    420:426:public static varargs void onSocialEvent(android.content.Context,com.umeng.analytics.social.UMPlatformData[])
+    436:437:public static java.lang.String getConfigParams(android.content.Context,java.lang.String)
+    448:457:public static void updateOnlineConfig(android.content.Context,java.lang.String,java.lang.String)
+    474:497:public static void setUserID(android.content.Context,java.lang.String,java.lang.String,com.umeng.analytics.Gender,int)
+com.umeng.analytics.MobclickAgentJSInterface
+com.umeng.analytics.MobclickAgentJSInterface$a
+com.umeng.analytics.ReportPolicy:
+    public static final int REALTIME
+    public static final int BATCH_AT_LAUNCH
+    static final int a
+    static final int b
+    public static final int DAILY
+    public static final int WIFIONLY
+    public static final int BATCH_BY_INTERVAL
+    public static final int BATCH_BY_SIZE
+    14:118:public ReportPolicy()
+com.umeng.analytics.ReportPolicy$b:
+    85:85:public long a()
+com.umeng.analytics.a:
+    public static final java.lang.String a
+    public static final java.lang.String b
+    public static final java.lang.String c
+    public static final java.lang.String d
+    public static final java.lang.String e
+    public static final java.lang.String h
+    public static final java.lang.String i
+    public static final java.lang.String j
+    public static final java.lang.String k
+    public static final java.lang.String l
+    public static final long m
+    public static final long n
+    public static final boolean o
+    8:8:public a()
+com.umeng.analytics.c:
+    53:60:void a(java.lang.String)
+    63:70:void b(java.lang.String)
+    73:74:public void a(com.umeng.analytics.b)
+    77:78:public void a(int)
+    81:83:public void a(java.lang.String,java.lang.String)
+    98:99:void a(com.umeng.analytics.onlineconfig.UmengOnlineConfigureListener)
+    151:156:public void a(android.content.Context,java.lang.String,java.util.HashMap)
+    159:175:void a(android.content.Context,java.lang.String)
+    178:188:void a(android.content.Context,java.lang.Throwable)
+    206:211:void d(android.content.Context)
+    233:242:void a(android.content.Context,java.lang.String,java.lang.String)
+    246:254:void b(android.content.Context,java.lang.String,java.lang.String)
+    258:267:void a(android.content.Context,java.lang.String,java.util.HashMap,java.lang.String)
+    271:279:void c(android.content.Context,java.lang.String,java.lang.String)
+com.umeng.analytics.d:
+    7:7:public d()
+com.umeng.analytics.f:
+    private static final java.lang.String f
+    private static final java.lang.String g
+    private static final java.lang.String h
+    private static final java.lang.String i
+    private static final java.lang.String j
+    private static final java.lang.String k
+    private static final java.lang.String l
+    private static final java.lang.String m
+    private static final java.lang.String n
+    private static final java.lang.String o
+    private static final java.lang.String p
+    57:66:public void a(java.lang.String,java.lang.String,int,int)
+    74:93:public java.lang.Object[] b(android.content.Context)
+    244:244:private android.content.SharedPreferences k()
+    252:252:public android.content.SharedPreferences h()
+    256:256:public android.content.SharedPreferences i()
+    260:260:public android.content.SharedPreferences j()
+com.umeng.analytics.onlineconfig.a:
+    public static final java.lang.String a
+    public static final java.lang.String b
+    public static final java.lang.String c
+    public static final java.lang.String d
+    public static final java.lang.String e
+    public static final java.lang.String f
+    public static final java.lang.String g
+    73:74:public void a(com.umeng.analytics.onlineconfig.UmengOnlineConfigureListener)
+    77:78:public void a()
+    85:86:public void b()
+com.umeng.analytics.social.UMPlatformData:
+    97:105:public UMPlatformData(com.umeng.analytics.social.UMPlatformData$UMedia,java.lang.String)
+    108:108:public java.lang.String getWeiboId()
+    117:118:public void setWeiboId(java.lang.String)
+    121:121:public com.umeng.analytics.social.UMPlatformData$UMedia getMeida()
+    125:125:public java.lang.String getUsid()
+    128:128:public java.lang.String getName()
+    136:137:public void setName(java.lang.String)
+    139:139:public com.umeng.analytics.social.UMPlatformData$GENDER getGender()
+    142:143:public void setGender(com.umeng.analytics.social.UMPlatformData$GENDER)
+    146:150:public boolean isValid()
+com.umeng.analytics.social.UMSocialService:
+    13:69:public UMSocialService()
+    44:59:private static varargs void a(android.content.Context,com.umeng.analytics.social.UMSocialService$b,java.lang.String,com.umeng.analytics.social.UMPlatformData[])
+    62:63:public static varargs void share(android.content.Context,java.lang.String,com.umeng.analytics.social.UMPlatformData[])
+    66:67:public static varargs void share(android.content.Context,com.umeng.analytics.social.UMPlatformData[])
+com.umeng.analytics.social.UMSocialService$a:
+    75:80:public UMSocialService$a(java.lang.String[],com.umeng.analytics.social.UMSocialService$b,com.umeng.analytics.social.UMPlatformData[])
+com.umeng.analytics.social.a
+com.umeng.analytics.social.b:
+    9:9:public b()
+    18:21:public static void a(java.lang.String,java.lang.String,java.lang.Exception)
+    51:54:public static void d(java.lang.String,java.lang.String)
+    57:60:public static void d(java.lang.String,java.lang.String,java.lang.Exception)
+    63:66:public static void e(java.lang.String,java.lang.String)
+    69:75:public static void e(java.lang.String,java.lang.String,java.lang.Exception)
+com.umeng.analytics.social.c:
+    33:33:public c()
+com.umeng.analytics.social.d:
+    29:29:public java.lang.Exception a()
+    38:38:public int b()
+    42:43:public void a(int)
+    46:46:public java.lang.String c()
+    54:54:public java.lang.String d()
+com.umeng.analytics.social.e:
+    protected static final java.lang.String a
+    protected static final java.lang.String b
+    protected static final java.lang.String c
+    public static java.lang.String d
+    protected static final java.lang.String f
+    protected static final java.lang.String g
+    protected static final java.lang.String h
+    protected static final java.lang.String i
+    protected static final java.lang.String j
+    protected static final java.lang.String k
+    protected static final java.lang.String l
+    protected static final java.lang.String m
+    protected static final java.lang.String n
+    protected static final java.lang.String o
+    protected static final java.lang.String p
+    protected static final java.lang.String q
+    protected static final java.lang.String r
+    protected static final java.lang.String s
+    public static final int t
+    public static final int u
+    3:3:public e()
+com.umeng.analytics.social.f
+com.umeng.fb.BuildConfig
+com.umeng.fb.ContactActivity:
+    private static final java.lang.String KEY_UMENG_CONTACT_INFO_PLAIN_TEXT
+com.umeng.fb.FeedbackAgent:
+    34:35:public void setDebug(boolean)
+    60:99:public void sync()
+    108:127:private void showReplyNotification(java.lang.String)
+    143:149:public void startFeedbackActivity()
+    21:21:static synthetic android.content.Context access$000(com.umeng.fb.FeedbackAgent)
+    21:21:static synthetic void access$100(com.umeng.fb.FeedbackAgent,java.lang.String)
+com.umeng.fb.FeedbackAgent$1
+com.umeng.fb.R
+com.umeng.fb.R$anim
+com.umeng.fb.R$attr
+com.umeng.fb.R$color
+com.umeng.fb.R$drawable
+com.umeng.fb.R$id
+com.umeng.fb.R$layout
+com.umeng.fb.R$string
+com.umeng.fb.model.Constants
+com.umeng.fb.model.Conversation$SyncHandler:
+    static final int CALLBACK
+    static final int UPDATE_SEND_USER_REPLY_RESULT
+com.umeng.fb.model.DevReply:
+    19:21:private DevReply(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+com.umeng.fb.model.Reply:
+    private static final java.lang.String JSON_KEY_CONTENT
+    private static final java.lang.String JSON_KEY_REPLY_ID
+    private static final java.lang.String JSON_KEY_APPKEY
+    private static final java.lang.String JSON_KEY_USER_ID
+    private static final java.lang.String JSON_KEY_FEEDBACK_ID
+    private static final java.lang.String JSON_KEY_TYPE
+    private static final java.lang.String JSON_KEY_DATE_TIME
+    private static final java.lang.String JSON_KEY_STATUS
+    118:118:public com.umeng.fb.model.Reply$STATUS getStatus()
+com.umeng.fb.model.Store:
+    private static final java.lang.String PREFS_CONVERSATIONS
+    private static final java.lang.String PREFS_USER_INFO
+    private static final java.lang.String PREFS_USER_INFO_KEY
+    private static final java.lang.String PREFS_USER_INFO_LAST_UPDATE_KEY
+    private static final java.lang.String PREFS_USER_INFO_LAST_SYNC_KEY
+    134:136:public void setUserInfoLastSyncAt(long)
+    175:179:void clear()
+com.umeng.fb.model.UserInfo:
+    96:96:public int getAgeGroup()
+    100:101:public void setAgeGroup(int)
+    104:104:public java.lang.String getGender()
+    108:109:public void setGender(java.lang.String)
+    120:120:public java.util.Map getRemark()
+    124:125:public void setRemark(java.util.Map)
+com.umeng.fb.model.UserTitleReply:
+    private static final java.lang.String JSON_KEY_THREAD
+com.umeng.fb.net.DevReplyRequest
+com.umeng.fb.net.FbClient:
+    public static final java.lang.String FEEDBACK_BASE_URL
+    public static final java.lang.String FEEDBACK_UER_REPLY_URL
+    public static final java.lang.String FEEDBACK_Dev_Reply_URL
+    public static final java.lang.String FEEDBACK_NewFeedback_URL
+    private static final int REGISTRATION_TIMEOUT_MS
+com.umeng.fb.net.FbRequest:
+    23:25:public FbRequest(java.lang.String)
+    40:40:public org.json.JSONObject toJson()
+    45:45:public java.lang.String toGetUrl()
+    50:50:public java.lang.String getHttpMethod()
+com.umeng.fb.net.UClient
+com.umeng.fb.net.URequest:
+    public abstract org.json.JSONObject toJson()
+    public abstract java.lang.String toGetUrl()
+    51:51:protected java.lang.String getHttpMethod()
+    67:68:public void setBaseUrl(java.lang.String)
+    75:75:public java.lang.String getBaseUrl()
+com.umeng.fb.net.UResponse:
+    26:28:public UResponse()
+com.umeng.fb.res.AnimMapper:
+    7:7:public AnimMapper()
+com.umeng.fb.res.DrawableMapper:
+    7:7:public DrawableMapper()
+    18:18:public static int umeng_fb_statusbar_icon(android.content.Context)
+com.umeng.fb.res.IdMapper:
+    7:7:public IdMapper()
+    35:35:public static int umeng_fb_reply_content_right(android.content.Context)
+    39:39:public static int umeng_fb_reply_content_left(android.content.Context)
+    55:55:public static int umeng_fb_conversation_umeng_logo(android.content.Context)
+com.umeng.fb.res.LayoutMapper:
+    7:7:public LayoutMapper()
+    23:23:public static int umeng_fb_new_reply_alert_dialog(android.content.Context)
+com.umeng.fb.res.StringMapper:
+    7:7:public StringMapper()
+    13:13:public static int umeng_fb_notification_ticker_text(android.content.Context)
+    19:19:public static int umeng_fb_notification_content_formatter_single_msg(android.content.Context)
+    25:25:public static int umeng_fb_notification_content_formatter_multiple_msg(android.content.Context)
+com.umeng.fb.util.Constants
+com.umeng.fb.util.DeflaterHelper
+com.umeng.fb.util.DeviceConfig:
+    protected static final java.lang.String UNKNOW
+    private static final java.lang.String MOBILE_NETWORK
+    private static final java.lang.String WIFI
+    public static final int DEFAULT_TIMEZONE
+    58:66:public static boolean isAppInstalled(java.lang.String,android.content.Context)
+    77:78:public static boolean isChinese(android.content.Context)
+    88:91:public static boolean isScreenPortrait(android.content.Context)
+    152:161:public static java.lang.String getAppLabel(android.content.Context)
+    173:181:public static java.lang.String[] getGPU(javax.microedition.khronos.opengles.GL10)
+    298:311:public static java.lang.String getDisplayResolution(android.content.Context)
+    362:362:public static boolean isWiFiAvailable(android.content.Context)
+    381:381:public static android.location.Location getLocation(android.content.Context)
+    395:403:public static boolean isOnline(android.content.Context)
+    413:417:public static boolean isSdCardWrittenable()
+    613:619:public static java.lang.String getOperator(android.content.Context)
+    629:631:public static java.lang.String getTimeString(java.util.Date)
+    640:643:public static java.lang.String getToday()
+    655:659:public static java.util.Date toTime(java.lang.String)
+    673:681:public static int getIntervalSeconds(java.util.Date,java.util.Date)
+    734:734:public static java.lang.String getApplicationLable(android.content.Context)
+    746:748:public static boolean isDebug(android.content.Context)
+com.umeng.fb.util.Helper:
+    86:102:public static java.lang.String MD5(java.lang.String)
+    142:161:public static java.lang.String getFileMD5(java.io.File)
+    183:195:public static java.lang.String getFileSizeDescription(android.content.Context,long)
+    199:218:public static java.lang.String getFileSizeDescription(java.lang.String)
+    229:232:public static void openApp(android.content.Context,java.lang.String)
+    244:250:public static boolean openUrlSchema(android.content.Context,java.lang.String)
+    261:261:public static boolean isEmpty(java.lang.String)
+    274:278:public static boolean isAbsoluteUrl(java.lang.String)
+    289:290:public static java.lang.String getDateTime()
+    299:302:public static java.lang.String getTimeString(java.util.Date)
+com.umeng.fb.util.Log:
+    8:8:public Log()
+    56:59:public static void v(java.lang.String,java.lang.String)
+    62:65:public static void v(java.lang.String,java.lang.String,java.lang.Exception)
+com.umeng.fb.util.Res:
+    98:99:public static void setPackageName(java.lang.String)
+    153:153:public int style(java.lang.String)
+    175:175:public int array(java.lang.String)
 it.sephiroth.android.library.ab.AB:
     public static final boolean LOG_ENABLED
     public static final java.lang.String LOG_TAG
@@ -1294,3 +1579,228 @@ org.jetbrains.annotations.NotNull
 org.jetbrains.annotations.Nullable
 org.jetbrains.annotations.PropertyKey
 org.jetbrains.annotations.TestOnly
+u.aly.a:
+    80:81:public void a(u.aly.ar)
+u.aly.ad
+u.aly.al
+u.aly.al$1
+u.aly.al$a
+u.aly.al$b
+u.aly.al$c
+u.aly.al$d
+u.aly.al$e
+u.aly.b:
+    private static final java.lang.String a
+u.aly.bi:
+    public static final java.lang.String b
+    public static final java.lang.String c
+    public static final java.lang.String d
+    public static final int e
+    57:65:public static boolean a(java.lang.String,android.content.Context)
+    76:77:public static boolean a(android.content.Context)
+    87:90:public static boolean b(android.content.Context)
+    151:160:public static java.lang.String e(android.content.Context)
+    172:180:public static java.lang.String[] a(javax.microedition.khronos.opengles.GL10)
+    278:287:public static java.lang.String h(android.content.Context)
+    299:312:public static java.lang.String i(android.content.Context)
+    394:398:public static boolean b()
+    544:555:public static java.lang.String q(android.content.Context)
+    636:638:public static java.lang.String a(java.util.Date)
+    647:650:public static java.lang.String c()
+    662:666:public static java.util.Date a(java.lang.String)
+    680:688:public static int a(java.util.Date,java.util.Date)
+u.aly.bj:
+    8:8:public bj()
+    56:59:public static void d(java.lang.String,java.lang.String)
+    62:65:public static void d(java.lang.String,java.lang.String,java.lang.Exception)
+u.aly.bk
+u.aly.bl:
+    62:69:public void a(u.aly.bm,u.aly.bl$a)
+u.aly.bl$b:
+    75:78:public bl$b(u.aly.bl,u.aly.bm,u.aly.bl$a)
+u.aly.bm:
+    17:18:public bm()
+u.aly.bp:
+    75:75:public java.lang.String d()
+u.aly.br
+u.aly.bs
+u.aly.bt
+u.aly.bu:
+    15:15:public bu()
+    75:81:public static java.lang.String a(byte[],java.lang.String)
+    85:102:public static byte[] b(byte[])
+u.aly.bv:
+    private static final java.lang.String b
+    34:34:public bv()
+    105:124:public static java.lang.String a(java.io.File)
+    146:158:public static java.lang.String a(android.content.Context,long)
+    162:181:public static java.lang.String c(java.lang.String)
+    192:195:public static void a(android.content.Context,java.lang.String)
+    207:213:public static boolean b(android.content.Context,java.lang.String)
+    237:241:public static boolean e(java.lang.String)
+    252:253:public static java.lang.String a()
+    262:265:public static java.lang.String a(java.util.Date)
+    333:334:public static void a(java.io.File,java.lang.String)
+u.aly.bw:
+    25:25:public bw()
+    37:38:public static final void a(int,byte[])
+    52:56:public static final void a(int,byte[],int)
+    67:67:public static final int a(byte[])
+    81:81:public static final int a(byte[],int)
+    94:94:public static final boolean a(short,int)
+    102:102:public static final boolean a(long,int)
+    113:113:public static final short b(short,int)
+    121:121:public static final long b(long,int)
+    132:132:public static final short a(short,int,boolean)
+    143:146:public static final long a(long,int,boolean)
+u.aly.bx:
+    53:53:public short b()
+u.aly.by
+u.aly.ca:
+    34:34:private ca()
+    55:55:public static int a(boolean,boolean)
+    69:74:public static int a(short,short)
+    89:94:public static int a(long,long)
+    99:104:public static int a(double,double)
+    109:109:public static int a(java.lang.String,java.lang.String)
+    299:305:public static byte[] a(byte[])
+u.aly.cb
+u.aly.cc:
+    88:94:public void a(u.aly.bz,java.lang.String,java.lang.String)
+    107:117:public varargs void a(u.aly.bz,byte[],u.aly.cg,u.aly.cg[])
+    128:128:public varargs java.lang.Boolean a(byte[],u.aly.cg,u.aly.cg[])
+    140:140:public varargs java.lang.Byte b(byte[],u.aly.cg,u.aly.cg[])
+    152:152:public varargs java.lang.Double c(byte[],u.aly.cg,u.aly.cg[])
+    164:164:public varargs java.lang.Short d(byte[],u.aly.cg,u.aly.cg[])
+    176:176:public varargs java.lang.Integer e(byte[],u.aly.cg,u.aly.cg[])
+    188:188:public varargs java.lang.Long f(byte[],u.aly.cg,u.aly.cg[])
+    200:200:public varargs java.lang.String g(byte[],u.aly.cg,u.aly.cg[])
+    213:213:public varargs java.nio.ByteBuffer h(byte[],u.aly.cg,u.aly.cg[])
+    226:236:public varargs java.lang.Short i(byte[],u.aly.cg,u.aly.cg[])
+    242:293:private varargs java.lang.Object a(byte,byte[],u.aly.cg,u.aly.cg[])
+    298:335:private varargs u.aly.ct j(byte[],u.aly.cg,u.aly.cg[])
+    346:347:public void a(u.aly.bz,java.lang.String)
+u.aly.cd
+u.aly.ce
+u.aly.cg:
+    public abstract java.lang.String b()
+u.aly.ch
+u.aly.ci:
+    97:99:public java.lang.String a(u.aly.bz,java.lang.String)
+    112:112:public java.lang.String b(u.aly.bz)
+u.aly.cp
+u.aly.cr:
+    protected static final int a
+    protected static final int b
+    85:86:public cr(u.aly.dm)
+    95:105:public void a(u.aly.cw)
+    107:107:public void a()
+    140:142:public void a(u.aly.dc)
+    144:144:public void g()
+    210:221:public u.aly.cw h()
+    225:225:public void i()
+u.aly.cs:
+    private static final byte h
+    private static final byte i
+    private static final byte j
+    private static final byte k
+    private static final int l
+    170:174:public void a(u.aly.cw)
+    266:267:public void a(u.aly.dc)
+    353:353:public void a()
+    356:356:public void g()
+    473:485:public u.aly.cw h()
+    701:701:public void i()
+u.aly.cs$b
+u.aly.ct:
+    46:46:public boolean a(u.aly.ct)
+u.aly.cw
+u.aly.cx
+u.aly.cy:
+    41:41:private cy()
+    59:59:public u.aly.dm C()
+    public abstract void a(u.aly.cw)
+    public abstract void a()
+    public abstract void a(u.aly.dc)
+    public abstract void g()
+    public abstract void a(byte)
+    public abstract u.aly.cw h()
+    public abstract void i()
+u.aly.d:
+    46:47:public void a(long)
+    104:104:public java.lang.String c()
+u.aly.db:
+    29:29:public db()
+    49:50:public static void a(int)
+    171:194:public static u.aly.da a(byte[],u.aly.da)
+u.aly.de:
+    41:42:public de(u.aly.dm)
+u.aly.de$a
+u.aly.df
+u.aly.dk:
+    71:74:public dk(java.io.InputStream,java.io.OutputStream)
+    83:83:public boolean a()
+    89:89:public void b()
+    95:111:public void c()
+    150:158:public void d()
+u.aly.dl:
+    30:32:public dl(byte[])
+    34:36:public dl(byte[],int,int)
+    53:53:public void c()
+    57:57:public boolean a()
+    61:61:public void b()
+u.aly.dm:
+    public abstract boolean a()
+    42:42:public boolean i()
+    public abstract void b()
+    public abstract void c()
+    125:125:public void d()
+u.aly.do
+u.aly.e:
+    private static final java.lang.String a
+u.aly.f:
+    private static final java.lang.String a
+    179:180:public boolean d()
+u.aly.g:
+    private static final java.lang.String a
+u.aly.h:
+    5:5:public h()
+u.aly.i:
+    private static final java.lang.String a
+    private static final java.lang.String b
+u.aly.k:
+    30:31:public void a(u.aly.o)
+u.aly.l:
+    28:32:public int a(java.lang.String)
+u.aly.n:
+    72:80:public void a(java.lang.String,java.util.Map)
+u.aly.q:
+    43:43:public android.content.Context a()
+    47:47:protected boolean a(int)
+u.aly.r:
+    public static final int a
+    public static final int b
+    public static final int c
+u.aly.s:
+    10:10:public s()
+u.aly.u:
+    private static final java.lang.String a
+    10:11:private u()
+u.aly.v:
+    private static final java.lang.String a
+    private static final java.lang.String b
+    private static final java.lang.String c
+    private static final java.lang.String f
+u.aly.w:
+    private static final java.lang.String h
+    private static final java.lang.String i
+    private static final java.lang.String j
+    private static final java.lang.String k
+    private static final java.lang.String l
+    49:49:public int a()
+u.aly.y:
+    private static final java.lang.String a
+    private static final java.lang.String b
+    21:21:public y()
+u.aly.z:
+    private static final java.lang.String a

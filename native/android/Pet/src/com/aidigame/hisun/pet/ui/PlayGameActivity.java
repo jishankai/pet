@@ -1,31 +1,81 @@
 package com.aidigame.hisun.pet.ui;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
+import com.aidigame.hisun.pet.http.json.UserImagesJson;
+import com.aidigame.hisun.pet.util.ImageUtil;
 import com.aidigame.hisun.pet.util.LogUtil;
+import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import com.aidigame.hisun.pet.widget.WeixinShare;
+import com.umeng.analytics.MobclickAgent;
 
 public class PlayGameActivity extends Activity {
 	WebView webView;
 	String url="http://"+Constants.IP+Constants.URL_ROOT+"r=game/2048&sig=";
+	String shareUrl="http://"+Constants.IP+Constants.URL_ROOT+"r=game/dcz&aid=";
 	Animal animal;
+	ImageView back;
+	TextView shareTv;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
+		MobclickAgent.onEvent(this, "play");
 		setContentView(R.layout.activity_play_game);
 		animal=(Animal)getIntent().getSerializableExtra("animal");
 		webView=(WebView)findViewById(R.id.webview);
+		back=(ImageView)findViewById(R.id.button1);
+		shareTv=(TextView)findViewById(R.id.three_point_iv);
+		back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(NewHomeActivity.homeActivity!=null){
+					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+				}else{
+					Intent intent=new Intent(PlayGameActivity.this,NewHomeActivity.class);
+					PlayGameActivity.this.startActivity(intent);
+				}
+				finish();
+			}
+		});
+		shareTv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				share();
+			}
+
+		});
 		String sig=HttpUtil.getMD5Value("aid="+animal.a_id);
 		url=url+sig+"&SID="+Constants.SID+"&aid="+animal.a_id;
 		LogUtil.i("me", "逗一逗url="+url);
@@ -36,6 +86,7 @@ public class PlayGameActivity extends Activity {
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				// TODO Auto-generated method stub
 				view.loadUrl(url);
+				LogUtil.i("me", "捏虫子url="+url);
 				return true;
 			}
 			@Override
@@ -52,5 +103,55 @@ public class PlayGameActivity extends Activity {
 		
 		
 	}
+
+	private void share() {
+		// TODO Auto-generated method stub
+		if(Constants.api==null){
+			boolean flag=WeixinShare.regToWeiXin(this);
+			if(!flag){
+				Toast.makeText(this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
+				
+				return;
+			}
+		}
+		Bitmap bmp=ImageUtil.getImageFromView(webView);
+		String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
+		FileOutputStream fos=null;
+		try {
+			fos = new FileOutputStream(path);
+			bmp.compress(CompressFormat.PNG, 100, fos);
+			UserImagesJson.Data data=new UserImagesJson.Data();
+			data.path=path;
+			if(WeixinShare.shareHttpLink(shareUrl+animal.a_id, "O(∩_∩)O哈！", this)){
+//				Toast.makeText(this,"成功分享到微信。", Toast.LENGTH_LONG).show();
+			}else{
+				Toast.makeText(this,"分享到微信失败。", Toast.LENGTH_LONG).show();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			if(fos!=null){
+				try {
+					fos.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

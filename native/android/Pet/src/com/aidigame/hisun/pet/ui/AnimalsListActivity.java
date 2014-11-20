@@ -28,6 +28,7 @@ import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
+import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction;
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
@@ -132,30 +133,7 @@ public class AnimalsListActivity extends Activity {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-//						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+       
 		 listView.setOnScrollListener(new OnScrollListener() {
 				
 				@Override
@@ -178,6 +156,18 @@ public class AnimalsListActivity extends Activity {
 				}
 			});
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 	
 

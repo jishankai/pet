@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
@@ -170,7 +171,8 @@ public class PullToRefreshSampleActivity extends FragmentActivity implements IXL
             holder.imageView.setImageWidth(duitangInfo.getWidth());
             holder.imageView.setImageHeight(duitangInfo.getHeight());
             holder.contentView.setText(duitangInfo.getMsg());
-            mImageFetcher.loadImage(duitangInfo.getIsrc(), holder.imageView);
+            BitmapFactory.Options o=new BitmapFactory.Options();
+            mImageFetcher.loadImage(duitangInfo.getIsrc(), holder.imageView,o);
             return convertView;
         }
 

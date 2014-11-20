@@ -72,7 +72,6 @@
         android:layout_height="wrap_content"
         android:src="@drawable/red_ball_delete"
         android:layout_alignRight="@+id/note_layout"
-        android:layout_alignEnd="@+id/note_layout"
         android:layout_marginRight="15dp"
         android:layout_marginTop="0dp"/>
 

@@ -15,6 +15,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
@@ -28,6 +29,7 @@ import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
+import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
@@ -76,30 +78,7 @@ public class ContributeRankListActivity extends Activity {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+       
         listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -108,6 +87,13 @@ public class ContributeRankListActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent=new Intent(ContributeRankListActivity.this,UserDossierActivity.class);
 				intent.putExtra("user", peopleList.get(position));
+				if(UserDossierActivity.userDossierActivity!=null&&UserDossierActivity.userDossierActivity.loadedImage1!=null){
+					if(UserDossierActivity.userDossierActivity!=null&&!UserDossierActivity.userDossierActivity.loadedImage1.isRecycled()){
+						UserDossierActivity.userDossierActivity.loadedImage1.recycle();
+						UserDossierActivity.userDossierActivity.loadedImage1=null;
+					}
+					UserDossierActivity.userDossierActivity.linearLayout2.setBackgroundDrawable(null);
+				}
 				if(UserDossierActivity.userDossierActivity!=null)UserDossierActivity.userDossierActivity.finish();
 				ContributeRankListActivity.this.startActivity(intent);
 			}
@@ -314,11 +300,13 @@ public class ContributeRankListActivity extends Activity {
 	    TextView tv3=(TextView)view.findViewById(R.id.textView3);
 	    TextView tv4=(TextView)view.findViewById(R.id.textView4);
 		popupWindow=new PopupWindow(view,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+		LinearLayout parent=(LinearLayout)view.findViewById(R.id.parent);
+		parent.setBackgroundResource(R.drawable.spinner_rank);
 		popupWindow.setFocusable(true);
 		popupWindow.setBackgroundDrawable(new BitmapDrawable());
 		popupWindow.setOutsideTouchable(true);
-		popupWindow.showAsDropDown(contributeTv, 0, -contributeTv.getHeight());
-		contributeTv.setVisibility(View.INVISIBLE);
+		popupWindow.showAsDropDown(contributeTv, -5, 5);//-contributeTv.getHeight()
+//		contributeTv.setVisibility(View.INVISIBLE);
 		popupWindow.setOnDismissListener(new OnDismissListener() {
 			
 			@Override
@@ -334,7 +322,7 @@ public class ContributeRankListActivity extends Activity {
 				// TODO Auto-generated method stub
 				popupWindow.dismiss();
 				contributeTv.setVisibility(View.VISIBLE);
-				contributeTv.setText("联萌贡献日榜");
+				contributeTv.setText("昨日贡献");
 				loadData(1);
 			}
 		});
@@ -345,7 +333,7 @@ public class ContributeRankListActivity extends Activity {
 				// TODO Auto-generated method stub
 				popupWindow.dismiss();
 				contributeTv.setVisibility(View.VISIBLE);
-				contributeTv.setText("联萌贡献周榜");
+				contributeTv.setText("上周贡献");
 				loadData(2);
 			}
 		});
@@ -356,7 +344,7 @@ public class ContributeRankListActivity extends Activity {
 		    // TODO Auto-generated method stub
 	        	popupWindow.dismiss();
 	        	contributeTv.setVisibility(View.VISIBLE);
-	        	contributeTv.setText("联萌贡献月榜");
+	        	contributeTv.setText("上月贡献");
 	        	loadData(3);
 	        }
         });
@@ -367,7 +355,7 @@ public class ContributeRankListActivity extends Activity {
 		    // TODO Auto-generated method stub
 	        	popupWindow.dismiss();
 	        	contributeTv.setVisibility(View.VISIBLE);
-	        	contributeTv.setText("联萌总贡献榜");
+	        	contributeTv.setText("总贡献榜");
 	        	loadData(0);
 	        }
         });
@@ -393,5 +381,17 @@ public class ContributeRankListActivity extends Activity {
 		
 		public boolean showArrow=false;
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

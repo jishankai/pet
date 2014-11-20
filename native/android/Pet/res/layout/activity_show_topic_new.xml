@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
      android:orientation="vertical"
-     android:id="@+id/framelayout">
+     android:id="@+id/framelayout"
+     android:background="@drawable/blur">
      
     <!-- FrameLayout -->
 <LinearLayout 
@@ -12,29 +13,13 @@
     android:id="@+id/scroll_parent"
      android:orientation="vertical"
      android:background="@color/blur_view_top">
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal" >
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
-        android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="54dp">
-      
-    </RelativeLayout>
-   
        
-       
-    <ScrollView 
+    <com.aidigame.hisun.pet.view.MyScrollView 
         android:id="@+id/linearlayout32"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="#80ffffff"
-        android:paddingBottom="15dp"
+        
         >
              
          <LinearLayout 
@@ -42,6 +27,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+            <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="54dp">
+      
+    </RelativeLayout>
         <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
@@ -66,7 +58,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:clickable="true"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:background="@drawable/button_gray_deep"
         android:gravity="center">
 
@@ -147,7 +139,7 @@
            android:layout_marginRight="10dp"/>
 
     </LinearLayout>
-        <LinearLayout 
+        <!--  <LinearLayout 
             android:id="@+id/add_comment_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -155,15 +147,21 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:visibility="gone"
-        ><!-- android:background="#d0f8f8f8" -->
-        <EditText 
+        >android:background="#d0f8f8f8"
+            <EditText 
             android:id="@+id/edit_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/white_frame1"
             android:layout_weight="1"
             android:hint="写个评论呗"
-            android:textSize="16sp"/>
+            android:visibility="gone"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textSize="16sp">
+        <requestFocus android:id="@+id/request"
+            />
+        </EditText>
         <TextView
             android:id="@+id/send_comment" 
             android:layout_width="wrap_content"
@@ -173,9 +171,9 @@
             android:layout_gravity="bottom"
             android:textColor="@color/orange_red"
             android:paddingLeft="5dp"
-            android:paddingBottom="5dp"/>        
-        
-    </LinearLayout>
+            android:paddingBottom="5dp"/>  
+         
+    </LinearLayout> -->
     <RelativeLayout 
         android:id="@+id/atuser_topic_des_layout"
         android:layout_width="match_parent"
@@ -211,6 +209,7 @@
            
         <View android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:id="@+id/line2"
             android:background="@drawable/line_gray1"/>
             <RelativeLayout 
         android:id="@+id/linearlayout33"
@@ -263,6 +262,7 @@
          </RelativeLayout>  
                  <View android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:id="@+id/line1"
             android:background="@drawable/line_gray1"/> 
                 
             <com.aidigame.hisun.pet.view.LinearLayoutForListView 
@@ -270,16 +270,18 @@
                 android:layout_height="match_parent"
                 android:id="@+id/comments_listview"
                 android:divider="@null"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                ><!-- android:paddingBottom="45dp" -->
              
             </com.aidigame.hisun.pet.view.LinearLayoutForListView>
            <View 
                android:id="@+id/padding_view"
                android:layout_width="match_parent"
-               android:layout_height="500dp"/>
+               android:layout_height="65dp"
+               />
             
     </LinearLayout>
-    </ScrollView>
+    </com.aidigame.hisun.pet.view.MyScrollView >
 
 
 
@@ -295,10 +297,11 @@
     android:visibility="visible"
     android:id="@+id/linearlayout"
     >
-       <LinearLayout
+       <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:background="@color/orange_red" 
+        android:orientation="horizontal"
         android:gravity="center_vertical"
         
         ><!-- android:focusable="true"
@@ -309,20 +312,30 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/back_white" 
+            android:layout_centerVertical="true"
             android:padding="12dp"/>
 
         <TextView
             android:id="@+id/who_tv"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:layout_marginRight="48dp"
-            android:layout_gravity="center_vertical"
+            android:layout_centerInParent="true"
             android:gravity="center"
             android:text="照片详情" 
             android:textColor="@color/white"/>
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:id="@+id/three_point_iv"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/three_point"/>
 
-    </LinearLayout>
+    </RelativeLayout>
        
 
     <LinearLayout
@@ -393,6 +406,7 @@
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:text="" 
+                 android:singleLine="true"
                  android:paddingLeft="3dp"
                  android:textColor="#606060" />
 
@@ -401,26 +415,6 @@
 
         
     </RelativeLayout>
-    <LinearLayout 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:visibility="invisible">
-        <ImageView
-        android:id="@+id/add_focus_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       
-        android:src="@drawable/button_green_add"
-        
-        android:textSize="14sp" 
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:textColor="@color/white"
-        android:paddingLeft="15dp"
-        android:paddingRight="5dp"/>
-    </LinearLayout>
     <TextView
         android:id="@+id/textView31"
         android:layout_width="wrap_content"
@@ -465,8 +459,12 @@
     </RelativeLayout> 
        <!-- FrameLayout -->
       <RelativeLayout 
+          android:id="@+id/morelayout"
+          android:clickable="true"
           android:layout_width="match_parent"
-          android:layout_height="match_parent">
+          android:layout_height="match_parent"
+          android:background="@color/window_black_bagd"
+          android:visibility="invisible">
           <LinearLayout
               android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
@@ -475,16 +473,23 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:id="@+id/share_linearlayout"
+        android:background="@color/white"
         android:visibility="invisible">
-
+                       <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="分享到"
+                    />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" 
-            android:background="@color/brown_deep"
+            android:background="@color/white"
             android:gravity="center_vertical"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp">
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"><!--  android:background="@color/brown_deep" -->
+
 
             <LinearLayout
                  android:id="@+id/imageView2"
@@ -500,7 +505,7 @@
                    
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/weixin" 
+                    android:src="@drawable/more_weixin" 
                     />
 
                 <TextView
@@ -508,7 +513,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="微信联系人"
-                    android:textColor="@color/white" />
+                    android:layout_marginTop="5dp" />
 
             </LinearLayout>
                         <LinearLayout
@@ -524,14 +529,14 @@
                    
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/friend_weixin" />
+                    android:src="@drawable/more_friend" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="微信朋友圈"
-                    android:textColor="@color/white" />
+                    android:layout_marginTop="5dp"/>
 
             </LinearLayout>
                         <LinearLayout
@@ -547,19 +552,45 @@
                     
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/xinlang" />
+                    android:src="@drawable/more_xinlang" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="新浪微博" 
-                    android:textColor="@color/white"/>
+                    android:layout_marginTop="5dp"/>
 
             </LinearLayout>
             
             
         </LinearLayout>
+   <View 
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_light"
+            android:layout_below="@+id/report_tv"
+            android:id="@+id/report_line1"/>
+        <TextView 
+            android:layout_width="match_parent" 
+            android:layout_height="35dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="举报此照"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/sure_bt"
+            android:layout_below="@+id/report_line2"
+            android:id="@+id/report_tv"
+            android:layout_marginTop="10dp"/>
+                        <View 
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/gray_light"
+            android:layout_below="@+id/report_tv"
+            android:layout_marginTop="10dp"
+            android:id="@+id/report_line1"/>
 
         <TextView
             android:id="@+id/textView7"
@@ -567,9 +598,8 @@
             android:layout_height="50dp"
             android:gravity="center"
             android:textSize="16sp"
-            android:textColor="@color/white"
-            android:background="@color/orange_red"
             android:text="取消" 
+            android:background="@color/white"
             />
 
     </LinearLayout>
@@ -594,5 +624,105 @@
               android:layout_centerInParent="true"/>
       </RelativeLayout>
       
+       <LinearLayout 
+            android:id="@+id/add_comment_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        ><!-- android:background="#d0f8f8f8" -->
+        <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="match_parent">
+            <EditText 
+            android:id="@+id/edit_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_frame1"
+            android:layout_weight="1"
+            android:hint="写个评论呗"
+            android:visibility="gone"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+             android:layout_toLeftOf="@+id/send_comment"
+            android:textSize="16sp">
+        <requestFocus android:id="@+id/request"
+            />
+        </EditText>
+        <TextView
+            android:id="@+id/send_comment" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送"
+            android:textSize="18sp"
+            android:layout_gravity="bottom"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/orange_red"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>  
+        </RelativeLayout>
+         
+    </LinearLayout>
+    
+       
+       
+             
+            <!--  <RelativeLayout 
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/report_layout"
+          android:clickable="true"
+          android:background="@color/window_black_bagd"
+          android:visibility="invisible">
+        <RelativeLayout 
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+          android:background="@color/white"
+          android:visibility="visible"
+          android:paddingBottom="10dp">
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="取消"
+            android:id="@+id/cancel_report_tv"
+            android:layout_below="@+id/report_line1"
+             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            />
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/gray_light"
+            android:layout_below="@+id/report_tv"
+            android:layout_marginTop="15dp"
+            android:id="@+id/report_line1"/>
+        <TextView 
+            android:layout_width="match_parent" 
+            android:layout_height="35dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="举报此照"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/sure_bt"
+            android:layout_below="@+id/report_line2"
+            android:id="@+id/report_tv"
+            android:layout_marginTop="15dp"/>
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/orange_red1"
+             android:id="@+id/report_line2"
+            />
+        </RelativeLayout>
+      </RelativeLayout> -->
       
 </FrameLayout>

@@ -43,8 +43,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  *
  */
 public class ClawStyleFunction {
-   private static final int[] ITEM_DRAWABLES = { R.drawable.composer_camera, R.drawable.composer_music,
-			R.drawable.composer_place, R.drawable.composer_sleep/*, R.drawable.composer_thought, R.drawable.composer_with*/ };
+
    View view;
    Activity context;
    ArcMenu arcMenu1,arcMenu2;//底部可弹出菜单
@@ -75,7 +74,7 @@ public class ClawStyleFunction {
 	   this.isShake=isShake;
 	   BitmapFactory.Options options=new BitmapFactory.Options();
 	   options.inJustDecodeBounds=false;
-		options.inSampleSize=2;
+		options.inSampleSize=4;
 		options.inPreferredConfig=Bitmap.Config.RGB_565;
 		options.inPurgeable=true;
 		options.inInputShareable=true;
@@ -353,11 +352,10 @@ public class ClawStyleFunction {
 			return false;
 		}
 	});
-		 final int itemCount = ITEM_DRAWABLES.length;
+		 
 //	        for (int i = 0; i < itemCount; i++) {
 //	            ImageView item = new ImageView(context);
 //	            item.setImageResource(ITEM_DRAWABLES[i]);
-
 //	            final int position = i;
 		 View view1=LayoutInflater.from(context).inflate(R.layout.item_claw_function, null);
 		 ((ImageView)(view1.findViewById(R.id.imageView1))).setImageResource(R.drawable.claw_shake);

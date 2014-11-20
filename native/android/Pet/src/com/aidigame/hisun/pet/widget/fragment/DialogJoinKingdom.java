@@ -18,7 +18,8 @@ import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
-import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
+import com.aidigame.hisun.pet.ui.DialogNoteActivity;
+import com.aidigame.hisun.pet.ui.DialogPengTaSuccActivity;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -79,7 +80,7 @@ public class DialogJoinKingdom {
 						/*
 						 * 加入王国
 						 */
-						final boolean flag=HttpUtil.joinOrQuitKingdom(context,animal, handleHttpConnectionException.getHandler(context), 0);
+						final Animal an=HttpUtil.joinOrQuitKingdom(context,animal, handleHttpConnectionException.getHandler(context), 0);
 						HttpUtil.animalInfo(context,animal, handleHttpConnectionException.getHandler(context));
 					    	
 	                        handleHttpConnectionException.getHandler(context).post(new Runnable() {
@@ -87,14 +88,14 @@ public class DialogJoinKingdom {
 								@Override
 								public void run() {
 									// TODO Auto-generated method stub
-									if(flag){
+									if(an!=null){
 									animal.is_join=true;
 							    	animal.fans++;
 							    	String[] jobs=StringUtil.getUserJobs();
 							    	animal.u_rank=jobs[0];
 							    	animal.job=jobs[0];
 							    	animal.u_rankCode=1;
-									Toast.makeText(context, "捧TA成功", 1000).show();
+//									Toast.makeText(context, "捧TA成功", 1000).show();
 									if(Constants.user!=null&&Constants.user.aniList!=null){
 										if(!Constants.user.aniList.contains(animal))
 										Constants.user.aniList.add(animal);
@@ -105,11 +106,22 @@ public class DialogJoinKingdom {
 									if(MenuFragment.menuFragment!=null){
 										MenuFragment.menuFragment.setViews();
 									}
+									
+									Intent intent=new Intent(context,DialogPengTaSuccActivity.class);
+									intent.putExtra("animal", an);
+									intent.putExtra("mode", 7);
+									context.startActivity(intent);
+									
 									 }else{
 										 Toast.makeText(context, "加入王国失败", 1000).show();
 									 }
 									if(listener!=null){
-										listener.getResult(flag);
+										if(an!=null){
+											listener.getResult(true);
+										}else{
+											listener.getResult(false);
+										}
+										
 									}
 								}
 							});

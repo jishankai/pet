@@ -1,6 +1,7 @@
 package com.aidigame.hisun.pet.ui;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.util.StringUtil;
 
 import android.R.integer;
 import android.app.Activity;
@@ -34,7 +35,7 @@ public class AddGoldContriExpActivity extends Activity {
 			break;
 
 		case 1:
-			imageView.setImageResource(R.drawable.gold_big);;
+			imageView.setImageResource(R.drawable.gold_image);;
 			break;
 
 		case 2:
@@ -50,5 +51,17 @@ public class AddGoldContriExpActivity extends Activity {
 			}
 		}, 2000);
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

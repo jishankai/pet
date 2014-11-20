@@ -30,9 +30,13 @@ import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.ui.ShowTopicActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
+import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.TopicView;
 import com.aidigame.hisun.pet.widget.ShowDialog;
+import com.example.android.bitmapfun.util.ImageCache;
+import com.example.android.bitmapfun.util.ImageFetcher;
+import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -42,10 +46,10 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  * 王国资料界面    发布的图片列表
  */
 public class ShowTopicsAdapter2 extends BaseAdapter  {
-	DisplayImageOptions displayImageOptions;//显示图片的格式
-    ImageLoader imageLoader;
 	Activity context;
 	ArrayList<PetPicture> petPictures;
+	BitmapFactory.Options options;
+	ImageFetcher mImageFetcher;
 	int mode;//1 个人主页;2其他人主页 
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
@@ -63,21 +67,13 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 		this.context=(Activity)context;
 		this.petPictures=petPictures;
 		this.mode=mode;
-	BitmapFactory.Options options=new BitmapFactory.Options();
+	options=new BitmapFactory.Options();
 	options.inJustDecodeBounds=false;
-	options.inSampleSize=4;
+	options.inSampleSize=StringUtil.getScaleByDPI(this.context);
 	options.inPreferredConfig=Bitmap.Config.RGB_565;
 	options.inPurgeable=true;
 	options.inInputShareable=true;
-	displayImageOptions=new DisplayImageOptions
-            .Builder()
-            .showImageOnLoading(R.drawable.noimg)
-	        .cacheInMemory(true)
-	        .cacheOnDisc(true)
-	        .bitmapConfig(Bitmap.Config.RGB_565)
-	        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-	        .decodingOptions(options)
-            .build();
+	mImageFetcher=new ImageFetcher(context, Constants.screen_width);
 	}
 	public void updateTopics(ArrayList<PetPicture> petPictures){
 		this.petPictures=petPictures;
@@ -157,33 +153,9 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 		return convertView;
 	}
 	public void loadTopicImage(TopicView topic,final PetPicture data){
-		imageLoader =ImageLoader.getInstance();
-    	imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+data.url, topic, displayImageOptions, new ImageLoadingListener() {
-			
-			@Override
-			public void onLoadingStarted(String imageUri, View view) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onLoadingFailed(String imageUri, View view,
-					FailReason failReason) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-				// TODO Auto-generated method stub
-			}
-			
-			@Override
-			public void onLoadingCancelled(String imageUri, View view) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
+		mImageFetcher.setWidth(Constants.screen_width);
+		mImageFetcher.setImageCache(new ImageCache(context, new ImageCacheParams(data.url)));
+		mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/data.url, topic, options);
 	}
 	class Holder{
 		TopicView image;
@@ -273,7 +245,7 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 					public void run() {
 						// TODO Auto-generated method stub
 						
-						boolean flag=HttpUtil.likeImage(petPicture,handler);
+						boolean flag=HttpUtil.likeImage(petPicture,handler,context);
 						if(flag){
 							handler.post(new Runnable() {
 								
@@ -296,6 +268,10 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 				break;
 			case 3:
 				if(ShowTopicActivity.showTopicActivity!=null){
+					if(ShowTopicActivity.showTopicActivity.getBitmap()!=null){
+						if(!ShowTopicActivity.showTopicActivity.getBitmap().isRecycled())
+							ShowTopicActivity.showTopicActivity.getBitmap().recycle();
+					}
 					ShowTopicActivity.showTopicActivity.imageView.setImageDrawable(null);
 					ShowTopicActivity.showTopicActivity.finish();
 				}

@@ -16,4 +16,6 @@
     <dimen name="cat_text_size">16sp</dimen>
      <!-- 账号类型选择界面（创建或加入王国） -->
      <dimen name="chose_acount_type_imageView2_margin_bottom">50dp</dimen>
+        <dimen name="dip_240">80dp</dimen>
+   <dimen name="dip_360">180dp</dimen>
 </resources>

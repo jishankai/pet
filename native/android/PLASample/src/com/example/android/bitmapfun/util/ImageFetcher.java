@@ -18,11 +18,11 @@ package com.example.android.bitmapfun.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
-
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -41,8 +41,8 @@ import com.huewu.pla.sample.BuildConfig;
 public class ImageFetcher extends ImageResizer {
     private static final String TAG = "ImageFetcher";
     private static final int HTTP_CACHE_SIZE = 10 * 1024 * 1024; // 10MB
-    public static final String HTTP_CACHE_DIR = "http";
-
+//    public static final String HTTP_CACHE_DIR = "http";
+    public static String UPLOAD_IMAGE_RETURN_URL="http://pet4upload.oss-cn-beijing.aliyuncs.com/";
     /**
      * Initialize providing a target image width and height for the processing images.
      *
@@ -92,7 +92,7 @@ public class ImageFetcher extends ImageResizer {
      * @param data The data to load the bitmap, in this case, a regular http URL
      * @return The downloaded and resized bitmap
      */
-    private Bitmap processBitmap(String data) {
+    private Bitmap processBitmap(String data,BitmapFactory.Options options) {
         if (BuildConfig.DEBUG) {
 //            Log.d(TAG, "processBitmap - " + data);
         }
@@ -102,15 +102,15 @@ public class ImageFetcher extends ImageResizer {
 
         if (f != null) {
             // Return a sampled down version
-            return decodeSampledBitmapFromFile(f.toString(), mImageWidth, mImageHeight);
+            return decodeSampledBitmapFromFile(f.toString(), mImageWidth, mImageHeight,options);
         }
 
         return null;
     }
 
     @Override
-    protected Bitmap processBitmap(Object data) {
-        return processBitmap(String.valueOf(data));
+    protected Bitmap processBitmap(Object data,BitmapFactory.Options options) {
+        return processBitmap(String.valueOf(data),options);
     }
 
     /**
@@ -122,18 +122,33 @@ public class ImageFetcher extends ImageResizer {
      * @return A File pointing to the fetched bitmap
      */
     public static File downloadBitmap(Context context, String urlString) {
-        final File cacheDir = DiskLruCache.getDiskCacheDir(context, HTTP_CACHE_DIR);
+    
+        final File cacheDir = DiskLruCache.getDiskCacheDir(context, "");
 
         final DiskLruCache cache =
                 DiskLruCache.openCache(context, cacheDir, HTTP_CACHE_SIZE);
-
+        
         final File cacheFile = new File(cache.createFilePath(urlString));
-
+        
+        Log.i("me","cacheFile.exists()="+cacheFile.exists()+",cacheFile.isDirectory()="+cacheFile.isDirectory() );
         if (cache.containsKey(urlString)) {
             if (BuildConfig.DEBUG) {
 //                Log.d(TAG, "downloadBitmap - found in http cache - " + urlString);
             }
-            return cacheFile;
+            if(urlString!=null&&urlString.contains("@")){
+            	String temp=urlString.substring(urlString.indexOf("@")+1);
+            	if(temp!=null&&temp.contains("@")){
+            		int length=Integer.parseInt(temp.substring(0,temp.indexOf("@")));
+            		if(cacheFile.length()>length-1000){
+            			 return cacheFile;
+            		}
+            	}
+            	
+            }else
+            if(cacheFile.exists()&&!cacheFile.isDirectory()&&cacheFile.length()>1000){
+            	 return cacheFile;
+            }
+           
         }
 
         if (BuildConfig.DEBUG) {
@@ -143,9 +158,10 @@ public class ImageFetcher extends ImageResizer {
         Utils.disableConnectionReuseIfNecessary();
         HttpURLConnection urlConnection = null;
         BufferedOutputStream out = null;
-
         try {
-            final URL url = new URL(urlString);
+            final URL url = new URL(UPLOAD_IMAGE_RETURN_URL+urlString);
+            
+            Log.i("me", "=================xiazai 图片   url="+UPLOAD_IMAGE_RETURN_URL+urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             final InputStream in =
                     new BufferedInputStream(urlConnection.getInputStream(), Utils.IO_BUFFER_SIZE);

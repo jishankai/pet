@@ -1613,12 +1613,13 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 			 * 我的修改，部分手机，使用Media.insertImage(),返回数据位空
 			 */
 			
-			String path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+".jpg";
+			String path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
+			
 			FileOutputStream fos=null;
 			FileOutputStream fos1=null;
 			try {
 				fos = new FileOutputStream(new File(path));
-				bitmap.compress(CompressFormat.JPEG, 60, fos);
+				bitmap.compress(CompressFormat.JPEG, 90, fos);
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
@@ -1629,7 +1630,10 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 				path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+".png";
 				fos1 = new FileOutputStream(new File(path));
 				bitmap.compress(CompressFormat.PNG, 100, fos1);*/
-				String url="file://"+path;
+				File file=new File(path);
+				String path2=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"@"+file.length()+"@_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
+				file.renameTo(new File(path2));
+				String url="file://"+path2;
 				if ( url != null ) {
 					saveUri = Uri.parse( url );
 					getContentResolver().notifyChange( saveUri, null );

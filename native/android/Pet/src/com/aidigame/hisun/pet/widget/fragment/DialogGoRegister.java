@@ -30,7 +30,7 @@ public class DialogGoRegister {
 	Activity context;
 	PopupWindow popupWindow;
 	View blackView;
-	int mode=0;//0,注册提示；1,加入王国超过10个提示；2，取消关注提示
+	int mode=0;//0,注册提示；1,加入王国超过10个提示；2，取消关注提示；3，使用邀请码超过十个
 	TextView tv1,tv2,tv3,tv4;
 	Animal animal;//取消关注的宠物
 	ResultListener listener;
@@ -103,6 +103,9 @@ public class DialogGoRegister {
 		case 2:
 			cancelFocus();
 			break;
+		case 3:
+			joinKingdomNote2();
+			break;
 		}
 	}
 	public void closePopupTodo(){
@@ -121,8 +124,18 @@ public class DialogGoRegister {
 	 * 加入王国超过10个弹窗提示
 	 */
 	private void joinKingdomNote(){
-		tv1.setText("星球法则是最多捧10个萌星~");
-		tv2.setText("萌星们都那么可爱，");
+		tv1.setText("暂时只能捧10个萌星~");
+		tv2.setText("你的名额占满了~");
+		tv3.setText("专一点嘛~");
+		tv3.setVisibility(View.GONE);
+		tv4.setText("哎~好吧");
+	}
+	/**
+	 * 使用邀请码  超过十个
+	 */
+	private void joinKingdomNote2(){
+		tv1.setText("暂不能使用邀请码~");
+		tv2.setText("星球法则是最多捧10个萌星~");
 		tv3.setText("专一点嘛~");
 		tv4.setText("哎~好吧");
 	}

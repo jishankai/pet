@@ -4,13 +4,14 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/framelayout" >
+        android:id="@+id/framelayout" 
+        android:background="@drawable/blur">
          
         <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/blur_view_top" >
+    android:background="#a0ffffff" >
      <View android:layout_width="match_parent"
         android:layout_height="54dp"
         android:background="@color/white"
@@ -53,7 +54,7 @@
              android:background="@color/white"
              android:textSize="18sp"
              android:textColor="#fc7b51"
-             android:text="新浪微博：宠物星球宠来宠趣" />
+             android:text="新浪微博：宠物星球社交应用" />
          <View 
              android:layout_width="match_parent"
              android:layout_height="2dp"/>
@@ -74,16 +75,17 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="宠物星球软件许可及服务条款" 
-              android:textColor="#555555"
-              android:layout_marginLeft="35dp"
+              android:textColor="@color/orange_red1"
+              android:gravity="center_horizontal"
+              android:textSize="12sp"
               android:layout_marginTop="25dp"/>
 
           <TextView
               android:id="@+id/textView8"
               android:layout_width="match_parent"
-              android:textSize="14sp"
-              android:textColor="#555555"
-              android:layout_marginTop="15dp"
+              android:textColor="#565656"
+              android:textSize="12sp"
+              android:layout_marginTop="25dp"
               android:layout_marginLeft="35dp"
               android:layout_height="wrap_content"
               android:text="邮箱： contact@aidigame.com" />
@@ -92,9 +94,9 @@
           <TextView
               android:id="@+id/textView10"
               android:layout_width="match_parent"
-              android:textSize="14sp"
-              android:textColor="#555555"
-              android:layout_marginTop="15dp"
+              android:textColor="#565656"
+              android:textSize="12sp"
+              android:layout_marginTop="10dp"
               android:layout_marginLeft="35dp"
               android:layout_height="wrap_content"
               android:text="北京市爱迪通信有限责任公司版权所有" />
@@ -116,6 +118,8 @@
             android:layout_height="48dp"
             android:src="@drawable/back_white" 
             android:padding="12dp"
+            
+            
             />
 
         <TextView

@@ -72,19 +72,27 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 	LinearLayout progressLayout;
 	ListView listView;
 	String race,style;
-	ImageView back,search,cleanIV;
+	ImageView back,search,search3,cleanIV;
 	TextView raceTV,choseStyleSpinner;
 	PopupWindow raceWindow;
 	ShowProgress showProgress;
 	ArrayList<Animal> list;
 	ChoseKingListViewAdapter choseKingListViewAdapter;
-	RelativeLayout functionLayout;
+	LinearLayout functionLayout;
 	LinearLayout searchLayout;
 	ImageView search2;
 	TextView cancel;
 	EditText inputET;
 	int from;//默认值为0，进行注册；1，已经注册过
 	HandleHttpConnectionException handleHttpConnectionException;
+	
+	
+	
+	RelativeLayout titleLayout;
+	View view1;
+	
+	
+	
 	LinearLayout noteLinearLayout;
 	int mode;
 	int currentType=-1;//-1为所有种族
@@ -107,27 +115,37 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 	}
 	private void inintView(){
 		pullToRefreshAndMoreView=(PullToRefreshAndMoreView)findViewById(R.id.chose_king_list);
-		functionLayout=(RelativeLayout)findViewById(R.id.function_layout);
+		functionLayout=(LinearLayout)findViewById(R.id.function_layout);
+		
+		
+		titleLayout=(RelativeLayout)findViewById(R.id.relativeLayout1);
+		view1=(View)findViewById(R.id.view1);
+		viewTopWhite=(View)findViewById(R.id.top_white_view);
+		
+		
 		searchLayout=(LinearLayout)findViewById(R.id.search_layout);
 		noteLinearLayout=(LinearLayout)findViewById(R.id.note_layout);
 		progressLayout=(LinearLayout)findViewById(R.id.progress_layout);
 		back=(ImageView)findViewById(R.id.chose_king_back);
 		search=(ImageView)findViewById(R.id.chose_king_search);
+		search3=(ImageView)findViewById(R.id.chose_king_search3);
 		cleanIV=(ImageView)findViewById(R.id.imageView1);
 		search2=(ImageView)findViewById(R.id.search);
 		cancel=(TextView)findViewById(R.id.cancel_tv);
 		inputET=(EditText)findViewById(R.id.input);
+		
 		popupParent=findViewById(R.id.popup_parent);
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
 		raceTV=(TextView)findViewById(R.id.chose_king_chose_race);
 		choseStyleSpinner=(TextView)findViewById(R.id.chose_king_chose_style);
 		listView=pullToRefreshAndMoreView.getListView();
+		listView.setCacheColorHint(Color.TRANSPARENT);
 		pullToRefreshAndMoreView.setHeaderAndFooterInvisible();
 		pullToRefreshAndMoreView.setListener(this);
         list=new ArrayList<Animal>();
         choseKingListViewAdapter=new ChoseKingListViewAdapter(this, list,mode,from);
 		listView.setAdapter(choseKingListViewAdapter);
-		raceTV.setText("喵喵");
+		raceTV.setText("所有");
 		loadData();
 		setBlurImageBackground();
 		
@@ -139,6 +157,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 		search2.setOnClickListener(this);
 		cancel.setOnClickListener(this);
 		cleanIV.setOnClickListener(this);
+		search3.setOnClickListener(this);
 		inputET.addTextChangedListener(new TextWatcher() {
 			
 			@Override
@@ -209,31 +228,8 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
-		viewTopWhite=(View)findViewById(R.id.top_white_view);
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+		
+       
 		 listView.setOnScrollListener(new OnScrollListener() {
 				
 				@Override
@@ -268,6 +264,9 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 		case R.id.chose_king_search:
 			functionLayout.setVisibility(View.INVISIBLE);
 			searchLayout.setVisibility(View.VISIBLE);
+			titleLayout.setVisibility(View.GONE);
+			view1.setVisibility(View.VISIBLE);
+			viewTopWhite.setVisibility(View.GONE);
 			break;
 		case R.id.chose_king_chose_race:
 //			showRaceWindow();
@@ -283,6 +282,9 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 			if(!isSearching){
 				functionLayout.setVisibility(View.VISIBLE);
 				searchLayout.setVisibility(View.INVISIBLE);
+				titleLayout.setVisibility(View.VISIBLE);
+				view1.setVisibility(View.GONE);
+				viewTopWhite.setVisibility(View.VISIBLE);
 				loadData();
 			}else{
 				String name=inputET.getText().toString();
@@ -299,6 +301,13 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 			cancel.setText("取消");
 			
 			isSearching=false;
+			break;
+		case R.id.chose_king_search3:
+			functionLayout.setVisibility(View.INVISIBLE);
+			searchLayout.setVisibility(View.VISIBLE);
+			titleLayout.setVisibility(View.GONE);
+			view1.setVisibility(View.VISIBLE);
+			viewTopWhite.setVisibility(View.GONE);
 			break;
 		}
 	}
@@ -536,10 +545,10 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 	    }else{
 	    	temp=getResources().getStringArray(R.array.cat_race);
 	    }
-	    final String[] strArray=new String[2];
-	    strArray[0]="所有种族";
-	    strArray[0]="喵喵";
-	    strArray[1]="汪汪";
+	    final String[] strArray=new String[3];
+	    strArray[0]="所有";
+	    strArray[1]="喵喵";
+	    strArray[2]="汪汪";
 	    tv1.setVisibility(View.GONE);
 	    PopularWindowAdapter adapter=new PopularWindowAdapter(this, strArray);
 	    listView.setAdapter(adapter);
@@ -611,7 +620,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 				raceTV.setText(""+strArray[position]);
 				raceTV.setVisibility(View.VISIBLE);
 				raceWindow.dismiss();
-				final String temp=""+(position+1);
+				final String temp=""+(position);
 				new Thread(new Runnable() {
 					
 					@Override
@@ -776,5 +785,17 @@ new Thread(new Runnable() {
 			}
 		}).start();
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

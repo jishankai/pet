@@ -38,6 +38,7 @@ public class HomeViewPagerAdapter extends PagerAdapter {
 	public int getItemPosition(Object object) {
 		// TODO Auto-generated method stub
 		return super.getItemPosition(object);
+//		return POSITION_NONE;
 	}
 	@Override
 	public CharSequence getPageTitle(int position) {

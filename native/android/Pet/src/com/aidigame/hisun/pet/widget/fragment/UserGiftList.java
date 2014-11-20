@@ -2,64 +2,61 @@ package com.aidigame.hisun.pet.widget.fragment;
 
 import java.util.ArrayList;
 
-import com.aidigame.hisun.pet.R;
-import com.aidigame.hisun.pet.adapter.KingdomTrendsListAdapter;
-import com.aidigame.hisun.pet.adapter.UserGiftGridViewAdapter;
-import com.aidigame.hisun.pet.adapter.UserKingdomListAdapter;
-import com.aidigame.hisun.pet.bean.Gift;
-import com.aidigame.hisun.pet.bean.User;
-import com.aidigame.hisun.pet.http.HttpUtil;
-import com.aidigame.hisun.pet.ui.UserDossierActivity;
-import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
-import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView;
-import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView.PullToRefreshAndMoreListener;
-
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.AbsListView.OnScrollListener;
+
+import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.adapter.MarketGridViewAdapter;
+import com.aidigame.hisun.pet.adapter.UserGiftGridViewAdapter;
+import com.aidigame.hisun.pet.bean.Gift;
+import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.http.HttpUtil;
+import com.aidigame.hisun.pet.ui.UserDossierActivity;
+import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
+import com.aidigame.hisun.pet.util.LogUtil;
+import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView.PullToRefreshAndMoreListener;
+import com.miloisbadboy.view.PullToRefreshView;
 /**
  * 用户加入的王国列表
  * @author admin
  *
  */
-public class UserGiftList implements PullToRefreshAndMoreListener{
+public class UserGiftList {
 //   PullToRefreshAndMoreView pullView;
    View view;
    UserDossierActivity context;
 //   ListView listView;
    GridView gridView;
-//   UserKingdomListAdapter adapter;
    UserGiftGridViewAdapter adapter;
+//   MarketGridViewAdapter marketGridViewAdapter;
    User user;
    LinearLayout layout;
    ArrayList< Gift> list;
    HandleHttpConnectionException handleHttpConnectionException;
    public UserGiftList(UserDossierActivity context,User user){
 	 view=LayoutInflater.from(context).inflate(R.layout.widget_gridview, null);
-//	  this.pullView=(PullToRefreshAndMoreView)view.findViewById(R.id.listview_linearLayout3);
+
 	   this.context=context;
 	   this.user=user;
 	   handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 	   initView();
-	   initListener();
    }
 	private void initView() {
 	// TODO Auto-generated method stub
-//		listView=this.pullView.getListView();
 		gridView=(GridView)view.findViewById(R.id.gridview);
 		gridView.setBackgroundColor(context.getResources().getColor(R.color.dossier_tab_color));
 		layout=(LinearLayout)view.findViewById(R.id.layout);
@@ -67,6 +64,8 @@ public class UserGiftList implements PullToRefreshAndMoreListener{
 		list=new ArrayList<Gift>();
 		adapter=new UserGiftGridViewAdapter(context,list);
 		gridView.setAdapter(adapter);
+//		marketGridViewAdapter=new MarketGridViewAdapter(context, list);
+//		gridView.setAdapter(marketGridViewAdapter);
 		
 		new Thread(new Runnable() {
 			
@@ -81,190 +80,85 @@ public class UserGiftList implements PullToRefreshAndMoreListener{
 						// TODO Auto-generated method stub
 						if(temp!=null){
 							list=temp;
-							adapter.update(list);
-							adapter.notifyDataSetChanged();
-//							setBlurImageBackground();
+//							marketGridViewAdapter.updateList(list);
+//							marketGridViewAdapter.notifyDataSetChanged();
+						    adapter.update(list);
+						    adapter.notifyDataSetChanged();
+							gridView.post(new Runnable() {
+								
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+									int h=gridView.getMeasuredHeight();
+									LogUtil.i("me", "============gridview===============的高度是"+h);
+									int n=list.size()/3;
+									int left=list.size()%3;
+									if(n==0)n++;
+									if(left!=0)n++;
+									LinearLayout.LayoutParams param=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,h*n);
+									gridView.setLayoutParams(param);
+								}
+							});
 						}
 					}
 				});
 			}
 		}).start();
-		/*adapter=new UserKingdomListAdapter(list,context);
-		listView.setAdapter(adapter);
-		listView.setDivider(null);
-		this.pullView.setListener(this);*/
 	
    }
-	@Override
-	public void onRefresh() {
+	public void onRefresh(final PullToRefreshView pullToRefreshView) {
 		// TODO Auto-generated method stub
 //		pullView.onRefreshFinish();
-		final ArrayList<Gift> temp=HttpUtil.userItems(context,user, -1, handleHttpConnectionException.getHandler(context));
-        handleHttpConnectionException.getHandler(context).post(new Runnable() {
+		new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				if(temp!=null){
-					list=temp;
-					adapter.update(list);
-					adapter.notifyDataSetChanged();
-//					setBlurImageBackground();
-				}
+				final ArrayList<Gift> temp=HttpUtil.userItems(context,user, -1, handleHttpConnectionException.getHandler(context));
+		        handleHttpConnectionException.getHandler(context).post(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						if(temp!=null){
+							list=temp;
+//							marketGridViewAdapter.updateList(list);
+//							marketGridViewAdapter.notifyDataSetChanged();
+							 adapter.update(list);
+							    adapter.notifyDataSetChanged();
+							gridView.post(new Runnable() {
+								
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+									int h=gridView.getMeasuredHeight();
+									LogUtil.i("me", "============gridview===============的高度是"+h);
+									int n=list.size()/3;
+									int left=list.size()%3;
+									if(n==0)n++;
+									if(left!=0)n++;
+									LinearLayout.LayoutParams param=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,h*n);
+									gridView.setLayoutParams(param);
+								}
+							});
+						}
+						if(pullToRefreshView!=null)
+							pullToRefreshView.onHeaderRefreshComplete();
+					}
+				});
 			}
-		});
+		}).start();
+		
 	}
-	@Override
 	public void onMore() {
 		// TODO Auto-generated method stub
-//		pullView.onMoreFinish();
 	}
 	public View getView(){
 		return view;
 	}
 	
 	boolean isShow=true;
-	private void initListener() {
-			// TODO Auto-generated method stub
-		gridView.setOnScrollListener(new OnScrollListener() {
-				
-				@Override
-				public void onScrollStateChanged(AbsListView view, int scrollState) {
-					// TODO Auto-generated method stub
-					if(scrollState!=SCROLL_STATE_IDLE)return;
-					if(gridView.getFirstVisiblePosition()==0&&gridView.getChildAt(0)!=null&&gridView.getChildAt(0).getBottom()==gridView.getChildAt(0).getHeight()){
-						
-						if(!isShow){
-//							animationIn();
-							if(isShow){
-								isShow=false;
-								return;
-							}
-							isShow=true;
-							context.linearLayout3.setVisibility(View.VISIBLE);
-							context.infoShadowView.setVisibility(View.VISIBLE);
-							context.topWhiteView.setVisibility(View.VISIBLE);
-							context.isShowInfoLayout=true;
-						}
-						
-					}else{
-						if(isShow){
-							animationOut();
-						}
-						
-						
-					}
-					
-				}
-				
-				@Override
-				public void onScroll(AbsListView view, int firstVisibleItem,
-						int visibleItemCount, int totalItemCount) {
-					// TODO Auto-generated method stub
-					
-					
-				}
-			});
-	} 
-	float infoYTop;//
-	float infoYBottom;
-	boolean isRecord=false;
-	public void animationOut(){
-		if(!isRecord){
-			infoYTop=context.linearLayout2.getY();
-			infoYBottom=context.linearLayout2.getBottom();
-			isRecord=true;
-		}
-		
-		TranslateAnimation anim=new TranslateAnimation(0, 0, 0, -infoYBottom);
-		anim.setDuration(100);
-		anim.setFillAfter(false);
-		/*TranslateAnimation anim2=new TranslateAnimation(0, 0, 0, -infoYBottom);
-		anim2.setDuration(100);
-		anim2.setFillAfter(false);*/
-        anim.setAnimationListener(new AnimationListener() {
-			
-			@Override
-			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
-				context.infoShadowView.setVisibility(View.GONE);
-			}
-			
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				// TODO Auto-generated method stub
-//				context.linearLayout2.layout(0, (int) -infoYBottom, context.linearLayout2.getWidth(),0);
-				context.linearLayout3.setVisibility(View.GONE);
-				context.infoShadowView.setVisibility(View.GONE);
-				context.topWhiteView.setVisibility(View.GONE);
-				context.isShowInfoLayout=false;
-				isShow=false;
-			}
-		});
-		/*anim2.setAnimationListener(new AnimationListener() {
-			
-			@Override
-			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
-				context.linearLayout3.setVisibility(View.GONE);
-			}
-			
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				// TODO Auto-generated method stub
-//				context.linearLayout2.layout(0, (int) -infoYBottom, context.linearLayout2.getWidth(),0);
-				context.linearLayout3.setVisibility(View.GONE);
-				context.infoShadowView.setVisibility(View.GONE);
-				context.topWhiteView.setVisibility(View.GONE);
-				context.isShowInfoLayout=false;
-				isShow=false;
-			}
-		});*/
-		context.linearLayout3.clearAnimation();
-		context.linearLayout3.startAnimation(anim);
-//		context.infoShadowView.clearAnimation();
-//		context.infoShadowView.startAnimation(anim2);
-	}
-	private void setBlurImageBackground() {
-		// TODO Auto-generated method stub
-		gridView.setBackgroundResource(R.color.blur_view_top);;
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				context.runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						layout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						layout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
-	}
+
 	
 
 }

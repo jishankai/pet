@@ -43,7 +43,6 @@ public class AwardDetailActivity extends Activity {
 		setContentView(R.layout.activity_award_detail);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		data=(ActivityJson.Data)getIntent().getSerializableExtra("data");
-		setBlurImageBackground();
 		new Thread(new Runnable() {
 			
 			@Override
@@ -160,38 +159,18 @@ public class AwardDetailActivity extends Activity {
 		}
 		
 	}
-	/**
-	 * 设置毛玻璃背景，列表滑动时顶部变透明并显示列表
-	 */
-
-	private void setBlurImageBackground() {
-		// TODO Auto-generated method stub
-		frameLayout=(LinearLayout)findViewById(R.id.framelayout);
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
-	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 
 }

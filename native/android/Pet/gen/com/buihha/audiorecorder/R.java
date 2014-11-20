@@ -8,26 +8,26 @@ package com.buihha.audiorecorder;
 
 public final class R {
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f020155;
+		public static final int ic_launcher = 0x7f020141;
 	}
 	public static final class id {
-		public static final int menu_settings = 0x7f06026e;
-		public static final int record = 0x7f060099;
-		public static final int stop = 0x7f06009a;
+		public static final int menu_settings = 0x7f0a02de;
+		public static final int record = 0x7f0a00ab;
+		public static final int stop = 0x7f0a00ac;
 	}
 	public static final class layout {
-		public static final int activity_main = 0x7f030012;
+		public static final int activity_main = 0x7f030013;
 	}
 	public static final class menu {
 		public static final int activity_main = 0x7f0d0000;
 	}
 	public static final class string {
-		public static final int app_name = 0x7f080000;
-		public static final int hello_world = 0x7f080010;
-		public static final int menu_settings = 0x7f080011;
+		public static final int app_name = 0x7f060000;
+		public static final int hello_world = 0x7f060001;
+		public static final int menu_settings = 0x7f060002;
 	}
 	public static final class style {
-		public static final int AppBaseTheme = 0x7f070008;
-		public static final int AppTheme = 0x7f070007;
+		public static final int AppBaseTheme = 0x7f070000;
+		public static final int AppTheme = 0x7f070001;
 	}
 }

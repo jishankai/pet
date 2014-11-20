@@ -3,23 +3,26 @@ package com.aidigame.hisun.pet.ui;
 import java.io.File;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -27,6 +30,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
@@ -40,20 +44,26 @@ import com.aidigame.hisun.pet.util.ImageUtil;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
+import com.aidigame.hisun.pet.view.MyScrollView;
+import com.aidigame.hisun.pet.view.MyScrollView.OnScrollListener;
 import com.aidigame.hisun.pet.view.RoundImageView;
 import com.aidigame.hisun.pet.widget.ShowMore;
 import com.aidigame.hisun.pet.widget.ShowProgress;
-import com.aidigame.hisun.pet.widget.fragment.DialogExpGoldConAdd;
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 import com.aidigame.hisun.pet.widget.fragment.UserActivity;
 import com.aidigame.hisun.pet.widget.fragment.UserFocus;
 import com.aidigame.hisun.pet.widget.fragment.UserGiftList;
 import com.aidigame.hisun.pet.widget.fragment.UserKingdomList;
+import com.miloisbadboy.view.PullToRefreshView;
+import com.miloisbadboy.view.PullToRefreshView.OnFooterRefreshListener;
+import com.miloisbadboy.view.PullToRefreshView.OnHeaderPreRefreshListener;
+import com.miloisbadboy.view.PullToRefreshView.OnHeaderRefreshListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.umeng.analytics.MobclickAgent;
 /**
  * 用户个人信息界面，
  * @author admin
@@ -63,17 +73,20 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 	public View popupParent;
 	public RelativeLayout black_layout;
 	ImageView backIV,moreIv,changeIconIV,kingdomsIV,
-	           starsIV,activityIV,boxesIV,userSexIV;
+	           starsIV,activityIV,boxesIV,kingdomsIV1,
+	           starsIV1,activityIV1,boxesIV1,userSexIV;
 	TextView titleTV,userLevelTV,userNameTV,provinceTV,
 	         cityTV,kingdomNameTV,userJobTV,experienceProgressTV,coinTV;
-	View hatLineView,starLineView,activityLineView,boxLineView,experenceProgressView,line1,line2;
+	View hatLineView,starLineView,activityLineView,boxLineView,hatLineView1,starLineView1,activityLineView1,boxLineView1,experenceProgressView,line1,line2;
 	RoundImageView userIcon,kingdomIcon;
-	RelativeLayout moreParentLayout,expLayout;
+	RelativeLayout expLayout;
 	FrameLayout framelayout;
 	ShowProgress showProgress;
 	HandleHttpConnectionException handleHttpConnectionException;
 	public static UserDossierActivity userDossierActivity;
-	LinearLayout bottomLinearLayout2,moreLayout,animLayout,noteLayout;
+	LinearLayout bottomLinearLayout2,animLayout,noteLayout;
+	public LinearLayout moreLayout;
+	public RelativeLayout moreParentLayout;
 	public LinearLayout linearLayout2,linearLayout3,listParentLayout,blurLayout,progresslayout;
 	public View topWhiteView,infoShadowView;
 	public boolean isShowInfoLayout=true;
@@ -81,7 +94,26 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 	public UserFocus userFocus;
 	UserGiftList userGiftList;
 	UserActivity userActivity;
-	public Bitmap   loadedImage1;
+	public Bitmap   loadedImage1,loadedImage2;
+	
+	
+	PullToRefreshView pullToRefreshView;
+	
+	public MyScrollView scrollview;
+	LinearLayout tabLayout,tabLayout1;
+	
+	int tabMode=0;//0,1,2,3;
+	private int tabLayoutHeight;
+	/**
+	 * myScrollView与其父类布局的顶部距离
+	 */
+	private int myScrollViewTop;
+
+	/**
+	 * 购买布局与其父类布局的顶部距离
+	 */
+	private int tabLayoutTop;
+	
 	/*
 	 * 一张图片的所有信息，
 	 * 根据用户id，判断是否为本人创建或加入的王国，还是其他人的王国，
@@ -104,6 +136,7 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_user_dossier);
+		MobclickAgent.onEvent(this, "personal_homepage");
 		user=(User)getIntent().getSerializableExtra("user");
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		userDossierActivity=this;
@@ -147,22 +180,42 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 			}
 		}).start();
 		initListener();
+		showKingdoms();
+		scrollview.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+			      scrollview.scrollTo(0, 0);	
+			}
+		});
 	}
-
+    
+	
+	
+	
 	private void initView() {
 		// TODO Auto-generated method stub
 		backIV=(ImageView)findViewById(R.id.back);
 		moreIv=(ImageView)findViewById(R.id.take_picture_imageview);
 		changeIconIV=(ImageView)findViewById(R.id.change_icon_imageview);
+		userSexIV=(ImageView)findViewById(R.id.pet_sex_imageview);
 		kingdomsIV=(ImageView)findViewById(R.id.track_imageview);
 		activityIV=(ImageView)findViewById(R.id.peoples_imageview);
 		boxesIV=(ImageView)findViewById(R.id.gift_imageview);
-		userSexIV=(ImageView)findViewById(R.id.pet_sex_imageview);
 		starsIV=(ImageView)findViewById(R.id.image_list_imageview);
 		activityLineView=(View)findViewById(R.id.peoples_line_view);
 		hatLineView=(View)findViewById(R.id.track_line_view);
 		starLineView=(View)findViewById(R.id.image_line_view);
 		boxLineView=(View)findViewById(R.id.gift_line_view);
+		kingdomsIV1=(ImageView)findViewById(R.id.track_imageview1);
+		activityIV1=(ImageView)findViewById(R.id.peoples_imageview1);
+		boxesIV1=(ImageView)findViewById(R.id.gift_imageview1);
+		starsIV1=(ImageView)findViewById(R.id.image_list_imageview1);
+		activityLineView1=(View)findViewById(R.id.peoples_line_view1);
+		hatLineView1=(View)findViewById(R.id.track_line_view1);
+		starLineView1=(View)findViewById(R.id.image_line_view1);
+		boxLineView1=(View)findViewById(R.id.gift_line_view1);
 		coinTV=(TextView)findViewById(R.id.coin_count_tv);
 		moreParentLayout=(RelativeLayout)findViewById(R.id.more_parent_latyout);
 		expLayout=(RelativeLayout)findViewById(R.id.progress_view_layout);
@@ -183,6 +236,11 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 		kingdomIcon=(RoundImageView)findViewById(R.id.user_icon);
 		listParentLayout=(LinearLayout)findViewById(R.id.show_list_layout);
 		
+		
+		
+		
+		
+		
 		bottomLinearLayout2=(LinearLayout)findViewById(R.id.bottom_linearlayout2);
 		noteLayout=(LinearLayout)findViewById(R.id.note_layout);
 		linearLayout2=(LinearLayout)findViewById(R.id.linearLayout2);
@@ -192,6 +250,15 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 		infoShadowView=(View)findViewById(R.id.frame_view2);
 		linearLayout3=(LinearLayout)findViewById(R.id.linearLayout3);
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		progresslayout=(LinearLayout)findViewById(R.id.progress_layout);
 		
 		moreLayout=(LinearLayout)findViewById(R.id.more_layout);
@@ -199,17 +266,25 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 		
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
 		popupParent=(View)findViewById(R.id.popup_parent);
-		showKingdomPeoples();
-		showUserFocus();
-		showKingdomGift();
-		showKingdoms();
+		
+		
+		
+		scrollview=(MyScrollView)findViewById(R.id.scrollview);
+		pullToRefresh();
+		
+		
+
+		
+		
+		
+		
 		
 	}
 	boolean hasMeasured=false;
 	public void setUserInfo(final User user){
 		hasMeasured=false;
 		line1.setVisibility(View.GONE);
-		line2.setVisibility(View.VISIBLE);
+		line2.setVisibility(View.GONE);
 		kingdomIcon.setVisibility(View.VISIBLE);
 		userSexIV.setVisibility(View.VISIBLE);
 		if(user!=null){
@@ -276,8 +351,9 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 			userLevelTV.setText("Lv."+user.lv);
 			if(user.currentAnimal!=null){
 //				kingdomNameTV.setText(""+user.rank);
-				kingdomNameTV.setText("萌星");
-				userJobTV.setText(""+user.currentAnimal.pet_nickName);
+				kingdomNameTV.setText("最爱萌星—"+user.currentAnimal.pet_nickName);
+				userJobTV.setText(""+"经纪人");
+				userJobTV.setVisibility(View.GONE);
 			}
 			
 			if(getIntent().getIntExtra("mode", 1)==4){
@@ -290,7 +366,26 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 			}
 			
 			ImageLoader imageLoader=ImageLoader.getInstance();
-			imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+user.u_iconUrl, userIcon, displayImageOptions,new ImageLoadingListener() {
+			imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+user.u_iconUrl, userIcon, displayImageOptions);
+BitmapFactory.Options options=new BitmapFactory.Options();
+			
+			options.inJustDecodeBounds=false;
+			options.inSampleSize=16;
+			options.inPreferredConfig=Bitmap.Config.ARGB_8888;
+			options.inPurgeable=true;
+			options.inInputShareable=true;
+			DisplayImageOptions displayImageOptions2=new DisplayImageOptions
+		            .Builder()
+			.showImageOnLoading(R.drawable.user_icon)
+			.showImageOnFail(R.drawable.user_icon)
+			        .cacheInMemory(false)
+			        .cacheOnDisc(false)
+			        .bitmapConfig(Bitmap.Config.ARGB_8888)
+			        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+			        .decodingOptions(options)
+	                .build();
+			ImageLoader imageLoader2=ImageLoader.getInstance();
+imageLoader2.loadImage(Constants.USER_DOWNLOAD_TX+user.u_iconUrl, displayImageOptions2,new ImageLoadingListener() {
 				
 				@Override
 				public void onLoadingStarted(String imageUri, View view) {
@@ -310,23 +405,23 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 //					linearLayout2.setBackgroundDrawable(new BitmapDrawable(loadedImage));
 					/*添加毛玻璃效果
 					 *首先要将Bitmap的Config转化为Config.ARGB_8888类型的 */
-					 
-					int[] pixels=new int[loadedImage.getWidth()*loadedImage.getHeight()];
-					loadedImage.getPixels(pixels, 0, loadedImage.getWidth(), 0, 0, loadedImage.getWidth(), loadedImage.getHeight());
-					loadedImage=Bitmap.createBitmap(pixels, loadedImage.getWidth(), loadedImage.getHeight(), Config.ARGB_8888);
-					
-					loadedImage1=Blur.fastblur(UserDossierActivity.this, loadedImage, 18);
+					Matrix matrix=new Matrix();
+					matrix.setScale(0.4f, 0.4f);
+					Bitmap  bmp=loadedImage.createBitmap(loadedImage, 0, 0, loadedImage.getWidth(), loadedImage.getHeight(), matrix, true);
+//					int[] pixels=new int[loadedImage.getWidth()*loadedImage.getHeight()];
+//					loadedImage.getPixels(pixels, 0, loadedImage.getWidth(), 0, 0, loadedImage.getWidth(), loadedImage.getHeight());
+//					loadedImage=Bitmap.createBitmap(pixels, loadedImage.getWidth(), loadedImage.getHeight(), Config.ARGB_8888);
+					loadedImage2=loadedImage;
+					loadedImage1=Blur.fastblur(UserDossierActivity.this, bmp, 18);
+					if(!loadedImage.isRecycled()){
+						loadedImage.recycle();
+						loadedImage=null;
+					}
 					new Thread(new Runnable() {
 						
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-							try {
-								Thread.sleep(50);
-								
-								
-								
-								
 								/*Matrix matrix=new Matrix();
 								float scale1=Constants.screen_width*1f/loadedImage1.getWidth();
 								float scale2=linearLayout2.getMeasuredHeight()*1f/loadedImage1.getHeight();
@@ -354,10 +449,6 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 										
 									}
 								});
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
 						}
 					}).start();
 				}
@@ -368,14 +459,14 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 					
 				}
 			});
-			BitmapFactory.Options options=new BitmapFactory.Options();
+BitmapFactory.Options options2=new BitmapFactory.Options();
 			
-			options.inJustDecodeBounds=false;
-			options.inSampleSize=4;
-			options.inPreferredConfig=Bitmap.Config.RGB_565;
-			options.inPurgeable=true;
-			options.inInputShareable=true;
-			displayImageOptions=new DisplayImageOptions
+			options2.inJustDecodeBounds=false;
+			options2.inSampleSize=8;
+			options2.inPreferredConfig=Bitmap.Config.RGB_565;
+			options2.inPurgeable=true;
+			options2.inInputShareable=true;
+			DisplayImageOptions displayImageOptions3=new DisplayImageOptions
 		            .Builder()
 			.showImageOnLoading(R.drawable.pet_icon)
 			.showImageOnFail(R.drawable.pet_icon)
@@ -383,9 +474,10 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 			        .cacheOnDisc(false)
 			        .bitmapConfig(Bitmap.Config.RGB_565)
 			        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-			        .decodingOptions(options)
+			        .decodingOptions(options2)
 	                .build();
-			imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+user.currentAnimal.pet_iconUrl, kingdomIcon, displayImageOptions);
+			ImageLoader imageLoader3=ImageLoader.getInstance();
+			imageLoader3.displayImage(Constants.ANIMAL_DOWNLOAD_TX+user.currentAnimal.pet_iconUrl, kingdomIcon, displayImageOptions3);
 		}
 	}
 	private void initListener() {
@@ -395,37 +487,226 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 		starsIV.setOnClickListener(this);
 		activityIV.setOnClickListener(this);
 		boxesIV.setOnClickListener(this);
+		kingdomsIV1.setOnClickListener(this);
+		starsIV1.setOnClickListener(this);
+		activityIV1.setOnClickListener(this);
+		boxesIV1.setOnClickListener(this);
 		changeIconIV.setOnClickListener(this);
 		moreIv.setOnClickListener(this);
 		kingdomIcon.setOnClickListener(this);
+		userIcon.setOnClickListener(this);
 	}
+	
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		// TODO Auto-generated method stub
+		super.onWindowFocusChanged(hasFocus);
+		if(hasFocus){
+			tabLayoutHeight = tabLayout1.getHeight();
+	    	tabLayoutTop = tabLayout.getTop();
+	    	
+	    	myScrollViewTop = scrollview.getTop();
+		}
+	}
+	public void pullToRefresh(){
+		tabLayout=(LinearLayout)findViewById(R.id.tabs_layout);
+		tabLayout1=(LinearLayout)findViewById(R.id.tabs_layout1);
+		pullToRefreshView=(PullToRefreshView)findViewById(R.id.pulltorefresh);
+	
+		pullToRefreshView.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
+			
+			@Override
+			public void onHeaderRefresh(PullToRefreshView view) {
+				// TODO Auto-generated method stub
+				switch (tabMode) {
+				case 0:
+					if(userKingdomList!=null){
+						userKingdomList.onRefresh(view);
+						break;
+					}
+				case 1:
+					if(userFocus!=null){
+						userFocus.onRefresh(view);
+						break;
+					}
+				case 2:
+					
+					
+				case 3:
+					if(userGiftList!=null){
+						userGiftList.onRefresh(view);
+						break;
+					}
+					
+					default:
+						pullToRefreshView.post(new Runnable() {
+
+							@Override
+							public void run() {
+							
+								pullToRefreshView.onHeaderRefreshComplete();
+							}
+						});
+						break;
+				}
+				
+				
+				
+				
+			}
+		});
+		pullToRefreshView.setOnFooterRefreshListener(new OnFooterRefreshListener() {
+			
+			@Override
+			public void onFooterRefresh(PullToRefreshView view) {
+				// TODO Auto-generated method stub
+				switch (tabMode) {
+				case 0:
+					if(userKingdomList!=null){
+						userKingdomList.onMore(view);
+						break;
+					}
+					
+				case 1:
+					if(userFocus!=null){
+						userFocus.onMore(view);
+						break;
+					}
+					
+				case 2:
+					
+//					break;
+				case 3:
+					
+//					break;
+					default:
+						pullToRefreshView.post(new Runnable() {
+
+							@Override
+							public void run() {
+							
+								pullToRefreshView.onFooterRefreshComplete();
+							}
+						});
+						break;
+				}
+			}
+		});
+		
+		
+		scrollview.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScroll(int scrollY) {
+				// TODO Auto-generated method stub
+				if(scrollY >= tabLayoutTop){
+					tabLayout1.setVisibility(View.VISIBLE);
+					tabLayout.setVisibility(View.INVISIBLE);
+				}else if(scrollY <= tabLayoutTop + tabLayoutHeight){
+					tabLayout1.setVisibility(View.INVISIBLE);
+					tabLayout.setVisibility(View.VISIBLE);
+				}
+			}
+		});
+	}
+	
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.back:
+			LogUtil.i("me", "================判断是不是最后一个activity："+(isTaskRoot()));
+			if(loadedImage1!=null){
+				if(!loadedImage1.isRecycled()){
+					loadedImage1.recycle();
+					loadedImage1=null;
+				}
+				linearLayout2.setBackgroundDrawable(null);
+			}
+			if(loadedImage2!=null){
+				if(!loadedImage2.isRecycled()){
+					loadedImage2.recycle();
+					loadedImage2=null;
+				}
+				userIcon.setImageDrawable(new BitmapDrawable());
+			}
+			if(isTaskRoot()){
+				if(NewHomeActivity.homeActivity!=null){
+					Intent intent=NewHomeActivity.homeActivity.getIntent();
+					if(intent!=null){
+						intent.putExtra("mode", NewHomeActivity.HOMEFRAGMENT);
+						this.startActivity(intent);
+						return;
+					}
+					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+				}else{
+					Intent intent=new Intent(this,NewHomeActivity.class);
+					this.startActivity(intent);
+				}
+			}
 			this.finish();
 			break;
 		case R.id.peoples_imageview:
 			changeTabState();
 			activityIV.setImageResource(R.drawable.flag_red);
 			activityLineView.setVisibility(View.VISIBLE);
+			activityIV1.setImageResource(R.drawable.flag_red);
+			activityLineView1.setVisibility(View.VISIBLE);
 			showKingdomPeoples();
 			break;
 		case R.id.gift_imageview:
 			changeTabState();
 			boxesIV.setImageResource(R.drawable.box_red);
 			boxLineView.setVisibility(View.VISIBLE);
+			boxesIV1.setImageResource(R.drawable.box_red);
+			boxLineView1.setVisibility(View.VISIBLE);
 			showKingdomGift();
 			break;
 		case R.id.track_imageview:
 			changeTabState();
 			kingdomsIV.setImageResource(R.drawable.hat_king_red);
 			hatLineView.setVisibility(View.VISIBLE);
+			kingdomsIV1.setImageResource(R.drawable.hat_king_red);
+			hatLineView1.setVisibility(View.VISIBLE);
 			showKingdoms();
 			break;
 		case R.id.image_list_imageview:
 			changeTabState();
+			starsIV.setImageResource(R.drawable.star_five_red);
+			starLineView.setVisibility(View.VISIBLE);
+			starsIV1.setImageResource(R.drawable.star_five_red);
+			starLineView1.setVisibility(View.VISIBLE);
+			showUserFocus();
+			break;
+		case R.id.peoples_imageview1:
+			changeTabState();
+			activityIV1.setImageResource(R.drawable.flag_red);
+			activityLineView1.setVisibility(View.VISIBLE);
+			activityIV.setImageResource(R.drawable.flag_red);
+			activityLineView.setVisibility(View.VISIBLE);
+			showKingdomPeoples();
+			break;
+		case R.id.gift_imageview1:
+			changeTabState();
+			boxesIV1.setImageResource(R.drawable.box_red);
+			boxLineView1.setVisibility(View.VISIBLE);
+			boxesIV.setImageResource(R.drawable.box_red);
+			boxLineView.setVisibility(View.VISIBLE);
+			showKingdomGift();
+			break;
+		case R.id.track_imageview1:
+			changeTabState();
+			kingdomsIV1.setImageResource(R.drawable.hat_king_red);
+			hatLineView1.setVisibility(View.VISIBLE);
+			kingdomsIV.setImageResource(R.drawable.hat_king_red);
+			hatLineView.setVisibility(View.VISIBLE);
+			showKingdoms();
+			break;
+		case R.id.image_list_imageview1:
+			changeTabState();
+			starsIV1.setImageResource(R.drawable.star_five_red);
+			starLineView1.setVisibility(View.VISIBLE);
 			starsIV.setImageResource(R.drawable.star_five_red);
 			starLineView.setVisibility(View.VISIBLE);
 			showUserFocus();
@@ -453,6 +734,11 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 					PetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
 					PetKingdomActivity.petKingdomActivity.loadedImage1=null;
 				}
+				if(PetKingdomActivity.petKingdomActivity.loadedImage2!=null){
+					PetKingdomActivity.petKingdomActivity.petIcon.setImageDrawable(new BitmapDrawable());
+					PetKingdomActivity.petKingdomActivity.loadedImage2.recycle();
+					PetKingdomActivity.petKingdomActivity.loadedImage2=null;
+				}
 				PetKingdomActivity.petKingdomActivity.finish();
 			}
 			Intent intent2 =new Intent(this,PetKingdomActivity.class);
@@ -460,6 +746,27 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 			this.startActivity(intent2);
 //			this.finish();
 			break;
+		case R.id.imageView3:
+			if(Constants.user!=null&&Constants.user.userId==user.userId){
+				Intent intent6=new Intent(this,ModifyPetInfoActivity.class);
+				intent6.putExtra("mode", 2);
+				this.startActivity(intent6);
+			}else{
+				Intent intent3=new Intent(this,ShowPictureActivity.class);
+				intent3.putExtra("mode", 2);
+				intent3.putExtra("url", user.u_iconUrl);
+				this.startActivity(intent3);
+			}
+			break;
+			
+		}
+	}
+	
+	public void judgeScrollVieHeight(){
+		if(tabLayout.getTop()>tabLayoutHeight){
+			tabLayout.setVisibility(View.VISIBLE);
+			tabLayout1.setVisibility(View.INVISIBLE);
+		}else{
 			
 		}
 	}
@@ -467,19 +774,15 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 	 * 显示用户加入的王国列表
 	 */
 	public void showKingdoms(){
+		tabMode=0;
 		listParentLayout.setVisibility(View.VISIBLE);
 		noteLayout.setVisibility(View.GONE);
+		judgeScrollVieHeight();
 		if(userKingdomList==null){
 			userKingdomList=new UserKingdomList(this,user);
 		}else{
-			new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					userKingdomList.onRefresh();
-				}
-			}).start();
+			userKingdomList.onRefresh(null);
+			
 			
 		}
 		listParentLayout.removeAllViews();
@@ -490,19 +793,15 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 	 * 显示用户关注信息
 	 */
 	public void showUserFocus(){
+		tabMode=1;
 		listParentLayout.setVisibility(View.VISIBLE);
 		noteLayout.setVisibility(View.GONE);
+		judgeScrollVieHeight();
 		if(userFocus==null){
 			userFocus=new UserFocus(this,user);
 		}else{
-            new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					userFocus.onRefresh();
-				}
-			}).start();
+			userFocus.onRefresh(null);
+           
 			
 		}
 		listParentLayout.removeAllViews();
@@ -512,13 +811,13 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 	 * 显示用户活动
 	 */
 	public void showKingdomPeoples(){
+		tabMode=2;
+		judgeScrollVieHeight();
 		if(userActivity==null){
 			userActivity=new UserActivity(this, user);
 		}/*else{
 			userActivity.onRefresh();
 		}*/
-//		listParentLayout.removeAllViews();
-//		listParentLayout.addView(userActivity.getView());
 		listParentLayout.setVisibility(View.GONE);
 		noteLayout.setVisibility(View.VISIBLE);
 	}
@@ -526,19 +825,15 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 	 * 显示国王收到的所有礼物
 	 */
 	public void showKingdomGift(){
+		tabMode=3;
+		judgeScrollVieHeight();
 		listParentLayout.setVisibility(View.VISIBLE);
 		noteLayout.setVisibility(View.GONE);
 		if(userGiftList==null){
 			userGiftList=new UserGiftList(this,user);
 		}else{
-            new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					userGiftList.onRefresh();
-				}
-			}).start();
+			userGiftList.onRefresh(null);
+           
 			
 		}
 		listParentLayout.removeAllViews();
@@ -558,6 +853,17 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 		hatLineView.setVisibility(View.INVISIBLE);
 		starLineView.setVisibility(View.INVISIBLE);
 		
+		
+		activityIV1.setImageResource(R.drawable.flag_gray);
+		kingdomsIV1.setImageResource(R.drawable.hat_king_gray);
+		boxesIV1.setImageResource(R.drawable.box_gray);
+		starsIV1.setImageResource(R.drawable.star_five_gray);
+		
+		activityLineView1.setVisibility(View.INVISIBLE);
+		boxLineView1.setVisibility(View.INVISIBLE);
+		hatLineView1.setVisibility(View.INVISIBLE);
+		starLineView1.setVisibility(View.INVISIBLE);
+		
 	}
 	boolean isChangingUserIcon;
 	int getPictureMode=1;//1 从相机中获取，2从图库中获取
@@ -567,10 +873,6 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 	private void changeUserIcon() {
 		// TODO Auto-generated method stub
 		isChangingUserIcon=true;
-		/*Bitmap bmp=ImageUtil.getBitmapFromView(allLayout,UserHomepageActivity.this);
-		blur_view.setImageBitmap(bmp);
-		blur_view.setAlpha(0.85f);//0.9342857
-		blur_view.setVisibility(View.VISIBLE);*/
 		final View view=LayoutInflater.from(this).inflate(R.layout.popup_user_homepage, null);
 		bottomLinearLayout2.removeAllViews();
 		bottomLinearLayout2.addView(view);
@@ -731,60 +1033,26 @@ public class UserDossierActivity extends Activity implements OnClickListener{
 	}
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						listParentLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						listParentLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
-	}
-	public void shareNumChange(){
-		/*petPicture.shares++;
-		shareNumTV.setText(""+petPicture.shares);*/
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				if(/*!Constants.isSuccess*/true)return;
-				final int gold=HttpUtil.userShareNumsApi(UserDossierActivity.this,handleHttpConnectionException.getHandler(UserDossierActivity.this));
-				
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						DialogExpGoldConAdd dialogExpGoldConAdd=new DialogExpGoldConAdd(UserDossierActivity.this, 2,gold- Constants.user.coinCount,progresslayout);
-						Constants.user.coinCount=gold;
-					}
-				});
-			}
-		}).start();
 	}
 	public void userKingdomsChanged(Animal animal){
-		userKingdomList.animalList.remove(animal);
-		userKingdomList.adapter.notifyDataSetChanged();
+		/*userKingdomList.animalList.remove(animal);
+		userKingdomList.adapter.notifyDataSetChanged();*/
+		userKingdomList.onRefresh(null);
 		
 	}
 	public void addNewKingdom(){
-		userKingdomList.onRefresh();
+		userKingdomList.onRefresh(null);
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 }

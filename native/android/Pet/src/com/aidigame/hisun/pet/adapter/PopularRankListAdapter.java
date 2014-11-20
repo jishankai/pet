@@ -123,17 +123,17 @@ public class PopularRankListAdapter extends BaseAdapter {
 		final Animal people=list.get(position);
 		
 		
-		if(people.ranking==1){
+		if(position==0){
 			holder.rankNoIV.setVisibility(View.VISIBLE);
 			holder.rankNoIV.setImageResource(R.drawable.gold_rank_list);
 			holder.rankNoTV.setVisibility(View.GONE);
 		}else
-		if(people.ranking==2){
+		if(position==1){
 			holder.rankNoIV.setVisibility(View.VISIBLE);
 			holder.rankNoIV.setImageResource(R.drawable.silver_rank_list);
 			holder.rankNoTV.setVisibility(View.GONE);
 		}else
-		if(people.ranking==3){
+		if(position==2){
 			holder.rankNoIV.setVisibility(View.VISIBLE);
 			holder.rankNoIV.setImageResource(R.drawable.copper_rank_list);
 			holder.rankNoTV.setVisibility(View.GONE);
@@ -141,13 +141,13 @@ public class PopularRankListAdapter extends BaseAdapter {
 			holder.rankNoIV.setVisibility(View.GONE);
 			holder.rankNoTV.setVisibility(View.VISIBLE);
 			if(people.ranking<10){
-				holder.rankNoTV.setText(" "+(people.ranking));
+				holder.rankNoTV.setText(" "+(position));
 			}else{
-				holder.rankNoTV.setText(""+(people.ranking));
+				holder.rankNoTV.setText(""+(position));
 			}
 			
 		}
-		holder.contributeNumTV.setText(""+people.t_rq);
+		holder.contributeNumTV.setText(""+people.rq);
 		final LinearLayout llt=holder.layout;
 		holder.arrowIV.setVisibility(View.GONE);
 		if(position==3){
@@ -194,33 +194,33 @@ public class PopularRankListAdapter extends BaseAdapter {
  			h=holder.icon.getMeasuredHeight();
  			flag=true;
 		 }
-		 if(people.hasJoinOrCreate/*&&(people.ranking<7)*/&&people.isScale){
-				LayoutParams params=holder.icon.getLayoutParams();
-				if(params==null){
-					params=new LinearLayout.LayoutParams((int)(w*0.9f),(int)(h*0.9f));
-				}else{
-
-					params.height=(int)(h*0.9f);
-					params.width=(int)(w*0.9f);
-				}
-					holder.icon.setLayoutParams(params);
-					holder.layout.setBackgroundResource(R.color.white);
-					
-			}else {
-				LayoutParams params=holder.icon.getLayoutParams();
-				if(params==null){
-					params=new LinearLayout.LayoutParams((int)(w*0.6f),(int)(h*0.6f));
-				}else{
-
-					params.height=(int)(w*0.6f);
-					params.width=(int)(w*0.6f);
-				}
-				holder.icon.setLayoutParams(params);
-				
-				holder.layout.setBackgroundDrawable(null);
-				
-				
-			}
+//		 if(people.hasJoinOrCreate/*&&(people.ranking<7)*/&&people.isScale){
+//				LayoutParams params=holder.icon.getLayoutParams();
+//				if(params==null){
+//					params=new LinearLayout.LayoutParams((int)(w*0.9f),(int)(h*0.9f));
+//				}else{
+//
+//					params.height=(int)(h*0.9f);
+//					params.width=(int)(w*0.9f);
+//				}
+//					holder.icon.setLayoutParams(params);
+//					holder.layout.setBackgroundResource(R.color.white);
+//					
+//			}else {
+//				LayoutParams params=holder.icon.getLayoutParams();
+//				if(params==null){
+//					params=new LinearLayout.LayoutParams((int)(w*0.6f),(int)(h*0.6f));
+//				}else{
+//
+//					params.height=(int)(w*0.6f);
+//					params.width=(int)(w*0.6f);
+//				}
+//				holder.icon.setLayoutParams(params);
+//				
+//				holder.layout.setBackgroundDrawable(null);
+//				
+//				
+//			}
 		 holder.icon.setOnClickListener(new OnClickListener() {
 				
 				@Override

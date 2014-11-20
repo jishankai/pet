@@ -47,7 +47,8 @@ public class MailListViewAdapter extends BaseAdapter {
 		options.inInputShareable=true;
 		displayImageOptions=new DisplayImageOptions
 	            .Builder()
-	            .showImageOnLoading(R.drawable.noimg)
+	            .showImageOnLoading(R.drawable.user_icon)
+	            .showImageOnFail(R.drawable.user_icon)
 		        .cacheInMemory(true)
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)

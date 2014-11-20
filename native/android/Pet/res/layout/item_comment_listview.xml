@@ -4,15 +4,11 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingTop="10dp"
-   
+   android:clickable="true"
     android:paddingBottom="10dp"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:clickable="true"
     android:id="@+id/layout"
     
      >
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -26,7 +22,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="14sp" 
@@ -35,6 +31,8 @@
         android:clickable="false"
         android:layout_marginLeft="15dp"
         android:enabled="false"
+        android:layout_marginTop="3dp"
+         android:layout_toLeftOf="@+id/warning_iv"
         android:layout_below="@+id/textView1"/>
 
     <TextView
@@ -47,6 +45,18 @@
         android:enabled="false"
         android:layout_marginRight="15dp"
         android:textColor="#b4b4b4"
+       
+        android:layout_alignParentRight="true"
+        />
+    <ImageView
+        android:id="@+id/warning_iv"
+        android:layout_width="31dp"
+        android:layout_height="26dp"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/warning"
+        android:padding="3dp"
+        
+        android:layout_below="@+id/textView3"
         android:layout_alignParentRight="true"
         />
     <View 

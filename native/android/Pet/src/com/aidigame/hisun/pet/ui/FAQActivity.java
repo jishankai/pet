@@ -3,6 +3,8 @@ package com.aidigame.hisun.pet.ui;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.FAQListAdapter1;
 import com.aidigame.hisun.pet.adapter.FAQListAdapter2;
 import com.aidigame.hisun.pet.util.LogUtil;
+import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 /**
@@ -72,8 +75,15 @@ public class FAQActivity extends Activity {
 				// TODO Auto-generated method stub
 				if(listView1.getVisibility()==View.GONE){
 					listView1.setVisibility(View.VISIBLE);
-					commonTv.setVisibility(View.VISIBLE);
+					commonTv.setVisibility(View.GONE);
 				}else{
+					if(NewHomeActivity.homeActivity!=null){
+						ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+						am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+					}else{
+						Intent intent=new Intent(FAQActivity.this,NewHomeActivity.class);
+						FAQActivity.this.startActivity(intent);
+					}
 					FAQActivity.this.finish();
 				}
 			}
@@ -112,8 +122,8 @@ public class FAQActivity extends Activity {
 					adapter2.notifyDataSetChanged();
 					break;
 				case 6:
-					/*adapter2.update(getResources().getStringArray(R.array.faq_item_7_q), getResources().getStringArray(R.array.faq_item_7_a));
-					adapter2.notifyDataSetChanged();*/
+					adapter2.update(getResources().getStringArray(R.array.faq_item_7_q), getResources().getStringArray(R.array.faq_item_7_a));
+					adapter2.notifyDataSetChanged();
 					break;
 			}
 			}
@@ -129,34 +139,7 @@ public class FAQActivity extends Activity {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
-		if(HomeFragment.blurBitmap==null){
-			frameLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.blur));
-		}
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
-       
+		
         listView1.setOnScrollListener(new OnScrollListener() {
 				
 				@Override
@@ -200,5 +183,17 @@ public class FAQActivity extends Activity {
 			}
 		});
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

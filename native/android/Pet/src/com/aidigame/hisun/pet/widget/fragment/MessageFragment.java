@@ -27,20 +27,18 @@ import android.widget.TextView;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.MessageListAdapter;
 import com.aidigame.hisun.pet.bean.TalkMessage;
-import com.aidigame.hisun.pet.bean.TalkMessage.Msg;
-import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.MessagJson;
 import com.aidigame.hisun.pet.service.BlurImageBroadcastReceiver;
-import com.aidigame.hisun.pet.ui.ChatActivity;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
-import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView;
-import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView.PullToRefreshAndMoreListener;
-import com.costum.android.widget.PullAndLoadListView;
-import com.costum.android.widget.PullAndLoadListView.OnLoadMoreListener;
-import com.costum.android.widget.PullToRefreshListView.OnRefreshListener;
+import com.aidigame.hisun.pet.view.LinearLayoutForListView;
+
+
+import com.miloisbadboy.view.PullToRefreshView;
+import com.miloisbadboy.view.PullToRefreshView.OnFooterRefreshListener;
+import com.miloisbadboy.view.PullToRefreshView.OnHeaderRefreshListener;
 
 public class MessageFragment extends Fragment {
     View menuView;
@@ -48,15 +46,15 @@ public class MessageFragment extends Fragment {
     MessagJson json_system;
 	FrameLayout frameLayout;
 	View viewTopWhite;
+	PullToRefreshView pullToRefreshView;
 	
-//	PullToRefreshAndMoreView pullToRefreshAndMoreView;
-	PullAndLoadListView listView;
+	LinearLayoutForListView listView;
 	boolean showSystem_Mail=false;
 	ArrayList<TalkMessage> datasMail;
 	MessageListAdapter mailAdapter;
 	HandleHttpConnectionException handleHttpConnectionException;
-	
-	
+	public static MessageFragment messageFragment;
+	LinearLayout progressLayout;
 	
 	TextView tv1,tv2;
 
@@ -68,6 +66,7 @@ public class MessageFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		homeActivity=NewHomeActivity.homeActivity;
 		menuView=inflater.inflate(R.layout.fragment_message, null);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		return menuView;
@@ -76,6 +75,7 @@ public class MessageFragment extends Fragment {
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onViewCreated(view, savedInstanceState);
+		homeActivity=NewHomeActivity.homeActivity;
 		initView();
 	}
 	@Override
@@ -92,84 +92,16 @@ public class MessageFragment extends Fragment {
 //		pullToRefreshAndMoreView=(PullToRefreshAndMoreView)menuView.findViewById(R.id.pulltorefreshandmore);
 //		pullToRefreshAndMoreView.canPullRefresh=false;
 //		listView=pullToRefreshAndMoreView.getListView();
-		listView=(PullAndLoadListView)menuView.findViewById(R.id.pulltorefreshandmore);
-		listView.setDivider(null);
-		
-		frameLayout=(FrameLayout)menuView.findViewById(R.id.framelayout);
-		new Thread(new Runnable() {
+		messageFragment=this;
+		listView=(LinearLayoutForListView)menuView.findViewById(R.id.pulltorefreshandmore);
+		pullToRefreshView=(PullToRefreshView)menuView.findViewById(R.id.pullToRefreshView);
+		progressLayout=(LinearLayout)menuView.findViewById(R.id.progress_layout);
+		pullToRefreshView.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
 			
 			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				homeActivity.runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
-		
-		broadcastReceiver=new BlurImageBroadcastReceiver(frameLayout, homeActivity);
-		IntentFilter filter=new IntentFilter(BlurImageBroadcastReceiver.BLUR_BITMAP_CHANGED);
-//		homeActivity.registerReceiver(broadcastReceiver, filter);
-		viewTopWhite=(View)menuView.findViewById(R.id.top_white_view);
-		
-		menuView.findViewById(R.id.imageView1).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				homeActivity.toggle();
-			}
-		});
-		
-		
-		tv1=(TextView)menuView.findViewById(R.id.textView1);
-		tv2=(TextView)menuView.findViewById(R.id.textView2);
-		tv1.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				loadMailData();
-				
-				tv1.setBackgroundResource(R.drawable.button_pink);
-				tv2.setBackgroundDrawable(null);
-			}
-		});
-		tv2.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				loadSystemMailData();
-				tv2.setBackgroundResource(R.drawable.button_pink);
-				tv1.setBackgroundDrawable(null);
-			}
-		});
-		
-		listView.setOnRefreshListener(new OnRefreshListener() {
-			
-			@Override
-			public void onRefresh() {
+			public void onHeaderRefresh(PullToRefreshView view) {
 				// TODO Auto-generated method stub
 				datasMail=StringUtil.getTalkHistory(homeActivity);
-//				mailAdapter.update(datasMail);
-//				mailAdapter.notifyDataSetChanged();
-//				listView.onRefreshComplete();
 				 new Thread(new Runnable() {
 						
 						@Override
@@ -242,25 +174,75 @@ public class MessageFragment extends Fragment {
 											}
 										}
 										datasMail=msgs;
-										mailAdapter.update(datasMail);
-										mailAdapter.notifyDataSetChanged();
+										mailAdapter=new MessageListAdapter(homeActivity, datasMail,progressLayout);
+										listView.setAdapter(mailAdapter);
 									}
-										listView.onRefreshComplete();
+										pullToRefreshView.onHeaderRefreshComplete();
 								}
+									
 								});
 							
 						}
 					}).start();
 			}
 		});
-		listView.setOnLoadMoreListener(new OnLoadMoreListener() {
+		pullToRefreshView.setOnFooterRefreshListener(new OnFooterRefreshListener() {
 			
 			@Override
-			public void onLoadMore() {
+			public void onFooterRefresh(PullToRefreshView view) {
 				// TODO Auto-generated method stub
-				listView.onLoadMoreComplete();
+				view.postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						pullToRefreshView.onFooterRefreshComplete();
+					}
+				}, 500);
 			}
 		});
+		frameLayout=(FrameLayout)menuView.findViewById(R.id.framelayout);
+		
+		
+		broadcastReceiver=new BlurImageBroadcastReceiver(frameLayout, homeActivity);
+		IntentFilter filter=new IntentFilter(BlurImageBroadcastReceiver.BLUR_BITMAP_CHANGED);
+//		homeActivity.registerReceiver(broadcastReceiver, filter);
+		viewTopWhite=(View)menuView.findViewById(R.id.top_white_view);
+		
+		menuView.findViewById(R.id.imageView1).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				homeActivity.toggle();
+			}
+		});
+		
+		
+		tv1=(TextView)menuView.findViewById(R.id.textView1);
+		tv2=(TextView)menuView.findViewById(R.id.textView2);
+		tv1.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				loadMailData();
+				
+				tv1.setBackgroundResource(R.drawable.button_pink);
+				tv2.setBackgroundDrawable(null);
+			}
+		});
+		tv2.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				loadSystemMailData();
+				tv2.setBackgroundResource(R.drawable.button_pink);
+				tv1.setBackgroundDrawable(null);
+			}
+		});
+		
 		loadMailData();
 	}
 
@@ -279,9 +261,8 @@ public class MessageFragment extends Fragment {
 		 */
 		datasMail=StringUtil.getTalkHistory(homeActivity);
 		
-		mailAdapter=new MessageListAdapter(homeActivity, datasMail);
+		mailAdapter=new MessageListAdapter(homeActivity, datasMail,progressLayout);
 		listView.setAdapter(mailAdapter);
-		listView.setDivider(null);
 		 new Thread(new Runnable() {
 				
 				@Override
@@ -353,34 +334,13 @@ public class MessageFragment extends Fragment {
 									}
 								}
 								datasMail=msgs;
-								mailAdapter.update(datasMail);
-								mailAdapter.notifyDataSetChanged();
+								mailAdapter=new MessageListAdapter(homeActivity, datasMail,progressLayout);
+								listView.setAdapter(mailAdapter);
 							}
 						});
 					}
 				}
 			}).start();
-		 listView.setOnScrollListener(new OnScrollListener() {
-			
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				// TODO Auto-generated method stub
-				if(listView.getFirstVisiblePosition()==0&&listView.getChildAt(0).getTop()==0){
-					viewTopWhite.setVisibility(View.VISIBLE);
-				}else{
-					if(viewTopWhite.getVisibility()!=View.GONE){
-						viewTopWhite.setVisibility(View.GONE);
-					}
-				}
-			}
-			
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
 	/*	pullToRefreshAndMoreView.setListener(new PullToRefreshAndMoreListener() {
 			
 			@Override
@@ -397,6 +357,11 @@ public class MessageFragment extends Fragment {
 				pullToRefreshAndMoreView.onMoreFinish();
 			}
 		});*/
+	}
+	public void notifyDataChanged(ArrayList<TalkMessage> datasMail){
+		this.datasMail=datasMail;
+		mailAdapter=new MessageListAdapter(homeActivity, datasMail,progressLayout);
+		listView.setAdapter(mailAdapter);
 	}
 	public void updateData(){
 		datasMail=StringUtil.getTalkHistory(homeActivity);
@@ -542,6 +507,11 @@ public class MessageFragment extends Fragment {
         	editor.commit();
     	}*/
 	}
+	public void updateList(ArrayList<TalkMessage> talks){
+		datasMail=talks;
+		mailAdapter.update(datasMail);
+		mailAdapter.notifyDataSetChanged();
+	}
     /**
      * 系统消息
      */
@@ -639,6 +609,7 @@ public class MessageFragment extends Fragment {
 //				}
 //			}
 //		});
+		
 	}
 	
 	

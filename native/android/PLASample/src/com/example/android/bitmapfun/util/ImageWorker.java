@@ -26,6 +26,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -53,6 +54,7 @@ public abstract class ImageWorker {
 
 	protected ImageWorker(Context context) {
 		mContext = context;
+	  
 	}
 
 	/**
@@ -68,28 +70,43 @@ public abstract class ImageWorker {
 	 * @param imageView
 	 *            The ImageView to bind the downloaded image to.
 	 */
-	public void loadImage(Object data, ImageView imageView) {
+	BitmapFactory.Options options;
+	public void loadImage(Object data, ImageView imageView,BitmapFactory.Options options) {
+		if(data==null)return;
 		Bitmap bitmap = null;
-
+		if(this.options==null)
+        this.options=options;
+		
 		if (mImageCache != null) {
 			bitmap = mImageCache.getBitmapFromMemCache(String.valueOf(data));
+			
+			Log.i("me", "获取内存缓存图片");
 		}
 
 		if (bitmap != null) {
 			// Bitmap found in memory cache
-			LinearLayout.LayoutParams lp=(LinearLayout.LayoutParams)imageView.getLayoutParams();
-			if(lp==null){
-			   lp=new LinearLayout.LayoutParams(width,(int)(width*1f/bitmap.getWidth()*bitmap.getHeight()));	
+			if(width>0){
+				ViewGroup.LayoutParams lp=(ViewGroup.LayoutParams)imageView.getLayoutParams();
+				if(lp==null){
+				   lp=new ViewGroup.LayoutParams(width,(int)(width*1f/bitmap.getWidth()*bitmap.getHeight()));	
+				}
+				lp.height=(int)(width*1f/bitmap.getWidth()*bitmap.getHeight());
+				lp.width=width;
+				imageView.setLayoutParams(lp);
 			}
-			lp.height=(int)(width*1f/bitmap.getWidth()*bitmap.getHeight());
-			lp.width=width;
-			imageView.setLayoutParams(lp);
+			Log.i("me", "内存缓存图片存在");
+			if(listener!=null){
+				listener.onComplete(bitmap);
+			}
 			imageView.setImageBitmap(bitmap);
 		} else if (cancelPotentialWork(data, imageView)) {
-			final BitmapWorkerTask task = new BitmapWorkerTask(imageView);
+			
+			final BitmapWorkerTask task = new BitmapWorkerTask(imageView,options);
 			final AsyncDrawable asyncDrawable = new AsyncDrawable(mContext.getResources(), mLoadingBitmap, task);
+			if(imageView!=null)
 			imageView.setImageDrawable(asyncDrawable);
 			task.execute(data);
+			Log.i("me", "内存缓存图片为空");
 		}
 	}
 	int width;
@@ -115,7 +132,7 @@ public abstract class ImageWorker {
 	 */
 	public void loadImage(int num, ImageView imageView) {
 		if (mImageWorkerAdapter != null) {
-			loadImage(mImageWorkerAdapter.getItem(num), imageView);
+			loadImage(mImageWorkerAdapter.getItem(num), imageView,options);
 		} else {
 			throw new NullPointerException("Data not set, must call setAdapter() first.");
 		}
@@ -179,7 +196,7 @@ public abstract class ImageWorker {
 	 *            {@link ImageWorker#loadImage(Object, ImageView)}
 	 * @return The processed bitmap
 	 */
-	protected abstract Bitmap processBitmap(Object data);
+	protected abstract Bitmap processBitmap(Object data,BitmapFactory.Options options);
 
 	public static void cancelWork(ImageView imageView) {
 		final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
@@ -238,9 +255,11 @@ public abstract class ImageWorker {
 	private class BitmapWorkerTask extends AsyncTask<Object, Void, Bitmap> {
 		private Object data;
 		private final WeakReference<ImageView> imageViewReference;
+		BitmapFactory.Options options;
 
-		public BitmapWorkerTask(ImageView imageView) {
+		public BitmapWorkerTask(ImageView imageView,BitmapFactory.Options options) {
 			imageViewReference = new WeakReference<ImageView>(imageView);
+			this.options=options;
 		}
 
 		/**
@@ -249,7 +268,15 @@ public abstract class ImageWorker {
 		@Override
 		protected Bitmap doInBackground(Object... params) {
 			data = params[0];
-			final String dataString = String.valueOf(data);
+			String dataString = String.valueOf(data);
+			if(dataString.contains(".png")){
+				dataString=dataString.substring(0, dataString.indexOf(".png"));
+				dataString=dataString+".png";
+			}else if(dataString.contains(".jpg")){
+				dataString=dataString.substring(0, dataString.indexOf(".jpg"));
+				dataString=dataString+".jpg";
+			}
+			
 			Bitmap bitmap = null;
 
 			// If the image cache is available and this task has not been
@@ -260,7 +287,9 @@ public abstract class ImageWorker {
 			// fetch the bitmap from
 			// the cache
 			if (mImageCache != null && !isCancelled() && getAttachedImageView() != null && !mExitTasksEarly) {
-				bitmap = mImageCache.getBitmapFromDiskCache(dataString);
+				bitmap = mImageCache.getBitmapFromDiskCache(dataString,options);
+				
+				Log.i("me", "从内存卡中获取图片是否成功  "+(bitmap!=null));
 			}
 
 			// If the bitmap was not found in the cache and this task has not
@@ -270,8 +299,10 @@ public abstract class ImageWorker {
 			// bound back to this task and our "exit early" flag is not set,
 			// then call the main
 			// process method (as implemented by a subclass)
+			Log.i("me", "从内存卡中获取图片为空="+(bitmap == null)+",!isCancelled()="+!isCancelled()+",getAttachedImageView() != null :"+(getAttachedImageView() != null) +",!mExitTasksEarly="+(!mExitTasksEarly));
 			if (bitmap == null && !isCancelled() && getAttachedImageView() != null && !mExitTasksEarly) {
-				bitmap = processBitmap(params[0]);
+				bitmap = processBitmap(dataString,options);
+				Log.i("me", "从内存卡中获取图片为空，下载图片+url="+dataString);
 			}
 
 			// If the bitmap was processed and the image cache is available,
@@ -281,8 +312,10 @@ public abstract class ImageWorker {
 			// here, if it was, and the thread is still running, we may as well
 			// add the processed
 			// bitmap to our cache as it might be used again in the future
+			Log.i("me", " ==================mImageCache != null"+(mImageCache != null)) ;
 			if (bitmap != null && mImageCache != null) {
 				mImageCache.addBitmapToCache(dataString, bitmap);
+				Log.i("me", " mImageCache.getBitmapFromDiskCache(dataString,options)===null"+(mImageCache.getBitmapFromDiskCache(dataString,options)==null)+",path="+mImageCache.getBitmapPathFromDisk(mContext, dataString)) ;
 			}
 
 			return bitmap;
@@ -300,6 +333,9 @@ public abstract class ImageWorker {
 			}
 
 			final ImageView imageView = getAttachedImageView();
+			if(bitmap!=null){
+				if(listener!=null)listener.getPath(mImageCache.getBitmapPathFromDisk(mContext,  String.valueOf(data)));;
+			}
 			if (bitmap != null && imageView != null) {
 				setImageBitmap(imageView, bitmap);
 			}
@@ -364,13 +400,21 @@ public abstract class ImageWorker {
 		} else {
 			imageView.setImageBitmap(bitmap);
 		}
-		LinearLayout.LayoutParams lp=(LinearLayout.LayoutParams)imageView.getLayoutParams();
-		if(lp==null){
-		   lp=new LinearLayout.LayoutParams(width,(int)(width*1f/bitmap.getWidth()*bitmap.getHeight()));	
+		if(listener!=null){
+			String path=null;
+			
+			listener.onComplete(bitmap);
 		}
-		lp.height=(int)(width*1f/bitmap.getWidth()*bitmap.getHeight());
-		lp.width=width;
-		imageView.setLayoutParams(lp);
+		if(width>0){
+			ViewGroup.LayoutParams lp=(ViewGroup.LayoutParams)imageView.getLayoutParams();
+			if(lp==null){
+			   lp=new ViewGroup.LayoutParams(width,(int)(width*1f/bitmap.getWidth()*bitmap.getHeight()));	
+			}
+			lp.height=(int)(width*1f/bitmap.getWidth()*bitmap.getHeight());
+			lp.width=width;
+			imageView.setLayoutParams(lp);
+		}
+		
 	}
 
 	/**
@@ -390,6 +434,13 @@ public abstract class ImageWorker {
 	public ImageWorkerAdapter getAdapter() {
 		return mImageWorkerAdapter;
 	}
+	public String getFilePath(Context context,String name){
+		String path=null;
+		if(mImageCache!=null){
+			path=mImageCache.getBitmapPathFromDisk(context, name);
+		}
+		return path;
+	}
 
 	/**
 	 * A very simple adapter for use with ImageWorker class and subclasses.
@@ -398,5 +449,13 @@ public abstract class ImageWorker {
 		public abstract Object getItem(int num);
 
 		public abstract int getSize();
+	}
+	LoadCompleteListener listener;
+	public void setLoadCompleteListener(LoadCompleteListener listener){
+		this.listener=listener;
+	}
+	public static interface LoadCompleteListener{
+		void onComplete(Bitmap bitmap);
+		void getPath(String path);
 	}
 }

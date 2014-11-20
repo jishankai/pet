@@ -95,8 +95,8 @@ public class ImageResizer extends ImageWorker {
 	}
 
 	@Override
-	protected Bitmap processBitmap(Object data) {
-		return processBitmap(Integer.parseInt(String.valueOf(data)));
+	protected Bitmap processBitmap(Object data,BitmapFactory.Options options) {
+		return processBitmap(Integer.parseInt(String.valueOf(data)),options);
 	}
 
 	/**
@@ -144,19 +144,20 @@ public class ImageResizer extends ImageWorker {
 	 *         ratio and dimensions that are equal to or greater than the
 	 *         requested width and height
 	 */
-	public static synchronized Bitmap decodeSampledBitmapFromFile(String filename, int reqWidth, int reqHeight) {
+	public static synchronized Bitmap decodeSampledBitmapFromFile(String filename, int reqWidth, int reqHeight,BitmapFactory.Options options) {
 
 		// First decode with inJustDecodeBounds=true to check dimensions
-		final BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(filename, options);
+		final BitmapFactory.Options options1 = new BitmapFactory.Options();
+		options1.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filename, options1);
 
 		// Calculate inSampleSize
-		options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
+//		options1.inSampleSize = calculateInSampleSize(options1, reqWidth, reqHeight);
+		options1.inSampleSize = options.inSampleSize;
+		Log.i("me", "options.inSampleSize=========="+options1.inSampleSize);
 		// Decode bitmap with inSampleSize set
-		options.inJustDecodeBounds = false;
-		return BitmapFactory.decodeFile(filename, options);
+		options1.inJustDecodeBounds = false;
+		return BitmapFactory.decodeFile(filename, options1);
 	}
 
 	/**

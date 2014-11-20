@@ -96,7 +96,8 @@ public class RoundImageView extends ImageView {
 		}else{
 			b=bitmap;
 		}
-			Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
+		    if(b==null||b.isRecycled())return;
+			Bitmap bitmap = b.copy(Bitmap.Config.RGB_565, true);
 			if (defaultWidth == 0) {
 				defaultWidth = getWidth();
 
@@ -246,9 +247,18 @@ public class RoundImageView extends ImageView {
 		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
 		canvas.drawBitmap(scaledSrcBmp, rect, rect, paint);
 		// bitmap回收(recycle导致在布局文件XML看不到效果)
-		// bmp.recycle();
-		// squareBitmap.recycle();
-		// scaledSrcBmp.recycle();
+		if(!bmp.isRecycled()){
+			 bmp.recycle();
+		}
+if(!squareBitmap.isRecycled()){
+	 squareBitmap.recycle();	
+		}
+if(!scaledSrcBmp.isRecycled()){
+	 scaledSrcBmp.recycle();
+}
+		
+		
+		
 		bmp = null;
 		squareBitmap = null;
 		scaledSrcBmp = null;

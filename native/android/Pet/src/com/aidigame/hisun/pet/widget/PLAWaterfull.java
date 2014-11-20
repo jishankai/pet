@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -46,10 +47,14 @@ import com.aidigame.hisun.pet.ui.ShowTopicActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
+import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 import com.dodola.model.DuitangInfo;
 import com.dodowaterfall.Helper;
 import com.dodowaterfall.widget.ScaleImageView;
+import com.example.android.bitmapfun.util.ImageCache;
 import com.example.android.bitmapfun.util.ImageFetcher;
+import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
+import com.example.android.bitmapfun.util.ImageWorker.LoadCompleteListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -58,11 +63,13 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 public class PLAWaterfull implements IXListViewListener{
 	DisplayImageOptions displayImageOptions;
+	BitmapFactory.Options options;
 	Activity activity;
 	LinearLayout parent;
 	View view;
 	int mode;
 	Handler handler;
+	int count=0;
 	public PLAWaterfull(Activity activity,LinearLayout parent,int mode){
 		this.activity=activity;
 		this.parent=parent;
@@ -112,6 +119,7 @@ public class PLAWaterfull implements IXListViewListener{
        		   di=new DuitangInfo();
        		   di.img_id=pp.img_id;
        		   di.isrc=pp.url;
+       		 di.setMsg(pp.cmt);
        		   if(!list.contains(di))
        		   list.add(di);
        	   }
@@ -203,7 +211,7 @@ public class PLAWaterfull implements IXListViewListener{
         private Context mContext;
         public ArrayList<DuitangInfo> mInfos;
         private XListView mListView;
-        int count=0;
+        public int count=0;
         public StaggeredAdapter(Context context, XListView xListView) {
             mContext = context;
             mInfos = new ArrayList<DuitangInfo>();
@@ -236,6 +244,10 @@ public class PLAWaterfull implements IXListViewListener{
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					if(ShowTopicActivity.showTopicActivity!=null){
+						if(ShowTopicActivity.showTopicActivity.getBitmap()!=null){
+							if(!ShowTopicActivity.showTopicActivity.getBitmap().isRecycled())
+								ShowTopicActivity.showTopicActivity.getBitmap().recycle();
+						}
 						ShowTopicActivity.showTopicActivity.finish();
 					}
 					Intent intent=new Intent(activity,ShowTopicActivity.class);
@@ -262,11 +274,40 @@ public class PLAWaterfull implements IXListViewListener{
 					activity.startActivity(intent);
 				}
 			});
-            ImageLoader imageLoader=ImageLoader.getInstance();
           
             mImageFetcher.setWidth(Constants.screen_width/2);
             //
-            mImageFetcher.loadImage(Constants.UPLOAD_IMAGE_RETURN_URL+duitangInfo.getIsrc(), holder.imageView);
+            mImageFetcher.setLoadCompleteListener(new LoadCompleteListener() {
+				
+				@Override
+				public void onComplete(Bitmap bitmap) {
+					// TODO Auto-generated method stub
+					count++;
+				    bitmap=null;
+				    if(mode==2){
+				    	if(HomeFragment.homeFragment!=null&&HomeFragment.homeFragment.showProgress!=null){
+				    		if(count>4){
+				    			PLAWaterfull.this.parent.setVisibility(View.VISIBLE);
+				    			HomeFragment.homeFragment.showProgress.progressCancel();
+				    			
+				    		}
+				    		
+				    		
+				    		
+				    	}
+				    }
+				    
+				}
+				@Override
+				public void getPath(String path) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				
+			});
+            mImageFetcher.setImageCache(new ImageCache(activity, new ImageCacheParams(duitangInfo.getIsrc())));
+            mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/duitangInfo.getIsrc(), holder.imageView,options);
             return convertView;
         }
 
@@ -292,6 +333,7 @@ public class PLAWaterfull implements IXListViewListener{
         }
 
         public void addItemLast(ArrayList<DuitangInfo> datas) {
+        	if(datas==null)return;
         	if(mInfos!=null){
         		
         	}else{
@@ -316,7 +358,7 @@ public class PLAWaterfull implements IXListViewListener{
     }
 
     protected void inite() {
-    	BitmapFactory.Options options=new BitmapFactory.Options();
+    	options=new BitmapFactory.Options();
 		options.inSampleSize=StringUtil.getScaleByDPI(activity);;
 		LogUtil.i("me", "图片像素压缩比例="+StringUtil.getScaleByDPI(activity));
 		options.inPreferredConfig=Bitmap.Config.RGB_565;
@@ -339,12 +381,17 @@ public class PLAWaterfull implements IXListViewListener{
     	
     	
         view=LayoutInflater.from(activity).inflate(R.layout.act_pull_to_refresh_sample,null);
+   
+
         mAdapterView = (XListView) view.findViewById(R.id.list);
+       
+        
+       
         mAdapterView.setPullLoadEnable(true);
         mAdapterView.setXListViewListener(this);
         mAdapter = new StaggeredAdapter(activity, mAdapterView);
         mImageFetcher = new ImageFetcher(activity, 240);
-        mImageFetcher.setLoadingImage(R.drawable.empty_photo);
+        mImageFetcher.setLoadingImage(R.drawable.white_box);
         parent.removeAllViews();
         LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
         view.setLayoutParams(params);
@@ -353,6 +400,16 @@ public class PLAWaterfull implements IXListViewListener{
        
         loadData();
        
+    }
+    public void clearAndRefresh(){
+    	 mAdapter = new StaggeredAdapter(activity, mAdapterView);
+         parent.removeAllViews();
+         LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
+         view.setLayoutParams(params);
+         parent.addView(view);
+         mAdapterView.setAdapter(mAdapter);
+        
+         loadData();
     }
     public void loadData(){
     	 task=new ContentTask(activity, 1, -1);
@@ -379,6 +436,7 @@ public class PLAWaterfull implements IXListViewListener{
              		   di=new DuitangInfo();
              		   di.img_id=pp.img_id;
              		   di.isrc=pp.url;
+             		   di.setMsg(pp.cmt);
              		   if(!list.contains(di))
              		   list.add(di);
              	   }
@@ -417,6 +475,7 @@ public class PLAWaterfull implements IXListViewListener{
 
     @Override
     public void onRefresh() {
+    	
         AddItemToContainer(++currentPage, 1,-1);
 
 new Thread(new Runnable() {
@@ -435,6 +494,7 @@ new Thread(new Runnable() {
             		   di=new DuitangInfo();
             		   di.img_id=pp.img_id;
             		   di.isrc=pp.url;
+            		   di.setMsg(pp.cmt);
             		   if(!list.contains(di))
             		   list.add(di);
             	   }
@@ -466,6 +526,7 @@ new Thread(new Runnable() {
 
     @Override
     public void onLoadMore() {
+    	
     	int img_id=-1;
 		if(mAdapter.mInfos!=null&&mAdapter.mInfos.size()>0){
 			img_id=(int)mAdapter.mInfos.get(mAdapter.mInfos.size()-1).img_id;
@@ -491,6 +552,7 @@ new Thread(new Runnable() {
             		   di=new DuitangInfo();
             		   di.img_id=pp.img_id;
             		   di.isrc=pp.url;
+            		   di.setMsg(pp.cmt);
             		   if(!list.contains(di))
             		   list.add(di);
             	   }

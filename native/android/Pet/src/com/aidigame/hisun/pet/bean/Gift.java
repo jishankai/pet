@@ -28,6 +28,7 @@ public class Gift implements Serializable{
 	public boolean hasBought;//此物品是否买过
 	public int boughtNum;//现有数目
 	public int buyingNum;//购买数目
+	public int hasSendNum;
 	@Override
 	public int hashCode() {
 		final int prime = 31;

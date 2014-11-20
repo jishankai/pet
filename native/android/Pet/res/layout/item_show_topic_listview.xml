@@ -15,8 +15,7 @@
         android:id="@+id/imageView1"
         android:layout_width="18dp"
         android:layout_height="18dp"
-        
-        android:layout_alignEnd="@+id/item_circleView"
+        android:layout_alignRight="@+id/item_circleView"
         android:layout_alignBottom="@+id/item_circleView"
         android:layout_marginBottom="-3dp"
         android:layout_marginRight="-3dp"

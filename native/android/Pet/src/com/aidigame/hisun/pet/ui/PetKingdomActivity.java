@@ -7,6 +7,7 @@ import android.R.anim;
 import android.R.integer;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -14,9 +15,12 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Bitmap.Config;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,11 +53,12 @@ import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
+import com.aidigame.hisun.pet.view.MyScrollView;
 import com.aidigame.hisun.pet.view.RoundImageView;
+import com.aidigame.hisun.pet.view.MyScrollView.OnScrollListener;
 import com.aidigame.hisun.pet.widget.ShowMore;
 import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction;
-import com.aidigame.hisun.pet.widget.fragment.DialogExpGoldConAdd;
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 import com.aidigame.hisun.pet.widget.fragment.KingdomImages;
 import com.aidigame.hisun.pet.widget.fragment.KingdomPeoples;
@@ -61,11 +66,15 @@ import com.aidigame.hisun.pet.widget.fragment.KingdomTrends;
 import com.aidigame.hisun.pet.widget.fragment.MarketFragment;
 import com.aidigame.hisun.pet.widget.fragment.PetGiftList;
 import com.aidigame.hisun.pet.widget.fragment.UserGiftList;
+import com.miloisbadboy.view.PullToRefreshView;
+import com.miloisbadboy.view.PullToRefreshView.OnFooterRefreshListener;
+import com.miloisbadboy.view.PullToRefreshView.OnHeaderRefreshListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.umeng.analytics.MobclickAgent;
 /**
  * 宠物档案界面（王国或家族），展示宠物的所有相关信息
  * @author admin
@@ -73,10 +82,11 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  */
 public class PetKingdomActivity extends Activity implements OnClickListener,ClawStyleFunction.ClawFunctionChoseListener{
 	ImageView backIV,takePictureIV,changeIconIV,trackClawIV,
-	           pictureListIV,peoplesListIV,giftListIV,petSexIV,moreIv;
+	           pictureListIV,peoplesListIV,giftListIV1,trackClawIV1,
+	           pictureListIV1,peoplesListIV1,giftListIV,petSexIV,moreIv;
 	TextView titleTV,addFocusTV,petNameTV,petRaceTV,
 	         petAgeTV,userJobTV,userNameTV,hotProgressTV,contributeTV,hotRankTV,peopleNumTV,hotNumTv,fansNumTv,line1,line2;
-	View trackLineView,pictureLineView,peopleLineView,giftLineView;
+	View trackLineView,pictureLineView,peopleLineView,giftLineView,trackLineView1,pictureLineView1,peopleLineView1,giftLineView1;
 	public View popupParent;
 	public RelativeLayout black_layout;
 	RoundImageView petIcon,userIcon;
@@ -84,7 +94,7 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 	HandleHttpConnectionException handleHttpConnectionException;
 	ShowProgress showProgress;
 	LinearLayout bottomLinearLayout2,userInfoLayout,moreLayout,animLayout,progresslayout;
-	public LinearLayout linearLayout2,linearLayout3,listParentLayout,blurLayout,listParentLayout2,listParentLayout3,listParentLayout4;
+	public LinearLayout linearLayout2,linearLayout3,listParentLayout,blurLayout;
 	public View topWhiteView,infoShadowView;
 	KingdomTrends kingdomTrends;
 	KingdomImages kingdomImages;
@@ -93,7 +103,7 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 	public boolean isShowInfoLayout=true;
 	
 	FrameLayout frameLayout;
-	public Bitmap   loadedImage1;
+	public Bitmap   loadedImage1,loadedImage2;
 	RelativeLayout clawFunctionLayout,moreParentLayout;
 	
 	ClawStyleFunction clawStyleFunction;
@@ -104,6 +114,29 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 	 */
 	Animal data;
 	DisplayImageOptions displayImageOptions;//显示图片的格式
+	
+	
+	
+	
+	PullToRefreshView pullToRefreshView;
+	
+	public MyScrollView scrollview;
+	LinearLayout tabLayout,tabLayout1;
+	
+	int tabMode=0;//0,1,2,3;
+	private int tabLayoutHeight;
+	/**
+	 * myScrollView与其父类布局的顶部距离
+	 */
+	private int myScrollViewTop;
+
+	/**
+	 * 购买布局与其父类布局的顶部距离
+	 */
+	private int tabLayoutTop;
+	
+	
+	
 	
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
@@ -120,7 +153,7 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		petKingdomActivity=this;
 		data=(Animal)getIntent().getSerializableExtra("animal");
-		
+		MobclickAgent.onEvent(this, "pet_homenpage");
 		
 		initView();
 		initListener();
@@ -131,15 +164,23 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 		backIV=(ImageView)findViewById(R.id.back);
 //		takePictureIV=(ImageView)findViewById(R.id.take_picture_imageview);
 		changeIconIV=(ImageView)findViewById(R.id.change_icon_imageview);
+		petSexIV=(ImageView)findViewById(R.id.pet_sex_imageview);
 		trackClawIV=(ImageView)findViewById(R.id.track_imageview);
 		peoplesListIV=(ImageView)findViewById(R.id.peoples_imageview);
 		giftListIV=(ImageView)findViewById(R.id.gift_imageview);
-		petSexIV=(ImageView)findViewById(R.id.pet_sex_imageview);
 		pictureListIV=(ImageView)findViewById(R.id.image_list_imageview);
 		peopleLineView=(View)findViewById(R.id.peoples_line_view);
 		trackLineView=(View)findViewById(R.id.track_line_view);
 		pictureLineView=(View)findViewById(R.id.image_line_view);
 		giftLineView=(View)findViewById(R.id.gift_line_view);
+		trackClawIV1=(ImageView)findViewById(R.id.track_imageview1);
+		peoplesListIV1=(ImageView)findViewById(R.id.peoples_imageview1);
+		giftListIV1=(ImageView)findViewById(R.id.gift_imageview1);
+		pictureListIV1=(ImageView)findViewById(R.id.image_list_imageview1);
+		peopleLineView1=(View)findViewById(R.id.peoples_line_view1);
+		trackLineView1=(View)findViewById(R.id.track_line_view1);
+		pictureLineView1=(View)findViewById(R.id.image_line_view1);
+		giftLineView1=(View)findViewById(R.id.gift_line_view1);
 		line1=(TextView)findViewById(R.id.line1);
 		line2=(TextView)findViewById(R.id.line2);
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
@@ -171,9 +212,6 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 		petIcon=(RoundImageView)findViewById(R.id.imageView3);
 		userIcon=(RoundImageView)findViewById(R.id.user_icon);
 		listParentLayout=(LinearLayout)findViewById(R.id.show_list_layout);
-		listParentLayout2=(LinearLayout)findViewById(R.id.show_list_layout2);
-		listParentLayout3=(LinearLayout)findViewById(R.id.show_list_layout3);
-		listParentLayout4=(LinearLayout)findViewById(R.id.show_list_layout4);
 		linearLayout2=(LinearLayout)findViewById(R.id.linearLayout2);
 		blurLayout=(LinearLayout)findViewById(R.id.framelayout);
 		animLayout=(LinearLayout)findViewById(R.id.anim_layout);
@@ -187,16 +225,7 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 		progresslayout=(LinearLayout)findViewById(R.id.progress_layout);  
 		
 		
-		
-		
-		
-		showKingdomImages();
-		showKingdomPeoples();
-		showKingdomTrends();
-		LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
-		kingdomTrends.getView().setLayoutParams(params);
-		listParentLayout.removeAllViews();
-		listParentLayout.addView(kingdomTrends.getView());
+		pullToRefresh();
 		showProgress=new ShowProgress(this, progresslayout);
 		new Thread(new Runnable() {
 			
@@ -217,7 +246,123 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 			}
 		}).start();
 		initArc();
+		showKingdomTrends();
 		
+	}
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		// TODO Auto-generated method stub
+		super.onWindowFocusChanged(hasFocus);
+		if(hasFocus){
+			tabLayoutHeight = tabLayout1.getHeight();
+	    	tabLayoutTop = tabLayout.getTop();
+	    	
+	    	myScrollViewTop = scrollview.getTop();
+		}
+	}
+	public void pullToRefresh(){
+		scrollview=(MyScrollView)findViewById(R.id.scrollview);
+		tabLayout=(LinearLayout)findViewById(R.id.tabs_layout);
+		tabLayout1=(LinearLayout)findViewById(R.id.tabs_layout1);
+		pullToRefreshView=(PullToRefreshView)findViewById(R.id.pulltorefresh);
+	
+		pullToRefreshView.setOnHeaderRefreshListener(new OnHeaderRefreshListener() {
+			
+			@Override
+			public void onHeaderRefresh(PullToRefreshView view) {
+				// TODO Auto-generated method stub
+				switch (tabMode) {
+				case 0:
+					if(kingdomTrends!=null){
+						kingdomTrends.onRefresh(view);
+					}
+					break;
+				case 1:
+					if(kingdomPeoples!=null){
+						kingdomPeoples.onRefresh(view);
+					}
+					break;
+				case 2:
+					if(kingdomImages!=null){
+						kingdomImages.onRefresh(view);
+					}
+					
+					break;
+				case 3:
+					if(userGiftList!=null){
+						userGiftList.onRefresh(view);
+					}
+					break;
+					default:
+						pullToRefreshView.post(new Runnable() {
+
+							@Override
+							public void run() {
+							
+								pullToRefreshView.onHeaderRefreshComplete();
+							}
+						});
+						break;
+				}
+				
+				
+				
+				
+			}
+		});
+		pullToRefreshView.setOnFooterRefreshListener(new OnFooterRefreshListener() {
+			
+			@Override
+			public void onFooterRefresh(PullToRefreshView view) {
+				// TODO Auto-generated method stub
+				switch (tabMode) {
+				case 0:
+					if(kingdomTrends!=null){
+						kingdomTrends.onMore(view);
+					}
+					break;
+				case 1:
+					if(kingdomPeoples!=null){
+						kingdomPeoples.onMore(view);
+					}
+					break;
+				case 2:
+					if(kingdomImages!=null){
+						kingdomImages.onMore(view);
+					}
+					break;
+				case 3:
+					
+//					break;
+					default:
+						pullToRefreshView.post(new Runnable() {
+
+							@Override
+							public void run() {
+							
+								pullToRefreshView.onFooterRefreshComplete();
+							}
+						});
+						break;
+				}
+			}
+		});
+		
+		
+		scrollview.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScroll(int scrollY) {
+				// TODO Auto-generated method stub
+				if(scrollY >= tabLayoutTop){
+					tabLayout1.setVisibility(View.VISIBLE);
+					tabLayout.setVisibility(View.INVISIBLE);
+				}else if(scrollY <= tabLayoutTop + tabLayoutHeight){
+					tabLayout1.setVisibility(View.INVISIBLE);
+					tabLayout.setVisibility(View.VISIBLE);
+				}
+			}
+		});
 	}
 	public void initArc(){
 		if(Constants.user!=null&&Constants.user.aniList!=null){
@@ -276,7 +421,7 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 		BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
 		options.inSampleSize=4;
-		options.inPreferredConfig=Bitmap.Config.RGB_565;
+		options.inPreferredConfig=Bitmap.Config.ARGB_8888;
 		options.inPurgeable=true;
 		options.inInputShareable=true;
 		ImageLoader imageLoader=ImageLoader.getInstance();
@@ -285,8 +430,8 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 	            .showImageOnLoading(R.drawable.pet_icon)
 	            .showImageOnFail(R.drawable.pet_icon)
 		        .cacheInMemory(false)
-		        .cacheOnDisc(false)
-		        .bitmapConfig(Bitmap.Config.RGB_565)
+		        .cacheOnDisc(true)
+		        .bitmapConfig(Bitmap.Config.ARGB_8888)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
 		        .decodingOptions(options)
                 .build();
@@ -317,13 +462,25 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 						/*添加毛玻璃效果
 						 *首先要将Bitmap的Config转化为Config.ARGB_8888类型的 
 						 */
-						int[] pixels=new int[loadedImage.getWidth()*loadedImage.getHeight()];
-						loadedImage.getPixels(pixels, 0, loadedImage.getWidth(), 0, 0, loadedImage.getWidth(), loadedImage.getHeight());
-//						loadedImage=Bitmap.createBitmap(pixels, loadedImage.getWidth(), loadedImage.getHeight(), Config.ARGB_8888);
 						
-						loadedImage1=Blur.fastblur(PetKingdomActivity.this, Bitmap.createBitmap(pixels, loadedImage.getWidth(), loadedImage.getHeight(), Config.ARGB_8888), 18);
-						try {
-							Thread.sleep(50);
+//						loadedImage=Bitmap.createBitmap(pixels, loadedImage.getWidth(), loadedImage.getHeight(), Config.ARGB_8888);
+						LogUtil.i("mi", "图片像素数："+loadedImage.getByteCount());
+						Matrix matrix=new Matrix();
+						matrix.setScale(0.4f, 0.4f);
+						Bitmap  bmp=loadedImage.createBitmap(loadedImage, 0, 0, loadedImage.getWidth(), loadedImage.getHeight(), matrix, true);
+//						int[] pixels=new int[bmp.getWidth()*bmp.getHeight()];
+//						bmp.getPixels(pixels, 0, bmp.getWidth(), 0, 0, bmp.getWidth(), bmp.getHeight());
+//						
+//						
+//						bmp=Bitmap.createBitmap(pixels, bmp.getWidth(), bmp.getHeight(), Config.ARGB_8888);
+						
+						LogUtil.i("mi", "图片像素数："+bmp.getByteCount());
+						loadedImage2=loadedImage;
+						loadedImage1=Blur.fastblur(PetKingdomActivity.this, bmp, 18);
+				        if(bmp!=null&&!bmp.isRecycled()){
+				        	bmp.recycle();
+				        	bmp=null;
+				        }
 							/*Matrix matrix=new Matrix();
 							float scale1=Constants.screen_width*1f/loadedImage1.getWidth();
 							float scale2=linearLayout2.getMeasuredHeight()*1f/loadedImage1.getHeight();
@@ -352,10 +509,6 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 									linearLayout2.setAlpha(0.9342857f);*/
 								}
 							});
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
 					}
 				}).start();
 				
@@ -367,8 +520,122 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 				
 			}
 		});
-		userIcon.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.user_icon));
-		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+data.u_tx, userIcon, displayImageOptions);
+		options=new BitmapFactory.Options();
+		options.inJustDecodeBounds=false;
+		options.inSampleSize=16;
+		options.inPreferredConfig=Bitmap.Config.RGB_565;
+		options.inPurgeable=true;
+		options.inInputShareable=true;
+		DisplayImageOptions displayImageOptions2=new DisplayImageOptions
+	            .Builder()
+	            .showImageOnLoading(R.drawable.pet_icon)
+	            .showImageOnFail(R.drawable.pet_icon)
+		        .cacheInMemory(false)
+		        .cacheOnDisc(true)
+		        .bitmapConfig(Bitmap.Config.RGB_565)
+		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		        .decodingOptions(options)
+                .build();
+//		ImageLoader imageLoader2=ImageLoader.getInstance();
+//imageLoader2.loadImage(Constants.ANIMAL_DOWNLOAD_TX+data.pet_iconUrl,  displayImageOptions2,new ImageLoadingListener() {
+//			
+//			@Override
+//			public void onLoadingStarted(String imageUri, View view) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			
+//			@Override
+//			public void onLoadingFailed(String imageUri, View view,
+//					FailReason failReason) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			
+//			public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
+//				// TODO Auto-generated method stub
+//				
+//				
+//				new Thread(new Runnable() {
+//					
+//					@Override
+//					public void run() {
+//						// TODO Auto-generated method stub
+//						/*添加毛玻璃效果
+//						 *首先要将Bitmap的Config转化为Config.ARGB_8888类型的 
+//						 */
+//						int[] pixels=new int[loadedImage.getWidth()*loadedImage.getHeight()];
+//						loadedImage.getPixels(pixels, 0, loadedImage.getWidth(), 0, 0, loadedImage.getWidth(), loadedImage.getHeight());
+////						loadedImage=Bitmap.createBitmap(pixels, loadedImage.getWidth(), loadedImage.getHeight(), Config.ARGB_8888);
+//						LogUtil.i("mi", "图片像素数："+loadedImage.getByteCount());
+//						Bitmap bmp=Bitmap.createBitmap(pixels, loadedImage.getWidth(), loadedImage.getHeight(), Config.ARGB_8888);
+//						Matrix matrix=new Matrix();
+//						matrix.setScale(0.5f, 0.5f);
+//						bmp=bmp.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), matrix, true);
+//						LogUtil.i("mi", "图片像素数："+bmp.getByteCount());
+//						loadedImage1=Blur.fastblur(PetKingdomActivity.this, bmp, 18);
+//				        if(bmp!=null&&!bmp.isRecycled()){
+//				        	bmp.recycle();
+//				        	bmp=null;
+//				        }
+//							/*Matrix matrix=new Matrix();
+//							float scale1=Constants.screen_width*1f/loadedImage1.getWidth();
+//							float scale2=linearLayout2.getMeasuredHeight()*1f/loadedImage1.getHeight();
+//							float scale=scale1>scale2?scale1:scale2;
+//							matrix.postScale(scale, scale);
+//							Bitmap temp=Bitmap.createBitmap(loadedImage1, 0, 0, loadedImage1.getWidth(), loadedImage1.getHeight(),matrix,true);
+//							temp=Bitmap.createBitmap(temp, (temp.getWidth()-linearLayout2.getMeasuredWidth())/2, (temp.getHeight()-blurLayout.getMeasuredHeight())/2, linearLayout2.getMeasuredWidth(), linearLayout2.getMeasuredHeight());
+//							final BitmapDrawable bitmapDrawable=new BitmapDrawable(temp);*/
+//							runOnUiThread(new Runnable() {
+//								
+//								@Override
+//								public void run() {
+//									// TODO Auto-generated method stub
+//									final BitmapDrawable bitmapDrawable=new BitmapDrawable(loadedImage1);
+//									int height=Constants.screen_width/bitmapDrawable.getMinimumWidth()*bitmapDrawable.getMinimumHeight();
+//									if(bitmapDrawable!=null){
+//										LinearLayout.LayoutParams lp=(LinearLayout.LayoutParams)linearLayout2.getLayoutParams();
+//										if(lp==null){
+//										   lp=new LinearLayout.LayoutParams(Constants.screen_width,height);	
+//										}
+//										linearLayout2.setLayoutParams(lp);
+//										linearLayout2.setBackgroundDrawable(bitmapDrawable);
+//										linearLayout2.setAlpha(0.9342857f);
+//									}
+//									/*linearLayout2.setBackgroundDrawable(bitmapDrawable);
+//									linearLayout2.setAlpha(0.9342857f);*/
+//								}
+//							});
+//					}
+//				}).start();
+//				
+//			}
+//			
+//			@Override
+//			public void onLoadingCancelled(String imageUri, View view) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		});
+//		userIcon.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.user_icon));
+BitmapFactory.Options options2=new BitmapFactory.Options();
+options2.inJustDecodeBounds=false;
+options2.inSampleSize=8;
+options2.inPreferredConfig=Bitmap.Config.RGB_565;
+options2.inPurgeable=true;
+options2.inInputShareable=true;
+DisplayImageOptions displayImageOptions3=new DisplayImageOptions
+.Builder()
+.showImageOnLoading(R.drawable.user_icon)
+.showImageOnFail(R.drawable.user_icon)
+.cacheInMemory(false)
+.cacheOnDisc(true)
+.bitmapConfig(Bitmap.Config.RGB_565)
+.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+.decodingOptions(options2)
+.build();
+ImageLoader imageLoader3=ImageLoader.getInstance();
+		imageLoader3.displayImage(Constants.USER_DOWNLOAD_TX+data.u_tx, userIcon, displayImageOptions3);
 	}
 	private void initListener() {
 		// TODO Auto-generated method stub
@@ -377,6 +644,10 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 		pictureListIV.setOnClickListener(this);
 		peoplesListIV.setOnClickListener(this);
 		giftListIV.setOnClickListener(this);
+		trackClawIV1.setOnClickListener(this);
+		pictureListIV1.setOnClickListener(this);
+		peoplesListIV1.setOnClickListener(this);
+		giftListIV1.setOnClickListener(this);
 		changeIconIV.setOnClickListener(this);
 //		takePictureIV.setOnClickListener(this);
 		userIcon.setOnClickListener(this);
@@ -384,6 +655,7 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 		contributeTV.setOnClickListener(this);
 		hotRankTV.setOnClickListener(this);
 		moreIv.setOnClickListener(this);
+		petIcon.setOnClickListener(this);
 		
 	}
 	@Override
@@ -391,30 +663,99 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.back:
+			if(PetKingdomActivity.petKingdomActivity.loadedImage1!=null){
+				if(!PetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
+					PetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
+					PetKingdomActivity.petKingdomActivity.loadedImage1=null;
+				}
+				PetKingdomActivity.petKingdomActivity.linearLayout2.setBackgroundDrawable(null);
+				
+			}
+			if(loadedImage2!=null&&!loadedImage2.isRecycled()){
+				loadedImage2.recycle();
+				loadedImage2=null;
+			}
+			if(isTaskRoot()){
+				if(NewHomeActivity.homeActivity!=null){
+					Intent intent=NewHomeActivity.homeActivity.getIntent();
+					if(intent!=null){
+						intent.putExtra("mode", NewHomeActivity.HOMEFRAGMENT);
+						this.startActivity(intent);
+						return;
+					}
+					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+				}else{
+					Intent intent=new Intent(this,NewHomeActivity.class);
+					this.startActivity(intent);
+				}
+			}
 			this.finish();
 			break;
 		case R.id.peoples_imageview:
 			changeTabState();
 			peoplesListIV.setImageResource(R.drawable.people_of_the_kingdom);
 			peopleLineView.setVisibility(View.VISIBLE);
+			
+			peoplesListIV1.setImageResource(R.drawable.people_of_the_kingdom);
+			peopleLineView1.setVisibility(View.VISIBLE);
 			showKingdomPeoples();
 			break;
 		case R.id.gift_imageview:
 			changeTabState();
 			giftListIV.setImageResource(R.drawable.gift_red);
 			giftLineView.setVisibility(View.VISIBLE);
+			giftListIV1.setImageResource(R.drawable.gift_red);
+			giftLineView1.setVisibility(View.VISIBLE);
 			showKingdomGift();
 			break;
 		case R.id.track_imageview:
 			changeTabState();
 			trackClawIV.setImageResource(R.drawable.track_claw);
 			trackLineView.setVisibility(View.VISIBLE);
+			trackClawIV1.setImageResource(R.drawable.track_claw);
+			trackLineView1.setVisibility(View.VISIBLE);
 			showKingdomTrends();
 			break;
 		case R.id.image_list_imageview:
 			changeTabState();
 			pictureListIV.setImageResource(R.drawable.image_symbol);
 			pictureLineView.setVisibility(View.VISIBLE);
+			pictureListIV1.setImageResource(R.drawable.image_symbol);
+			pictureLineView1.setVisibility(View.VISIBLE);
+			showKingdomImages();
+			break;
+		case R.id.peoples_imageview1:
+			changeTabState();
+			peoplesListIV.setImageResource(R.drawable.people_of_the_kingdom);
+			peopleLineView.setVisibility(View.VISIBLE);
+			
+			peoplesListIV1.setImageResource(R.drawable.people_of_the_kingdom);
+			peopleLineView1.setVisibility(View.VISIBLE);
+			showKingdomPeoples();
+			break;
+		case R.id.gift_imageview1:
+			changeTabState();
+			giftListIV.setImageResource(R.drawable.gift_red);
+			giftLineView.setVisibility(View.VISIBLE);
+			giftListIV1.setImageResource(R.drawable.gift_red);
+			giftLineView1.setVisibility(View.VISIBLE);
+			showKingdomGift();
+			break;
+		case R.id.track_imageview1:
+			changeTabState();
+			trackClawIV.setImageResource(R.drawable.track_claw);
+			trackLineView.setVisibility(View.VISIBLE);
+			trackClawIV1.setImageResource(R.drawable.track_claw);
+			trackLineView1.setVisibility(View.VISIBLE);
+			showKingdomTrends();
+			break;
+		case R.id.image_list_imageview1:
+			changeTabState();
+			pictureListIV.setImageResource(R.drawable.image_symbol);
+			pictureLineView.setVisibility(View.VISIBLE);
+			pictureListIV1.setImageResource(R.drawable.image_symbol);
+			pictureLineView1.setVisibility(View.VISIBLE);
 			showKingdomImages();
 			break;
 		case R.id.change_icon_imageview:
@@ -429,6 +770,11 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 					UserDossierActivity.userDossierActivity.linearLayout2.setBackgroundDrawable(null);
 					UserDossierActivity.userDossierActivity.loadedImage1.recycle();
 					UserDossierActivity.userDossierActivity.loadedImage1=null;
+				}
+				if(UserDossierActivity.userDossierActivity.loadedImage2!=null){
+					UserDossierActivity.userDossierActivity.userIcon.setImageDrawable(new BitmapDrawable());;
+					UserDossierActivity.userDossierActivity.loadedImage2.recycle();
+					UserDossierActivity.userDossierActivity.loadedImage2=null;
 				}
 				UserDossierActivity.userDossierActivity.finish();
 			}
@@ -488,6 +834,28 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 			}).start();
 			
 			break;
+		case R.id.imageView3:
+			if(Constants.user!=null&&Constants.user.userId==data.master_id){
+				Intent intent6=new Intent(this,ModifyPetInfoActivity.class);
+				intent6.putExtra("animal", data);
+				intent6.putExtra("mode", 1);
+				this.startActivity(intent6);
+			}else{
+				Intent intent6=new Intent(this,ShowPictureActivity.class);
+				intent6.putExtra("mode", 1);
+				intent6.putExtra("url", data.pet_iconUrl);
+				this.startActivity(intent6);
+			}
+			
+			break;
+			
+		}
+	}
+	public void judgeScrollVieHeight(){
+		if(tabLayout.getTop()>tabLayoutHeight){
+			tabLayout.setVisibility(View.VISIBLE);
+			tabLayout1.setVisibility(View.INVISIBLE);
+		}else{
 			
 		}
 	}
@@ -495,23 +863,15 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 	 * 显示王国最新动态
 	 */
 	public void showKingdomTrends(){
+		tabMode=0;
+		judgeScrollVieHeight();
 		if(kingdomTrends==null){
 			kingdomTrends=new KingdomTrends(this,data);
 		}else{
-            new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					kingdomTrends.refresh();
-				}
-			}).start();
+			kingdomTrends.onRefresh(null);
 
 		}
-		listParentLayout2.setVisibility(View.GONE);
 		listParentLayout.setVisibility(View.VISIBLE);
-		listParentLayout3.setVisibility(View.GONE);
-		listParentLayout4.setVisibility(View.GONE);
 		listParentLayout.removeAllViews();
 		listParentLayout.addView(kingdomTrends.getView());
 	}
@@ -519,73 +879,46 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 	 * 显示王国图片
 	 */
 	public void showKingdomImages(){
+		tabMode=2;
+		judgeScrollVieHeight();
 		if(kingdomImages==null){
 			kingdomImages=new KingdomImages(this,data);
 		}else{
-            new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					kingdomImages.refresh();
-				}
-			}).start();
+			kingdomImages.onRefresh(null);
 
 		}
-		listParentLayout.setVisibility(View.GONE);
-		listParentLayout2.setVisibility(View.VISIBLE);
-		listParentLayout3.setVisibility(View.GONE);
-		listParentLayout4.setVisibility(View.GONE);
-		listParentLayout2.removeAllViews();
-		listParentLayout2.addView(kingdomImages.getView());
+		listParentLayout.removeAllViews();
+		listParentLayout.addView(kingdomImages.getView());
 	}
 	/**
 	 * 显示王国子民
 	 */
 	public void showKingdomPeoples(){
+		tabMode=1;
+		judgeScrollVieHeight();
 		if(kingdomPeoples==null){
 			kingdomPeoples=new KingdomPeoples(this, data);
 		}else{
-            new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					kingdomPeoples.refresh();
-				}
-			}).start();
+			kingdomPeoples.onRefresh(null);
 			
 		}
-		listParentLayout.setVisibility(View.GONE);
-		listParentLayout3.setVisibility(View.VISIBLE);
-		listParentLayout2.setVisibility(View.GONE);
-		listParentLayout4.setVisibility(View.GONE);
-		listParentLayout3.removeAllViews();
-		listParentLayout3.addView(kingdomPeoples.getView());
+		listParentLayout.removeAllViews();
+		listParentLayout.addView(kingdomPeoples.getView());
 	}
 	/**
 	 * 显示国王收到的所有礼物
 	 */
 	public void showKingdomGift(){
+		tabMode=4;
+		judgeScrollVieHeight();
 		if(userGiftList==null){
 			userGiftList=new PetGiftList(this,data);
 		}else{
-            new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					userGiftList.refresh();
-				}
-			}).start();
+			userGiftList.onRefresh(null);
 
 		}
-		listParentLayout.setVisibility(View.GONE);
-		listParentLayout4.setVisibility(View.VISIBLE);
-		listParentLayout3.setVisibility(View.GONE);
-		listParentLayout2.setVisibility(View.GONE);
-		listParentLayout4.removeAllViews();
-		listParentLayout4.addView(userGiftList.getView());
+		listParentLayout.removeAllViews();
+		listParentLayout.addView(userGiftList.getView());
 	}
 	/**
 	 * 改变选项条状态
@@ -600,6 +933,19 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 		giftLineView.setVisibility(View.INVISIBLE);
 		trackLineView.setVisibility(View.INVISIBLE);
 		pictureLineView.setVisibility(View.INVISIBLE);
+		
+		
+		
+		
+		peoplesListIV1.setImageResource(R.drawable.people_of_the_kingdom_gray);
+		trackClawIV1.setImageResource(R.drawable.track_claw_gray);
+		giftListIV1.setImageResource(R.drawable.gift_red_gray);
+		pictureListIV1.setImageResource(R.drawable.image_symbol_gray);
+		
+		peopleLineView1.setVisibility(View.INVISIBLE);
+		giftLineView1.setVisibility(View.INVISIBLE);
+		trackLineView1.setVisibility(View.INVISIBLE);
+		pictureLineView1.setVisibility(View.INVISIBLE);
 		
 	}
 
@@ -901,12 +1247,12 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 			/*DialogGiveSbGift dgb=new DialogGiveSbGift(this,data);
 			final AlertDialog dialog=new AlertDialog.Builder(this).setView(dgb.getView())
 					.show();*/
-			if(DialogGiveSbGiftActivity.dialogGiveSbGiftActivity!=null)DialogGiveSbGiftActivity.dialogGiveSbGiftActivity.finish();
-			Intent intent=new Intent(this,DialogGiveSbGiftActivity.class);
+			if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+			Intent intent=new Intent(this,DialogGiveSbGiftActivity1.class);
 			intent.putExtra("animal", data);
 			this.startActivity(intent);
-			DialogGiveSbGiftActivity dgb=DialogGiveSbGiftActivity.dialogGiveSbGiftActivity;
-			DialogGiveSbGiftActivity.dialogGoListener=new DialogGiveSbGiftActivity.DialogGoListener() {
+			DialogGiveSbGiftActivity1 dgb=DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity;
+			DialogGiveSbGiftActivity1.dialogGoListener=new DialogGiveSbGiftActivity1.DialogGoListener() {
 				
 				@Override
 				public void toDo() {
@@ -914,19 +1260,19 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 					MarketFragment.from=2;
 					Intent intent=null;
 					if(NewHomeActivity.homeActivity==null){
-						intent=new Intent(DialogGiveSbGiftActivity.dialogGiveSbGiftActivity,NewHomeActivity.class);
+						intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,NewHomeActivity.class);
 					}else{
 						intent=NewHomeActivity.homeActivity.getIntent();
 					}
 					intent.putExtra("mode", NewHomeActivity.MARKETFRAGMENT);
-					DialogGiveSbGiftActivity.dialogGiveSbGiftActivity.startActivity(intent);
+					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.startActivity(intent);
 				}
 				
 				@Override
 				public void closeDialog() {
 					// TODO Auto-generated method stub
-					DialogGiveSbGiftActivity.dialogGiveSbGiftActivity.finish();
-					kingdomTrends.onRefresh();
+					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+					kingdomTrends.onRefresh(null);
 				}
 				@Override
 				public void lastResult(boolean isSuccess) {
@@ -995,65 +1341,13 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 	}
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						listParentLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						listParentLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
-	}
-	public void shareNumChange(){
-		/*petPicture.shares++;
-		shareNumTV.setText(""+petPicture.shares);*/
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				if(/*!Constants.isSuccess*/true)return;
-				final int gold=HttpUtil.userShareNumsApi(PetKingdomActivity.this,handleHttpConnectionException.getHandler(PetKingdomActivity.this));
-				
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						DialogExpGoldConAdd dialogExpGoldConAdd=new DialogExpGoldConAdd(PetKingdomActivity.this, 2,gold- Constants.user.coinCount,progresslayout);
-						Constants.user.coinCount=gold;
-					}
-				});
-			}
-		}).start();
+       
 	}
 	public void setPeoplesNum(int count,boolean isSuccess){
 		peopleNumTV.setText("成员 "+count);
 		if(isSuccess){
+			if(kingdomPeoples!=null)
 			kingdomPeoples.loadData();
-			/*if(count>kingdomPeoples.datas.size()){
-				kingdomPeoples.datas.add(Constants.user);
-				kingdomPeoples.adapter.notifyDataSetChanged();
-			}else if(count<kingdomPeoples.datas.size()){
-				kingdomPeoples.datas.remove(Constants.user);
-				kingdomPeoples.adapter.notifyDataSetChanged();
-			}*/
 		}
 		initArc();
 		
@@ -1065,4 +1359,17 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 		}
 		
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
+
 }

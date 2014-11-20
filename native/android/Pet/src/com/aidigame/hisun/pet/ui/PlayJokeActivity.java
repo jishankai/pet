@@ -137,6 +137,8 @@ public class PlayJokeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(shakeSensor!=null)
+					shakeSensor.stop();
 				PlayJokeActivity.this.finish();
 			}
 		});;
@@ -281,7 +283,7 @@ public class PlayJokeActivity extends Activity {
 							int r=random.nextInt(1000)+1;
 							int index=0;
 							ArrayList<Integer> intList=null;
-							if(r>=1&&r<=600){
+							if(r>=1&&r<=1000){
 								index=1;
 								intList=new ArrayList<Integer>();
 								for(int i=0;i<giftList.size();i++){
@@ -293,7 +295,7 @@ public class PlayJokeActivity extends Activity {
 								}
 								int r1=random.nextInt(intList.size());
 								gift=giftList.get(intList.get(r1));
-							}else if(r>=601&&r<=870){
+							}else if(r>=801&&r<=900){
 								index=1;
 								intList=new ArrayList<Integer>();
 								for(int i=0;i<giftList.size();i++){
@@ -305,7 +307,7 @@ public class PlayJokeActivity extends Activity {
 								}
 								int r1=random.nextInt(intList.size());
 								gift=giftList.get(intList.get(r1));
-							}else if(r>=871&&r<=1000){
+							}else if(r>=901&&r<=970){
 								index=1;
 								intList=new ArrayList<Integer>();
 								for(int i=0;i<giftList.size();i++){
@@ -317,8 +319,18 @@ public class PlayJokeActivity extends Activity {
 								}
 								int r1=random.nextInt(intList.size());
 								gift=giftList.get(intList.get(r1));
-							}else {
-								index=3;
+							}else  if(r>=971&&r<=1000){
+								index=1;
+								intList=new ArrayList<Integer>();
+								for(int i=0;i<giftList.size();i++){
+                                    
+										if(giftList.get(i).level==4&&giftList.get(i).add_rq<0){
+											intList.add(i);
+										}
+									
+								}
+								int r1=random.nextInt(intList.size());
+								gift=giftList.get(intList.get(r1));
 							}
 							
 							optNumTv.setText(""+optortunity);
@@ -412,7 +424,7 @@ public class PlayJokeActivity extends Activity {
 				// TODO Auto-generated method stub
 				//送礼物
 				User user=HttpUtil.sendGift(PlayJokeActivity.this,gift, handleHttpConnectionException.getHandler(PlayJokeActivity.this));
-				UserStatusUtil.checkUserExpGoldLvRankChange(user, PlayJokeActivity.this, progressLayout);
+
 				isSending=false;
 			}
 		}).start();
@@ -582,7 +594,7 @@ public void initView4(){
 					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
-					data.des="嘿嘿~我在宠物星球捉弄了萌宠“"+animal.pet_nickName+"”，恶作剧的感觉真是妙不可言~http://home4pet.aidigame.com/(分享自@宠物星球社交应用）";
+					data.des="嘿嘿~我在宠物星球捉弄了萌星"+animal.pet_nickName+"，恶作剧的感觉真是妙不可言~http://home4pet.aidigame.com/(分享自@宠物星球社交应用）";
 					if(UserStatusUtil.hasXinlangAuth(PlayJokeActivity.this)){
 						
 						XinlangShare.sharePicture(data,PlayJokeActivity.this);
@@ -607,7 +619,21 @@ public void initView4(){
     @Override
     protected void onDestroy() {
     	// TODO Auto-generated method stub
-    	if(PetKingdomActivity.petKingdomActivity!=null)PetKingdomActivity.petKingdomActivity.kingdomTrends.onRefresh();
+    	if(PetKingdomActivity.petKingdomActivity!=null)PetKingdomActivity.petKingdomActivity.kingdomTrends.onRefresh(null);
+    	if(shakeSensor!=null)
+    		shakeSensor.stop();
     	super.onDestroy();
     }
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +19,7 @@ import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
+import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 /**
  * 选择账户类型，1.认养宠物，2.建立王国
@@ -26,9 +28,12 @@ import com.aidigame.hisun.pet.util.UiUtil;
  *
  */
 public class ChoseAcountTypeActivity extends Activity {
-	ImageView noPetIV,hasPetIV,backIV;
+	ImageView noPetIV,hasPetIV,backIV,agreeIV;
+	TextView agreeTV;
+	LinearLayout agreeLayout;
 	HandleHttpConnectionException handleHttpConnectionException;
 	public static ChoseAcountTypeActivity choseAcountTypeActivity;
+	boolean isAgree=false;//是否同意用户协议
 	int mode;
 	int from;//默认值为0，进行注册；1，已经注册过
 	@Override
@@ -48,6 +53,37 @@ public class ChoseAcountTypeActivity extends Activity {
 		hasPetIV=(ImageView)findViewById(R.id.has_pet_iv);
 		backIV=(ImageView)findViewById(R.id.imageView4);
 		from=getIntent().getIntExtra("from", 0);
+		agreeIV=(ImageView)findViewById(R.id.agree_iv);
+		agreeTV=(TextView)findViewById(R.id.agree_tv);
+		agreeLayout=(LinearLayout)findViewById(R.id.agree_layout);
+		agreeTV.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+		
+		if(from!=0)agreeLayout.setVisibility(View.INVISIBLE);
+		
+		agreeTV.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent=new Intent(ChoseAcountTypeActivity.this,WarningDialogActivity.class);
+				intent.putExtra("mode", 6);
+				ChoseAcountTypeActivity.this.startActivity(intent);
+			}
+		});
+		agreeIV.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(!isAgree){
+					isAgree=true;
+					agreeIV.setImageResource(R.drawable.box_chose_red);
+				}else{
+					isAgree=false;
+					agreeIV.setImageResource(R.drawable.box_chose_gray);
+				}
+			}
+		});
 		SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
 		backIV.setOnClickListener(new OnClickListener() {
 			
@@ -62,6 +98,12 @@ public class ChoseAcountTypeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(from==0){
+					if(!isAgree){
+						Toast.makeText(ChoseAcountTypeActivity.this, "您是否同意用户协议，同意请在下方勾选", Toast.LENGTH_LONG).show();
+						return;
+					}
+				}
 				Intent intent=new Intent(ChoseAcountTypeActivity.this, NewRegisterActivity.class);
 				intent.putExtra("mode", 3);//创建狗或猫的联萌
 				intent.putExtra("from", from);
@@ -73,6 +115,12 @@ public class ChoseAcountTypeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(from==0){
+					if(!isAgree){
+						Toast.makeText(ChoseAcountTypeActivity.this, "您是否同意用户协议，同意请在下方勾选", Toast.LENGTH_LONG).show();
+						return;
+					}
+				}
 				Intent intent=new Intent(ChoseAcountTypeActivity.this,ChoseKingActivity.class);
 				mode=2;
 				intent.putExtra("mode", mode);
@@ -82,5 +130,25 @@ public class ChoseAcountTypeActivity extends Activity {
 			}
 		});
 	}
+	public void agreeMent(boolean flag){
+		isAgree=flag;
+		if(isAgree){
+			agreeIV.setImageResource(R.drawable.box_chose_red);
+		}else{
+			agreeIV.setImageResource(R.drawable.box_chose_gray);
+		}
+	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }

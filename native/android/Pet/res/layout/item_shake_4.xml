@@ -56,15 +56,32 @@
             android:text="摇到你"
             android:textColor="#7f97b3"
             android:textSize="16sp" />
-        <ImageView
+       <!--  <ImageView
              android:id="@+id/imageView1"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_centerHorizontal="true"
              android:layout_below="@+id/textView234"
              android:layout_marginTop="70dp"
-             android:src="@drawable/shake4_backg" />
+             android:src="@drawable/shake4_backg" /> -->
         
         
+       <LinearLayout 
+           android:id="@+id/imageView1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerHorizontal="true"
+             android:layout_below="@+id/textView234"
+             android:layout_marginTop="70dp"
+            android:background="@drawable/shake_over_background" 
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            >
+           <ImageView 
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center_horizontal"
+               android:src="@drawable/emotion_cry"/>
+       </LinearLayout>
 
 </RelativeLayout>

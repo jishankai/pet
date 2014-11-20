@@ -16,6 +16,7 @@
       <RelativeLayout
                 android:id="@+id/user_info_relativelayout"
                 android:layout_width="match_parent"
+                android:clickable="true"
                 android:layout_height="wrap_content" >
 
                 <!-- 106 -->
@@ -284,7 +285,8 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:id="@+id/join_layout"
-                android:visibility="visible">
+                android:visibility="visible"
+                android:layout_marginBottom="10dp">
 
                 <ImageView
                     android:id="@+id/imageView1"

@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ import com.aidigame.hisun.pet.widget.fragment.MenuFragment;
 import com.aidigame.hisun.pet.widget.fragment.MessageFragment;
 import com.aidigame.hisun.pet.widget.fragment.SetupFragment;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.umeng.analytics.MobclickAgent;
 /**
  * 主界面
  * @author scx
@@ -69,6 +71,8 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
+		MobclickAgent.updateOnlineConfig(this);
+		
 		
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		login();
@@ -76,44 +80,18 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		PetApplication.petApp.activityList.add(this);
 		setContentView(R.layout.home_menu_frame);
 		homeActivity=this;
-		
-//		UserStatusUtil.downLoadUserInfo(homeActivity);
 		IntentFilter filter=new IntentFilter();
 		filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
 		homeActivity.registerReceiver(receiver, filter);
 		initSlidingMenu();
-		showHomeFragment();
+		Intent intent=getIntent();
+		if(intent.getIntExtra("mode", HOMEFRAGMENT)==MARKETFRAGMENT){
+			
+		}else{
+			showHomeFragment();
+		}
+		
 		if(Constants.isSuccess){
-			/*new Thread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub\
-					final User user=HttpUtil.info(NewHomeActivity.this,handleHttpConnectionException.getHandler(NewHomeActivity.this),Constants.user.userId);
-					
-					runOnUiThread(new Runnable() {
-						
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							if(user==null)return;
-							if(Constants.user.aniList!=null){
-								user.aniList=Constants.user.aniList;
-							}
-							Constants.user=user;
-						
-							if(homeFragment!=null){
-								
-								homeFragment.initArcView();
-							}
-							if(menuFragment!=null){
-								menuFragment.setViews();
-							}
-							
-						}
-					});
-				}
-			}).start();*/
 		}else{
 			if(homeFragment!=null){
 				new Thread(new Runnable() {
@@ -141,37 +119,6 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 				}).start();
 			}
 		}
-		
-		//经验升级
-		/*DialogNote dialogNote2=new DialogNote(this, 2);
-		AlertDialog.Builder builder2=new AlertDialog.Builder(this);
-		final AlertDialog dialog2=builder2.setView(dialogNote2.getView())//dialog_login_reward
-		       .show();
-		dialogNote2.setDialogGoListerer(new DialogNoteGoListener() {
-			
-			@Override
-			public void todo() {
-				// TODO Auto-generated method stub
-				dialog2.dismiss();
-			}
-		});*/
-		//升职
-		/*DialogNote dialogNote3=new DialogNote(NewHomeActivity.this, 3);
-		AlertDialog.Builder builder3=new AlertDialog.Builder(NewHomeActivity.this);
-		final AlertDialog dialog3=builder3.setView(dialogNote3.getView())//dialog_login_reward
-		       .show();
-		dialogNote3.setDialogGoListerer(new DialogNoteGoListener() {
-			
-			@Override
-			public void todo() {
-				// TODO Auto-generated method stub
-				dialog3.dismiss();
-			}
-		});*/
-		
-		
-		
-		
 	}
     @Override
     protected void onStart() {
@@ -210,6 +157,8 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		ft.replace(R.id.home_menu_frame, homeFragment,"HomeFragment");
 		ft.commit();
 		currentFragment=HOMEFRAGMENT;
+		Intent intent=getIntent();
+		if(intent!=null)intent.putExtra("mode", HOMEFRAGMENT);
 	}
 	public void showMessageFragment(){
 		
@@ -225,6 +174,8 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		ft.commit();
 		toggle();
 		currentFragment=MESSAGEFRAGMENT;
+		Intent intent=getIntent();
+		if(intent!=null)intent.putExtra("mode", MESSAGEFRAGMENT);
 	}
 	public void showActivityFragment(){
 		if(activityFragment==null){
@@ -237,6 +188,8 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		ft.commit();
 		toggle();
 		currentFragment=ACTIVITYFRAGMENT;
+		Intent intent=getIntent();
+		if(intent!=null)intent.putExtra("mode", ACTIVITYFRAGMENT);
 	}
 	public void showSetupFragment(){
 		if(setupFragment==null){
@@ -249,6 +202,8 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		ft.commit();
 		toggle();
 		currentFragment=SETUPFRAGMENT;
+		Intent intent=getIntent();
+		if(intent!=null)intent.putExtra("mode", SETUPFRAGMENT);
 	}
 	public void showMarketFragment(){
 		if(marketFragment==null){
@@ -261,6 +216,8 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		ft.commit();
 		toggle();
 		currentFragment=MARKETFRAGMENT;
+		Intent intent=getIntent();
+		if(intent!=null)intent.putExtra("mode", MARKETFRAGMENT);
 	}
 	public void showHomeFragment(int i) {
 		// TODO Auto-generated method stub
@@ -274,6 +231,8 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		ft.replace(R.id.home_menu_frame, homeFragment,"HomeFragment");
 		ft.commit();
 		currentFragment=HOMEFRAGMENT;
+		Intent intent=getIntent();
+		if(intent!=null)intent.putExtra("mode", HOMEFRAGMENT);
 	}
 	public void showMessageFragment(int i){
 		
@@ -286,6 +245,8 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		ft.replace(R.id.home_menu_frame, messageFragment, "MessageFragment");
 		ft.commit();
 		currentFragment=MARKETFRAGMENT;
+		Intent intent=getIntent();
+		if(intent!=null)intent.putExtra("mode", MARKETFRAGMENT);
 	}
 	public void showActivityFragment(int i){
 		if(activityFragment==null){
@@ -297,6 +258,8 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		ft.replace(R.id.home_menu_frame, activityFragment, "ActivityFragment");
 		ft.commit();
 		currentFragment=ACTIVITYFRAGMENT;
+		Intent intent=getIntent();
+		if(intent!=null)intent.putExtra("mode", ACTIVITYFRAGMENT);
 	}
 	public void showSetupFragment(int i){
 		if(setupFragment==null){
@@ -309,6 +272,8 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		ft.commit();
 		toggle();
 		currentFragment=SETUPFRAGMENT;
+		Intent intent=getIntent();
+		if(intent!=null)intent.putExtra("mode", SETUPFRAGMENT);
 	}
 	public void showMarketFragment(int i){
 		
@@ -321,6 +286,8 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		ft.replace(R.id.home_menu_frame, marketFragment, "SetupFragment");
 		ft.commit();
 		currentFragment=MARKETFRAGMENT;
+		Intent intent=getIntent();
+		if(intent!=null)intent.putExtra("mode", MARKETFRAGMENT);
 	}
 
 	/**
@@ -330,7 +297,6 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		// 设置滑动菜单的视图
 		setBehindContentView(R.layout.menu_frame);
 		menuFragment=new MenuFragment();
-		menuFragment.setHomeActivity(this);
 		getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame,menuFragment,"MenuFragment" ).commit();		
 		
 		// 实例化滑动菜单对象
@@ -383,11 +349,13 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 	        		Editor editor=sp.edit();
 	        		editor.putBoolean("isRegister", Constants.isSuccess);
 	        		editor.putString("SID", Constants.SID);
+	        		editor.putString("real_version", Constants.realVersion);
 	        		if(Constants.user!=null){
 	        			
 		        		editor.putInt("gold", Constants.user.coinCount);
 		        		editor.putInt("exp", Constants.user.exp);
 		        		editor.putInt("usr_id", Constants.user.userId);
+		        		editor.putInt("lv", Constants.user.lv);
 		        		editor.putString("name", Constants.user.u_nick);
 		        		editor.putString("url", Constants.user.u_iconUrl);
 		        		editor.putString("city", Constants.user.city);
@@ -396,6 +364,7 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		        		editor.putInt("locationCode", Constants.user.locationCode);
 		        		if(Constants.user.currentAnimal!=null){
 		        			editor.putString("job", Constants.user.rank);
+		        			editor.putInt("rankCode", Constants.user.rankCode);
 		        			editor.putLong("a_id", Constants.user.currentAnimal.a_id);
 			        		editor.putString("a_nick", Constants.user.currentAnimal.pet_nickName);
 			        		editor.putString("a_race", Constants.user.currentAnimal.race);
@@ -420,6 +389,7 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 	        			}
 	        		}
 	        	    this.finish();
+	        	    MobclickAgent.onKillProcess(homeActivity);
 	        		System.exit(0);
 	    		
 	    		
@@ -450,9 +420,7 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 					// TODO Auto-generated method stub
 					
 					SharedPreferences sPreferences=NewHomeActivity.this.getSharedPreferences("setup", Context.MODE_WORLD_WRITEABLE);
-					/*boolean flag=sPreferences.getBoolean("race", false);
-					if(!flag)
-						HttpUtil.getRaceType(FirstPageActivity.this);*/
+					
 					String SID=sPreferences.getString("SID", null);
 				   
 					if(StringUtil.isEmpty(SID)){
@@ -464,11 +432,15 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 					}else{
 						Constants.SID=SID;
 						Constants.isSuccess=sPreferences.getBoolean("isRegister", false);
+						if(StringUtil.isEmpty(Constants.realVersion)){
+							Constants.realVersion=sPreferences.getString("real_version", "");
+						}
 						if(Constants.isSuccess){
 							Constants.user=new User();
 							Constants.user.userId=sPreferences.getInt("usr_id", 0);
 							Constants.user.u_nick=sPreferences.getString("name", "游荡的两脚兽");
 							Constants.user.coinCount=sPreferences.getInt("gold", 500);
+							Constants.user.lv=sPreferences.getInt("lv", 0);
 							Constants.user.u_iconUrl=sPreferences.getString("url", "");
 							Constants.user.city=sPreferences.getString("city", "");
 							Constants.user.province=sPreferences.getString("province", "");
@@ -476,6 +448,7 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 							Constants.user.u_gender=sPreferences.getInt("usr_gender", 1);
 							Constants.user.currentAnimal=new Animal();
 							Constants.user.rank=sPreferences.getString("job", "陌生人");
+							Constants.user.rankCode=sPreferences.getInt("rankCode", -1);
 							Constants.user.currentAnimal.a_id=sPreferences.getLong("a_id", 0);
 							Constants.user.currentAnimal.race=sPreferences.getString("a_race", "");
 							Constants.user.currentAnimal.a_age_str=sPreferences.getString("a_age_str", "");
@@ -486,11 +459,20 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 							Constants.user.currentAnimal.master_id=sPreferences.getInt("master_id", 0);
 							
 						}
-						if(Constants.user==null||Constants.user.userId<=0||Constants.user.currentAnimal==null||Constants.user.currentAnimal.a_id<=0||Constants.user.coinCount<0){
+						if(Constants.user==null||Constants.user.userId<=0||Constants.user.currentAnimal==null||Constants.user.currentAnimal.a_id<=0||Constants.user.coinCount<0||Constants.user.rankCode<0||Constants.user.lv<0||Constants.user.currentAnimal.master_id<=0){
 							getSIDAndUserID();
 						}else{
-							update();
-							
+							if("-1".equals(Constants.user.rank)){
+								getSIDAndUserID();
+							}else{
+								update();
+								
+								
+								/*
+								 * 更新用户信息
+								 */
+								getSIDAndUserID();
+							}
 						}
 						
 					}
@@ -514,6 +496,19 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 				}
 				
 			}
+			
+			//TODO 版本更新
+			
+			if(!StringUtil.isEmpty(Constants.CON_VERSION)&&!"1.0".equals(Constants.CON_VERSION)){
+				
+			}
+				String version=StringUtil.getAPKVersionName(homeActivity);
+				if(Constants.realVersion!=null&&StringUtil.canUpdate(homeActivity, Constants.realVersion)){
+					Intent intent=new Intent(NewHomeActivity.this,UpdateAPKActivity.class);
+					NewHomeActivity.this.startActivity(intent);
+				}
+			
+			
 		}
 		/**
 		 * 用户信息下载成功
@@ -525,7 +520,7 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 				public void run() {
 					// TODO Auto-generated method stub
 					if(HomeFragment.homeFragment!=null)HomeFragment.homeFragment.initArcView();
-					if(MenuFragment.menuFragment!=null)MenuFragment.menuFragment.setViews();
+//					if(MenuFragment.menuFragment!=null)MenuFragment.menuFragment.setViews();
 				}
 			});
 		}
@@ -553,4 +548,16 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 				}*/
 			};
 		};
+		   @Override
+		   protected void onPause() {
+		   	// TODO Auto-generated method stub
+		   	super.onPause();
+		   	StringUtil.umengOnPause(this);
+		   }
+		      @Override
+		   protected void onResume() {
+		   	// TODO Auto-generated method stub
+		   	super.onResume();
+		   	StringUtil.umengOnResume(this);
+		   }
 }

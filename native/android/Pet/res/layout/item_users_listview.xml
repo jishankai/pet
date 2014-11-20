@@ -102,6 +102,7 @@
         android:layout_centerVertical="true"
         android:layout_height="wrap_content"
         android:background="@drawable/button_green"
+        android:visibility="invisible"
         android:gravity="center">
          <TextView
         android:id="@+id/textView1"

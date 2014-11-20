@@ -84,17 +84,6 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 		loadData();
 		adapter=new AtUserListAdapter(this, topicList);
 		listView.setAdapter(adapter);
-		/*listView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				String string=topicList.get(position).user.nickName;
-				SubmitPictureActivity.submitPictureActivity.setTopic("#"+string+"#");
-				AtUserListActivity.this.finish();
-			}
-		});*/
 		back.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -229,30 +218,7 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+       
 		 listView.setOnScrollListener(new OnScrollListener() {
 				
 				@Override
@@ -340,6 +306,18 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 		// TODO Auto-generated method stub
 		pullToRefreshAndMoreView.onMoreFinish();
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 	
 
 }

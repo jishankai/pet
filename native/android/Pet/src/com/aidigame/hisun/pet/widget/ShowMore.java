@@ -24,6 +24,7 @@ import com.aidigame.hisun.pet.ui.ChatActivity;
 import com.aidigame.hisun.pet.ui.ModifyPetInfoActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.ui.TakePictureBackground;
+import com.aidigame.hisun.pet.ui.WarningDialogActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.widget.fragment.DialogGoRegister;
@@ -151,6 +152,7 @@ public class ShowMore implements OnClickListener{
 				focusTv.setText("取消关注");
 				focusTv.setBackgroundResource(R.drawable.button);
 			}
+			focusTv.setVisibility(View.GONE);
 		}
 	}
 	public void userDossier(final User user){
@@ -176,6 +178,7 @@ public class ShowMore implements OnClickListener{
 			twoLayout2.setVisibility(View.GONE);
 			pictureOrMailTv.setText("修改资料");
 			pictureOrMailTv.setBackgroundResource(R.drawable.button_gray_light2);;
+			 view.findViewById(R.id.report_tv).setVisibility(View.GONE);
 			pictureOrMailTv.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -189,6 +192,18 @@ public class ShowMore implements OnClickListener{
 					rootCanTouch=false;
 				}
 			});
+			 view.findViewById(R.id.report_tv).setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Toast.makeText(activity, "不能举报自己", Toast.LENGTH_LONG).show();
+					/*	Intent intent=new Intent(activity,WarningDialogActivity.class);
+						intent.putExtra("mode", 3);
+						intent.putExtra("usr_id", user.userId);
+						activity.startActivity(intent);*/
+					}
+				});
 		}else{
 			oneLayout.setVisibility(View.VISIBLE);
 			twoLayout.setVisibility(View.GONE);
@@ -207,6 +222,18 @@ public class ShowMore implements OnClickListener{
 					rootCanTouch=false;
 				}
 			});
+            view.findViewById(R.id.report_tv).setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Intent intent=new Intent(activity,WarningDialogActivity.class);
+					intent.putExtra("mode", 3);
+					intent.putExtra("usr_id", user.userId);
+					activity.startActivity(intent);
+				}
+			});
+            
 		}
 	}
 	@Override
@@ -359,7 +386,7 @@ public class ShowMore implements OnClickListener{
 				/*
 				 * 退出王国
 				 */
-			if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()>10&&PetKingdomActivity.petKingdomActivity!=null){
+			if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()>=10&&PetKingdomActivity.petKingdomActivity!=null){
 					DialogGoRegister dialog=new DialogGoRegister(PetKingdomActivity.petKingdomActivity.popupParent, PetKingdomActivity.petKingdomActivity, PetKingdomActivity.petKingdomActivity.black_layout, 1);
 					return;
 			}
@@ -372,7 +399,7 @@ public class ShowMore implements OnClickListener{
 					// TODO Auto-generated method stub
 					
 					if(isSuccess){
-						
+//						Toast.makeText(activity,Constants.user.u_nick+ "被萌星"+animal.pet_nickName+"的魅力折服，路人转粉啦~", Toast.LENGTH_LONG).show();
 						p.setPeoplesNum(animal.fans,isSuccess);
 					}
 				}
@@ -510,7 +537,7 @@ public class ShowMore implements OnClickListener{
 							data.des="雷达报告发现一只萌宠，火速围观！http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
 						}else if(user!=null){
 							Constants.whereShare=3;
-							data.des="我发现了一枚萌萌哒的新伙伴“"+user.u_nick+"”，可以一起愉快的玩耍啦！http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+							data.des="我发现了一枚萌萌哒新伙伴"+user.u_nick+"，可以一起愉快的玩耍啦！http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
 						}
 						XinlangShare.sharePicture(data,activity);
 					}

@@ -21,6 +21,6 @@
             android:id="@+id/hat_king"
             android:visibility="invisible"
             android:layout_alignBottom="@+id/roundImage_one_border" 
-            android:layout_alignEnd="@+id/roundImage_one_border"/>
+            android:layout_alignRight="@+id/roundImage_one_border"/>
 
 </RelativeLayout>

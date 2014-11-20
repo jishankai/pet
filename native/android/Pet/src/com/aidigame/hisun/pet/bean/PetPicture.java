@@ -64,6 +64,9 @@ public class PetPicture implements Serializable{
 	
 	
 	
+
+	
+	
 	public boolean isVoice=false;
 	public String voicePath;
 	public boolean updateVoiceSuccess;

@@ -24,10 +24,18 @@ public class LinearLayoutForListView extends LinearLayout {
         for (int i = 0; i < count; i++) {
             View v = adapter.getView(i, null, null);
 
-            v.setOnClickListener(this.onClickListener);
+//            v.setOnClickListener(this.onClickListener);
             addView(v, i);
         }
         Log.v("countTAG", "" + count);
+    }
+    public void update(int start){
+    	for(int i=start;i<adapter.getCount();i++){
+    		 View v = adapter.getView(i, null, null);
+
+             v.setOnClickListener(this.onClickListener);
+             addView(v, i);
+    	}
     }
 
     public LinearLayoutForListView(Context context) {

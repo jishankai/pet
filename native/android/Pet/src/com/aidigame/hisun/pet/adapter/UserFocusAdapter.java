@@ -21,6 +21,8 @@ import android.view.ViewConfiguration;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -58,13 +60,13 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 public class UserFocusAdapter extends BaseAdapter {
 	DisplayImageOptions displayImageOptions;//显示图片的格式
     ImageLoader imageLoader;
-	Activity context;
+	UserDossierActivity context;
 	ArrayList<Animal> list;
 	int mode;//1 关注类表；2粉丝列表；3 其他用户列表（如对图片点赞的人的列表）
 	Handler handler;
 	HandleHttpConnectionException handleHttpConnectionException;
 	User user;
-	public UserFocusAdapter(Activity context,ArrayList<Animal> list,int mode,Handler handler,User user){
+	public UserFocusAdapter(UserDossierActivity context,ArrayList<Animal> list,int mode,Handler handler,User user){
 		this.context=context;
 		this.list=list;
 		this.mode=mode;
@@ -153,7 +155,25 @@ public class UserFocusAdapter extends BaseAdapter {
 		holder.age.setText(""+animal.a_age_str);
 		holder.rank.setText(""+animal.t_rq);
 		holder.userName.setText(""+animal.u_name);
-		
+		holder.leftLayout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(Constants.isSuccess&&Constants.user!=null&&Constants.user.userId==user.userId){
+					showButtons(animal);
+				}else{
+					if(PetKingdomActivity.petKingdomActivity!=null)PetKingdomActivity.petKingdomActivity.finish();
+					Intent intent=new Intent(context,PetKingdomActivity.class);
+					intent.putExtra("animal", animal);
+					context.startActivity(intent);
+					
+					context.progresslayout.setVisibility(View.INVISIBLE);
+					context.progresslayout.setClickable(false);
+					isShowingButton=false;
+				}
+			}
+		});
 		final RoundImageView view=holder.icon;
        /* holder.rightLayout.setOnClickListener(new OnClickListener() {
 			
@@ -344,6 +364,106 @@ public class UserFocusAdapter extends BaseAdapter {
 		LinearLayout rightLayout;
 		RelativeLayout leftLayout,rLayout3;
 	}
-
+	boolean isShowingButton=false;
+	private void showButtons(final Animal animal) {
+		// TODO Auto-generated method stub
+		isShowingButton=true;
+		long l1=System.currentTimeMillis();
+		LogUtil.i("scroll",""+( System.currentTimeMillis()-l1));
+		final View view=LayoutInflater.from(context).inflate(R.layout.popup_user_dossier, null);
+		Animation animation=AnimationUtils.loadAnimation(context, R.anim.anim_translate_showtopic_addcommentlayout_in);
+		view.clearAnimation();
+		view.setAnimation(animation);
+		animation.start();
+		
+		context.progresslayout.removeAllViews();
+		context.progresslayout.addView(view);
+		context.progresslayout.setBackgroundResource(R.color.window_black_bagd);
+		context.progresslayout.setVisibility(View.VISIBLE);
+//		context.progresslayout.setClickable(true);
+		TextView camera=(TextView)view.findViewById(R.id.textView1);
+		TextView album=(TextView)view.findViewById(R.id.textView2);
+		TextView cancel=(TextView)view.findViewById(R.id.textView3);
+		view.findViewById(R.id.line1).setVisibility(View.GONE);
+		album.setVisibility(View.GONE);
+		camera.setText("进入个人主页");
+		cancel.setText("取消关注");
+		camera.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(PetKingdomActivity.petKingdomActivity!=null)PetKingdomActivity.petKingdomActivity.finish();
+				Intent intent=new Intent(context,PetKingdomActivity.class);
+				intent.putExtra("animal", animal);
+				context.startActivity(intent);
+				
+				context.progresslayout.setVisibility(View.INVISIBLE);
+				context.progresslayout.setClickable(false);
+				isShowingButton=false;
+				
+				
+			}
+		});
+		
+		cancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+					final UserDossierActivity p=(UserDossierActivity)context;
+					DialogGoRegister dialog=new DialogGoRegister(p.popupParent, p, p.black_layout, 2);
+					dialog.setAnimal(animal);
+					dialog.setListener(new DialogGoRegister.ResultListener() {
+						
+						@Override
+						public void getResult(boolean isSuccess) {
+							// TODO Auto-generated method stub
+							if(isSuccess){
+								new Thread(new Runnable() {
+									
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+								p.userFocus.onRefresh(null);
+									}
+									}).start();
+							}else{
+								Toast.makeText(context, "取消关注失败失败", Toast.LENGTH_LONG).show();
+							}
+						}
+					});
+				context.progresslayout.setVisibility(View.INVISIBLE);
+				context.progresslayout.setClickable(false);
+				isShowingButton=false;
+			}
+		});
+		context.progresslayout.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_UP:
+					Animation animation=AnimationUtils.loadAnimation(context, R.anim.anim_translate_showtopic_addcommentlayout_out);
+					view.clearAnimation();
+					view.setAnimation(animation);
+					animation.start();
+					handleHttpConnectionException.getHandler(context).postDelayed(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							context.progresslayout.setVisibility(View.INVISIBLE);
+							context.progresslayout.setClickable(false);
+							isShowingButton=false;
+						}
+					}, 300);
+					break;
+				}
+				return true;
+			}
+		});
+	}
 
 }

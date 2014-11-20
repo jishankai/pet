@@ -13,6 +13,16 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 public class Constants {
 	
 	
+	//与web服务端进行数据交互 必须有的 一个value值   ，在登陆的时候获得
+	public static String SID;
+	//登陆是否成功
+	public static boolean isSuccess=false;
+	public static String VERSION;//强制更新
+	public static String realVersion;//版本更新
+	public static String android_url;
+	public static long apk_size;
+	public static String CON_VERSION;
+	public static String DOWNLOAD_APK="http://home4pet.aidigame.com/pet_beta_1.0.15.apk";
 	
 	//临时声音文件
 	public static String audioPath;
@@ -56,6 +66,33 @@ public class Constants {
 	
 	//获得SID
 	public static String GET_SID=URL_ROOT+"r=user/getSIDApi&uid=";
+	
+	//我的萌星
+	public static String MY_PET_CARD=IP2+URL_ROOT2+"r=animal/mineApi";
+	//萌星推荐
+	public static String PET_RECOMMEND=IP2+URL_ROOT2+"r=user/recommendApi";
+	//修改用宠物 语言心情
+	public static String PET_MODIFY_ANOUNCE=IP2+URL_ROOT2+"r=animal/modifyMsgApi&aid=";
+	
+	
+	
+	
+	//举报图片
+	public static String REPORT_IMAGE=IP2+URL_ROOT2+"r=image/reportApi&img_id=";
+	//举报用户
+	public static String REPORT_USER=IP2+URL_ROOT2+"r=user/reportApi&usr_id=";
+	//拉黑用户
+	public static String BLOCK_OTHER=IP2+URL_ROOT2+"r=talk/blockApi&talk_id=";
+	
+	//获取版本更新的信息
+	public static String VERSION_INFO=IP2+URL_ROOT2+"r=user/upgradeApi&version=";
+	//取消拉黑用户
+	public static String UNBLOCK_OTHER=IP2+URL_ROOT2+"r=talk/unBlockApi&usr_id=";
+	
+	
+	//使用邀请码
+	public static String USE_INVITECODE=IP2+URL_ROOT2+"r=user/inputCodeApi&code=";
+	
 	
 	//注册路径
 	public static String REGISTER_PATH=IP2+URL_ROOT2+"r=user/registerApi";
@@ -152,6 +189,9 @@ public class Constants {
 	//根据一串user_id获取多个user信息
 	public static String OTHERS_INFO="http://"+IP+URL_ROOT+"r=user/othersApi&";
 	
+	//黑名单列表
+	public static String BLOCK_LIST="http://"+IP+URL_ROOT+"r=talk/blockListApi&";
+	
 	//根据一串user_id获取多个user信息
 	public static String ANIMAL_OTHERS_INFO="http://"+IP+URL_ROOT+"r=animal/othersApi&&";
 	//头像上传路径
@@ -216,7 +256,8 @@ public class Constants {
 	public static String TALK_DELETE=URL_ROOT+"r=talk/deleteApi&sig=";
 	//根据宠物昵称搜索宠物
 	public static String SEARCH_PET=URL_ROOT+"r=animal/searchApi&sig=";
-	
+	//根据用户昵称，
+	public static String SEARCH_USER=URL_ROOT+"r=user/searchApi&sig=";
 	//删除消息  mail_id
 	public static String MAIL_DELETE="http://"+IP+URL_ROOT+"r=talk/deleteApi";
 	//获取最新消息数目和活动数目
@@ -237,10 +278,7 @@ public class Constants {
 	public static final int LEVEL_5=1200;
 	public static final int LEVEL_6=1800;
 	
-	//与web服务端进行数据交互 必须有的 一个value值   ，在登陆的时候获得
-	public static String SID;
-	//登陆是否成功
-	public static boolean isSuccess=false;
+
 	//本地Topic保存位置
 	public static String Picture_Topic_Path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"topic";
 	//本地Icon保存位置

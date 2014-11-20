@@ -49,7 +49,7 @@ import com.huewu.pla.sample.BuildConfig;
  */
 public class DiskLruCache {
 	private static final String TAG = "DiskLruCache";
-	private static final String CACHE_FILENAME_PREFIX = "cache_";
+	private static final String CACHE_FILENAME_PREFIX = "";//cache_
 	private static final int MAX_REMOVALS = 4;
 	private static final int INITIAL_CAPACITY = 32;
 	private static final float LOAD_FACTOR = 0.75f;
@@ -62,7 +62,7 @@ public class DiskLruCache {
 	private CompressFormat mCompressFormat = CompressFormat.JPEG;
 	private int mCompressQuality = 70;
 
-	private final Map<String, String> mLinkedHashMap = Collections.synchronizedMap(new LinkedHashMap<String, String>(INITIAL_CAPACITY,
+	private static final Map<String, String> mLinkedHashMap = Collections.synchronizedMap(new LinkedHashMap<String, String>(INITIAL_CAPACITY,
 			LOAD_FACTOR, true));
 
 	/**
@@ -175,14 +175,16 @@ public class DiskLruCache {
 	 *            The unique identifier for the bitmap
 	 * @return The bitmap or null if not found
 	 */
-	public Bitmap get(String key) {
+	public Bitmap get(String key,BitmapFactory.Options options) {
 		synchronized (mLinkedHashMap) {
 			final String file = mLinkedHashMap.get(key);
+			
+			Log.i("me", "图片缩放尺寸大小为=="+options.inSampleSize);
 			if (file != null) {
 				if (BuildConfig.DEBUG) {
-					Log.d(TAG, "Disk cache hit");
+					Log.d(TAG, "Disk cache hit  ");
 				}
-				return BitmapFactory.decodeFile(file);
+				return BitmapFactory.decodeFile(file,options);
 			} else {
 				final String existingFile = createFilePath(mCacheDir, key);
 				if (new File(existingFile).exists()) {
@@ -190,7 +192,7 @@ public class DiskLruCache {
 					if (BuildConfig.DEBUG) {
 						Log.d(TAG, "Disk cache hit (existing file)");
 					}
-					return BitmapFactory.decodeFile(existingFile);
+					return BitmapFactory.decodeFile(existingFile,options);
 				}
 			}
 			return null;
@@ -208,6 +210,8 @@ public class DiskLruCache {
 		// See if the key is in our HashMap
 		if (mLinkedHashMap.containsKey(key)) {
 			return true;
+		}else if(new File(Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"topic"+File.separator+key).exists()){
+			return new File(Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"topic"+File.separator+key).exists();
 		}
 
 		// Now check if there's an actual file that exists based on the key
@@ -278,7 +282,8 @@ public class DiskLruCache {
 				if(!new File(cachePath).exists()){
                 	new File(cachePath).mkdirs();
                 }
-		return new File(cachePath + File.separator + uniqueName);
+				/*if("".equals(uniqueName))*/return new File(cachePath);
+//		return new File(cachePath + File.separator + uniqueName);
 	}
 
 	/**
@@ -290,16 +295,18 @@ public class DiskLruCache {
 	 * @return
 	 */
 	public static String createFilePath(File cacheDir, String key) {
-		try {
+		
 			// Use URLEncoder to ensure we have a valid filename, a tad hacky
 			// but it will do for
 			// this example
-			return cacheDir.getAbsolutePath() + File.separator + CACHE_FILENAME_PREFIX + URLEncoder.encode(key.replace("*", ""), "UTF-8");
-		} catch (final UnsupportedEncodingException e) {
-			Log.e(TAG, "createFilePath - " + e);
-		}
-
-		return null;
+		    Log.i("me", "cacheDir.getAbsolutePath()+File.separator+key="+cacheDir.getAbsolutePath()+File.separator+key);
+		    
+//		    return cacheDir.getAbsolutePath();
+			return Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"topic"+ File.separator + key;
+		
+	}
+	public static String getFilePath(String key){
+		return Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"topic"+ File.separator + key;
 	}
 
 	/**

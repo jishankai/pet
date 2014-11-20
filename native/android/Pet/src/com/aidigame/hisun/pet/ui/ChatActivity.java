@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.ui;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -8,7 +9,9 @@ import org.json.JSONObject;
 
 import android.R.integer;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.BitmapDrawable;
@@ -41,6 +44,7 @@ import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.AudioRecordAndPlayer;
 import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
+import com.aidigame.hisun.pet.widget.fragment.MessageFragment;
 /**
  * 聊天界面
  * @author admin
@@ -206,6 +210,9 @@ public class ChatActivity extends Activity implements OnClickListener{
 			stopThread=true;
 		}
     	StringUtil.saveTalkHistory(talks, this);
+    	if(MessageFragment.messageFragment!=null){
+    		MessageFragment.messageFragment.updateList(talks);
+    	}
     	super.onDestroy();
     	
     }
@@ -213,33 +220,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
-		if(HomeFragment.blurBitmap==null){
-			frameLayout.setBackgroundDrawable(getResources().getDrawable(R.drawable.blur));
-		}
-        new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				while(HomeFragment.blurBitmap==null){
-					try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				runOnUiThread(new Runnable() {
-					
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						frameLayout.setBackgroundDrawable(new BitmapDrawable(HomeFragment.blurBitmap));
-						frameLayout.setAlpha(0.9342857f);
-					}
-				});
-			}
-		}).start();
+		
 		 listView.setOnScrollListener(new OnScrollListener() {
 				
 				@Override
@@ -270,6 +251,13 @@ public class ChatActivity extends Activity implements OnClickListener{
 		case R.id.back:
 			if(chatThread!=null&&chatThread.isAlive()){
 				stopThread=true;
+			}
+			if(NewHomeActivity.homeActivity!=null){
+				ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+				am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+			}else{
+				Intent intent=new Intent(ChatActivity.this,NewHomeActivity.class);
+				ChatActivity.this.startActivity(intent);
 			}
 			this.finish();
 			break;
@@ -341,5 +329,17 @@ public class ChatActivity extends Activity implements OnClickListener{
 	
 		
 	}
+	   @Override
+	   protected void onPause() {
+	   	// TODO Auto-generated method stub
+	   	super.onPause();
+	   	StringUtil.umengOnPause(this);
+	   }
+	      @Override
+	   protected void onResume() {
+	   	// TODO Auto-generated method stub
+	   	super.onResume();
+	   	StringUtil.umengOnResume(this);
+	   }
 
 }
