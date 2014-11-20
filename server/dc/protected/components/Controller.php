@@ -63,9 +63,11 @@ class Controller extends CController
             }
             if (isset($session['tx_ani'])) {
                 $animal = Animal::model()->findByPk($session['tx_ani']['aid']);
-                $animal->tx = $session['tx_usr']['tx'];
-                $animal->saveAttributes(array('tx'));
-                $session->remove('tx_ani');
+                if (isset($animal)) {
+                    $animal->tx = $session['tx_usr']['tx'];
+                    $animal->saveAttributes(array('tx'));
+                    $session->remove('tx_ani');
+                }
             }
             // ------------------
             //用户是否被禁
