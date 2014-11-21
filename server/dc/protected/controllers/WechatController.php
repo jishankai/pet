@@ -9,7 +9,7 @@ class WechatController extends Controller
         );
     }
 
-    public function actionVerifyApi()
+    public function actionMessageApi()
     {
         echo $_GET["echostr"];
     }
