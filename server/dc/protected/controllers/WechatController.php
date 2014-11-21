@@ -5,7 +5,7 @@ class WechatController extends Controller
     public function filters() 
     {
         return array(
-            'checkWechatSig',
+            //'checkWechatSig',
         );
     }
 
@@ -58,36 +58,33 @@ class WechatController extends Controller
                     break;
                 
                 default:
-                    $contentStr = '';
                     break;
             }
-        } else {
-            $contentStr = '';
         }
-
-        return $contentStr = '';
+        if (isset($contentStr)) {
+            return $contentStr;
+        } else {
+            echo '';
+            exit;
+        }
     }
 
     private function receiveEvent($object)
     {
-        $contentStr = "";
         switch ($object->Event)
         {
         case "subscribe":
             $contentStr = "感谢关注宠物星球社交应用~您的陪伴和支持将使我们做得更好~更多内容请使用下方菜单，或联系contact@aidigame.com~mo-害羞";    //关注后回复内容
             break;
-        case "unsubscribe":
-            $contentStr = "";
-            break;
-        case "CLICK":
-            $contentStr =  $this->receiveClick($object);    //点击事件
-            break;
         default:
-            $contentStr = "receive a new event: ".$object->Event;
             break;
         }
-
-        return $contentStr;
+        if (isset($contentStr)) {
+            return $contentStr;
+        } else {
+            echo '';
+            exit;
+        }
     }
 }
 
