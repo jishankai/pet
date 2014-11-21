@@ -53,6 +53,8 @@ class UserBehavior extends CActiveRecordBehavior
 
     public function login()
     {
+        $this->thanksGivingReward();
+
         if (date("m.d.y",$this->owner->login_time)!=date("m.d.y")) {
             $this->owner->con_login>0 ? $this->owner->con_login++ : $this->owner->con_login=1;
             $this->owner->saveAttributes(array('con_login'));
@@ -65,6 +67,42 @@ class UserBehavior extends CActiveRecordBehavior
         $this->owner->saveAttributes(array('login_time'));
         #Yii::trace('exp:'.$value->exp, 'access');
         $this->onLogin(new CEvent($this, array('on'=>'login'))); 
+    }
+
+    private function thanksGivingReward()
+    {
+        switch (date("Ymd")) {
+            case '20141123':
+                $rewardGold = 199;
+                break;
+            
+            case '20141124':
+                $rewardGold = 299;
+                break;
+            
+            case '20141125':
+                $rewardGold = 399;
+                break;
+            
+            case '20141126':
+                $rewardGold = 499;
+                break;
+            
+            case '20141127':
+                $rewardGold = 599;
+                break;
+            
+            default:
+                $rewardGold = 0;
+                break;
+        }
+
+        if ($rewardGold!=0) {
+            $this->owner->gold+=$rewardGold;
+            $this->saveAttributes(array('gold'));
+
+            Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, "宠物星球感谢祭~~这是今天的礼金".$rewardGold."金币，小主们请收好~拿了钱任性去吧！");
+        }
     }
 
     public function sendGift($is_shake)
