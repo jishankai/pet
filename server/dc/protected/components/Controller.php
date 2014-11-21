@@ -81,6 +81,25 @@ class Controller extends CController
         }
     }
 
+    public function filterCheckWechatSig($filterChain)
+    {
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+
+        $token = TOKEN;
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode( $tmpArr );
+        $tmpStr = sha1( $tmpStr );
+
+        if( $tmpStr == $signature ){
+            $filterChain->run();
+        }else{
+            echo '';
+        }
+    }
+
     public function filterCheckSig($filterChain)
     {
         if (!CHECK_SIG_FLAG or $this->checkSig()) {
@@ -126,7 +145,7 @@ class Controller extends CController
     {
         return Yii::app()->getResponse(); 
     }
-	
+
     protected function echoJsonData($data=array()) 
     {
         $this->response->setData($data);
