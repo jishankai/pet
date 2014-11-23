@@ -53,12 +53,11 @@ class UserBehavior extends CActiveRecordBehavior
 
     public function login()
     {
-        $this->thanksGivingReward();
-
         if (date("m.d.y",$this->owner->login_time)!=date("m.d.y")) {
             $this->owner->con_login>0 ? $this->owner->con_login++ : $this->owner->con_login=1;
             $this->owner->saveAttributes(array('con_login'));
 
+            $this->thanksGivingReward();
             $this->onLogin = array($this, 'addExp');
             $this->onLogin = array($this, 'addGold');
         }
