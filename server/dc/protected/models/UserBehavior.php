@@ -99,7 +99,7 @@ class UserBehavior extends CActiveRecordBehavior
 
         if ($rewardGold!=0) {
             $this->owner->gold+=$rewardGold;
-            $this->saveAttributes(array('gold'));
+            $this->owner->saveAttributes(array('gold'));
 
             Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, "宠物星球感谢祭~~这是今天的礼金".$rewardGold."金币，小主们请收好~拿了钱任性去吧！");
         }
