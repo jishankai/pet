@@ -203,7 +203,7 @@ class WechatController extends Controller
 
     private function receiveClick($object)
     {
-        switch ($object->Event) {
+        switch ($object->EventKey) {
             case 'key_wytc':
                 $contentStr = '吐槽请直接回复“吐槽+您要吐槽的内容”，我们的产品汪会第一时间收集您的反馈并给您答复~\n
                     我们珍惜您的每一次吐槽，感谢您伴我们成长、帮我们做得更好！\n
