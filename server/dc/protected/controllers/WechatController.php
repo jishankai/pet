@@ -234,7 +234,7 @@ class WechatController extends Controller
             case 'key_wytc':
                 $contentStr = '吐槽请直接回复“吐槽+您要吐槽的内容”，我们的产品汪会第一时间收集您的反馈并给您答复~
 我们珍惜您的每一次吐槽，感谢您伴我们成长、帮我们做得更好！
-嫌麻烦的话也可以直接发语音，可能答复稍晚，见谅哟~';
+                    嫌麻烦的话也可以直接发语音，可能答复稍晚，见谅哟~';
                 break;
             case 'key_gstg':
                 $contentStr = '你可以直接回复“投稿+要投稿的文字内容”，或者将文件发送至ntact@aidigame.com';
@@ -254,8 +254,11 @@ class WechatController extends Controller
                 $contentStr = 'key_cjone';
                 break;
             case 'key_cjtwo':
-                Yii::app()->db->createCommand('INSERT IGNORE INTO event_3xgiving SET from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $object->FromUserName)->execute();
-                $event_usr_id = Yii::app()->db->createCommand('SELECT event_usr_id FROM event_3xgivint WHERE from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $object->FromUserName)->queryScalar();
+                $event_usr_id = Yii::app()->db->createCommand('SELECT event_usr_id FROM event_3xgiving WHERE from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $object->FromUserName)->queryScalar();
+                if (!$event_usr_id) {
+                    Yii::app()->db->createCommand('INSERT IGNORE INTO event_3xgiving SET from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $object->FromUserName)->execute();
+                }
+                
                 $contentStr = '您的感恩节抽奖码是{'.$event_usr_id.'}。活动结束之后，我们将第一时间公布开奖结果~';
                 break;
             default:
