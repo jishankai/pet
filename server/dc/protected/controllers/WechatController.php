@@ -9,7 +9,7 @@ class WechatController extends Controller
         );
     }
 
-    public function updateMenuApi()
+    public function actionUpdateMenuApi()
     {
         $appid="";//填写appid
         $secret="";//填写secret
