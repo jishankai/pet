@@ -156,7 +156,7 @@ class WechatController extends Controller
             } else {
                 $msgType = "news";
                 $title = "感恩节快到了，球长挥泪大回馈";
-                $content = '点击右上角分享至朋友圈，并将朋友圈界面截图发送给我们；\n再在“我要抽奖”-> “第二步” 中获取您的抽奖码，就会自动获取感恩节抽奖资格哟~';
+                $content = '点击右上角分享至朋友圈，并将朋友圈界面截图发送给我们；再在“我要抽奖”-> “第二步” 中获取您的抽奖码，就会自动获取感恩节抽奖资格哟~';
                 $picUrl = "https://mmbiz.qlogo.cn/mmbiz/AWNc3NhEROZ88HwfxWQx8nRpySLMcnqcTtB1CT7XiaFWdibvtRWAqqe6LQdsaPnL01ghjgGgf3UGW0bk6F8ztuQQ/0";
                 $url = 'http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=201770437&idx=1&sn=26d0825337243589ed6b1d77c5c5c60f&scene=1&from=groupmessage&isappinstalled=0#rd';
                 $newsTpl = "<xml>
@@ -232,9 +232,9 @@ class WechatController extends Controller
     {
         switch ($object->EventKey) {
             case 'key_wytc':
-                $contentStr = '吐槽请直接回复“吐槽+您要吐槽的内容”，我们的产品汪会第一时间收集您的反馈并给您答复~\n
-                    我们珍惜您的每一次吐槽，感谢您伴我们成长、帮我们做得更好！\n
-                    嫌麻烦的话也可以直接发语音，可能答复稍晚，见谅哟~\n';
+                $contentStr = '吐槽请直接回复“吐槽+您要吐槽的内容”，我们的产品汪会第一时间收集您的反馈并给您答复~
+我们珍惜您的每一次吐槽，感谢您伴我们成长、帮我们做得更好！
+嫌麻烦的话也可以直接发语音，可能答复稍晚，见谅哟~';
                 break;
             case 'key_gstg':
                 $contentStr = '你可以直接回复“投稿+要投稿的文字内容”，或者将文件发送至ntact@aidigame.com';
@@ -243,12 +243,12 @@ class WechatController extends Controller
                 $contentStr = '您所投稿的封面图一经采用，将出现在应用的欢迎封面，供万千用户一睹风采~请注意，作为封面图片，竖长构图最佳。请保证图片内容必须有您的宝贝宠物出镜，真人同时出镜更棒！图片请直接回复~感谢~';
                 break;
             case 'key_cjbd':
-                $contentStr = '1. 在公众号内点击菜单项 “我要抽奖”-> 点击“第一步”->  收到推送的图文消息“感恩节快到了，球长挥泪大回馈”并将此文分享至朋友圈；\n
-                    2. 文章分享后将朋友圈界面截图发送至我们的公众号“爱迪-宠物星球”\n
-                    3. 再次在公众号内点击“我要抽奖”-> 点击“第二步”->  自动获得您的感恩节抽奖码\n；
-                    4. 活动结束后我们将第一时间公示抽奖情况。\n
-                    特别说明：\n
-                    需同时完成上述步骤2,3才具备抽奖资格哟~~';
+                $contentStr = '1. 在公众号内点击菜单项 “我要抽奖”-> 点击“第一步”->  收到推送的图文消息“感恩节快到了，球长挥泪大回馈”并将此文分享至朋友圈；
+2. 文章分享后将朋友圈界面截图发送至我们的公众号“爱迪-宠物星球”
+3. 再次在公众号内点击“我要抽奖”-> 点击“第二步”->  自动获得您的感恩节抽奖码；
+4. 活动结束后我们将第一时间公示抽奖情况。
+特别说明：
+需同时完成上述步骤2,3才具备抽奖资格哟~~';
                 break;
             case 'key_cjone':
                 $contentStr = 'key_cjone';
