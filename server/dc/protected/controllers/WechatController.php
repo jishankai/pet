@@ -9,6 +9,85 @@ class WechatController extends Controller
         );
     }
 
+    public function updateMenuApi()
+    {
+        $appid="";//填写appid
+        $secret="";//填写secret
+
+        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$appid}&secret={$secret}";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $a = curl_exec($ch);
+
+
+        $strjson=json_decode($a);
+        $token = $strjson->access_token;
+        $post="{
+            \"button\":[
+                {
+                \"type\":\"click\",
+                \"name\":\"关于应用\",
+                \"sub_button\":[
+                    {
+                    \"type\":\"view\",
+                    \"name\":\"应用下载\",
+                    \"url\":\"http://home4pet.aidigame.com\"
+                    },
+                    {
+                    \"type\":\"click\",
+                    \"name\":\"我要吐槽\",
+                    \"key\":\"key_wytc\"
+                    }
+                ]
+                },
+                {
+                \"type\":\"click\",
+                \"name\":\"我要投稿\",
+                \"sub_button\":[
+                    {
+                    \"type\":\"click\",
+                    \"name\":\"故事投稿\",
+                    \"key\":\"key_gstg\"
+                    },
+                    {
+                    \"type\":\"click\",
+                    \"name\":\"封面投稿\",
+                    \"key\":\"key_fmtg\"
+                    }
+
+                ]
+                },
+
+                {
+                \"type\":\"click\",
+                \"name\":\"我要抽奖\",
+                \"sub_button\":[
+                    {
+                    \"type\":\"click\",
+                    \"name\":\"抽奖第一步\",
+                    \"key\":\"key_cjone\"
+                    },
+                    {
+                    \"type\":\"click\",
+                    \"name\":\"抽奖第二步\",
+                    \"key\":\"key_cjtwo\"
+                    },
+                ]
+                }
+        ]
+    }";  //提交内容
+    $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={$token}"; //查询地址 
+    $ch = curl_init();//新建curl
+    curl_setopt($ch, CURLOPT_URL, $url);//url  
+    curl_setopt($ch, CURLOPT_POST, 1);  //post
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);//post内容  
+    curl_exec($ch); //输出   
+    curl_close($ch); 
+    }
+
     public function actionMessageApi()
     {
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
@@ -53,12 +132,12 @@ class WechatController extends Controller
         $keyword = trim($object->Content);
         if(!empty( $keyword )) {
             switch ($keyword) {
-                case '感谢有你':
-                    $contentStr = '1';
-                    break;
-                
-                default:
-                    break;
+            case '感谢有你':
+                $contentStr = '1';
+                break;
+
+            default:
+                break;
             }
         }
         if (isset($contentStr)) {
