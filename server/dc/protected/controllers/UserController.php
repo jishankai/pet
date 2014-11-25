@@ -7,7 +7,7 @@ class UserController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - welcomeApi,getSIDApi,planetApi,loginApi,typeApi,bindApi,registerApi,othersApi,infoApi,petsApi,followingApi,topicApi,itemsApi,recommendApi,searchApi',
+            'getUserId - welcomeApi,getSIDApi,planetApi,loginApi,typeApi,bindApi,registerApi,othersApi,infoApi,petsApi,followingApi,topicApi,itemsApi,recommendApi,searchApi,reportApi',
             /*
             array(
                 'COutputCache + welcomeApi',
