@@ -241,7 +241,7 @@ class WechatController extends Controller
                     嫌麻烦的话也可以直接发语音，可能答复稍晚，见谅哟~';
                 break;
             case 'key_gstg':
-                $contentStr = '你可以直接回复“投稿+要投稿的文字内容”，或者将文件发送至ntact@aidigame.com';
+                $contentStr = '你可以直接回复“投稿+要投稿的文字内容”，或者将文件发至contact@aidigame.com';
                 break;
             case 'key_fmtg':
                 $contentStr = '您所投稿的封面图一经采用，将出现在应用的欢迎封面，供万千用户一睹风采~请注意，作为封面图片，竖长构图最佳。请保证图片内容必须有您的宝贝宠物出镜，真人同时出镜更棒！图片请直接回复~感谢~';
