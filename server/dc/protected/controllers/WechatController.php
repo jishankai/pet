@@ -154,7 +154,10 @@ class WechatController extends Controller
                 $msgType = "text";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
             } else {
-                Yii::app()->db->createCommand('INSERT IGNORE INTO event_3xgiving SET from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $object->FromUserName)->execute();
+                $event_usr_id = Yii::app()->db->createCommand('SELECT event_usr_id FROM event_3xgiving WHERE from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $object->FromUserName)->queryScalar();
+                if (!$event_usr_id) {
+                    Yii::app()->db->createCommand('INSERT IGNORE INTO event_3xgiving SET from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $object->FromUserName)->execute();
+                }
                 $msgType = "news";
                 $title = "感恩节快到了，球长挥泪大回馈";
                 $content = '点击右上角分享至朋友圈，并将朋友圈界面截图发送给我们；再在“我要抽奖”-> “第二步” 中获取您的抽奖码，就会自动获取感恩节抽奖资格哟~';
