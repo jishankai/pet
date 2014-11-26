@@ -154,9 +154,9 @@ class WechatController extends Controller
                 $msgType = "text";
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
             } else {
-                $event_usr_id = Yii::app()->db->createCommand('SELECT event_usr_id FROM event_3xgiving WHERE from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $object->FromUserName)->queryScalar();
+                $event_usr_id = Yii::app()->db->createCommand('SELECT event_usr_id FROM event_3xgiving WHERE from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $postObj->FromUserName)->queryScalar();
                 if (!$event_usr_id) {
-                    Yii::app()->db->createCommand('INSERT IGNORE INTO event_3xgiving SET from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $object->FromUserName)->execute();
+                    Yii::app()->db->createCommand('INSERT IGNORE INTO event_3xgiving SET from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $postObj->FromUserName)->execute();
                 }
                 $msgType = "news";
                 $title = "感恩节快到了，球长挥泪大回馈";
