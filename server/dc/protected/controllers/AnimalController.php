@@ -475,6 +475,8 @@ class AnimalController extends Controller
         $session = Yii::app()->session;
         if (!isset($session[$aid.'_shake_count'])) {
             $session[$aid.'_shake_count']=3;
+        } else {
+            $session[$aid.'_shake_count']-=1;
         }
         $this->echoJsonData(array('shake_count'=>$session[$aid.'_shake_count'])); 
     }
@@ -554,11 +556,7 @@ class AnimalController extends Controller
 
                 $session = Yii::app()->session;
                 if ($is_shake) {
-                    if (isset($session[$aid.'_shake_count'])) {
-                        $session[$aid.'_shake_count']-=1;
-                    } else {
-                        $session[$aid.'_shake_count']=3;
-                    }
+                    $session[$aid.'_shake_count']=0;
                 } else {
                     if (isset($session[$aid.'_gift_count'])) {
                         $session[$aid.'_gift_count']+=1;
@@ -590,6 +588,14 @@ class AnimalController extends Controller
         } else {
             throw new PException('礼物不存在');
         }
+    }
+
+    public function actionShakeShareApi($aid)
+    {
+        $session = Yii::app()->session;
+        $session[$aid.'_shake_count']=3;
+
+        $this->echoJsonData(array('shake_count'=>$session[$aid.'_shake_count'])); 
     }
 
     public function actionCardApi($aid)
