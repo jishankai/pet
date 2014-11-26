@@ -217,7 +217,7 @@ class WechatController extends Controller
         {
         case "subscribe":
             $contentStr = "地球人泥嚎，恭喜你成功登陆宠物星球！本球长已经等你好久了啊喂～
-欢迎带着萌宠来星球定居，我将率领众事务官专职陪你一起卖萌一起飞！大家有事儿骚扰，没事儿卖萌♪(^∇^*)准备好了吗？一大波萌宠马上就要来袭了．．．"
+欢迎带着萌宠来星球定居，我将率领众事务官专职陪你一起卖萌一起飞！大家有事儿骚扰，没事儿卖萌♪(^∇^*)准备好了吗？一大波萌宠马上就要来袭了．．．";
             break;
         case "CLICK":
             $contentStr = $this->receiveClick($object);
