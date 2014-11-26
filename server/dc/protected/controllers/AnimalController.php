@@ -470,12 +470,16 @@ class AnimalController extends Controller
         }
     }
 
-    public function actionShakeApi($aid)
+    public function actionShakeApi($aid, $is_shake=0)
     {
         $session = Yii::app()->session;
         if (!isset($session[$aid.'_shake_count'])) {
-            $session[$aid.'_shake_count']=3;
-        } else {
+            if ($is_shake) {
+                $session[$aid.'_shake_count']=2;
+            } else {
+                $session[$aid.'_shake_count']=3;
+            }
+        } else if ($is_shake) {
             $session[$aid.'_shake_count']-=1;
         }
         $this->echoJsonData(array('shake_count'=>$session[$aid.'_shake_count'])); 
