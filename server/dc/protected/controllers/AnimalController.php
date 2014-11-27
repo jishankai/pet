@@ -304,8 +304,8 @@ class AnimalController extends Controller
         $transaction = Yii::app()->db->beginTransaction();
         try {
             $n = $this->countCircle($this->usr_id);
+            $user = User::model()->findByPk($this->usr_id);
             if ($n>10) {
-                $user = User::model()->findByPk($this->usr_id);
                 if ($n<=21) {
                     $g = $n*5;
                 } else {
