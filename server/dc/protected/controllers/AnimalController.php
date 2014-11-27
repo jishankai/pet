@@ -303,6 +303,20 @@ class AnimalController extends Controller
     {
         $transaction = Yii::app()->db->beginTransaction();
         try {
+            $n = $this->countCircle($this->usr_id);
+            if ($n>10) {
+                $user = User::model()->findByPk($this->usr_id);
+                if ($n<=21) {
+                    $g = $n*5;
+                } else {
+                    $g = 200;
+                }
+                if ($user->gold<$n) {
+                    throw new PException('亲，您的金币不足');
+                }
+                $user->gold-=$g;
+                $user->saveAttributes(array('gold'));
+            }
             $circle = new Circle();
             $circle->aid = $aid;
             $circle->usr_id = $this->usr_id;
@@ -323,7 +337,6 @@ class AnimalController extends Controller
             $news->aid = $aid;
             $news->type = 2;
             $news->create_time = time();
-            $user = User::model()->findByPk($this->usr_id);
             $news->content = serialize(array(
                 'usr_id'=>$user->usr_id,
                 'u_name'=>$user->name,
@@ -342,6 +355,13 @@ class AnimalController extends Controller
             $transaction->rollback();
             throw $e;
         }
+    }
+
+    private function countCircle($usr_id)
+    {
+        $n = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_circle WHERE usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryScalar();
+
+        return $n;
     }
 
     public function actionExitApi($aid)
