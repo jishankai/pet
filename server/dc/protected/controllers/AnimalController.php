@@ -619,7 +619,6 @@ class AnimalController extends Controller
         $session = Yii::app()->session;
         if (!isset($session[$aid.'_shake_shared'])) {
             $session[$aid.'_shake_count']=3;
-        } else {
             $session[$aid.'_shake_shared']=1;
         }
 
