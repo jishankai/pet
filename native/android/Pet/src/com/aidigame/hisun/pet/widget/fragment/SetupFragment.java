@@ -502,7 +502,7 @@ public class SetupFragment extends Fragment implements OnClickListener{
 				homeActivity.startActivity(intent13);
 			}else
 			if(Constants.user!=null&&Constants.user.aniList!=null){
-				if(Constants.user.aniList.size()>=10){
+				if(/*Constants.user.aniList.size()>=10*/false){
 					DialogGoRegister dialog=new DialogGoRegister(popupParent, homeActivity,black_layout, 3);
 				}else{
 					Intent intent13=new Intent(homeActivity,InviteOthersDialogActivity.class);
@@ -564,14 +564,39 @@ public class SetupFragment extends Fragment implements OnClickListener{
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
+						File file=new File(Constants.Picture_Root_Path);
+						if(!file.exists()){
+							file.mkdir();
+						}
+						String path=Constants.Picture_Root_Path+File.separator+".nomedia";
+						File file2=new File(path);
+						if(file2.exists()){
+							if(file2.isDirectory())
+							{
+								file2.delete();
+								try {
+									file2.createNewFile();
+								} catch (IOException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						}else{
+							try {
+								file2.createNewFile();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
 						if(showProgress!=null)
 							showProgress.progressCancel();
 						if(HomeFragment.homeFragment!=null){
 							HomeFragment.homeFragment.uiRefresh();
 						}
-						File file=new File(Constants.Picture_Topic_Path);
-						if(!file.exists()){
-							file.mkdirs();
+						File file1=new File(Constants.Picture_Topic_Path);
+						if(!file1.exists()){
+							file1.mkdirs();
 						}
 					}
 				}, 2000);

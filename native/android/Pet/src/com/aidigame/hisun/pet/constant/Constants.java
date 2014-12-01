@@ -113,6 +113,8 @@ public class Constants {
 	
 	//摇一摇api
 	public static String SHAKE_API=URL_ROOT+"r=animal/shakeApi&sig=";
+	//摇一摇api
+	public static String SHAKE_SHARE=URL_ROOT+"r=animal/shakeShareApi&sig=";
 	//摸一摸api
 	public static String TOUCH_API=URL_ROOT+"r=animal/touchApi&sig=";
 	
@@ -366,7 +368,7 @@ public class Constants {
     public static final String IS_FIRST_START_APP="IS_FIRST_START_APP";//值为boolean  true或false
     
     
-    public static int whereShare=-1;//0,照片详情;1,照片发布;2,宠物资料；3，用户资料
+    public static int whereShare=-1;//0,照片详情;1,照片发布;2,宠物资料；3，用户资料；4，摇一摇；5，捣捣乱
     public static int shareMode=-1;//0,分享到微信；1，分享到朋友圈;2,新浪微博
     
 }

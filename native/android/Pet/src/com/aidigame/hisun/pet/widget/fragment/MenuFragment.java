@@ -41,6 +41,7 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.LoginJson;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
+import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
 import com.aidigame.hisun.pet.ui.ChoseStarActivity;
 import com.aidigame.hisun.pet.ui.InviteOthersDialogActivity;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
@@ -91,7 +92,7 @@ public class MenuFragment extends Fragment implements OnClickListener{
 	ImageView preIv,nextIv,messageIv,sexIv,clearInputIv;
 	BaseAdapter galleryAdapter;
 	ArrayList<Animal> animalList;
-
+    TextView changeUser,joinKingdom;
 	
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
@@ -245,8 +246,13 @@ public class MenuFragment extends Fragment implements OnClickListener{
 		preIv=(ImageView)menuView.findViewById(R.id.left_viewpager);
 		nextIv=(ImageView)menuView.findViewById(R.id.right_viewpager);
 		rqTv=(TextView)menuView.findViewById(R.id.rq_tv);
-
-		
+        changeUser=(TextView)menuView.findViewById(R.id.change_user);
+        joinKingdom=(TextView)menuView.findViewById(R.id.join_kingdom);
+		changeUser.setOnClickListener(this);
+		joinKingdom.setOnClickListener(this);
+        
+        
+        
 		round1=(RoundImageView)menuView.findViewById(R.id.round1);
 		round2=(RoundImageView)menuView.findViewById(R.id.round2);
 		round3=(RoundImageView)menuView.findViewById(R.id.round3);
@@ -665,6 +671,14 @@ public class MenuFragment extends Fragment implements OnClickListener{
 			homeActivity.startActivity(intent5);
 			MobclickAgent.onEvent(homeActivity, "rank");
 			break;
+		case R.id.change_user:
+			 if(!UserStatusUtil.isLoginSuccess(homeActivity,popup_parent,black_layout)){
+					return;
+			}
+			break;
+		case R.id.join_kingdom:
+			joinKingdom();
+			break;
 		}
 	}
 	public class MyOnClickListener implements OnClickListener{
@@ -720,6 +734,31 @@ public class MenuFragment extends Fragment implements OnClickListener{
 			imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl, v, displayImageOptions);
 		}
 		
+	}
+	
+	public void joinKingdom(){
+		 if(!UserStatusUtil.isLoginSuccess(homeActivity,popup_parent,black_layout)){
+				return;
+		}
+		if(Constants.user!=null&&Constants.user.aniList!=null){
+			int num=0;
+			if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
+				num=(Constants.user.aniList.size()+1)*5;
+			}else  if(Constants.user.aniList.size()>20){
+				num=100;
+			}
+			
+			if(/*Constants.user.coinCount>=num*/true){
+				Intent intent=new Intent(homeActivity,ChoseAcountTypeActivity.class);
+				intent.putExtra("from", 1);
+				homeActivity.startActivity(intent);
+//				DialogGoRegister dialog=new DialogGoRegister(popup_parent, homeActivity, black_layout, 4);
+			}else{
+				
+				DialogGoRegister dialog=new DialogGoRegister(popup_parent, homeActivity, black_layout, 1);
+			}
+			
+		}
 	}
 	
 	

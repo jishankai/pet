@@ -2052,7 +2052,7 @@ public class HttpUtil {
 					 
 					  JSONObject j1=new JSONObject(result);
 					  String dataStr=j1.getString("data");
-					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&"null".equals(dataStr)){
+					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
 						  user=new User();
 						  if(dataStr.contains("\"gold\"")){
 							  JSONObject j2=j1.getJSONObject("data");
@@ -3666,11 +3666,15 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 								if(StringUtil.isEmpty(petPicture.likers)){
 									
 									petPicture.likers=""+Constants.user.userId;
+//									petPicture.likeUsersList=new ArrayList<User>();
+//									petPicture.likeUsersList.add(Constants.user);
 								}else{
+//									petPicture.likeUsersList.add(Constants.user);
 									petPicture.likers+=","+Constants.user.userId;
 								}
 								if(petPicture.like_txUrlList!=null&&Constants.user.u_iconUrl!=null){
 									petPicture.like_txUrlList.add(Constants.user.u_iconUrl);
+									
 								}else if(Constants.user.u_iconUrl!=null){
 									petPicture.like_txUrlList=new ArrayList<String>();
 									petPicture.like_txUrlList.add(Constants.user.u_iconUrl);
@@ -3752,7 +3756,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 				 * "data":{
 				 *    "image":{"img_id":"2499","aid":"1000000219","topic_id":"0","topic_name":"",
 				 *    "relates":"","cmt":"","url":"1000000219_1.1409797542.png",
-				 *    "likes":"1","likers":"231","gifts":"0","senders":"","comments":"",
+				 *    "likes":"1","likers":"231","gifts":"0","senders":"","comments":"","sharers":"",
 				 *    "shares":"0","create_time":"1409797540","update_time":"2014-09-04 03:05:50",
 				 *    "is_deleted":"\u0000"},"is_follow":false,"sender_tx":null,
 				 *    "liker_tx":["231_userHeadImage.png"]},"currentTime":1409801016}
@@ -3785,6 +3789,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 						petPicture.likers=image.getString("likers");
 						petPicture.likes=image.getInt("likes");
 						petPicture.comments=image.getString("comments");
+						petPicture.share_ids=image.getString("sharers");
 						if(petPicture.comments!=null){
 							
 							String[] strs=petPicture.comments.split("usr_id:");
@@ -3793,6 +3798,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 							 
 							if(strs!=null&&strs.length>1){
 								PetPicture.Comments comment=null;
+								petPicture.comment_ids="";
 								petPicture.commentsList=new ArrayList<PetPicture.Comments>();
 								for(int i=0;i<strs.length;i++){
 									comment=new PetPicture.Comments();
@@ -3802,6 +3808,11 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 									int end=cstr.indexOf(",name:");
 									if(end<0)continue;
 									comment.usr_id=Integer.parseInt(cstr.substring(start, end));
+									if(StringUtil.isEmpty(petPicture.comment_ids)){
+										petPicture.comment_ids=""+comment.usr_id;
+									}else{
+										petPicture.comment_ids+=","+comment.usr_id;
+									}
 									cstr=cstr.substring(end+6);
 									start=0;
 									if(cstr.contains(",reply_name")&&cstr.contains(",reply_id")){
@@ -3852,25 +3863,39 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 						String tx=jsonArray.getString("liker_tx");
 						if(tx!=null&&!"null".equals(tx)){
 							JSONArray arrays=jsonArray.getJSONArray("liker_tx");
+							User user=null;
 							if(arrays!=null&&arrays.length()>0){
 								ArrayList<String> strs=new ArrayList<String>();
+//								ArrayList<User> users=new ArrayList<User>();
 								for(int i=0;i<arrays.length();i++){
 									strs.add(arrays.getString(i));
+									user=new User();
+									user.u_iconUrl=arrays.getString(i);
+//									users.add(user);
 								}
 								petPicture.like_txUrlList=strs;
+//								petPicture.likeUsersList=users;
 							}
 						}
+//						if(petPicture.likeUsersList==null)petPicture.likeUsersList=new ArrayList<User>();
 						tx=jsonArray.getString("sender_tx");
 						if(tx!=null&&!"null".equals(tx)){
 							JSONArray arrays=jsonArray.getJSONArray("sender_tx");
+							User user=null;
 							if(arrays!=null&&arrays.length()>0){
 								ArrayList<String> strs=new ArrayList<String>();
+//								ArrayList<User> users=new ArrayList<User>();
 								for(int i=0;i<arrays.length();i++){
 									strs.add(arrays.getString(i));
+									user=new User();
+									user.u_iconUrl=arrays.getString(i);
+//									users.add(user);
 								}
 								petPicture.gift_txUrlList=strs;
+//								petPicture.giftUsersList=users;
 							}
 						}
+//						if(petPicture.giftUsersList==null)petPicture.giftUsersList=new ArrayList<User>();
 						petPicture.animal=animalInfo(activity,petPicture.animal, handler);
 //						handler.sendEmptyMessage(1);
 						return true;
@@ -4266,6 +4291,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 									  user.province=AddressData.PROVINCES[0];
 									  user.city=AddressData.CITIES[0-10][0];
 								  }
+								  if(!animalList.contains(user))
 							    animalList.add(user);
 							 }
 							return animalList;
@@ -5589,7 +5615,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
                * "data":{"exp":872,"gold":"338","lv":"0","rank":"1"},"currentTime":1409652826}
                */
   			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
-  				
+  				LogUtil.i("me", "url" + url);
   				LogUtil.i("me", "info返回结果" + result);
   				int status=handleResult(context,result,handler);
   				  if(status==0){
@@ -5600,7 +5626,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   					  user.lv=j1.getInt("lv");
   					  user.coinCount=j1.getInt("gold");
   					  user.rankCode=j1.getInt("rank");
-  					  sendLevelChangeReceiver(context, user.lv, user.exp, user.coinCount, user.rankCode, 0, false,0);
+//  					  sendLevelChangeReceiver(context, user.lv, user.exp, user.coinCount, user.rankCode, 0, false,0);
   					  return user;
   				  }else if(status==1){
   				  }else if(status==2){
@@ -5671,14 +5697,18 @@ LogUtil.i("me", "上传头像+文件路径="+path);
      * @param handler
      * @return
      */
-    public static int  shakeApi(Context context,long aid,Handler handler) {
+    public static int  shakeApi(Context context,long aid,Handler handler,int is_shake) {
 		String url = "http://" + Constants.IP + Constants.SHAKE_API;
 		DefaultHttpClient client = new DefaultHttpClient();
 		int count=-1;
 		String value = "aid="+aid;
 		String SIG = getMD5Value(value);
 		String param = SIG +"&aid="+aid+ "&SID=" + Constants.SID;
-		
+		if(is_shake==1){
+			value = "aid="+aid+"&is_shake="+is_shake;
+			SIG = getMD5Value(value);
+			param = SIG +"&aid="+aid+ "&SID=" + Constants.SID+"&is_shake="+is_shake;
+		}
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		User user=null;
@@ -5700,12 +5730,53 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 				  }else if(status==1){
 				  }else if(status==2){
 					  
-					  return shakeApi(context,aid, handler);
+					  return shakeApi(context,aid, handler,is_shake);
 				  }
 				
 				
 			}
 		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			if(handler!=null)
+				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
+		}
+		return count;
+	}
+    public static int  shakeShareNum(Context context,long aid,Handler handler) {
+		String url = "http://" + Constants.IP + Constants.SHAKE_SHARE;
+		DefaultHttpClient client = new DefaultHttpClient();
+		int count=-1;
+		String value = "aid="+aid;
+		String SIG = getMD5Value(value);
+		String param = SIG +"&aid="+aid+ "&SID=" + Constants.SID;
+		url = url + param;
+		HttpGet get = new HttpGet(url);
+		User user=null;
+		try {
+			String result = connect(client, handler, get);
+            /*
+             * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0","data":{"shake_count":3},"currentTime":1409652826}
+             */
+			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+				LogUtil.i("me", "url" + url);
+				LogUtil.i("me", "info返回结果" + result);
+				int status=handleResult(context,result,handler);
+				  if(status==0){
+					  JSONObject jo=new JSONObject(result);
+					  JSONObject j1=jo.getJSONObject("data");
+					  count=j1.getInt("shake_count");
+					  if(count<0)count=0;
+					  return count;
+				  }else if(status==1){
+				  }else if(status==2){
+					  
+					  return shakeShareNum(context,aid, handler);
+				  }
+				
+				
+			}
+		} catch (/*JSON*/Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			if(handler!=null)
@@ -6611,7 +6682,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		if(exp>0){
 			intent.putExtra("mode", 4);
 	    	intent.putExtra("num", exp);
-	    	context.startActivity(intent);
+//	    	context.startActivity(intent);
 	    	try {
 				Thread.sleep(600);
 			} catch (InterruptedException e) {

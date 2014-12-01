@@ -27,8 +27,8 @@ import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
-import com.aidigame.hisun.pet.ui.ShowTopicActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
@@ -119,18 +119,10 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 	    PetPicture data=petPictures.get(position);
 	    //TODO  
 	    if(Constants.user!=null&&data.likers!=null&&data.likers.contains(""+Constants.user.userId)){
-	    	if(data.animal.type>100&&data.animal.type<200){
-	    		holder.heart.setImageResource(R.drawable.fish_red);
-			}else if(data.animal.type>200&&data.animal.type<300){
-				holder.heart.setImageResource(R.drawable.bone_red);
-			}
+	    	holder.heart.setImageResource(R.drawable.show_topic_like_press);
 	    	 holder.tv5.setTextColor(context.getResources().getColor(R.color.orange_red));
 		}else{
-			if(data.animal.type>100&&data.animal.type<200){
-	    		holder.heart.setImageResource(R.drawable.fish_white);
-			}else if(data.animal.type>200&&data.animal.type<300){
-				holder.heart.setImageResource(R.drawable.bone_white);
-			}
+			holder.heart.setImageResource(R.drawable.show_topic_like);
 			holder.tv5.setTextColor(Color.WHITE);
 		}
 		    	convertView.setVisibility(View.VISIBLE);
@@ -254,11 +246,7 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 									// TODO Auto-generated method stub
 									tv.setText(""+petPicture.likes);
 									tv.setTextColor(context.getResources().getColor(R.color.orange_red));
-									if(petPicture.animal.type>200&&petPicture.animal.type<300){
-							    		iv.setImageResource(R.drawable.bone_red);
-									}else if(petPicture.animal.type>100&&petPicture.animal.type<200){
-										iv.setImageResource(R.drawable.fish_red);
-									}
+									iv.setImageResource(R.drawable.show_topic_like_press);
 								}
 							});
 							
@@ -267,7 +255,7 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 				}).start();
 				break;
 			case 3:
-				if(ShowTopicActivity.showTopicActivity!=null){
+				/*if(ShowTopicActivity.showTopicActivity!=null){
 					if(ShowTopicActivity.showTopicActivity.getBitmap()!=null){
 						if(!ShowTopicActivity.showTopicActivity.getBitmap().isRecycled())
 							ShowTopicActivity.showTopicActivity.getBitmap().recycle();
@@ -279,7 +267,17 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 				intent3.putExtra("PetPicture", petPictures.get(position));
 				intent3.putExtra("from_w", 2);
 				ShowTopicActivity.petPictures=petPictures;
-				context.startActivity(intent3);
+				context.startActivity(intent3);*/
+				
+				
+				if(NewShowTopicActivity.newShowTopicActivity!=null){
+					NewShowTopicActivity.newShowTopicActivity.recyle();
+				}
+				Intent intent6=new Intent(context,NewShowTopicActivity.class);
+				intent6.putExtra("PetPicture", petPictures.get(position));
+				intent6.putExtra("from_w", 2);
+				context.startActivity(intent6);
+				
 				break;
 			}
 		}

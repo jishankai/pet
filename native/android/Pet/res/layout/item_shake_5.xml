@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView1"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="摇一摇，摇到外婆桥"
             android:textColor="#7f97b3"
             android:textSize="16sp" />
@@ -42,10 +42,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView2"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_centerHorizontal="true"
             android:text="猫君今天的摇一摇次数用完啦~"
             android:textColor="#7f97b3"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="35dp"
             android:textSize="16sp" />
         <TextView
             android:id="@+id/textView234"
@@ -53,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView23"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="@string/shake_note2"
             android:textColor="#7f97b3"
             android:textSize="16sp" />
@@ -71,7 +73,7 @@
              android:layout_height="wrap_content"
              android:layout_centerHorizontal="true"
              android:layout_below="@+id/textView234"
-             android:layout_marginTop="70dp"
+             android:layout_marginTop="10dp"
             android:background="@drawable/shake_over_background" 
             android:gravity="center_horizontal"
             android:orientation="horizontal"
@@ -80,8 +82,51 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_gravity="center_horizontal"
-               android:src="@drawable/emotion_cry"/>
+               android:src="@drawable/emotion_normal"/>
        </LinearLayout>
+         <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView1"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:background="#80E4E1DD"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+            <TextView 
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="分享"
+                 android:textColor="@color/orange_red1"
+                 android:layout_centerVertical="true"
+                 android:layout_toLeftOf="@+id/imageView3"
+                 android:layout_marginRight="10dp"
+                 />
+             <ImageView
+             android:id="@+id/imageView3"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginRight="30dp"
+             android:layout_centerVertical="true"
+             android:layout_toLeftOf="@+id/imageView4"
+             android:src="@drawable/shake_weixin" 
+             />
+             
         
+         <ImageView
+             android:id="@+id/imageView4"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerHorizontal="true"
+             android:layout_centerVertical="true"
+             android:src="@drawable/shake_friend" />
+          <ImageView
+             android:id="@+id/imageView5"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="30dp"
+             android:layout_toRightOf="@+id/imageView4"
+             android:src="@drawable/shake_xinlang" />
+        </RelativeLayout>
 
 </RelativeLayout>

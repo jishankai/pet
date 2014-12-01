@@ -43,7 +43,7 @@ import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.ui.DetailActivity;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
-import com.aidigame.hisun.pet.ui.ShowTopicActivity;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -243,22 +243,24 @@ public class PLAWaterfull implements IXListViewListener{
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					if(ShowTopicActivity.showTopicActivity!=null){
+					/*if(ShowTopicActivity.showTopicActivity!=null){
 						if(ShowTopicActivity.showTopicActivity.getBitmap()!=null){
 							if(!ShowTopicActivity.showTopicActivity.getBitmap().isRecycled())
 								ShowTopicActivity.showTopicActivity.getBitmap().recycle();
 						}
 						ShowTopicActivity.showTopicActivity.finish();
 					}
-					Intent intent=new Intent(activity,ShowTopicActivity.class);
-					/*if(homeActivity!=null){
-					}else {
-						intent.putExtra("from", "ScanActivity");
-					}*/
+					Intent intent=new Intent(activity,ShowTopicActivity.class);*/
+					if(NewShowTopicActivity.newShowTopicActivity!=null){
+						NewShowTopicActivity.newShowTopicActivity.recyle();
+					}
+					Intent intent=new Intent(activity,NewShowTopicActivity.class);
+				
 					PetPicture pp=new PetPicture();
 					pp.img_id=(int)duitangInfo.img_id;
 					pp.animal=new Animal();
 					pp.animal.a_id=duitangInfo.a_id;
+					pp.url=duitangInfo.isrc;
 					ArrayList<PetPicture> pictures=new ArrayList<PetPicture>();
 					PetPicture p=null;
 					for(int i=0;i<mInfos.size();i++){
@@ -268,7 +270,6 @@ public class PLAWaterfull implements IXListViewListener{
 						p.animal.a_id=mInfos.get(i).a_id;
 						pictures.add(p);
 					}
-						ShowTopicActivity.petPictures=pictures;
 					intent.putExtra("PetPicture",pp);
 //					intent.putExtra("mode", flowTag.mode);
 					activity.startActivity(intent);

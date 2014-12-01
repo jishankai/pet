@@ -54,7 +54,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 	FrameLayout frameLayout;
 	View viewTopWhite;
 	
-	
+	public static ChatActivity chatActivity;
 	ImageView back;
 	TextView whoTv,sendTv;
 	ListView listView;
@@ -76,7 +76,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.activity_chat);
         user=(User)getIntent().getSerializableExtra("user");
         talks=StringUtil.getTalkHistory(this);
-       
+       chatActivity=this;
         if(user==null){
         	mailList=(TalkMessage)getIntent().getSerializableExtra("msg");
         	
@@ -252,13 +252,16 @@ public class ChatActivity extends Activity implements OnClickListener{
 			if(chatThread!=null&&chatThread.isAlive()){
 				stopThread=true;
 			}
-			if(NewHomeActivity.homeActivity!=null){
-				ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-				am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
-			}else{
-				Intent intent=new Intent(ChatActivity.this,NewHomeActivity.class);
-				ChatActivity.this.startActivity(intent);
+			if(isTaskRoot()){
+				if(NewHomeActivity.homeActivity!=null){
+					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+				}else{
+					Intent intent=new Intent(ChatActivity.this,NewHomeActivity.class);
+					ChatActivity.this.startActivity(intent);
+				}
 			}
+			
 			this.finish();
 			break;
 		case R.id.send_comment:

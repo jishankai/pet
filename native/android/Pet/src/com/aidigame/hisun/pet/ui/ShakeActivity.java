@@ -1,5 +1,7 @@
 package com.aidigame.hisun.pet.ui;
 
+import it.sephiroth.android.library.widget.AbsHListView.PositionScroller;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,7 +14,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
@@ -26,9 +31,12 @@ import android.view.View.OnTouchListener;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +55,7 @@ import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
+import com.aidigame.hisun.pet.view.RoundImageView;
 import com.aidigame.hisun.pet.widget.ShakeSensor;
 import com.aidigame.hisun.pet.widget.WeixinShare;
 import com.aidigame.hisun.pet.widget.XinlangShare;
@@ -67,23 +76,30 @@ public class ShakeActivity extends Activity {
 	DisplayImageOptions displayImageOptions;//显示图片的格式
 	RelativeLayout progressLayout;
       ViewPager viewPager;
-      View view1,view2,view3,view4,view5;
+      View view1,view22,view33,view4,view5;
       HomeViewPagerAdapter adapter;
       ArrayList<View> viewList;
       ShakeSensor shakeSensor;
-      Vibrator vibrator;
+//      Vibrator vibrator;
       int currentPosition=0;
       int optortunity=0;
-      TextView optNumTv,titleTv;
+      TextView titleTv;
       ImageView cloudIV1,cloudIV2;
       User user;
       Animal animal;
       Gift gift;//当前摇出的礼物
       int mode;//1，摇一摇；2，捣捣乱;
       RelativeLayout shareBitmapLayout;
-      HandleHttpConnectionException handleHttpConnectionException;
+      
+      TextView nameTv,hasChancTv,chanceDesTv;
+      LinearLayout nameTvLayout,noteLayout;
+      public static ShakeActivity shakeActivity;
+      
+      View shine_view;
+      Handler handleHttpConnectionException;
       boolean isSending=false;
       ArrayList<Gift> giftList;
+      Animation anim;
       Handler handler=new Handler(){
     	  public void handleMessage(android.os.Message msg) {
     		  
@@ -96,13 +112,16 @@ public class ShakeActivity extends Activity {
     	UiUtil.setScreenInfo(this);
     	UiUtil.setWidthAndHeight(this);
     	setContentView(R.layout.activity_shake);
+    	shakeActivity=this;
     	progressLayout=(RelativeLayout)findViewById(R.id.porgress_layout);
+    	
     	giftList=StringUtil.getGiftList(this);
     	animal=(Animal)getIntent().getSerializableExtra("animal");
     	mode=getIntent().getIntExtra("mode", 1);
     	MobclickAgent.onEvent(this, "shake_button");
-    	handleHttpConnectionException=HandleHttpConnectionException.getInstance();
+    	handleHttpConnectionException=HandleHttpConnectionException.getInstance().getHandler(this);
     	shareBitmapLayout=(RelativeLayout)findViewById(R.id.share_bitmap_layout);
+    	shine_view=findViewById(R.id.shine_view);
     	BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
 		options.inSampleSize=8;
@@ -123,13 +142,17 @@ public class ShakeActivity extends Activity {
 
 	private void initView() {
 		// TODO Auto-generated method stub
+		shine_view.setVisibility(View.GONE);
 		viewPager=(ViewPager)findViewById(R.id.viewpager);
 		ImageLoader imageLoader=ImageLoader.getInstance();
 		ImageView icon=(ImageView)findViewById(R.id.roundImageView1);
 		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl,icon , displayImageOptions);
-		TextView nameTv=(TextView)findViewById(R.id.textView4);
+		nameTv=(TextView)findViewById(R.id.help_animalname);
 		titleTv=(TextView)findViewById(R.id.textView5);
-		
+		hasChancTv=(TextView)findViewById(R.id.has_chance_tv);
+		chanceDesTv=(TextView)findViewById(R.id.chance_des_tv);
+		nameTvLayout=(LinearLayout)findViewById(R.id.help_layout);
+		noteLayout=(LinearLayout)findViewById(R.id.shake_note_layout);
 		if(mode==1){
 			titleTv.setText("摇一摇");
 		}else{
@@ -148,23 +171,28 @@ public class ShakeActivity extends Activity {
 			}
 		});;
 		nameTv.setText(animal.pet_nickName);
-		optNumTv=(TextView)findViewById(R.id.textView7);
-		optNumTv.setText("");
 		view1=LayoutInflater.from(this).inflate(R.layout.item_shake_1, null);
-		view2=LayoutInflater.from(this).inflate(R.layout.item_shake_2, null);
-		view3=LayoutInflater.from(this).inflate(R.layout.item_shake_3, null);
+		view22=LayoutInflater.from(this).inflate(R.layout.item_shake_22, null);
+		view33=LayoutInflater.from(this).inflate(R.layout.item_shake_33, null);//
 		view4=LayoutInflater.from(this).inflate(R.layout.item_shake_4, null);
 		view5=LayoutInflater.from(this).inflate(R.layout.item_shake_5, null);
 		
 		viewList=new ArrayList<View>();
 		viewList.add(view1);
-		viewList.add(view2);
-		viewList.add(view3);
+//		viewList.add(view2);
+//		viewList.add(view3);
+		viewList.add(view22);
+		viewList.add(view33);
 		viewList.add(view4);
 		viewList.add(view5);
 		adapter=new HomeViewPagerAdapter(viewList);
 		cloudIV1=(ImageView)view1.findViewById(R.id.imageView2);
 		cloudIV2=(ImageView)view1.findViewById(R.id.imageView3);
+		
+		
+
+		
+		
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			
 			@Override
@@ -176,17 +204,20 @@ public class ShakeActivity extends Activity {
 					StringUtil.viewStartTransAnim(cloudIV1, 5000, 20, 20-Constants.screen_width);
 					StringUtil.viewStartTransAnim(cloudIV2, 4800, -20, -20+Constants.screen_width);
 					shareBitmapLayout.setBackgroundResource(R.drawable.shake_background);
+					shine_view.setVisibility(View.GONE);
 					break;
 				case 1:
 					
 					break;
 				case 2:
-					
+					initView33();
 					break;
 				case 3:
 					initView4();
 					break;
 				case 4:
+					shine_view.setVisibility(View.GONE);
+					shareBitmapLayout.setBackgroundResource(R.drawable.shake_background);
 					initView5();
 					break;
 				}
@@ -214,7 +245,7 @@ public class ShakeActivity extends Activity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-			  int count= HttpUtil.shakeApi(ShakeActivity.this,animal.a_id, handleHttpConnectionException.getHandler(ShakeActivity.this));
+			  int count= HttpUtil.shakeApi(ShakeActivity.this,animal.a_id, handleHttpConnectionException,0);
 			  if(count!=-1){
 				  optortunity=count;
 				  runOnUiThread(new Runnable() {
@@ -223,7 +254,7 @@ public class ShakeActivity extends Activity {
 					public void run() {
 						// TODO Auto-generated method stub
 						
-						optNumTv.setText(""+optortunity);
+						hasChancTv.setText("还有"+optortunity+"次机会");
 						viewPager.setAdapter(adapter);
                         if(optortunity==0){
 							viewPager.setCurrentItem(4);
@@ -254,7 +285,7 @@ public class ShakeActivity extends Activity {
 		
 	}
 	public void initVibrator(){
-		vibrator=(Vibrator)getApplication().getSystemService(Context.VIBRATOR_SERVICE);
+//		vibrator=(Vibrator)getApplication().getSystemService(Context.VIBRATOR_SERVICE);
 		shakeSensor=new ShakeSensor(this);
 		shakeSensor.setOnShakeListener(new OnShakeLisener() {
 			
@@ -265,138 +296,11 @@ public class ShakeActivity extends Activity {
 				shakeSensor.stop();
 				//TODO 1.打开震动和声音；
 				startVibrator();
-				 handler.postDelayed(new Runnable() {
+				/* handler.postDelayed(new Runnable() {
 						
 						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							if(optortunity<=0){
-								vibrator.cancel();
-								optNumTv.setText("0");
-								currentPosition=4;
-								viewPager.setCurrentItem(4);
-								optortunity=0;
-								return;
-							}
-							gift=null;
-							Random random=new Random();
-							int r=random.nextInt(1000)+1;
-							int index=0;
-							ArrayList<Integer> intList=null;
-							if(r>=1&&r<=800){
-								index=1;
-								intList=new ArrayList<Integer>();
-								for(int i=0;i<giftList.size();i++){
-									
-										if(giftList.get(i).level==1&&giftList.get(i).add_rq>0){
-											intList.add(i);
-										}
-									
-									
-								}
-								int r1=random.nextInt(intList.size());
-								gift=giftList.get(intList.get(r1));
-							}else if(r>=801&&r<=900){
-								index=1;
-								intList=new ArrayList<Integer>();
-								for(int i=0;i<giftList.size();i++){
-									
-										if(giftList.get(i).level==2&&giftList.get(i).add_rq>0){
-											intList.add(i);
-										}
-									
-								}
-								int r1=random.nextInt(intList.size());
-								gift=giftList.get(intList.get(r1));
-							}else if(r>=901&&r<=970){
-								index=1;
-								intList=new ArrayList<Integer>();
-								for(int i=0;i<giftList.size();i++){
-                                   
-                                    	if(giftList.get(i).level==3&&giftList.get(i).add_rq>0){
-    										intList.add(i);
-    									}
-									
-									
-								}
-								int r1=random.nextInt(intList.size());
-								gift=giftList.get(intList.get(r1));
-							}else if(r>=971&&r<=1000){
-								index=1;
-								intList=new ArrayList<Integer>();
-								for(int i=0;i<giftList.size();i++){
-                                   
-                                    	if(giftList.get(i).level==4&&giftList.get(i).add_rq>0){
-    										intList.add(i);
-    									}
-									
-									
-								}
-								int r1=random.nextInt(intList.size());
-								gift=giftList.get(intList.get(r1));
-							}
-							
-							optNumTv.setText(""+optortunity);
-							currentPosition=index;
-							
-							viewPager.setCurrentItem(index);
-							switch(index){
-							case 1:
-								if(gift!=null)
-								initView2(gift);
-								break;
-
-							case 2:
-								
-								break;
-
-							case 3:
-								
-								break;
-
-							case 4:
-								initView5();
-								break;
-								
-							}
-							
-                           new Thread(new Runnable() {
-								
-								@Override
-								public void run() {
-									// TODO Auto-generated method stub
-									while(isSending){
-										try {
-											Thread.sleep(50);
-										} catch (InterruptedException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-									}
-									int count= HttpUtil.shakeApi(ShakeActivity.this,animal.a_id, handleHttpConnectionException.getHandler(ShakeActivity.this));
-									 optortunity=count;
-									//TODO 2.打开震动和声音；
-										vibrator.cancel();
-									 shakeSensor.start();
-									 runOnUiThread(new Runnable() {
-										
-										@Override
-										public void run() {
-											// TODO Auto-generated method stub
-											optNumTv.setText(""+optortunity);
-											MobclickAgent.onEvent(ShakeActivity.this, "shake_suc");
-											LogUtil.i("mi", "还剩"+optortunity+"次机会");
-											if(NewHomeActivity.homeActivity!=null){
-												LogUtil.i("mi", "还剩"+optortunity+"次机会");
-												NewHomeActivity.homeActivity.homeFragment.homeMyPet.adapter.updateTV("还剩"+optortunity+"次",gift.add_rq);
-											}
-										}
-									});
-								}
-							}).start();
-							
-						}
-					}, 2000);
+						public void run() {}
+					}, 2500);*/
 				
 				
 			}
@@ -405,48 +309,166 @@ public class ShakeActivity extends Activity {
 
 	private void startVibrator() {
 		// TODO Auto-generated method stub
+		
 		MediaPlayer player=MediaPlayer.create(this, R.raw.rocking);
 		player.setLooping(false);
+		
+		shine_view.setVisibility(View.GONE);
+		player.setOnCompletionListener(new OnCompletionListener() {
+			
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+				// TODO Auto-generated method stub
+				/*MediaPlayer player=MediaPlayer.create(ShakeActivity.this, R.raw.rocked);
+				player.setLooping(false);
+				player.start();*/
+				
+				getGift();
+				/*player.setOnCompletionListener(new OnCompletionListener() {
+					
+					@Override
+					public void onCompletion(MediaPlayer mp) {
+						// TODO Auto-generated method stub
+						
+					}
+				});*/
+			}
+		});
 		player.start();
+		
+		
+		
 		//定义震动
 		//第一个参数 节奏 ；第二个参数  重复次数（-1，不重复）
-		vibrator.vibrate(new long[]{500,200,500,200}, -1);
+//		vibrator.vibrate(new long[]{500,200,500,200}, -1);
 	}
 	/**
 	 * 小界面2，用户获得奖品
 	 */
-	public void initView2(final Gift gift){
-		TextView awardNameTv=(TextView)view2.findViewById(R.id.textView23);
-		ImageView awardIv=(ImageView)view2.findViewById(R.id.imageView2);
-		TextView addHotTV=(TextView)view2.findViewById(R.id.textView9);
-		addHotTV.setText(""+animal.pet_nickName+"人气+"+gift.add_rq);
+	public void initView22(){
+		
+		if(anim!=null)anim.cancel();
+		shine_view.clearAnimation();
+		
+		shine_view.setVisibility(View.GONE);
+		nameTvLayout.setVisibility(View.GONE);
+		noteLayout.setVisibility(View.VISIBLE);
+		hasChancTv.setText("还剩"+optortunity+"次机会");
+		shareBitmapLayout.setBackgroundResource(R.drawable.shake_ground_get);
+		TextView awardNameTv=(TextView)view22.findViewById(R.id.textView23);
+		ImageView awardIv=(ImageView)view22.findViewById(R.id.imageView2);
+		TextView addHotTV=(TextView)view22.findViewById(R.id.textView9);
+		addHotTV.setText("人气+"+gift.add_rq);
+		TextView sureTv=(TextView)view22.findViewById(R.id.sure_shake);
+		TextView cancelTv=(TextView)view22.findViewById(R.id.cancel_shake);
 		gift.is_shake=true;
 		gift.aid=animal.a_id;
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				//送礼物
-				User user=HttpUtil.sendGift(ShakeActivity.this,gift, handleHttpConnectionException.getHandler(ShakeActivity.this));
-				
-				isSending=false;
-			}
-		}).start();
-		awardNameTv.setText(gift.name);
+		awardNameTv.setText(gift.name+" X 1");
 		try {
 			awardIv.setImageBitmap(BitmapFactory.decodeStream(getResources().getAssets().open(""+gift.no+".png")));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		share(view2);
+		sureTv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						//送礼物
+						final User user=HttpUtil.sendGift(ShakeActivity.this,gift, handleHttpConnectionException);
+						isSending=false;
+						runOnUiThread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								if(user!=null){
+									viewPager.setCurrentItem(2);
+									optortunity=0;
+									if(NewHomeActivity.homeActivity!=null){
+										LogUtil.i("mi", "还剩"+0+"次机会");
+										NewHomeActivity.homeActivity.homeFragment.homeMyPet.adapter.updateTV("还剩"+optortunity+"次",gift.add_rq);
+									}
+								}else{
+									Toast.makeText(ShakeActivity.this, "网络连接出错", Toast.LENGTH_LONG).show();
+								}
+							}
+						});
+					}
+				}).start();
+			}
+		});
+		cancelTv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(optortunity==0){
+					viewPager.setCurrentItem(4);
+				}else{
+					viewPager.setCurrentItem(0);
+					initVibrator();
+				}
+				
+			}
+		});
+		view22.post(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				/*SoundPool soundPool=new SoundPool(2, AudioManager.STREAM_SYSTEM, 0);
+				int id=soundPool.load(ShakeActivity.this, R.raw.rocked, 1);
+				soundPool.play(id, 1, 1, 0, 0, 1);*/
+				MediaPlayer player=MediaPlayer.create(ShakeActivity.this, R.raw.rocked);
+				player.setLooping(false);
+				player.start();
+			}
+		});
 		
 	}
-	public void initView3(){
+	public void initView33(){
+		nameTvLayout.setVisibility(View.GONE);
+		noteLayout.setVisibility(View.VISIBLE);
+		hasChancTv.setText("每天只能送1个礼物哦~");
+		chanceDesTv.setText("每日第一次成功分享后可以多送1个礼物");
+		shareBitmapLayout.setBackgroundResource(R.drawable.shake_ground_get2);
 		
+		shine_view.setVisibility(View.VISIBLE);
+		anim=AnimationUtils.loadAnimation(this, R.anim.anim_rotate_repeat);
+		anim.setInterpolator(new LinearInterpolator());
+		shine_view.setAnimation(anim);
+		anim.start();
+		
+		TextView giftAnimalNameTv=(TextView)view33.findViewById(R.id.textView2);
+		TextView desTv=(TextView)view33.findViewById(R.id.des_tv);
+		TextView addRqTv=(TextView)view33.findViewById(R.id.textView23);
+		RoundImageView animalIv=(RoundImageView)view33.findViewById(R.id.imageView2);
+		TextView sureTv=(TextView)view33.findViewById(R.id.textView9);
+		sureTv.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
+		giftAnimalNameTv.setText(animal.pet_nickName+"收到了您送的"+gift.name);
+		desTv.setText(gift.effect_des);
+		addRqTv.setText("人气+"+gift.add_rq);
+		ImageLoader imageLoader=ImageLoader.getInstance();
+		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl, animalIv, displayImageOptions);
+		
+		share(view33);
 	}
     public void initView4(){
+    	shine_view.setVisibility(View.GONE);
 	ImageView cloudIV1=(ImageView)view4.findViewById(R.id.cloud1);
 	ImageView cloudIV2=(ImageView)view4.findViewById(R.id.cloud2);
 	ImageView cloudIV3=(ImageView)view4.findViewById(R.id.cloud3);
@@ -455,10 +477,17 @@ public class ShakeActivity extends Activity {
 	StringUtil.viewStartTransAnim(cloudIV3, 4800, 20, -20-Constants.screen_width);
 	}
     public void initView5(){
+    	shine_view.setVisibility(View.GONE);
     	/*猫君*/
+    	nameTvLayout.setVisibility(View.GONE);
+		noteLayout.setVisibility(View.VISIBLE);
+		hasChancTv.setText("还剩"+optortunity+"次机会");
+		hasChancTv.setVisibility(View.GONE);
+		chanceDesTv.setText("每日第一次成功分享后可以多送1个礼物");
     	TextView tView=(TextView)view5.findViewById(R.id.textView23);
     	tView.setText(animal.pet_nickName+"今天的摇一摇次数用完啦~");
     	ImageView cloudIV1=(ImageView)view5.findViewById(R.id.cloud1);
+    	share(view5);
     	ImageView cloudIV2=(ImageView)view5.findViewById(R.id.cloud2);
     	ImageView cloudIV3=(ImageView)view5.findViewById(R.id.cloud3);
     	StringUtil.viewStartTransAnim(cloudIV1, 4600, 20, -20-Constants.screen_width);
@@ -490,6 +519,8 @@ public class ShakeActivity extends Activity {
 					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
+					Constants.shareMode=0;
+					Constants.whereShare=4;
 					if(Constants.api==null){
 						boolean flag=WeixinShare.regToWeiXin(ShakeActivity.this);
 						if(!flag){
@@ -536,6 +567,8 @@ public class ShakeActivity extends Activity {
 				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
 				FileOutputStream fos=null;
 				try {
+					Constants.shareMode=1;
+					Constants.whereShare=4;
 					fos = new FileOutputStream(path);
 					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
@@ -577,9 +610,14 @@ public class ShakeActivity extends Activity {
 					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
-					data.des="随便一摇就摇出了一个"+gift.name+"，好惊喜，你也想试试吗？http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+					Constants.whereShare=4;
+					if(gift!=null){
+						data.des="随便一摇就摇出了一个"+gift.name+"，好惊喜，你也想试试吗？http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+					}else{
+						data.des="随便一摇就摇会有"+"惊喜，快来试试吧？http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+					}
+					
 					if(UserStatusUtil.hasXinlangAuth(ShakeActivity.this)){
-						
 						XinlangShare.sharePicture(data,ShakeActivity.this);
 					}
 				} catch (FileNotFoundException e) {
@@ -624,4 +662,175 @@ public class ShakeActivity extends Activity {
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	   }
+	      
+	      public void getGift(){
+
+				// TODO Auto-generated method stub
+				
+				
+				
+				if(optortunity<=0){
+//					vibrator.cancel();
+					currentPosition=4;
+					viewPager.setCurrentItem(4);
+					optortunity=0;
+					return;
+				}
+				gift=null;
+				Random random=new Random();
+				int r=random.nextInt(1000)+1;
+				int index=0;
+				ArrayList<Integer> intList=null;
+				if(r>=1&&r<=800){
+					index=1;
+					intList=new ArrayList<Integer>();
+					for(int i=0;i<giftList.size();i++){
+						
+							if(giftList.get(i).level==1&&giftList.get(i).add_rq>0){
+								intList.add(i);
+							}
+						
+						
+					}
+					int r1=random.nextInt(intList.size());
+					gift=giftList.get(intList.get(r1));
+				}else if(r>=801&&r<=900){
+					index=1;
+					intList=new ArrayList<Integer>();
+					for(int i=0;i<giftList.size();i++){
+						
+							if(giftList.get(i).level==2&&giftList.get(i).add_rq>0){
+								intList.add(i);
+							}
+						
+					}
+					int r1=random.nextInt(intList.size());
+					gift=giftList.get(intList.get(r1));
+				}else if(r>=901&&r<=970){
+					index=1;
+					intList=new ArrayList<Integer>();
+					for(int i=0;i<giftList.size();i++){
+                     
+                      	if(giftList.get(i).level==3&&giftList.get(i).add_rq>0){
+								intList.add(i);
+							}
+						
+						
+					}
+					int r1=random.nextInt(intList.size());
+					gift=giftList.get(intList.get(r1));
+				}else if(r>=971&&r<=1000){
+					index=1;
+					intList=new ArrayList<Integer>();
+					for(int i=0;i<giftList.size();i++){
+                     
+                      	if(giftList.get(i).level==4&&giftList.get(i).add_rq>0){
+								intList.add(i);
+							}
+						
+						
+					}
+					int r1=random.nextInt(intList.size());
+					gift=giftList.get(intList.get(r1));
+				}
+				optortunity--;
+				currentPosition=index;
+				
+				
+				
+             new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						/*while(isSending){
+							try {
+								Thread.sleep(50);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}*/
+						final int count= HttpUtil.shakeApi(ShakeActivity.this,animal.a_id, handleHttpConnectionException,1);
+						
+						
+						//TODO 2.打开震动和声音；
+							/*vibrator.cancel();
+						 shakeSensor.start();*/
+						 runOnUiThread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								if(count!=-1){
+									
+									switch(currentPosition){
+									case 1:
+										optortunity=count;
+										viewPager.setCurrentItem(currentPosition);
+										if(gift!=null){
+											initView22();
+										}
+										if(NewHomeActivity.homeActivity!=null){
+											LogUtil.i("mi", "还剩"+optortunity+"次机会");
+											NewHomeActivity.homeActivity.homeFragment.homeMyPet.adapter.updateTV("还剩"+optortunity+"次",0);
+										}
+										break;
+
+									case 2:
+										
+										break;
+
+									case 3:
+										
+										break;
+
+									case 4:
+										initView5();
+										break;
+										
+									}
+								}
+								
+								
+								MobclickAgent.onEvent(ShakeActivity.this, "shake_suc");
+								LogUtil.i("mi", "还剩"+optortunity+"次机会");
+								
+							}
+						});
+					}
+				}).start();
+				
+			
+	      }
+	      
+	    public void shareNumChange(){
+	    	new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					final int count=HttpUtil.shakeShareNum(ShakeActivity.this, animal.a_id, handleHttpConnectionException);
+					if(count==3){
+						optortunity=3;
+						runOnUiThread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								shine_view.setVisibility(View.GONE);
+								shine_view.clearAnimation();
+								if(anim!=null)anim.cancel();
+								viewPager.setCurrentItem(0);
+								initVibrator();
+								if(NewHomeActivity.homeActivity!=null){
+									LogUtil.i("mi", "还剩"+optortunity+"次机会");
+									NewHomeActivity.homeActivity.homeFragment.homeMyPet.adapter.updateTV("还剩"+optortunity+"次",0);
+								}
+							}
+						});
+					}
+				}
+			}).start();
+	    }
 }

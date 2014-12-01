@@ -83,7 +83,7 @@
           <isReal>0</isReal><!-- 虚拟还是现实礼物  0,为false;1，为true-->
           <detail_image></detail_image><!-- 详情图片 -->
           <sale_status>-1</sale_status><!-- 销售情况  0，新品；1，热卖；-1，无状态 -->
-          <effect_des>的吃货本质终于暴露在你面前啦！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
+          <effect_des>吃货本质终于暴露在你面前啦！</effect_des>  <!-- 送礼物后，对宠物的影响 -->  
    </gift>
     <gift>
           <no>1204</no>

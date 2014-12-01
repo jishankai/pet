@@ -215,7 +215,7 @@ public class PlayJokeActivity extends Activity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-			  int count= HttpUtil.shakeApi(PlayJokeActivity.this,animal.a_id, handleHttpConnectionException.getHandler(PlayJokeActivity.this));
+			  int count= HttpUtil.shakeApi(PlayJokeActivity.this,animal.a_id, handleHttpConnectionException.getHandler(PlayJokeActivity.this),0);
 			  if(count!=-1){
 				  optortunity=count;
 				  runOnUiThread(new Runnable() {
@@ -370,7 +370,7 @@ public class PlayJokeActivity extends Activity {
 											e.printStackTrace();
 										}
 									}
-									int count= HttpUtil.shakeApi(PlayJokeActivity.this,animal.a_id, handleHttpConnectionException.getHandler(PlayJokeActivity.this));
+									int count= HttpUtil.shakeApi(PlayJokeActivity.this,animal.a_id, handleHttpConnectionException.getHandler(PlayJokeActivity.this),0);
 									 optortunity=count;
 									//TODO 2.打开震动和声音；
 										vibrator.cancel();

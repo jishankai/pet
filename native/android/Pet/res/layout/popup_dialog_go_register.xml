@@ -73,6 +73,17 @@
         android:paddingTop="0dp"
         android:paddingBottom="0dp"
         android:background="@drawable/button"/>
+     <TextView
+        android:id="@+id/note_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="温馨提示：每个人只能捧红10个萌星"
+        android:layout_below="@+id/textView4"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+         />
 
 </RelativeLayout>
 </LinearLayout>

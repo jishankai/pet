@@ -18,7 +18,7 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
 import com.aidigame.hisun.pet.ui.ChoseStarActivity;
-import com.aidigame.hisun.pet.ui.ShowTopicActivity;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.widget.XinlangShare;
 import com.aidigame.hisun.pet.widget.fragment.DialogGoRegister;
@@ -207,8 +207,7 @@ public class UserStatusUtil {
 			UserDossierActivity.userDossierActivity.addNewKingdom();
 			UserDossierActivity.userDossierActivity.setUserInfo(Constants.user);
 		}
-		if(ShowTopicActivity.showTopicActivity!=null){
-			ShowTopicActivity.showTopicActivity.setViews();
+		if(NewShowTopicActivity.newShowTopicActivity!=null){
 		}
 	}
 

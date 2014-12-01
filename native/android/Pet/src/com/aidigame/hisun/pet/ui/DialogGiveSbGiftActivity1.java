@@ -31,6 +31,7 @@ import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
+import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.fragment.FourGiftBox;
 import com.aidigame.hisun.pet.widget.fragment.FourGiftBox.SendGiftResultListener;
@@ -66,7 +67,9 @@ public class DialogGiveSbGiftActivity1 extends Activity{
 		super.onCreate(savedInstanceState);
 		this.context=this;
 		dialogGiveSbGiftActivity=this;
+		UiUtil.setScreenInfo(this);
 		setContentView(R.layout.dialog_give_sb_gift);
+		
 		MobclickAgent.onEvent(this, "gift_button");
 		giftList=new ArrayList<Gift>();
 		this.animal=(Animal)getIntent().getSerializableExtra("animal");
@@ -144,6 +147,7 @@ public class DialogGiveSbGiftActivity1 extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				DialogGiveSbGiftActivity1.this.finish();
+				DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity=null;
 				if(dialogGoListener!=null){
 					dialogGoListener.closeDialog();
 				}
@@ -315,5 +319,12 @@ public class DialogGiveSbGiftActivity1 extends Activity{
 	    		  rootLayout.setVisibility(View.VISIBLE);
 	    	  }
 	      }
+		@Override
+		protected void onDestroy() {
+			// TODO Auto-generated method stub
+			DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity=null;
+			super.onDestroy();
+		}
+	     
 
 }

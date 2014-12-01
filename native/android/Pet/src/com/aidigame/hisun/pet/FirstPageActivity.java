@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -20,8 +21,10 @@ import android.widget.ImageView;
 
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.blur.Blur;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
+import com.aidigame.hisun.pet.ui.ChoseStarActivity;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
@@ -111,22 +114,46 @@ public class FirstPageActivity extends Activity{
 							}
 							
 							@Override
-							public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+							public void onLoadingComplete(String imageUri, View view,final Bitmap loadedImage) {
 								// TODO Auto-generated method stub
 								LogUtil.i("me","下载欢迎图片  完成"+imageUri);
-								/*Animation anim=AnimationUtils.loadAnimation(FirstPageActivity.this, R.anim.anim_scale);
-								imageView.clearAnimation();
-								imageView.startAnimation(anim);*/
 								handler.postDelayed(new Runnable() {
 									
 									@Override
 									public void run() {
 										// TODO Auto-generated method stub
-										Intent intent=new Intent(FirstPageActivity.this,NewHomeActivity.class);
-										FirstPageActivity.this.startActivity(intent);
-										FirstPageActivity.this.finish();
+										new Thread(new Runnable() {
+											
+											@Override
+											public void run() {
+												// TODO Auto-generated method stub
+												while(PetApplication.petApp.blurBmp!=null){
+													Intent intent=new Intent(FirstPageActivity.this,NewHomeActivity.class);
+													FirstPageActivity.this.startActivity(intent);
+													FirstPageActivity.this.finish();
+												}
+											}
+										}).start();
+										
 									}
 								},4000);
+								new Thread(new Runnable() {
+									
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										LogUtil.i("mi", "图片像素数："+loadedImage.getByteCount());
+										Matrix matrix=new Matrix();
+										matrix.setScale(0.4f, 0.4f);
+										Bitmap  bmp=loadedImage.createBitmap(loadedImage, 0, 0, loadedImage.getWidth(), loadedImage.getHeight(), matrix, true);
+										LogUtil.i("mi", "图片像素数："+bmp.getByteCount());
+										PetApplication.petApp.blurBmp=Blur.fastblur(FirstPageActivity.this, bmp, 18);
+								        if(bmp!=null&&!bmp.isRecycled()){
+								        	bmp.recycle();
+								        	bmp=null;
+								        }
+									}
+								}).start();
 									
 							}
 							

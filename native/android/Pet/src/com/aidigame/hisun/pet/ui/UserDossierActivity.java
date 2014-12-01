@@ -436,16 +436,19 @@ imageLoader2.loadImage(Constants.USER_DOWNLOAD_TX+user.u_iconUrl, displayImageOp
 									public void run() {
 										// TODO Auto-generated method stub
 										final BitmapDrawable bitmapDrawable=new BitmapDrawable(loadedImage1);
-										int height=Constants.screen_width/bitmapDrawable.getMinimumWidth()*bitmapDrawable.getMinimumHeight();
-										if(bitmapDrawable!=null){
-											LinearLayout.LayoutParams lp=(LinearLayout.LayoutParams)linearLayout2.getLayoutParams();
-											if(lp==null){
-											   lp=new LinearLayout.LayoutParams(Constants.screen_width,height);	
+										if(bitmapDrawable.getMinimumWidth()!=0&&bitmapDrawable.getMinimumHeight()!=0){
+											int height=Constants.screen_width/bitmapDrawable.getMinimumWidth()*bitmapDrawable.getMinimumHeight();
+											if(bitmapDrawable!=null){
+												LinearLayout.LayoutParams lp=(LinearLayout.LayoutParams)linearLayout2.getLayoutParams();
+												if(lp==null){
+												   lp=new LinearLayout.LayoutParams(Constants.screen_width,height);	
+												}
+												linearLayout2.setLayoutParams(lp);
+												linearLayout2.setBackgroundDrawable(bitmapDrawable);
+												linearLayout2.setAlpha(0.9342857f);
 											}
-											linearLayout2.setLayoutParams(lp);
-											linearLayout2.setBackgroundDrawable(bitmapDrawable);
-											linearLayout2.setAlpha(0.9342857f);
 										}
+										
 										
 									}
 								});
@@ -636,6 +639,7 @@ BitmapFactory.Options options2=new BitmapFactory.Options();
 					if(intent!=null){
 						intent.putExtra("mode", NewHomeActivity.HOMEFRAGMENT);
 						this.startActivity(intent);
+						finish();
 						return;
 					}
 					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);

@@ -3,8 +3,9 @@ package com.aidigame.hisun.pet.wxapi;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
-import com.aidigame.hisun.pet.ui.ShowTopicActivity;
+import com.aidigame.hisun.pet.ui.ShakeActivity;
 import com.aidigame.hisun.pet.ui.SubmitPictureActivity;
 import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
@@ -88,20 +89,24 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 				if(Constants.whereShare==0){
 					Toast.makeText(this, "成功分享到微信", Toast.LENGTH_LONG).show();
 					
-					ShowTopicActivity.showTopicActivity.shareNumChange();
+					NewShowTopicActivity.newShowTopicActivity.shareNumChange();
 					Constants.shareMode=-1;
 					Constants.whereShare=-1;
 				}
 				else if(Constants.whereShare==2){
 					
 				}else if(Constants.whereShare==3){
+				}else if(Constants.whereShare==4){
+					if(ShakeActivity.shakeActivity!=null){
+						ShakeActivity.shakeActivity.shareNumChange();
+					}
 				}
 			}
 			if(Constants.shareMode==1){
 				Toast.makeText(this, "成功分享到朋友圈", Toast.LENGTH_LONG).show();
 				if(Constants.whereShare==0){
 					
-					ShowTopicActivity.showTopicActivity.shareNumChange();
+					NewShowTopicActivity.newShowTopicActivity.shareNumChange();
 					Constants.shareMode=-1;
 					Constants.whereShare=-1;
 				}
@@ -113,6 +118,10 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 					return;
 				}else if(Constants.whereShare==2){
 				}else if(Constants.whereShare==3){
+				}else if(Constants.whereShare==4){
+					if(ShakeActivity.shakeActivity!=null){
+						ShakeActivity.shakeActivity.shareNumChange();
+					}
 				}
 			}
 			

@@ -2,15 +2,31 @@
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
-        
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="400dp"
+        ><!-- 400dp  -->
 <RelativeLayout
         android:id="@+id/share_bitmap_layout"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:background="@drawable/shake_background"
         android:orientation="vertical" >
+         <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="5dp">
+            <ImageView 
+            android:id="@+id/shine_view"
+            android:layout_width="500dp"
+            android:layout_height="500dp"
+            android:src="@drawable/shake_shine"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            android:layout_marginTop="-67dp"
+            android:layout_marginLeft="-95dp"
+            />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView1"
@@ -49,44 +65,50 @@
             android:layout_marginBottom="12dp"
             android:layout_marginLeft="10dp"
             android:src="@drawable/shake_circle"/> -->
-        <com.aidigame.hisun.pet.view.RoundImageView
+        <!-- imagecontrol:border_outside_color="@color/orange_red" 
+             -->
+       
+        <RelativeLayout 
+            android:layout_marginBottom="16.5dp"
+            android:layout_marginLeft="13.7dp"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.aidigame.hisun.pet.view.RoundImageView
             android:id="@+id/roundImageView1"
             android:layout_width="56dp"
             android:layout_height="56dp"
             imagecontrol:border_thickness="3dp"
-            
             imagecontrol:border_inside_color="@color/orange_red"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="16.5dp"
-            android:layout_marginLeft="13.7dp"
             android:src="@drawable/pet_icon" 
             android:scaleType="centerCrop"
-            /><!-- imagecontrol:border_outside_color="@color/orange_red" 
-             -->
-       
-
-        <TextView
+            />
+            <LinearLayout 
+                android:id="@+id/help_layout"
+                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+             android:layout_marginLeft="20dp"
+               android:layout_centerVertical="true"
+                
+               android:layout_toRightOf="@+id/roundImageView1"
+            >
+             <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            
-            android:layout_toRightOf="@+id/roundImageView1"
-            android:layout_alignBottom="@+id/roundImageView1"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="20dp"
             android:text="帮"
             android:textColor="#7f97b3"
             android:textSize="12sp" />
          <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/help_animalname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/textView3"
             android:layout_alignBaseline="@+id/textView3"
-            android:layout_marginBottom="30dp"
             android:layout_marginLeft="5dp"
             android:text="猫君"
-            android:textColor="#fc75b1"
+            android:textColor="@color/orange_red1"
             android:textSize="12sp" />
          <TextView
             android:id="@+id/textView5"
@@ -94,43 +116,40 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/textView4"
             android:layout_alignBaseline="@+id/textView4"
-            android:layout_marginBottom="30dp"
             android:layout_marginLeft="5dp"
             android:text="摇一摇"
             android:textColor="#7f97b3"
             android:textSize="12sp" />
-         <TextView
-            android:id="@+id/textView6"
+                
+            </LinearLayout>
+             <LinearLayout 
+                 android:id="@+id/shake_note_layout"
+                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+               android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+               android:visibility="gone"
+               android:layout_toRightOf="@+id/roundImageView1"
+            >
+             <TextView
+            android:id="@+id/has_chance_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/roundImageView1"
-            android:layout_marginBottom="10dp"
-            android:layout_alignLeft="@+id/textView3"
-            android:text="今天还有"
-            android:textColor="#7f97b3"
+           
+            android:text="还有3次机会"
+            android:textColor="@color/orange_red1"
             android:textSize="12sp" />
          <TextView
-            android:id="@+id/textView7"
+             android:id="@+id/chance_des_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/textView6"
-            android:layout_alignBaseline="@+id/textView6"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="5dp"
-            android:text="2"
-            android:textColor="#fc75b1"
+            android:text="每天只能送1个礼物哦~"
+            android:textColor="@color/orange_red1"
             android:textSize="12sp" />
-         <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/textView7"
-            android:layout_alignBaseline="@+id/textView7"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="5dp"
-            android:text="次机会哦~"
-            android:textColor="#7f97b3"
-            android:textSize="12sp" />
+                
+            </LinearLayout>
+        </RelativeLayout>
          <RelativeLayout 
              android:layout_width="match_parent"
              android:layout_height="match_parent"

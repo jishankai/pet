@@ -6,21 +6,37 @@ import u.aly.co;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.PetPicture;
+import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.PetPicture.Comments;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
+import com.aidigame.hisun.pet.ui.UserDossierActivity;
+import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
+import com.aidigame.hisun.pet.view.RoundImageView;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.ContactsContract.Contacts.Data;
 import android.text.Html;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.GestureDetector.OnGestureListener;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 /**
@@ -31,10 +47,28 @@ import android.widget.TextView;
 public class CommentListViewAdapter extends BaseAdapter{
 	Context context;
 	ArrayList<PetPicture.Comments> listComment;
+	DisplayImageOptions displayImageOptions;
 	ClickUserName clickUserName;
 	public CommentListViewAdapter(Context context,ArrayList<PetPicture.Comments> listComment){
 		this.context=context;
 		this.listComment=listComment;
+BitmapFactory.Options options=new BitmapFactory.Options();
+		
+		options.inJustDecodeBounds=false;
+		options.inSampleSize=8;
+		options.inPreferredConfig=Bitmap.Config.RGB_565;
+		options.inPurgeable=true;
+		options.inInputShareable=true;
+		displayImageOptions=new DisplayImageOptions
+	            .Builder()
+	            .showImageOnLoading(R.drawable.user_icon)
+	            .showImageOnFail(R.drawable.user_icon)
+		        .cacheInMemory(true)
+		        .cacheOnDisc(true)
+		        .bitmapConfig(Bitmap.Config.RGB_565)
+		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+		        .decodingOptions(options)
+                .build();
 	}
 	public void update(ArrayList<PetPicture.Comments> listComment){
 		this.listComment=listComment;
@@ -70,16 +104,21 @@ public class CommentListViewAdapter extends BaseAdapter{
 			holder.time=(TextView)convertView.findViewById(R.id.textView3);
 			holder.layout=(RelativeLayout)convertView.findViewById(R.id.layout);
 			holder.warning_iv=(ImageView)convertView.findViewById(R.id.warning_iv);
+			holder.byLayout=(LinearLayout)convertView.findViewById(R.id.bylayout);
+			holder.byTv=(TextView)convertView.findViewById(R.id.bytv);
+			holder.huifuTv=(TextView)convertView.findViewById(R.id.huifu_tv);
+			holder.usericon=(RoundImageView)convertView.findViewById(R.id.icon);
 			convertView.setTag(holder);
 		}else{
 			holder=(Holder)convertView.getTag();
 		}
 		final PetPicture.Comments comments=listComment.get(position);
-		
+		ImageLoader imageLoader=ImageLoader.getInstance();
+		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+comments.usr_tx, holder.usericon, displayImageOptions);
 		if(!StringUtil.isEmpty(Constants.CON_VERSION)&&"1.0".equals(Constants.CON_VERSION)){
 			holder.warning_iv.setVisibility(View.VISIBLE);
 		}else{
-			holder.warning_iv.setVisibility(View.INVISIBLE);
+			holder.warning_iv.setVisibility(View.GONE);
 		}
 		
 		if(comments.isReply){
@@ -95,39 +134,51 @@ public class CommentListViewAdapter extends BaseAdapter{
 				str[1]=comments.reply_name;
 			}
 			if(str.length>1){
-				String html="<html><body>"
-						+ "<font color=\"#fb6137\">"
+				holder.byLayout.setVisibility(View.VISIBLE);
+				holder.huifuTv.setVisibility(View.VISIBLE);
+				holder.nameTextView.setText(str[1]);
+				holder.byTv.setText(comments.name);
+				/*String html="<html><body>"
+//						+ "<font color=\"#fb6137\">"
 						+""+(comments.name==null?"":comments.name)
-						+ "</font>"
+//						+ "</font>"
+						+ "<font color=\"#3d3d3d\">"
 						+"回复"
-						+ "<font color=\"#fb6137\">"
+						+ "</font>"
+//						+ "<font color=\"#fb6137\">"
 						+""+(str[1]==null?"":str[1])
-						+ "</font>"
-						+":"
+//						+ "</font>"
+						+""
 						+ "</body></html>";
-				holder.nameTextView.setText(Html.fromHtml(html));
+				holder.nameTextView.setText(Html.fromHtml(html));*/
 			}else{
-				String html="<html><body>"
-						+ "<font color=\"#fb6137\">"
+				holder.byLayout.setVisibility(View.GONE);
+				holder.huifuTv.setVisibility(View.GONE);
+				holder.nameTextView.setText(comments.name);
+				/*String html="<html><body>"
+//						+ "<font color=\"#fb6137\">"
 						+""+(comments.name==null?"":comments.name)
-						+ "</font>"
-						+":"
+//						+ "</font>"
+						+""
 						+ "</body></html>";
-				holder.nameTextView.setText(Html.fromHtml(html));
+				holder.nameTextView.setText(Html.fromHtml(html));*/
 			}
 			
 		}else{
-			String html="<html><body>"
-					+ "<font color=\"#fb6137\">"
+			holder.byLayout.setVisibility(View.GONE);
+			holder.huifuTv.setVisibility(View.GONE);
+			holder.nameTextView.setText(comments.name);
+			/*String html="<html><body>"
+//					+ "<font color=\"#fb6137\">"
 					+""+(comments.name==null?"":comments.name)
-					+ "</font>"
-					+":"
+//					+ "</font>"
+					+""
 					+ "</body></html>";
-			holder.nameTextView.setText(Html.fromHtml(html));
+			holder.nameTextView.setText(Html.fromHtml(html));*/
 		}
 		
 		holder.body.setText(""+(comments.body==null?"":comments.body));
-		holder.time.setText(""+judgeTime(comments.create_time));
+		holder.time.setText(""+StringUtil.judgeTime(comments.create_time));
 		holder.warning_iv.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -148,7 +199,7 @@ public class CommentListViewAdapter extends BaseAdapter{
 				}
 			}
 		});*/
-		holder.layout.setOnClickListener(new OnClickListener() {
+		/*holder.layout.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -157,7 +208,24 @@ public class CommentListViewAdapter extends BaseAdapter{
 					clickUserName.clickUserName(comments);
 				}
 			}
+		});*/
+		final GestureDetector gesture=new GestureDetector(new MyGestureDector(comments));
+		holder.layout.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				return gesture.onTouchEvent(event);
+			}
 		});
+	/*	holder.layout.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				return new GestureDetector(new MyListGestureDector(comments)).onTouchEvent(event);
+			}
+		});*/
 		
 		return convertView;
 	}
@@ -167,101 +235,157 @@ public class CommentListViewAdapter extends BaseAdapter{
 		TextView time;
 		RelativeLayout layout;
 		ImageView warning_iv;
+		LinearLayout byLayout;
+		TextView byTv,huifuTv;
+		RoundImageView usericon;
 	}
-	public String judgeTime(long time2){
-		long time1=System.currentTimeMillis()/1000;
-		long time=time1-time2;
-		/*int[] oldTimes=getTimeArray(time2*1000);
-		int[] nowTimes=getTimeArray(time1);
-		for(int i=0;i<oldTimes.length;i++){
-			int t=0;
-			switch (i) {
-			case 0:
-				t=nowTimes[0]-oldTimes[0];
-				if(t<=0){
-					continue;
-				}else{
-					return t+"年前";
-				}	
-			case 1:
-				t=nowTimes[1]-oldTimes[1];
-				if(t<=0){
-					continue;
-				}else{
-					return t+"个月前";
-				}	
-			case 2:
-				t=nowTimes[2]-oldTimes[2];
-				if(t<=0){
-					continue;
-				}else{
-					return t+"天前";
-				}	
-			case 3:
-				t=nowTimes[3]-oldTimes[3];
-				if(t<=0){
-					continue;
-				}else{
-					return t+"个小时前";
-				}	
-			case 4:
-				t=nowTimes[4]-oldTimes[4];
-				if(t<=0){
-					continue;
-				}else{
-					return t+"分钟前";
-				}	
-			case 5:
-				t=nowTimes[5]-oldTimes[5];
-				if(t<0){
-					continue;
-				}else{
-					return t+"秒前";
-				}
-				
+	class MyGestureDector implements OnGestureListener{
+		Comments comments;
+		public MyGestureDector(Comments comments){
+			this.comments=comments;
+		}
+
+		@Override
+		public boolean onDown(MotionEvent e) {
+			// TODO Auto-generated method stub
+			return true;
+		}
+
+		@Override
+		public void onShowPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean onSingleTapUp(MotionEvent e) {
+			// TODO Auto-generated method stub
+			if(clickUserName!=null){
+				clickUserName.clickUserName(comments);
 			}
-		}*/
-         String str="";
-         StringBuffer sb=new StringBuffer();
-         sb.append("");
-         int mode=0;
-         if(time<0){
-        	 time=-time;
-        	 mode=1;
-        	 sb.append("未来");
-         }
-		if(time<60){
-			sb.append( str+time+"秒");
-		}else if(time/(60)<60){
-			sb.append( str+time/(60)+"分");
-		}else if(time/(60*60)<24){
-			sb.append(  str+time/(60*60)+"个小时");
-		}else if(time/(60*60*24)<30){
-			sb.append(  str+time/(60*60*24)+"天");
-		}else if(time/(60*60*24*30)<12){
-			sb.append(  str+time/(60*60*24)+"个月");
-		}else if(time/(60*60*24*30*12)<1000){
-			sb.append( str+time/(60*60*24*30*12)+"年");
+			return true;
 		}
-		if(mode==0){
-			sb.append("前");
-		}else{
-			sb.append("后");
+
+		@Override
+		public boolean onScroll(MotionEvent e1, MotionEvent e2,
+				float distanceX, float distanceY) {
+			// TODO Auto-generated method stub
+			if(clickUserName!=null){
+				clickUserName.onScroll(e1, e2, distanceX, distanceY);;
+			}
+			return false;
 		}
-		if(time<60){
-			return "刚刚";
-		}else{
-			return sb.toString();
+
+		@Override
+		public void onLongPress(MotionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+				float velocityY) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 		
 	}
+
 	public void setClickUserName(ClickUserName clickUserName){
 		this.clickUserName=clickUserName;
 	}
 	public static interface ClickUserName{
 		void clickUserName(PetPicture.Comments cmt);
 		void reportComment();
+		void onScroll(MotionEvent arg0, MotionEvent arg1, float arg2,
+				float arg3);
 	}
 	
+	
+	public class MyListGestureDector implements OnGestureListener{
+    	int mode;//1，分享，送礼，点赞列表；2，评论列表
+    	boolean hasStart=false;
+    	int touchSlop;
+    	Comments comments;
+    	public MyListGestureDector(Comments comments){
+    		this.comments=comments;
+    		touchSlop=ViewConfiguration.getTouchSlop();
+    	}
+		
+		@Override
+		public boolean onSingleTapUp(MotionEvent arg0) {
+			// TODO Auto-generated method stub
+			if(clickUserName!=null){
+				clickUserName.clickUserName(comments);
+			}
+			hasStart=false;
+			return true;
+		}
+		
+		@Override
+		public void onShowPress(MotionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public boolean onScroll(MotionEvent arg0, MotionEvent arg1, float arg2,
+				float arg3) {
+			// TODO Auto-generated method stub
+			LogUtil.i("mi", "arg2==="+arg2+",arg3="+arg3);
+			if(!hasStart&&Math.abs(arg2)>Math.abs(arg3)&&Math.abs(arg2)>touchSlop){
+				if(NewShowTopicActivity.newShowTopicActivity.current_page==1){
+					if(arg2<0){
+						NewShowTopicActivity.newShowTopicActivity.positive=true;
+						NewShowTopicActivity.newShowTopicActivity.applyRotation(1, 0, 90); 
+						
+					}else{
+						NewShowTopicActivity.newShowTopicActivity.positive=false;
+//						applyRotation(1, 180, 90); 
+						NewShowTopicActivity.newShowTopicActivity.applyRotation(1, 180, 90); 
+					}
+					
+					NewShowTopicActivity.newShowTopicActivity.current_page=-1;
+				}else{
+					if(arg2>0){
+						NewShowTopicActivity.newShowTopicActivity.positive=false;
+						NewShowTopicActivity.newShowTopicActivity.applyRotation(-1, 180, 90); 
+						
+					}else{
+						NewShowTopicActivity.newShowTopicActivity.positive=true;
+						NewShowTopicActivity.newShowTopicActivity.applyRotation(-1, 0, 90); 
+						
+					}
+					
+					NewShowTopicActivity.newShowTopicActivity.current_page=1;
+				}
+				hasStart=true;
+				return true;
+			}else{
+				return false;
+			}
+			
+		}
+		
+		@Override
+		public void onLongPress(MotionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public boolean onFling(MotionEvent arg0, MotionEvent arg1, float arg2,
+				float arg3) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
+		@Override
+		public boolean onDown(MotionEvent arg0) {
+			// TODO Auto-generated method stub
+			hasStart=false;
+			return true;
+		}
+	}
 
 }

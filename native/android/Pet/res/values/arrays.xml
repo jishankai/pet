@@ -126,8 +126,8 @@
         <item >混血</item>
 	<item >加菲猫</item>
 	<item >缅甸猫</item>
-	<item >奶牛猫</item><!--  138-->
-        
+	<item >奶牛猫</item><!--  138   -->
+        <item >中华田园猫</item>
     </string-array>
     <string-array name="faq_list1">
 

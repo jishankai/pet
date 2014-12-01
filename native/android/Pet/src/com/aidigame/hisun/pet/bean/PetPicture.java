@@ -51,6 +51,7 @@ public class PetPicture implements Serializable{
 	public long update_time;
 	public int gifts;
 	public String senders;
+	public String share_ids;
 	public int shares;
 //	public String sender_tx;
 //	public String liker_tx;
@@ -59,6 +60,8 @@ public class PetPicture implements Serializable{
 	public ArrayList<String> like_txUrlList;
 	public ArrayList<String> gift_txUrlList;
 	public ArrayList<Comments> commentsList;
+	public String comment_ids;
+	public ArrayList<User> likeUsersList,giftUsersList,shareUsersList;
 	public int errorCode;
 	public String errorMessage;
 	
@@ -103,6 +106,7 @@ public class PetPicture implements Serializable{
 		 */
 		private static final long serialVersionUID = -679405287083858316L;
 		public int usr_id;
+		public String usr_tx;
 		public String name;
 		public String body;
 		public long create_time;

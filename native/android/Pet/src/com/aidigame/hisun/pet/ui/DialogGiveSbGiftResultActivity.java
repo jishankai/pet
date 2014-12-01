@@ -14,11 +14,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -58,10 +63,11 @@ public class DialogGiveSbGiftResultActivity extends Activity{
 	RoundImageView icon;
 	
 	public static DialogGiveSbGiftResultActivity dialogGiveSbGiftActivity;
-	RelativeLayout parent;
-	HandleHttpConnectionException handleHttpConnectionException;
+	RelativeLayout parent,imageLayout;
+	Handler handleHttpConnectionException;
 	Animal animal;
 	Gift gift;
+	View shine_view,badview;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +91,66 @@ public class DialogGiveSbGiftResultActivity extends Activity{
 		sureTV=(TextView)findViewById(R.id.sure);
 		desTv=(TextView)findViewById(R.id.textView3);
 		icon=(RoundImageView)findViewById(R.id.round);
+		shine_view=findViewById(R.id.shine_view);
+		badview=findViewById(R.id.shine_view_bad);
+		imageLayout=(RelativeLayout)findViewById(R.id.imageView1);
 		parent=(RelativeLayout)findViewById(R.id.share_bitmap_layout);
+		handleHttpConnectionException=HandleHttpConnectionException.getInstance().getHandler(this);
+		if(gift.add_rq>0){
+			Animation anim=AnimationUtils.loadAnimation(this, R.anim.anim_rotate_repeat);
+			anim.setInterpolator(new LinearInterpolator());
+			shine_view.setAnimation(anim);
+			anim.start();
+		}else{
+			
+			shine_view.setVisibility(View.GONE);
+			imageLayout.setBackgroundResource(R.drawable.shake_gift_background1_gray);
+			giftNameTv.setBackgroundResource(R.drawable.shake_giftname_background_gray);
+			RelativeLayout.LayoutParams param=(RelativeLayout.LayoutParams)giftNameTv.getLayoutParams();
+			if(param==null){
+				
+			}else{
+				param.leftMargin=(int)(getResources().getDimensionPixelSize(R.dimen.waterfall_padding)*0.3f);
+			}
+			final Animation anim=AnimationUtils.loadAnimation(this, R.anim.anim_scale_y_repeat);
+			anim.setInterpolator(new LinearInterpolator());
+			anim.setFillAfter(true);
+			badview.setAnimation(anim);
+            anim.setAnimationListener(new AnimationListener() {
+				
+				@Override
+				public void onAnimationStart(Animation animation) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onAnimationRepeat(Animation animation) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onAnimationEnd(Animation animation) {
+					// TODO Auto-generated method stub
+					handleHttpConnectionException.postDelayed(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							badview.startAnimation(anim);
+						}
+					}, 1000);
+					
+				}
+			});
+			badview.startAnimation(anim);
+			
+		}
+		
+		
+		
+		
 		 BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
 		options.inSampleSize=8;
@@ -116,9 +181,9 @@ public class DialogGiveSbGiftResultActivity extends Activity{
 				if(animal!=null){
 					desTv.setText("您送给"+gift.animal.pet_nickName+"一个"+gift.name+"，"+gift.animal.pet_nickName+gift.effect_des);
 				}
-				parent.setBackgroundResource(R.drawable.gift_result_good);
+				parent.setBackgroundResource(R.drawable.shake_ground_get2);
 			}else{
-				parent.setBackgroundResource(R.drawable.gift_result_bad);
+				parent.setBackgroundResource(R.drawable.shake_ground_get2_gray);
 				rqTV.setText("人气  - "+(-gift.add_rq));
 				if(animal!=null){
 					desTv.setText("您对"+gift.animal.pet_nickName+"扔了一个"+gift.name+"，"+gift.animal.pet_nickName+gift.effect_des);

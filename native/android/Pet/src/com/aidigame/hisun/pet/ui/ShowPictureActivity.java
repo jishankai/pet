@@ -39,11 +39,13 @@ public class ShowPictureActivity extends Activity {
 	DisplayImageOptions displayImageOptions;
 	ImageView imageView;
 	ImageFetcher mImageFetcher;
+	public static ShowPictureActivity showPictureActivity;
 	int mode=0;//0,查看发布的照片；1，查看 头像
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		showPictureActivity=this;
 		UiUtil.setScreenInfo(this);
 		BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
@@ -137,6 +139,7 @@ mImageFetcher=new ImageFetcher(this, Constants.screen_width, Constants.screen_he
 		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 				float distanceY) {
 			// TODO Auto-generated method stub
+			LogUtil.i("mi", "onScroll");
 			return false;
 		}
 		
@@ -150,6 +153,7 @@ mImageFetcher=new ImageFetcher(this, Constants.screen_width, Constants.screen_he
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 				float velocityY) {
 			// TODO Auto-generated method stub
+			LogUtil.i("mi", "onFling");
 			return false;
 		}
 		

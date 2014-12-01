@@ -85,7 +85,7 @@ public class WarningDialogActivity extends Activity {
 				// TODO Auto-generated method stub
 				finish();
 				if(mode==1||mode==2)
-				if(ShowTopicActivity.showTopicActivity!=null){
+				if(NewShowTopicActivity.newShowTopicActivity!=null){
 //					ShowTopicActivity.showTopicActivity.reportLayout.setVisibility(View.INVISIBLE);
 				}
 				if(mode==3)
@@ -115,7 +115,7 @@ public class WarningDialogActivity extends Activity {
 				// TODO Auto-generated method stub
 				finish();
 				if(mode==1||mode==2)
-				if(ShowTopicActivity.showTopicActivity!=null){
+				if(NewShowTopicActivity.newShowTopicActivity!=null){
 //					ShowTopicActivity.showTopicActivity.reportLayout.setVisibility(View.INVISIBLE);
 				}
 				if(mode==3)
@@ -223,7 +223,7 @@ public class WarningDialogActivity extends Activity {
 								Toast.makeText(WarningDialogActivity.this, "举报失败", Toast.LENGTH_LONG).show();
 							}
 							finish();
-							if(ShowTopicActivity.showTopicActivity!=null){
+							if(NewShowTopicActivity.newShowTopicActivity!=null){
 //								ShowTopicActivity.showTopicActivity.reportLayout.setVisibility(View.INVISIBLE);
 							}
 						}

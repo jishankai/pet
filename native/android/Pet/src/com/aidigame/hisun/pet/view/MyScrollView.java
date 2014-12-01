@@ -1,8 +1,11 @@
 package com.aidigame.hisun.pet.view;
 
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity.MyGestureDector;
+
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 /**
@@ -13,6 +16,7 @@ import android.widget.ScrollView;
  */
 public class MyScrollView extends ScrollView {
 	private OnScrollListener onScrollListener;
+	GestureDetector gestrue;
 	/**
 	 * ��Ҫ�������û���ָ�뿪MyScrollView��MyScrollView���ڼ���������������������Y�ľ��룬Ȼ�����Ƚ�
 	 */
@@ -78,7 +82,15 @@ public class MyScrollView extends ScrollView {
 		}
 		return super.onTouchEvent(ev);
 	}
-
+	public void setGestureDector(GestureDetector dector){
+		this.gestrue=dector;
+	}
+  /*  @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+    	// TODO Auto-generated method stub
+//    	return super.onInterceptTouchEvent(ev);
+    	return false;
+    }*/
 
 	/**
 	 * 

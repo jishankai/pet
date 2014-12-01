@@ -124,15 +124,19 @@ public class KingdomImages {
 								//下载获得的图片列表与现在界面显示的完全相同，则不进行界面更新
 							}
 						}
-						for(int i=0;i<datas.size();i++){
+						/*for(int i=0;i<datas.size();i++){
 							temp.add(datas.get(i));
-						}
+						}*/
 						PetPicture data=null;
 						for(int i=0;i<json.petPictures.size();i++){
 							if(!temp.contains(json.petPictures.get(i))){
 								data=json.petPictures.get(i);
 								data.animal=KingdomImages.this.data;
 								temp.add(i,data);
+							}else{
+								int index=temp.indexOf(json.petPictures.get(i));
+								temp.remove(index);
+								temp.add(index, json.petPictures.get(i));
 							}
 							
 							

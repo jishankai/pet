@@ -90,14 +90,6 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			switch (msg.what) {
 			case UPLOAD_IMAGE_SUCCESS:
 				handler.sendEmptyMessage(DISMISS_PROGRESS);
-				UserImagesJson.Data data=(UserImagesJson.Data)msg.obj;
-				data.path=path;
-				
-				Intent intent3=new Intent(SubmitPictureActivity.this,ShowTopicActivity.class);
-				intent3.putExtra("data",data);
-				ShowTopicActivity.petPictures=null;
-				SubmitPictureActivity.this.startActivity(intent3);
-				SubmitPictureActivity.this.finish();
 				break;
 			case DISMISS_PROGRESS:
 				if(showProgress!=null)
@@ -437,23 +429,23 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 							  }else{
 								  if(Constants.accessToken.isSessionValid()){
 										hasAuth=true;
-									}
+								  }
 							  }
 							 if(hasAuth){
 								 Constants.shareMode=2;
 								 if(StringUtil.isEmpty(petPicture.cmt)){
-									 data.des="分享照片http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+									 data.des=(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"分享照片http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
 								 }else{
-									 data.des=petPicture.cmt+"http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+									 data.des=petPicture.cmt+(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
 								 }
 								 
 								 XinlangShare.sharePicture(data,SubmitPictureActivity.this);
 								 addShares(false);
 							 }else{
 								 if(StringUtil.isEmpty(petPicture.cmt)){
-									 data.des="分享照片http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+									 data.des=(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"分享照片http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
 								 }else{
-									 data.des=petPicture.cmt+"http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+									 data.des=petPicture.cmt+(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
 								 }
 								 xinlangAuth(SubmitPictureActivity.this,data,petPicture2);
 								
@@ -793,7 +785,10 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 				// TODO Auto-generated method stub
 				Constants.shareMode=-1;
 				Constants.whereShare=-1;
-				Intent intent=new Intent(SubmitPictureActivity.this,ShowTopicActivity.class);
+				if(NewShowTopicActivity.newShowTopicActivity!=null){
+					NewShowTopicActivity.newShowTopicActivity.recyle();
+				}
+				Intent intent=new Intent(SubmitPictureActivity.this,NewShowTopicActivity.class);
 				intent.putExtra("PetPicture", petPicture);
 				SubmitPictureActivity.this.startActivity(intent);
 				SubmitPictureActivity.this.finish();

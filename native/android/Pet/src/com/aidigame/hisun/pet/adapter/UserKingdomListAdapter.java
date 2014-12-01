@@ -157,10 +157,18 @@ public class UserKingdomListAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(Constants.user!=null&&Constants.user.aniList!=null){
-					if(Constants.user.aniList.size()<10){
+					int num=0;
+					if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
+						num=(Constants.user.aniList.size()+1)*5;
+					}else if(Constants.user.aniList.size()>20){
+						num=100;
+					}
+					
+					if(/*Constants.user.coinCount>=num*/true){
 						Intent intent=new Intent(context,ChoseAcountTypeActivity.class);
 						intent.putExtra("from", 1);
 						context.startActivity(intent);
+//						DialogGoRegister dialog=new DialogGoRegister(context.popupParent, context, context.black_layout, 4);
 					}else{
 						DialogGoRegister dialog=new DialogGoRegister(context.popupParent, context, context.black_layout, 1);
 					}
@@ -558,13 +566,24 @@ public class UserKingdomListAdapter extends BaseAdapter {
 					isShowingButton=false;
 					return;
 				}
-				if(Constants.user!=null&&Constants.user.currentAnimal!=null&&animal.a_id==Constants.user.currentAnimal.a_id){
-					Toast.makeText(context, "不能不捧最爱萌星，请将其他萌星设为最爱", Toast.LENGTH_LONG).show();
+				if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()==1){
+					Toast.makeText(context, "不能不捧最爱萌星哦，现在只剩一个啦", Toast.LENGTH_LONG).show();
 					context.progresslayout.setVisibility(View.INVISIBLE);
 					context.progresslayout.setClickable(false);
 					isShowingButton=false;
 					return;
 				}
+				if(Constants.user!=null&&Constants.user.aniList!=null)
+				for(int i=0;i<list.size();i++){
+					for(int j=0;j<Constants.user.aniList.size();j++){
+						if(list.get(i).a_id==Constants.user.aniList.get(j).a_id){
+							Constants.user.aniList.get(j).t_contri=list.get(i).t_contri;
+						}
+					}
+					
+				}
+				
+				
 				DialogQuitKingdom dialog=new DialogQuitKingdom(context.popupParent, context, context.black_layout, animal);
 				dialog.setResultListener(new DialogQuitKingdom.ResultListener() {
 					
@@ -611,6 +630,48 @@ public class UserKingdomListAdapter extends BaseAdapter {
 				return true;
 			}
 		});
+	}
+	
+	public void setDefaultPet(final Animal animal){
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				final boolean flag=HttpUtil.setDefaultKingdom(context,animal, handleHttpConnectionException.getHandler(context));
+				if(flag){
+					final User newA=HttpUtil.info(context,handleHttpConnectionException.getHandler(context),Constants.user.userId);
+					newA.aniList=Constants.user.aniList;
+					newA.currentAnimal=animal;
+					Constants.user=newA;
+					Constants.user.currentAnimal=animal;
+					handleHttpConnectionException.getHandler(context).post(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							list.remove(animal);
+							list.add(0,animal);
+							notifyDataSetChanged();
+							UserStatusUtil.setDefaultKingdom();
+						}
+					});
+				}else{
+                 handleHttpConnectionException.getHandler(context).post(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							Toast.makeText(context, "操作失败", Toast.LENGTH_LONG).show();
+							context.progresslayout.setVisibility(View.INVISIBLE);
+							context.progresslayout.setClickable(false);
+							isShowingButton=false;
+						}
+					});
+				}
+				
+			}
+		}).start();
 	}
 	
 

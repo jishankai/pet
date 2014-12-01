@@ -53,8 +53,8 @@ import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1;
 import com.aidigame.hisun.pet.ui.GiftInfoActivity;
 import com.aidigame.hisun.pet.ui.MyItemActivity;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
-import com.aidigame.hisun.pet.ui.ShowTopicActivity;
 import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -371,15 +371,17 @@ public class MarketFragment extends Fragment implements PullToRefreshAndMoreList
 			break;
 		case R.id.back:
 			
-			if(ShowTopicActivity.showTopicActivity!=null&&from==1){
+			if(NewShowTopicActivity.newShowTopicActivity!=null&&from==1){
+				NewHomeActivity.homeActivity.showHomeFragment(1);
 				ActivityManager am=(ActivityManager)homeActivity.getSystemService(Context.ACTIVITY_SERVICE);
-				
+				if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)
 				am.moveTaskToFront(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.getTaskId(), 0);
 				
 				return;
 			}else if(PetKingdomActivity.petKingdomActivity!=null&&from==2){
+				NewHomeActivity.homeActivity.showHomeFragment(1);
                 ActivityManager am=(ActivityManager)homeActivity.getSystemService(Context.ACTIVITY_SERVICE);
-				
+                if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)
 				am.moveTaskToFront(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.getTaskId(), 0);
 				
 				return;

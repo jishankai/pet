@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -12,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aidigame.hisun.pet.R;
@@ -35,6 +37,7 @@ public class DialogJoinKingdom {
 	PopupWindow popupWindow;
 	View blackView;
 	Animal animal;
+	TextView noteTv;
 	HandleHttpConnectionException handleHttpConnectionException;
 	ResultListener listener;
 	public DialogJoinKingdom(View parent,Context context,View blackView,Animal animal){
@@ -45,9 +48,31 @@ public class DialogJoinKingdom {
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		initView();
 	}
+	int num=0;
 	private void initView() {
 		// TODO Auto-generated method stub
 		view=LayoutInflater.from(context).inflate(R.layout.popup_dialog_join_kingdom, null);
+		noteTv=(TextView)view.findViewById(R.id.note_tv);
+		
+		if(Constants.user.aniList.size()>=10){
+			if(Constants.user.aniList.size()<=20){
+				num=(Constants.user.aniList.size()+1)*5;
+			}else{
+				num=100;
+			}
+			String htmlStr1="<html>"
+		             +"<body>"
+					    +"温馨提示：本次成功捧星会消耗您"
+		                +"<font color=\"#fb6137\">"
+		                +num
+		                +"</font>"
+		                +"金币哦~ "
+		             +"</body>"
+		      + "</html>";
+			noteTv.setText(Html.fromHtml(htmlStr1));
+		}
+		
+		
 		popupWindow=new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 		popupWindow.setFocusable(true);
 		popupWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -95,6 +120,7 @@ public class DialogJoinKingdom {
 							    	animal.u_rank=jobs[0];
 							    	animal.job=jobs[0];
 							    	animal.u_rankCode=1;
+							    	Constants.user.coinCount-=num;
 //									Toast.makeText(context, "捧TA成功", 1000).show();
 									if(Constants.user!=null&&Constants.user.aniList!=null){
 										if(!Constants.user.aniList.contains(animal))

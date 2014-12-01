@@ -681,6 +681,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 					if(intent!=null){
 						intent.putExtra("mode", NewHomeActivity.HOMEFRAGMENT);
 						this.startActivity(intent);
+						finish();
 						return;
 					}
 					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
@@ -1271,6 +1272,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 				@Override
 				public void closeDialog() {
 					// TODO Auto-generated method stub
+					if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)
 					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
 					kingdomTrends.onRefresh(null);
 				}

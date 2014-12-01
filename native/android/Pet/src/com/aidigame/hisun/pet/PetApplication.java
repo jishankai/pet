@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import android.app.Activity;
 import android.app.Application;
+import android.graphics.Bitmap;
 
 import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -24,6 +25,7 @@ public class PetApplication extends Application{
     Constants constants;
     private final static float TARGET_HEAP_UTILIZATION = 0.75f;
     public LinkedList<Activity> activityList;
+    public Bitmap blurBmp;
 //    public static final String ERROR_MESSAGE="COM.AIDIGAME.HISUN.PET.ERROR_MESSAGE";
 	
     @Override

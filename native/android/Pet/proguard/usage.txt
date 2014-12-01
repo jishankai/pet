@@ -3,6 +3,7 @@ com.aidigame.hisun.pet.CrashHandler:
     public static final java.lang.String TAG
 com.aidigame.hisun.pet.R:
     10:10:public R()
+com.aidigame.hisun.pet.adapter.CommentListViewAdapter$MyListGestureDector
 com.aidigame.hisun.pet.adapter.ContributeRankListAdapter$Holder:
     boolean isFocus
 com.aidigame.hisun.pet.adapter.HomeViewPagerAdapter:
@@ -11,6 +12,8 @@ com.aidigame.hisun.pet.adapter.MenuViewPagerAdapter
 com.aidigame.hisun.pet.adapter.PopularRankListAdapter$Holder:
     boolean isFocus
 com.aidigame.hisun.pet.adapter.PopularRankListAdapter$MyOnPreeDrawListener
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter$MyListGestureDector:
+    int mode
 com.aidigame.hisun.pet.adapter.UserActivityAdapter2$ItemClickListener
 com.aidigame.hisun.pet.adapter.UserFocusAdapter$Holder:
     android.widget.TextView job
@@ -24,16 +27,16 @@ com.aidigame.hisun.pet.http.HttpUtil:
     2103:2142:public static int userShareNumsApi(android.content.Context,android.os.Handler)
     2757:2805:public static boolean marketList(android.content.Context,int,android.os.Handler)
     3582:3617:public static com.aidigame.hisun.pet.http.json.UserImagesJson downloadOtherUserHomepage(android.os.Handler,int,com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
-    4363:4426:public static boolean otherUserInfo(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.os.Handler,android.app.Activity)
-    4736:4810:public static java.lang.String downloadIconImage(java.lang.String,java.lang.String,android.os.Handler,android.app.Activity)
-    4883:4914:public static void deleteImage(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
-    5253:5280:public static com.aidigame.hisun.pet.http.json.MessagJson getMailList(int,boolean,android.os.Handler,android.content.Context)
-    5288:5323:public static boolean deleteMail(com.aidigame.hisun.pet.bean.TalkMessage)
-    5986:6036:public static void deleteTalk(android.content.Context,int,android.os.Handler)
-    6517:6523:public static java.lang.String judgeError(int)
-    6728:6735:public static java.lang.String getJsonString(org.json.JSONObject,java.lang.String)
-    6738:6745:public static long getJsonLong(org.json.JSONObject,java.lang.String)
-    6748:6755:public static int getJsonInt(org.json.JSONObject,java.lang.String)
+    4389:4452:public static boolean otherUserInfo(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.os.Handler,android.app.Activity)
+    4762:4836:public static java.lang.String downloadIconImage(java.lang.String,java.lang.String,android.os.Handler,android.app.Activity)
+    4909:4940:public static void deleteImage(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
+    5279:5306:public static com.aidigame.hisun.pet.http.json.MessagJson getMailList(int,boolean,android.os.Handler,android.content.Context)
+    5314:5349:public static boolean deleteMail(com.aidigame.hisun.pet.bean.TalkMessage)
+    6057:6107:public static void deleteTalk(android.content.Context,int,android.os.Handler)
+    6588:6594:public static java.lang.String judgeError(int)
+    6799:6806:public static java.lang.String getJsonString(org.json.JSONObject,java.lang.String)
+    6809:6816:public static long getJsonLong(org.json.JSONObject,java.lang.String)
+    6819:6826:public static int getJsonInt(org.json.JSONObject,java.lang.String)
 com.aidigame.hisun.pet.http.JsonUtil:
     10:10:public JsonUtil()
     13:35:public static boolean getErrorMessage(java.lang.String,android.app.Activity)
@@ -107,9 +110,7 @@ com.aidigame.hisun.pet.ui.DetailActivity:
     int distance
     int yDown
 com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1:
-    200:201:public void setDialogGoListener(com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1$DialogGoListener)
-com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity:
-    com.aidigame.hisun.pet.util.HandleHttpConnectionException handleHttpConnectionException
+    204:205:public void setDialogGoListener(com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1$DialogGoListener)
 com.aidigame.hisun.pet.ui.DialogNoteActivity:
     238:239:public void setDialogGoListerer(com.aidigame.hisun.pet.ui.DialogNoteActivity$DialogNoteGoListener)
 com.aidigame.hisun.pet.ui.DialogPengTaSuccActivity:
@@ -124,9 +125,20 @@ com.aidigame.hisun.pet.ui.NewHomeActivity:
     public static final int MESSAGEFRAGMENT
     public static final int ACTIVITYFRAGMENT
     public static final int SETUPFRAGMENT
+com.aidigame.hisun.pet.ui.NewShowTopicActivity:
+    public static final int SHOW_LIKE_LIST
+    public static final int SHOW_GIFT_LIST
+    public static final int SHOW_COMMENT_LIST
+    public static final int SHOW_SHARE_LIST
+    float centerY
+    1605:1605:public android.graphics.Bitmap getBitmap()
+    1625:1644:public void applyRotation(int,float,float)
+    1703:1719:private void clickIV2()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$34
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$DisplayNextView
 com.aidigame.hisun.pet.ui.PetKingdomActivity:
     android.widget.ImageView takePictureIV
-    1197:1197:private void setBlurImageBackground()
+    1347:1347:private void setBlurImageBackground()
 com.aidigame.hisun.pet.ui.PlayJokeActivity:
     com.aidigame.hisun.pet.bean.User user
     445:445:public void initView3()
@@ -134,14 +146,9 @@ com.aidigame.hisun.pet.ui.PopularRankListActivity:
     int length
     int itemtH
     int itemNum
-    486:566:private void parseJson(java.lang.String,int)
+    456:536:private void parseJson(java.lang.String,int)
 com.aidigame.hisun.pet.ui.ShakeActivity:
     com.aidigame.hisun.pet.bean.User user
-    448:448:public void initView3()
-com.aidigame.hisun.pet.ui.ShowTopicActivity:
-    public static final int DOWNLOAD_IMAGE_TX
-    android.widget.Toast toast
-    1696:1706:public void loadBitmap(android.graphics.Bitmap)
 com.aidigame.hisun.pet.ui.SubmitPictureActivity:
     public static final int DISMISS_PROGRESS
     public static final int SHOW_PROGRESS
@@ -155,7 +162,7 @@ com.aidigame.hisun.pet.ui.TakePictureBackground:
 com.aidigame.hisun.pet.ui.TouchActivity:
     android.view.View view4
 com.aidigame.hisun.pet.ui.UserDossierActivity:
-    998:998:private void setBlurImageBackground()
+    1040:1040:private void setBlurImageBackground()
 com.aidigame.hisun.pet.ui.WarningDialogActivity:
     com.aidigame.hisun.pet.ui.WarningDialogActivity$ReportResultListener reportResultListener
     303:304:public void setReportListener(com.aidigame.hisun.pet.ui.WarningDialogActivity$ReportResultListener)
@@ -211,7 +218,7 @@ com.aidigame.hisun.pet.widget.AudioRecordAndPlayer:
 com.aidigame.hisun.pet.widget.AudioRecordAndPlayer$1
 com.aidigame.hisun.pet.widget.AudioRecordAndPlayer$2
 com.aidigame.hisun.pet.widget.PLAWaterfull:
-    404:412:public void clearAndRefresh()
+    406:414:public void clearAndRefresh()
 com.aidigame.hisun.pet.widget.PLAWaterfull$ContentTask:
     156:189:public java.util.ArrayList parseNewsJSON(java.lang.String)
 com.aidigame.hisun.pet.widget.PLAWaterfull$StaggeredAdapter$ViewHolder:
@@ -222,16 +229,16 @@ com.aidigame.hisun.pet.widget.ShakeSensor:
 com.aidigame.hisun.pet.widget.ShowDialog:
     9:9:public ShowDialog()
 com.aidigame.hisun.pet.widget.ShowMore:
-    551:557:public void onlyCanShare()
+    561:567:public void onlyCanShare()
 com.aidigame.hisun.pet.widget.WeixinShare:
-    36:36:public WeixinShare()
-    39:59:public static boolean getToken()
-    77:100:public static boolean shareText(java.lang.String)
-    175:188:public static byte[] bmpToByteArray(android.graphics.Bitmap,boolean)
-    192:213:private static android.graphics.Bitmap compressImage(android.graphics.Bitmap)
+    35:35:public WeixinShare()
+    38:58:public static boolean getToken()
+    76:99:public static boolean shareText(java.lang.String)
+    174:187:public static byte[] bmpToByteArray(android.graphics.Bitmap,boolean)
+    191:212:private static android.graphics.Bitmap compressImage(android.graphics.Bitmap)
 com.aidigame.hisun.pet.widget.WeixinShare$1
 com.aidigame.hisun.pet.widget.XinlangShare:
-    37:37:public XinlangShare()
+    38:38:public XinlangShare()
 com.aidigame.hisun.pet.widget.fragment.ActivityFragment:
     public static final int WHAT_DID_LOAD_DATA
     public static final int WHAT_DID_REFRESH

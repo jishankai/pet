@@ -23,8 +23,8 @@ import com.aidigame.hisun.pet.bean.Gift;
 import com.aidigame.hisun.pet.bean.PetNews;
 import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
-import com.aidigame.hisun.pet.ui.ShowTopicActivity;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -358,13 +358,10 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 				PetPicture pp=new PetPicture();
 				pp.img_id=petNews.img_id;
 				pp.url=petNews.img_url;
-				if(ShowTopicActivity.showTopicActivity!=null){
-					if(ShowTopicActivity.showTopicActivity.bmp!=null&&!ShowTopicActivity.showTopicActivity.bmp.isRecycled()){
-						ShowTopicActivity.showTopicActivity.bmp.recycle();
-					}
-					ShowTopicActivity.showTopicActivity.finish();
+				if(NewShowTopicActivity.newShowTopicActivity!=null){
+					NewShowTopicActivity.newShowTopicActivity.recyle();
 				}
-				Intent intent=new Intent(context,ShowTopicActivity.class);
+				Intent intent=new Intent(context,NewShowTopicActivity.class);
 				intent.putExtra("PetPicture", pp);
 				context.startActivity(intent);
 			}

@@ -52,7 +52,7 @@ public class ContributeRankListActivity extends Activity {
 	public ArrayList<User> tempList;
 	PopupWindow popupWindow;
 	public boolean findMe=true;
-	public int category=0;
+	public int category=1;
 	HandleHttpConnectionException handleHttpConnectionException;
 	Animal animal;
 	@Override
@@ -67,7 +67,7 @@ public class ContributeRankListActivity extends Activity {
 		popupParent=(View)findViewById(R.id.popup_parent);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		animal=(Animal)getIntent().getSerializableExtra("animal");
-		loadData(0);
+		loadData(category);
 		initView();
 	}
 	/**

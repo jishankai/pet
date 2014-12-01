@@ -69,7 +69,7 @@ public class PopularRankListActivity extends Activity {
 	public boolean isAllData=false;//当前界面是否为找我模式
 	public int myListIndex=-1;
 	 public int position;
-	 int category=0;
+	 int category=1;
 	 int currentType=0;
 	HandleHttpConnectionException handleHttpConnectionException;
 	@Override
@@ -90,7 +90,7 @@ public class PopularRankListActivity extends Activity {
 		  editor.commit();
 		
 		
-		loadData(0);
+		loadData(category);
 		initView();
 	}
 	/**
@@ -122,36 +122,6 @@ public class PopularRankListActivity extends Activity {
 				PopularRankListActivity.this.startActivity(intent);
 			}
 		});
-		/* listView.setOnScrollListener(new OnScrollListener() {
-				
-				@Override
-				public void onScrollStateChanged(AbsListView view, int scrollState) {
-					// TODO Auto-generated method stub
-				
-					if(scrollState!=SCROLL_STATE_IDLE)return;
-					if(isFindMeScroll){
-						viewTopWhite.setVisibility(View.VISIBLE);
-						isFindMeScroll=false;
-						return;
-					}
-					if(listView.getFirstVisiblePosition()==0&&listView.getChildAt(0).getTop()==0){
-						viewTopWhite.setVisibility(View.VISIBLE);
-					}else{
-						if(viewTopWhite.getVisibility()!=View.GONE){
-							viewTopWhite.setVisibility(View.GONE);
-						
-						}
-					}
-				}
-				
-				@Override
-				public void onScroll(AbsListView view, int firstVisibleItem,
-						int visibleItemCount, int totalItemCount) {
-					// TODO Auto-generated method stub
-				
-				}
-			});*/
-	
 	}
 /**
  * 
@@ -216,9 +186,9 @@ public class PopularRankListActivity extends Activity {
 		findMeTV=(TextView)findViewById(R.id.textView3);
 		popularTV=(TextView)findViewById(R.id.textView2);
 		if(Constants.planet==2){
-			popularTV.setText("人气总榜");
+			popularTV.setText("昨日人气");
 		}else{
-			popularTV.setText("人气总榜");
+			popularTV.setText("昨日人气");
 		}
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
 		popup_parent=findViewById(R.id.popup_parent);

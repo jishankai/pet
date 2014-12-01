@@ -16,7 +16,6 @@ import android.graphics.BitmapFactory;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
-import com.aidigame.hisun.pet.ui.ShowTopicActivity;
 import com.aidigame.hisun.pet.ui.SubmitPictureActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.tencent.mm.sdk.openapi.BaseReq;

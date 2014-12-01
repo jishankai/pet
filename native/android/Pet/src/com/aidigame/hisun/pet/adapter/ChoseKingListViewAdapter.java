@@ -167,6 +167,22 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(from==1){
+					
+					int num=0;
+					if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
+						num=(Constants.user.aniList.size()+1)*5;
+					}else  if(Constants.user.aniList.size()>20){
+						num=100;
+					}
+					
+					if(Constants.user.coinCount<num){
+						/*Intent intent=new Intent(homeActivity,ChoseAcountTypeActivity.class);
+						intent.putExtra("from", 1);
+						homeActivity.startActivity(intent);*/
+						DialogGoRegister dialog=new DialogGoRegister(context.popupParent, context, context.black_layout, 1);
+					}else{
+					
+					
 					DialogJoinKingdom dialog=new DialogJoinKingdom(context.popupParent, context, context.black_layout,data);
 					dialog.setResultListener(new ResultListener() {
 						
@@ -182,6 +198,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 							}
 						}
 					});
+					}
 					return;
 				}
 				Intent intent=new Intent(context,NewRegisterActivity.class);

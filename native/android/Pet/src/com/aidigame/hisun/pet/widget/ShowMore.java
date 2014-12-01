@@ -387,8 +387,18 @@ public class ShowMore implements OnClickListener{
 				 * 退出王国
 				 */
 			if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()>=10&&PetKingdomActivity.petKingdomActivity!=null){
+				int num=0;
+				if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
+					num=(Constants.user.aniList.size()+1)*5;
+				}else if(Constants.user.aniList.size()>20){
+					num=100;
+				}
+				
+				if(Constants.user.coinCount<num){
 					DialogGoRegister dialog=new DialogGoRegister(PetKingdomActivity.petKingdomActivity.popupParent, PetKingdomActivity.petKingdomActivity, PetKingdomActivity.petKingdomActivity.black_layout, 1);
 					return;
+				}
+					
 			}
 			
 			DialogJoinKingdom dialog=new DialogJoinKingdom(p.popupParent, p, p.black_layout, animal);
@@ -405,8 +415,8 @@ public class ShowMore implements OnClickListener{
 				}
 			});
 			}else{
-				if(Constants.user!=null&&Constants.user.currentAnimal!=null&&animal.a_id==Constants.user.currentAnimal.a_id){
-					Toast.makeText(activity, "不能退出最爱萌星，请先取消最爱", Toast.LENGTH_LONG).show();
+				if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()==1){
+					Toast.makeText(activity, "不能退出最爱萌星，现在只剩一个啦", Toast.LENGTH_LONG).show();
 					parent.setVisibility(View.INVISIBLE);
 					rootParent.setBackgroundDrawable(null);
 					rootCanTouch=false;

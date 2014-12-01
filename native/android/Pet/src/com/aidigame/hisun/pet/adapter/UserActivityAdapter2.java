@@ -28,7 +28,7 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.ui.NewRegisterActivity;
-import com.aidigame.hisun.pet.ui.ShowTopicActivity;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.view.TopicView;
@@ -232,17 +232,18 @@ public class UserActivityAdapter2 extends BaseAdapter  {
 			case 2:
 				break;
 			case 3:
-				if(ShowTopicActivity.showTopicActivity!=null)ShowTopicActivity.showTopicActivity.finish();
-				Intent intent3=new Intent(context,ShowTopicActivity.class);
+				if(NewShowTopicActivity.newShowTopicActivity!=null){
+					NewShowTopicActivity.newShowTopicActivity.recyle();
+				}
+				Intent intent3=new Intent(context,NewShowTopicActivity.class);
 				intent3.putExtra("PetPicture", petPictures.get(position));
 				if(mode==1){
 					intent3.putExtra("from", "UserHomepageActivity");
 				}else{
 					intent3.putExtra("from", "OtherUserTopicActivity");
-					if(ShowTopicActivity.showTopicActivity!=null)
-						ShowTopicActivity.showTopicActivity.finish();
+					if(NewShowTopicActivity.newShowTopicActivity!=null)
+						NewShowTopicActivity.newShowTopicActivity.finish();
 				}
-				ShowTopicActivity.petPictures=petPictures;
 				context.startActivity(intent3);
               
 				

@@ -574,6 +574,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="30dp"
+        android:visibility="visible"
         >
 
         <ImageView
@@ -608,6 +609,7 @@
        
 
     </LinearLayout>
+    
      <RelativeLayout
                 android:id="@+id/message_linearLayout_left"
         android:layout_width="match_parent"
@@ -650,7 +652,8 @@
 
     </RelativeLayout>
     <View android:layout_width="match_parent"
-            android:layout_height="158dp"/>
+            android:layout_height="158dp"
+             android:visibility="visible"/>
 </LinearLayout>
        
    <!--  <RelativeLayout
@@ -681,6 +684,7 @@
 </LinearLayout>
 </ScrollView>
 
+
     <RelativeLayout 
           android:layout_width="match_parent"
           android:layout_height="match_parent"
@@ -695,6 +699,59 @@
           
 
       </RelativeLayout>
+      
+     <RelativeLayout
+                android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:orientation="horizontal"
+        android:layout_marginBottom="0dp"
+        android:visibility="visible"
+        >
+      <LinearLayout
+           android:layout_alignParentBottom="true"
+                android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:visibility="visible"
+        >
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+            <TextView 
+                android:id="@+id/change_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cebianlan"
+                android:gravity="center"
+                android:visibility="invisible"
+                android:textColor="@color/white"
+                android:text="切换账号"/>
+        </LinearLayout>
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1">
+            <TextView 
+                android:id="@+id/join_kingdom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cebianlan"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:text="添加萌星"/>
+        </LinearLayout>
+        </LinearLayout>
+        </RelativeLayout>
+    
     </RelativeLayout>
 
 </LinearLayout>

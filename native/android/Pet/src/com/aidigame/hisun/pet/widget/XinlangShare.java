@@ -19,8 +19,9 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
-import com.aidigame.hisun.pet.ui.ShowTopicActivity;
+import com.aidigame.hisun.pet.ui.ShakeActivity;
 import com.aidigame.hisun.pet.ui.SubmitPictureActivity;
 import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
@@ -96,7 +97,7 @@ public class XinlangShare {
 								Constants.accessToken=accessToken;
 								LogUtil.i("me", ""+arg0);
 								getXinLangInfo(context);
-								if (context instanceof ShowTopicActivity) {
+								if (context instanceof NewShowTopicActivity) {
 									
 								}
 								if(context instanceof NewHomeActivity){
@@ -162,6 +163,10 @@ public class XinlangShare {
 					SubmitPictureActivity.submitPictureActivity.addShares(false);
 				}else if(Constants.whereShare==2){
 				}else if(Constants.whereShare==3){
+				}else if(Constants.whereShare==4){
+					if(ShakeActivity.shakeActivity!=null){
+						ShakeActivity.shakeActivity.shareNumChange();
+					}
 				}
 				if(listener!=null){
 					listener.resultOk();

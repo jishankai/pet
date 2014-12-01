@@ -663,9 +663,6 @@ public class NewRegisterActivity extends Activity {
 										if(HomeFragment.homeFragment!=null){
 											HomeFragment.homeFragment.initArcView();
 										}
-										if(ShowTopicActivity.showTopicActivity!=null){
-											ShowTopicActivity.showTopicActivity.setViews();
-										}
 										if(PetKingdomActivity.petKingdomActivity!=null){
 											PetKingdomActivity.petKingdomActivity.initArc();
 										}
@@ -725,6 +722,8 @@ public class NewRegisterActivity extends Activity {
 							if(flag){
 								User user=HttpUtil.info(NewRegisterActivity.this,handleHttpConnectionException.getHandler(NewRegisterActivity.this),Constants.user.userId);
 								Constants.user=user;
+								
+									
 								if(user!=null){
 									/*
 									 * 上传用户头像和宠物头像
@@ -1253,7 +1252,16 @@ public class NewRegisterActivity extends Activity {
 							Constants.user.rankCode=0;
 							Constants.user.currentAnimal=animal;
 							Constants.user.aniList.add(animal);
-							Toast.makeText(NewRegisterActivity.this, "创建联萌成功", Toast.LENGTH_LONG).show();
+							Toast.makeText(NewRegisterActivity.this, "创建萌星成功", Toast.LENGTH_LONG).show();
+							if(Constants.user.aniList.size()>10){
+								int num=0;
+								if(Constants.user.aniList.size()<=20){
+									num=Constants.user.aniList.size()*5;
+								}else{
+									num=100;
+								}
+								Constants.user.coinCount-=num;
+							}
 							if(ChoseAcountTypeActivity.choseAcountTypeActivity!=null){
 								ChoseAcountTypeActivity.choseAcountTypeActivity.finish();
 							}
@@ -1261,7 +1269,7 @@ public class NewRegisterActivity extends Activity {
 							NewRegisterActivity.this.finish();
 							
 						}else{
-							Toast.makeText(NewRegisterActivity.this, "创建联萌失败", Toast.LENGTH_LONG).show();
+							Toast.makeText(NewRegisterActivity.this, "创建萌星失败", Toast.LENGTH_LONG).show();
 						}
 					}
 				});
@@ -1276,6 +1284,7 @@ public class NewRegisterActivity extends Activity {
 	   	super.onPause();
 	   	StringUtil.umengOnPause(this);
 	   }
+	   
 	
 
 

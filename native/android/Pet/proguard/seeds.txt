@@ -4421,7 +4421,11 @@ com.aidigame.hisun.pet.PetApplication: PetApplication()
 com.aidigame.hisun.pet.PetApplication: void onCreate()
 com.aidigame.hisun.pet.R$anim
 com.aidigame.hisun.pet.R$anim: int anim_rotate
+com.aidigame.hisun.pet.R$anim: int anim_rotate_repeat
 com.aidigame.hisun.pet.R$anim: int anim_scale
+com.aidigame.hisun.pet.R$anim: int anim_scale_big
+com.aidigame.hisun.pet.R$anim: int anim_scale_small
+com.aidigame.hisun.pet.R$anim: int anim_scale_y_repeat
 com.aidigame.hisun.pet.R$anim: int anim_translate
 com.aidigame.hisun.pet.R$anim: int anim_translate_showtopic_addcommentlayout_in
 com.aidigame.hisun.pet.R$anim: int anim_translate_showtopic_addcommentlayout_out
@@ -5255,6 +5259,7 @@ com.aidigame.hisun.pet.R$drawable: int camera_green2
 com.aidigame.hisun.pet.R$drawable: int cancel_bt
 com.aidigame.hisun.pet.R$drawable: int cat_dog
 com.aidigame.hisun.pet.R$drawable: int cat_food
+com.aidigame.hisun.pet.R$drawable: int cebianlan
 com.aidigame.hisun.pet.R$drawable: int checked
 com.aidigame.hisun.pet.R$drawable: int chose
 com.aidigame.hisun.pet.R$drawable: int chose_acount_type_ground
@@ -5301,6 +5306,7 @@ com.aidigame.hisun.pet.R$drawable: int female
 com.aidigame.hisun.pet.R$drawable: int female1
 com.aidigame.hisun.pet.R$drawable: int female_gray
 com.aidigame.hisun.pet.R$drawable: int find_me
+com.aidigame.hisun.pet.R$drawable: int first_360
 com.aidigame.hisun.pet.R$drawable: int fish_red
 com.aidigame.hisun.pet.R$drawable: int fish_white
 com.aidigame.hisun.pet.R$drawable: int flag_gray
@@ -5312,14 +5318,13 @@ com.aidigame.hisun.pet.R$drawable: int frame_submitpicture_3
 com.aidigame.hisun.pet.R$drawable: int friend_weixin
 com.aidigame.hisun.pet.R$drawable: int garbage
 com.aidigame.hisun.pet.R$drawable: int gift112
+com.aidigame.hisun.pet.R$drawable: int gift_bad_anim
 com.aidigame.hisun.pet.R$drawable: int gift_box_background
 com.aidigame.hisun.pet.R$drawable: int gift_box_background_subtract
 com.aidigame.hisun.pet.R$drawable: int gift_image_background
 com.aidigame.hisun.pet.R$drawable: int gift_keel
 com.aidigame.hisun.pet.R$drawable: int gift_red
 com.aidigame.hisun.pet.R$drawable: int gift_red_gray
-com.aidigame.hisun.pet.R$drawable: int gift_result_bad
-com.aidigame.hisun.pet.R$drawable: int gift_result_good
 com.aidigame.hisun.pet.R$drawable: int gift_sign_bad
 com.aidigame.hisun.pet.R$drawable: int gift_sign_good
 com.aidigame.hisun.pet.R$drawable: int gold
@@ -5403,6 +5408,7 @@ com.aidigame.hisun.pet.R$drawable: int market_red_gift_symbol
 com.aidigame.hisun.pet.R$drawable: int market_spinner_selected
 com.aidigame.hisun.pet.R$drawable: int market_spinner_selected_nomorl
 com.aidigame.hisun.pet.R$drawable: int menu
+com.aidigame.hisun.pet.R$drawable: int menu_bottom_button
 com.aidigame.hisun.pet.R$drawable: int menu_gray
 com.aidigame.hisun.pet.R$drawable: int menu_join
 com.aidigame.hisun.pet.R$drawable: int menu_message
@@ -5467,16 +5473,46 @@ com.aidigame.hisun.pet.R$drawable: int shadow
 com.aidigame.hisun.pet.R$drawable: int shake_background
 com.aidigame.hisun.pet.R$drawable: int shake_background2
 com.aidigame.hisun.pet.R$drawable: int shake_circle
+com.aidigame.hisun.pet.R$drawable: int shake_circle_icon
 com.aidigame.hisun.pet.R$drawable: int shake_frame_pink
 com.aidigame.hisun.pet.R$drawable: int shake_friend
 com.aidigame.hisun.pet.R$drawable: int shake_gift_background
+com.aidigame.hisun.pet.R$drawable: int shake_gift_background1
+com.aidigame.hisun.pet.R$drawable: int shake_gift_background1_gray
+com.aidigame.hisun.pet.R$drawable: int shake_giftname_background
+com.aidigame.hisun.pet.R$drawable: int shake_giftname_background_gray
+com.aidigame.hisun.pet.R$drawable: int shake_ground_get
+com.aidigame.hisun.pet.R$drawable: int shake_ground_get2
+com.aidigame.hisun.pet.R$drawable: int shake_ground_get2_gray
 com.aidigame.hisun.pet.R$drawable: int shake_over_background
 com.aidigame.hisun.pet.R$drawable: int shake_shake_image
+com.aidigame.hisun.pet.R$drawable: int shake_shine
 com.aidigame.hisun.pet.R$drawable: int shake_weixin
 com.aidigame.hisun.pet.R$drawable: int shake_xinlang
 com.aidigame.hisun.pet.R$drawable: int shape
 com.aidigame.hisun.pet.R$drawable: int share
+com.aidigame.hisun.pet.R$drawable: int show_topic_bottom_background
+com.aidigame.hisun.pet.R$drawable: int show_topic_bottom_red_line
+com.aidigame.hisun.pet.R$drawable: int show_topic_close
+com.aidigame.hisun.pet.R$drawable: int show_topic_comment
+com.aidigame.hisun.pet.R$drawable: int show_topic_comment_press
+com.aidigame.hisun.pet.R$drawable: int show_topic_comment_red
+com.aidigame.hisun.pet.R$drawable: int show_topic_comment_selector
+com.aidigame.hisun.pet.R$drawable: int show_topic_gift
+com.aidigame.hisun.pet.R$drawable: int show_topic_gift_press
+com.aidigame.hisun.pet.R$drawable: int show_topic_gift_red
+com.aidigame.hisun.pet.R$drawable: int show_topic_gift_selector
+com.aidigame.hisun.pet.R$drawable: int show_topic_like
+com.aidigame.hisun.pet.R$drawable: int show_topic_like_press
+com.aidigame.hisun.pet.R$drawable: int show_topic_like_red
+com.aidigame.hisun.pet.R$drawable: int show_topic_like_selector
+com.aidigame.hisun.pet.R$drawable: int show_topic_middle_white_triangel
+com.aidigame.hisun.pet.R$drawable: int show_topic_more
+com.aidigame.hisun.pet.R$drawable: int show_topic_more_frame
+com.aidigame.hisun.pet.R$drawable: int show_topic_more_press
+com.aidigame.hisun.pet.R$drawable: int show_topic_more_selector
 com.aidigame.hisun.pet.R$drawable: int show_topic_share
+com.aidigame.hisun.pet.R$drawable: int show_topic_share_red
 com.aidigame.hisun.pet.R$drawable: int silver
 com.aidigame.hisun.pet.R$drawable: int silver_rank_list
 com.aidigame.hisun.pet.R$drawable: int smile_face_gray
@@ -5545,7 +5581,6 @@ com.aidigame.hisun.pet.R$id: int add_comment_linearlayout
 com.aidigame.hisun.pet.R$id: int add_focus_tv
 com.aidigame.hisun.pet.R$id: int address_layout
 com.aidigame.hisun.pet.R$id: int afterDescendants
-com.aidigame.hisun.pet.R$id: int age_tv
 com.aidigame.hisun.pet.R$id: int agree_iv
 com.aidigame.hisun.pet.R$id: int agree_layout
 com.aidigame.hisun.pet.R$id: int agree_tv
@@ -5561,8 +5596,6 @@ com.aidigame.hisun.pet.R$id: int announce_et
 com.aidigame.hisun.pet.R$id: int anyRtl
 com.aidigame.hisun.pet.R$id: int arc_menu_1
 com.aidigame.hisun.pet.R$id: int arc_menu_2
-com.aidigame.hisun.pet.R$id: int at_users_tv
-com.aidigame.hisun.pet.R$id: int atuser_topic_des_layout
 com.aidigame.hisun.pet.R$id: int auto
 com.aidigame.hisun.pet.R$id: int aviary_badge
 com.aidigame.hisun.pet.R$id: int aviary_banner_text
@@ -5638,6 +5671,7 @@ com.aidigame.hisun.pet.R$id: int back
 com.aidigame.hisun.pet.R$id: int background_image_rlayout
 com.aidigame.hisun.pet.R$id: int ballprogressview
 com.aidigame.hisun.pet.R$id: int beforeDescendants
+com.aidigame.hisun.pet.R$id: int bigimagetv
 com.aidigame.hisun.pet.R$id: int bite_describe_tv
 com.aidigame.hisun.pet.R$id: int bite_iv
 com.aidigame.hisun.pet.R$id: int bite_layout
@@ -5651,7 +5685,13 @@ com.aidigame.hisun.pet.R$id: int blur_top_layout
 com.aidigame.hisun.pet.R$id: int blur_view
 com.aidigame.hisun.pet.R$id: int body_left
 com.aidigame.hisun.pet.R$id: int body_right
+com.aidigame.hisun.pet.R$id: int bottom_iv_comment
+com.aidigame.hisun.pet.R$id: int bottom_iv_gift
+com.aidigame.hisun.pet.R$id: int bottom_iv_like
+com.aidigame.hisun.pet.R$id: int bottom_iv_more
+com.aidigame.hisun.pet.R$id: int bottom_iv_share
 com.aidigame.hisun.pet.R$id: int bottom_linearlayout2
+com.aidigame.hisun.pet.R$id: int bottom_tabs_layout
 com.aidigame.hisun.pet.R$id: int box_layout
 com.aidigame.hisun.pet.R$id: int brief_info_layout
 com.aidigame.hisun.pet.R$id: int bts_layout
@@ -5659,18 +5699,23 @@ com.aidigame.hisun.pet.R$id: int button1
 com.aidigame.hisun.pet.R$id: int button2
 com.aidigame.hisun.pet.R$id: int button3
 com.aidigame.hisun.pet.R$id: int button4
-com.aidigame.hisun.pet.R$id: int button44
 com.aidigame.hisun.pet.R$id: int buttons_layout
+com.aidigame.hisun.pet.R$id: int bylayout
+com.aidigame.hisun.pet.R$id: int bytv
 com.aidigame.hisun.pet.R$id: int cach_file_size
 com.aidigame.hisun.pet.R$id: int camera_album
 com.aidigame.hisun.pet.R$id: int cancel2
 com.aidigame.hisun.pet.R$id: int cancel3
 com.aidigame.hisun.pet.R$id: int cancel4
+com.aidigame.hisun.pet.R$id: int cancel_shake
 com.aidigame.hisun.pet.R$id: int cancel_tv
+com.aidigame.hisun.pet.R$id: int canceltv
 com.aidigame.hisun.pet.R$id: int card_list
 com.aidigame.hisun.pet.R$id: int center
+com.aidigame.hisun.pet.R$id: int chance_des_tv
 com.aidigame.hisun.pet.R$id: int change_current_kingdom_layout
 com.aidigame.hisun.pet.R$id: int change_icon_imageview
+com.aidigame.hisun.pet.R$id: int change_user
 com.aidigame.hisun.pet.R$id: int check_box_1
 com.aidigame.hisun.pet.R$id: int check_box_2
 com.aidigame.hisun.pet.R$id: int checked
@@ -5687,7 +5732,6 @@ com.aidigame.hisun.pet.R$id: int chose_race_tv
 com.aidigame.hisun.pet.R$id: int city_layout
 com.aidigame.hisun.pet.R$id: int claw_function_layout
 com.aidigame.hisun.pet.R$id: int claw_layout
-com.aidigame.hisun.pet.R$id: int click33
 com.aidigame.hisun.pet.R$id: int close_iv
 com.aidigame.hisun.pet.R$id: int close_view
 com.aidigame.hisun.pet.R$id: int cloud1
@@ -5696,10 +5740,8 @@ com.aidigame.hisun.pet.R$id: int cloud3
 com.aidigame.hisun.pet.R$id: int coin_count_tv
 com.aidigame.hisun.pet.R$id: int coin_num
 com.aidigame.hisun.pet.R$id: int coin_num_tv
-com.aidigame.hisun.pet.R$id: int comment_num_tv
-com.aidigame.hisun.pet.R$id: int comments_listview
-com.aidigame.hisun.pet.R$id: int comments_tx
 com.aidigame.hisun.pet.R$id: int common_tv
+com.aidigame.hisun.pet.R$id: int container
 com.aidigame.hisun.pet.R$id: int contri_num_tv
 com.aidigame.hisun.pet.R$id: int contribute_tv
 com.aidigame.hisun.pet.R$id: int control_hint
@@ -5707,6 +5749,7 @@ com.aidigame.hisun.pet.R$id: int control_layout
 com.aidigame.hisun.pet.R$id: int current_imageview
 com.aidigame.hisun.pet.R$id: int defaultPosition
 com.aidigame.hisun.pet.R$id: int deleteTv
+com.aidigame.hisun.pet.R$id: int des_tv
 com.aidigame.hisun.pet.R$id: int disabled
 com.aidigame.hisun.pet.R$id: int divider
 com.aidigame.hisun.pet.R$id: int down_top
@@ -5782,6 +5825,7 @@ com.aidigame.hisun.pet.R$id: int gray_line
 com.aidigame.hisun.pet.R$id: int green_iv
 com.aidigame.hisun.pet.R$id: int gridview
 com.aidigame.hisun.pet.R$id: int hardware
+com.aidigame.hisun.pet.R$id: int has_chance_tv
 com.aidigame.hisun.pet.R$id: int has_gift_layout1
 com.aidigame.hisun.pet.R$id: int has_gift_layout2
 com.aidigame.hisun.pet.R$id: int has_gift_layout3
@@ -5803,6 +5847,8 @@ com.aidigame.hisun.pet.R$id: int header_progressBar
 com.aidigame.hisun.pet.R$id: int header_update_at
 com.aidigame.hisun.pet.R$id: int heart_linearLayout
 com.aidigame.hisun.pet.R$id: int heart_tv
+com.aidigame.hisun.pet.R$id: int help_animalname
+com.aidigame.hisun.pet.R$id: int help_layout
 com.aidigame.hisun.pet.R$id: int high
 com.aidigame.hisun.pet.R$id: int home_left_menu
 com.aidigame.hisun.pet.R$id: int home_linearLayout_left
@@ -5813,6 +5859,8 @@ com.aidigame.hisun.pet.R$id: int horizontal_listview
 com.aidigame.hisun.pet.R$id: int hot_num_tv
 com.aidigame.hisun.pet.R$id: int hot_percent_tv
 com.aidigame.hisun.pet.R$id: int hot_rank_tv
+com.aidigame.hisun.pet.R$id: int huifu_tv
+com.aidigame.hisun.pet.R$id: int icon
 com.aidigame.hisun.pet.R$id: int icon_circleView
 com.aidigame.hisun.pet.R$id: int icon_left
 com.aidigame.hisun.pet.R$id: int icon_right
@@ -5824,8 +5872,11 @@ com.aidigame.hisun.pet.R$id: int imageView11
 com.aidigame.hisun.pet.R$id: int imageView124
 com.aidigame.hisun.pet.R$id: int imageView135
 com.aidigame.hisun.pet.R$id: int imageView2
+com.aidigame.hisun.pet.R$id: int imageView22
 com.aidigame.hisun.pet.R$id: int imageView3
+com.aidigame.hisun.pet.R$id: int imageView32
 com.aidigame.hisun.pet.R$id: int imageView4
+com.aidigame.hisun.pet.R$id: int imageView42
 com.aidigame.hisun.pet.R$id: int imageView5
 com.aidigame.hisun.pet.R$id: int imageView6
 com.aidigame.hisun.pet.R$id: int imageView7
@@ -5851,7 +5902,9 @@ com.aidigame.hisun.pet.R$id: int imageview_back
 com.aidigame.hisun.pet.R$id: int imageview_back2
 com.aidigame.hisun.pet.R$id: int imageview_female
 com.aidigame.hisun.pet.R$id: int imageview_male
+com.aidigame.hisun.pet.R$id: int info_framelayout
 com.aidigame.hisun.pet.R$id: int info_layout
+com.aidigame.hisun.pet.R$id: int info_listview
 com.aidigame.hisun.pet.R$id: int inherit
 com.aidigame.hisun.pet.R$id: int input
 com.aidigame.hisun.pet.R$id: int input_topic_et
@@ -5865,8 +5918,8 @@ com.aidigame.hisun.pet.R$id: int item_layout
 com.aidigame.hisun.pet.R$id: int iv
 com.aidigame.hisun.pet.R$id: int iv11
 com.aidigame.hisun.pet.R$id: int job_tv
-com.aidigame.hisun.pet.R$id: int join_activity_tv
 com.aidigame.hisun.pet.R$id: int join_create_kingdom
+com.aidigame.hisun.pet.R$id: int join_kingdom
 com.aidigame.hisun.pet.R$id: int join_kingdom_describe_tv
 com.aidigame.hisun.pet.R$id: int join_kingdom_time_tv
 com.aidigame.hisun.pet.R$id: int join_kingdom_tv
@@ -5902,10 +5955,7 @@ com.aidigame.hisun.pet.R$id: int linearlayout11
 com.aidigame.hisun.pet.R$id: int linearlayout12
 com.aidigame.hisun.pet.R$id: int linearlayout13
 com.aidigame.hisun.pet.R$id: int linearlayout2
-com.aidigame.hisun.pet.R$id: int linearlayout22
 com.aidigame.hisun.pet.R$id: int linearlayout3
-com.aidigame.hisun.pet.R$id: int linearlayout32
-com.aidigame.hisun.pet.R$id: int linearlayout33
 com.aidigame.hisun.pet.R$id: int linearlayout4
 com.aidigame.hisun.pet.R$id: int linearlayout5
 com.aidigame.hisun.pet.R$id: int linearlayout6
@@ -5946,17 +5996,27 @@ com.aidigame.hisun.pet.R$id: int menu_settings
 com.aidigame.hisun.pet.R$id: int message_linearLayout_left
 com.aidigame.hisun.pet.R$id: int message_num_tv
 com.aidigame.hisun.pet.R$id: int message_text
+com.aidigame.hisun.pet.R$id: int messagetv
 com.aidigame.hisun.pet.R$id: int middle_layout
+com.aidigame.hisun.pet.R$id: int middle_tab_iv1
+com.aidigame.hisun.pet.R$id: int middle_tab_iv2
+com.aidigame.hisun.pet.R$id: int middle_tab_iv3
+com.aidigame.hisun.pet.R$id: int middle_tab_iv4
+com.aidigame.hisun.pet.R$id: int middle_tab_tv1
+com.aidigame.hisun.pet.R$id: int middle_tab_tv2
+com.aidigame.hisun.pet.R$id: int middle_tab_tv3
+com.aidigame.hisun.pet.R$id: int middle_tab_tv4
 com.aidigame.hisun.pet.R$id: int modify_announce_tv
 com.aidigame.hisun.pet.R$id: int more_coin
 com.aidigame.hisun.pet.R$id: int more_info_linearlayout
 com.aidigame.hisun.pet.R$id: int more_layout
 com.aidigame.hisun.pet.R$id: int more_parent_latyout
-com.aidigame.hisun.pet.R$id: int morelayout
 com.aidigame.hisun.pet.R$id: int msg_tv
 com.aidigame.hisun.pet.R$id: int multipleChoice
 com.aidigame.hisun.pet.R$id: int multipleChoiceModal
+com.aidigame.hisun.pet.R$id: int my_scrollview
 com.aidigame.hisun.pet.R$id: int mycoin_tv
+com.aidigame.hisun.pet.R$id: int name
 com.aidigame.hisun.pet.R$id: int name_et
 com.aidigame.hisun.pet.R$id: int navbar_button1
 com.aidigame.hisun.pet.R$id: int navbar_button2
@@ -5989,10 +6049,12 @@ com.aidigame.hisun.pet.R$id: int np__numberpicker_input
 com.aidigame.hisun.pet.R$id: int numberpicker1
 com.aidigame.hisun.pet.R$id: int numberpicker2
 com.aidigame.hisun.pet.R$id: int one_button_layout
+com.aidigame.hisun.pet.R$id: int one_layout
 com.aidigame.hisun.pet.R$id: int outsideInset
 com.aidigame.hisun.pet.R$id: int outsideOverlay
-com.aidigame.hisun.pet.R$id: int padding_view
+com.aidigame.hisun.pet.R$id: int paddingView
 com.aidigame.hisun.pet.R$id: int parent
+com.aidigame.hisun.pet.R$id: int parent_framelayout
 com.aidigame.hisun.pet.R$id: int people_hot_layout
 com.aidigame.hisun.pet.R$id: int people_hot_num_tv
 com.aidigame.hisun.pet.R$id: int people_hot_tv
@@ -6021,7 +6083,6 @@ com.aidigame.hisun.pet.R$id: int popup_parent
 com.aidigame.hisun.pet.R$id: int porgress_layout
 com.aidigame.hisun.pet.R$id: int post_code_et
 com.aidigame.hisun.pet.R$id: int pressed
-com.aidigame.hisun.pet.R$id: int progress
 com.aidigame.hisun.pet.R$id: int progressLayout
 com.aidigame.hisun.pet.R$id: int progress_layout
 com.aidigame.hisun.pet.R$id: int progress_linearlayout1
@@ -6072,8 +6133,8 @@ com.aidigame.hisun.pet.R$id: int relativelayout
 com.aidigame.hisun.pet.R$id: int relativelayout_control
 com.aidigame.hisun.pet.R$id: int relativelayout_control1
 com.aidigame.hisun.pet.R$id: int report_line1
-com.aidigame.hisun.pet.R$id: int report_line2
 com.aidigame.hisun.pet.R$id: int report_tv
+com.aidigame.hisun.pet.R$id: int reporttv
 com.aidigame.hisun.pet.R$id: int request
 com.aidigame.hisun.pet.R$id: int right
 com.aidigame.hisun.pet.R$id: int right_layout
@@ -6096,10 +6157,10 @@ com.aidigame.hisun.pet.R$id: int rtl
 com.aidigame.hisun.pet.R$id: int s_layout
 com.aidigame.hisun.pet.R$id: int save_tv
 com.aidigame.hisun.pet.R$id: int scrapped_view
-com.aidigame.hisun.pet.R$id: int scroll_parent
 com.aidigame.hisun.pet.R$id: int scrolling
 com.aidigame.hisun.pet.R$id: int scrollowview
 com.aidigame.hisun.pet.R$id: int scrollview
+com.aidigame.hisun.pet.R$id: int scrollview1
 com.aidigame.hisun.pet.R$id: int search
 com.aidigame.hisun.pet.R$id: int searchInputEt
 com.aidigame.hisun.pet.R$id: int searchOrCancelTv
@@ -6130,15 +6191,29 @@ com.aidigame.hisun.pet.R$id: int sex_iv
 com.aidigame.hisun.pet.R$id: int shadow
 com.aidigame.hisun.pet.R$id: int shake_iv
 com.aidigame.hisun.pet.R$id: int shake_layout
+com.aidigame.hisun.pet.R$id: int shake_note_layout
 com.aidigame.hisun.pet.R$id: int shake_num_tv
 com.aidigame.hisun.pet.R$id: int shake_tv
 com.aidigame.hisun.pet.R$id: int share
 com.aidigame.hisun.pet.R$id: int share_bitmap_layout
 com.aidigame.hisun.pet.R$id: int share_linearlayout
-com.aidigame.hisun.pet.R$id: int share_num_tv
+com.aidigame.hisun.pet.R$id: int sharelayout
+com.aidigame.hisun.pet.R$id: int shine_view
+com.aidigame.hisun.pet.R$id: int shine_view_bad
 com.aidigame.hisun.pet.R$id: int show_list_layout
+com.aidigame.hisun.pet.R$id: int show_topic_close_iv1
+com.aidigame.hisun.pet.R$id: int show_topic_close_iv2
+com.aidigame.hisun.pet.R$id: int show_topic_comment_tv
+com.aidigame.hisun.pet.R$id: int show_topic_iv
 com.aidigame.hisun.pet.R$id: int show_topic_listview
-com.aidigame.hisun.pet.R$id: int show_topic_show_likes
+com.aidigame.hisun.pet.R$id: int show_topic_pet_race
+com.aidigame.hisun.pet.R$id: int show_topic_petgender
+com.aidigame.hisun.pet.R$id: int show_topic_peticon
+com.aidigame.hisun.pet.R$id: int show_topic_petname
+com.aidigame.hisun.pet.R$id: int show_topic_time_tv
+com.aidigame.hisun.pet.R$id: int show_topic_topic_tv
+com.aidigame.hisun.pet.R$id: int show_topic_usericon
+com.aidigame.hisun.pet.R$id: int show_topic_username
 com.aidigame.hisun.pet.R$id: int singleChoice
 com.aidigame.hisun.pet.R$id: int size_preview
 com.aidigame.hisun.pet.R$id: int slidingmenumain
@@ -6151,6 +6226,7 @@ com.aidigame.hisun.pet.R$id: int stop
 com.aidigame.hisun.pet.R$id: int stop_layout
 com.aidigame.hisun.pet.R$id: int support_iv
 com.aidigame.hisun.pet.R$id: int sure
+com.aidigame.hisun.pet.R$id: int sure_shake
 com.aidigame.hisun.pet.R$id: int sure_tv
 com.aidigame.hisun.pet.R$id: int t2
 com.aidigame.hisun.pet.R$id: int t3
@@ -6180,7 +6256,6 @@ com.aidigame.hisun.pet.R$id: int textView2
 com.aidigame.hisun.pet.R$id: int textView23
 com.aidigame.hisun.pet.R$id: int textView234
 com.aidigame.hisun.pet.R$id: int textView3
-com.aidigame.hisun.pet.R$id: int textView31
 com.aidigame.hisun.pet.R$id: int textView4
 com.aidigame.hisun.pet.R$id: int textView43
 com.aidigame.hisun.pet.R$id: int textView5
@@ -6200,6 +6275,7 @@ com.aidigame.hisun.pet.R$id: int title_tv
 com.aidigame.hisun.pet.R$id: int top_down
 com.aidigame.hisun.pet.R$id: int top_layout
 com.aidigame.hisun.pet.R$id: int top_white_view
+com.aidigame.hisun.pet.R$id: int touch_layout
 com.aidigame.hisun.pet.R$id: int track_imageview
 com.aidigame.hisun.pet.R$id: int track_imageview1
 com.aidigame.hisun.pet.R$id: int track_line_view
@@ -6214,6 +6290,14 @@ com.aidigame.hisun.pet.R$id: int trends_make_trouble_layout
 com.aidigame.hisun.pet.R$id: int trends_play_with_layout
 com.aidigame.hisun.pet.R$id: int trends_publish_images_layout
 com.aidigame.hisun.pet.R$id: int trends_send_gift_layout
+com.aidigame.hisun.pet.R$id: int triangle_iv1
+com.aidigame.hisun.pet.R$id: int triangle_iv2
+com.aidigame.hisun.pet.R$id: int triangle_iv3
+com.aidigame.hisun.pet.R$id: int triangle_iv4
+com.aidigame.hisun.pet.R$id: int triangle_tv1
+com.aidigame.hisun.pet.R$id: int triangle_tv2
+com.aidigame.hisun.pet.R$id: int triangle_tv3
+com.aidigame.hisun.pet.R$id: int triangle_tv4
 com.aidigame.hisun.pet.R$id: int tv
 com.aidigame.hisun.pet.R$id: int tv1
 com.aidigame.hisun.pet.R$id: int tv12
@@ -6226,6 +6310,7 @@ com.aidigame.hisun.pet.R$id: int tv5
 com.aidigame.hisun.pet.R$id: int tv6
 com.aidigame.hisun.pet.R$id: int two_button_layout
 com.aidigame.hisun.pet.R$id: int two_button_layout2
+com.aidigame.hisun.pet.R$id: int two_layout
 com.aidigame.hisun.pet.R$id: int user_icon
 com.aidigame.hisun.pet.R$id: int user_icon_circle
 com.aidigame.hisun.pet.R$id: int user_info_layout
@@ -6348,7 +6433,7 @@ com.aidigame.hisun.pet.R$layout: int activity_receiver_address
 com.aidigame.hisun.pet.R$layout: int activity_send_gift_result
 com.aidigame.hisun.pet.R$layout: int activity_shake
 com.aidigame.hisun.pet.R$layout: int activity_show_picture
-com.aidigame.hisun.pet.R$layout: int activity_show_topic_new
+com.aidigame.hisun.pet.R$layout: int activity_show_topic
 com.aidigame.hisun.pet.R$layout: int activity_submit_picture
 com.aidigame.hisun.pet.R$layout: int activity_take_picture_background
 com.aidigame.hisun.pet.R$layout: int activity_topic_list
@@ -6481,7 +6566,9 @@ com.aidigame.hisun.pet.R$layout: int item_sample
 com.aidigame.hisun.pet.R$layout: int item_search_pet_list
 com.aidigame.hisun.pet.R$layout: int item_shake_1
 com.aidigame.hisun.pet.R$layout: int item_shake_2
+com.aidigame.hisun.pet.R$layout: int item_shake_22
 com.aidigame.hisun.pet.R$layout: int item_shake_3
+com.aidigame.hisun.pet.R$layout: int item_shake_33
 com.aidigame.hisun.pet.R$layout: int item_shake_4
 com.aidigame.hisun.pet.R$layout: int item_shake_5
 com.aidigame.hisun.pet.R$layout: int item_show_topic_listview
@@ -6500,6 +6587,7 @@ com.aidigame.hisun.pet.R$layout: int item_user_list_topic1
 com.aidigame.hisun.pet.R$layout: int item_user_setup
 com.aidigame.hisun.pet.R$layout: int item_user_topics
 com.aidigame.hisun.pet.R$layout: int item_users_listview
+com.aidigame.hisun.pet.R$layout: int itemtopic_users_list
 com.aidigame.hisun.pet.R$layout: int main
 com.aidigame.hisun.pet.R$layout: int menu_frame
 com.aidigame.hisun.pet.R$layout: int number_picker_with_selector_wheel
@@ -6551,6 +6639,7 @@ com.aidigame.hisun.pet.R$raw: int com_aviary_effectpack_04_content
 com.aidigame.hisun.pet.R$raw: int com_aviary_effectpack_04_icon
 com.aidigame.hisun.pet.R$raw: int com_aviary_framepack_00_icon
 com.aidigame.hisun.pet.R$raw: int com_aviary_stickerpack_00_icon
+com.aidigame.hisun.pet.R$raw: int rocked
 com.aidigame.hisun.pet.R$raw: int rocking
 com.aidigame.hisun.pet.R$string
 com.aidigame.hisun.pet.R$string: int app_name
@@ -6906,6 +6995,7 @@ com.aidigame.hisun.pet.R$style: int SampleTheme
 com.aidigame.hisun.pet.R$style: int SampleTheme_Light
 com.aidigame.hisun.pet.R$style: int Theme_Transparent
 com.aidigame.hisun.pet.R$style: int Theme_Transparent1
+com.aidigame.hisun.pet.R$style: int Theme_Transparent2
 com.aidigame.hisun.pet.R$style: int com_sina_weibo_sdk_loginview_default_style
 com.aidigame.hisun.pet.R$style: int com_sina_weibo_sdk_loginview_silver_style
 com.aidigame.hisun.pet.R$style: int ptr_arrow
@@ -7489,6 +7579,7 @@ com.aidigame.hisun.pet.adapter.ChosePetListAdapter$2$1$1: void run()
 com.aidigame.hisun.pet.adapter.CommentListViewAdapter
 com.aidigame.hisun.pet.adapter.CommentListViewAdapter: android.content.Context context
 com.aidigame.hisun.pet.adapter.CommentListViewAdapter: java.util.ArrayList listComment
+com.aidigame.hisun.pet.adapter.CommentListViewAdapter: com.nostra13.universalimageloader.core.DisplayImageOptions displayImageOptions
 com.aidigame.hisun.pet.adapter.CommentListViewAdapter: com.aidigame.hisun.pet.adapter.CommentListViewAdapter$ClickUserName clickUserName
 com.aidigame.hisun.pet.adapter.CommentListViewAdapter: CommentListViewAdapter(android.content.Context,java.util.ArrayList)
 com.aidigame.hisun.pet.adapter.CommentListViewAdapter: void update(java.util.ArrayList)
@@ -7496,7 +7587,6 @@ com.aidigame.hisun.pet.adapter.CommentListViewAdapter: int getCount()
 com.aidigame.hisun.pet.adapter.CommentListViewAdapter: java.lang.Object getItem(int)
 com.aidigame.hisun.pet.adapter.CommentListViewAdapter: long getItemId(int)
 com.aidigame.hisun.pet.adapter.CommentListViewAdapter: android.view.View getView(int,android.view.View,android.view.ViewGroup)
-com.aidigame.hisun.pet.adapter.CommentListViewAdapter: java.lang.String judgeTime(long)
 com.aidigame.hisun.pet.adapter.CommentListViewAdapter: void setClickUserName(com.aidigame.hisun.pet.adapter.CommentListViewAdapter$ClickUserName)
 com.aidigame.hisun.pet.adapter.ContributeRankListAdapter
 com.aidigame.hisun.pet.adapter.ContributeRankListAdapter: com.nostra13.universalimageloader.core.DisplayImageOptions displayImageOptions
@@ -7901,6 +7991,19 @@ com.aidigame.hisun.pet.adapter.TopicListAdapter: int getCount()
 com.aidigame.hisun.pet.adapter.TopicListAdapter: java.lang.Object getItem(int)
 com.aidigame.hisun.pet.adapter.TopicListAdapter: long getItemId(int)
 com.aidigame.hisun.pet.adapter.TopicListAdapter: android.view.View getView(int,android.view.View,android.view.ViewGroup)
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter: java.util.ArrayList users
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter: android.content.Context context
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter: com.nostra13.universalimageloader.core.DisplayImageOptions displayImageOptions
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter: com.aidigame.hisun.pet.bean.Animal animal
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter: com.aidigame.hisun.pet.adapter.TopicUsersListAdapter$GestureListener listener
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter: TopicUsersListAdapter(android.content.Context,java.util.ArrayList,com.aidigame.hisun.pet.bean.Animal)
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter: void update(java.util.ArrayList)
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter: int getCount()
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter: java.lang.Object getItem(int)
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter: long getItemId(int)
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter: android.view.View getView(int,android.view.View,android.view.ViewGroup)
+com.aidigame.hisun.pet.adapter.TopicUsersListAdapter: void setGestureListener(com.aidigame.hisun.pet.adapter.TopicUsersListAdapter$GestureListener)
 com.aidigame.hisun.pet.adapter.UserActivityAdapter2
 com.aidigame.hisun.pet.adapter.UserActivityAdapter2: com.nostra13.universalimageloader.core.DisplayImageOptions displayImageOptions
 com.aidigame.hisun.pet.adapter.UserActivityAdapter2: com.nostra13.universalimageloader.core.ImageLoader imageLoader
@@ -7984,6 +8087,7 @@ com.aidigame.hisun.pet.adapter.UserKingdomListAdapter: java.lang.Object getItem(
 com.aidigame.hisun.pet.adapter.UserKingdomListAdapter: long getItemId(int)
 com.aidigame.hisun.pet.adapter.UserKingdomListAdapter: android.view.View getView(int,android.view.View,android.view.ViewGroup)
 com.aidigame.hisun.pet.adapter.UserKingdomListAdapter: void showButtons(com.aidigame.hisun.pet.bean.Animal)
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter: void setDefaultPet(com.aidigame.hisun.pet.bean.Animal)
 com.aidigame.hisun.pet.adapter.UserKingdomListAdapter: void access$0(com.aidigame.hisun.pet.adapter.UserKingdomListAdapter,com.aidigame.hisun.pet.bean.Animal)
 com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$5$1
 com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$5$1: com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$5 this$1
@@ -8004,6 +8108,21 @@ com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$7$1
 com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$7$1: com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$7 this$1
 com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$7$1: UserKingdomListAdapter$7$1(com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$7)
 com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$7$1: void run()
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8: com.aidigame.hisun.pet.adapter.UserKingdomListAdapter this$0
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8: com.aidigame.hisun.pet.bean.Animal val$animal
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8: UserKingdomListAdapter$8(com.aidigame.hisun.pet.adapter.UserKingdomListAdapter,com.aidigame.hisun.pet.bean.Animal)
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8: void run()
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8: com.aidigame.hisun.pet.adapter.UserKingdomListAdapter access$0(com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8)
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8$1
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8$1: com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8 this$1
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8$1: com.aidigame.hisun.pet.bean.Animal val$animal
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8$1: UserKingdomListAdapter$8$1(com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8,com.aidigame.hisun.pet.bean.Animal)
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8$1: void run()
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8$2
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8$2: com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8 this$1
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8$2: UserKingdomListAdapter$8$2(com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8)
+com.aidigame.hisun.pet.adapter.UserKingdomListAdapter$8$2: void run()
 com.aidigame.hisun.pet.adapter.UsersListAdapter
 com.aidigame.hisun.pet.adapter.UsersListAdapter: com.nostra13.universalimageloader.core.DisplayImageOptions displayImageOptions
 com.aidigame.hisun.pet.adapter.UsersListAdapter: com.nostra13.universalimageloader.core.ImageLoader imageLoader
@@ -8132,11 +8251,16 @@ com.aidigame.hisun.pet.bean.PetPicture: java.lang.String comments
 com.aidigame.hisun.pet.bean.PetPicture: long update_time
 com.aidigame.hisun.pet.bean.PetPicture: int gifts
 com.aidigame.hisun.pet.bean.PetPicture: java.lang.String senders
+com.aidigame.hisun.pet.bean.PetPicture: java.lang.String share_ids
 com.aidigame.hisun.pet.bean.PetPicture: int shares
 com.aidigame.hisun.pet.bean.PetPicture: com.aidigame.hisun.pet.bean.Animal animal
 com.aidigame.hisun.pet.bean.PetPicture: java.util.ArrayList like_txUrlList
 com.aidigame.hisun.pet.bean.PetPicture: java.util.ArrayList gift_txUrlList
 com.aidigame.hisun.pet.bean.PetPicture: java.util.ArrayList commentsList
+com.aidigame.hisun.pet.bean.PetPicture: java.lang.String comment_ids
+com.aidigame.hisun.pet.bean.PetPicture: java.util.ArrayList likeUsersList
+com.aidigame.hisun.pet.bean.PetPicture: java.util.ArrayList giftUsersList
+com.aidigame.hisun.pet.bean.PetPicture: java.util.ArrayList shareUsersList
 com.aidigame.hisun.pet.bean.PetPicture: int errorCode
 com.aidigame.hisun.pet.bean.PetPicture: java.lang.String errorMessage
 com.aidigame.hisun.pet.bean.PetPicture: boolean isVoice
@@ -8149,6 +8273,7 @@ com.aidigame.hisun.pet.bean.PetPicture: boolean equals(java.lang.Object)
 com.aidigame.hisun.pet.bean.PetPicture$Comments
 com.aidigame.hisun.pet.bean.PetPicture$Comments: long serialVersionUID
 com.aidigame.hisun.pet.bean.PetPicture$Comments: int usr_id
+com.aidigame.hisun.pet.bean.PetPicture$Comments: java.lang.String usr_tx
 com.aidigame.hisun.pet.bean.PetPicture$Comments: java.lang.String name
 com.aidigame.hisun.pet.bean.PetPicture$Comments: java.lang.String body
 com.aidigame.hisun.pet.bean.PetPicture$Comments: long create_time
@@ -8304,6 +8429,7 @@ com.aidigame.hisun.pet.constant.Constants: java.lang.String LOGIN_PATH
 com.aidigame.hisun.pet.constant.Constants: java.lang.String SEND_GIFT_API
 com.aidigame.hisun.pet.constant.Constants: java.lang.String BUY_GIFT_API
 com.aidigame.hisun.pet.constant.Constants: java.lang.String SHAKE_API
+com.aidigame.hisun.pet.constant.Constants: java.lang.String SHAKE_SHARE
 com.aidigame.hisun.pet.constant.Constants: java.lang.String TOUCH_API
 com.aidigame.hisun.pet.constant.Constants: java.lang.String KINGDOM_TRENDS
 com.aidigame.hisun.pet.constant.Constants: java.lang.String KINGDOM_PEOPLES
@@ -8835,6 +8961,11 @@ com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1$4$1: DialogGiveSbGiftActivit
 com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1$4$1: void run()
 com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity
 com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity: DialogGiveSbGiftResultActivity()
+com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity$1$1
+com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity$1$1: com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity$1 this$1
+com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity$1$1: android.view.animation.Animation val$anim
+com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity$1$1: DialogGiveSbGiftResultActivity$1$1(com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity$1,android.view.animation.Animation)
+com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity$1$1: void run()
 com.aidigame.hisun.pet.ui.DialogNoteActivity
 com.aidigame.hisun.pet.ui.DialogNoteActivity: DialogNoteActivity()
 com.aidigame.hisun.pet.ui.DialogNoteActivity: void startShowAnimation(android.view.View)
@@ -9042,6 +9173,118 @@ com.aidigame.hisun.pet.ui.NewRegisterActivity$7$2$1
 com.aidigame.hisun.pet.ui.NewRegisterActivity$7$2$1: com.aidigame.hisun.pet.ui.NewRegisterActivity$7$2 this$2
 com.aidigame.hisun.pet.ui.NewRegisterActivity$7$2$1: NewRegisterActivity$7$2$1(com.aidigame.hisun.pet.ui.NewRegisterActivity$7$2)
 com.aidigame.hisun.pet.ui.NewRegisterActivity$7$2$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity
+com.aidigame.hisun.pet.ui.NewShowTopicActivity: NewShowTopicActivity()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity: void onClick(android.view.View)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$1: NewShowTopicActivity$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$1)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$1$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$1$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$1 this$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$1$1: boolean val$flag
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$1$1: NewShowTopicActivity$1$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$1,boolean)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$1$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$14
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$14: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$14: NewShowTopicActivity$14(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$14: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$14: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$14)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$14$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$14$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$14 this$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$14$1: NewShowTopicActivity$14$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$14)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$14$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$15
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$15: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$15: NewShowTopicActivity$15(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$15: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$16 this$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1: NewShowTopicActivity$16$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$16)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$16 access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1 this$2
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1$1: NewShowTopicActivity$16$1$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17: int val$mode
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17: NewShowTopicActivity$17(com.aidigame.hisun.pet.ui.NewShowTopicActivity,int)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$17)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$17 this$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1: int val$mode
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1: java.util.ArrayList val$temp
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1: NewShowTopicActivity$17$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$17,int,java.util.ArrayList)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$19
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$19: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$19: NewShowTopicActivity$19(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$19: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$21
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$21: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$21: NewShowTopicActivity$21(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$21: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$23
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$23: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$23: NewShowTopicActivity$23(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$23: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$25
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$25: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$25: NewShowTopicActivity$25(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$25: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$26
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$26: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$26: NewShowTopicActivity$26(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$26: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$26: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$26)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$26$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$26$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$26 this$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$26$1: boolean val$flag
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$26$1: NewShowTopicActivity$26$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$26,boolean)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$26$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$27$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$27$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$27 this$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$27$1: NewShowTopicActivity$27$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$27)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$27$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28: java.lang.String val$comment
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28: NewShowTopicActivity$28(com.aidigame.hisun.pet.ui.NewShowTopicActivity,java.lang.String)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$28)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$28 this$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1: com.aidigame.hisun.pet.bean.User val$user
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1: java.lang.String val$comment
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1: NewShowTopicActivity$28$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$28,com.aidigame.hisun.pet.bean.User,java.lang.String)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$28 access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$35
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$35: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$35: NewShowTopicActivity$35(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$35: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$36
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$36: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$36: NewShowTopicActivity$36(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$36: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$38
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$38: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$38: NewShowTopicActivity$38(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$38: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$38: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$38)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$38$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$38$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$38 this$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$38$1: NewShowTopicActivity$38$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$38)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$38$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$SwapViews
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$SwapViews: int mPosition
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$SwapViews: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$SwapViews: NewShowTopicActivity$SwapViews(com.aidigame.hisun.pet.ui.NewShowTopicActivity,int)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$SwapViews: void run()
 com.aidigame.hisun.pet.ui.PetKingdomActivity
 com.aidigame.hisun.pet.ui.PetKingdomActivity: PetKingdomActivity()
 com.aidigame.hisun.pet.ui.PetKingdomActivity: void onClick(android.view.View)
@@ -9202,6 +9445,29 @@ com.aidigame.hisun.pet.ui.ReceiverAddressActivity$5$1: void run()
 com.aidigame.hisun.pet.ui.ShakeActivity
 com.aidigame.hisun.pet.ui.ShakeActivity: ShakeActivity()
 com.aidigame.hisun.pet.ui.ShakeActivity: void share(android.view.View)
+com.aidigame.hisun.pet.ui.ShakeActivity$10
+com.aidigame.hisun.pet.ui.ShakeActivity$10: com.aidigame.hisun.pet.ui.ShakeActivity this$0
+com.aidigame.hisun.pet.ui.ShakeActivity$10: ShakeActivity$10(com.aidigame.hisun.pet.ui.ShakeActivity)
+com.aidigame.hisun.pet.ui.ShakeActivity$10: void run()
+com.aidigame.hisun.pet.ui.ShakeActivity$15
+com.aidigame.hisun.pet.ui.ShakeActivity$15: com.aidigame.hisun.pet.ui.ShakeActivity this$0
+com.aidigame.hisun.pet.ui.ShakeActivity$15: ShakeActivity$15(com.aidigame.hisun.pet.ui.ShakeActivity)
+com.aidigame.hisun.pet.ui.ShakeActivity$15: void run()
+com.aidigame.hisun.pet.ui.ShakeActivity$15: com.aidigame.hisun.pet.ui.ShakeActivity access$0(com.aidigame.hisun.pet.ui.ShakeActivity$15)
+com.aidigame.hisun.pet.ui.ShakeActivity$15$1
+com.aidigame.hisun.pet.ui.ShakeActivity$15$1: com.aidigame.hisun.pet.ui.ShakeActivity$15 this$1
+com.aidigame.hisun.pet.ui.ShakeActivity$15$1: int val$count
+com.aidigame.hisun.pet.ui.ShakeActivity$15$1: ShakeActivity$15$1(com.aidigame.hisun.pet.ui.ShakeActivity$15,int)
+com.aidigame.hisun.pet.ui.ShakeActivity$15$1: void run()
+com.aidigame.hisun.pet.ui.ShakeActivity$16
+com.aidigame.hisun.pet.ui.ShakeActivity$16: com.aidigame.hisun.pet.ui.ShakeActivity this$0
+com.aidigame.hisun.pet.ui.ShakeActivity$16: ShakeActivity$16(com.aidigame.hisun.pet.ui.ShakeActivity)
+com.aidigame.hisun.pet.ui.ShakeActivity$16: void run()
+com.aidigame.hisun.pet.ui.ShakeActivity$16: com.aidigame.hisun.pet.ui.ShakeActivity access$0(com.aidigame.hisun.pet.ui.ShakeActivity$16)
+com.aidigame.hisun.pet.ui.ShakeActivity$16$1
+com.aidigame.hisun.pet.ui.ShakeActivity$16$1: com.aidigame.hisun.pet.ui.ShakeActivity$16 this$1
+com.aidigame.hisun.pet.ui.ShakeActivity$16$1: ShakeActivity$16$1(com.aidigame.hisun.pet.ui.ShakeActivity$16)
+com.aidigame.hisun.pet.ui.ShakeActivity$16$1: void run()
 com.aidigame.hisun.pet.ui.ShakeActivity$4
 com.aidigame.hisun.pet.ui.ShakeActivity$4: com.aidigame.hisun.pet.ui.ShakeActivity this$0
 com.aidigame.hisun.pet.ui.ShakeActivity$4: ShakeActivity$4(com.aidigame.hisun.pet.ui.ShakeActivity)
@@ -9211,133 +9477,18 @@ com.aidigame.hisun.pet.ui.ShakeActivity$4$1
 com.aidigame.hisun.pet.ui.ShakeActivity$4$1: com.aidigame.hisun.pet.ui.ShakeActivity$4 this$1
 com.aidigame.hisun.pet.ui.ShakeActivity$4$1: ShakeActivity$4$1(com.aidigame.hisun.pet.ui.ShakeActivity$4)
 com.aidigame.hisun.pet.ui.ShakeActivity$4$1: void run()
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1: com.aidigame.hisun.pet.ui.ShakeActivity$6 this$1
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1: ShakeActivity$6$1(com.aidigame.hisun.pet.ui.ShakeActivity$6)
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1: void run()
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1: com.aidigame.hisun.pet.ui.ShakeActivity$6 access$0(com.aidigame.hisun.pet.ui.ShakeActivity$6$1)
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1$1
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1$1: com.aidigame.hisun.pet.ui.ShakeActivity$6$1 this$2
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1$1: ShakeActivity$6$1$1(com.aidigame.hisun.pet.ui.ShakeActivity$6$1)
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1$1: void run()
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1$1: com.aidigame.hisun.pet.ui.ShakeActivity$6$1 access$0(com.aidigame.hisun.pet.ui.ShakeActivity$6$1$1)
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1$1$1
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1$1$1: com.aidigame.hisun.pet.ui.ShakeActivity$6$1$1 this$3
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1$1$1: ShakeActivity$6$1$1$1(com.aidigame.hisun.pet.ui.ShakeActivity$6$1$1)
-com.aidigame.hisun.pet.ui.ShakeActivity$6$1$1$1: void run()
-com.aidigame.hisun.pet.ui.ShakeActivity$7
-com.aidigame.hisun.pet.ui.ShakeActivity$7: com.aidigame.hisun.pet.ui.ShakeActivity this$0
-com.aidigame.hisun.pet.ui.ShakeActivity$7: com.aidigame.hisun.pet.bean.Gift val$gift
-com.aidigame.hisun.pet.ui.ShakeActivity$7: ShakeActivity$7(com.aidigame.hisun.pet.ui.ShakeActivity,com.aidigame.hisun.pet.bean.Gift)
-com.aidigame.hisun.pet.ui.ShakeActivity$7: void run()
+com.aidigame.hisun.pet.ui.ShakeActivity$8$1
+com.aidigame.hisun.pet.ui.ShakeActivity$8$1: com.aidigame.hisun.pet.ui.ShakeActivity$8 this$1
+com.aidigame.hisun.pet.ui.ShakeActivity$8$1: ShakeActivity$8$1(com.aidigame.hisun.pet.ui.ShakeActivity$8)
+com.aidigame.hisun.pet.ui.ShakeActivity$8$1: void run()
+com.aidigame.hisun.pet.ui.ShakeActivity$8$1: com.aidigame.hisun.pet.ui.ShakeActivity$8 access$0(com.aidigame.hisun.pet.ui.ShakeActivity$8$1)
+com.aidigame.hisun.pet.ui.ShakeActivity$8$1$1
+com.aidigame.hisun.pet.ui.ShakeActivity$8$1$1: com.aidigame.hisun.pet.ui.ShakeActivity$8$1 this$2
+com.aidigame.hisun.pet.ui.ShakeActivity$8$1$1: com.aidigame.hisun.pet.bean.User val$user
+com.aidigame.hisun.pet.ui.ShakeActivity$8$1$1: ShakeActivity$8$1$1(com.aidigame.hisun.pet.ui.ShakeActivity$8$1,com.aidigame.hisun.pet.bean.User)
+com.aidigame.hisun.pet.ui.ShakeActivity$8$1$1: void run()
 com.aidigame.hisun.pet.ui.ShowPictureActivity
 com.aidigame.hisun.pet.ui.ShowPictureActivity: ShowPictureActivity()
-com.aidigame.hisun.pet.ui.ShowTopicActivity
-com.aidigame.hisun.pet.ui.ShowTopicActivity: ShowTopicActivity()
-com.aidigame.hisun.pet.ui.ShowTopicActivity: void onClick(android.view.View)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$14
-com.aidigame.hisun.pet.ui.ShowTopicActivity$14: com.aidigame.hisun.pet.ui.ShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.ShowTopicActivity$14: ShowTopicActivity$14(com.aidigame.hisun.pet.ui.ShowTopicActivity)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$14: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$15
-com.aidigame.hisun.pet.ui.ShowTopicActivity$15: com.aidigame.hisun.pet.ui.ShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.ShowTopicActivity$15: ShowTopicActivity$15(com.aidigame.hisun.pet.ui.ShowTopicActivity)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$15: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16: com.aidigame.hisun.pet.ui.ShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16: java.lang.String val$comment
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16: ShowTopicActivity$16(com.aidigame.hisun.pet.ui.ShowTopicActivity,java.lang.String)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16: com.aidigame.hisun.pet.ui.ShowTopicActivity access$0(com.aidigame.hisun.pet.ui.ShowTopicActivity$16)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$16 this$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16$1: com.aidigame.hisun.pet.bean.User val$user
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16$1: java.lang.String val$comment
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16$1: ShowTopicActivity$16$1(com.aidigame.hisun.pet.ui.ShowTopicActivity$16,com.aidigame.hisun.pet.bean.User,java.lang.String)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16$1: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$16$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$16 access$0(com.aidigame.hisun.pet.ui.ShowTopicActivity$16$1)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$17
-com.aidigame.hisun.pet.ui.ShowTopicActivity$17: com.aidigame.hisun.pet.ui.ShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.ShowTopicActivity$17: ShowTopicActivity$17(com.aidigame.hisun.pet.ui.ShowTopicActivity)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$17: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$17: com.aidigame.hisun.pet.ui.ShowTopicActivity access$0(com.aidigame.hisun.pet.ui.ShowTopicActivity$17)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$17$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$17$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$17 this$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$17$1: ShowTopicActivity$17$1(com.aidigame.hisun.pet.ui.ShowTopicActivity$17)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$17$1: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$18
-com.aidigame.hisun.pet.ui.ShowTopicActivity$18: com.aidigame.hisun.pet.ui.ShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.ShowTopicActivity$18: ShowTopicActivity$18(com.aidigame.hisun.pet.ui.ShowTopicActivity)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$18: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$19
-com.aidigame.hisun.pet.ui.ShowTopicActivity$19: com.aidigame.hisun.pet.ui.ShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.ShowTopicActivity$19: ShowTopicActivity$19(com.aidigame.hisun.pet.ui.ShowTopicActivity)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$19: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$20
-com.aidigame.hisun.pet.ui.ShowTopicActivity$20: com.aidigame.hisun.pet.ui.ShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.ShowTopicActivity$20: ShowTopicActivity$20(com.aidigame.hisun.pet.ui.ShowTopicActivity)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$20: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$22
-com.aidigame.hisun.pet.ui.ShowTopicActivity$22: com.aidigame.hisun.pet.ui.ShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.ShowTopicActivity$22: ShowTopicActivity$22(com.aidigame.hisun.pet.ui.ShowTopicActivity)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$22: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$23$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$23$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$23 this$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$23$1: ShowTopicActivity$23$1(com.aidigame.hisun.pet.ui.ShowTopicActivity$23)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$23$1: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$24
-com.aidigame.hisun.pet.ui.ShowTopicActivity$24: com.aidigame.hisun.pet.ui.ShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.ShowTopicActivity$24: ShowTopicActivity$24(com.aidigame.hisun.pet.ui.ShowTopicActivity)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$24: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$25$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$25$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$25 this$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$25$1: ShowTopicActivity$25$1(com.aidigame.hisun.pet.ui.ShowTopicActivity$25)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$25$1: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$26
-com.aidigame.hisun.pet.ui.ShowTopicActivity$26: com.aidigame.hisun.pet.ui.ShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.ShowTopicActivity$26: ShowTopicActivity$26(com.aidigame.hisun.pet.ui.ShowTopicActivity)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$26: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$26: com.aidigame.hisun.pet.ui.ShowTopicActivity access$0(com.aidigame.hisun.pet.ui.ShowTopicActivity$26)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$26$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$26$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$26 this$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$26$1: boolean val$flag
-com.aidigame.hisun.pet.ui.ShowTopicActivity$26$1: ShowTopicActivity$26$1(com.aidigame.hisun.pet.ui.ShowTopicActivity$26,boolean)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$26$1: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$27
-com.aidigame.hisun.pet.ui.ShowTopicActivity$27: com.aidigame.hisun.pet.ui.ShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.ShowTopicActivity$27: ShowTopicActivity$27(com.aidigame.hisun.pet.ui.ShowTopicActivity)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$27: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$3$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$3$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$3 this$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$3$1: ShowTopicActivity$3$1(com.aidigame.hisun.pet.ui.ShowTopicActivity$3)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$3$1: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$4$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$4$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$4 this$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$4$1: ShowTopicActivity$4$1(com.aidigame.hisun.pet.ui.ShowTopicActivity$4)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$4$1: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$5 this$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1: java.lang.String val$comment
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1: ShowTopicActivity$5$1(com.aidigame.hisun.pet.ui.ShowTopicActivity$5,java.lang.String)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$5 access$0(com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1 this$2
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1$1: com.aidigame.hisun.pet.bean.User val$user
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1$1: java.lang.String val$comment
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1$1: ShowTopicActivity$5$1$1(com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1,com.aidigame.hisun.pet.bean.User,java.lang.String)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1$1: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1 access$0(com.aidigame.hisun.pet.ui.ShowTopicActivity$5$1$1)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$7
-com.aidigame.hisun.pet.ui.ShowTopicActivity$7: com.aidigame.hisun.pet.ui.ShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.ShowTopicActivity$7: ShowTopicActivity$7(com.aidigame.hisun.pet.ui.ShowTopicActivity)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$7: void run()
-com.aidigame.hisun.pet.ui.ShowTopicActivity$7: com.aidigame.hisun.pet.ui.ShowTopicActivity access$0(com.aidigame.hisun.pet.ui.ShowTopicActivity$7)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$7$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$7$1: com.aidigame.hisun.pet.ui.ShowTopicActivity$7 this$1
-com.aidigame.hisun.pet.ui.ShowTopicActivity$7$1: boolean val$flag
-com.aidigame.hisun.pet.ui.ShowTopicActivity$7$1: ShowTopicActivity$7$1(com.aidigame.hisun.pet.ui.ShowTopicActivity$7,boolean)
-com.aidigame.hisun.pet.ui.ShowTopicActivity$7$1: void run()
 com.aidigame.hisun.pet.ui.SubmitPictureActivity
 com.aidigame.hisun.pet.ui.SubmitPictureActivity: SubmitPictureActivity()
 com.aidigame.hisun.pet.ui.SubmitPictureActivity: void onClick(android.view.View)
@@ -9895,6 +10046,7 @@ com.aidigame.hisun.pet.view.MyListView$OnRefreshListener
 com.aidigame.hisun.pet.view.MyListView$OnRefreshListener: void onRefresh()
 com.aidigame.hisun.pet.view.MyScrollView
 com.aidigame.hisun.pet.view.MyScrollView: com.aidigame.hisun.pet.view.MyScrollView$OnScrollListener onScrollListener
+com.aidigame.hisun.pet.view.MyScrollView: android.view.GestureDetector gestrue
 com.aidigame.hisun.pet.view.MyScrollView: int lastScrollY
 com.aidigame.hisun.pet.view.MyScrollView: android.os.Handler handler
 com.aidigame.hisun.pet.view.MyScrollView: MyScrollView(android.content.Context)
@@ -9902,6 +10054,7 @@ com.aidigame.hisun.pet.view.MyScrollView: MyScrollView(android.content.Context,a
 com.aidigame.hisun.pet.view.MyScrollView: MyScrollView(android.content.Context,android.util.AttributeSet,int)
 com.aidigame.hisun.pet.view.MyScrollView: void setOnScrollListener(com.aidigame.hisun.pet.view.MyScrollView$OnScrollListener)
 com.aidigame.hisun.pet.view.MyScrollView: boolean onTouchEvent(android.view.MotionEvent)
+com.aidigame.hisun.pet.view.MyScrollView: void setGestureDector(android.view.GestureDetector)
 com.aidigame.hisun.pet.view.MyScrollView: int access$0(com.aidigame.hisun.pet.view.MyScrollView)
 com.aidigame.hisun.pet.view.MyScrollView: void access$1(com.aidigame.hisun.pet.view.MyScrollView,int)
 com.aidigame.hisun.pet.view.MyScrollView: android.os.Handler access$2(com.aidigame.hisun.pet.view.MyScrollView)
@@ -10034,6 +10187,20 @@ com.aidigame.hisun.pet.view.PullToRefreshAndMoreView$HideHeaderTask: PullToRefre
 com.aidigame.hisun.pet.view.PullToRefreshAndMoreView$PullToRefreshAndMoreListener
 com.aidigame.hisun.pet.view.PullToRefreshAndMoreView$PullToRefreshAndMoreListener: void onRefresh()
 com.aidigame.hisun.pet.view.PullToRefreshAndMoreView$PullToRefreshAndMoreListener: void onMore()
+com.aidigame.hisun.pet.view.RotatView
+com.aidigame.hisun.pet.view.RotatView: android.graphics.Bitmap bmp
+com.aidigame.hisun.pet.view.RotatView: boolean running
+com.aidigame.hisun.pet.view.RotatView: RotatView(android.content.Context)
+com.aidigame.hisun.pet.view.RotatView: RotatView(android.content.Context,android.util.AttributeSet,int)
+com.aidigame.hisun.pet.view.RotatView: RotatView(android.content.Context,android.util.AttributeSet)
+com.aidigame.hisun.pet.view.RotatView: void onDraw(android.graphics.Canvas)
+com.aidigame.hisun.pet.view.RotatView: void setBitmap(android.graphics.Bitmap)
+com.aidigame.hisun.pet.view.RotatView: void startAnim()
+com.aidigame.hisun.pet.view.RotatView: void stopAnim()
+com.aidigame.hisun.pet.view.RotatView$1
+com.aidigame.hisun.pet.view.RotatView$1: com.aidigame.hisun.pet.view.RotatView this$0
+com.aidigame.hisun.pet.view.RotatView$1: RotatView$1(com.aidigame.hisun.pet.view.RotatView)
+com.aidigame.hisun.pet.view.RotatView$1: void run()
 com.aidigame.hisun.pet.view.RoundCornerImageView
 com.aidigame.hisun.pet.view.RoundCornerImageView: RoundCornerImageView(android.content.Context,android.util.AttributeSet)
 com.aidigame.hisun.pet.view.RoundCornerImageView: RoundCornerImageView(android.content.Context,android.util.AttributeSet,int)
@@ -10445,10 +10612,6 @@ com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$7$3
 com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$7$3: com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$7 this$1
 com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$7$3: ClawStyleFunction$7$3(com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$7)
 com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$7$3: void run()
-com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$7$4
-com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$7$4: com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$7 this$1
-com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$7$4: ClawStyleFunction$7$4(com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$7)
-com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$7$4: void run()
 com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$8$1
 com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$8$1: com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$8 this$1
 com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$8$1: ClawStyleFunction$8$1(com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction$8)
@@ -10487,6 +10650,15 @@ com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$1: com.aidigame.his
 com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$1: com.aidigame.hisun.pet.bean.Animal val$an
 com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$1: DialogQuitKingdom$2$1$1(com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1,com.aidigame.hisun.pet.bean.Animal)
 com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$1: void run()
+com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$2
+com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$2: com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1 this$2
+com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$2: DialogQuitKingdom$2$1$2(com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1)
+com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$2: void run()
+com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$3
+com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$3: com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1 this$2
+com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$3: com.aidigame.hisun.pet.bean.Animal val$an
+com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$3: DialogQuitKingdom$2$1$3(com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1,com.aidigame.hisun.pet.bean.Animal)
+com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom$2$1$3: void run()
 com.aidigame.hisun.pet.widget.fragment.FourGiftBox$GiftClickListener$1
 com.aidigame.hisun.pet.widget.fragment.FourGiftBox$GiftClickListener$1: com.aidigame.hisun.pet.widget.fragment.FourGiftBox$GiftClickListener this$1
 com.aidigame.hisun.pet.widget.fragment.FourGiftBox$GiftClickListener$1: android.view.View val$v

@@ -26,8 +26,8 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
 import com.aidigame.hisun.pet.ui.NewRegisterActivity;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
-import com.aidigame.hisun.pet.ui.ShowTopicActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
@@ -301,23 +301,6 @@ public class ClawStyleFunction {
 					PetKingdomActivity n=(PetKingdomActivity)context;
 					if(!UserStatusUtil.isLoginSuccess(context,n.popupParent,n.black_layout)){
 //					    n.setBlurImageBackground();
-					    handler.postDelayed(new Runnable() {
-							
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								isShow=false;
-								arcMenu2.setVisibility(View.INVISIBLE);
-								arcMenu1.setVisibility(View.VISIBLE);
-								parent.setBackgroundDrawable(null);
-							}
-						}, 410);
-						return false;
-					}
-				}else if(context instanceof ShowTopicActivity){
-					ShowTopicActivity n=(ShowTopicActivity)context;
-					if(!UserStatusUtil.isLoginSuccess(context,n.popupParent,n.black_layout)){
-//					    n.homeFragment.setBlurImageBackground();
 					    handler.postDelayed(new Runnable() {
 							
 							@Override

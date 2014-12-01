@@ -588,7 +588,7 @@
         android:paddingLeft="0dp"
         android:orientation="vertical"
         android:paddingRight="0dp"
-       android:visibility="visible">
+       android:visibility="gone">
         
     </RelativeLayout> 
       <LinearLayout 

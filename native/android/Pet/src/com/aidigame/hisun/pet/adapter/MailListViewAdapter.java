@@ -22,7 +22,7 @@ import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.bean.TalkMessage;
 import com.aidigame.hisun.pet.bean.TalkMessage.Msg;
 import com.aidigame.hisun.pet.constant.Constants;
-import com.aidigame.hisun.pet.ui.ShowTopicActivity;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.view.RoundImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -142,8 +142,10 @@ public class MailListViewAdapter extends BaseAdapter {
 							// TODO Auto-generated method stub
 							PetPicture petPicture=new PetPicture();
 							petPicture.img_id=(int)data.img_id;
-							if(ShowTopicActivity.showTopicActivity!=null)ShowTopicActivity.showTopicActivity.finish();
-							Intent intent=new Intent(context,ShowTopicActivity.class);
+							if(NewShowTopicActivity.newShowTopicActivity!=null){
+								NewShowTopicActivity.newShowTopicActivity.recyle();
+							}
+							Intent intent=new Intent(context,NewShowTopicActivity.class);
 							intent.putExtra("PetPicture", petPicture);
 							context.startActivity(intent);
 						}

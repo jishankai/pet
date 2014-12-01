@@ -46,8 +46,8 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
-import com.aidigame.hisun.pet.ui.ShowTopicActivity;
 import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -228,10 +228,18 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						if(UserStatusUtil.isLoginSuccess(NewHomeActivity.homeActivity,NewHomeActivity.homeActivity.homeFragment.popupParent,NewHomeActivity.homeActivity.homeFragment.black_layout)){
-							if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()>=10){
+							int num=0;
+							if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
+								num=(Constants.user.aniList.size()+1)*5;
+							}else if(Constants.user.aniList.size()>20){
+								num=100;
+							}
+							
+							if(Constants.user.coinCount<num){
 								DialogGoRegister dialog=new DialogGoRegister(NewHomeActivity.homeActivity.homeFragment.popupParent, NewHomeActivity.homeActivity, NewHomeActivity.homeActivity.homeFragment.black_layout, 1);
 								return;
 						}
+						
 						
 						DialogJoinKingdom dialog=new DialogJoinKingdom(NewHomeActivity.homeActivity.homeFragment.popupParent, NewHomeActivity.homeActivity, NewHomeActivity.homeActivity.homeFragment.black_layout, data);
 						dialog.setResultListener(new ResultListener() {
@@ -241,6 +249,7 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 								// TODO Auto-generated method stub
 								supportIV.setImageResource(R.drawable.support_gray);
 								supportIV.setClickable(false);
+								data.hasJoinOrCreate=isSuccess;
 //								supportIV.setVisibility(View.INVISIBLE);
 								/*if(isSuccess){
 									p.setPeoplesNum(data.fans,isSuccess);
@@ -294,7 +303,7 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 								public void onItemClick(AdapterView<?> parent,
 										View view, int position, long id) {
 									// TODO Auto-generated method stub
-									if(ShowTopicActivity.showTopicActivity!=null){
+									/*if(ShowTopicActivity.showTopicActivity!=null){
 										if(ShowTopicActivity.showTopicActivity.bmp!=null&&!ShowTopicActivity.showTopicActivity.bmp.isRecycled()){
 											ShowTopicActivity.showTopicActivity.bmp.recycle();
 										}
@@ -303,7 +312,15 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 									PetPicture p=(PetPicture)gallery.getItemAtPosition(position);
 									Intent intent=new Intent(context,ShowTopicActivity.class);
 									intent.putExtra("PetPicture", p);
-									context.startActivity(intent);
+									context.startActivity(intent);*/
+									
+									if(NewShowTopicActivity.newShowTopicActivity!=null){
+										NewShowTopicActivity.newShowTopicActivity.recyle();
+									}
+									PetPicture p=(PetPicture)gallery.getItemAtPosition(position);
+									Intent intent6=new Intent(context,NewShowTopicActivity.class);
+									intent6.putExtra("PetPicture", p);
+									context.startActivity(intent6);
 								}
 							});
 						}

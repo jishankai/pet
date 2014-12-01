@@ -120,28 +120,12 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 			}
 		}
 	}
+	
     @Override
     protected void onStart() {
     	// TODO Auto-generated method stub
     	super.onStart();
-    	int mode=getIntent().getIntExtra("mode", -1);
-		switch (mode) {
-		case HOMEFRAGMENT:
-			showHomeFragment(1);
-			break;
-		case MARKETFRAGMENT:
-			showMarketFragment(1);
-			break;
-		case MESSAGEFRAGMENT:
-			showMessageFragment(1);
-			break;
-		case ACTIVITYFRAGMENT:
-			showActivityFragment(1);
-			break;
-		case SETUPFRAGMENT:
-			showSetupFragment(1);
-			break;
-		}
+    	
     }
 	public void showHomeFragment() {
 		// TODO Auto-generated method stub
@@ -212,7 +196,7 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		}
 		FragmentManager fm=getSupportFragmentManager();
 		FragmentTransaction ft=fm.beginTransaction();
-		ft.replace(R.id.home_menu_frame, marketFragment, "SetupFragment");
+		ft.replace(R.id.home_menu_frame, marketFragment, "MarketFragment");
 		ft.commit();
 		toggle();
 		currentFragment=MARKETFRAGMENT;
@@ -246,7 +230,7 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		ft.commit();
 		currentFragment=MARKETFRAGMENT;
 		Intent intent=getIntent();
-		if(intent!=null)intent.putExtra("mode", MARKETFRAGMENT);
+		if(intent!=null)intent.putExtra("mode", MESSAGEFRAGMENT);
 	}
 	public void showActivityFragment(int i){
 		if(activityFragment==null){
@@ -283,7 +267,7 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		}
 		FragmentManager fm=getSupportFragmentManager();
 		FragmentTransaction ft=fm.beginTransaction();
-		ft.replace(R.id.home_menu_frame, marketFragment, "SetupFragment");
+		ft.replace(R.id.home_menu_frame, marketFragment, "MarketFragment");
 		ft.commit();
 		currentFragment=MARKETFRAGMENT;
 		Intent intent=getIntent();
@@ -553,10 +537,30 @@ public class NewHomeActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		   	// TODO Auto-generated method stub
 		   	super.onPause();
 		   	StringUtil.umengOnPause(this);
+		   	Intent intent=getIntent();
+		   	if(intent!=null)intent.putExtra("mode", -1);
 		   }
 		      @Override
 		   protected void onResume() {
 		   	// TODO Auto-generated method stub
+		    	  int mode=getIntent().getIntExtra("mode", -1);
+		  		switch (mode) {
+		  		case HOMEFRAGMENT:
+		  			showHomeFragment(1);
+		  			break;
+		  		case MARKETFRAGMENT:
+		  			showMarketFragment(1);
+		  			break;
+		  		case MESSAGEFRAGMENT:
+		  			showMessageFragment(1);
+		  			break;
+		  		case ACTIVITYFRAGMENT:
+		  			showActivityFragment(1);
+		  			break;
+		  		case SETUPFRAGMENT:
+		  			showSetupFragment(1);
+		  			break;
+		  		}
 		   	super.onResume();
 		   	StringUtil.umengOnResume(this);
 		   }

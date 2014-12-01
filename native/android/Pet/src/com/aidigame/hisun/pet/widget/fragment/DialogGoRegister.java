@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
+import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
 import com.aidigame.hisun.pet.ui.NewHomeActivity;
@@ -30,8 +31,8 @@ public class DialogGoRegister {
 	Activity context;
 	PopupWindow popupWindow;
 	View blackView;
-	int mode=0;//0,注册提示；1,加入王国超过10个提示；2，取消关注提示；3，使用邀请码超过十个
-	TextView tv1,tv2,tv3,tv4;
+	int mode=0;//0,注册提示；1,加入王国超过10个提示，金币不足；2，取消关注提示；3，使用邀请码超过十个,4加入王国超过10个提示，消耗金币
+	TextView tv1,tv2,tv3,tv4,noteTv;
 	Animal animal;//取消关注的宠物
 	ResultListener listener;
 	public DialogGoRegister(View parent,Activity context,View blackView,int mode){
@@ -66,15 +67,18 @@ public class DialogGoRegister {
 		tv1=(TextView)view.findViewById(R.id.textView1);
 		tv2=(TextView)view.findViewById(R.id.textView2);
 		tv3=(TextView)view.findViewById(R.id.textView3);
-		
+		noteTv=(TextView)view.findViewById(R.id.note_tv);
 		tv4=(TextView)view.findViewById(R.id.textView4);
 		tv4.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(mode==0){
+				if(mode==0||mode==4){
 					Intent intent=new Intent(context,ChoseAcountTypeActivity.class);
+					if(mode==4){
+						intent.putExtra("from", 1);
+					}
 					context.startActivity(intent);
 					
 				}
@@ -106,6 +110,9 @@ public class DialogGoRegister {
 		case 3:
 			joinKingdomNote2();
 			break;
+		case 4:
+			joinKingdomNote3();
+			break;
 		}
 	}
 	public void closePopupTodo(){
@@ -124,11 +131,29 @@ public class DialogGoRegister {
 	 * 加入王国超过10个弹窗提示
 	 */
 	private void joinKingdomNote(){
-		tv1.setText("暂时只能捧10个萌星~");
-		tv2.setText("你的名额占满了~");
-		tv3.setText("专一点嘛~");
-		tv3.setVisibility(View.GONE);
+		tv1.setText("本次成功捧星或创建萌星");
+		int num=0;
+		if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
+			num=(Constants.user.aniList.size()+1)*5;
+		}else{
+			num=100;
+		}
+		tv2.setText("需要消耗"+num+"金币哦~");
+		tv3.setText("您的余额不足~");
 		tv4.setText("哎~好吧");
+	}
+	private void joinKingdomNote3(){
+		tv1.setText("本次成功捧星或创建萌星");
+		int num=0;
+		if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
+			num=(Constants.user.aniList.size()+1)*5;
+		}else{
+			num=100;
+		}
+		tv2.setText("需要消耗"+num+"金币哦~");
+		tv3.setText("您的余额不足~");
+		tv3.setVisibility(View.GONE);
+		tv4.setText("没问题");
 	}
 	/**
 	 * 使用邀请码  超过十个

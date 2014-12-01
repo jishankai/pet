@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aidigame.hisun.pet"
-    android:versionCode="22"
-    android:versionName="1.0.0" >
+    android:versionCode="23"
+    android:versionName="1.0.1" >
 
     <uses-sdk
         android:minSdkVersion="12"
@@ -124,6 +124,11 @@
             android:windowSoftInputMode="adjustResize"
             android:hardwareAccelerated="true"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
+        <activity android:name="com.aidigame.hisun.pet.ui.NewShowTopicActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Translucent"
+             android:configChanges="keyboardHidden|orientation|navigation"></activity>
         <activity android:name="com.aidigame.hisun.pet.ui.ShowPictureActivity"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
         
@@ -226,7 +231,7 @@
                      <activity android:name="com.aidigame.hisun.pet.ui.FAQActivity"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.ShakeActivity"
-                        android:theme="@style/Theme.Transparent"
+                        android:theme="@style/Theme.Transparent2"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                    
                     <activity android:name="com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1"
@@ -290,7 +295,7 @@
         <activity android:name="com.umeng.fb.ContactActivity"
          android:theme="@android:style/Theme.NoTitleBar"/>
         <meta-data android:value="546ad32dfd98c57ed4006955" android:name="UMENG_APPKEY"></meta-data>
-        <meta-data android:value="aidi" android:name="UMENG_CHANNEL"/>
+        <meta-data android:value="qihu360" android:name="UMENG_CHANNEL"/>
         <!--  <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/> -->
     </application>
 
