@@ -422,7 +422,7 @@ class UserController extends Controller
             $r[$k]['in_circle'] = $in_circle?1:0;
             $r[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY update_time DESC LIMIT 5')->bindValue(':aid', $v['aid'])->queryAll();
             $rank = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal WHERE t_rq<=:t_rq')->bindValue(':t_rq', $v['t_rq'])->queryScalar();
-            $r[$k]['percent'] = ceil($rank*100/$max_users);
+            $r[$k]['percent'] = floor($rank*100/$max_users);
         }
 
         $this->echoJsonData(array($r));
