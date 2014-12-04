@@ -7,7 +7,7 @@ class ImageController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - recommendApi,randomApi,infoApi,recoApi,reportApi',
+            'getUserId - recommendApi,randomApi,infoApi,recoApi,reportApi,ask4FoodApi',
             array(
                 'COutputCache + randomApi',
                 'duration' => 300,
@@ -43,9 +43,13 @@ class ImageController extends Controller
     public function actionUploadApi($aid)
     {
         $model = new Image;
+        $is_food = 0;
 
         if (isset($_POST['comment'])) {
             Yii::trace("Image: ".$_POST['comment'], 'access');
+        }
+        if (isset($_POST['is_food'])) {
+            $is_food = $_POST['is_food'];
         }
         /*
         if (isset($_FILES['image'])) {
@@ -63,6 +67,7 @@ class ImageController extends Controller
             try {
                 $model->aid = $aid;
                 $model->cmt = $_POST['comment'];
+                $model->is_food = $is_food;
             /*
             preg_match("/#\s*([^#]*)\s*#/",$_POST['comment'],$matches);
             #Yii::trace($_POST['comment'].$matches[0].'...'.$matches[1], 'access');
@@ -287,6 +292,44 @@ class ImageController extends Controller
             'sender_tx'=>isset($sender_tx)?$sender_tx:NULL,
             'liker_tx'=>isset($liker_tx)?$liker_tx:NULL,
         )); 
+    }
+
+    public function actionAsk4FoodApi()
+    {
+       $r = Yii::app()->db->createCommand('SELECT i.img_id, i.aid, i.cmt, i.food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE is_food=1 AND i.create_time>=:create_time')->bindValue(':create_time', time()-(60*60*24))->queryAll();
+
+       $this->echoJsonData(array($r));
+    }
+
+    public function actionRewardFoodApi($img_id, $n)
+    {
+       $image = Image::model()->findByPk($img_id); 
+       $animal = Animal::model()->findByPk($image->aid);
+
+       $session = Yii::app()->session;
+       if (!isset($session['food'])) {
+           $session['food'] = 5;
+       }
+
+       if ($session['food']<$n) {
+           throw new PException('您的余粮不足');
+       }
+
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $session['food']-=$n;
+            $image->food+=$n;
+            $animal->food+=$n;
+
+            $image->saveAttributes(array('food'));
+            $animal->saveAttributes(array('food'));
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+
+        $this->echoJsonData(array('food'=>$image->food));
     }
 
     public function actionCommentApi()

@@ -18,6 +18,8 @@
  * @property string $comments
  * @property string $shares
  * @property string $reports
+ * @property string $is_food
+ * @property string $food
  * @property string $create_time
  * @property string $update_time
  * @property integer $is_deleted
@@ -49,7 +51,7 @@ class Image extends CActiveRecord
 			array('relates, cmt, url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('img_id, aid, topic_id, topic_name, relates, cmt, url, likes, likers, gifts, senders, comments, shares, reports, create_time, update_time, is_deleted', 'safe', 'on'=>'search'),
+			array('img_id, aid, topic_id, topic_name, relates, cmt, url, likes, likers, gifts, senders, comments, shares, reports, is_food, food, create_time, update_time, is_deleted', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -92,6 +94,8 @@ class Image extends CActiveRecord
 			'comments' => '评论',
 			'shares' => '分享数',
 			'reports' => '举报数',
+			'is_food' => '求口粮',
+			'food' => '粮食数',
 			'create_time' => '创建时间',
 			'update_time' => '更新时间',
 			'is_deleted' => '是否删除',
@@ -130,6 +134,8 @@ class Image extends CActiveRecord
 		$criteria->compare('comments',$this->comments,true);
 		$criteria->compare('shares',$this->shares,true);
 		$criteria->compare('reports',$this->reports);
+		$criteria->compare('is_food',$this->is_food);
+		$criteria->compare('food',$this->food);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 		$criteria->compare('is_deleted',$this->is_deleted);
