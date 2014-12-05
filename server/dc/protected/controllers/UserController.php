@@ -352,9 +352,9 @@ class UserController extends Controller
     public function actionPetsApi($usr_id, $is_simple=0)
     {
         if ($is_simple) {
-            $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.master_id, a.type, a.age, a.gender FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.master_id, a.type, a.age, a.gender, a.food FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
         } else {
-            $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.master_id, a.d_rq, c.t_contri, c.rank, (SELECT COUNT(*) FROM dc_news n WHERE c.aid=n.aid) AS news_count, (SELECT COUNT(*) FROM dc_circle c1 WHERE c.aid=c1.aid) AS fans_count FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, a.master_id, a.d_rq, a.food, c.t_contri, c.rank, (SELECT COUNT(*) FROM dc_news n WHERE c.aid=n.aid) AS news_count, (SELECT COUNT(*) FROM dc_circle c1 WHERE c.aid=c1.aid) AS fans_count FROM dc_circle c LEFT JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryAll();
         }
 
 
