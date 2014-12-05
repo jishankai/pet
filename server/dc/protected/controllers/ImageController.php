@@ -305,19 +305,26 @@ class ImageController extends Controller
     {
        $image = Image::model()->findByPk($img_id); 
        $animal = Animal::model()->findByPk($image->aid);
+       $user = User::model()->findByPk($this->usr_id);
 
        $session = Yii::app()->session;
        if (!isset($session['food'])) {
            $session['food'] = 5;
        }
 
-       if ($session['food']<$n) {
+       if ($session['food']+$user->gold<$n) {
            throw new PException('您的余粮不足');
        }
 
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $session['food']-=$n;
+            if ($session['food']>=$n) {
+                $session['food']-=$n;
+            } else {
+                $user->gold-=($n-$session['food']);
+                $session['food']=0;
+                $user->saveAttributes(array('gold'));
+            }
             $image->food+=$n;
             $animal->food+=$n;
 
@@ -329,7 +336,7 @@ class ImageController extends Controller
             throw $e;
         }
 
-        $this->echoJsonData(array('food'=>$image->food));
+        $this->echoJsonData(array('food'=>$image->food, 'gold'=>$user->gold));
     }
 
     public function actionCommentApi()

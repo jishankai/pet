@@ -279,6 +279,11 @@ class UserController extends Controller
         } else {
             $r['next_gold'] = LOGIN_X3;
         }
+        $session = Yii::app()->session;
+        if (!isset($session['food'])) {
+            $session['food'] = 5;
+        }
+        $r['food'] = $session['food'];
 
         $this->echoJsonData(array($r));
     }
