@@ -90,22 +90,27 @@ class WechatController extends Controller
 
                 {
                 \"type\":\"click\",
-                \"name\":\"我要抽奖\",
+                \"name\":\"内容回顾\",
                 \"sub_button\":[
                     {
                     \"type\":\"click\",
-                    \"name\":\"抽奖必读!\",
-                    \"key\":\"key_cjbd\"
+                    \"name\":\"萌星物语\",
+                    \"key\":\"key_mxwy\"
                     },
                     {
                     \"type\":\"click\",
-                    \"name\":\"抽奖第一步\",
-                    \"key\":\"key_cjone\"
+                    \"name\":\"宠物讲堂\",
+                    \"key\":\"key_cwjt\"
                     },
                     {
                     \"type\":\"click\",
-                    \"name\":\"抽奖第二步\",
-                    \"key\":\"key_cjtwo\"
+                    \"name\":\"往期活动\",
+                    \"key\":\"key_wqhd\"
+                    },
+                    {
+                    \"type\":\"click\",
+                    \"name\":\"搞笑图片\",
+                    \"key\":\"key_gxtp\"
                     },
                 ]
                 }
@@ -128,32 +133,17 @@ class WechatController extends Controller
             $RX_TYPE = trim($postObj->MsgType);
             switch ($RX_TYPE) {
             case 'text':
-                $contentStr = $this->receiveText($postObj);
+                $resultStr = $this->receiveText($postObj);
                 break;
             case 'event':
-                $contentStr = $this->receiveEvent($postObj);
+                $resultStr = $this->receiveEvent($postObj);
                 break;
 
             default:
-                $contentStr = '你好啊';
                 break;
             }
 
-            $fromUsername = $postObj->FromUserName;
-            $toUsername = $postObj->ToUserName;
-            $time = time();
-            if ($contentStr!='key_cjone') {
-                $textTpl = "<xml>
-                    <ToUserName><![CDATA[%s]]></ToUserName>
-                    <FromUserName><![CDATA[%s]]></FromUserName>
-                    <CreateTime>%s</CreateTime>
-                    <MsgType><![CDATA[%s]]></MsgType>
-                    <Content><![CDATA[%s]]></Content>
-                    <FuncFlag>0<FuncFlag>
-                    </xml>";
-                $msgType = "text";
-                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-            } else {
+                /*
                 $event_usr_id = Yii::app()->db->createCommand('SELECT event_usr_id FROM event_3xgiving WHERE from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $postObj->FromUserName)->queryScalar();
                 if (!$event_usr_id) {
                     Yii::app()->db->createCommand('INSERT IGNORE INTO event_3xgiving SET from_usr_name=:from_usr_name')->bindValue(':from_usr_name', $postObj->FromUserName)->execute();
@@ -181,7 +171,7 @@ class WechatController extends Controller
                     <FuncFlag>0<FuncFlag>
                     </xml>";
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr, $title, $picUrl, $url);
-            }
+                 */
             
             echo $resultStr;
         }else {
@@ -196,15 +186,18 @@ class WechatController extends Controller
         if(!empty( $keyword )) {
             switch ($keyword) {
             case '感谢有你':
-                $contentStr = '1';
+                $resultStr = $this->transmitText($object, '我爱周泓');
+                break;
+            case '1':
+                
                 break;
 
             default:
                 break;
             }
         }
-        if (isset($contentStr)) {
-            return $contentStr;
+        if (isset($resultStr)) {
+            return $resultStr;
         } else {
             echo '';
             exit;
@@ -216,16 +209,21 @@ class WechatController extends Controller
         switch ($object->Event)
         {
         case "subscribe":
-            $contentStr = "地球人泥嚎，恭喜你成功登陆宠物星球！本球长已经等你好久了啊喂～           欢迎带着萌宠来星球定居，本球长和众事务官将专职陪你一起卖萌一起飞！大家有事儿骚扰，没事儿卖萌♪(^∇^*)准备好了吗？一大波萌宠马上就要来袭了．．．";
+            $contentStr = "地球人泥嚎，恭喜你成功登陆宠物星球！本球长已经等你好久了啊喂～           欢迎带着萌宠来星球定居，本球长和众事务官将专职陪你一起卖萌一起飞！大家有事儿骚扰，没事儿卖萌♪(^∇^*)准备好了吗？一大波萌宠马上就要来袭了．．．
+回复【1】查看暖暖哒【萌星物语】
+回复【2】查看实用哒【宠物讲堂】
+回复【3】查看精彩哒【往期活动】
+回复【4】查看蠢萌哒【搞笑图片】";
+            $resultStr = $this->transmitText($object, $contentStr);
             break;
         case "CLICK":
-            $contentStr = $this->receiveClick($object);
+            $resultStr = $this->receiveClick($object);
             break;    
         default:
             break;
         }
-        if (isset($contentStr)) {
-            return $contentStr;
+        if (isset($resultStr)) {
+            return $resultStr;
         } else {
             echo '';
             exit;
@@ -239,12 +237,15 @@ class WechatController extends Controller
                 $contentStr = '吐槽请直接回复“吐槽+您要吐槽的内容”，我们的产品汪会第一时间收集您的反馈并给您答复~
 我们珍惜您的每一次吐槽，感谢您伴我们成长、帮我们做得更好！
                     嫌麻烦的话也可以直接发语音，可能答复稍晚，见谅哟~';
+                $resultStr = $this->transmitText($object, $contentStr);
                 break;
             case 'key_gstg':
                 $contentStr = '你可以直接回复“投稿+要投稿的文字内容”，或者将文件发至contact@aidigame.com';
+                $resultStr = $this->transmitText($object, $contentStr);
                 break;
             case 'key_fmtg':
                 $contentStr = '您所投稿的封面图一经采用，将出现在应用的欢迎封面，供万千用户一睹风采~请注意，作为封面图片，竖长构图最佳。请保证图片内容必须有您的宝贝宠物出镜，真人同时出镜更棒！图片请直接回复~感谢~';
+                $resultStr = $this->transmitText($object, $contentStr);
                 break;
             case 'key_cjbd':
                 $contentStr = '1. 在公众号内点击菜单项 “我要抽奖”-> 点击“第一步”->  收到推送的图文消息“感恩节快到了，球长挥泪大回馈”并将此文分享至朋友圈；
@@ -253,6 +254,7 @@ class WechatController extends Controller
 4. 活动结束后我们将第一时间公示抽奖情况。
 特别说明：
 需同时完成上述步骤2,3才具备抽奖资格哟~~';
+                $resultStr = $this->transmitText($object, $contentStr);
                 break;
             case 'key_cjone':
                 $contentStr = 'key_cjone';
@@ -264,17 +266,66 @@ class WechatController extends Controller
                 } else {
                     $contentStr = '您的感恩节抽奖码是{'.$event_usr_id.'}。活动结束之后，我们将第一时间公布开奖结果~';
                 }
+                $resultStr = $this->transmitText($object, $contentStr);
                 break;
             default:
                 // code...
                 break;
         }
-        if (isset($contentStr)) {
-            return $contentStr;
+        if (isset($resultStr)) {
+            return $resultStr;
         } else {
             echo '';
             exit;
         }
     }
+
+    private function transmitText($object, $content) 
+    { 
+        $textTpl = "<xml>
+            <ToUserName><![CDATA[%s]]></ToUserName>
+            <FromUserName><![CDATA[%s]]></FromUserName>
+            <CreateTime>%s</CreateTime>
+            <MsgType><![CDATA[%s]]></MsgType>
+            <Content><![CDATA[%s]]></Content>
+            <FuncFlag>0<FuncFlag>
+            </xml>";
+        $msgType = "text";
+        $resultStr = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $msgType, $content); 
+
+        return $resultStr; 
+    }
+
+    private function transmitNews($object, $arr_item) 
+    { 
+        if(!is_array($arr_item)) return;
+
+        $itemTpl = "
+            <item>
+            <Title><![CDATA[%s]]></Title>
+            <Description><![CDATA[]]></Description>
+            <PicUrl><![CDATA[%s]]></PicUrl>
+            <Url><![CDATA[%s]]></Url>
+            </item>
+            ";
+        $item_str = ""; 
+        foreach ($arr_item as $item) 
+            $item_str .= sprintf($itemTpl, $item['Title'], $item['Description'], $item['PicUrl'], $item['Url']);
+
+        $newsTpl = "<xml> 
+            <ToUserName><![CDATA[%s]]></ToUserName>
+            <FromUserName><![CDATA[%s]]></FromUserName>
+            <CreateTime>%s</CreateTime>
+            <MsgType><![CDATA[news]]></MsgType>
+            <ArticleCount>%s</ArticleCount>
+            <Articles>
+            $item_str
+            </Articles>
+            <FuncFlag>0<FuncFlag>
+            </xml>";
+        $resultStr = sprintf($newsTpl, $object->FromUserName, $object->ToUserName, time(), count($arr_item)); 
+
+        return $resultStr; 
+    } 
 }
 
