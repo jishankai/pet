@@ -189,9 +189,21 @@ class WechatController extends Controller
                 $resultStr = $this->transmitText($object, '我爱周泓');
                 break;
             case '1':
-                
+                $a = Util::loadConfig('wechat_mxwy');
+                $resultStr = $this->transmitNews($object, $a);
                 break;
-
+            case '2':
+                $a = Util::loadConfig('wechat_cwjt');
+                $resultStr = $this->transmitNews($object, $a);
+                break;
+            case '3':
+                $a = Util::loadConfig('wechat_wqhd');
+                $resultStr = $this->transmitNews($object, $a);
+                break;
+            case '4':
+                $a = Util::loadConfig('wechat_gxtp');
+                $resultStr = $this->transmitNews($object, $a);
+                break;
             default:
                 break;
             }
