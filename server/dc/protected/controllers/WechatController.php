@@ -331,7 +331,7 @@ class WechatController extends Controller
         $itemTpl = "
             <item>
             <Title><![CDATA[%s]]></Title>
-            <Description><![CDATA[]]></Description>
+            <Description><![CDATA[%s]]></Description>
             <PicUrl><![CDATA[%s]]></PicUrl>
             <Url><![CDATA[%s]]></Url>
             </item>
