@@ -268,6 +268,22 @@ class WechatController extends Controller
                 }
                 $resultStr = $this->transmitText($object, $contentStr);
                 break;
+            case 'key_mxwy':
+                $a = Util::loadConfig('wechat_mxwy');
+                $resultStr = $this->transmitNews($object, $a);
+                break;
+            case 'key_gxtp':
+                $a = Util::loadConfig('wechat_gxtp');
+                $resultStr = $this->transmitNews($object, $a);
+                break;
+            case 'key_cwjt':
+                $a = Util::loadConfig('wechat_cwjt');
+                $resultStr = $this->transmitNews($object, $a);
+                break;
+            case 'key_wqhd':
+                $a = Util::loadConfig('wechat_wqhd');
+                $resultStr = $this->transmitNews($object, $a);
+                break;
             default:
                 // code...
                 break;
