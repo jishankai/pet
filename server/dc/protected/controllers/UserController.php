@@ -169,7 +169,7 @@ class UserController extends Controller
         try {
             $c = new CDbCriteria;
             $c->compare('name',$name);
-            $c->compare('pwd',$pwd); 
+            $c->compare('password',$pwd); 
             
             $user = User::model()->find($c);
             if (isset($user)) {
