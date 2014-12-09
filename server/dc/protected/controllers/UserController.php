@@ -85,6 +85,7 @@ class UserController extends Controller
 
                 $isSuccess = false;
             } else {
+                $session['id'] = $device->id;
                 $session['usr_id'] = $device->usr_id;
 
                 $user = User::model()->findByAttributes(array('usr_id'=>$device->usr_id));
