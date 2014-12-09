@@ -140,36 +140,59 @@ class UserController extends Controller
     }
      */
 
-    public function actionBindApi($weibo=NULL, $wechat=NULL)
+    public function actionLoginBy3PartyApi($weibo='', $wechat='')
+    {
+        $isBinded = FALSE;
+        if ((isset($weibo)&&$weibo!='') or (isset($wechat)&&$wechat!='')) {
+            $c = new CDbCriteria;
+            $c->compare('weibo',$weibo);
+            $c->compare('wechat',$wechat); 
+
+            $user = User::model()->find($c);
+            if (isset($user)) {
+                $session = Yii::app()->session;
+                $session->open();
+                $session['usr_id'] = $user->usr_id;
+                $isBinded = TRUE;
+
+                $this->echoJsonData(array('usr_id'=>$user->usr_id, 'aid'=>$user->aid, 'isBinded'=>$isBinded));
+            } else {
+                $this->echoJsonData(array('isBinded'=>$isBinded));
+            }
+        }
+    }
+
+    public function actionBindUserApi($name, $pwd)
     {
         $isBinded = FALSE;
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            if ((isset($weibo)&&$weibo!='') or (isset($wechat)&&$wechat!='')) {
-                $c = new CDbCriteria;
-                $c->compare('weibo',$weibo);
-                $c->compare('wechat',$wechat); 
-
-                $user = User::model()->find($c);
-                if (isset($user)) {
-                    $session = Yii::app()->session;
-                    $session->open();
-                    $id = $session['id'];
-                    $device = Device::model()->findByPk($id);
-                    $device->usr_id = $user->usr_id;
-                    $device->saveAttributes(array('usr_id'));
-                    $session['usr_id'] = $user->usr_id;
-
-                    $isBinded = TRUE;
-                }
-            }
+            $c = new CDbCriteria;
+            $c->compare('name',$name);
+            $c->compare('pwd',$pwd); 
+            
+            $user = User::model()->find($c);
+            if (isset($user)) {
+                $session = Yii::app()->session;
+                $session->open();
+                $id = $session['id'];
+                $device = Device::model()->findByPk($id);
+                $device->usr_id = $user->usr_id;
+                $device->saveAttributes(array('usr_id'));
+                $session['usr_id'] = $user->usr_id;
+                $isBinded = TRUE;
+            } 
             $transaction->commit();
-            $this->echoJsonData(array('isBinded'=>$isBinded));
+
+            if (isset($user)) {
+                $this->echoJsonData(array('usr_id'=>$user->usr_id, 'aid'=>$user->aid, 'isBinded'=>$isBinded));
+            } else {
+                $this->echoJsonData(array('isBinded'=>$isBinded));
+            }
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
         }
-
     }
 
     public function actionModifyInfoApi($u_name, $u_gender, $u_city)
@@ -186,7 +209,7 @@ class UserController extends Controller
         if (!preg_match($pattern, $u_name)) {
             throw new PException('用户名含有特殊字符');
         }
-    
+
         $transaction = Yii::app()->db->beginTransaction();
         try {
             $user = User::model()->findByPk($this->usr_id);
@@ -202,8 +225,8 @@ class UserController extends Controller
             throw $e;
         }
     }
-    
-    public function actionRegisterApi($aid=NULL, $name, $gender, $age, $type, $u_name, $u_gender, $u_city, $code)
+
+    public function actionRegisterApi($aid=NULL, $name, $gender, $age, $type, $u_name, $u_gender, $u_city, $code, $weibo='', $wechat='')
     {
         /*
         if (empty($name)) {
@@ -256,7 +279,7 @@ class UserController extends Controller
         }
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $user = $device->register($aid, trim($name), $gender, $age, $type, trim($u_name), $u_gender, $u_city,  empty($invter)?NULL:$inviter);
+            $user = $device->register($aid, trim($name), $gender, $age, $type, trim($u_name), $u_gender, $u_city,  empty($invter)?NULL:$inviter, $weibo, $wechat);
 
             $session['usr_id'] = $device->usr_id;
             $session['not_registered'] = FALSE;
@@ -396,7 +419,7 @@ class UserController extends Controller
             throw $e;
         }
     }
-    
+
     public function actionReportApi($usr_id)
     {
         $transaction = Yii::app()->db->beginTransaction();
@@ -507,6 +530,23 @@ class UserController extends Controller
             'ios_url'=>'', 
             'upgrade_content'=>$c
         )); 
+    }
+
+    public function actionSetPwdApi($pwd)
+    {
+        $user = User::model()->findByPk($this->usr_id);
+
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $user->password = $pwd;
+            $user->saveAttributes(array('password')); 
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+
+        $this->echoJsonData(array('isSuccess'=>TRUE));
     }
 
 }

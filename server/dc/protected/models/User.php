@@ -10,7 +10,8 @@
  * @property integer $gender
  * @property integer $city
  * @property string $weibo
- * @property string $qq
+ * @property string $wechat
+ * @property string $password
  * @property integer $age
  * @property string $exp
  * @property string $lv
@@ -53,12 +54,12 @@ class User extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('gender, city, age, reports, is_ban', 'numerical', 'integerOnly'=>true),
-			array('name, tx, weibo, qq', 'length', 'max'=>45),
+			array('name, tx, weibo, wechat, password', 'length', 'max'=>45),
             array('exp, lv, gold, con_login, login_time, vip, aid, inviter, create_time', 'length', 'max'=>10),
 			array('code', 'length', 'max'=>6),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('usr_id, name, tx, gender, city, weibo, qq, age, exp, lv, gold, items, con_login, login_time, vip, aid, code, inviter, reports, create_time, update_time, is_ban', 'safe', 'on'=>'search'),
+			array('usr_id, name, tx, gender, city, weibo, wechat, password, age, exp, lv, gold, items, con_login, login_time, vip, aid, code, inviter, reports, create_time, update_time, is_ban', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -97,7 +98,8 @@ class User extends CActiveRecord
 			'gender' => '性别',
 			'city' => '城市',
 			'weibo' => '微博账号',
-			'qq' => 'QQ账号',
+            'wechat' => '微信账号',
+            'password' => '密码',
 			'age' => '年龄',
 			'exp' => '经验',
 			'lv' => '等级',
@@ -140,7 +142,8 @@ class User extends CActiveRecord
 		$criteria->compare('gender',$this->gender);
 		$criteria->compare('city',$this->city);
 		$criteria->compare('weibo',$this->weibo,true);
-		$criteria->compare('qq',$this->qq,true);
+		$criteria->compare('wechat',$this->wechat,true);
+		$criteria->compare('password',$this->password,true);
 		$criteria->compare('age',$this->age);
 		$criteria->compare('exp',$this->exp,true);
 		$criteria->compare('lv',$this->lv,true);

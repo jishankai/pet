@@ -2,7 +2,7 @@
 
 class DeviceBehavior extends CActiveRecordBehavior
 {
-    public function register($aid, $name, $gender, $age, $type, $u_name, $u_gender, $u_city, $inviter)
+    public function register($aid, $name, $gender, $age, $type, $u_name, $u_gender, $u_city, $inviter, $weibo, $wechat)
     {
         
         $user = new User();
@@ -13,6 +13,8 @@ class DeviceBehavior extends CActiveRecordBehavior
         $user->code = $this->createInviteCode();
         $user->inviter = $inviter;
         $user->gold = 500;
+        $user->weibo = $weibo;
+        $user->wechat = $wechat;
         $reward_items = array(
             1101 => 3,
             1102 => 3,
