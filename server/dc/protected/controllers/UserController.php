@@ -165,13 +165,13 @@ class UserController extends Controller
     public function actionBindUserApi($name, $pwd)
     {
         $isBinded = FALSE;
+        $c = new CDbCriteria;
+        $c->compare('name',$name);
+        $c->compare('password',$pwd); 
+
+        $user = User::model()->find($c);
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $c = new CDbCriteria;
-            $c->compare('name',$name);
-            $c->compare('password',$pwd); 
-            
-            $user = User::model()->find($c);
             if (isset($user)) {
                 $session = Yii::app()->session;
                 $session->open();
@@ -184,14 +184,15 @@ class UserController extends Controller
             } 
             $transaction->commit();
 
-            if (isset($user)) {
-                $this->echoJsonData(array('usr_id'=>$user->usr_id, 'aid'=>$user->aid, 'isBinded'=>$isBinded));
-            } else {
-                $this->echoJsonData(array('isBinded'=>$isBinded));
-            }
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
+        }
+
+        if (isset($user)) {
+            $this->echoJsonData(array('usr_id'=>$user->usr_id, 'aid'=>$user->aid, 'isBinded'=>$isBinded));
+        } else {
+            $this->echoJsonData(array('isBinded'=>$isBinded));
         }
     }
 
