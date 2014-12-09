@@ -141,6 +141,25 @@ class UserController extends Controller
     }
      */
 
+    public function actionBindApi($weibo='', $wechat='')
+    {
+        $isBinded = FALSE;
+        if ((isset($weibo)&&$weibo!='') or (isset($wechat)&&$wechat!='')) {
+            $c = new CDbCriteria;
+            $c->compare('weibo',$weibo);
+            $c->compare('wechat',$wechat); 
+
+            $user = User::model()->find($c);
+            if (isset($user)) {
+                $user->weibo = $weibo;
+                $user->wechat = $wechat;
+                $user->saveAttributes(array('weibo', 'wechat'));
+                $isBinded = TRUE;
+            }
+        }
+        $this->echoJsonData(array('isBinded'=>$isBinded));
+    }
+
     public function actionLoginBy3PartyApi($weibo='', $wechat='')
     {
         $isBinded = FALSE;
