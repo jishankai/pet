@@ -7,7 +7,7 @@ class UserController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - welcomeApi,getSIDApi,planetApi,loginApi,typeApi,bindApi,registerApi,othersApi,infoApi,petsApi,followingApi,topicApi,itemsApi,recommendApi,searchApi,reportApi,loginBy3PartyApi,bindUserApi',
+            'getUserId - welcomeApi,getSIDApi,planetApi,loginApi,typeApi,registerApi,othersApi,infoApi,petsApi,followingApi,topicApi,itemsApi,recommendApi,searchApi,reportApi,loginBy3PartyApi,bindUserApi',
             /*
             array(
                 'COutputCache + welcomeApi',
@@ -145,11 +145,7 @@ class UserController extends Controller
     {
         $isBinded = FALSE;
         if ((isset($weibo)&&$weibo!='') or (isset($wechat)&&$wechat!='')) {
-            $c = new CDbCriteria;
-            $c->compare('weibo',$weibo);
-            $c->compare('wechat',$wechat); 
-
-            $user = User::model()->find($c);
+            $user = User::model()->findByPk($this->usr_id);
             if (isset($user)) {
                 $user->weibo = $weibo;
                 $user->wechat = $wechat;
@@ -171,7 +167,6 @@ class UserController extends Controller
             $user = User::model()->find($c);
             if (isset($user)) {
                 $session = Yii::app()->session;
-                $session->open();
                 $session['usr_id'] = $user->usr_id;
                 $isBinded = TRUE;
 
@@ -194,7 +189,6 @@ class UserController extends Controller
         try {
             if (isset($user)) {
                 $session = Yii::app()->session;
-                $session->open();
                 $id = $session['id'];
                 $device = Device::model()->findByPk($id);
                 $device->usr_id = $user->usr_id;
