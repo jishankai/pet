@@ -296,7 +296,7 @@ class UserController extends Controller
 
     public function actionInfoApi($usr_id)
     {
-        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.lv, u.gold, u.con_login, u.inviter, c.rank, a.aid, a.name AS a_name, a.age AS a_age, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid LEFT JOIN dc_circle c ON u.usr_id=c.usr_id AND u.aid=c.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT u.usr_id, u.name, u.tx, u.gender, u.city, u.age, u.exp, u.password, u.lv, u.gold, u.con_login, u.inviter, c.rank, a.aid, a.name AS a_name, a.age AS a_age, a.tx AS a_tx FROM dc_user u LEFT JOIN dc_animal a ON u.aid=a.aid LEFT JOIN dc_circle c ON u.usr_id=c.usr_id AND u.aid=c.aid WHERE u.usr_id=:usr_id')->bindValue(':usr_id', $usr_id)->queryRow();
         if ($r['con_login']<=5) {
             $r['next_gold'] = ($r['con_login']+1)*LOGIN_X2;
         } else {
