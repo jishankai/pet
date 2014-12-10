@@ -760,11 +760,18 @@ class AnimalController extends Controller
         }
     }
 
+    public function actionFoodApi($aid)
+    {
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.food, i.create_time FROM dc_image i WHERE i.aid=:aid AND is_food=1 AND i.create_time>=:create_time')->bindValues(array(':aid'=>$aid, ':create_time'=> time()-(60*60*24)))->queryRow();
+
+        $this->echoJsonData(array($r));
+    }
+
     public function actionMineApi()
     {
         $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.msg, a.t_rq, a.master_id, c.rank, c.t_contri FROM dc_circle c INNER JOIN dc_animal a ON c.aid=a.aid WHERE c.usr_id=:usr_id ORDER BY c.t_contri DESC')->bindValue(':usr_id', $this->usr_id)->queryAll();
         $code = Yii::app()->db->createCommand('SELECT code FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryScalar();
-        
+
         $session = Yii::app()->session;
         $max_users = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal')->queryScalar();
         foreach ($r as $k=>$v) {

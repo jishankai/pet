@@ -61,6 +61,7 @@ class ItemController extends Controller
                 try {
                     $animal->food-=$item->price;
                     $animal->saveAttributes(array('food'));
+                    Yii::app()->db->createCommand('INSERT INTO item_order(item_id,aid,usr_id,create_time) VALUES(:item_id,:aid,:usr_id,:create_time)')->bindValues(array(':item_id'=>$item_id,':aid'=>$aid,':usr_id'=>$this->usr_id,':create_time'=>time()))->execute();
                     $transaction->commit();
                 } catch (Exception $e) {
                     $transaction->rollback();
