@@ -7,12 +7,11 @@
  * @property string $item_id
  * @property string $name
  * @property string $icon
- * @property string $desc
+ * @property string $description
  * @property string $img
  * @property string $price
- * @property integer $rq
- * @property integer $exp
  * @property integer $type
+ * @property string $spec
  * @property string $create_time
  * @property string $update_time
  */
@@ -34,12 +33,12 @@ class Item extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('rq, exp, type', 'numerical', 'integerOnly'=>true),
-			array('name, icon, img', 'length', 'max'=>255),
+			array('type', 'numerical', 'integerOnly'=>true),
+			array('name, icon, img, description', 'length', 'max'=>255),
 			array('price, create_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('item_id, name, icon, desc, img, price, rq, exp, type, create_time, update_time', 'safe', 'on'=>'search'),
+			array('item_id, name, icon, description, img, price, type, spec, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,12 +69,11 @@ class Item extends CActiveRecord
 			'item_id' => '物品编号',
 			'name' => '名称',
 			'icon' => '标志',
-			'desc' => '描述',
+			'description' => '描述',
 			'img' => '图片地址',
 			'price' => '价格',
-			'rq' => '人气变化',
-			'exp' => '增加经验',
 			'type' => '类别',
+            'spec' => '规格',
 			'create_time' => '创建时间',
 			'update_time' => '更新时间',
 		);
@@ -102,12 +100,11 @@ class Item extends CActiveRecord
 		$criteria->compare('item_id',$this->item_id,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('icon',$this->icon,true);
-		$criteria->compare('desc',$this->desc,true);
+		$criteria->compare('description',$this->description,true);
 		$criteria->compare('img',$this->img,true);
 		$criteria->compare('price',$this->price,true);
-		$criteria->compare('rq',$this->rq);
-		$criteria->compare('exp',$this->exp);
 		$criteria->compare('type',$this->type);
+		$criteria->compare('spec',$this->spec,true);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 

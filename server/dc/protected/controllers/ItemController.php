@@ -8,7 +8,6 @@ class ItemController extends Controller
             'checkUpdate',
             'checkSig',
             'getUserId',
-            /*
             array(
                 'COutputCache + listApi',
                 'duration' => 86400,
@@ -19,11 +18,9 @@ class ItemController extends Controller
                 'duration' => 3600,
                 'varyByParam' => array('item_id'),
             ),
-             */
         );
     }
 
-    /*
     public function actionListApi($code=0)
     {
         $r = Yii::app()->db->createCommand('SELECT item_id FROM dc_item')->queryColumn();
@@ -50,8 +47,34 @@ class ItemController extends Controller
 
         $this->echoJsonData($item);
     }
-     */
 
+    public function actionExchangeApi($item_id, $aid)
+    {
+        $item = Item::model()->findByPk($item_id);
+
+        if (isset($item)) {
+            $animal = Animal::model()->findByPk($aid);
+            if ($animal->food-$item->price<0) {
+                throw new PException('余额不足');
+            } else {
+                $transaction = Yii::app()->db->beginTransaction();
+                try {
+                    $animal->food-=$item->price;
+                    $animal->saveAttributes(array('food'));
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollback();
+                    throw $e;
+                }
+
+                $this->echoJsonData(array('food'=>$animal->food));
+            }
+
+        } else {
+            throw new PException('商品不存在');
+        }
+    }
+    
     public function actionBuyApi($item_id, $num)
     {
         $itemList = Util::loadConfig('items');
