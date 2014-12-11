@@ -132,6 +132,12 @@ class ImageController extends Controller
                             Talk::model()->sendMsg(NPC_IMAGE_USRID, $usr_id, $user->name."[".$model->img_id."]在爱宠的照片中@了你，没想到你人缘还不错，还真让本喵吃惊呀");
                         }
                     }
+
+                    $animal = Animal::model()->findByPk($aid);
+                    $circles = Circle::model()->findByAttributes(array('aid'=>$aid));
+                    foreach ($circles as $circle) {
+                        Talk::model()->sendMsg(NPC_IMAGE_USRID, $circle->usr_id, "大萌星$animal->name发布了一张挣口粮的新萌照，快去支持吧～");
+                    }
                 }
                 $transaction->commit();
             } catch (Exception $e) {
