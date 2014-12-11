@@ -21,13 +21,13 @@ class ItemController extends Controller
         );
     }
 
-    public function actionListApi($code=0)
+    public function actionListApi($code='0')
     {
         $r = Yii::app()->db->createCommand('SELECT item_id FROM dc_item')->queryColumn();
         if (isset($r)) {
-            $tmp_code = md5($r);
+            $tmp_code = md5(explode(',',$r));
         } else {
-            $tmp_code = 0;
+            $tmp_code = '0';
         }
         
         if ($code==$tmp_code) {
