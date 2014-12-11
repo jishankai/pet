@@ -25,7 +25,7 @@ class ItemController extends Controller
     {
         $r = Yii::app()->db->createCommand('SELECT item_id FROM dc_item')->queryColumn();
         if (isset($r)) {
-            $tmp_code = md5(explode(',',$r));
+            $tmp_code = md5(implode(',',$r));
         } else {
             $tmp_code = '0';
         }
