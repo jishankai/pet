@@ -8,11 +8,13 @@ class ItemController extends Controller
             'checkUpdate',
             'checkSig',
             'getUserId',
+            /*
             array(
                 'COutputCache + listApi',
                 'duration' => 86400,
                 'varyByParam' => array('code'),
             ),
+             */
             array(
                 'COutputCache + infoApi',
                 'duration' => 3600,
