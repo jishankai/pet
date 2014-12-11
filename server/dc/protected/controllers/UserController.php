@@ -167,6 +167,10 @@ class UserController extends Controller
             $user = User::model()->find($c);
             if (isset($user)) {
                 $session = Yii::app()->session;
+                $id = $session['id'];
+                $device = Device::model()->findByPk($id);
+                $device->usr_id = $user->usr_id;
+                $device->saveAttributes(array('usr_id'));
                 $session['usr_id'] = $user->usr_id;
                 $isBinded = TRUE;
 
