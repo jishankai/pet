@@ -377,7 +377,11 @@ class UserController extends Controller
         }
         $search_ids = implode(',', $search_ids);
 
-        $r = Yii::app()->db->createCommand("SELECT usr_id, name, tx, city, gender FROM dc_user WHERE usr_id IN ($search_ids)")->queryAll();
+        if ($search_ids!='') {
+            $r = Yii::app()->db->createCommand("SELECT usr_id, name, tx, city, gender FROM dc_user WHERE usr_id IN ($search_ids)")->queryAll();
+        } else {
+            $r = array();
+        }
 
         $this->echoJsonData($r);
     }
