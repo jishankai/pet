@@ -267,7 +267,7 @@ class UserBehavior extends CActiveRecordBehavior
                     $this->owner->exp+=LOGIN_X3;
                     $gold = LOGIN_X3;
                 }
-                Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, "Hello $this->owner->name，欢迎回到宠物星球～今天的福利$gold金币已经入账咯～");
+                Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, "Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利".$gold."金币已经入账咯～");
                 break;
             case 'gift':
                 if ($event->params['is_shake']) {
