@@ -136,7 +136,7 @@ class ImageController extends Controller
                     $animal = Animal::model()->findByPk($aid);
                     $circles = Circle::model()->findByAttributes(array('aid'=>$aid));
                     foreach ($circles as $circle) {
-                        Talk::model()->sendMsg(NPC_IMAGE_USRID, $circle->usr_id, "大萌星$animal->name发布了一张挣口粮的新萌照，快去支持吧～");
+                        Talk::model()->sendMsg(NPC_IMAGE_USRID, $circle->usr_id, "大萌星".$animal->name."发布了一张挣口粮的新萌照，快去支持吧～");
                     }
                 }
                 $transaction->commit();

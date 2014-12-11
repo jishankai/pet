@@ -349,7 +349,7 @@ class AnimalController extends Controller
             $percent = floor($rank*100/$max_users);
 
             $a = Animal::model()->findByPk($aid);
-            Talk::model()->sendMsg(NPC_SYSTEM_USRID, $a->master_id, "路人$user->name被$a->name的魅力折服，成为了TA的粉丝哟～");
+            Talk::model()->sendMsg(NPC_SYSTEM_USRID, $a->master_id, "路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～");
 
             $transaction->commit();
 
