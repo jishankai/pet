@@ -20,6 +20,7 @@
  * @property integer $m_rq
  * @property integer $t_rq
  * @property integer $food
+ * @property integer $total_food
  * @property string $create_time
  * @property string $update_time
  *
@@ -51,7 +52,7 @@ class Animal extends CActiveRecord
 			array('master_id, create_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('aid, name, tx, msg, gender, from, type, age, address, master_id, items, d_rq, w_rq, m_rq, t_rq, food, create_time, update_time', 'safe', 'on'=>'search'),
+			array('aid, name, tx, msg, gender, from, type, age, address, master_id, items, d_rq, w_rq, m_rq, t_rq, food, total_food, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -97,6 +98,7 @@ class Animal extends CActiveRecord
 			'm_rq' => '月人气',
 			't_rq' => '总人气',
             'food' => '粮食数',
+            'total_food' => '总粮食数',
 			'create_time' => '创建时间',
 			'update_time' => '更新时间',
 		);
@@ -136,6 +138,7 @@ class Animal extends CActiveRecord
 		$criteria->compare('m_rq',$this->m_rq);
 		$criteria->compare('t_rq',$this->t_rq);
 		$criteria->compare('food',$this->food);
+		$criteria->compare('total_food',$this->total_food);
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 

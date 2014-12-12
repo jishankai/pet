@@ -337,9 +337,10 @@ class ImageController extends Controller
             }
             $image->food+=$n;
             $animal->food+=$n;
+            $animal->total_food+=$n;
 
             $image->saveAttributes(array('food'));
-            $animal->saveAttributes(array('food'));
+            $animal->saveAttributes(array('food','total_food'));
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();

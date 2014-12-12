@@ -51,7 +51,7 @@ class UserController extends Controller
         //$img_id = rand(1, $max_img_id);
         $url = Yii::app()->db->createCommand("SELECT url FROM dc_image WHERE img_id=$img_id")->queryScalar();
          */
-        $r = Yii::app()->db->createCommand('SELECT COUNT(aid) AS a, SUM(food) AS f FROM dc_animal')->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT COUNT(aid) AS a, SUM(total_food) AS f FROM dc_animal')->queryRow();
 
         $this->echoJsonData(array('url'=>'home.jpg', 'animal'=>$r['a'], 'food'=>$r['f']));    
     }
