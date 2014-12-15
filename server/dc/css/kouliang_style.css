@@ -18,6 +18,8 @@ body{background-color: #EEEEEE;}
 	background-color:#EFEDE4;
 	margin:0 auto;
 	border-radius:20px;
+        $this->layout = FALSE;
+        $this->layout = FALSE;
 	margin-bottom: 30px;
 }
 .money_list{list-style:none;}
@@ -176,9 +178,9 @@ body{background-color: #EEEEEE;}
 	padding-top: 10%;/*71px*/
 	
 }
-.ph_m{position:absolute;top:140px;left:6.875%;}
+.ph_m{position:absolute;top:140px;left:6.875%;width:80px;height:80px}
 .ph_m img{width: 100%；}
-.ph_s{position:absolute;top:204px;left:85.9375%;}
+.ph_s{position:absolute;top:204px;left:85.9375%;width:42px;height:42px}
 
 /*两个圆头像不同大小屏幕适配*/
 @media only screen and (min-width: 320px) and (max-width: 350px){

@@ -36,7 +36,7 @@
 	        	<ul class="about_food">
 	            	<li  class="received"><div>已收到</div></li>
                     <li ><div class="food_num"><?php echo $r['food']?></div></li>
-                    <li ><div class="time_img"><?php echo $r['create_time']?></div></li>
+                    <li ><div class="time_img" id="time_img"></div></li>
 	            </ul>
         	</div>
         	<div class="black">
@@ -122,5 +122,37 @@ $(".give_left").click(function () {
 		$(".food_num").html(b+c);
 
 	})
+
+        /*倒计时*/
+        window.onload=function(){
+            FreshTime();
+        }
+function FreshTime()
+{
+    var endtime = <?php echo $r['create_time']?>+60*60*24;//结束时间
+    var nowtime = new Date();//当前时间
+
+    var lefttime= parseInt(endtime-(nowtime.getTime())/1000); 
+    h=  parseInt(lefttime/(60*60)%24);
+    m=  parseInt(lefttime/(60)%60);
+    s=  parseInt(lefttime%60);
+
+    if(h < 10){
+        h="0"+h;
+    }
+    if(m<10){
+        m="0"+m;
+    }
+    if(s<10){
+        s="0"+s;
+    }
+
+    document.getElementById("time_img").innerHTML=h+":"+m+":"+s;
+    if(lefttime<=0){
+        document.getElementById("time_img").innerHTML="已结束";
+    }
+    setTimeout(FreshTime,1000);
+}
+
 </script>
 </html>
