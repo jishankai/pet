@@ -13,11 +13,11 @@
 		<h3>宠物星球<i>-我为自己代粮</i></h3>
 	</div>
 	<div class="logo">
-		<img src="images/kouliang/r_logo.png" alt=""/>
+		<img src="css/images/r_logo.png" alt=""/>
 	</div>
 	<div class="food_body">
 		<div class="info">
-			<img src="images/kouliang/photo-m.png" alt="" class="ph_m"/>
+			<img src="css/images/photo-m.png" alt="" class="ph_m"/>
 			<div class="info_tit">
             <h3><?php echo $r['name']?></h3>
 			</div>
@@ -25,11 +25,11 @@
             <h3><?php echo $r['type']?><i><?php echo $r['u_name']?></i></h3>
 			</div>
 		</div>
-			<img src="images/kouliang/photo-s.png" alt="" class="ph_s"/>
+			<img src="css/images/photo-s.png" alt="" class="ph_s"/>
 			<div class="info_photo">
 	        	<ul class="imgBox">
-                    <li><a href="#"><img src="images/kouliang/photo_b.jpg" alt="banner" class="active"/></a></li>
-                    <li><a href="#"><img src="images/kouliang/photo_d.jpg" alt="banner" /></a></li>   
+                    <li><a href="#"><img src="css/images/photo_b.jpg" alt="banner" class="active"/></a></li>
+                    <li><a href="#"><img src="css/images/photo_d.jpg" alt="banner" /></a></li>   
                 </ul>
 			</div>
 			<div class="details clearfix">
@@ -59,7 +59,7 @@
 			<div class="target"></div>
 		</div>
 		<div class="give_btn">
-			<!-- <a href="#"><img src="images/kouliang/btn.png"></a> --> 
+			<!-- <a href="#"><img src="css/images/btn.png"></a> --> 
 
 			<div class="give_btn_bottom">
 				<div class="give_btn_con">
@@ -77,7 +77,7 @@
 			
 			<div class="load_left">
 				<div class="logo_icon">
-					<img src="images/kouliang/logo_icon.jpg"/>
+					<img src="css/images/logo_icon.jpg"/>
 				</div>
 				<div class="load_info">
 					<h3>宠物星球</h3>
@@ -85,7 +85,7 @@
 				</div>
 			</div>
 			<div class="load_right">
-				<img src="images/kouliang/load.jpg"/>
+				<img src="css/images/load.jpg"/>
 			</div>
 		</div>
 	</div>
