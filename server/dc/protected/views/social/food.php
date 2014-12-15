@@ -17,7 +17,7 @@
 	</div>
 	<div class="food_body">
 		<div class="info">
-			<img src="css/images/photo-m.png" alt="" class="ph_m"/>
+        <img src="http://pet4tx.oss-cn-beijing.aliyuncs.com/ani_tx/<?php echo $r['tx']?>" alt="" class="ph_m"/>
 			<div class="info_tit">
             <h3><?php echo $r['name']?></h3>
 			</div>
@@ -25,10 +25,10 @@
             <h3><?php echo $r['type']?><i><?php echo $r['u_name']?></i></h3>
 			</div>
 		</div>
-			<img src="css/images/photo-s.png" alt="" class="ph_s"/>
+        <img src="http://pet4tx.oss-cn-beijing.aliyuncs.com/usr_tx/<?php echo $r['u_tx']?>" alt="" class="ph_s"/>
 			<div class="info_photo">
 	        	<ul class="imgBox">
-                    <li><a href="#"><img src="css/images/photo_b.jpg" alt="banner" class="active"/></a></li>
+                <li><a href="#"><img src="http://pet4upload.oss-cn-beijing.aliyuncs.com/<?php echo $r['url']?>" alt="banner" class="active"/></a></li>
                     <li><a href="#"><img src="css/images/photo_d.jpg" alt="banner" /></a></li>   
                 </ul>
 			</div>
