@@ -19,10 +19,10 @@
 		<div class="info">
 			<img src="images/kouliang/photo-m.png" alt="" class="ph_m"/>
 			<div class="info_tit">
-            <h3><?php echo $r->name?></h3>
+            <h3><?php echo $r['name']?></h3>
 			</div>
 			<div class="info_con">
-            <h3><?php echo $r->type?><i><?php echo $r->u_name?></i></h3>
+            <h3><?php echo $r['type']?><i><?php echo $r['u_name']?></i></h3>
 			</div>
 		</div>
 			<img src="images/kouliang/photo-s.png" alt="" class="ph_s"/>
@@ -35,14 +35,14 @@
 			<div class="details clearfix">
 	        	<ul class="about_food">
 	            	<li  class="received"><div>已收到</div></li>
-                    <li ><div class="food_num"><?php echo $r->food?></div></li>
-                    <li ><div class="time_img"><?php echo $r->create_time?></div></li>
+                    <li ><div class="food_num"><?php echo $r['food']?></div></li>
+                    <li ><div class="time_img"><?php echo $r['create_time']?></div></li>
 	            </ul>
         	</div>
         	<div class="black">
         	</div>
         	<div class="come_from">
-                <h3><?php echo $r->cmt?></h3>
+                <h3><?php echo $r['cmt']?></h3>
         	</div>
 
 	
