@@ -7,7 +7,7 @@ class ImageController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - recommendApi,randomApi,infoApi,recoApi,reportApi,ask4FoodApi',
+            'getUserId - recommendApi,randomApi,infoApi,recoApi,reportApi,ask4FoodApi,bannerApi',
             array(
                 'COutputCache + randomApi',
                 'duration' => 300,
@@ -449,5 +449,12 @@ class ImageController extends Controller
             throw $e;
         }
         $this->echoJsonData(array('isSuccess'=>TRUE));
+    }
+
+    public function actionBannerApi()
+    {
+        $r = Yii::app()->db->createCommand('SELECT img_url, url FROM banner WHERE start_time<=:time AND end_time>:time')->bindValue(':time', time())->queryAll();
+
+        $this->echoJsonData(array($r));        
     }
 }
