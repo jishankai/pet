@@ -662,12 +662,17 @@ class AnimalController extends Controller
         $this->echoJsonData(array($r));
     }
 
-    public function actionPopularApi($type=NULL, $page=0, $from=1)
+    public function actionPopularApi($type=NULL, $page=0, $from=0)
     {
         if (isset($type)) {
             $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE type=:type ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
                 ':type'=>$type,
                 ':m'=>30*$page,
+            ))->queryAll();
+        } else if ($from!=0) {
+            $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a WHERE `from`=:from ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
+                ':m'=>30*$page,
+                ':from'=>$from,
             ))->queryAll();
         } else {
             $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age,  a.t_rq, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans FROM dc_animal a ORDER BY a.t_rq DESC LIMIT :m,30')->bindValues(array(
