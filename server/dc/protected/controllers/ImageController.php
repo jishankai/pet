@@ -453,7 +453,7 @@ class ImageController extends Controller
 
     public function actionBannerApi()
     {
-        $r = Yii::app()->db->createCommand('SELECT img_url, url FROM banner WHERE start_time<=:time AND end_time>:time')->bindValue(':time', time())->queryAll();
+        $r = Yii::app()->db->createCommand('SELECT img_url, url, icon, title, description FROM banner WHERE start_time<=:time AND end_time>:time')->bindValue(':time', time())->queryAll();
 
         $this->echoJsonData(array($r));        
     }
