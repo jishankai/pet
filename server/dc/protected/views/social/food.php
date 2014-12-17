@@ -13,7 +13,7 @@
 		<h3>宠物星球<i>-我为自己代粮</i></h3>
 	</div>
 	<div class="logo">
-		<img src="css/css/images/r_logo.png" alt=""/>
+		<img src="css/images/r_logo.png" alt=""/>
 	</div>
 	<div class="food_body">
 		<div class="info">
@@ -100,7 +100,8 @@
 </div>
 </body>
 
-<script type="text/javascript" src="js/link.js">
+<script type="text/javascript" src="js/link.js"></script>
+<script type="text/javascript">
 /*倒计时*/
 	window.onload=function(){
      FreshTime();
