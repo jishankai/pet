@@ -38,16 +38,16 @@ $(".give_left").click(function () {
 
 
 		if(c==1){
-        $('.food_num').append('<div id="zhan"><img src="images/food.png" width="29px" height="28px"><b>+1</b></div>');
+        $('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+1</b></div>');
         }
         else if(c==10){
-        	$('.food_num').append('<div id="zhan"><img src="images/food.png" width="29px" height="28px"><b>+10</b></div>');
+        	$('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+10</b></div>');
         }
         else if(c==100){
-        	$('.food_num').append('<div id="zhan"><img src="images/food.png" width="29px" height="28px"><b>+100</b></div>');
+        	$('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+100</b></div>');
         }
         else if(c==1000){
-        	$('.food_num').append('<div id="zhan"><img src="images/food.png" width="29px" height="28px"><b>+1000</b></div>');
+        	$('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+1000</b></div>');
         }
 
 
