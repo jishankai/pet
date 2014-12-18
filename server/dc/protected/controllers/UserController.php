@@ -249,7 +249,7 @@ class UserController extends Controller
         }
     }
 
-    public function actionRegisterApi($aid=NULL, $name, $gender, $age, $type, $u_name, $u_gender, $u_city, $code, $weibo='', $wechat='')
+    public function actionRegisterApi($aid=NULL, $name, $gender, $age, $type, $u_name, $u_gender, $u_city, $code='', $weibo='', $wechat='')
     {
         /*
         if (empty($name)) {
