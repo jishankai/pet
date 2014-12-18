@@ -161,8 +161,12 @@ class UserController extends Controller
         $isBinded = FALSE;
         if ((isset($weibo)&&$weibo!='') or (isset($wechat)&&$wechat!='')) {
             $c = new CDbCriteria;
-            $c->compare('weibo',$weibo);
-            $c->compare('wechat',$wechat); 
+            if (isset($weibo)&&$weibo!='') {
+                $c->compare('weibo',$weibo);
+            }
+            if (isset($wechat)&&$wechat!='') {
+                $c->compare('wechat',$wechat); 
+            }
 
             $user = User::model()->find($c);
             if (isset($user)) {
