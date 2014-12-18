@@ -36,7 +36,7 @@ class DeviceBehavior extends CActiveRecordBehavior
         $user->items = serialize($reward_items);
         $user->save();
 
-        if (empty($aid) or $aid==0) {
+        if (empty($aid)) {
             $animal = new Animal();
             $animal->name = $name;
             $animal->gender = $gender;

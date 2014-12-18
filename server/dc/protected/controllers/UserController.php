@@ -249,7 +249,7 @@ class UserController extends Controller
         }
     }
 
-    public function actionRegisterApi($aid=0, $name, $gender, $age, $type, $u_name, $u_gender, $u_city, $code='', $weibo='', $wechat='')
+    public function actionRegisterApi($aid=NULL, $name, $gender, $age, $type, $u_name, $u_gender, $u_city, $code, $weibo='', $wechat='')
     {
         /*
         if (empty($name)) {
@@ -271,7 +271,7 @@ class UserController extends Controller
             return ;
         }
         $pattern = '/^[a-zA-Z0-9\x{30A0}-\x{30FF}\x{3040}-\x{309F}\x{4E00}-\x{9FBF}]+$/u';
-        if (empty($aid) or $aid==0) {
+        if (empty($aid)) {
             //$namelen = (strlen($name)+mb_strlen($name,"UTF8"))/2;
             $namelen = mb_strlen($name,"UTF8");
             if ($namelen>8) {
