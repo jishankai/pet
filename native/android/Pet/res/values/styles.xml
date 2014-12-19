@@ -48,5 +48,9 @@
               <item name="android:backgroundDimEnabled">true</item> 
                <item name="android:windowCloseOnTouchOutside">false</item>
         </style>
+        
+        
+        
+        
 
 </resources>

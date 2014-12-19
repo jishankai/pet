@@ -24,14 +24,23 @@ import com.aidigame.hisun.pet.ui.ChatActivity;
 import com.aidigame.hisun.pet.ui.ModifyPetInfoActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.ui.TakePictureBackground;
+import com.aidigame.hisun.pet.ui.TouchActivity;
 import com.aidigame.hisun.pet.ui.WarningDialogActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
-import com.aidigame.hisun.pet.widget.fragment.DialogGoRegister;
+import com.aidigame.hisun.pet.widget.fragment.DialogNote;
 import com.aidigame.hisun.pet.widget.fragment.DialogJoinKingdom;
 import com.aidigame.hisun.pet.widget.fragment.DialogJoinKingdom.ResultListener;
 import com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom;
-import com.aidigame.hisun.pet.widget.fragment.MenuFragment;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
+import com.umeng.socialize.weixin.media.CircleShareContent;
+import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 /**
  * 显示更多功能，1，王国资料界面；2，用户资料界面；3，照片详情界面
@@ -49,12 +58,21 @@ public class ShowMore implements OnClickListener{
 	User user;
 	HandleHttpConnectionException handleHttpConnectionException;
 	public String sharePath;
+	UMSocialService mController;
 	public ShowMore(LinearLayout parent,Activity activity,String sharePath,View rootParent){
 		this.parent=parent;
 		this.activity=activity;
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		this.sharePath=sharePath;
 		this.rootParent=rootParent;
+		mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+		// 添加微信平台
+		UMWXHandler wxHandler = new UMWXHandler(activity,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
+		wxHandler.addToSocialSDK();
+		// 支持微信朋友圈
+		UMWXHandler wxCircleHandler = new UMWXHandler(activity,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
+		wxCircleHandler.setToCircle(true);
+		wxCircleHandler.addToSocialSDK();
 		initView();
 		
 		initListener();
@@ -331,9 +349,9 @@ public class ShowMore implements OnClickListener{
 							// TODO Auto-generated method stub
 							if(activity instanceof PetKingdomActivity){
 								final PetKingdomActivity p=(PetKingdomActivity)activity;
-								DialogGoRegister dialog=new DialogGoRegister(p.popupParent, p, p.black_layout, 2);
+								DialogNote dialog=new DialogNote(p.popupParent, p, p.black_layout, 2);
 								dialog.setAnimal(animal);
-								dialog.setListener(new DialogGoRegister.ResultListener() {
+								dialog.setListener(new DialogNote.ResultListener() {
 									
 									@Override
 									public void getResult(boolean isSuccess) {
@@ -395,7 +413,7 @@ public class ShowMore implements OnClickListener{
 				}
 				
 				if(Constants.user.coinCount<num){
-					DialogGoRegister dialog=new DialogGoRegister(PetKingdomActivity.petKingdomActivity.popupParent, PetKingdomActivity.petKingdomActivity, PetKingdomActivity.petKingdomActivity.black_layout, 1);
+					DialogNote dialog=new DialogNote(PetKingdomActivity.petKingdomActivity.popupParent, PetKingdomActivity.petKingdomActivity, PetKingdomActivity.petKingdomActivity.black_layout, 1);
 					return;
 				}
 					
@@ -462,16 +480,9 @@ public class ShowMore implements OnClickListener{
 				}
 				UserImagesJson.Data data=new UserImagesJson.Data();
 				data.path=sharePath;
-					if(Constants.api==null){
-						boolean flag=WeixinShare.regToWeiXin(activity);
-						if(!flag){
-							Toast.makeText(activity,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
-							
-							return;
-						}
-					}
+				weixinShare(sharePath);
 					Constants.shareMode=0;
-					if(animal!=null){
+					/*if(animal!=null){
 						Constants.whereShare=2;
 						
 						data.des="雷达报告发现一只萌宠，火速围观！";
@@ -485,7 +496,7 @@ public class ShowMore implements OnClickListener{
 					}else{
 						parent.setVisibility(View.INVISIBLE);
 						Toast.makeText(activity,"分享失败。", Toast.LENGTH_LONG).show();
-					}
+					}*/
 				
 				
 			}
@@ -498,17 +509,11 @@ public class ShowMore implements OnClickListener{
 				parent.setVisibility(View.INVISIBLE);
 				rootParent.setBackgroundDrawable(null);
 				rootCanTouch=false;
-				if(Constants.api==null){
-					boolean flag=WeixinShare.regToWeiXin(activity);
-					if(!flag){
-						Toast.makeText(activity,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
-						return;
-					}
-				}
 				
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=sharePath;
 					Constants.shareMode=1;
+					friendShare(sharePath);
 					if(animal!=null){
 						Constants.whereShare=2;
 						
@@ -517,13 +522,13 @@ public class ShowMore implements OnClickListener{
 						Constants.whereShare=3;
 						data.des="我发现了一枚萌萌哒的新伙伴浅唱，可以一起愉快的玩耍啦！";
 					}
-					if(WeixinShare.shareBitmap(data, 2)){
+					/*if(WeixinShare.shareBitmap(data, 2)){
 						parent.setVisibility(View.INVISIBLE);
 //						Toast.makeText(activity,"成功分享到微信。", Toast.LENGTH_LONG).show();
 					}else{
 						parent.setVisibility(View.INVISIBLE);
 						Toast.makeText(activity,"分享到微信失败。", Toast.LENGTH_LONG).show();
-					}
+					}*/
 				
 			}
 		});
@@ -556,6 +561,77 @@ public class ShowMore implements OnClickListener{
 			}
 		});
 	}
+	
+	
+	
+	 public void weixinShare(String path){
+	   	   WeiXinShareContent weixinContent = new WeiXinShareContent();
+	   	 //设置分享文字
+//	   	 weixinContent.setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能，微信");
+	   	 //设置title
+//	   	 weixinContent.setTitle("友盟社会化分享组件-微信");
+	   	 //设置分享内容跳转URL
+//	   	 weixinContent.setTargetUrl("你的URL链接");
+	   	 //设置分享图片
+	   	 UMImage umImage=new UMImage(activity,path );
+	   	 weixinContent.setShareImage(umImage);
+	   	 mController.setShareMedia(weixinContent);
+//	   	 mController.openShare(this, true);
+	   	 mController.postShare(activity,SHARE_MEDIA.WEIXIN, 
+	   		        new SnsPostListener() {
+	   		                @Override
+	   		                public void onStart() {
+//	   		                    Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+	   		                }
+	   		                @Override
+	   		                public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
+	   		                	parent.setVisibility(View.INVISIBLE); 
+	   		                	if (eCode == 200) {
+	   		                         Toast.makeText(activity, "分享成功.", Toast.LENGTH_SHORT).show();
+	   		                     } else {
+	   		                          String eMsg = "";
+	   		                          if (eCode == -101){
+	   		                              eMsg = "没有授权";
+	   		                          }
+	   		                          Toast.makeText(activity, "分享失败[" + eCode + "] " + 
+	   		                                             eMsg,Toast.LENGTH_SHORT).show();
+	   		                     }
+	   		              }
+	   		});
+	   	   
+	   		
+	      }
+	      public void friendShare(String path){
+	   	   CircleShareContent circleMedia = new CircleShareContent();
+	   	   UMImage umImage=new UMImage(activity, path);
+	   	   circleMedia.setShareImage(umImage);
+//	   	   circleMedia.setTargetUrl("你的URL链接");
+	   	   mController.setShareMedia(circleMedia);
+	   	   mController.postShare(activity,SHARE_MEDIA.WEIXIN_CIRCLE,
+	   			   new SnsPostListener() {
+	              @Override
+	              public void onStart() {
+//	                  Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+	              }
+	              @Override
+	              public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
+	            	  parent.setVisibility(View.INVISIBLE);
+	            	  if (eCode == 200) {
+	                    Toast.makeText(activity, "分享成功.", Toast.LENGTH_SHORT).show();
+	                   } else {
+	                        String eMsg = "";
+	                        if (eCode == -101){
+	                            eMsg = "没有授权";
+	                        }
+	                        Toast.makeText(activity, "分享失败[" + eCode + "] " + 
+	                                           eMsg,Toast.LENGTH_SHORT).show();
+	                   }
+	            }
+	   });
+	   		
+	      }
+	
+	
 	boolean justShare=false;
 	public void onlyCanShare(){
 		joinTv.setClickable(false);

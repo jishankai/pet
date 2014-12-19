@@ -95,7 +95,7 @@
              android:layout_marginRight="30dp"
              android:layout_centerVertical="true"
              android:layout_toLeftOf="@+id/imageView4"
-             android:src="@drawable/shake_weixin" 
+             android:src="@drawable/dialog_go_register_weixin" 
              />
              
         
@@ -105,14 +105,14 @@
              android:layout_height="wrap_content"
              android:layout_centerHorizontal="true"
              android:layout_centerVertical="true"
-             android:src="@drawable/shake_friend" />
+             android:src="@drawable/dialog_go_register_friend" />
           <ImageView
              android:id="@+id/imageView5"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_marginLeft="30dp"
              android:layout_toRightOf="@+id/imageView4"
-             android:src="@drawable/shake_xinlang" />
+             android:src="@drawable/dialog_go_register_xinlang" />
         </RelativeLayout>
         
 

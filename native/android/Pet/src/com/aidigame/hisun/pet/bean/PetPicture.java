@@ -57,6 +57,9 @@ public class PetPicture implements Serializable{
 //	public String liker_tx;
 	public Animal animal;
 	
+	
+	public boolean isBeg;//是否是求口粮
+	
 	public ArrayList<String> like_txUrlList;
 	public ArrayList<String> gift_txUrlList;
 	public ArrayList<Comments> commentsList;

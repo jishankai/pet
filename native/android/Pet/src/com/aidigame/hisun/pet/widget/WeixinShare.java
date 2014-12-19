@@ -18,19 +18,18 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.ui.SubmitPictureActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
-import com.tencent.mm.sdk.openapi.BaseReq;
-import com.tencent.mm.sdk.openapi.BaseResp;
+import com.aidigame.hisun.pet.util.StringUtil;
+import com.tencent.mm.sdk.modelbase.BaseReq;
+import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.tencent.mm.sdk.modelmsg.SendAuth;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXImageObject;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXTextObject;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
-import com.tencent.mm.sdk.openapi.SendAuth;
-import com.tencent.mm.sdk.openapi.SendMessageToWX;
-import com.tencent.mm.sdk.openapi.SendMessageToWX.Req;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.tencent.mm.sdk.openapi.WXImageObject;
-import com.tencent.mm.sdk.openapi.WXMediaMessage;
-import com.tencent.mm.sdk.openapi.WXTextObject;
-import com.tencent.mm.sdk.openapi.WXWebpageObject;
-import com.tencent.mm.sdk.platformtools.Util;
 
 public class WeixinShare {
 	public static boolean getToken(){
@@ -54,6 +53,7 @@ public class WeixinShare {
 				// TODO Auto-generated method stub
 				
 			}
+
 		});
 		return false;
 		
@@ -109,7 +109,7 @@ public class WeixinShare {
 		Bitmap bitmap=BitmapFactory.decodeFile(data.path,options);
 		WXImageObject imgObj = new WXImageObject(bitmap);
 		
-		
+		 LogUtil.i("mi", "微信分享：授权==分享图片");
 		
 		WXMediaMessage msg = new WXMediaMessage();
 		msg.mediaObject = imgObj;
@@ -121,7 +121,7 @@ public class WeixinShare {
 		 Bitmap bmp = BitmapFactory.decodeFile(data.path);
          Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 150, 150, true);
          bmp.recycle();
-		msg.thumbData =  Util.bmpToByteArray(thumbBmp,true);  // 设置缩略图  大小要小于32kb
+		msg.thumbData =  StringUtil.bmpToByteArray(thumbBmp,true);  // 设置缩略图  大小要小于32kb
 
 		SendMessageToWX.Req req = new SendMessageToWX.Req();
 		req.transaction = buildTransaction("img");
@@ -136,6 +136,7 @@ public class WeixinShare {
 //		req.scene = isTimelineCb.isChecked() ? SendMessageToWX.Req.WXSceneTimeline : SendMessageToWX.Req.WXSceneSession;
 		
 		boolean flag=Constants.api.sendReq(req);
+		LogUtil.i("mi", "微信分享：授权==分享图片返回结果"+flag);
 		/*if(flag){
 			if(Constants.whereShare==0){
 				ShowTopicActivity.showTopicActivity.shareNumChange();
@@ -158,7 +159,7 @@ public class WeixinShare {
         Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.bug);
         Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 150, 150, true);
         bmp.recycle();
-        msg.thumbData =  Util.bmpToByteArray(thumbBmp, true); ; // thumb是链接带的图片。（注：微信分享图片，分享链接的缩略图，必须要150×150的固定尺寸，单位是px）
+        msg.thumbData =  StringUtil.bmpToByteArray(thumbBmp, true); ; // thumb是链接带的图片。（注：微信分享图片，分享链接的缩略图，必须要150×150的固定尺寸，单位是px）
 
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("webpage");

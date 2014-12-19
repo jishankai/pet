@@ -45,7 +45,6 @@ import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 import com.huewu.pla.lib.internal.PLA_AdapterView;
 /**
  * 人气榜
@@ -72,6 +71,7 @@ public class PopularRankListActivity extends Activity {
 	 int category=1;
 	 int currentType=0;
 	HandleHttpConnectionException handleHttpConnectionException;
+	public static PopularRankListActivity popularRankListActivity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -80,6 +80,8 @@ public class PopularRankListActivity extends Activity {
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_popular_rank);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
+		popularRankListActivity=this;
+		
 		
 		 SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
 		  Editor editor=sp.edit();
@@ -549,10 +551,11 @@ public class PopularRankListActivity extends Activity {
 	    	}
 	    	
 	    }*/
-	   final String[] strArray=new String[3];
+	   final String[] strArray=new String[4];
 	    strArray[0]="所有";
 	    strArray[1]="喵";
 	    strArray[2]="汪";
+	    strArray[3]="其他";
 	    PopularWindowAdapter adapter=new PopularWindowAdapter(this, strArray);
 	    listView.setAdapter(adapter);
 	    raceWindow=new PopupWindow(view,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
@@ -669,8 +672,14 @@ public class PopularRankListActivity extends Activity {
 										  }else{
 											  continue;
 										  }
-									  }else {
+									  }else  if(type==2){
                                          if(animal.type>200&&animal.type<300){
+											  
+										  }else{
+											  continue;
+										  }
+									  }else  if(type==3){
+                                          if(animal.type>300/*&&animal.type<300*/){
 											  
 										  }else{
 											  continue;

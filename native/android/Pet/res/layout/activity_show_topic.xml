@@ -484,20 +484,164 @@
     <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout 
+     
+        
+        
+           <!-- 底部控制按钮 -->
+    <!--  <ImageView 
+                    android:id="@+id/bottom_padding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/bottom_tab_background_2"
+                    android:layout_alignParentBottom="true"/> -->
+
+    
+            <LinearLayout 
             android:id="@+id/bottom_tabs_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="center_vertical"
+            >
+            <RelativeLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <!-- <ImageView 
+                    android:id="@+id/view1"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/bottom_tab_background_2"/> -->
+                 <ImageView 
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:src="@drawable/bottom_tab_background"
+                    
+                    android:scaleType="fitXY"/><!-- android:layout_below="@+id/view1" -->
+                <ImageView 
+                 android:id="@+id/bottom_iv_like"
+                 android:src="@drawable/show_topic_like_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="3dp"/>
+            </RelativeLayout>
+            <RelativeLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <!-- <ImageView 
+                    android:id="@+id/view1"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bottom_tab_background_2"/> -->
+                 <ImageView 
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:src="@drawable/bottom_tab_background"
+                    
+                    android:scaleType="fitXY"/><!-- android:layout_below="@+id/view1" -->
+                <ImageView 
+                  android:id="@+id/bottom_iv_gift"
+                            android:src="@drawable/show_topic_gift_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+            <RelativeLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <!-- <ImageView 
+                    android:id="@+id/view1"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/bottom_tab_background_2"
+                    /> -->
+                 <ImageView 
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:src="@drawable/bottom_tab_background"
+                    
+                    android:scaleType="fitXY"/><!-- android:layout_below="@+id/view1" -->
+                <ImageView 
+                  android:id="@+id/bottom_iv_comment"
+                    android:src="@drawable/show_topic_comment_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+            <RelativeLayout 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+               <!--  <ImageView 
+                    android:id="@+id/view1"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/bottom_tab_background_2"
+                    /> -->
+                 <ImageView 
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:src="@drawable/bottom_tab_background"
+                    
+                    android:scaleType="fitXY"/><!-- android:layout_below="@+id/view1" -->
+                <ImageView 
+                 android:id="@+id/bottom_iv_more"
+                    android:src="@drawable/show_topic_more_selector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_centerHorizontal="true"/>
+            </RelativeLayout>
+            
+                       
+                
+               
+            
+        </LinearLayout>
+        
+        
+           
+        
+        
+        
+        
+        
+        <!-- 分割线 -->
+        
+       <!--  <LinearLayout 
+            android:id="@+id/bottom_tabs_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:visibility="gone"
             android:background="@drawable/show_topic_bottom_background"
             >
             <ImageView 
                  android:id="@+id/bottom_iv_like"
+                 android:src="@drawable/show_topic_like_selector"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/show_topic_like_selector"/>
+                />
             <ImageView 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -505,10 +649,11 @@
                 android:src="@drawable/show_topic_bottom_red_line"/>
                         <ImageView 
                             android:id="@+id/bottom_iv_gift"
+                            android:src="@drawable/show_topic_gift_selector"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/show_topic_gift_selector"/>
+                />
                         <ImageView 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -516,10 +661,11 @@
                 android:src="@drawable/show_topic_bottom_red_line"/>
                 <ImageView 
                     android:id="@+id/bottom_iv_comment"
+                    android:src="@drawable/show_topic_comment_selector"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/show_topic_comment_selector"/>
+                />
                 <ImageView 
                     android:id="@+id/bottom_iv_share"
                 android:layout_width="0dp"
@@ -536,13 +682,14 @@
                 android:src="@drawable/show_topic_bottom_red_line"/>
                 <ImageView 
                     android:id="@+id/bottom_iv_more"
+                    android:src="@drawable/show_topic_more_selector"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/show_topic_more_selector"
+                
                 />
             
-        </LinearLayout>
+        </LinearLayout> -->
     </RelativeLayout>
     
     
@@ -727,7 +874,7 @@
                    
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/more_weixin" 
+                    android:src="@drawable/dialog_go_register_weixin" 
                     />
 
                 <TextView
@@ -751,7 +898,7 @@
                    
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/more_friend" />
+                    android:src="@drawable/dialog_go_register_friend" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -774,7 +921,7 @@
                     
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/more_xinlang" />
+                    android:src="@drawable/dialog_go_register_xinlang" />
 
                 <TextView
                     android:id="@+id/textView6"
@@ -822,5 +969,11 @@
               android:layout_height="1dp"
               android:layout_centerInParent="true"/>
       </RelativeLayout>
-      
+         <ImageView 
+             android:id="@+id/guide1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        android:src="@drawable/guide1"/> 
 </FrameLayout>

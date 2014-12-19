@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aidigame.hisun.pet"
-    android:versionCode="23"
-    android:versionName="1.0.1" >
+    android:versionCode="24"
+    android:versionName="1.1.0" >
 
     <uses-sdk
         android:minSdkVersion="12"
@@ -26,6 +26,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.REORDER_TASKS"/>
+    <uses-permission android:name="android.permission.INTERNAL_SYSTEM_WINDOW"/>
     <application
         android:name="com.aidigame.hisun.pet.PetApplication"
         android:allowBackup="true"
@@ -138,12 +139,22 @@
              android:hardwareAccelerated="true"
             android:launchMode="singleInstance"
             ><!-- android:hardwareAccelerated="false" -->
+           
             
         </activity>
+         <activity android:name="com.aidigame.hisun.pet.ui.HomeActivity"
+            android:windowSoftInputMode="adjustNothing"
+             android:configChanges="keyboardHidden|orientation|navigation"
+             android:hardwareAccelerated="true"
+            
+            ><!--android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent"  -->
+        </activity><!--  -->
         <activity android:name="com.aidigame.hisun.pet.FirstPageActivity"
            
-            android:theme="@android:style/Theme.Translucent"
+           
              android:configChanges="keyboardHidden|orientation|navigation">
+        <!-- android:theme="@android:style/Theme.Translucent"  -->
                        <!--  <intent-filter >
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -198,7 +209,12 @@
                     <activity android:name="com.aidigame.hisun.pet.ui.UserDossierActivity"
              android:configChanges="keyboardHidden|orientation|navigation"
              ></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.ExchangeActivity"
+             android:configChanges="keyboardHidden|orientation|navigation"
+             ></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.PlayGameActivity"
+             android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.ActivityWebActivity"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.ReceiverAddressActivity"
              android:configChanges="keyboardHidden|orientation|navigation"
@@ -210,8 +226,12 @@
                     <activity android:name="com.aidigame.hisun.pet.ui.AtUserListActivity"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.GiftInfoActivity"
+                         android:theme="@style/Theme.Transparent"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.ContributeRankListActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"
+                        android:hardwareAccelerated="true"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.ChargeActivity"
                         android:configChanges="keyboardHidden|orientation|navigation"
                         android:hardwareAccelerated="true"></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.PopularRankListActivity"
@@ -221,6 +241,10 @@
                         android:theme="@style/SampleTheme.Light"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                      <activity android:name="com.aidigame.hisun.pet.ui.ChosePetActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.MarketActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.SetupActivity"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                      <activity android:name="com.aidigame.hisun.pet.ui.AboutUsActivity"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
@@ -233,12 +257,24 @@
                     <activity android:name="com.aidigame.hisun.pet.ui.ShakeActivity"
                         android:theme="@style/Theme.Transparent2"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.DialogGoRegisterActivity"
+                        android:theme="@style/Theme.Transparent2"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
                    
                     <activity android:name="com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1"
                         android:theme="@style/Theme.Transparent"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                     
                     <activity android:name="com.aidigame.hisun.pet.ui.PlayJokeActivity"
+                        android:theme="@style/Theme.Transparent"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.Dialog4Activity"
+                        android:theme="@style/Theme.Transparent"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                      <activity android:name="com.aidigame.hisun.pet.ui.Dialog6Activity"
+                        android:theme="@style/Theme.Transparent"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.Dialog3Activity"
                         android:theme="@style/Theme.Transparent"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                       <activity android:name="com.aidigame.hisun.pet.ui.DialogNoteActivity"
@@ -261,6 +297,15 @@
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                      <activity android:name="com.aidigame.hisun.pet.ui.WarningDialogActivity"
                         android:theme="@style/Theme.Transparent"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.RegisterNoteDialog"
+                       
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity><!--  android:theme="@style/Theme.Transparent" -->
+                     <activity android:name="com.aidigame.hisun.pet.ui.AccountActivity"
+                       
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.SetPassActivity"
+                       android:windowSoftInputMode="stateVisible|adjustResize"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                      <activity android:name="com.aidigame.hisun.pet.ui.InviteOthersDialogActivity"
                         android:theme="@style/Theme.Transparent"
@@ -295,7 +340,7 @@
         <activity android:name="com.umeng.fb.ContactActivity"
          android:theme="@android:style/Theme.NoTitleBar"/>
         <meta-data android:value="546ad32dfd98c57ed4006955" android:name="UMENG_APPKEY"></meta-data>
-        <meta-data android:value="qihu360" android:name="UMENG_CHANNEL"/>
+        <meta-data android:value="qq" android:name="UMENG_CHANNEL"/>
         <!--  <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/> -->
     </application>
 

@@ -42,7 +42,6 @@ import com.aidigame.hisun.pet.view.RoundImageView;
 import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.fragment.FourGiftBox;
 import com.aidigame.hisun.pet.widget.fragment.FourGiftBox.SendGiftResultListener;
-import com.aidigame.hisun.pet.widget.fragment.MarketFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;

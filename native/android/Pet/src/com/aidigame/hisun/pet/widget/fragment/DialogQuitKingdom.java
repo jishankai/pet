@@ -21,7 +21,6 @@ import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
-import com.aidigame.hisun.pet.ui.NewHomeActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 
@@ -57,7 +56,7 @@ public class DialogQuitKingdom {
 		int[] location=new int[2];
 		parent.getLocationInWindow(location);
 		blackView.setBackgroundResource(R.color.window_black_bagd);
-		popupWindow.showAsDropDown(parent, location[0]+parent.getWidth()/2-view.getMeasuredWidth()/2, -view.getMeasuredHeight()/2);
+		popupWindow.showAsDropDown(parent, location[0]+(parent.getWidth()/2-view.getMeasuredWidth()/2), -view.getMeasuredHeight()/2);
 		view.findViewById(R.id.imageView1).setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -108,9 +107,6 @@ public class DialogQuitKingdom {
 										}else{
 											Constants.user.aniList=new ArrayList<Animal>();
 										
-										}
-										if(MenuFragment.menuFragment!=null){
-											MenuFragment.menuFragment.setViews();
 										}
 										}else{
 											Toast.makeText(context, "退出王国失败", 1000).show();
@@ -167,9 +163,6 @@ handleHttpConnectionException.post(new Runnable() {
 										Constants.user.aniList=new ArrayList<Animal>();
 									
 									}
-									if(MenuFragment.menuFragment!=null){
-										MenuFragment.menuFragment.setViews();
-									}
 									}else{
 										Toast.makeText(context, "退出王国失败", 1000).show();
 									}
@@ -197,17 +190,21 @@ handleHttpConnectionException.post(new Runnable() {
 			@Override
 			public void onDismiss() {
 				// TODO Auto-generated method stub
-				closePopupTodo();
+				blackView.setBackgroundDrawable(null);
+			}
+		});
+view.findViewById(R.id.textView4).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				popupWindow.dismiss();
 				blackView.setBackgroundDrawable(null);
 			}
 		});
 		
 	}
-	public void closePopupTodo(){
-		if(context instanceof NewHomeActivity){
-			((NewHomeActivity) context).homeFragment.setBlureViewInvisible();
-		}
-	}
+	
 	public void setResultListener(ResultListener listener){
 		this.listener=listener;
 	}

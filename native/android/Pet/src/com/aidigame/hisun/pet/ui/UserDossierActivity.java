@@ -49,7 +49,6 @@ import com.aidigame.hisun.pet.view.MyScrollView.OnScrollListener;
 import com.aidigame.hisun.pet.view.RoundImageView;
 import com.aidigame.hisun.pet.widget.ShowMore;
 import com.aidigame.hisun.pet.widget.ShowProgress;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 import com.aidigame.hisun.pet.widget.fragment.UserActivity;
 import com.aidigame.hisun.pet.widget.fragment.UserFocus;
 import com.aidigame.hisun.pet.widget.fragment.UserGiftList;
@@ -634,18 +633,17 @@ BitmapFactory.Options options2=new BitmapFactory.Options();
 				userIcon.setImageDrawable(new BitmapDrawable());
 			}
 			if(isTaskRoot()){
-				if(NewHomeActivity.homeActivity!=null){
-					Intent intent=NewHomeActivity.homeActivity.getIntent();
+				if(HomeActivity.homeActivity!=null){
+					Intent intent=HomeActivity.homeActivity.getIntent();
 					if(intent!=null){
-						intent.putExtra("mode", NewHomeActivity.HOMEFRAGMENT);
 						this.startActivity(intent);
 						finish();
 						return;
 					}
 					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+					am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
 				}else{
-					Intent intent=new Intent(this,NewHomeActivity.class);
+					Intent intent=new Intent(this,HomeActivity.class);
 					this.startActivity(intent);
 				}
 			}

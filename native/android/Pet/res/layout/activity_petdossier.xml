@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/framelayout1"
-     android:background="@color/white">
+     android:background="@drawable/blur">
     
     
     
@@ -422,7 +422,7 @@
 <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="@color/orange_red" 
+        android:background="#33fc7b51" 
         android:gravity="center_vertical">
 
         <ImageView

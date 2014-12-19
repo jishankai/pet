@@ -32,7 +32,6 @@ import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 /**
  * 王国贡献榜
  * @author admin
@@ -98,7 +97,7 @@ public class ContributeRankListActivity extends Activity {
 				ContributeRankListActivity.this.startActivity(intent);
 			}
 		});
-		 listView.setOnScrollListener(new OnScrollListener() {
+		/* listView.setOnScrollListener(new OnScrollListener() {
 				
 				@Override
 				public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -130,7 +129,7 @@ public class ContributeRankListActivity extends Activity {
 					// TODO Auto-generated method stub
 					
 				}
-			});
+			});*/
 	}
 
 	private void loadData( final int category) {

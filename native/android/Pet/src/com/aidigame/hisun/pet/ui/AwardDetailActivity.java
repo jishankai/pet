@@ -25,7 +25,6 @@ import com.aidigame.hisun.pet.http.json.ActivityJson.Reward;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 /**
  * 奖品详情
  * @author admin

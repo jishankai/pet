@@ -27,7 +27,6 @@ import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.ShowProgress;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.fb.model.Conversation;
 import com.umeng.fb.model.Conversation.SyncListener;
@@ -71,12 +70,14 @@ public class AdviceActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(NewHomeActivity.homeActivity!=null){
-					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
-				}else{
-					Intent intent=new Intent(AdviceActivity.this,NewHomeActivity.class);
-					AdviceActivity.this.startActivity(intent);
+				if(isTaskRoot()){
+					if(HomeActivity.homeActivity!=null){
+						ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+						am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), 0);
+					}else{
+						Intent intent=new Intent(AdviceActivity.this,HomeActivity.class);
+						AdviceActivity.this.startActivity(intent);
+					}
 				}
 				AdviceActivity.this.finish();
 			}

@@ -9,12 +9,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/blur_view_top" >
+     ><!-- android:background="@color/blur_view_top" -->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
-        android:background="@color/orange_red">
+        android:background="#33fc7b51">
 
 
         <TextView

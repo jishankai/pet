@@ -937,8 +937,8 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 					
 					return;
 				}*/
-				getIntent().putExtra("cancel", true);
-				FeatherActivity.this.setResult(RESULT_OK, getIntent());
+				/*getIntent().putExtra("cancel", true);
+				FeatherActivity.this.setResult(RESULT_OK, getIntent());*/
 				FeatherActivity.this.finish();
 			}
 		});
@@ -1619,6 +1619,7 @@ public class FeatherActivity extends MonitoredActivity implements OnToolbarClick
 			FileOutputStream fos1=null;
 			try {
 				fos = new FileOutputStream(new File(path));
+				
 				bitmap.compress(CompressFormat.JPEG, 90, fos);
 				try {
 					Thread.sleep(100);

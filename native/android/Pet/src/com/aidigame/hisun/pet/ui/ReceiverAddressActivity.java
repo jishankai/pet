@@ -16,6 +16,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,7 +31,6 @@ import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 /**
  * 用户收货地址
  * @author admin
@@ -109,6 +110,7 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 		back=(ImageView)findViewById(R.id.back);
 		
 		
+		provinceCityET.setText(Constants.user.province+" "+Constants.user.city);
 		
 		
 		provinceCityET.setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -119,6 +121,13 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 				if(hasFocus){
 					addressLayout.setVisibility(View.VISIBLE);
 					StringUtil.hideSoftKeybord(ReceiverAddressActivity.this);
+					if(getWindow().getAttributes().softInputMode==WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED){
+						InputMethodManager m = (InputMethodManager)   
+								getSystemService(Context.INPUT_METHOD_SERVICE);   
+								m.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+					}
+					 
+					
 				}else{
 					addressLayout.setVisibility(View.INVISIBLE);
 				}
@@ -181,7 +190,7 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 		
 		province=AddressData.PROVINCES[0];
 		city=AddressData.CITIES[0][0];
-		provinceCityET.setText(province+" "+city);
+//		provinceCityET.setText(province+" "+city);
 		provinceTV.setText(province);
 	}
 
@@ -190,15 +199,16 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.back:
-			if(NewHomeActivity.homeActivity!=null){
-				ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-				am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
-			}else{
-				Intent intent=new Intent(this,NewHomeActivity.class);
-				this.startActivity(intent);
+			if(isTaskRoot()){
+				if(HomeActivity.homeActivity!=null){
+					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+					am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), 0);
+				}else{
+					Intent intent=new Intent(this,HomeActivity.class);
+					this.startActivity(intent);
+				}
 			}
-			
-			this.finish();
+			finish();
 			break;
 		case R.id.save_tv:
 			saveAddress();

@@ -3,9 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-   
-  
- <ImageView
+   <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,14 +13,13 @@
         android:src="@drawable/start_image"
         android:visibility="visible"
         />
-  <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/first_360"
-        android:layout_marginBottom="15dp"
-        android:visibility="visible"
-        />
+ <!-- <ImageView 
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:src="@drawable/first_qq"
+     android:layout_centerHorizontal="true"
+     android:layout_alignParentBottom="true"
+     android:layout_marginLeft="15dp"
+     android:layout_marginRight="15dp"
+     android:layout_marginBottom="150dp"/> -->
 </RelativeLayout>

@@ -22,7 +22,6 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.DialogNoteActivity;
 import com.aidigame.hisun.pet.ui.DialogPengTaSuccActivity;
-import com.aidigame.hisun.pet.ui.NewHomeActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 
@@ -81,7 +80,7 @@ public class DialogJoinKingdom {
 		int[] location=new int[2];
 		parent.getLocationInWindow(location);
 		blackView.setBackgroundResource(R.color.window_black_bagd);
-		popupWindow.showAsDropDown(parent, location[0]+parent.getWidth()/2-view.getMeasuredWidth()/2, -view.getMeasuredHeight()/2);
+		popupWindow.showAsDropDown(parent, (location[0]+parent.getWidth()/2-view.getMeasuredWidth()/2)/2, -view.getMeasuredHeight()/2);
 		view.findViewById(R.id.imageView1).setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -91,6 +90,7 @@ public class DialogJoinKingdom {
 				blackView.setBackgroundDrawable(null);
 			}
 		});
+
 		view.findViewById(R.id.textView3).setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -129,10 +129,6 @@ public class DialogJoinKingdom {
 										Constants.user.aniList=new ArrayList<Animal>();
 										Constants.user.aniList.add(animal);
 									}
-									if(MenuFragment.menuFragment!=null){
-										MenuFragment.menuFragment.setViews();
-									}
-									
 									Intent intent=new Intent(context,DialogPengTaSuccActivity.class);
 									intent.putExtra("animal", an);
 									intent.putExtra("mode", 7);
@@ -163,16 +159,10 @@ public class DialogJoinKingdom {
 			@Override
 			public void onDismiss() {
 				// TODO Auto-generated method stub
-				closePopupTodo();
 				blackView.setBackgroundDrawable(null);
 			}
 		});
 		
-	}
-	public void closePopupTodo(){
-		if(context instanceof NewHomeActivity){
-			((NewHomeActivity) context).homeFragment.setBlureViewInvisible();
-		}
 	}
 	public void setResultListener(ResultListener listener){
 		this.listener=listener;

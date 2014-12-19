@@ -1,20 +1,20 @@
--injars 'C:\Users\admin\AppData\Local\Temp\android_4256090606696849404.jar'
+-injars 'C:\Users\admin\AppData\Local\Temp\android_534596085478557894.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\annotations-10.0.2.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-cds-library.jar'
--injars 'F:\android\aidi\aidi\Pet\libs\libammsdk.jar'
+-injars 'F:\android\aidi\aidi\PLASample\libs\android-support-v4.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\listviewanimations.jar'
 -injars 'F:\android\aidi\aidi\Pet\libs\umeng-feedback-v4.3.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\horizontallistview.jar'
--injars 'F:\android\aidi\aidi\sliding_menu_library\bin\sliding_menu_library.jar'
--injars 'F:\android\aidi\aidi\Mp3Recorder\bin\mp3recorder.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\okhttp-1.2.1-jar-with-dependencies.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-sdk-library.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-tracking.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_WeiXin_1.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_UserCenter.jar'
 -injars 'F:\android\aidi\aidi\WeiboSDK\bin\weibosdk.jar'
 -injars 'F:\android\aidi\aidi\PLASample\bin\plasample.jar'
 -injars 'F:\android\aidi\aidi\Pet\libs\universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar'
--injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-receipt-library.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\picasso.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-receipt-library.jar'
 -injars 'F:\android\aidi\aidi\library_wheel_picker\bin\library_wheel_picker.jar'
 -injars 'F:\android\aidi\aidi\WeiboSDK\libs\weibosdkcore.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\imageviewtouch.jar'
@@ -22,32 +22,42 @@
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-common-library.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\abtest.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\bin\aviary-sdk.jar'
--injars 'F:\android\aidi\aidi\Mp3Recorder\libs\android-support-v4.jar'
 -injars 'F:\android\aidi\aidi\Pet\libs\umeng-analytics-v5.2.4.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_WeiXin_2.jar'
 -injars 'F:\android\aidi\aidi\com.miloisbadboy.PullToRefreshViewActivity\bin\com.miloisbadboy.pulltorefreshviewactivity.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-headless-library.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\httpmime-4.1.3.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\nineoldandroids-2.4.0.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\umeng_social_sdk.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\stickylistheaders_lib.jar'
--outjars 'C:\Users\admin\AppData\Local\Temp\android_2574621126811978310.jar'
+-outjars 'C:\Users\admin\AppData\Local\Temp\android_4144605144952691329.jar'
 
 -libraryjars 'F:\android\aidi\aidi\Pet\libs\android-support-v4.jar'
--libraryjars 'F:\android\aidi\aidi\Pet\libs\libammsdk.jar'
 -libraryjars 'F:\android\aidi\aidi\Pet\libs\universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar'
 -libraryjars 'F:\android\aidi\aidi\Pet\libs\umeng-feedback-v4.3.jar'
 -libraryjars 'F:\android\aidi\aidi\Pet\libs\umeng-analytics-v5.2.4.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_UserCenter.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_WeiXin_1.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_WeiXin_2.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\umeng_social_sdk.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\httpmime-4.1.3.jar'
 -libraryjars 'F:\adt-bundle-windows-x86_64-20140321\sdk\platforms\android-17\android.jar'
 
+-dontshrink
 -printusage 'F:\android\aidi\aidi\Pet\proguard\usage.txt'
 -dontoptimize
 -optimizations !code/simplification/arithmetic
 -optimizationpasses 5
+-allowaccessmodification
 -dontobfuscate
 -printmapping 'F:\android\aidi\aidi\Pet\proguard\mapping.txt'
+-overloadaggressively
 -dontusemixedcaseclassnames
--keepattributes *Annotation*,*Annotation*
+-repackageclasses ''
+-keepattributes *Annotation*,*Annotation*,Exceptions,InnerClasses,Signature,*Annotation*,SourceFile,LineNumberTable
 -dontpreverify
 -verbose
--dontwarn android.support.**,android.support.**,com.squareup.okhttp.internal.**
+-dontwarn android.support.**,android.support.**,com.squareup.okhttp.internal.**,com.google.android.maps.**,android.webkit.WebView,com.umeng.**,com.tencent.weibo.sdk.**,com.facebook.**
 -ignorewarnings
 -printconfiguration 'F:\android\aidi\aidi\Pet\proguard_configuration.txt'
 -dump 'F:\android\aidi\aidi\Pet\proguard\dump.txt'
@@ -316,6 +326,16 @@
 }
 
 -keep class me.maxwin.view.* {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.tencent.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.tencent.wxop.stat.* {
     <fields>;
     <methods>;
 }
@@ -602,269 +622,386 @@
     public <init>(com.aviary.android.feather.library.services.IAviaryController);
 }
 
-# view res/layout/activity_bite.xml #generated:33
+-keep enum  com.facebook.**
+
+-keep public interface  com.facebook.**
+
+-keep public interface  com.tencent.**
+
+-keep public interface  com.umeng.socialize.**
+
+-keep public interface  com.umeng.socialize.sensor.**
+
+-keep public interface  com.umeng.scrshot.**
+
+-keep public class com.umeng.socialize.* {
+    <fields>;
+    <methods>;
+}
+
+-keep public class javax.**
+
+-keep public class android.webkit.**
+
+-keep class com.facebook.**
+
+-keep class com.umeng.scrshot.**
+
+-keep public class com.tencent.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.umeng.socialize.sensor.**
+
+-keep class com.ument.**
+
+-keep class com.ument.socialize.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.tencent.mm.sdk.modelmsg.WXMediaMessage {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.tencent.mm.sdk.modelmsg.** extends com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject {
+    <fields>;
+    <methods>;
+}
+
+-keep class im.yixin.sdk.api.YXMessage {
+    <fields>;
+    <methods>;
+}
+
+-keep class im.yixin.sdk.api.** extends im.yixin.sdk.api.YXMessage$YXMessageData {
+    <fields>;
+    <methods>;
+}
+
+-keep public class [your_pkg].R$* {
+    public static final int *;
+}
+
 # view res/layout/activity_new_register.xml #generated:21
-# view res/layout/activity_play_joke.xml #generated:31
 # view res/layout/activity_shake.xml #generated:47
 # view res/layout/dialog_give_sb_gift.xml #generated:37
-# view res/layout/fragment_home.xml #generated:50
+# view res/layout/fragment_beg_food.xml #generated:11
+# view res/layout/fragment_discovery.xml #generated:50
+# view res/layout/fragment_my_pet.xml #generated:73
 -keep class android.support.v4.view.ViewPager {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:143
+# view AndroidManifest.xml #generated:153
 -keep class com.aidigame.hisun.pet.FirstPageActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:29
+# view AndroidManifest.xml #generated:30
 -keep class com.aidigame.hisun.pet.PetApplication {
     <init>(...);
 }
 
-# view res/layout/fragment_menu.xml #generated:14
--keep class com.aidigame.hisun.pet.blur.TopCenterImageView {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:278
+# view AndroidManifest.xml #generated:323
 -keep class com.aidigame.hisun.pet.service.DownLoadApkService {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:225
+# view AndroidManifest.xml #generated:249
 -keep class com.aidigame.hisun.pet.ui.AboutUsActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:259
--keep class com.aidigame.hisun.pet.ui.AddGoldContriExpActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:168
--keep class com.aidigame.hisun.pet.ui.AdviceActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:158
--keep class com.aidigame.hisun.pet.ui.AlbumPictureBackground {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:229
--keep class com.aidigame.hisun.pet.ui.AnimalsListActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:210
--keep class com.aidigame.hisun.pet.ui.AtUserListActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:166
--keep class com.aidigame.hisun.pet.ui.AwardDetailActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:250
--keep class com.aidigame.hisun.pet.ui.BiteActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:194
--keep class com.aidigame.hisun.pet.ui.ChatActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:181
--keep class com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:152
--keep class com.aidigame.hisun.pet.ui.ChoseClassActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:184
--keep class com.aidigame.hisun.pet.ui.ChoseKingActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:223
--keep class com.aidigame.hisun.pet.ui.ChosePetActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:174
--keep class com.aidigame.hisun.pet.ui.ChoseStarActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:214
--keep class com.aidigame.hisun.pet.ui.ContributeRankListActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:164
--keep class com.aidigame.hisun.pet.ui.DetailActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:237
--keep class com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1 {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:247
--keep class com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:244
--keep class com.aidigame.hisun.pet.ui.DialogNoteActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:253
--keep class com.aidigame.hisun.pet.ui.DialogPengTaSuccActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:231
--keep class com.aidigame.hisun.pet.ui.FAQActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:212
--keep class com.aidigame.hisun.pet.ui.GiftInfoActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:265
--keep class com.aidigame.hisun.pet.ui.InviteOthersDialogActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:171
--keep class com.aidigame.hisun.pet.ui.MessageActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:220
--keep class com.aidigame.hisun.pet.ui.ModifyPetInfoActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:227
--keep class com.aidigame.hisun.pet.ui.MyItemActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:135
--keep class com.aidigame.hisun.pet.ui.NewHomeActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:191
--keep class com.aidigame.hisun.pet.ui.NewRegisterActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:127
--keep class com.aidigame.hisun.pet.ui.NewShowTopicActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:195
--keep class com.aidigame.hisun.pet.ui.PetKingdomActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:201
--keep class com.aidigame.hisun.pet.ui.PlayGameActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:241
--keep class com.aidigame.hisun.pet.ui.PlayJokeActivity {
+# view AndroidManifest.xml #generated:304
+-keep class com.aidigame.hisun.pet.ui.AccountActivity {
     <init>(...);
 }
 
 # view AndroidManifest.xml #generated:217
--keep class com.aidigame.hisun.pet.ui.PopularRankListActivity {
+-keep class com.aidigame.hisun.pet.ui.ActivityWebActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:203
--keep class com.aidigame.hisun.pet.ui.ReceiverAddressActivity {
+# view AndroidManifest.xml #generated:295
+-keep class com.aidigame.hisun.pet.ui.AddGoldContriExpActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:233
--keep class com.aidigame.hisun.pet.ui.ShakeActivity {
+# view AndroidManifest.xml #generated:179
+-keep class com.aidigame.hisun.pet.ui.AdviceActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:132
--keep class com.aidigame.hisun.pet.ui.ShowPictureActivity {
+# view AndroidManifest.xml #generated:169
+-keep class com.aidigame.hisun.pet.ui.AlbumPictureBackground {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:123
--keep class com.aidigame.hisun.pet.ui.ShowTopicActivity {
+# view AndroidManifest.xml #generated:253
+-keep class com.aidigame.hisun.pet.ui.AnimalsListActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:121
--keep class com.aidigame.hisun.pet.ui.SubmitPictureActivity {
+# view AndroidManifest.xml #generated:226
+-keep class com.aidigame.hisun.pet.ui.AtUserListActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:155
--keep class com.aidigame.hisun.pet.ui.TakePictureBackground {
+# view AndroidManifest.xml #generated:177
+-keep class com.aidigame.hisun.pet.ui.AwardDetailActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:208
--keep class com.aidigame.hisun.pet.ui.TopicListActivity {
+# view AndroidManifest.xml #generated:286
+-keep class com.aidigame.hisun.pet.ui.BiteActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:256
--keep class com.aidigame.hisun.pet.ui.TouchActivity {
+# view AndroidManifest.xml #generated:234
+-keep class com.aidigame.hisun.pet.ui.ChargeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:205
+-keep class com.aidigame.hisun.pet.ui.ChatActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:192
+-keep class com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:163
+-keep class com.aidigame.hisun.pet.ui.ChoseClassActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:195
+-keep class com.aidigame.hisun.pet.ui.ChoseKingActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:243
+-keep class com.aidigame.hisun.pet.ui.ChosePetActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:185
+-keep class com.aidigame.hisun.pet.ui.ChoseStarActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:231
+-keep class com.aidigame.hisun.pet.ui.ContributeRankListActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:175
+-keep class com.aidigame.hisun.pet.ui.DetailActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:277
+-keep class com.aidigame.hisun.pet.ui.Dialog3Activity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:271
+-keep class com.aidigame.hisun.pet.ui.Dialog4Activity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:274
+-keep class com.aidigame.hisun.pet.ui.Dialog6Activity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:264
+-keep class com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1 {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:283
+-keep class com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:260
+-keep class com.aidigame.hisun.pet.ui.DialogGoRegisterActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:280
+-keep class com.aidigame.hisun.pet.ui.DialogNoteActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:289
+-keep class com.aidigame.hisun.pet.ui.DialogPengTaSuccActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:212
+-keep class com.aidigame.hisun.pet.ui.ExchangeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:255
+-keep class com.aidigame.hisun.pet.ui.FAQActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:228
+-keep class com.aidigame.hisun.pet.ui.GiftInfoActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:145
+-keep class com.aidigame.hisun.pet.ui.HomeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:310
+-keep class com.aidigame.hisun.pet.ui.InviteOthersDialogActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:245
+-keep class com.aidigame.hisun.pet.ui.MarketActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:182
+-keep class com.aidigame.hisun.pet.ui.MessageActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:240
+-keep class com.aidigame.hisun.pet.ui.ModifyPetInfoActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:251
+-keep class com.aidigame.hisun.pet.ui.MyItemActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:136
+-keep class com.aidigame.hisun.pet.ui.NewHomeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:202
+-keep class com.aidigame.hisun.pet.ui.NewRegisterActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:128
+-keep class com.aidigame.hisun.pet.ui.NewShowTopicActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:206
+-keep class com.aidigame.hisun.pet.ui.PetKingdomActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:215
+-keep class com.aidigame.hisun.pet.ui.PlayGameActivity {
     <init>(...);
 }
 
 # view AndroidManifest.xml #generated:268
+-keep class com.aidigame.hisun.pet.ui.PlayJokeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:237
+-keep class com.aidigame.hisun.pet.ui.PopularRankListActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:219
+-keep class com.aidigame.hisun.pet.ui.ReceiverAddressActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:301
+-keep class com.aidigame.hisun.pet.ui.RegisterNoteDialog {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:307
+-keep class com.aidigame.hisun.pet.ui.SetPassActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:247
+-keep class com.aidigame.hisun.pet.ui.SetupActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:257
+-keep class com.aidigame.hisun.pet.ui.ShakeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:133
+-keep class com.aidigame.hisun.pet.ui.ShowPictureActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:124
+-keep class com.aidigame.hisun.pet.ui.ShowTopicActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:122
+-keep class com.aidigame.hisun.pet.ui.SubmitPictureActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:166
+-keep class com.aidigame.hisun.pet.ui.TakePictureBackground {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:224
+-keep class com.aidigame.hisun.pet.ui.TopicListActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:292
+-keep class com.aidigame.hisun.pet.ui.TouchActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:313
 -keep class com.aidigame.hisun.pet.ui.UpdateAPKActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:198
+# view AndroidManifest.xml #generated:209
 -keep class com.aidigame.hisun.pet.ui.UserDossierActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:161
+# view AndroidManifest.xml #generated:172
 -keep class com.aidigame.hisun.pet.ui.UsersListActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:262
+# view AndroidManifest.xml #generated:298
 -keep class com.aidigame.hisun.pet.ui.WarningDialogActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:282
+# view AndroidManifest.xml #generated:327
 -keep class com.aidigame.hisun.pet.util.DeviceNetInfoUtil$NetworkStatusChangeReceiver {
-    <init>(...);
-}
-
-# view res/layout/item_bite_1.xml #generated:71
-# view res/layout/item_bite_2.xml #generated:55
--keep class com.aidigame.hisun.pet.view.BallProgressView {
     <init>(...);
 }
 
@@ -884,7 +1021,7 @@
 }
 
 # view res/layout/activity_detail.xml #generated:200
-# view res/layout/fragment_menu.xml #generated:257
+# view res/layout/activity_exchange.xml #generated:172
 -keep class com.aidigame.hisun.pet.view.HorizontalListView2 {
     <init>(...);
 }
@@ -895,7 +1032,7 @@
 }
 
 # view res/layout/activity_show_topic.xml #generated:441
-# view res/layout/fragment_message.xml #generated:32
+# view res/layout/fragment_message.xml #generated:31
 # view res/layout/widget_llistview1.xml #generated:7
 -keep class com.aidigame.hisun.pet.view.LinearLayoutForListView {
     <init>(...);
@@ -914,12 +1051,17 @@
     <init>(...);
 }
 
+# view res/layout/act_pull_to_refresh_sample.xml #generated:18
+-keep class com.aidigame.hisun.pet.view.MyViewPager {
+    <init>(...);
+}
+
 # view res/layout/widget_show_topics.xml #generated:2
 -keep class com.aidigame.hisun.pet.view.PullDownView {
     <init>(...);
 }
 
-# view res/layout/activity_atuser_list.xml #generated:19
+# view res/layout/activity_atuser_list.xml #generated:123
 # view res/layout/activity_chose_king.xml #generated:27
 # view res/layout/activity_topic_list.xml #generated:19
 # view res/layout/fragment_activity.xml #generated:19
@@ -930,11 +1072,10 @@
     <init>(...);
 }
 
-# view res/layout/activity_bite.xml #generated:54
+# view res/layout/activity_exchange.xml #generated:128
 # view res/layout/activity_invite_dialog.xml #generated:17
 # view res/layout/activity_petdossier.xml #generated:206
 # view res/layout/activity_petdossier.xml #generated:61
-# view res/layout/activity_play_joke.xml #generated:52
 # view res/layout/activity_send_gift_result.xml #generated:146
 # view res/layout/activity_shake.xml #generated:77
 # view res/layout/activity_show_topic.xml #generated:167
@@ -944,10 +1085,9 @@
 # view res/layout/activity_user_dossier.xml #generated:68
 # view res/layout/dialog_user_job_upgrade.xml #generated:31
 # view res/layout/dialog_user_peng_ta_success.xml #generated:31
-# view res/layout/fragment_menu.xml #generated:108
-# view res/layout/fragment_menu.xml #generated:274
-# view res/layout/fragment_menu.xml #generated:303
-# view res/layout/fragment_menu.xml #generated:320
+# view res/layout/fragment_beg_food.xml #generated:199
+# view res/layout/fragment_beg_food.xml #generated:258
+# view res/layout/fragment_user_center.xml #generated:40
 # view res/layout/item__simple_users_listview.xml #generated:20
 # view res/layout/item_atuser_list.xml #generated:13
 # view res/layout/item_chose_king_listview.xml #generated:22
@@ -956,7 +1096,7 @@
 # view res/layout/item_comment_listview.xml #generated:13
 # view res/layout/item_contribute_list_.xml #generated:30
 # view res/layout/item_gallery_view.xml #generated:8
-# view res/layout/item_home_my_pet.xml #generated:64
+# view res/layout/item_home_my_pet.xml #generated:65
 # view res/layout/item_home_pet_pictures.xml #generated:16
 # view res/layout/item_home_pet_pictures.xml #generated:67
 # view res/layout/item_kingdom_people_listview.xml #generated:21
@@ -964,6 +1104,7 @@
 # view res/layout/item_mail_listview.xml #generated:37
 # view res/layout/item_mail_listview.xml #generated:99
 # view res/layout/item_message_list.xml #generated:20
+# view res/layout/item_only_icon.xml #generated:7
 # view res/layout/item_register_view1.xml #generated:183
 # view res/layout/item_register_view2.xml #generated:221
 # view res/layout/item_search_pet_list.xml #generated:14
@@ -995,43 +1136,37 @@
     <init>(...);
 }
 
-# view res/layout/fragment_claw_menu.xml #generated:10
-# view res/layout/fragment_claw_menu.xml #generated:21
--keep class com.aidigame.hisun.pet.view.arcmenu.ArcMenu {
-    <init>(...);
-}
-
 # view res/layout/widget_waterfull.xml #generated:9
 -keep class com.aidigame.hisun.pet.waterfull1.LazyScrollView {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:271
+# view AndroidManifest.xml #generated:316
 -keep class com.aidigame.hisun.pet.wxapi.WXEntryActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:70
+# view AndroidManifest.xml #generated:71
 -keep class com.aviary.android.feather.AlertActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:60
+# view AndroidManifest.xml #generated:61
 -keep class com.aviary.android.feather.FeatherActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:97
+# view AndroidManifest.xml #generated:98
 -keep class com.aviary.android.feather.cds.AviaryCdsProvider {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:106
+# view AndroidManifest.xml #generated:107
 -keep class com.aviary.android.feather.cds.AviaryCdsReceiver {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:82
+# view AndroidManifest.xml #generated:83
 -keep class com.aviary.android.feather.cds.AviaryCdsService {
     <init>(...);
 }
@@ -1239,7 +1374,7 @@
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:37
+# view AndroidManifest.xml #generated:38
 -keep class com.baidu.location.f {
     <init>(...);
 }
@@ -1259,11 +1394,6 @@
     <init>(...);
 }
 
-# view res/layout/slidingmenumain.xml #generated:2
--keep class com.jeremyfeinstein.slidingmenu.lib.SlidingMenu {
-    <init>(...);
-}
-
 # view res/layout/activity_petdossier.xml #generated:22
 # view res/layout/activity_user_dossier.xml #generated:24
 # view res/layout/fragment_message.xml #generated:10
@@ -1274,12 +1404,12 @@
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:295
+# view AndroidManifest.xml #generated:340
 -keep class com.umeng.fb.ContactActivity {
     <init>(...);
 }
 
-# view AndroidManifest.xml #generated:293
+# view AndroidManifest.xml #generated:338
 -keep class com.umeng.fb.ConversationActivity {
     <init>(...);
 }
@@ -1298,16 +1428,16 @@
     <init>(...);
 }
 
-# view res/layout/act_pull_to_refresh_sample.xml #generated:6
+# view res/layout/act_pull_to_refresh_sample.xml #generated:90
 # view res/layout/activity_popular_rank.xml #generated:27
-# view res/layout/fragment_home.xml #generated:63
+# view res/layout/fragment_discovery.xml #generated:64
 # view res/layout/widget_home_pet_pictures.xml #generated:12
 -keep class me.maxwin.view.XListView {
     <init>(...);
 }
 
-# view res/layout/activity_receiver_address.xml #generated:228
-# view res/layout/activity_receiver_address.xml #generated:243
+# view res/layout/activity_receiver_address.xml #generated:224
+# view res/layout/activity_receiver_address.xml #generated:239
 # view res/layout/item_register_view2.xml #generated:260
 # view res/layout/item_register_view2.xml #generated:275
 # view res/layout/widget_address_picker.xml #generated:13

@@ -30,7 +30,6 @@ import com.aidigame.hisun.pet.widget.Rotate3dAnimation;
 import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.WeixinShare;
 import com.aidigame.hisun.pet.widget.XinlangShare;
-import com.aidigame.hisun.pet.widget.fragment.MarketFragment;
 import com.example.android.bitmapfun.util.ImageCache;
 import com.example.android.bitmapfun.util.ImageFetcher;
 import com.example.android.bitmapfun.util.ImageWorker;
@@ -38,7 +37,17 @@ import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.squareup.okhttp.internal.DiskLruCache.Editor;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
+import com.umeng.socialize.weixin.media.CircleShareContent;
+import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -47,6 +56,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -98,7 +108,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	/*
 	 * 一直存在的控件
 	 */
-	ImageView bottomLikeIv,bottomGiftIv,bottomCommentIv,bottomShareIv,bottomMoreIv;
+	ImageView bottomLikeIv,bottomGiftIv,bottomCommentIv,bottomMoreIv,guideIv1;
 	ViewGroup mContainer;
 	View popupParent;
 	RelativeLayout black_layout;
@@ -146,6 +156,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	TopicUsersListAdapter topicUsersListAdapter;
 	FrameLayout infoFrameLayout;
 	boolean urlIsEmpty=false;
+	UMSocialService mController;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -154,8 +165,31 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.activity_show_topic);
 		MobclickAgent.onEvent(this, "photopage");
 		newShowTopicActivity=this;
+		guideIv1=(ImageView)findViewById(R.id.guide1);
 		handler=HandleHttpConnectionException.getInstance().getHandler(this);
+		SharedPreferences sp=getSharedPreferences(Constants.BASEIC_SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+		SharedPreferences.Editor e=sp.edit();
+		boolean guide1=sp.getBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE1, true);
+		if(guide1){
+			guideIv1.setVisibility(View.VISIBLE);
+			e.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE1, false);
+			e.commit();
+		}else{
+			guideIv1.setVisibility(View.GONE);
+		}
 		
+		
+		
+		
+		
+		mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+		// 添加微信平台
+		UMWXHandler wxHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
+		wxHandler.addToSocialSDK();
+		// 支持微信朋友圈
+		UMWXHandler wxCircleHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
+		wxCircleHandler.setToCircle(true);
+		wxCircleHandler.addToSocialSDK();
 		
 		
 		//获取用户相关信息
@@ -167,7 +201,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				from_w=getIntent().getIntExtra("from_w", 1);
 		
 		initAlwaysStayView();
-		showProgress=new ShowProgress(this, progressLayout);
+//		showProgress=new ShowProgress(this, progressLayout);
 		initOneView();
 		iniTwoView();
 		initMoreView();
@@ -216,7 +250,6 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		bottomCommentIv=(ImageView)findViewById(R.id.bottom_iv_comment);
 		bottomLikeIv=(ImageView)findViewById(R.id.bottom_iv_like);
 		bottomGiftIv=(ImageView)findViewById(R.id.bottom_iv_gift);
-		bottomShareIv=(ImageView)findViewById(R.id.bottom_iv_share);
 		bottomMoreIv=(ImageView)findViewById(R.id.bottom_iv_more);
 		mContainer=(ViewGroup)findViewById(R.id.container);
 		progressLayout=(LinearLayout)findViewById(R.id.progress_layout);
@@ -236,10 +269,9 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		bottomCommentIv.setOnClickListener(this);
 		bottomLikeIv.setOnClickListener(this);
 		bottomGiftIv.setOnClickListener(this);
-		bottomShareIv.setOnClickListener(this);
 		bottomMoreIv.setOnClickListener(this);
 		mContainer.setOnClickListener(this);
-		
+		guideIv1.setOnClickListener(this);
 		
 		commentET.setOnEditorActionListener(new OnEditorActionListener() {
 			
@@ -550,7 +582,21 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
        }
        shareTv1.setText(""+petPicture.shares);
        triangleTv4.setText(""+petPicture.shares);
-       downLoadUserInfo(1);
+//       downLoadUserInfo(1);
+       
+       if(petPicture.commentsList!=null&&petPicture.commentsList.size()>0){
+    	   downLoadUserInfo(3);
+       }else if(petPicture.gifts>0){
+    	   downLoadUserInfo(2);
+       }else if(petPicture.likes>0){
+    	   downLoadUserInfo(1);
+       }else if(petPicture.shares>0){
+    	   downLoadUserInfo(4);
+       }else {
+    	   downLoadUserInfo(3);
+       }
+       
+       
       oneLayout.post(new Runnable() {
 		
 		@Override
@@ -640,15 +686,24 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				showCommentEditor();
 				break;
 			case R.id.bottom_iv_like:
+				if(petPicture.animal==null){
+					Toast.makeText(this, "网络不给力，数据加载中", Toast.LENGTH_LONG).show();
+					return;
+				}
 				actionLike();
 				break;
 			case R.id.bottom_iv_gift:
+				if(petPicture.animal==null){
+					Toast.makeText(this, "网络不给力，数据加载中", Toast.LENGTH_LONG).show();
+					return;
+				}
 				sendGift();
 				break;
-			case R.id.bottom_iv_share:
-				
-				break;
 			case R.id.bottom_iv_more:
+				if(petPicture.animal==null){
+					Toast.makeText(this, "网络不给力，数据加载中", Toast.LENGTH_LONG).show();
+					return;
+				}
 				moreLayout.setVisibility(View.VISIBLE);
 				break;
 			case R.id.show_topic_close_iv1:
@@ -727,6 +782,10 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				
 				break;
 			case R.id.send_comment:
+				if(petPicture.animal==null){
+					Toast.makeText(this, "网络不给力，数据加载中", Toast.LENGTH_LONG).show();
+					return;
+				}
 				sendComment();
 				break;
 			case R.id.show_topic_iv:
@@ -738,16 +797,73 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				NewShowTopicActivity.this.startActivity(intent);
 				moreLayout.setVisibility(View.INVISIBLE);
 				break;
+			case R.id.guide1:
+				guideIv1.setVisibility(View.GONE);
+				
+				Animation anim1=AnimationUtils.loadAnimation(NewShowTopicActivity.this, R.anim.anim_scale_small);
+				final Animation anim2=AnimationUtils.loadAnimation(NewShowTopicActivity.this, R.anim.anim_scale_big);
+				
+				anim1.setAnimationListener(new AnimationListener() {
+					
+					@Override
+					public void onAnimationStart(Animation animation) {
+						// TODO Auto-generated method stub
+						LogUtil.i("mi", "正面anim1开始");
+					}
+					
+					@Override
+					public void onAnimationRepeat(Animation animation) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void onAnimationEnd(Animation animation) {
+						// TODO Auto-generated method stub
+						mContainer.clearAnimation();
+						LogUtil.i("mi", "正面anim1结束");
+						scrollView.setVisibility(View.GONE);
+						myScrollView.setVisibility(View.VISIBLE);
+						mContainer.startAnimation(anim2);
+						
+					}
+				});
+                anim2.setAnimationListener(new AnimationListener() {
+					
+					@Override
+					public void onAnimationStart(Animation animation) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void onAnimationRepeat(Animation animation) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void onAnimationEnd(Animation animation) {
+						// TODO Auto-generated method stub
+						hasStart=false;
+						current_page=-1;
+					}
+				});
+				mContainer.startAnimation(anim1);
+				
+					positive=false;
+				
+				
+				break;
 				
 			}
 		}
 		public void close(){
 
 			if(isTaskRoot()){
-				if(NewHomeActivity.homeActivity!=null){
-					Intent intent=NewHomeActivity.homeActivity.getIntent();
+				if(HomeActivity.homeActivity!=null){
+					Intent intent=HomeActivity.homeActivity.getIntent();
 					if(intent!=null){
-						intent.putExtra("mode", NewHomeActivity.HOMEFRAGMENT);
 						this.startActivity(intent);
 						finish();
 						return;
@@ -755,9 +871,9 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					
 					
 					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+					am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
 				}else{
-					Intent intent=new Intent(this,NewHomeActivity.class);
+					Intent intent=new Intent(this,HomeActivity.class);
 					this.startActivity(intent);
 				}
 			}
@@ -1298,14 +1414,8 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				@Override
 				public void toDo() {
 					// TODO Auto-generated method stub
-					Intent intent=null;
-					MarketFragment.from=1;
-					if(NewHomeActivity.homeActivity==null){
-						intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,NewHomeActivity.class);
-					}else{
-						intent=NewHomeActivity.homeActivity.getIntent();
-					}
-					intent.putExtra("mode", NewHomeActivity.MARKETFRAGMENT);
+					Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,MarketActivity.class);
+					
 					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.startActivity(intent);
 					
 				}
@@ -1991,7 +2101,43 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 			}
 
    public void weixinShare(){
-	   if(Constants.api==null){
+	   WeiXinShareContent weixinContent = new WeiXinShareContent();
+	 //设置分享文字
+//	 weixinContent.setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能，微信");
+	 //设置title
+//	 weixinContent.setTitle("友盟社会化分享组件-微信");
+	 //设置分享内容跳转URL
+//	 weixinContent.setTargetUrl("你的URL链接");
+	 //设置分享图片
+	 UMImage umImage=new UMImage(this,bmpPath );
+	 weixinContent.setShareImage(umImage);
+	 mController.setShareMedia(weixinContent);
+//	 mController.openShare(this, true);
+	 mController.postShare(this,SHARE_MEDIA.WEIXIN, 
+		        new SnsPostListener() {
+		                @Override
+		                public void onStart() {
+//		                    Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+		                }
+		                @Override
+		                public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
+		                     if (eCode == 200) {
+		                    	 shareNumChange();
+		                         Toast.makeText(NewShowTopicActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+		                     } else {
+		                          String eMsg = "";
+		                          if (eCode == -101){
+		                              eMsg = "没有授权";
+		                          }
+		                          Toast.makeText(NewShowTopicActivity.this, "分享失败[" + eCode + "] " + 
+		                                             eMsg,Toast.LENGTH_SHORT).show();
+		                     }
+		              }
+		});
+	   
+	   
+	   
+	  /* if(Constants.api==null){
 			boolean flag=WeixinShare.regToWeiXin(this);
 			if(!flag){
 				Toast.makeText(this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
@@ -2000,19 +2146,22 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				return;
 			}
 		}
+	   LogUtil.i("mi", "微信分享：授权=="+(Constants.api==null));
 		UserImagesJson.Data data1=new UserImagesJson.Data();
 		if(bmpPath!=null){
 			data1.path=bmpPath;
 			Constants.shareMode=0;
 			Constants.whereShare=0;
 			if(WeixinShare.shareBitmap(data1, 1)){
+				 LogUtil.i("mi", "微信分享：成功==");
 				MobclickAgent.onEvent(NewShowTopicActivity.this, "photo_share");
 			}else{
+				 LogUtil.i("mi", "微信分享：失败==");
 				Toast.makeText(NewShowTopicActivity.this,"分享失败。", Toast.LENGTH_LONG).show();
 			}
 		}else{
 			Toast.makeText(this, "图片路径有误", Toast.LENGTH_LONG).show();
-		}
+		}*/
 		
 		TranslateAnimation tAnimation2=new TranslateAnimation(0, 0, 0,shareLayout.getHeight() );
 		
@@ -2032,7 +2181,33 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		}, 500);
    }
    public void friendShare(){
-	   if(Constants.api==null){
+	   CircleShareContent circleMedia = new CircleShareContent();
+	   UMImage umImage=new UMImage(this, bmpPath);
+	   circleMedia.setShareImage(umImage);
+//	   circleMedia.setTargetUrl("你的URL链接");
+	   mController.setShareMedia(circleMedia);
+	   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,
+			   new SnsPostListener() {
+           @Override
+           public void onStart() {
+//               Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+           }
+           @Override
+           public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
+                if (eCode == 200) {
+               	 shareNumChange();
+                 Toast.makeText(NewShowTopicActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+                } else {
+                     String eMsg = "";
+                     if (eCode == -101){
+                         eMsg = "没有授权";
+                     }
+                     Toast.makeText(NewShowTopicActivity.this, "分享失败[" + eCode + "] " + 
+                                        eMsg,Toast.LENGTH_SHORT).show();
+                }
+         }
+});
+	   /*if(Constants.api==null){
 			boolean flag=WeixinShare.regToWeiXin(this);
 			if(!flag){
 				Toast.makeText(this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
@@ -2054,7 +2229,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		}else{
 			Toast.makeText(this, "图片路径有误", Toast.LENGTH_LONG).show();
 		}
-		
+		*/
 		
 		TranslateAnimation tAnimation3=new TranslateAnimation(0, 0, 0,shareLayout.getHeight() );
 		

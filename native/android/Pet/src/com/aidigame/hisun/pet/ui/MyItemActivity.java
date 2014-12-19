@@ -15,7 +15,6 @@ import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -43,7 +42,7 @@ import android.widget.AbsListView.OnScrollListener;
  *
  */
 public class MyItemActivity extends Activity implements OnClickListener{
-	
+	public static MyItemActivity myItemActivity;
 	    FrameLayout frameLayout;
 		View viewTopWhite;
 	    
@@ -59,6 +58,7 @@ public class MyItemActivity extends Activity implements OnClickListener{
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_my_item);
+		myItemActivity=this;
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		initView();
 	}
@@ -118,7 +118,7 @@ public class MyItemActivity extends Activity implements OnClickListener{
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
        
        
-        gridView.setOnScrollListener(new OnScrollListener() {
+       /* gridView.setOnScrollListener(new OnScrollListener() {
 				
 				@Override
 				public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -138,19 +138,22 @@ public class MyItemActivity extends Activity implements OnClickListener{
 					// TODO Auto-generated method stub
 					
 				}
-			});
+			});*/
 	}
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		case R.id.back:
-			if(NewHomeActivity.homeActivity!=null){
-				ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-				am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
-			}else{
-				Intent intent=new Intent(this,NewHomeActivity.class);
-				this.startActivity(intent);
+			if(isTaskRoot()){
+				if(HomeActivity.homeActivity!=null){
+					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+					am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+				}else{
+					Intent intent=new Intent(this,HomeActivity.class);
+					this.startActivity(intent);
+				}
+				
 			}
 			this.finish();
 			break;

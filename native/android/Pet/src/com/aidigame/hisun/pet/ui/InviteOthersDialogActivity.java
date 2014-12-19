@@ -32,7 +32,7 @@ import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
 import com.aidigame.hisun.pet.widget.WeixinShare;
 import com.aidigame.hisun.pet.widget.XinlangShare;
-import com.aidigame.hisun.pet.widget.fragment.MenuFragment;
+import com.aidigame.hisun.pet.widget.fragment.UserCenterFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -150,8 +150,8 @@ public class InviteOthersDialogActivity extends Activity {
 									if(a!=null){
 										animal=a;
 										Constants.user.coinCount+=300;
-										if(MenuFragment.menuFragment!=null){
-											MenuFragment.menuFragment.goldTv.setText(""+Constants.user.coinCount);
+										if(UserCenterFragment.userCenterFragment!=null){
+									    	UserCenterFragment.userCenterFragment.updatateInfo();;
 										}
 										initView3();
 									}else{

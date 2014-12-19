@@ -58,12 +58,9 @@ import com.aidigame.hisun.pet.view.RoundImageView;
 import com.aidigame.hisun.pet.view.MyScrollView.OnScrollListener;
 import com.aidigame.hisun.pet.widget.ShowMore;
 import com.aidigame.hisun.pet.widget.ShowProgress;
-import com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 import com.aidigame.hisun.pet.widget.fragment.KingdomImages;
 import com.aidigame.hisun.pet.widget.fragment.KingdomPeoples;
 import com.aidigame.hisun.pet.widget.fragment.KingdomTrends;
-import com.aidigame.hisun.pet.widget.fragment.MarketFragment;
 import com.aidigame.hisun.pet.widget.fragment.PetGiftList;
 import com.aidigame.hisun.pet.widget.fragment.UserGiftList;
 import com.miloisbadboy.view.PullToRefreshView;
@@ -80,7 +77,7 @@ import com.umeng.analytics.MobclickAgent;
  * @author admin
  *
  */
-public class PetKingdomActivity extends Activity implements OnClickListener,ClawStyleFunction.ClawFunctionChoseListener{
+public class PetKingdomActivity extends Activity implements OnClickListener{
 	ImageView backIV,takePictureIV,changeIconIV,trackClawIV,
 	           pictureListIV,peoplesListIV,giftListIV1,trackClawIV1,
 	           pictureListIV1,peoplesListIV1,giftListIV,petSexIV,moreIv;
@@ -105,8 +102,6 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 	FrameLayout frameLayout;
 	public Bitmap   loadedImage1,loadedImage2;
 	RelativeLayout clawFunctionLayout,moreParentLayout;
-	
-	ClawStyleFunction clawStyleFunction;
 	/*
 	 * 一张图片的所有信息，
 	 * 根据用户id，判断是否为本人创建或加入的王国，还是其他人的王国，
@@ -365,26 +360,7 @@ public class PetKingdomActivity extends Activity implements OnClickListener,Claw
 		});
 	}
 	public void initArc(){
-		if(Constants.user!=null&&Constants.user.aniList!=null){
-			if(Constants.user.aniList.contains(data)){
-				if(data.master_id==Constants.user.userId){
-					clawStyleFunction=new ClawStyleFunction(this,true,true);
-				}else{
-					clawStyleFunction=new ClawStyleFunction(this,false,true);
-				}
-			}else{
-				clawStyleFunction=new ClawStyleFunction(this,false,false);
-			}
-		}else{
-			clawStyleFunction=new ClawStyleFunction(this,false,false);
-		}
-		
-		
-		View arcView=clawStyleFunction.getView();
-		arcView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
-		clawFunctionLayout.removeAllViews();
-		clawFunctionLayout.addView(arcView);
-		clawStyleFunction.setClawFunctionChoseListener(this);
+	
 	}
 	public void setPetInfo(final Animal data){
 		/*
@@ -676,18 +652,17 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 				loadedImage2=null;
 			}
 			if(isTaskRoot()){
-				if(NewHomeActivity.homeActivity!=null){
-					Intent intent=NewHomeActivity.homeActivity.getIntent();
+				if(HomeActivity.homeActivity!=null){
+					Intent intent=HomeActivity.homeActivity.getIntent();
 					if(intent!=null){
-						intent.putExtra("mode", NewHomeActivity.HOMEFRAGMENT);
 						this.startActivity(intent);
 						finish();
 						return;
 					}
 					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+					am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
 				}else{
-					Intent intent=new Intent(this,NewHomeActivity.class);
+					Intent intent=new Intent(this,HomeActivity.class);
 					this.startActivity(intent);
 				}
 			}
@@ -954,7 +929,6 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		MarketFragment.from=0;
 	}
 	
 	boolean isChangingUserIcon;
@@ -1215,7 +1189,6 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		
 		
 	}	
-	@Override
 	public void clickItem1() {
 		// TODO Auto-generated method stub
 		if(!UserStatusUtil.isLoginSuccess(PetKingdomActivity.this,popupParent,black_layout)){
@@ -1229,15 +1202,11 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 				intent.putExtra("mode", 1);
 				this.startActivity(intent);
 			}else{
-				Intent intent=new Intent(this,PlayJokeActivity.class);
-				intent.putExtra("animal", data);
-				intent.putExtra("mode", 2);
-				this.startActivity(intent);
+				
 			}
 		}
 		
 	}
-	@Override
 	public void clickItem2() {
 		// TODO Auto-generated method stub
 		if(!UserStatusUtil.isLoginSuccess(PetKingdomActivity.this,popupParent,black_layout)){
@@ -1258,14 +1227,8 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 				@Override
 				public void toDo() {
 					// TODO Auto-generated method stub
-					MarketFragment.from=2;
-					Intent intent=null;
-					if(NewHomeActivity.homeActivity==null){
-						intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,NewHomeActivity.class);
-					}else{
-						intent=NewHomeActivity.homeActivity.getIntent();
-					}
-					intent.putExtra("mode", NewHomeActivity.MARKETFRAGMENT);
+Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,MarketActivity.class);
+					
 					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.startActivity(intent);
 				}
 				
@@ -1290,7 +1253,6 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		}
 		
 	}
-	@Override
 	public void clickItem3() {
 		// TODO Auto-generated method stub
 		if(!UserStatusUtil.isLoginSuccess(PetKingdomActivity.this,popupParent,black_layout)){
@@ -1300,9 +1262,6 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		if(Constants.user!=null&&Constants.user.aniList!=null){
 			if(Constants.user.aniList.contains(data)){
 				if(data.master_id==Constants.user.userId){
-					Intent intent=new Intent(this,BiteActivity.class);
-					intent.putExtra("animal", data);
-					this.startActivity(intent);
 				}else{
 					Intent intent=new Intent(this,TouchActivity.class);
 					intent.putExtra("animal", data);
@@ -1316,7 +1275,6 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		}
 		
 	}
-	@Override
 	public void clickItem4() {
 		// TODO Auto-generated method stub
 		if(!UserStatusUtil.isLoginSuccess(PetKingdomActivity.this,popupParent,black_layout)){

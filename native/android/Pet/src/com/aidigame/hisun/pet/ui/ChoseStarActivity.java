@@ -37,10 +37,10 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  *
  */
 public class ChoseStarActivity extends Activity {
-	ImageView cloud1,cloud2,catImage,dogImage,imageView2,imageView1;
+	ImageView cloud1,cloud2,catImage,dogImage,imageView2;
 	boolean catAnimaShow=true;
 	int mode=-1;//1,表明从策划Menu  “穿越” 条目进入此界面;-1 程序刚启动时，进入此界面
-	
+	public static ChoseStarActivity choseStarActivity;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {};
 	};
@@ -51,8 +51,7 @@ public class ChoseStarActivity extends Activity {
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_chose_star);
-		imageView1=(ImageView)findViewById(R.id.imageView1);
-		imageView1.setVisibility(View.VISIBLE);
+		choseStarActivity=this;
 		timeDelay();
 		
 	}
@@ -81,7 +80,7 @@ public class ChoseStarActivity extends Activity {
 						Intent intent=new Intent(ChoseStarActivity.this,FirstPageActivity.class);
 						intent.putExtra("url", url);
 						ChoseStarActivity.this.startActivity(intent);
-						ChoseStarActivity.this.finish();
+//						ChoseStarActivity.this.finish();
 					}
 					
 					@Override
@@ -90,7 +89,7 @@ public class ChoseStarActivity extends Activity {
 						Intent intent=new Intent(ChoseStarActivity.this,FirstPageActivity.class);
 						intent.putExtra("url", url);
 						ChoseStarActivity.this.startActivity(intent);
-						ChoseStarActivity.this.finish();
+//						ChoseStarActivity.this.finish();
 						new Thread(new Runnable() {
 							
 							@Override
@@ -98,7 +97,7 @@ public class ChoseStarActivity extends Activity {
 								// TODO Auto-generated method stub
 								LogUtil.i("mi", "图片像素数："+loadedImage.getByteCount());
 								Matrix matrix=new Matrix();
-								matrix.setScale(0.4f, 0.4f);
+								matrix.setScale(0.1f, 0.1f);
 								Bitmap  bmp=loadedImage.createBitmap(loadedImage, 0, 0, loadedImage.getWidth(), loadedImage.getHeight(), matrix, true);
 								LogUtil.i("mi", "图片像素数："+bmp.getByteCount());
 								PetApplication.petApp.blurBmp=Blur.fastblur(ChoseStarActivity.this, bmp, 18);
@@ -118,7 +117,7 @@ public class ChoseStarActivity extends Activity {
 						Intent intent=new Intent(ChoseStarActivity.this,FirstPageActivity.class);
 						intent.putExtra("url", url);
 						ChoseStarActivity.this.startActivity(intent);
-						ChoseStarActivity.this.finish();
+//						ChoseStarActivity.this.finish();
 					}
 				});
 			

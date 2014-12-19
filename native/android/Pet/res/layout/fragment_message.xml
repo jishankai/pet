@@ -18,7 +18,7 @@
         android:id="@+id/scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blur_view_top">
+    ><!--android:background="@color/blur_view_top"  -->
     <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,8 +27,7 @@
     <View 
         android:id="@+id/top_white_view"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:background="@color/white"></View>
+        android:layout_height="54dp"></View>
     <com.aidigame.hisun.pet.view.LinearLayoutForListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" 
@@ -45,7 +44,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="54dp" 
-        android:background="@color/orange_red"
+        android:background="#33fc7b51"
         >
 
         <ImageView

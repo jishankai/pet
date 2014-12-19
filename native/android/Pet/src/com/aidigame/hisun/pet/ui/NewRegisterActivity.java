@@ -62,15 +62,14 @@ import com.aidigame.hisun.pet.widget.ShowDialog;
 import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.fragment.AddressDialog;
 import com.aidigame.hisun.pet.widget.fragment.AgeDialog;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
-import com.aidigame.hisun.pet.widget.fragment.MenuFragment;
 import com.aidigame.hisun.pet.widget.fragment.RaceDialog;
+import com.aidigame.hisun.pet.widget.fragment.UserCenterFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 /**
  * 注册界面，填写个人信息
- * mode 2，只填写用户信息；3创建狗的猫的联萌填写宠物和用户信息,5 修改用户资料
+ * mode 2，只填写用户信息；3创建狗的猫的联萌填写宠物和用户信息,5 修改用户资料,6 微信或新浪绑定
  * @author admin
  *
  */
@@ -112,6 +111,8 @@ public class NewRegisterActivity extends Activity {
 	       petRaceStr,petRaceCode,petIconPath,petSexStr,userSexStr,userIconPath;
 	Animal animal;
 	HandleHttpConnectionException handleHttpConnectionException;
+	boolean isBind=false;
+	User user;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -171,9 +172,13 @@ public class NewRegisterActivity extends Activity {
 		setContentView(R.layout.activity_new_register);
 		mode=getIntent().getIntExtra("mode", 3);
 		from=getIntent().getIntExtra("from", 0);
+		isBind=getIntent().getBooleanExtra("isBind", false);
+		if(isBind){
+			user=(User)getIntent().getSerializableExtra("user");
+		}
 		TextView title=(TextView)findViewById(R.id.textView11);
 		if(from==1){
-			title.setText("创建联星");
+			title.setText("创建萌星");
 		}else
 		if(mode==5){
 			title.setText("修改用户资料");
@@ -266,6 +271,7 @@ public class NewRegisterActivity extends Activity {
         
         
 		userName=(EditText)view2.findViewById(R.id.editText4);
+		TextView tv=(TextView)view2.findViewById(R.id.textView1);
 		userIcon=(RoundImageView)view2.findViewById(R.id.user_icon);
 		userIcon.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.camera1));
 		userCity=(EditText)view2.findViewById(R.id.editText5);
@@ -293,6 +299,7 @@ public class NewRegisterActivity extends Activity {
 		if(mode==1||mode==2){
         	animal=(Animal)getIntent().getSerializableExtra("animal");
         	setPetInfo(animal);
+        	if(mode==2)tv.setText("粉丝档案");
         	
 		}else if(mode==5){
 			//修改用户资料
@@ -315,6 +322,12 @@ public class NewRegisterActivity extends Activity {
 			
 		}else{
 			// 创建狗或猫的王国
+		}
+		LogUtil.i("mi","NewRegisterActivity::::"+ "isBind?"+(isBind));
+		if(isBind){
+			user=(User)getIntent().getSerializableExtra("user");
+			LogUtil.i("mi","NewRegisterActivity::::"+ "user==null?"+(user==null));
+			setUserInfo(user);
 		}
 		
 	}
@@ -361,16 +374,25 @@ public class NewRegisterActivity extends Activity {
 //    	imageLoader.displayImage(uri, petIcon, displayImageOptions);
     	RadioButton rb1=(RadioButton)view2.findViewById(R.id.radiobutton1);
     	RadioButton rb2=(RadioButton)view2.findViewById(R.id.radiobutton2);
-    	if(Constants.user.u_gender==1){
+    	if(user.u_gender==1){
     		rb2.setChecked(true);
     	}else{
     		rb1.setChecked(true);
     	}
+    	LogUtil.i("mi", "用户性别="+user.u_gender);
+    	userName.setText(user.u_nick);
+    	if(!StringUtil.isEmpty(user.province)&&!isBind){
+    		userCity.setText(user.province+"|"+user.city);
+    	}
     	
-    	userName.setText(Constants.user.u_nick);
-    	userCity.setText(Constants.user.province+"|"+Constants.user.city);
-    	ImageLoader imageLoader=ImageLoader.getInstance();
-    	imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+Constants.user.u_iconUrl, userIcon, displayImageOptions);
+    	if(!StringUtil.isEmpty(user.u_iconPath)){
+    		userIcon.setImageBitmap(BitmapFactory.decodeFile(user.u_iconPath));
+    		userIconPath=user.u_iconPath;
+    	}else{
+    		ImageLoader imageLoader=ImageLoader.getInstance();
+        	imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+user.u_iconUrl, userIcon, displayImageOptions);
+    	}
+    	
 
 	}
 	/**
@@ -535,6 +557,11 @@ public class NewRegisterActivity extends Activity {
 						user.uid=code;
 						user.u_iconPath=userIconPath;
 						user.city=userCityCode;
+						if(isBind){
+							user.weixin_id=NewRegisterActivity.this.user.weixin_id;
+							user.xinlang_id=NewRegisterActivity.this.user.xinlang_id;
+							user.isBind=isBind;
+						}
 					}else{
 						user.pet_nickName=petNameStr;
 						user.u_nick=userNameStr;
@@ -546,6 +573,11 @@ public class NewRegisterActivity extends Activity {
 						user.pet_iconPath=petIconPath;
 						user.u_iconPath=userIconPath;
 						user.city=userCityCode;
+						if(isBind){
+							user.weixin_id=NewRegisterActivity.this.user.weixin_id;
+							user.xinlang_id=NewRegisterActivity.this.user.xinlang_id;
+							user.isBind=isBind;
+						}
 					}
 					
 					
@@ -657,11 +689,8 @@ public class NewRegisterActivity extends Activity {
 										}
 										
 										
-										if(MenuFragment.menuFragment!=null){
-											MenuFragment.menuFragment.setViews();
-										}
-										if(HomeFragment.homeFragment!=null){
-											HomeFragment.homeFragment.initArcView();
+										if(UserCenterFragment.userCenterFragment!=null){
+									    	UserCenterFragment.userCenterFragment.updatateInfo();;
 										}
 										if(PetKingdomActivity.petKingdomActivity!=null){
 											PetKingdomActivity.petKingdomActivity.initArc();
@@ -750,11 +779,8 @@ public class NewRegisterActivity extends Activity {
 											Toast.makeText(NewRegisterActivity.this,"修改资料成功" , Toast.LENGTH_LONG).show();
 											
 											NewRegisterActivity.this.finish();
-											if(MenuFragment.menuFragment!=null){
-												MenuFragment.menuFragment.setViews();
-											}
-											if(HomeFragment.homeFragment!=null){
-												HomeFragment.homeFragment.initArcView();
+											if(UserCenterFragment.userCenterFragment!=null){
+										    	UserCenterFragment.userCenterFragment.updatateInfo();;
 											}
 										}
 									});
@@ -1251,7 +1277,7 @@ public class NewRegisterActivity extends Activity {
 							Constants.user.rank="经纪人";
 							Constants.user.rankCode=0;
 							Constants.user.currentAnimal=animal;
-							Constants.user.aniList.add(animal);
+							Constants.user.aniList.add(0,animal);
 							Toast.makeText(NewRegisterActivity.this, "创建萌星成功", Toast.LENGTH_LONG).show();
 							if(Constants.user.aniList.size()>10){
 								int num=0;

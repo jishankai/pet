@@ -1,32 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="300dp"
+    android:layout_height="240dp"
+    android:background="@drawable/dialog_bg_white">
     <RelativeLayout 
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="300dp"
+    android:layout_height="240dp"
     android:orientation="vertical" 
     
     >
-    <LinearLayout 
-       
-        android:id="@+id/note_layout"
+        <ImageView 
+        android:id="@+id/imageView1"
         android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:background="@drawable/diglog_note_background"
-    android:layout_marginTop="15dp"
-    >
+        android:layout_height="wrap_content"
+        android:src="@drawable/dialog_close_white"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"/>
+        <LinearLayout 
+            android:id="@+id/layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+            >
+              <TextView 
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_red_button"
+        android:text="再想想吧"
+        
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:gravity="center"
+        
+        />
+             <TextView 
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_red_button"
+        android:text="额，是的"
+        
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:gravity="center"
+        
+        />
+        </LinearLayout>
+   
+  <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_below="@+id/imageView1"
+        android:layout_above="@+id/layout">
          <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="亲爱的，真的忍心不捧了吗？"
-        android:textColor="@color/white"
+        android:textColor="#7a7a7a"
         android:textSize="14sp"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
          />
@@ -35,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="你舍得放弃陪伴你的TA么？"
-        android:textColor="@color/white"
+        android:textColor="#7a7a7a"
         android:layout_marginTop="5dp"
         android:textSize="14sp"
         
@@ -45,57 +84,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="真的要这么无情么？"
-        android:textColor="@color/white"
+        android:textColor="#7a7a7a"
         android:textSize="14sp"
         android:layout_marginTop="5dp"
          />
     </LinearLayout>
-
-    <TextView
-        android:layout_below="@+id/note_layout"
-        android:id="@+id/textView3"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:text="额~是的" 
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="0dp"
-        android:paddingBottom="0dp"
-        android:background="@drawable/button_green"/>
-    <View 
-        android:id="@+id/view"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_below="@+id/textView3"
-        android:background="@color/orange_red"
-        android:layout_toRightOf="@+id/textView3"
-        android:layout_marginRight="20dp"
-        />
-    <View 
-        android:id="@+id/view"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_below="@+id/textView3"
-        android:background="@color/orange_red"
-        android:layout_toLeftOf="@+id/textView3"
-        android:layout_marginRight="-85dp"
-        />
-     <TextView
-        android:id="@+id/imageView1"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:text="还是算了" 
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:paddingTop="0dp"
-        android:paddingBottom="0dp"
-        android:layout_below="@+id/textView3"
-        android:background="@drawable/button"/>
 
 </RelativeLayout>
 </LinearLayout>

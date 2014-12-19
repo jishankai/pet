@@ -24,6 +24,18 @@ public class Gift implements Serializable{
 	public boolean is_buy=false;
 	public boolean is_shake=false;
 	
+	
+	
+	public String code;
+	public boolean is_update;
+	public String totalDes;
+	public String smallImage;
+	public String bigImage;
+	public int type;
+	public String spec;
+	
+	
+	
 	public String status;//状态：新品， 特卖
 	public boolean hasBought;//此物品是否买过
 	public int boughtNum;//现有数目

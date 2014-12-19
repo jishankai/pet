@@ -155,8 +155,8 @@ public class WarningDialogActivity extends Activity {
 			}
 			
 			finish();
-			if(NewHomeActivity.homeActivity!=null){
-				NewHomeActivity.homeActivity.finish();
+			if(HomeActivity.homeActivity!=null){
+				HomeActivity.homeActivity.finish();
 			}
 			
 		}

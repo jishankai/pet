@@ -37,5 +37,6 @@
    <dimen name="dip_38">38dp</dimen>
    <dimen name="dip_240">80dp</dimen>
    <dimen name="dip_360">120dp</dimen>
+   <dimen name="text_size_12">3.5sp</dimen>
 
 </resources>

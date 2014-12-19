@@ -17,6 +17,7 @@
 package com.example.android.bitmapfun.util;
 
 import android.content.Context;
+import android.content.ClipData.Item;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
@@ -43,6 +44,7 @@ public class ImageFetcher extends ImageResizer {
     private static final int HTTP_CACHE_SIZE = 10 * 1024 * 1024; // 10MB
 //    public static final String HTTP_CACHE_DIR = "http";
     public static String UPLOAD_IMAGE_RETURN_URL="http://pet4upload.oss-cn-beijing.aliyuncs.com/";
+    public   String itemUrl=null;
     /**
      * Initialize providing a target image width and height for the processing images.
      *
@@ -98,7 +100,13 @@ public class ImageFetcher extends ImageResizer {
         }
 
         // Download a bitmap, write it to a file
-        final File f = downloadBitmap(mContext, data);
+        String u=data;
+        if(null==itemUrl){
+        	u=data;
+        }else{
+        	u=itemUrl+data;
+        }
+        final File f = downloadBitmap(mContext, data,itemUrl);
 
         if (f != null) {
             // Return a sampled down version
@@ -121,7 +129,7 @@ public class ImageFetcher extends ImageResizer {
      * @param urlString The URL to fetch
      * @return A File pointing to the fetched bitmap
      */
-    public static File downloadBitmap(Context context, String urlString) {
+    public static File downloadBitmap(Context context, String urlString,String itemUrl) {
     
         final File cacheDir = DiskLruCache.getDiskCacheDir(context, "");
 
@@ -159,7 +167,13 @@ public class ImageFetcher extends ImageResizer {
         HttpURLConnection urlConnection = null;
         BufferedOutputStream out = null;
         try {
-            final URL url = new URL(UPLOAD_IMAGE_RETURN_URL+urlString);
+        	String u=urlString;
+        	if(itemUrl==null){
+        		
+        	}else{
+        		u=itemUrl+urlString;
+        	}
+            final URL url = new URL(UPLOAD_IMAGE_RETURN_URL+u);
             
             Log.i("me", "=================xiazai 图片   url="+UPLOAD_IMAGE_RETURN_URL+urlString);
             urlConnection = (HttpURLConnection) url.openConnection();

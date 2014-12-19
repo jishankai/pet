@@ -23,6 +23,8 @@ import com.aidigame.hisun.pet.bean.TalkMessage;
 import com.aidigame.hisun.pet.bean.TalkMessage.Msg;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
+import com.aidigame.hisun.pet.ui.ReceiverAddressActivity;
+import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -125,12 +127,37 @@ public class MailListViewAdapter extends BaseAdapter {
 				holder.icon_right.setVisibility(View.GONE);
 				holder.icon_left.setVisibility(View.VISIBLE);
 				holder.body_left.setVisibility(View.VISIBLE);
-				holder.body_left.setText(""+/*(StringUtil.isEmpty(data.content)?"":*/data.content/*)*/);
-				holder.arrowView1.setVisibility(View.GONE); 
+				if(!StringUtil.isEmpty(data.content)){
+					if(data.content.contains("[address]")){
+						String[] strs=data.content.split("[address]");
+						
+							holder.body_left.setText(""+/*(StringUtil.isEmpty(data.content)?"":*/data.content.substring(9)/*)*/);
+							holder.arrowView1.setVisibility(View.VISIBLE); 
+						
+					}else{
+						holder.body_left.setText(""+/*(StringUtil.isEmpty(data.content)?"":*/data.content/*)*/);
+						holder.arrowView1.setVisibility(View.GONE); 
+					}
+				}
+				
+				
 				if(data.from==1){
 					/*
 					 * 汪星大使
 					 */
+					 holder.arrowView1.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								if(!StringUtil.isEmpty(data.content)&&data.content.contains("[address]")){
+									
+									Intent intent=new Intent(context,ReceiverAddressActivity.class);
+									context.startActivity(intent);
+								}
+								
+							}
+						});
 					holder.icon_left.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.wangwang));
 				}else if(data.from==2){
 					holder.icon_left.setImageBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.miaomiao));
@@ -140,6 +167,7 @@ public class MailListViewAdapter extends BaseAdapter {
 						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
+							
 							PetPicture petPicture=new PetPicture();
 							petPicture.img_id=(int)data.img_id;
 							if(NewShowTopicActivity.newShowTopicActivity!=null){

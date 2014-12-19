@@ -11,11 +11,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#a0ffffff" >
+    ><!-- android:background="#a0ffffff"  -->
      <View android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="@color/white"
-        android:id="@+id/top_white_view"/>
+        
+        android:id="@+id/top_white_view"/><!-- android:background="@color/white" -->
      <LinearLayout  android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:orientation="vertical"
@@ -110,7 +110,7 @@
         android:layout_height="54dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:background="@color/orange_red">
+        android:background="#33fc7b51">
 
         <ImageView
             android:id="@+id/imageView1"

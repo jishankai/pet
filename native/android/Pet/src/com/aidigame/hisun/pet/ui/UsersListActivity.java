@@ -34,9 +34,6 @@ import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
-import com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
-import com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction.ClawFunctionChoseListener;
 /**
  * 围观群众界面
  * @author admin
@@ -109,11 +106,11 @@ public class UsersListActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(isTaskRoot()){
-					if(NewHomeActivity.homeActivity!=null){
+					if(HomeActivity.homeActivity!=null){
 						ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-						am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+						am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
 					}else{
-						Intent intent=new Intent(UsersListActivity.this,NewHomeActivity.class);
+						Intent intent=new Intent(UsersListActivity.this,HomeActivity.class);
 						UsersListActivity.this.startActivity(intent);
 					}
 				}

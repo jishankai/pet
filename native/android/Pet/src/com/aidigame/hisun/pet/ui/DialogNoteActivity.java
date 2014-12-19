@@ -19,7 +19,7 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
-import com.aidigame.hisun.pet.widget.fragment.MenuFragment;
+import com.aidigame.hisun.pet.widget.fragment.UserCenterFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -80,12 +80,14 @@ public class DialogNoteActivity extends Activity{
 		    View view=findViewById(R.id.layout);
 		    ImageView iv=(ImageView)findViewById(R.id.imageView1);
 		    TextView tv=(TextView)findViewById(R.id.textView1);
+		    TextView note2=(TextView)findViewById(R.id.note2);
+		    note2.setVisibility(View.VISIBLE);
 		    iv.setImageResource(R.drawable.gold1);
 		    tv.setText("+ "+num);
 		    Constants.user.coinCount+=num;
 		    startShowAnimation(view);
-		    if(MenuFragment.menuFragment!=null){
-				MenuFragment.menuFragment.setViews();
+		    if(UserCenterFragment.userCenterFragment!=null){
+		    	UserCenterFragment.userCenterFragment.updatateInfo();;
 			}
 			return;
 		}else if(mode==7){
@@ -120,6 +122,34 @@ public class DialogNoteActivity extends Activity{
 				imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl, view,displayImageOptions);
 			}
 			
+		}else if(mode==8){
+			 setContentView(R.layout.dialog_exp_gold_contribute_add);
+			    View view=findViewById(R.id.layout);
+			    ImageView iv=(ImageView)findViewById(R.id.imageView1);
+			    TextView tv=(TextView)findViewById(R.id.textView1);
+			    TextView note2=(TextView)findViewById(R.id.note2);
+			    iv.setVisibility(View.GONE);
+			    String name=getIntent().getStringExtra("name");
+			    tv.setText("打赏成功~萌星 "+name+"感谢您的爱心！");
+			    startShowAnimation(view);
+			    if(UserCenterFragment.userCenterFragment!=null){
+			    	UserCenterFragment.userCenterFragment.updatateInfo();;
+				}
+				return;
+		}else if(mode==9){
+			setContentView(R.layout.dialog_exp_gold_contribute_add);
+		    View view=findViewById(R.id.layout);
+		    ImageView iv=(ImageView)findViewById(R.id.imageView1);
+		    TextView tv=(TextView)findViewById(R.id.textView1);
+		    iv.setImageResource(R.drawable.emotion_sweat);
+		    tv.setText("网络不好，检查下网络。");
+		    tv.setTextSize(getResources().getDimensionPixelSize(R.dimen.text_size_12));
+		    tv.setTextColor(getResources().getColor(R.color.dialog_text_gray));
+		    startShowAnimation(view);
+		    if(UserCenterFragment.userCenterFragment!=null){
+		    	UserCenterFragment.userCenterFragment.updatateInfo();;
+			}
+			return;
 		}
 		
 		
@@ -230,8 +260,8 @@ public class DialogNoteActivity extends Activity{
 				dialogNoteGoListener.todo();
 			}
 		});
-		if(MenuFragment.menuFragment!=null){
-			MenuFragment.menuFragment.setViews();
+		if(UserCenterFragment.userCenterFragment!=null){
+			UserCenterFragment.userCenterFragment.updatateInfo();;
 		}
 	}
 	public void setDialogGoListerer(DialogNoteGoListener listener){
@@ -245,8 +275,8 @@ public class DialogNoteActivity extends Activity{
 	 * 动画，显示并隐藏
 	 */
 	public void startShowAnimation(View view){
-		AlphaAnimation alphaAnimation=new AlphaAnimation(0, 1f);
-		alphaAnimation.setDuration(500);
+		AlphaAnimation alphaAnimation=new AlphaAnimation(0.2f, 1f);
+		alphaAnimation.setDuration(1500);
 		alphaAnimation.setFillAfter(true);
 		alphaAnimation.setRepeatCount(1);
 		alphaAnimation.setRepeatMode(Animation.REVERSE);

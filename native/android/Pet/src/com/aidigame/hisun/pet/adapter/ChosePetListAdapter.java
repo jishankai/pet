@@ -39,7 +39,7 @@ import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
-import com.aidigame.hisun.pet.widget.fragment.MenuFragment;
+import com.aidigame.hisun.pet.widget.fragment.UserCenterFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -214,8 +214,8 @@ public class ChosePetListAdapter extends BaseAdapter {
 								public void run() {
 									// TODO Auto-generated method stub
 									ChosePetListAdapter.this.notifyDataSetChanged();
-									if(MenuFragment.menuFragment!=null){
-										MenuFragment.menuFragment.setViews();
+									if(UserCenterFragment.userCenterFragment!=null){
+										UserCenterFragment.userCenterFragment.updatateInfo();
 									}
 								}
 							});

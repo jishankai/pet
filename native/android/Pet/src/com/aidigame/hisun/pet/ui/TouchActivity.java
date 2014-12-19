@@ -50,6 +50,15 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
+import com.umeng.socialize.weixin.media.CircleShareContent;
+import com.umeng.socialize.weixin.media.WeiXinShareContent;
 /**
  * 摸一摸
  * @author admin
@@ -73,6 +82,7 @@ public class TouchActivity extends Activity {
 	boolean isTouched;
 	ShowProgress showProgress;
 	LinearLayout progressLayout;
+  	UMSocialService mController;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -80,6 +90,14 @@ public class TouchActivity extends Activity {
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_touch);
+		mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+		// 添加微信平台
+		UMWXHandler wxHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
+		wxHandler.addToSocialSDK();
+		// 支持微信朋友圈
+		UMWXHandler wxCircleHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
+		wxCircleHandler.setToCircle(true);
+		wxCircleHandler.addToSocialSDK();
 		animal=(Animal)getIntent().getSerializableExtra("animal");
 		MobclickAgent.onEvent(this, "touch_button");
 		shareBitmapLayout=(RelativeLayout)findViewById(R.id.share_bitmap_layout);
@@ -96,13 +114,14 @@ public class TouchActivity extends Activity {
 			public void run() {
 				// TODO Auto-generated method stub
 				String pathString=null;
-						pathString=HttpUtil.getVoiceUrl(TouchActivity.this,animal.a_id, handleHttpConnectionException.getHandler(TouchActivity.this));
-						pathString=HttpUtil.downloadVoiceFile(pathString, handleHttpConnectionException.getHandler(TouchActivity.this));
+//						pathString=HttpUtil.getVoiceUrl(TouchActivity.this,animal.a_id, handleHttpConnectionException.getHandler(TouchActivity.this));
+//						pathString=HttpUtil.downloadVoiceFile(pathString, handleHttpConnectionException.getHandler(TouchActivity.this));
 //						final boolean flag=HttpUtil.touchApi(TouchActivity.this,animal.a_id, handleHttpConnectionException.getHandler(TouchActivity.this));
 						
 						final Animal animal=HttpUtil.isTouched(TouchActivity.this,TouchActivity.this.animal, handleHttpConnectionException.getHandler(TouchActivity.this));
 						imagePath=animal.touchedPath;
 				           isTouched=animal.isTouched;
+				           isTouched=false;
 						if(pathString!=null){
 					voicePath=pathString;
 //					audioRecordAndPlayer.playAudio(pathString);
@@ -140,7 +159,7 @@ public class TouchActivity extends Activity {
 							final EraserView_user_drawPath eraserView=(EraserView_user_drawPath)view1.findViewById(R.id.eraser_view);
 					            
 					        	TextView tv2=(TextView)view1.findViewById(R.id.textView2);
-					        	tv2.setText(animal.pet_nickName+"还没有叫一叫");
+					        	tv2.setText(/*animal.pet_nickName+*/"摸萌照，得金币，萌萌印心中~");
 //					    		eraserView.setEnabled(false);
 					        	loadBitmap(animal.touchedPath);
 					        	imagePath=animal.touchedPath;
@@ -261,7 +280,7 @@ public class TouchActivity extends Activity {
 //		eraserView.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.pet_icon), eraserView.getMeasuredWidth(),eraserView.getMeasuredHeight());
         if(mode==1){
         	TextView tv2=(TextView)view1.findViewById(R.id.textView2);
-    		tv2.setText(animal.pet_nickName+"还没有叫一叫");
+    		tv2.setText(/*animal.pet_nickName+*/"摸萌照，得金币，萌萌印心中~");
     		eraserView.setEnabled(false);
         }
 		
@@ -280,22 +299,20 @@ public class TouchActivity extends Activity {
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						if(!StringUtil.isEmpty(voicePath)){
 							if(!isTouched){
 								final boolean flag=HttpUtil.touchApi(TouchActivity.this,animal.a_id, handleHttpConnectionException.getHandler(TouchActivity.this));
-								if(NewHomeActivity.homeActivity!=null){
+								if(HomeActivity.homeActivity!=null){
 									runOnUiThread(new Runnable() {
 										
 										@Override
 										public void run() {
 											// TODO Auto-generated method stub
 											
-											NewHomeActivity.homeActivity.homeFragment.homeMyPet.adapter.updateTV("摸过了",0);
+											HomeActivity.homeActivity.myPetFragment.homeMyPet.adapter.updateTV("摸过了",0);
 										}
 									});
 									
 								}
-							}
 							runOnUiThread(new Runnable() {
 								
 								@Override
@@ -516,14 +533,6 @@ public class TouchActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(Constants.api==null){
-					boolean flag=WeixinShare.regToWeiXin(TouchActivity.this);
-					if(!flag){
-						Toast.makeText(TouchActivity.this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
-						
-						return;
-					}
-				}
 				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
 				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
 				FileOutputStream fos=null;
@@ -532,19 +541,7 @@ public class TouchActivity extends Activity {
 					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
-					if(Constants.api==null){
-						boolean flag=WeixinShare.regToWeiXin(TouchActivity.this);
-						if(!flag){
-							Toast.makeText(TouchActivity.this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
-							
-							return;
-						}
-					}
-					if(WeixinShare.shareBitmap(data, 1)){
-//						Toast.makeText(this,"成功分享到微信。", Toast.LENGTH_LONG).show();
-					}else{
-						Toast.makeText(TouchActivity.this,"分享失败。", Toast.LENGTH_LONG).show();
-					}
+					weixinShare(path);
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -566,14 +563,6 @@ public class TouchActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(Constants.api==null){
-					boolean flag=WeixinShare.regToWeiXin(TouchActivity.this);
-					if(!flag){
-						Toast.makeText(TouchActivity.this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
-						
-						return;
-					}
-				}
 				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
 				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
 				FileOutputStream fos=null;
@@ -582,11 +571,8 @@ public class TouchActivity extends Activity {
 					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
-					if(WeixinShare.shareBitmap(data, 2)){
-//						Toast.makeText(TouchActivity.this,"成功分享到微信。", Toast.LENGTH_LONG).show();
-					}else{
-						Toast.makeText(TouchActivity.this,"分享到微信失败。", Toast.LENGTH_LONG).show();
-					}
+					friendShare(path);
+
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -664,5 +650,69 @@ public class TouchActivity extends Activity {
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	   }
+	      public void weixinShare(String path){
+		   	   WeiXinShareContent weixinContent = new WeiXinShareContent();
+		   	 //设置分享文字
+//		   	 weixinContent.setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能，微信");
+		   	 //设置title
+//		   	 weixinContent.setTitle("友盟社会化分享组件-微信");
+		   	 //设置分享内容跳转URL
+//		   	 weixinContent.setTargetUrl("你的URL链接");
+		   	 //设置分享图片
+		   	 UMImage umImage=new UMImage(this,path );
+		   	 weixinContent.setShareImage(umImage);
+		   	 mController.setShareMedia(weixinContent);
+//		   	 mController.openShare(this, true);
+		   	 mController.postShare(this,SHARE_MEDIA.WEIXIN, 
+		   		        new SnsPostListener() {
+		   		                @Override
+		   		                public void onStart() {
+//		   		                    Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+		   		                }
+		   		                @Override
+		   		                public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
+		   		                     if (eCode == 200) {
+		   		                         Toast.makeText(TouchActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+		   		                     } else {
+		   		                          String eMsg = "";
+		   		                          if (eCode == -101){
+		   		                              eMsg = "没有授权";
+		   		                          }
+		   		                          Toast.makeText(TouchActivity.this, "分享失败[" + eCode + "] " + 
+		   		                                             eMsg,Toast.LENGTH_SHORT).show();
+		   		                     }
+		   		              }
+		   		});
+		   	   
+		   		
+		      }
+		      public void friendShare(String path){
+		   	   CircleShareContent circleMedia = new CircleShareContent();
+		   	   UMImage umImage=new UMImage(this, path);
+		   	   circleMedia.setShareImage(umImage);
+//		   	   circleMedia.setTargetUrl("你的URL链接");
+		   	   mController.setShareMedia(circleMedia);
+		   	   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,
+		   			   new SnsPostListener() {
+		              @Override
+		              public void onStart() {
+//		                  Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+		              }
+		              @Override
+		              public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
+		                   if (eCode == 200) {
+		                    Toast.makeText(TouchActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+		                   } else {
+		                        String eMsg = "";
+		                        if (eCode == -101){
+		                            eMsg = "没有授权";
+		                        }
+		                        Toast.makeText(TouchActivity.this, "分享失败[" + eCode + "] " + 
+		                                           eMsg,Toast.LENGTH_SHORT).show();
+		                   }
+		            }
+		   });
+		   		
+		      }
 	      
 }

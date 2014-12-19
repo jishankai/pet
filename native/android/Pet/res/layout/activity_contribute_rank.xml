@@ -11,11 +11,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="@color/blur_view_top">
+    ><!-- android:background="@color/blur_view_top" -->
     <View android:layout_width="match_parent"
         android:layout_height="89dp"
-        android:background="@color/white"
-        android:id="@+id/top_white_view"/>
+        
+        android:id="@+id/top_white_view"/><!-- android:background="@color/white" -->
     <ListView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listview"
@@ -25,6 +25,8 @@
      <ListView android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listview2"
+        android:visibility="gone"
+        android:layout_below="@+id/top_white_view"
         android:layout_alignParentBottom="true"
         android:divider="@null"
         ></ListView>
@@ -41,7 +43,7 @@
         android:id="@+id/relativelayout"
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="@color/orange_red"
+        android:background="#33fc7b51"
         >
 
         <ImageView

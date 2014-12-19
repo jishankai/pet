@@ -23,6 +23,9 @@ import android.os.AsyncTask;
 import android.os.Message;
 import android.os.AsyncTask.Status;
 import android.os.Handler;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,22 +35,26 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
+import com.aidigame.hisun.pet.bean.Banner;
 import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
+import com.aidigame.hisun.pet.ui.ActivityWebActivity;
 import com.aidigame.hisun.pet.ui.DetailActivity;
-import com.aidigame.hisun.pet.ui.NewHomeActivity;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
+import com.aidigame.hisun.pet.view.MyViewPager;
+import com.aidigame.hisun.pet.view.MyViewPager.OnSingleTouchListener;
+import com.aidigame.hisun.pet.view.StaticViewPager;
 import com.dodola.model.DuitangInfo;
 import com.dodowaterfall.Helper;
 import com.dodowaterfall.widget.ScaleImageView;
@@ -70,13 +77,19 @@ public class PLAWaterfull implements IXListViewListener{
 	int mode;
 	Handler handler;
 	int count=0;
+	MyViewPager viewPager;
+	ArrayList<Banner> banners;
+	RelativeLayout bannersLayout;
+	ArrayList<ImageView> imageViews;
+	PagerAdapter pagerAdapter;
+	LinearLayout rootLayout;
+	ArrayList<ImageView> points;
 	public PLAWaterfull(Activity activity,LinearLayout parent,int mode){
 		this.activity=activity;
 		this.parent=parent;
 		this.mode=mode;
 		handler=HandleHttpConnectionException.getInstance().getHandler(activity);
 		inite();
-//		task = new ContentTask(activity, 2);
 		
 		
 		
@@ -86,7 +99,7 @@ public class PLAWaterfull implements IXListViewListener{
     private StaggeredAdapter mAdapter = null;
     private int currentPage = 0;
     ContentTask task ;
-    
+    int currentPosition=0;
     private class ContentTask extends AsyncTask<String, Integer, ArrayList<DuitangInfo>> {
 
         private Context mContext;
@@ -228,15 +241,30 @@ public class PLAWaterfull implements IXListViewListener{
             if (convertView == null) {
                 LayoutInflater layoutInflator = LayoutInflater.from(parent.getContext());
                 convertView = layoutInflator.inflate(R.layout.infos_list, null);
+                
                 holder = new ViewHolder();
+                holder.layout=(LinearLayout)convertView.findViewById(R.id.news_list);
                 holder.imageView = (/*Scale*/ImageView) convertView.findViewById(R.id.news_pic);
                 holder.contentView = (TextView) convertView.findViewById(R.id.news_title);
                 convertView.setTag(holder);
             }
-
+            
             holder = (ViewHolder) convertView.getTag();
-//            holder.imageView.setImageWidth(duitangInfo.getWidth());
-//            holder.imageView.setImageHeight(duitangInfo.getHeight());
+           /* if(position==0||position==1){
+    	    	LinearLayout.LayoutParams param=(LinearLayout.LayoutParams)holder.layout.getLayoutParams();
+    	    	if(param==null){
+    	    		param=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    	    	}
+    	    	param.topMargin=activity.getResources().getDimensionPixelSize(R.dimen.dip_38);
+    	    	holder.layout.setLayoutParams(param);
+    	    }else{
+    	    	LinearLayout.LayoutParams param=(LinearLayout.LayoutParams)holder.layout.getLayoutParams();
+    	    	if(param==null){
+    	    		param=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    	    	}
+    	    	param.topMargin=0;
+    	    	holder.layout.setLayoutParams(param);
+    	    }*/
             holder.contentView.setText(duitangInfo.getMsg());
             holder.imageView.setOnClickListener(new OnClickListener() {
 				
@@ -286,16 +314,11 @@ public class PLAWaterfull implements IXListViewListener{
 					count++;
 				    bitmap=null;
 				    if(mode==2){
-				    	if(HomeFragment.homeFragment!=null&&HomeFragment.homeFragment.showProgress!=null){
 				    		if(count>4){
 				    			PLAWaterfull.this.parent.setVisibility(View.VISIBLE);
-				    			HomeFragment.homeFragment.showProgress.progressCancel();
+				    			
 				    			
 				    		}
-				    		
-				    		
-				    		
-				    	}
 				    }
 				    
 				}
@@ -316,6 +339,7 @@ public class PLAWaterfull implements IXListViewListener{
             /*Scale*/ImageView imageView;
             TextView contentView;
             TextView timeView;
+            LinearLayout layout;
         }
 
         @Override
@@ -382,12 +406,169 @@ public class PLAWaterfull implements IXListViewListener{
     	
     	
         view=LayoutInflater.from(activity).inflate(R.layout.act_pull_to_refresh_sample,null);
-   
+        viewPager=(MyViewPager)view.findViewById(R.id.viewpager);
+     
+        rootLayout=(LinearLayout)view.findViewById(R.id.parent_layout);
+        bannersLayout=(RelativeLayout)view.findViewById(R.id.banner_layout);
+        banners=new ArrayList<Banner>();
+        imageViews=new ArrayList<ImageView>();
+        pagerAdapter=new PagerAdapter() {
+			
+        	@Override
+        	public int getCount() {
+        		// TODO Auto-generated method stub
+        		if(banners.size()==0)return 0;
+        		return 1999999999;
+        	}
+
+        	@Override
+        	public boolean isViewFromObject(View arg0, Object arg1) {
+        		// TODO Auto-generated method stub
+        		return arg0==arg1;
+        	}
+        	@Override
+        	public void destroyItem(ViewGroup container, int position, Object object) {
+        		// TODO Auto-generated method stub
+        		if(imageViews.size()>0){
+        			container.removeView(imageViews.get(position%imageViews.size()));
+        		}
+        		
+        	}
+        	@Override
+        	public int getItemPosition(Object object) {
+        		// TODO Auto-generated method stub
+        		return super.getItemPosition(object);
+//        		return POSITION_NONE;
+        	}
+        	@Override
+        	public CharSequence getPageTitle(int position) {
+        		// TODO Auto-generated method stub
+        		return super.getPageTitle(position);
+        	}
+        	@Override
+        	public Object instantiateItem(ViewGroup container,final int position) {
+        		// TODO Auto-generated method stubI
+        		
+        		/*ImageView iv=null;
+        		if(imageViews.size()==0){
+        			iv=(ImageView)LayoutInflater.from(activity).inflate(R.layout.item_banner_iv, null);
+        			imageViews.add(0, iv);
+        		}else{
+        			iv=imageViews.get(position%imageViews.size());
+        			if(iv==null){
+        				iv=(ImageView)LayoutInflater.from(activity).inflate(R.layout.item_banner_iv, null);
+        			}
+        			imageViews.add(position%imageViews.size(), iv);
+        		}*/
+        		LogUtil.i("mi", "root_parent_height="+rootLayout.getHeight()+",root_parent_width="+rootLayout.getWidth());
+        		ImageView iv=(ImageView)LayoutInflater.from(activity).inflate(R.layout.item_banner_iv, null);
+        		iv.setImageResource(R.drawable.big_3);
+        		ImageFetcher imageFetcher=new ImageFetcher(activity, Constants.screen_width);
+        		imageFetcher.itemUrl="banner/";
+        		BitmapFactory.Options options=new BitmapFactory.Options();
+        		options.inSampleSize=2;
+        		imageFetcher.setImageCache(new ImageCache(activity, new ImageCacheParams(banners.get(position%banners.size()).img_url)));
+        		
+        		if(position==0){
+        			imageFetcher.setLoadCompleteListener(new LoadCompleteListener() {
+						
+						@Override
+						public void onComplete(Bitmap bitmap) {
+							// TODO Auto-generated method stub
+							RelativeLayout.LayoutParams param=(RelativeLayout.LayoutParams)viewPager.getLayoutParams();
+						        if(param==null){
+						        	param=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+						        }
+						        int w=rootLayout.getWidth();
+						        int h=(int)(w*1f/bitmap.getWidth()*1f*bitmap.getHeight());
+						        param.width=w;
+						        param.height=h;
+						        viewPager.setLayoutParams(param);
+						        LogUtil.i("mi", "positon=0,下载玩图片root_parent_height="+rootLayout.getHeight()+",root_parent_width="+rootLayout.getWidth());
+						}
+						
+						@Override
+						public void getPath(String path) {
+							// TODO Auto-generated method stub
+							
+						}
+					});
+        		}
+        		imageFetcher.loadImage(banners.get(position%banners.size()).img_url, iv, options);
+        		if(imageViews.size()==0){
+        			imageViews.add(iv);
+        		}else{
+        			imageViews.add(position%imageViews.size(),iv);
+        		}
+        		iv.setTag(banners.get(position%banners.size()));
+        		iv.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent intent=new Intent(activity,ActivityWebActivity.class);
+						intent.putExtra("banner", banners.get(position%banners.size()));
+						activity.startActivity(intent);
+					}
+				});
+        		container.addView(iv);
+        		return iv;
+        	}
+		};
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setOnPageChangeListener(new OnPageChangeListener() {
+			
+			@Override
+			public void onPageSelected(int arg) {
+				// TODO Auto-generated method stub
+				currentPosition=arg;
+				int arg0=arg%points.size();
+				for(int i=0;i<points.size();i++){
+					if(i==arg0){
+//						points.get(i).setVisibility(View.VISIBLE);
+						points.get(i).setImageResource(R.drawable.point_red);
+					}else{
+						points.get(i).setImageResource(R.drawable.point_gray);
+						if(i<=arg0){
+//							points.get(i).setVisibility(View.VISIBLE);
+						}else{
+//							points.get(i).setVisibility(View.GONE);
+						}
+					}
+				}
+			}
+			
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+        viewPager.setOnSingleTouchListener(new OnSingleTouchListener() {
+			
+			@Override
+			public void onSingleTouch(int position) {
+				// TODO Auto-generated method stub
+				Banner banner=banners.get(position%banners.size());
+				Intent intent=new Intent(activity,ActivityWebActivity.class);
+				intent.putExtra("banner", banner);
+				activity.startActivity(intent);
+			}
+		});
+        
 
         mAdapterView = (XListView) view.findViewById(R.id.list);
-       
-        
-       
+        LinearLayout.LayoutParams param=(LinearLayout.LayoutParams)mAdapterView.getLayoutParams();
+        if(param==null){
+        	param=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1);
+        }
+        mAdapterView.setLayoutParams(param);
         mAdapterView.setPullLoadEnable(true);
         mAdapterView.setXListViewListener(this);
         mAdapter = new StaggeredAdapter(activity, mAdapterView);
@@ -459,12 +640,101 @@ public class PLAWaterfull implements IXListViewListener{
  				});
              	   
                 }
- 					
- 				
  			}
  		})/*.start()*/;
+         new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				final ArrayList<Banner> bs=HttpUtil.bannerList(handler, activity);
+				activity.runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						if(bs==null||bs.size()==0){
+							bannersLayout.setVisibility(View.GONE);
+							LinearLayout.LayoutParams params=(LinearLayout.LayoutParams)mAdapterView.getLayoutParams();
+							if(params==null){
+								params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+							}
+							/*params.width=rootLayout.getWidth();
+							params.height=rootLayout.getHeight();*/
+//							mAdapterView.setLayoutParams(params);
+							LogUtil.i("mi", "banner为空root_parent_height="+rootLayout.getHeight()+",root_parent_width="+rootLayout.getWidth());
+						}else{
+							banners=bs;
+							ImageView iv=null;
+							points=new ArrayList<ImageView>();
+							if(bs.size()>0){
+								iv=(ImageView)view.findViewById(R.id.point1);
+								iv.setVisibility(View.VISIBLE);
+								iv.setImageResource(R.drawable.point_red);
+								points.add(iv);
+							}
+							if(bs.size()>1){
+								iv=(ImageView)view.findViewById(R.id.point2);
+								iv.setVisibility(View.VISIBLE);
+								points.add(iv);
+							}
+							if(bs.size()>2){
+								iv=(ImageView)view.findViewById(R.id.point3);
+								iv.setVisibility(View.VISIBLE);
+								points.add(iv);
+							}
+							if(bs.size()>3){
+								iv=(ImageView)view.findViewById(R.id.point4);
+								iv.setVisibility(View.VISIBLE);
+								points.add(iv);
+							}
+							if(bs.size()>4){
+								iv=(ImageView)view.findViewById(R.id.point5);
+								iv.setVisibility(View.VISIBLE);
+								points.add(iv);
+							}
+							if(bs.size()>5){
+								iv=(ImageView)view.findViewById(R.id.point6);
+								iv.setVisibility(View.VISIBLE);
+								points.add(iv);
+							}
+							if(bs.size()>6){
+								iv=(ImageView)view.findViewById(R.id.point7);
+								iv.setVisibility(View.VISIBLE);
+								points.add(iv);
+							}
+							if(bs.size()>7){
+								iv=(ImageView)view.findViewById(R.id.point8);
+								iv.setVisibility(View.VISIBLE);
+								points.add(iv);
+							}
+							viewPager.removeAllViews();
+							LogUtil.i("mi", "banner不为空mAdapterView.h="+mAdapterView.getHeight()+",root_parent_width="+rootLayout.getWidth());
+							pagerAdapter.notifyDataSetChanged();
+							LinearLayout.LayoutParams params=(LinearLayout.LayoutParams)mAdapterView.getLayoutParams();
+							if(params==null){
+								params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+							}
+							circleHandler.sendEmptyMessageDelayed(1, 4000);
+							/*params.width=rootLayout.getWidth();
+							params.height=rootLayout.getHeight();*/
+//							mAdapterView.setLayoutParams(params);
+							
+						}
+					}
+				});
+			}
+		}).start();
     }
-
+    Handler circleHandler=new Handler(){
+    	public void handleMessage(Message msg) {
+    		if(msg.what==1){
+    			currentPosition++;
+    			viewPager.setCurrentItem(currentPosition);
+    			circleHandler.sendEmptyMessageDelayed(1, 4000);
+    		}
+    	};
+    };
   /*  @Override
     protected void onResume() {
         super.onResume();

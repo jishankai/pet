@@ -41,7 +41,7 @@ public class Animal implements Serializable{
 	public int rq;
 	
 	
-	
+	public long foodNum;
 
 	
 	public String announceStr;
@@ -80,6 +80,9 @@ public class Animal implements Serializable{
 	
 	public boolean isTouched;
 	public String touchedPath;
+	
+	
+	public boolean isSelected=false;
 	@Override
 	public int hashCode() {
 		final int prime = 31;

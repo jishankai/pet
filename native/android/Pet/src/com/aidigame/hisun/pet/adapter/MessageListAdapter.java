@@ -34,7 +34,7 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.MessagJson;
 import com.aidigame.hisun.pet.ui.ChatActivity;
-import com.aidigame.hisun.pet.ui.NewHomeActivity;
+import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.ui.WarningDialogActivity;
@@ -42,7 +42,7 @@ import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
-import com.aidigame.hisun.pet.widget.fragment.DialogGoRegister;
+import com.aidigame.hisun.pet.widget.fragment.DialogNote;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -137,7 +137,17 @@ public class MessageListAdapter extends BaseAdapter {
 		TalkMessage data=datas.get(position);
 			
 			if(data.msgList!=null&&data.msgList.size()>0){
-				holder.textTv.setText(data.msgList.get(data.msgList.size()-1).content);
+//				holder.textTv.setText(data.msgList.get(data.msgList.size()-1).content);
+				
+				if(data.msgList.get(data.msgList.size()-1).content.contains("[address]")){
+					holder.textTv.setText(""+/*(StringUtil.isEmpty(data.content)?"":*/data.msgList.get(data.msgList.size()-1).content.substring(9)/*)*/);
+					
+					
+				}else{
+					holder.textTv.setText(""+/*(StringUtil.isEmpty(data.content)?"":*/data.msgList.get(data.msgList.size()-1).content/*)*/);
+				
+				}
+				
 				holder.timeTv.setText(judgeTime(data.msgList.get(data.msgList.size()-1).time));
 			}
 			if(data.usr_id==1){
@@ -526,7 +536,7 @@ public class MessageListAdapter extends BaseAdapter {
 											Toast.makeText(context, "消息删除成功", Toast.LENGTH_SHORT).show();
 											datas.remove(dataSystem);
 											isDeleting=false;
-											NewHomeActivity.homeActivity.messageFragment.notifyDataChanged(datas);
+//											HomeActivity.homeActivity.messageFragment.notifyDataChanged(datas);
 											progressLayout.setVisibility(View.INVISIBLE);
 											progressLayout.setClickable(false);
 											isShowingButton=false;

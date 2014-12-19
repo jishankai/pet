@@ -5,7 +5,6 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.WeixinShare;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -56,12 +55,14 @@ public class AboutUsActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		case R.id.imageView1:
-			if(NewHomeActivity.homeActivity!=null){
-				ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-				am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
-			}else{
-				Intent intent=new Intent(this,NewHomeActivity.class);
-				this.startActivity(intent);
+			if(isTaskRoot()){
+				if(HomeActivity.homeActivity!=null){
+					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+					am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), 0);
+				}else{
+					Intent intent=new Intent(this,HomeActivity.class);
+					this.startActivity(intent);
+				}
 			}
 			this.finish();
 			break;

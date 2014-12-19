@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/news_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="1dp"
@@ -12,7 +11,7 @@
     android:id="@+id/news_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="4dp"
+    android:paddingBottom="6dp"
     
     android:background="@drawable/waterfull_frame"
     android:orientation="vertical" >
@@ -39,6 +38,7 @@
         android:lineSpacingExtra="3dp"
         android:textColor="#656565" 
         android:layout_marginTop="3dp"
+        android:maxLines="2"
         android:layout_marginBottom="8dp"/>
 
    <!--  <TextView

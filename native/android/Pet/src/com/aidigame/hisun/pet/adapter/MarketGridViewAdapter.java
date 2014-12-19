@@ -7,7 +7,6 @@ import java.util.List;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Gift;
 import com.aidigame.hisun.pet.util.StringUtil;
-import com.aidigame.hisun.pet.widget.fragment.MarketFragment;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;

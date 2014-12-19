@@ -51,17 +51,6 @@
             android:orientation="horizontal"
             android:gravity="center">
             <TextView 
-                android:id="@+id/sure_shake"
-                android:layout_width="85dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_green"
-                android:text="就送这个"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                />
-             <TextView 
                  android:id="@+id/cancel_shake"
                 android:layout_width="85dp"
                 android:layout_height="wrap_content"
@@ -70,9 +59,22 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:paddingTop="5dp"
-                android:layout_marginLeft="70dp"
+                
                 android:paddingBottom="5dp"
                 />
+            <TextView 
+                android:id="@+id/sure_shake"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_green"
+                android:text="就送这个"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_marginLeft="70dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                />
+             
         </LinearLayout>
         
         

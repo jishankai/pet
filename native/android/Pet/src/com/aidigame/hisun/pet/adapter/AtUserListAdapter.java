@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.json.UserJson;
@@ -31,24 +32,39 @@ public class AtUserListAdapter extends BaseAdapter {
     ImageLoader imageLoader;
 	Context context;
 	ArrayList<User> list;
-	public AtUserListAdapter(Context context,ArrayList<User> list){
+	ArrayList<Animal> animals;
+	public AtUserListAdapter(Context context,ArrayList<User> list,ArrayList<Animal> animals){
 		this.context=context;
 		this.list=list;
+		this.animals=animals;
 		BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
 		options.inSampleSize=8;
 		options.inPreferredConfig=Bitmap.Config.RGB_565;
 		options.inPurgeable=true;
 		options.inInputShareable=true;
-		displayImageOptions=new DisplayImageOptions
-	            .Builder()
-	            .showImageOnLoading(R.drawable.noimg)
-		        .cacheInMemory(true)
-		        .cacheOnDisc(true)
-		        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
-		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
-                .build();
+		if(list!=null){
+			displayImageOptions=new DisplayImageOptions
+		            .Builder()
+		            .showImageOnLoading(R.drawable.user_icon)
+			        .cacheInMemory(true)
+			        .cacheOnDisc(true)
+			        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
+			        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+			        .decodingOptions(options)
+	                .build();
+		}else{
+			displayImageOptions=new DisplayImageOptions
+		            .Builder()
+		            .showImageOnLoading(R.drawable.pet_icon)
+			        .cacheInMemory(true)
+			        .cacheOnDisc(true)
+			        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
+			        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+			        .decodingOptions(options)
+	                .build();
+		}
+		
 	}
 	public void updateList(ArrayList<User> list){
 		this.list=list;
@@ -57,13 +73,22 @@ public class AtUserListAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return list.size();
+		if(list!=null){
+			return list.size();
+		}else{
+			return animals.size();
+		}
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return list.get(position);
+		if(list!=null){
+			return list.get(position);
+		}else{
+			return animals.get(position);
+		}
+		
 	}
 
 	@Override
@@ -86,31 +111,68 @@ public class AtUserListAdapter extends BaseAdapter {
 		}else{
 			holder=(Holder)convertView.getTag();
 		}
-		imageLoader=ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+list.get(position).u_iconUrl, holder.icon, displayImageOptions);
-		holder.nameTV.setText(list.get(position).u_nick);
-		if(list.get(position).isSelected){
-			holder.flagIV.setImageResource(R.drawable.atuser_list_checked);
-		}else{
-			holder.flagIV.setImageResource(R.drawable.atuser_list_unchecked);
-		}
-		final ImageView temp=holder.flagIV;
-		temp.setTag(list.get(position));
-		temp.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				User data=(User)v.getTag();
-				if(data.isSelected){
-					data.isSelected=false;
-					temp.setImageResource(R.drawable.atuser_list_unchecked);
-				}else{
-					data.isSelected=true;
-					temp.setImageResource(R.drawable.atuser_list_checked);
-				}
+		
+		
+		if(list!=null){
+			imageLoader=ImageLoader.getInstance();
+			imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+list.get(position).u_iconUrl, holder.icon, displayImageOptions);
+			holder.nameTV.setText(list.get(position).u_nick);
+			if(list.get(position).isSelected){
+				holder.flagIV.setImageResource(R.drawable.atuser_list_checked);
+			}else{
+				holder.flagIV.setImageResource(R.drawable.atuser_list_unchecked);
 			}
-		});
+			final ImageView temp=holder.flagIV;
+			temp.setTag(list.get(position));
+			temp.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					User data=(User)v.getTag();
+					if(data.isSelected){
+						data.isSelected=false;
+						temp.setImageResource(R.drawable.atuser_list_unchecked);
+					}else{
+						data.isSelected=true;
+						temp.setImageResource(R.drawable.atuser_list_checked);
+					}
+				}
+			});
+		}else{
+			imageLoader=ImageLoader.getInstance();
+			imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animals.get(position).pet_iconUrl, holder.icon, displayImageOptions);
+			holder.nameTV.setText(animals.get(position).pet_nickName);
+			final ImageView temp=holder.flagIV;
+			if(animals.get(position).isSelected){
+				holder.flagIV.setImageResource(R.drawable.atuser_list_checked);
+			}else{
+				holder.flagIV.setImageResource(R.drawable.atuser_list_unchecked);
+			}
+			temp.setTag(animals.get(position));
+			temp.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+					Animal data=(Animal)v.getTag();
+					for(int i=0;i<animals.size();i++){
+						if(!animals.get(i).equals(data))
+						animals.get(i).isSelected=false;
+					}
+					if(data.isSelected){
+						data.isSelected=false;
+						temp.setImageResource(R.drawable.atuser_list_unchecked);
+					}else{
+						data.isSelected=true;
+						temp.setImageResource(R.drawable.atuser_list_checked);
+					}
+					notifyDataSetChanged();
+				}
+			});
+		}
+		
 		return convertView;
 	}
 	class Holder{

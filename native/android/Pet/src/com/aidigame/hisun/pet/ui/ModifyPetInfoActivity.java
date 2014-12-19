@@ -62,9 +62,8 @@ import com.aidigame.hisun.pet.widget.ShowDialog;
 import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.fragment.AddressDialog;
 import com.aidigame.hisun.pet.widget.fragment.AgeDialog;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
-import com.aidigame.hisun.pet.widget.fragment.MenuFragment;
 import com.aidigame.hisun.pet.widget.fragment.RaceDialog;
+import com.aidigame.hisun.pet.widget.fragment.UserCenterFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -462,11 +461,8 @@ public class ModifyPetInfoActivity extends Activity {
 											handler.sendEmptyMessage(DISMISS_PROGRESS);
 											Toast.makeText(ModifyPetInfoActivity.this,"修改资料成功" , Toast.LENGTH_LONG).show();
 											ModifyPetInfoActivity.this.finish();
-											if(MenuFragment.menuFragment!=null){
-												MenuFragment.menuFragment.setViews();
-											}
-											if(HomeFragment.homeFragment!=null){
-												HomeFragment.homeFragment.initArcView();
+											if(UserCenterFragment.userCenterFragment!=null){
+										    	UserCenterFragment.userCenterFragment.updatateInfo();;
 											}
 											if(UserDossierActivity.userDossierActivity!=null){
 												UserDossierActivity.userDossierActivity.setUserInfo(Constants.user);
@@ -713,11 +709,8 @@ public class ModifyPetInfoActivity extends Activity {
 												Constants.user.currentAnimal=animal;
 												
 											}
-											if(MenuFragment.menuFragment!=null){
-												MenuFragment.menuFragment.setViews();
-											}
-											if(HomeFragment.homeFragment!=null){
-												HomeFragment.homeFragment.initArcView();
+											if(UserCenterFragment.userCenterFragment!=null){
+										    	UserCenterFragment.userCenterFragment.updatateInfo();;
 											}
 											if(PetKingdomActivity.petKingdomActivity!=null){
 												PetKingdomActivity.petKingdomActivity.setPetInfo(animal);

@@ -22,10 +22,12 @@ public class TakePictureBackground extends Activity {
 	public static final int MODE_CHANGE_ICON=31;//更改头像
 	public static final int MODE_TOPIC=32;//发表图片
 	public static final int  MODE_ACTIVITY=33;//参加活动
+	public static final int  MODE_BEG_FOOD=34;//参加活动
 	int mode=-1;
 	String filename;
 	String activityName;
 	Animal animal;
+	boolean isBeg;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			
@@ -35,6 +37,7 @@ public class TakePictureBackground extends Activity {
 					Intent intent3=new Intent(TakePictureBackground.this,SubmitPictureActivity.class);
 					intent3.setData(uri);
 					intent3.putExtra("mode", 1);
+					intent3.putExtra("isBeg", isBeg);
 					intent3.putExtra("path", Constants.Picture_Camera+File.separator+filename);
 					intent3.putExtra("activity", activityName);
 					intent3.putExtra("topic_id", getIntent().getIntExtra("topic_id", -1));
@@ -59,7 +62,7 @@ public class TakePictureBackground extends Activity {
 		mode=getIntent().getIntExtra("mode", -1);
 		activityName=getIntent().getStringExtra("activity");
 		animal=(Animal)getIntent().getSerializableExtra("animal");
-		
+		isBeg=getIntent().getBooleanExtra("isBeg",false);
 		switch (mode) {
 		case -1:
 			this.finish();
@@ -129,11 +132,28 @@ public class TakePictureBackground extends Activity {
 							// TODO Auto-generated method stub
 							try {
 								Thread.sleep(100);
-								Intent intent=new Intent(TakePictureBackground.this,com.aviary.android.feather.FeatherActivity.class);
+								/*Intent intent=new Intent(TakePictureBackground.this,com.aviary.android.feather.FeatherActivity.class);
 								intent.putExtra("mode", 1);
 								intent.setData(Uri.parse("file://"+Constants.Picture_Camera+File.separator+filename));
 								intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_IN_API_KEY_SECRET, Constants.EXTRA_IN_API_KEY_SECRET);
-								startActivityForResult(intent, 11); 
+								startActivityForResult(intent, 11); */
+								
+								
+								Intent intent3=new Intent(TakePictureBackground.this,SubmitPictureActivity.class);
+								intent3.setData(Uri.parse("file://"+Constants.Picture_Camera+File.separator+filename));
+								intent3.putExtra("mode", 1);
+								intent3.putExtra("isBeg", isBeg);
+								intent3.putExtra("path", Constants.Picture_Camera+File.separator+filename);
+								intent3.putExtra("activity", activityName);
+								intent3.putExtra("topic_id", getIntent().getIntExtra("topic_id", -1));
+								intent3.putExtra("topic_name", getIntent().getStringExtra("topic_name") );
+								intent3.putExtra("animal", animal);
+								TakePictureBackground.this.startActivity(intent3);
+								
+								
+								TakePictureBackground.this.finish();
+								
+								
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -141,11 +161,24 @@ public class TakePictureBackground extends Activity {
 						}
 					});
 				}else{
-					Intent intent=new Intent(this,com.aviary.android.feather.FeatherActivity.class);
+					/*Intent intent=new Intent(this,com.aviary.android.feather.FeatherActivity.class);
 					intent.putExtra("mode", 1);
 					intent.setData(Uri.parse("file://"+Constants.Picture_Camera+File.separator+filename));
 					intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_IN_API_KEY_SECRET, Constants.EXTRA_IN_API_KEY_SECRET);
-					startActivityForResult(intent, 11); 
+					startActivityForResult(intent, 11); */
+					Intent intent3=new Intent(TakePictureBackground.this,SubmitPictureActivity.class);
+					intent3.setData(Uri.parse("file://"+Constants.Picture_Camera+File.separator+filename));
+					intent3.putExtra("mode", 1);
+					intent3.putExtra("isBeg", isBeg);
+					intent3.putExtra("path", Constants.Picture_Camera+File.separator+filename);
+					intent3.putExtra("activity", activityName);
+					intent3.putExtra("topic_id", getIntent().getIntExtra("topic_id", -1));
+					intent3.putExtra("topic_name", getIntent().getStringExtra("topic_name") );
+					intent3.putExtra("animal", animal);
+					TakePictureBackground.this.startActivity(intent3);
+					
+					TakePictureBackground.this.finish();
+					
 				}
 				
 				
@@ -160,11 +193,27 @@ public class TakePictureBackground extends Activity {
 							// TODO Auto-generated method stub
 							try {
 								Thread.sleep(100);
-								Intent intent=new Intent(TakePictureBackground.this,com.aviary.android.feather.FeatherActivity.class);
+								/*Intent intent=new Intent(TakePictureBackground.this,com.aviary.android.feather.FeatherActivity.class);
 								intent.putExtra("mode", 1);
 								intent.setData(Uri.parse("file://"+Constants.Picture_Camera+File.separator+filename));
 								intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_IN_API_KEY_SECRET, Constants.EXTRA_IN_API_KEY_SECRET);
-								startActivityForResult(intent, 11); 
+								startActivityForResult(intent, 11); */
+								
+								
+								Intent intent3=new Intent(TakePictureBackground.this,SubmitPictureActivity.class);
+								intent3.setData(Uri.parse("file://"+Constants.Picture_Camera+File.separator+filename));
+								intent3.putExtra("mode", 1);
+								intent3.putExtra("isBeg", isBeg);
+								intent3.putExtra("path", Constants.Picture_Camera+File.separator+filename);
+								intent3.putExtra("activity", activityName);
+								intent3.putExtra("topic_id", getIntent().getIntExtra("topic_id", -1));
+								intent3.putExtra("topic_name", getIntent().getStringExtra("topic_name") );
+								intent3.putExtra("animal", animal);
+								TakePictureBackground.this.startActivity(intent3);
+								
+								
+								TakePictureBackground.this.finish();
+								
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -172,11 +221,24 @@ public class TakePictureBackground extends Activity {
 						}
 					});
 				}else{
-					Intent intent=new Intent(this,com.aviary.android.feather.FeatherActivity.class);
+					/*Intent intent=new Intent(this,com.aviary.android.feather.FeatherActivity.class);
 					intent.putExtra("mode", 1);
 					intent.setData(Uri.parse("file://"+Constants.Picture_Camera+File.separator+filename));
 					intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_IN_API_KEY_SECRET, Constants.EXTRA_IN_API_KEY_SECRET);
-					startActivityForResult(intent, 11); 
+					startActivityForResult(intent, 11); */
+					Intent intent3=new Intent(TakePictureBackground.this,SubmitPictureActivity.class);
+					intent3.setData(Uri.parse("file://"+Constants.Picture_Camera+File.separator+filename));
+					intent3.putExtra("mode", 1);
+					intent3.putExtra("isBeg", isBeg);
+					intent3.putExtra("path", Constants.Picture_Camera+File.separator+filename);
+					intent3.putExtra("activity", activityName);
+					intent3.putExtra("topic_id", getIntent().getIntExtra("topic_id", -1));
+					intent3.putExtra("topic_name", getIntent().getStringExtra("topic_name") );
+					intent3.putExtra("animal", animal);
+					TakePictureBackground.this.startActivity(intent3);
+					
+					
+					TakePictureBackground.this.finish();
 				}
 				break;
 			}

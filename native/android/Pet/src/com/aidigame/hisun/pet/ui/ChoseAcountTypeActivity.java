@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.aidigame.hisun.pet.FirstPageActivity;
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -36,6 +37,8 @@ public class ChoseAcountTypeActivity extends Activity {
 	boolean isAgree=false;//是否同意用户协议
 	int mode;
 	int from;//默认值为0，进行注册；1，已经注册过
+	boolean isBind=false;//是否绑定新浪微博或微信账号
+	User user;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -45,6 +48,8 @@ public class ChoseAcountTypeActivity extends Activity {
 		setContentView(R.layout.activity_chose_acount_type);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		choseAcountTypeActivity=this;
+		isBind=getIntent().getBooleanExtra("isBind", false);
+		if(isBind)user=(User)getIntent().getSerializableExtra("user");
 		initView();
 	}
 	private void initView() {
@@ -107,6 +112,9 @@ public class ChoseAcountTypeActivity extends Activity {
 				Intent intent=new Intent(ChoseAcountTypeActivity.this, NewRegisterActivity.class);
 				intent.putExtra("mode", 3);//创建狗或猫的联萌
 				intent.putExtra("from", from);
+				intent.putExtra("isBind", isBind);
+				if(isBind)
+				intent.putExtra("user", user);
 				ChoseAcountTypeActivity.this.startActivity(intent);
 			}
 		});
@@ -125,6 +133,8 @@ public class ChoseAcountTypeActivity extends Activity {
 				mode=2;
 				intent.putExtra("mode", mode);
 				intent.putExtra("from", from);
+				intent.putExtra("isBind", isBind);
+				intent.putExtra("user", user);
 				ChoseAcountTypeActivity.this.startActivity(intent);
 //				Toast.makeText(ChoseAcountTypeActivity.this, "暂不支持", Toast.LENGTH_LONG).show();
 			}

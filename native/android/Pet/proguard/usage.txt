@@ -23,28 +23,36 @@ com.aidigame.hisun.pet.blur.Blur:
 com.aidigame.hisun.pet.blur.ImageUtils
 com.aidigame.hisun.pet.http.HttpUtil:
     104:104:public HttpUtil()
-    1099:1137:public static boolean changePlant(android.content.Context,int,android.os.Handler)
-    2103:2142:public static int userShareNumsApi(android.content.Context,android.os.Handler)
-    2757:2805:public static boolean marketList(android.content.Context,int,android.os.Handler)
-    3582:3617:public static com.aidigame.hisun.pet.http.json.UserImagesJson downloadOtherUserHomepage(android.os.Handler,int,com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
-    4389:4452:public static boolean otherUserInfo(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.os.Handler,android.app.Activity)
-    4762:4836:public static java.lang.String downloadIconImage(java.lang.String,java.lang.String,android.os.Handler,android.app.Activity)
-    4909:4940:public static void deleteImage(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
-    5279:5306:public static com.aidigame.hisun.pet.http.json.MessagJson getMailList(int,boolean,android.os.Handler,android.content.Context)
-    5314:5349:public static boolean deleteMail(com.aidigame.hisun.pet.bean.TalkMessage)
-    6057:6107:public static void deleteTalk(android.content.Context,int,android.os.Handler)
-    6588:6594:public static java.lang.String judgeError(int)
-    6799:6806:public static java.lang.String getJsonString(org.json.JSONObject,java.lang.String)
-    6809:6816:public static long getJsonLong(org.json.JSONObject,java.lang.String)
-    6819:6826:public static int getJsonInt(org.json.JSONObject,java.lang.String)
+    1272:1310:public static boolean changePlant(android.content.Context,int,android.os.Handler)
+    2276:2315:public static int userShareNumsApi(android.content.Context,android.os.Handler)
+    2931:2979:public static boolean marketList(android.content.Context,int,android.os.Handler)
+    3760:3795:public static com.aidigame.hisun.pet.http.json.UserImagesJson downloadOtherUserHomepage(android.os.Handler,int,com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
+    4567:4630:public static boolean otherUserInfo(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.os.Handler,android.app.Activity)
+    4940:5014:public static java.lang.String downloadIconImage(java.lang.String,java.lang.String,android.os.Handler,android.app.Activity)
+    5087:5118:public static void deleteImage(com.aidigame.hisun.pet.http.json.UserImagesJson$Data,android.app.Activity)
+    5126:5155:public static com.aidigame.hisun.pet.http.json.ActivityJson loadTopicList(android.app.Activity,int,android.os.Handler)
+    5330:5375:public static com.aidigame.hisun.pet.http.json.LoginJson$Data getMailAndActivityNum(android.os.Handler,android.content.Context)
+    5457:5484:public static com.aidigame.hisun.pet.http.json.MessagJson getMailList(int,boolean,android.os.Handler,android.content.Context)
+    5492:5527:public static boolean deleteMail(com.aidigame.hisun.pet.bean.TalkMessage)
+    6235:6285:public static void deleteTalk(android.content.Context,int,android.os.Handler)
+    6774:6780:public static java.lang.String judgeError(int)
+    6985:6992:public static java.lang.String getJsonString(org.json.JSONObject,java.lang.String)
+    6995:7002:public static long getJsonLong(org.json.JSONObject,java.lang.String)
+    7005:7012:public static int getJsonInt(org.json.JSONObject,java.lang.String)
 com.aidigame.hisun.pet.http.JsonUtil:
     10:10:public JsonUtil()
     13:35:public static boolean getErrorMessage(java.lang.String,android.app.Activity)
 com.aidigame.hisun.pet.http.json.ActivityJson:
     public int state
+    public int errorCode
+    public java.lang.String errorMessage
     public java.lang.String version
     public java.lang.String confVersion
     public long currentTime
+    public java.util.ArrayList datas
+    18:20:public ActivityJson(java.lang.String)
+    21:23:public ActivityJson()
+    36:78:public void parseJson(java.lang.String)
 com.aidigame.hisun.pet.http.json.InfoJson:
     public int state
     public int errorCode
@@ -56,6 +64,9 @@ com.aidigame.hisun.pet.http.json.InfoJson:
     public com.aidigame.hisun.pet.bean.User user
     28:28:public InfoJson()
 com.aidigame.hisun.pet.http.json.InfoJson$Data
+com.aidigame.hisun.pet.http.json.LoginJson$Data:
+    public int mail_count
+    public int topic_count
 com.aidigame.hisun.pet.http.json.MessagJson
 com.aidigame.hisun.pet.http.json.MessagJson$Data
 com.aidigame.hisun.pet.http.json.MessagJson$DataSystem
@@ -87,12 +98,12 @@ com.aidigame.hisun.pet.ui.AwardDetailActivity:
 com.aidigame.hisun.pet.ui.ChoseKingActivity:
     java.lang.String race
     java.lang.String style
-    391:535:private void showRaceWindow()
+    390:534:private void showRaceWindow()
 com.aidigame.hisun.pet.ui.ChoseKingActivity$6:
-    1:420:ChoseKingActivity$6(com.aidigame.hisun.pet.ui.ChoseKingActivity)
+    1:419:ChoseKingActivity$6(com.aidigame.hisun.pet.ui.ChoseKingActivity)
 com.aidigame.hisun.pet.ui.ChoseKingActivity$7
 com.aidigame.hisun.pet.ui.ChoseKingActivity$8:
-    1:471:ChoseKingActivity$8(com.aidigame.hisun.pet.ui.ChoseKingActivity,java.lang.String[])
+    1:470:ChoseKingActivity$8(com.aidigame.hisun.pet.ui.ChoseKingActivity,java.lang.String[])
 com.aidigame.hisun.pet.ui.ChoseStarActivity:
     android.widget.ImageView cloud1
     android.widget.ImageView cloud2
@@ -110,35 +121,37 @@ com.aidigame.hisun.pet.ui.DetailActivity:
     int distance
     int yDown
 com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1:
-    204:205:public void setDialogGoListener(com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1$DialogGoListener)
+    203:204:public void setDialogGoListener(com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1$DialogGoListener)
 com.aidigame.hisun.pet.ui.DialogNoteActivity:
     238:239:public void setDialogGoListerer(com.aidigame.hisun.pet.ui.DialogNoteActivity$DialogNoteGoListener)
 com.aidigame.hisun.pet.ui.DialogPengTaSuccActivity:
     238:239:public void setDialogGoListerer(com.aidigame.hisun.pet.ui.DialogPengTaSuccActivity$DialogNoteGoListener)
+com.aidigame.hisun.pet.ui.ExchangeActivity:
+    android.widget.PopupWindow popupWindow
+com.aidigame.hisun.pet.ui.GiftInfoActivity:
+    android.widget.TextView ades2TV
+com.aidigame.hisun.pet.ui.MessageActivity:
+    com.aidigame.hisun.pet.http.json.MessagJson json_system
+    342:345:public void notifyDataChanged(java.util.ArrayList)
+    347:428:public void updateData()
 com.aidigame.hisun.pet.ui.ModifyPetInfoActivity:
     public static final int DISMISS_PROGRESS
     public static final int SHOW_PROGRESS
     int classs
-com.aidigame.hisun.pet.ui.NewHomeActivity:
-    public static final int HOMEFRAGMENT
-    public static final int MARKETFRAGMENT
-    public static final int MESSAGEFRAGMENT
-    public static final int ACTIVITYFRAGMENT
-    public static final int SETUPFRAGMENT
 com.aidigame.hisun.pet.ui.NewShowTopicActivity:
     public static final int SHOW_LIKE_LIST
     public static final int SHOW_GIFT_LIST
     public static final int SHOW_COMMENT_LIST
     public static final int SHOW_SHARE_LIST
     float centerY
-    1605:1605:public android.graphics.Bitmap getBitmap()
-    1625:1644:public void applyRotation(int,float,float)
-    1703:1719:private void clickIV2()
+    1592:1592:public android.graphics.Bitmap getBitmap()
+    1612:1631:public void applyRotation(int,float,float)
+    1690:1706:private void clickIV2()
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$34
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$DisplayNextView
 com.aidigame.hisun.pet.ui.PetKingdomActivity:
     android.widget.ImageView takePictureIV
-    1347:1347:private void setBlurImageBackground()
+    1337:1337:private void setBlurImageBackground()
 com.aidigame.hisun.pet.ui.PlayJokeActivity:
     com.aidigame.hisun.pet.bean.User user
     445:445:public void initView3()
@@ -146,7 +159,7 @@ com.aidigame.hisun.pet.ui.PopularRankListActivity:
     int length
     int itemtH
     int itemNum
-    456:536:private void parseJson(java.lang.String,int)
+    455:535:private void parseJson(java.lang.String,int)
 com.aidigame.hisun.pet.ui.ShakeActivity:
     com.aidigame.hisun.pet.bean.User user
 com.aidigame.hisun.pet.ui.SubmitPictureActivity:
@@ -159,10 +172,11 @@ com.aidigame.hisun.pet.ui.TakePictureBackground:
     public static final int MODE_CHANGE_ICON
     public static final int MODE_TOPIC
     public static final int MODE_ACTIVITY
+    public static final int MODE_BEG_FOOD
 com.aidigame.hisun.pet.ui.TouchActivity:
     android.view.View view4
 com.aidigame.hisun.pet.ui.UserDossierActivity:
-    1040:1040:private void setBlurImageBackground()
+    1038:1038:private void setBlurImageBackground()
 com.aidigame.hisun.pet.ui.WarningDialogActivity:
     com.aidigame.hisun.pet.ui.WarningDialogActivity$ReportResultListener reportResultListener
     303:304:public void setReportListener(com.aidigame.hisun.pet.ui.WarningDialogActivity$ReportResultListener)
@@ -194,11 +208,11 @@ com.aidigame.hisun.pet.util.ImageUtil:
 com.aidigame.hisun.pet.util.LogUtil:
     5:5:public LogUtil()
 com.aidigame.hisun.pet.util.StringUtil:
-    54:54:public StringUtil()
-    69:91:public static java.lang.String convert(java.lang.String)
-    100:145:public static java.lang.String revert(java.lang.String)
-    197:214:public static void setImageViaStream(java.lang.String,android.widget.ImageView,android.graphics.BitmapFactory$Options)
-    671:683:public static void editTextEnter(android.widget.EditText)
+    56:56:public StringUtil()
+    71:93:public static java.lang.String convert(java.lang.String)
+    102:147:public static java.lang.String revert(java.lang.String)
+    199:216:public static void setImageViaStream(java.lang.String,android.widget.ImageView,android.graphics.BitmapFactory$Options)
+    673:685:public static void editTextEnter(android.widget.EditText)
 com.aidigame.hisun.pet.util.StringUtil$1
 com.aidigame.hisun.pet.util.UiUtil:
     14:14:public UiUtil()
@@ -218,9 +232,9 @@ com.aidigame.hisun.pet.widget.AudioRecordAndPlayer:
 com.aidigame.hisun.pet.widget.AudioRecordAndPlayer$1
 com.aidigame.hisun.pet.widget.AudioRecordAndPlayer$2
 com.aidigame.hisun.pet.widget.PLAWaterfull:
-    406:414:public void clearAndRefresh()
+    415:423:public void clearAndRefresh()
 com.aidigame.hisun.pet.widget.PLAWaterfull$ContentTask:
-    156:189:public java.util.ArrayList parseNewsJSON(java.lang.String)
+    154:187:public java.util.ArrayList parseNewsJSON(java.lang.String)
 com.aidigame.hisun.pet.widget.PLAWaterfull$StaggeredAdapter$ViewHolder:
     android.widget.TextView timeView
 com.aidigame.hisun.pet.widget.ShakeSensor:
@@ -229,24 +243,22 @@ com.aidigame.hisun.pet.widget.ShakeSensor:
 com.aidigame.hisun.pet.widget.ShowDialog:
     9:9:public ShowDialog()
 com.aidigame.hisun.pet.widget.ShowMore:
-    561:567:public void onlyCanShare()
+    560:566:public void onlyCanShare()
 com.aidigame.hisun.pet.widget.WeixinShare:
-    35:35:public WeixinShare()
-    38:58:public static boolean getToken()
-    76:99:public static boolean shareText(java.lang.String)
-    174:187:public static byte[] bmpToByteArray(android.graphics.Bitmap,boolean)
-    191:212:private static android.graphics.Bitmap compressImage(android.graphics.Bitmap)
+    42:42:public WeixinShare()
+    45:66:public static boolean getToken()
+    84:107:public static boolean shareText(java.lang.String)
+    182:195:public static byte[] bmpToByteArray(android.graphics.Bitmap,boolean)
+    199:220:private static android.graphics.Bitmap compressImage(android.graphics.Bitmap)
 com.aidigame.hisun.pet.widget.WeixinShare$1
 com.aidigame.hisun.pet.widget.XinlangShare:
     38:38:public XinlangShare()
-com.aidigame.hisun.pet.widget.fragment.ActivityFragment:
-    public static final int WHAT_DID_LOAD_DATA
-    public static final int WHAT_DID_REFRESH
-    private static final int WHAT_DID_MORE
-    public static final int LOAD_ACTIVITY_LIST
-    public static final int UPDATE_ADAPTER
-com.aidigame.hisun.pet.widget.fragment.Function4Fragment
-com.aidigame.hisun.pet.widget.fragment.HomeFragment:
+com.aidigame.hisun.pet.widget.fragment.BegFoodFragment:
+    com.aidigame.hisun.pet.widget.ShowProgress showProgress
+    android.view.View moreNumView
+com.aidigame.hisun.pet.widget.fragment.BegFoodFragment$3$Holder
+com.aidigame.hisun.pet.widget.fragment.DiscoveryFragment:
+    android.widget.RelativeLayout waterFullParent
     com.aidigame.hisun.pet.view.PullToRefreshAndMoreView focusListView
     android.widget.RelativeLayout relativeLayout1
     public static final int MESSAGE_DOWNLOAD_IMAGE
@@ -260,15 +272,23 @@ com.aidigame.hisun.pet.widget.fragment.HomeFragment:
     public static final int SHOW_BACKGROUND_CONTROL
     public static final int HIDE_BACKGROUND_CONTROL
     public android.widget.ListView listView
-    282:282:public void setNewWaterFull()
-    1004:1008:public void showBlurImage()
-    1028:1058:public void judgeAcountType()
-    1096:1100:public void setBlurImageBackground()
-com.aidigame.hisun.pet.widget.fragment.MenuFragment:
-    public static final int USER_INFO
-    android.widget.ImageView clearInputIv
-com.aidigame.hisun.pet.widget.fragment.MessageFragment:
-    com.aidigame.hisun.pet.http.json.MessagJson json_system
+    249:250:public void setBlureViewInvisible()
+    253:253:public void setNewWaterFull()
+com.aidigame.hisun.pet.widget.fragment.Function4Fragment
+com.aidigame.hisun.pet.widget.fragment.MyPetFragment:
+    public static final int MESSAGE_DOWNLOAD_IMAGE
+    public static final int UPDATE_WATERFULL
+    public static final int DISMISS_PROGRESS
+    public static final int SHOW_PROGRESS
+    public static final int SHOW_HEADER
+    public static final int SHOW_FOOTER
+    public static final int HIDE_HEADER
+    public static final int HIDE_FOOTER
+    public static final int SHOW_BACKGROUND_CONTROL
+    public static final int HIDE_BACKGROUND_CONTROL
+    com.aidigame.hisun.pet.widget.HomePetPictures homePetPictures
+    public android.widget.ListView listView
+    433:463:public void judgeAcountType()
 com.aidigame.hisun.pet.widget.fragment.PetGiftList:
     155:155:public void onMore(com.miloisbadboy.view.PullToRefreshView)
 com.aidigame.hisun.pet.widget.fragment.UserActivity:
@@ -1119,6 +1139,7 @@ com.umeng.analytics.MobclickAgent:
     420:426:public static varargs void onSocialEvent(android.content.Context,com.umeng.analytics.social.UMPlatformData[])
     436:437:public static java.lang.String getConfigParams(android.content.Context,java.lang.String)
     448:457:public static void updateOnlineConfig(android.content.Context,java.lang.String,java.lang.String)
+    463:464:public static void updateOnlineConfig(android.content.Context)
     474:497:public static void setUserID(android.content.Context,java.lang.String,java.lang.String,com.umeng.analytics.Gender,int)
 com.umeng.analytics.MobclickAgentJSInterface
 com.umeng.analytics.MobclickAgentJSInterface$a
@@ -1155,6 +1176,7 @@ com.umeng.analytics.c:
     73:74:public void a(com.umeng.analytics.b)
     77:78:public void a(int)
     81:83:public void a(java.lang.String,java.lang.String)
+    86:95:void a(android.content.Context)
     98:99:void a(com.umeng.analytics.onlineconfig.UmengOnlineConfigureListener)
     151:156:public void a(android.content.Context,java.lang.String,java.util.HashMap)
     159:175:void a(android.content.Context,java.lang.String)
@@ -1192,8 +1214,10 @@ com.umeng.analytics.onlineconfig.a:
     public static final java.lang.String e
     public static final java.lang.String f
     public static final java.lang.String g
+    52:70:public void a(android.content.Context)
     73:74:public void a(com.umeng.analytics.onlineconfig.UmengOnlineConfigureListener)
     77:78:public void a()
+    81:82:public void a(com.umeng.analytics.onlineconfig.c)
     85:86:public void b()
 com.umeng.analytics.social.UMPlatformData:
     97:105:public UMPlatformData(com.umeng.analytics.social.UMPlatformData$UMedia,java.lang.String)
@@ -1777,6 +1801,7 @@ u.aly.i:
     private static final java.lang.String b
 u.aly.k:
     30:31:public void a(u.aly.o)
+    34:37:public void a(com.umeng.analytics.onlineconfig.a)
 u.aly.l:
     28:32:public int a(java.lang.String)
 u.aly.n:

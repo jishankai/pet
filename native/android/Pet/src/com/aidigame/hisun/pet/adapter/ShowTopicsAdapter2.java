@@ -119,10 +119,10 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 	    PetPicture data=petPictures.get(position);
 	    //TODO  
 	    if(Constants.user!=null&&data.likers!=null&&data.likers.contains(""+Constants.user.userId)){
-	    	holder.heart.setImageResource(R.drawable.show_topic_like_press);
+	    	holder.heart.setImageResource(R.drawable.bone_red);
 	    	 holder.tv5.setTextColor(context.getResources().getColor(R.color.orange_red));
 		}else{
-			holder.heart.setImageResource(R.drawable.show_topic_like);
+			holder.heart.setImageResource(R.drawable.bone_white);
 			holder.tv5.setTextColor(Color.WHITE);
 		}
 		    	convertView.setVisibility(View.VISIBLE);
@@ -246,7 +246,7 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 									// TODO Auto-generated method stub
 									tv.setText(""+petPicture.likes);
 									tv.setTextColor(context.getResources().getColor(R.color.orange_red));
-									iv.setImageResource(R.drawable.show_topic_like_press);
+									iv.setImageResource(R.drawable.bone_red);
 								}
 							});
 							

@@ -1,113 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" 
     android:id="@+id/layout"
-    android:background="@drawable/blur">
-     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:background="@color/orange_red" 
-        android:gravity="center_vertical"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/back_white" 
-            android:padding="12dp"/>
-
-        <TextView
-            android:id="@+id/who_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:layout_marginRight="48dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:text="礼物详情" 
-            android:textColor="@color/white"/>
-
-    </LinearLayout>
-
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:background="@color/white">
+     
+ <RelativeLayout 
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+         
      <ImageView
          android:id="@+id/imageView1"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:src="@drawable/a3" 
-         android:scaleType="fitXY"/>
+         
+        /><!-- android:src="@drawable/a3"  android:scaleType="fitXY" -->
+     <ImageView 
+         android:id="@+id/close_iv"
+             android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:src="@drawable/gift_detail_close" 
+         android:layout_alignParentRight="true"/>
+     </RelativeLayout>
      <RelativeLayout 
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:paddingTop="10dp"
-         android:paddingBottom="10dp"
-         android:background="@color/blur_view_top">
+         android:paddingBottom="0dp">
          <TextView
          android:id="@+id/textView1"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:text="伟嘉  宠物猫粮  幼猫 海洋鱼味  12.kg"
-         android:layout_marginLeft="15dp" />
+         android:layout_marginLeft="15dp" 
+         android:textSize="16sp"
+         android:textColor="@color/black"/>
 
          <ImageView
              android:id="@+id/imageView2"
-             android:layout_width="24dp"
-             android:layout_height="24dp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
              android:layout_below="@+id/textView1"
              android:layout_marginLeft="15dp"
-             android:layout_marginTop="10dp"
-             android:src="@drawable/gold_image" />
+             android:layout_marginTop="0dp"
+             android:src="@drawable/exchange_food_red" />
 
          <TextView
              android:id="@+id/textView2"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:layout_alignBottom="@+id/imageView2"
-             android:layout_marginLeft="15dp"
+             android:layout_marginLeft="5dp"
              android:layout_toRightOf="@+id/imageView2"
              android:text="2000"
-             android:textColor="@color/orange_red" 
+             android:textSize="20sp"
+             android:textColor="@color/orange_red1" 
              android:layout_marginBottom="3dp"/>
-
-         <TextView
-             android:id="@+id/textView3"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_alignBaseline="@+id/textView2"
-             android:layout_alignParentRight="true"
-             android:text="人气 +1000" 
-             android:layout_marginRight="15dp"/>
          
      </RelativeLayout>
 
-     
+     <ScrollView android:layout_width="match_parent"
+         android:layout_height="150dp"
+         android:orientation="vertical"
+         
+         android:fadingEdge="none"
+            android:cacheColorHint="#00000000"
+            android:listSelector="#00000000"
+            android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"
+            android:scrollbarSize="3dp"
+            ><!-- 
+            android:scrollbarTrackVertical="@drawable/scrollbar_vertical_track"android:background="#f2f2f2" -->
      <LinearLayout android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:orientation="vertical"
-         android:layout_weight="1"
          android:background="@color/blur_view_top">
          <LinearLayout
          android:layout_width="match_parent"
          android:layout_height="wrap_content" 
          android:layout_marginLeft="15dp"
          android:paddingTop="5dp"
-         android:layout_marginTop="10dp"
          android:paddingBottom="5dp">
 
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="产品名称：" />
+             android:text="产品名称：" 
+             android:textSize="12sp"
+             android:textColor="#414141"
+             android:visibility="gone"/>
 
          <TextView
              android:id="@+id/textView4"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="伟嘉  宠物猫粮  幼猫 海洋鱼味  12.kg"
-             android:layout_marginLeft="10dp" />
+             android:layout_marginLeft="10dp" 
+             android:textColor="#414141"
+             android:textSize="12sp"
+             android:visibility="gone"
+             android:layout_marginRight="10dp"/>
 
      </LinearLayout>
      <LinearLayout
@@ -120,14 +114,21 @@
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="适用范围：" />
+             android:text="适用范围：" 
+             android:textSize="12sp"
+             android:textColor="#414141"
+             android:visibility="gone"/>
 
          <TextView
              android:id="@+id/textView5"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="1-12月幼猫以及怀孕和哺乳期母猫"
-             android:layout_marginLeft="10dp" />
+             android:layout_marginLeft="10dp" 
+             android:textColor="#414141"
+             android:textSize="12sp"
+             android:visibility="gone"
+             android:layout_marginRight="10dp"/>
 
      </LinearLayout>
       <LinearLayout
@@ -140,14 +141,20 @@
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="产品规格：" />
+             android:text="产品规格：" 
+             android:textSize="12sp"
+             android:textColor="#414141"
+             android:visibility="gone"/>
 
          <TextView
              android:id="@+id/textView6"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="1.2kg"
-             android:layout_marginLeft="10dp" />
+             android:textSize="12sp"
+             android:visibility="gone"
+             android:layout_marginLeft="10dp" 
+             android:textColor="#414141"/>
 
      </LinearLayout>
       <LinearLayout
@@ -160,14 +167,20 @@
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="保质期：" />
+             android:text="保质期：" 
+             android:textSize="12sp"
+             android:textColor="#414141"
+             android:visibility="gone"/>
 
          <TextView
              android:id="@+id/textView7"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text="36个月"
-             android:layout_marginLeft="10dp" />
+             android:textSize="12sp"
+             android:visibility="gone"
+             android:layout_marginLeft="10dp" 
+             android:textColor="#414141"/>
 
      </LinearLayout>
       <LinearLayout
@@ -180,17 +193,25 @@
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="邮寄方式：" />
+             android:text="邮寄方式：" 
+             android:textSize="12sp"
+             android:textColor="#414141"
+             android:visibility="gone"/>
 
          <TextView
              android:id="@+id/textView8"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:text=""
-             android:layout_marginLeft="10dp" />
+             android:textSize="12sp"
+             android:visibility="gone"
+             android:layout_marginLeft="10dp" 
+             android:textColor="#414141"
+             android:layout_marginRight="10dp"/>
 
      </LinearLayout>
      </LinearLayout>
+     </ScrollView>
       <LinearLayout
          android:layout_width="match_parent"
          android:layout_height="wrap_content" 
@@ -200,67 +221,16 @@
          android:gravity="center_vertical"
          android:background="@color/blur_view_top"
          >
-
-         <TextView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:text="购买数量：" />
-
-         <LinearLayout
-             android:layout_width="75dp"
-             android:layout_height="24dp" 
-             android:background="@color/white"
-             android:layout_marginLeft="10dp">
-
-             <TextView
-                 android:id="@+id/textView10"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_weight="1"
-                 android:textSize="18sp"
-                 android:text="—" 
-                 android:gravity="center"/>
-             <View android:layout_width="1dp"
-                 android:layout_height="match_parent"
-                 android:background="@color/gray_light"/>
-             <TextView
-                 android:id="@+id/textView11"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_weight="1"
-                 android:text="1" 
-                 android:gravity="center"/>
-              <View android:layout_width="1dp"
-                 android:layout_height="match_parent"
-                 android:background="@color/gray_light"/>
-             <TextView
-                 android:id="@+id/textView12"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_weight="1"
-                 android:text="+" 
-                 android:gravity="center"
-                 android:textSize="18sp"/>
-
-         </LinearLayout>
-         <TextView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_weight="1" 
-                 android:text=" "
-                 android:gravity="center"/>
-
-         <TextView
-             android:id="@+id/textView13"
-             android:layout_width="wrap_content"
-             android:layout_height="24dp"
-             android:text="立即购买" 
-             android:gravity="center"
-             android:textSize="12sp"
-             android:layout_marginRight="15dp"
-             android:textColor="@color/white"
-             android:background="@drawable/button"/>
-
+          <TextView 
+              android:id="@+id/buy_tv"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/food_sure_big_"
+              android:text="确认兑换"
+              
+              android:gravity="center"
+              android:textColor="@color/white"
+              android:textSize="20sp"/>
      </LinearLayout>
 
 </LinearLayout>

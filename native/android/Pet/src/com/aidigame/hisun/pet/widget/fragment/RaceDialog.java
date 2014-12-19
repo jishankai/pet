@@ -66,6 +66,9 @@ public class RaceDialog {
 				case 1:
 					array=RaceDialog.this.context.getResources().getStringArray(R.array.dog_race);
 					break;
+				case 2:
+					array=RaceDialog.this.context.getResources().getStringArray(R.array.other_race);
+					break;
 				}
 				raceList=new ArrayList<String>();
 				for(int i=0;i<array.length;i++){
@@ -106,7 +109,6 @@ public class RaceDialog {
 	}
 	public String getRace(){
 		return stars=raceList.get(raceValue);
-		
 	}
 	public String getRaceCode(){
 		String string="";
@@ -114,6 +116,8 @@ public class RaceDialog {
 			string=""+(101+raceValue);
 		}else if(starValue==1){
 			string=""+(201+raceValue);
+		}else if(starValue==2){
+			string=""+(301+raceValue);
 		}
 		return string;
 		

@@ -46,7 +46,7 @@ import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
-import com.aidigame.hisun.pet.widget.fragment.DialogGoRegister;
+import com.aidigame.hisun.pet.widget.fragment.DialogNote;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -412,9 +412,9 @@ public class UserFocusAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 					final UserDossierActivity p=(UserDossierActivity)context;
-					DialogGoRegister dialog=new DialogGoRegister(p.popupParent, p, p.black_layout, 2);
+					DialogNote dialog=new DialogNote(p.popupParent, p, p.black_layout, 2);
 					dialog.setAnimal(animal);
-					dialog.setListener(new DialogGoRegister.ResultListener() {
+					dialog.setListener(new DialogNote.ResultListener() {
 						
 						@Override
 						public void getResult(boolean isSuccess) {

@@ -5,26 +5,42 @@ import java.io.File;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.aidigame.hisun.pet.FirstPageActivity;
+import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
-import com.aidigame.hisun.pet.ui.NewHomeActivity;
+import com.aidigame.hisun.pet.ui.AccountActivity;
+import com.aidigame.hisun.pet.ui.DialogGoRegisterActivity;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
+import com.aidigame.hisun.pet.ui.RegisterNoteDialog;
+import com.aidigame.hisun.pet.ui.SetupActivity;
 import com.aidigame.hisun.pet.ui.ShakeActivity;
 import com.aidigame.hisun.pet.ui.SubmitPictureActivity;
 import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
+import com.sina.weibo.sdk.api.TextObject;
+import com.sina.weibo.sdk.api.WebpageObject;
+import com.sina.weibo.sdk.api.WeiboMultiMessage;
+import com.sina.weibo.sdk.api.share.BaseRequest;
+import com.sina.weibo.sdk.api.share.BaseResponse;
+import com.sina.weibo.sdk.api.share.IWeiboHandler.Request;
+import com.sina.weibo.sdk.api.share.IWeiboHandler.Response;
+import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
+import com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest;
+import com.sina.weibo.sdk.api.share.WeiboShareSDK;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuth;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
@@ -34,10 +50,11 @@ import com.sina.weibo.sdk.net.AsyncWeiboRunner;
 import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.net.WeiboParameters;
 import com.sina.weibo.sdk.openapi.UsersAPI;
+import com.sina.weibo.sdk.utils.Utility;
 
 public class XinlangShare {
 	public static ShareXinlangResultListener listener;
-	public static void xinlangAuth(final Activity context){
+	public static void xinlangAuth(final Activity context,final boolean getUserInfo){
 		WeiboAuth weiboAuth=new WeiboAuth(context, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
 		weiboAuth.authorize(new WeiboAuthListener() {
 			
@@ -47,6 +64,19 @@ public class XinlangShare {
 				
 //					Toast.makeText(FirstPageActivity.this, "获取新浪微博授权 失败", Toast.LENGTH_LONG).show();;
 					LogUtil.i("exception", arg0.getMessage());
+					if(context instanceof RegisterNoteDialog){
+						RegisterNoteDialog.registerNoteDialog.cancelProgress();
+					}
+					if(context instanceof DialogGoRegisterActivity){
+						if(DialogGoRegisterActivity.dialogGoRegisterActivity!=null){
+							DialogGoRegisterActivity.dialogGoRegisterActivity.hideProgress();
+						}
+					}
+					if(context instanceof AccountActivity){
+						if(AccountActivity.accountActivity!=null){
+							AccountActivity.accountActivity.hideProgress();
+						}
+					}
 					return;
 			}
 			
@@ -55,11 +85,37 @@ public class XinlangShare {
 				// TODO Auto-generated method stub
 				LogUtil.i("me", "授权code完毕");
 				if(arg0==null){
+					if(context instanceof RegisterNoteDialog){
+						RegisterNoteDialog.registerNoteDialog.cancelProgress();
+					}
+					if(context instanceof DialogGoRegisterActivity){
+						if(DialogGoRegisterActivity.dialogGoRegisterActivity!=null){
+							DialogGoRegisterActivity.dialogGoRegisterActivity.hideProgress();
+						}
+					}
+					if(context instanceof AccountActivity){
+						if(AccountActivity.accountActivity!=null){
+							AccountActivity.accountActivity.hideProgress();
+						}
+					}
 					Toast.makeText(context, "获取新浪微博授权 失败", Toast.LENGTH_LONG).show();;
 					return;
 				};
 				String code=arg0.getString("code");
 				if(code==null){
+					if(context instanceof RegisterNoteDialog){
+						RegisterNoteDialog.registerNoteDialog.cancelProgress();
+					}
+					if(context instanceof DialogGoRegisterActivity){
+						if(DialogGoRegisterActivity.dialogGoRegisterActivity!=null){
+							DialogGoRegisterActivity.dialogGoRegisterActivity.hideProgress();
+						}
+					}
+					if(context instanceof AccountActivity){
+						if(AccountActivity.accountActivity!=null){
+							AccountActivity.accountActivity.hideProgress();
+						}
+					}
 					Toast.makeText(context, "获取新浪微博授权 失败", Toast.LENGTH_LONG).show();;
 					return;
 				};;
@@ -75,6 +131,19 @@ public class XinlangShare {
 					@Override
 					public void onWeiboException(WeiboException arg0) {
 						// TODO Auto-generated method stub
+						if(context instanceof RegisterNoteDialog){
+							RegisterNoteDialog.registerNoteDialog.cancelProgress();
+						}
+						if(context instanceof DialogGoRegisterActivity){
+							if(DialogGoRegisterActivity.dialogGoRegisterActivity!=null){
+								DialogGoRegisterActivity.dialogGoRegisterActivity.hideProgress();
+							}
+						}
+						if(context instanceof AccountActivity){
+							if(AccountActivity.accountActivity!=null){
+								AccountActivity.accountActivity.hideProgress();
+							}
+						}
 						Toast.makeText(context, "获取新浪微博授权 失败", Toast.LENGTH_LONG).show();;
 					}
 					
@@ -96,12 +165,38 @@ public class XinlangShare {
 								editor.commit();
 								Constants.accessToken=accessToken;
 								LogUtil.i("me", ""+arg0);
-								getXinLangInfo(context);
+//								getXinLangInfo(context);
 								if (context instanceof NewShowTopicActivity) {
 									
 								}
-								if(context instanceof NewHomeActivity){
-									NewHomeActivity.homeActivity.setupFragment.getXinlangToken(true);
+								if(context instanceof SetupActivity){
+									
+								}
+								if(context instanceof AccountActivity){
+									AccountActivity.accountActivity.getXinlangToken(true);
+								}
+								if(getUserInfo){
+									if(context instanceof RegisterNoteDialog){
+										if(RegisterNoteDialog.registerNoteDialog!=null){
+											RegisterNoteDialog.registerNoteDialog.showProgress();
+										}
+										LogUtil.i("exception", "RegisterNoteDialog新浪微博授权成功："+arg0);
+										getXinLangInfo(context);
+									}
+									if(context instanceof AccountActivity) {
+										if(AccountActivity.accountActivity!=null){
+											AccountActivity.accountActivity.showProgress();
+										}
+										LogUtil.i("exception", "AccountActivity新浪微博授权成功："+arg0);
+										getXinLangInfo(context);
+									}
+									if(context instanceof DialogGoRegisterActivity) {
+										if(DialogGoRegisterActivity.dialogGoRegisterActivity!=null){
+											DialogGoRegisterActivity.dialogGoRegisterActivity.showProgress();
+										}
+										LogUtil.i("exception", "DialogGoRegisterActivity新浪微博授权成功："+arg0);
+										getXinLangInfo(context);
+									}
 								}
 								
 								Toast.makeText(context, "获取新浪微博授权成功", Toast.LENGTH_LONG).show();
@@ -109,6 +204,19 @@ public class XinlangShare {
 								Toast.makeText(context, "获取新浪微博授权  失败", Toast.LENGTH_LONG).show();;
 							}
 						}else{
+							if(context instanceof RegisterNoteDialog){
+								RegisterNoteDialog.registerNoteDialog.cancelProgress();
+							}
+							if(context instanceof DialogGoRegisterActivity){
+								if(DialogGoRegisterActivity.dialogGoRegisterActivity!=null){
+									DialogGoRegisterActivity.dialogGoRegisterActivity.hideProgress();
+								}
+							}
+							if(context instanceof AccountActivity){
+								if(AccountActivity.accountActivity!=null){
+									AccountActivity.accountActivity.hideProgress();
+								}
+							}
 							Toast.makeText(context, "获取新浪微博授权 失败", Toast.LENGTH_LONG).show();;
 						}
 					}
@@ -119,6 +227,19 @@ public class XinlangShare {
 			public void onCancel() {
 				// TODO Auto-generated method stub
 				Toast.makeText(context, "获取新浪微博授权 失败", Toast.LENGTH_LONG).show();
+				if(context instanceof RegisterNoteDialog){
+					RegisterNoteDialog.registerNoteDialog.cancelProgress();
+				}
+				if(context instanceof DialogGoRegisterActivity){
+					if(DialogGoRegisterActivity.dialogGoRegisterActivity!=null){
+						DialogGoRegisterActivity.dialogGoRegisterActivity.hideProgress();
+					}
+				}
+				if(context instanceof AccountActivity){
+					if(AccountActivity.accountActivity!=null){
+						AccountActivity.accountActivity.hideProgress();
+					}
+				}
 				return;
 			}
 		}, WeiboAuth.OBTAIN_AUTH_CODE);
@@ -145,6 +266,7 @@ public class XinlangShare {
 				LogUtil.i("exception", "新浪微博分享照片异常"+arg0.getMessage()+";token="+Constants.accessToken.getToken());
 				LogUtil.i("me","分享到新浪微博操作失败，原因是"+arg0.getMessage() +";token="+Constants.accessToken.getToken());
 				Toast.makeText(context, "分享到新浪微博操作失败，原因是"+arg0.getMessage(), Toast.LENGTH_LONG).show();
+				
 			}
 			
 			@Override
@@ -187,11 +309,66 @@ public class XinlangShare {
 		
 		
 	}
+	public static boolean shareWebPage(final Activity context,String url,String des,String title,String path){
+		IWeiboShareAPI weiboShareAPI=WeiboShareSDK.createWeiboAPI(context,Constants.APP_KEY /*, false*/);
+		
+		WebpageObject mediaObject = new WebpageObject();
+        mediaObject.actionUrl = url;
+        mediaObject.identify = Utility.generateGUID();
+        mediaObject.title = title;
+        mediaObject.description = des;
+        Bitmap bmp = BitmapFactory.decodeFile(path);
+        mediaObject.setThumbImage(bmp);
+		
+        
+        TextObject textObject = new TextObject();
+        textObject.text = "textObject";
+		 // 1. 初始化微博的分享消息
+        WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
+        weiboMessage.textObject = textObject;
+        // 用户可以分享其它媒体资源（网页、音乐、视频、声音中的一种）
+        weiboMessage.mediaObject = mediaObject;
+        // 2. 初始化从第三方到微博的消息请求
+        SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();
+        // 用transaction唯一标识一个请求
+        request.transaction = String.valueOf(System.currentTimeMillis());
+        request.multiMessage = weiboMessage;
+
+        // 3. 发送请求消息到微博，唤起微博分享界面
+       boolean flag=weiboShareAPI.handleWeiboResponse(context.getIntent(), new Response() {
+		
+		@Override
+		public void onResponse(BaseResponse baseResp) {
+			// TODO Auto-generated method stub
+			String str=baseResp.toString();
+			LogUtil.i("mi", "分享失败原因+"+baseResp.errMsg);;
+			 switch (baseResp.errCode) {
+               case WBConstants.ErrorCode.ERR_OK:
+                      /* if (PublicFun.shareCondition()) {
+                               gainBoBi();
+                       } else {
+                               Toast.makeText(this, R.string.share_success, Toast.LENGTH_LONG)
+                                               .show();
+                       }*/
+                       break;
+               case WBConstants.ErrorCode.ERR_CANCEL:
+                       break;
+               case WBConstants.ErrorCode.ERR_FAIL:
+                       Toast.makeText(context, "shibai", Toast.LENGTH_LONG)
+                                       .show();
+                       break;
+               }
+		}
+	});
+       LogUtil.i("mi", "xinlangfenxiang=="+flag);
+       weiboShareAPI.sendRequest(request);
+       return flag;
+	}
     /**
      * 获取新浪微博账号信息，昵称及头像
      * @param context
      */
-	public static void getXinLangInfo(Context context){
+	public static void getXinLangInfo(final Context context){
     	final SharedPreferences sp=context.getSharedPreferences("setup", Context.MODE_WORLD_WRITEABLE);
         String str=sp.getString("xinlangToken", null);
         if(str!=null){
@@ -206,6 +383,20 @@ public class XinlangShare {
 					public void onWeiboException(WeiboException arg0) {
 						// TODO Auto-generated method stub
 						//失败
+						Toast.makeText(context, "获取新浪微博账号信息失败", Toast.LENGTH_LONG).show();
+						if(context instanceof RegisterNoteDialog){
+							RegisterNoteDialog.registerNoteDialog.cancelProgress();
+						}
+						if(context instanceof DialogGoRegisterActivity){
+							if(DialogGoRegisterActivity.dialogGoRegisterActivity!=null){
+								DialogGoRegisterActivity.dialogGoRegisterActivity.hideProgress();
+							}
+						}
+						if(context instanceof AccountActivity){
+							if(AccountActivity.accountActivity!=null){
+								AccountActivity.accountActivity.hideProgress();
+							}
+						}
 					}
 					
 					@Override
@@ -244,6 +435,7 @@ public class XinlangShare {
 			            * "worldcup_guess":0
 			            * }
 			            */
+						LogUtil.i("exception", "新浪微博信息："+arg0);
 						final String temp=arg0;
 						new Thread(new Runnable() {
 							
@@ -252,18 +444,48 @@ public class XinlangShare {
 								// TODO Auto-generated method stub
 								try {
 									JSONObject o1=new JSONObject(temp);
+									User user=new User();
 									String name=o1.getString("name");
 									String iconUrl=o1.getString("profile_image_url");
 									String idString=o1.getString("idstr");
+									String gender=o1.getString("gender");
+									String city=o1.getString("city");
+									String province=o1.getString("province");
 									SharedPreferences.Editor editor=sp.edit();
 									editor.putString("xinlang_name",name );
+									user.xinlang_id=""+Long.parseLong(idString);
+									user.u_nick=name;
+									user.city=city;
+									user.province=province;
+                                    if("f".equals(gender)){
+										user.u_gender=2;
+									}else{
+										user.u_gender=1;
+									}
+									
 									if(iconUrl!=null){
 										boolean flag=HttpUtil.downloadImage(iconUrl, Constants.Picture_ICON_Path+File.separator+"xinlang_"+idString+".png");
 										if(flag){
 											editor.putString("xinlang_icon", Constants.Picture_ICON_Path+File.separator+"xinlang_"+idString+".png");
+											user.u_iconPath=Constants.Picture_ICON_Path+File.separator+"xinlang_"+idString+".png";
 										}
 									}
 									editor.commit();
+									if(context instanceof RegisterNoteDialog){
+										if(RegisterNoteDialog.registerNoteDialog!=null){
+											RegisterNoteDialog.registerNoteDialog.bindLogin(user,false);
+										}
+									}
+									if(context instanceof AccountActivity){
+										if(AccountActivity.accountActivity!=null){
+											AccountActivity.accountActivity.bindLogin(user, false);
+										}
+									}
+									if(context instanceof DialogGoRegisterActivity){
+										if(DialogGoRegisterActivity.dialogGoRegisterActivity!=null){
+											DialogGoRegisterActivity.dialogGoRegisterActivity.bindLogin(user, false);
+										}
+									}
 									
 								} catch (JSONException e) {
 									// TODO Auto-generated catch block

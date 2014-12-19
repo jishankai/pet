@@ -40,10 +40,9 @@ import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
-import com.aidigame.hisun.pet.widget.fragment.DialogGoRegister;
+import com.aidigame.hisun.pet.widget.fragment.DialogNote;
 import com.aidigame.hisun.pet.widget.fragment.DialogJoinKingdom;
 import com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom;
-import com.aidigame.hisun.pet.widget.fragment.MenuFragment;
 import com.aidigame.hisun.pet.widget.fragment.DialogJoinKingdom.ResultListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -164,13 +163,13 @@ public class UserKingdomListAdapter extends BaseAdapter {
 						num=100;
 					}
 					
-					if(/*Constants.user.coinCount>=num*/true){
+					if(Constants.user.coinCount>=num){
 						Intent intent=new Intent(context,ChoseAcountTypeActivity.class);
 						intent.putExtra("from", 1);
 						context.startActivity(intent);
 //						DialogGoRegister dialog=new DialogGoRegister(context.popupParent, context, context.black_layout, 4);
 					}else{
-						DialogGoRegister dialog=new DialogGoRegister(context.popupParent, context, context.black_layout, 1);
+						DialogNote dialog=new DialogNote(context.popupParent, context, context.black_layout, 1);
 					}
 					
 				}

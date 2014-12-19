@@ -18,12 +18,13 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
 import com.aidigame.hisun.pet.ui.ChoseStarActivity;
+import com.aidigame.hisun.pet.ui.DialogGoRegisterActivity;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
+import com.aidigame.hisun.pet.ui.RegisterNoteDialog;
 import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.widget.XinlangShare;
-import com.aidigame.hisun.pet.widget.fragment.DialogGoRegister;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
-import com.aidigame.hisun.pet.widget.fragment.MenuFragment;
+import com.aidigame.hisun.pet.widget.fragment.DialogNote;
+import com.aidigame.hisun.pet.widget.fragment.UserCenterFragment;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 public class UserStatusUtil {
@@ -53,7 +54,9 @@ public class UserStatusUtil {
 				}).start();
 				flag=true;
 			}else{
-				new DialogGoRegister(view, context,blackView,0);
+//				new DialogGoRegister(view, context,blackView,0);
+				Intent intent=new Intent(context,DialogGoRegisterActivity.class);
+				context.startActivity(intent);
 			}
 			
 		}
@@ -83,8 +86,6 @@ public class UserStatusUtil {
 							@Override
 							public void run() {
 								// TODO Auto-generated method stub
-								if(HomeFragment.homeFragment!=null)HomeFragment.homeFragment.initArcView();
-								if(MenuFragment.menuFragment!=null)MenuFragment.menuFragment.setViews();
 							}
 						});
 					}
@@ -115,7 +116,7 @@ public class UserStatusUtil {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
 								// TODO Auto-generated method stub
-								XinlangShare.xinlangAuth(context);
+								XinlangShare.xinlangAuth(context,false);
 							}
 						});
 						
@@ -135,12 +136,12 @@ public class UserStatusUtil {
 					}
 				}else{
 //					if(!(context instanceof SubmitPictureActivity))
-					XinlangShare.xinlangAuth(context);
+					XinlangShare.xinlangAuth(context,false);
 				}
 				
 			}else{
 //				if((context instanceof SubmitPictureActivity))
-				XinlangShare.xinlangAuth(context);
+				XinlangShare.xinlangAuth(context,false);
 			}
 		}else{
 			flag=true;
@@ -180,25 +181,14 @@ public class UserStatusUtil {
 		return flag;
 	}
 	public static void setDefaultKingdom(){
-		if(MenuFragment.menuFragment!=null){
+		if(UserCenterFragment.userCenterFragment!=null){
 			/*
 			 * 官职
 			 * 王国头像列表
 			 */
-			MenuFragment.menuFragment.setViews();
+			UserCenterFragment.userCenterFragment.updatateInfo();;
 		}
-		if(HomeFragment.homeFragment!=null){
-			/*
-			 * 1.相机是否显示
-			 * 2.快捷按钮
-			 */
-			if(Constants.user.userId==Constants.user.currentAnimal.master_id){
-				HomeFragment.homeFragment.cameraBt.setVisibility(View.VISIBLE);
-			}else{
-				HomeFragment.homeFragment.cameraBt.setVisibility(View.INVISIBLE);
-			}
-			HomeFragment.homeFragment.initArcView();
-		}
+		
 		if(UserDossierActivity.userDossierActivity!=null){
 			/*
 			 * 1.用户王国列表

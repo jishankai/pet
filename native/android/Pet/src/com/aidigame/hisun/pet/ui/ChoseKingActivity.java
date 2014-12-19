@@ -55,7 +55,6 @@ import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView;
 import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView.PullToRefreshAndMoreListener;
 import com.aidigame.hisun.pet.widget.ShowProgress;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 /**
  * 认养时，选择国王界面
  * 两种显示方式   1.狗，2.猫
@@ -64,7 +63,7 @@ import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
  */
 public class ChoseKingActivity extends Activity implements OnClickListener ,PullToRefreshAndMoreListener{
 	FrameLayout frameLayout;
-	View viewTopWhite;
+//	View viewTopWhite;
 	public View popupParent;//PopupWindwo位置相关parent
 	public RelativeLayout black_layout;
 	public static ChoseKingActivity choseKingActivity;
@@ -95,10 +94,12 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 	
 	LinearLayout noteLinearLayout;
 	int mode;
-	int currentType=-1;//-1为所有种族
+	int currentType=0;//-1为所有种族
 	int currentStyle=1;//1,推荐；2,人气
 	int currentFrom;
 	long last_aid=0;
+	boolean isBind=false;
+	User user;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -110,7 +111,8 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		choseKingActivity=this;
 		from=getIntent().getIntExtra("from", 0);
-		
+		isBind=getIntent().getBooleanExtra("isBind", isBind);
+		if(isBind)user=(User)getIntent().getSerializableExtra("user");
 		inintView();
 	}
 	private void inintView(){
@@ -120,7 +122,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 		
 		titleLayout=(RelativeLayout)findViewById(R.id.relativeLayout1);
 		view1=(View)findViewById(R.id.view1);
-		viewTopWhite=(View)findViewById(R.id.top_white_view);
+//		viewTopWhite=(View)findViewById(R.id.top_white_view);
 		
 		
 		searchLayout=(LinearLayout)findViewById(R.id.search_layout);
@@ -143,7 +145,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 		pullToRefreshAndMoreView.setHeaderAndFooterInvisible();
 		pullToRefreshAndMoreView.setListener(this);
         list=new ArrayList<Animal>();
-        choseKingListViewAdapter=new ChoseKingListViewAdapter(this, list,mode,from);
+        choseKingListViewAdapter=new ChoseKingListViewAdapter(this, list,mode,from,isBind,user);
 		listView.setAdapter(choseKingListViewAdapter);
 		raceTV.setText("所有");
 		loadData();
@@ -201,7 +203,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-			final ArrayList<Animal> temp=HttpUtil.recommendKingdom(ChoseKingActivity.this,-1, -1, handleHttpConnectionException.getHandler(ChoseKingActivity.this),currentStyle,currentFrom);
+			final ArrayList<Animal> temp=HttpUtil.recommendKingdom(ChoseKingActivity.this,0, 0, handleHttpConnectionException.getHandler(ChoseKingActivity.this),currentStyle,currentFrom);
 			
 				runOnUiThread(new Runnable() {
 					
@@ -237,11 +239,11 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 					// TODO Auto-generated method stub
 					if(list.size()<=0)return;
 					if(listView.getFirstVisiblePosition()==0&&listView.getChildAt(0).getTop()==0){
-						viewTopWhite.setVisibility(View.VISIBLE);
+//						viewTopWhite.setVisibility(View.VISIBLE);
 					}else{
-						if(viewTopWhite.getVisibility()!=View.GONE){
+						/*if(viewTopWhite.getVisibility()!=View.GONE){
 							viewTopWhite.setVisibility(View.GONE);
-						}
+						}*/
 					}
 				}
 				
@@ -266,7 +268,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 			searchLayout.setVisibility(View.VISIBLE);
 			titleLayout.setVisibility(View.GONE);
 			view1.setVisibility(View.VISIBLE);
-			viewTopWhite.setVisibility(View.GONE);
+//			viewTopWhite.setVisibility(View.GONE);
 			break;
 		case R.id.chose_king_chose_race:
 //			showRaceWindow();
@@ -284,7 +286,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 				searchLayout.setVisibility(View.INVISIBLE);
 				titleLayout.setVisibility(View.VISIBLE);
 				view1.setVisibility(View.GONE);
-				viewTopWhite.setVisibility(View.VISIBLE);
+//				viewTopWhite.setVisibility(View.VISIBLE);
 				loadData();
 			}else{
 				String name=inputET.getText().toString();
@@ -307,7 +309,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 			searchLayout.setVisibility(View.VISIBLE);
 			titleLayout.setVisibility(View.GONE);
 			view1.setVisibility(View.VISIBLE);
-			viewTopWhite.setVisibility(View.GONE);
+//			viewTopWhite.setVisibility(View.GONE);
 			break;
 		}
 	}
@@ -353,7 +355,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						final ArrayList<Animal> animals=HttpUtil.recommendKingdom(ChoseKingActivity.this,currentType, -1, handleHttpConnectionException.getHandler(ChoseKingActivity.this),currentStyle,currentFrom);
+						final ArrayList<Animal> animals=HttpUtil.recommendKingdom(ChoseKingActivity.this,currentType, 0, handleHttpConnectionException.getHandler(ChoseKingActivity.this),currentStyle,currentFrom);
 						
 							runOnUiThread(new Runnable() {
 								
@@ -545,10 +547,11 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 	    }else{
 	    	temp=getResources().getStringArray(R.array.cat_race);
 	    }
-	    final String[] strArray=new String[3];
+	    final String[] strArray=new String[4];
 	    strArray[0]="所有";
 	    strArray[1]="喵喵";
 	    strArray[2]="汪汪";
+	    strArray[3]="其他";
 	    tv1.setVisibility(View.GONE);
 	    PopularWindowAdapter adapter=new PopularWindowAdapter(this, strArray);
 	    listView.setAdapter(adapter);
@@ -570,7 +573,8 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						final ArrayList<Animal> animals=HttpUtil.recommendKingdom(ChoseKingActivity.this,-1, -1, handleHttpConnectionException.getHandler(ChoseKingActivity.this),currentStyle,currentFrom);
+						last_aid=0;
+						final ArrayList<Animal> animals=HttpUtil.recommendKingdom(ChoseKingActivity.this,0, 0, handleHttpConnectionException.getHandler(ChoseKingActivity.this),currentStyle,currentFrom);
 						
 							runOnUiThread(new Runnable() {
 								
@@ -627,7 +631,8 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 					public void run() {
 						// TODO Auto-generated method stub
 						currentFrom=Integer.parseInt(temp);
-						final ArrayList<Animal> animals=HttpUtil.recommendKingdom(ChoseKingActivity.this,-1, -1, handleHttpConnectionException.getHandler(ChoseKingActivity.this),currentStyle,currentFrom);
+						last_aid=0;
+						final ArrayList<Animal> animals=HttpUtil.recommendKingdom(ChoseKingActivity.this,currentFrom, 0, handleHttpConnectionException.getHandler(ChoseKingActivity.this),currentStyle,currentFrom);
 						
 							runOnUiThread(new Runnable() {
 								

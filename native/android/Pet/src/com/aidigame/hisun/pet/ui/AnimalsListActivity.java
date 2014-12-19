@@ -30,9 +30,6 @@ import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
-import com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
-import com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction.ClawFunctionChoseListener;
 /**
  * 宠物列表界面
  * @author admin

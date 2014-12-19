@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.KingdomCard;
+import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
@@ -28,7 +29,7 @@ import com.aidigame.hisun.pet.ui.NewRegisterActivity;
 import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.view.RoundImageView;
-import com.aidigame.hisun.pet.widget.fragment.DialogGoRegister;
+import com.aidigame.hisun.pet.widget.fragment.DialogNote;
 import com.aidigame.hisun.pet.widget.fragment.DialogJoinKingdom;
 import com.aidigame.hisun.pet.widget.fragment.DialogJoinKingdom.ResultListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -50,13 +51,17 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 	LinearLayout currentShowInfoLayout;
 	View hidenLineView;
 	HandleHttpConnectionException handleHttpConnectionException;
+	boolean isBind;
 	int mode;
 	int from;//默认值为0，进行注册；1，已经注册过
-	public ChoseKingListViewAdapter(ChoseKingActivity context,ArrayList<Animal> list,int mode,int from){
+	User user;
+	public ChoseKingListViewAdapter(ChoseKingActivity context,ArrayList<Animal> list,int mode,int from,boolean isBind,User user){
 		this.context=context;
 		this.list=list;
 		this.mode=mode;
 		this.from=from;
+		this.isBind=isBind;
+		this.user=user;
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
@@ -179,7 +184,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 						/*Intent intent=new Intent(homeActivity,ChoseAcountTypeActivity.class);
 						intent.putExtra("from", 1);
 						homeActivity.startActivity(intent);*/
-						DialogGoRegister dialog=new DialogGoRegister(context.popupParent, context, context.black_layout, 1);
+						DialogNote dialog=new DialogNote(context.popupParent, context, context.black_layout, 1);
 					}else{
 					
 					
@@ -204,6 +209,8 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 				Intent intent=new Intent(context,NewRegisterActivity.class);
 				intent.putExtra("mode", mode);
 				intent.putExtra("animal", data);
+				intent.putExtra("isBind", isBind);
+				if(isBind)intent.putExtra("user", user);
 				context.startActivity(intent);
 			}
 		});

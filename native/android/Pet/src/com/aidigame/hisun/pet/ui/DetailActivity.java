@@ -38,7 +38,6 @@ import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.HorizontalListView2;
 import com.aidigame.hisun.pet.widget.PLAWaterfull;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;

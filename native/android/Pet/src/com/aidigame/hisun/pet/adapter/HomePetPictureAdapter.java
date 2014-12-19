@@ -45,7 +45,7 @@ import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
-import com.aidigame.hisun.pet.ui.NewHomeActivity;
+import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.ui.UserDossierActivity;
@@ -56,7 +56,7 @@ import com.aidigame.hisun.pet.view.GalleryFlow;
 import com.aidigame.hisun.pet.view.RoundImageView;
 import com.aidigame.hisun.pet.view.TopicView;
 import com.aidigame.hisun.pet.widget.ShowDialog;
-import com.aidigame.hisun.pet.widget.fragment.DialogGoRegister;
+import com.aidigame.hisun.pet.widget.fragment.DialogNote;
 import com.aidigame.hisun.pet.widget.fragment.DialogJoinKingdom;
 import com.aidigame.hisun.pet.widget.fragment.DialogJoinKingdom.ResultListener;
 import com.aviary.android.feather.library.graphics.drawable.FakeBitmapDrawable;
@@ -185,7 +185,7 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 	    }
 	     
 	    
-	    if(position==0){
+	   /* if(position==0){
 	    	LinearLayout.LayoutParams param=(LinearLayout.LayoutParams)holder.rLayout1.getLayoutParams();
 	    	if(param==null){
 	    		param=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -199,7 +199,7 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 	    	}
 	    	param.topMargin=0;
 	    	holder.rLayout1.setLayoutParams(param);
-	    }
+	    }*/
 	    final Animal data=pp2.get(position);
 	    
 	    	holder.tv1.setText(""+data.pet_nickName);
@@ -227,7 +227,7 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						if(UserStatusUtil.isLoginSuccess(NewHomeActivity.homeActivity,NewHomeActivity.homeActivity.homeFragment.popupParent,NewHomeActivity.homeActivity.homeFragment.black_layout)){
+						if(UserStatusUtil.isLoginSuccess(HomeActivity.homeActivity,HomeActivity.homeActivity.discoveryFragment.popupParent,HomeActivity.homeActivity.discoveryFragment.black_layout)){
 							int num=0;
 							if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
 								num=(Constants.user.aniList.size()+1)*5;
@@ -236,12 +236,12 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 							}
 							
 							if(Constants.user.coinCount<num){
-								DialogGoRegister dialog=new DialogGoRegister(NewHomeActivity.homeActivity.homeFragment.popupParent, NewHomeActivity.homeActivity, NewHomeActivity.homeActivity.homeFragment.black_layout, 1);
+								DialogNote dialog=new DialogNote(HomeActivity.homeActivity.discoveryFragment.popupParent, HomeActivity.homeActivity, HomeActivity.homeActivity.discoveryFragment.black_layout, 1);
 								return;
 						}
 						
 						
-						DialogJoinKingdom dialog=new DialogJoinKingdom(NewHomeActivity.homeActivity.homeFragment.popupParent, NewHomeActivity.homeActivity, NewHomeActivity.homeActivity.homeFragment.black_layout, data);
+						DialogJoinKingdom dialog=new DialogJoinKingdom(HomeActivity.homeActivity.discoveryFragment.popupParent, HomeActivity.homeActivity, HomeActivity.homeActivity.discoveryFragment.black_layout, data);
 						dialog.setResultListener(new ResultListener() {
 							
 							@Override

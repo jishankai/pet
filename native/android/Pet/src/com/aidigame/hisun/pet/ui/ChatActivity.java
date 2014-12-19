@@ -43,8 +43,6 @@ import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.AudioRecordAndPlayer;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
-import com.aidigame.hisun.pet.widget.fragment.MessageFragment;
 /**
  * 聊天界面
  * @author admin
@@ -210,8 +208,8 @@ public class ChatActivity extends Activity implements OnClickListener{
 			stopThread=true;
 		}
     	StringUtil.saveTalkHistory(talks, this);
-    	if(MessageFragment.messageFragment!=null){
-    		MessageFragment.messageFragment.updateList(talks);
+    	if(MessageActivity.messageActivity!=null){
+    		MessageActivity.messageActivity.updateList(talks);
     	}
     	super.onDestroy();
     	
@@ -253,15 +251,17 @@ public class ChatActivity extends Activity implements OnClickListener{
 				stopThread=true;
 			}
 			if(isTaskRoot()){
-				if(NewHomeActivity.homeActivity!=null){
+				if(HomeActivity.homeActivity!=null){
 					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+					am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
 				}else{
-					Intent intent=new Intent(ChatActivity.this,NewHomeActivity.class);
+					Intent intent=new Intent(ChatActivity.this,HomeActivity.class);
 					ChatActivity.this.startActivity(intent);
 				}
 			}
-			
+			if(MessageActivity.messageActivity!=null){
+	    		MessageActivity.messageActivity.updateList(talks);
+	    	}
 			this.finish();
 			break;
 		case R.id.send_comment:

@@ -32,9 +32,6 @@ import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
-import com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
-import com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction.ClawFunctionChoseListener;
 /**
  * 设置默认宠物
  * @author admin
@@ -93,14 +90,16 @@ public class ChosePetActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(NewHomeActivity.homeActivity!=null){
-					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
-				}else{
-					Intent intent=new Intent(ChosePetActivity.this,NewHomeActivity.class);
-					ChosePetActivity.this.startActivity(intent);
+				if(isTaskRoot()){
+					if(HomeActivity.homeActivity!=null){
+						ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+						am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), 0);
+					}else{
+						Intent intent=new Intent(ChosePetActivity.this,HomeActivity.class);
+						ChosePetActivity.this.startActivity(intent);
+					}
 				}
-				ChosePetActivity.this.finish();
+				finish();
 			}
 		});
 		/*new Thread(new Runnable() {

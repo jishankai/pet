@@ -8,45 +8,45 @@ package com.miloisbadboy;
 
 public final class R {
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f020144;
-		public static final int ic_pulltorefresh_arrow = 0x7f020145;
-		public static final int ic_pulltorefresh_arrow_up = 0x7f020146;
+		public static final int ic_launcher = 0x7f02016d;
+		public static final int ic_pulltorefresh_arrow = 0x7f02016e;
+		public static final int ic_pulltorefresh_arrow_up = 0x7f02016f;
 	}
 	public static final class id {
-		public static final int gridview = 0x7f0a02e2;
-		public static final int main_pull_refresh_view = 0x7f0a02e1;
-		public static final int pull_to_load_image = 0x7f0a02da;
-		public static final int pull_to_load_progress = 0x7f0a02d9;
-		public static final int pull_to_load_text = 0x7f0a02db;
-		public static final int pull_to_refresh_header = 0x7f0a02d8;
-		public static final int pull_to_refresh_image = 0x7f0a02de;
-		public static final int pull_to_refresh_progress = 0x7f0a02dc;
-		public static final int pull_to_refresh_text = 0x7f0a02dd;
-		public static final int pull_to_refresh_updated_at = 0x7f0a02df;
-		public static final int scrollview = 0x7f0a00b4;
-		public static final int test_gridview_btn = 0x7f0a02bd;
-		public static final int test_listview_btn = 0x7f0a02bc;
-		public static final int test_scrollview_btn = 0x7f0a02be;
-		public static final int text = 0x7f0a0167;
-		public static final int textview = 0x7f0a02e3;
+		public static final int gridview = 0x7f0a031b;
+		public static final int main_pull_refresh_view = 0x7f0a031a;
+		public static final int pull_to_load_image = 0x7f0a0314;
+		public static final int pull_to_load_progress = 0x7f0a0313;
+		public static final int pull_to_load_text = 0x7f0a0315;
+		public static final int pull_to_refresh_header = 0x7f0a0312;
+		public static final int pull_to_refresh_image = 0x7f0a0318;
+		public static final int pull_to_refresh_progress = 0x7f0a0316;
+		public static final int pull_to_refresh_text = 0x7f0a0317;
+		public static final int pull_to_refresh_updated_at = 0x7f0a0319;
+		public static final int scrollview = 0x7f0a0108;
+		public static final int test_gridview_btn = 0x7f0a02f7;
+		public static final int test_listview_btn = 0x7f0a02f6;
+		public static final int test_scrollview_btn = 0x7f0a02f8;
+		public static final int text = 0x7f0a01cb;
+		public static final int textview = 0x7f0a031c;
 	}
 	public static final class layout {
-		public static final int grid_item = 0x7f030076;
-		public static final int main = 0x7f0300b9;
-		public static final int refresh_footer = 0x7f0300cc;
-		public static final int refresh_header = 0x7f0300cd;
-		public static final int test_gridview = 0x7f0300cf;
-		public static final int test_listview = 0x7f0300d0;
-		public static final int test_scrollview = 0x7f0300d1;
+		public static final int grid_item = 0x7f030080;
+		public static final int main = 0x7f0300c1;
+		public static final int refresh_footer = 0x7f0300d5;
+		public static final int refresh_header = 0x7f0300d6;
+		public static final int test_gridview = 0x7f0300d7;
+		public static final int test_listview = 0x7f0300d8;
+		public static final int test_scrollview = 0x7f0300d9;
 	}
 	public static final class string {
-		public static final int app_name = 0x7f060000;
-		public static final int pull_to_refresh_footer_pull_label = 0x7f060014;
-		public static final int pull_to_refresh_footer_refreshing_label = 0x7f060015;
-		public static final int pull_to_refresh_footer_release_label = 0x7f060013;
-		public static final int pull_to_refresh_pull_label = 0x7f060010;
-		public static final int pull_to_refresh_refreshing_label = 0x7f060012;
-		public static final int pull_to_refresh_release_label = 0x7f060011;
-		public static final int text = 0x7f060016;
+		public static final int app_name = 0x7f070003;
+		public static final int pull_to_refresh_footer_pull_label = 0x7f070012;
+		public static final int pull_to_refresh_footer_refreshing_label = 0x7f070013;
+		public static final int pull_to_refresh_footer_release_label = 0x7f070011;
+		public static final int pull_to_refresh_pull_label = 0x7f07000e;
+		public static final int pull_to_refresh_refreshing_label = 0x7f070010;
+		public static final int pull_to_refresh_release_label = 0x7f07000f;
+		public static final int text = 0x7f070014;
 	}
 }

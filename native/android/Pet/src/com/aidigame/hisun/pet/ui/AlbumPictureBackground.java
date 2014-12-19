@@ -30,6 +30,7 @@ public class AlbumPictureBackground extends Activity {
 	String filename;
 	String path;
 	Animal animal;
+	boolean isBeg;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			if(msg.obj!=null){
@@ -38,6 +39,7 @@ public class AlbumPictureBackground extends Activity {
 				intent3.setData(uri);
 				intent3.putExtra("mode", 0);
 				intent3.putExtra("animal", animal);
+				intent3.putExtra("isBeg", isBeg);
 				uri.getPath();
 				LogUtil.i("me", "图库返回的uri="+uri.toString());
 				LogUtil.i("me", "图库返回的uri.getPath()="+uri.getPath());
@@ -56,6 +58,7 @@ public class AlbumPictureBackground extends Activity {
 		LogUtil.i("me", "创建TakePictureBackground");
 		setContentView(R.layout.activity_take_picture_background);
 		mode=getIntent().getIntExtra("mode", -1);
+		isBeg=getIntent().getBooleanExtra("isBeg", false);
 		switch (mode) {
 		case -1:
 			this.finish();
@@ -130,11 +133,24 @@ public class AlbumPictureBackground extends Activity {
 				break;
 			case MODE_TOPIC:
 				LogUtil.i("me",""+Constants.Picture_Camera+File.separator+filename);
-				Intent intent=new Intent(this,com.aviary.android.feather.FeatherActivity.class);
+				/*Intent intent=new Intent(this,com.aviary.android.feather.FeatherActivity.class);
 				intent.putExtra("mode", 1);
 				intent.setData(data.getData());
 				intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_IN_API_KEY_SECRET, Constants.EXTRA_IN_API_KEY_SECRET);
-				startActivityForResult(intent, 11); 
+				startActivityForResult(intent, 11); */
+				
+				
+				
+				Intent intent3=new Intent(AlbumPictureBackground.this,SubmitPictureActivity.class);
+				intent3.setData(data.getData());
+				intent3.putExtra("mode", 0);
+				intent3.putExtra("animal", animal);
+				intent3.putExtra("isBeg", isBeg);
+				intent3.putExtra("path", path);
+				AlbumPictureBackground.this.startActivity(intent3);
+				AlbumPictureBackground.this.finish();
+				
+				
 				
 				break;
 			}

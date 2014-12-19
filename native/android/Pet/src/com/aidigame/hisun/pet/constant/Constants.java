@@ -24,6 +24,13 @@ public class Constants {
 	public static String CON_VERSION;
 	public static String DOWNLOAD_APK="http://home4pet.aidigame.com/pet_beta_1.0.15.apk";
 	
+	public static long Toatl_animal;
+	public static long Toatl_food;
+	
+	
+	
+	
+	
 	//临时声音文件
 	public static String audioPath;
 	public static boolean hasStart=false;
@@ -51,8 +58,8 @@ public class Constants {
 //	public static String URL_ROOT="/dc/index.php?";
 	public static String URL_ROOT="/index.php?";
 	public static String URL_ROOT2="/index.php?";//
-	public static String IP="123.57.39.48";//   dev.jishankai.me:8001  release4pet.aidigame.com  dev4pet.aidigame.com
-	public static String IP2="123.57.39.48";//:8080
+	public static String IP="release4pet.aidigame.com";//   dev.jishankai.me:8001  release4pet.aidigame.com  dev4pet.aidigame.com
+	public static String IP2="release4pet.aidigame.com";//:8080   123.57.39.48
 	//下载头像
 //	public static String USER_DOWNLOAD_TX="http://"+IP+"/dc/images/tx/";
 	public static String USER_DOWNLOAD_TX="http://pet4tx.oss-cn-beijing.aliyuncs.com/"+"tx_usr/";
@@ -62,8 +69,14 @@ public class Constants {
   //欢迎页图片下载
     public static String WELCOME_IMAGE="http://pet4welcome.oss-cn-beijing.aliyuncs.com/";//"http://"+IP+URL_ROOT+"r=user/welcomeApi"
     public static String UPLOAD_IMAGE_RETURN_URL="http://pet4upload.oss-cn-beijing.aliyuncs.com/";
+    public static String DOWNLOAD_FOOD_PATH="item/";
 	
 	
+    
+  //打赏食物
+  	public static String AWARD_FOOD=IP2+URL_ROOT2+"r=image/rewardFoodApi&img_id=";
+    
+    
 	//获得SID
 	public static String GET_SID=URL_ROOT+"r=user/getSIDApi&uid=";
 	
@@ -74,9 +87,18 @@ public class Constants {
 	//修改用宠物 语言心情
 	public static String PET_MODIFY_ANOUNCE=IP2+URL_ROOT2+"r=animal/modifyMsgApi&aid=";
 	
+	//设置密码
+	public static String SET_PASSWORD=IP2+URL_ROOT2+"r=user/setPwdApi&pwd=";
+	//切换账号
+	public static String CHANGE_ACCOUNT=IP2+URL_ROOT2+"r=user/bindUserApi&name=";
+	//是否绑定微信或微博
+	public static String IS_BIND=IP2+URL_ROOT2+"r=user/loginBy3PartyApi";
+	//微信或微博绑定
+	public static String BIND_ACCOUNT=IP2+URL_ROOT2+"r=user/bindApi&";
 	
 	
-	
+	//banner列表
+	public static String BANNER_LIST=IP2+URL_ROOT2+"r=image/bannerApi";
 	//举报图片
 	public static String REPORT_IMAGE=IP2+URL_ROOT2+"r=image/reportApi&img_id=";
 	//举报用户
@@ -103,6 +125,21 @@ public class Constants {
 	//登陆路径
 //	public static String LOGIN_PATH=URL_ROOT+"r=user/loginApi";
 	public static String LOGIN_PATH=URL_ROOT+"r=user/loginApi";
+	
+	
+	
+	//修改用户信息
+	public static String BEG_FOOD_LIST=IP2+URL_ROOT2+"r=image/ask4FoodApi&page=";
+	
+	//赏口粮图片信息
+	public static String SHARE_FOOD=IP2+URL_ROOT2+"r=animal/foodApi&aid=";
+	//兑换礼物列表
+	public static String EXCHANGE_FOOD_LIST=IP2+URL_ROOT2+"r=item/listApi";
+	//兑换礼物
+	public static String EXCHANGE_FOOD=IP2+URL_ROOT2+"r=item/exchangeApi&";
+	//兑换礼物的详细信息
+	public static String FOOD_INFO=IP2+URL_ROOT2+"r=item/infoApi&item_id=";
+	
 	
 	
 	//送礼物
@@ -351,9 +388,18 @@ public class Constants {
     public static final String NOTE_MESSAGE_5="上传头像失败";
     
     
+    
+    
+    //打赏时，是否显示提示框
+    public static final String GIVE_FOOD_NOTE_SHOW="GIVE_FOOD_NOTE_SHOW";	
     //"setup" SharedPreference 中存储内容的key值
     
     public static final String SHAREDPREFERENCE_NAME="setup";	
+    //用于存储基本信息，导航图片是否显示等
+    public static final String BASEIC_SHAREDPREFERENCE_NAME="basic";	
+    public static final String BASEIC_SHAREDPREFERENCE_NAME_GUIDE1="guide1";	
+    public static final String BASEIC_SHAREDPREFERENCE_NAME_GUIDE2="guide2";
+    public static final String BASEIC_SHAREDPREFERENCE_NAME_GUIDE3="guide3";
     public static final String LOCK_TO_WEIXIN="LOCK_TO_WEIXIN";//账号绑定到微信，返回boolean值   是否绑定
     public static final String LOCK_TO_XINLANG="LOCK_TO_XINLANG";//账号绑定到新浪，返回boolean值   是否绑定
     //照片是否同步发送到微信朋友圈

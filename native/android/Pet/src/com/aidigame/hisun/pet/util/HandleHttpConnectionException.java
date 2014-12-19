@@ -1,7 +1,9 @@
 package com.aidigame.hisun.pet.util;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
-import com.aidigame.hisun.pet.ui.NewHomeActivity;
+import com.aidigame.hisun.pet.ui.DialogNoteActivity;
+import com.aidigame.hisun.pet.ui.HomeActivity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -28,6 +30,7 @@ public class HandleHttpConnectionException {
 	public static final int Json_Data_Parse_Exception=3002;//json数据解析异常
 	public static final int CONNECT_OUT_TIME=4000;//网络连接超时
 	public static final int LOGIN_SUCCESS=5000;//登陆成功
+	public static final int SHOW_NOTE=6000;//登陆成功
 //	public static final int 
     private static HandleHttpConnectionException handleHttpConnectionException=new HandleHttpConnectionException();
     Context context;
@@ -35,8 +38,13 @@ public class HandleHttpConnectionException {
     	public void handleMessage(android.os.Message msg) {
     		switch (msg.what) {
 			case Network_Status_Error:
+				if(HomeActivity.homeActivity!=null){
+					Intent intent=new Intent(HomeActivity.homeActivity,DialogNoteActivity.class);
+					intent.putExtra("mode", 9);
+					HomeActivity.homeActivity.startActivity(intent);
+				}
 				
-				Toast.makeText(context, "请检查网络连接", Toast.LENGTH_LONG).show();
+//				Toast.makeText(context, "请检查网络连接", Toast.LENGTH_LONG).show();
 				break;
 			case Connect_Error_1XX:
 				Toast.makeText(context, "信息提示", Toast.LENGTH_LONG).show();
@@ -61,13 +69,19 @@ public class HandleHttpConnectionException {
 //				Toast.makeText(context, "系统错误", Toast.LENGTH_LONG).show();
 				break;
 			case Json_Data_Parse_Exception:
-				Toast.makeText(context, "Json数据解析异常", Toast.LENGTH_LONG).show();
+				Toast.makeText(context, "数据异常", Toast.LENGTH_LONG).show();
 				break;
 			case CONNECT_OUT_TIME:
-				Toast.makeText(context, "网络连接超时", Toast.LENGTH_LONG).show();
+              if(HomeActivity.homeActivity!=null){
+            	  Intent intent2=new Intent(HomeActivity.homeActivity,DialogNoteActivity.class);
+  				intent2.putExtra("mode", 9);
+  				HomeActivity.homeActivity.startActivity(intent2);
+				}
+				
+//				Toast.makeText(context, "网络连接超时", Toast.LENGTH_LONG).show();
 				break;
 			case LOGIN_SUCCESS:
-				if(NewHomeActivity.homeActivity!=null)NewHomeActivity.homeActivity.update();
+//				if(HomeActivity.homeActivity!=null)HomeActivity.homeActivity.update();
 				break;
 			}
     	};

@@ -51,6 +51,7 @@ public class User implements Serializable{
 	public int locationCode;
 	public String province="";
 	public String city="";
+	public String password;
 	public int coinCount=-1;
 	public int t_contri;
 	public int d_contri;
@@ -61,8 +62,13 @@ public class User implements Serializable{
 	public String rank="经纪人";
 	public int rankCode=-1;
 	public boolean showArrow;
+	public boolean isBind=false;//是否绑定新浪或微信
+	
+	public int food;//剩余免费口粮数
 	
 	
+	public String weixin_id="";
+	public String xinlang_id="";
 	
 	
 	public String create_time;

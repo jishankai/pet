@@ -25,7 +25,6 @@ import com.aidigame.hisun.pet.adapter.FAQListAdapter2;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
 /**
  * 常见问题界面
  * @author admin
@@ -77,12 +76,14 @@ public class FAQActivity extends Activity {
 					listView1.setVisibility(View.VISIBLE);
 					commonTv.setVisibility(View.GONE);
 				}else{
-					if(NewHomeActivity.homeActivity!=null){
-						ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-						am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
-					}else{
-						Intent intent=new Intent(FAQActivity.this,NewHomeActivity.class);
-						FAQActivity.this.startActivity(intent);
+					if(isTaskRoot()){
+						if(HomeActivity.homeActivity!=null){
+							ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+							am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), 0);
+						}else{
+							Intent intent=new Intent(FAQActivity.this,HomeActivity.class);
+							FAQActivity.this.startActivity(intent);
+						}
 					}
 					FAQActivity.this.finish();
 				}

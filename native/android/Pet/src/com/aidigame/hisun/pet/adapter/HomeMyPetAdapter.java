@@ -29,10 +29,11 @@ import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
-import com.aidigame.hisun.pet.ui.BiteActivity;
+import com.aidigame.hisun.pet.ui.Dialog6Activity;
 import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1;
+import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.ui.InviteOthersDialogActivity;
-import com.aidigame.hisun.pet.ui.NewHomeActivity;
+import com.aidigame.hisun.pet.ui.MarketActivity;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.ui.PlayGameActivity;
@@ -42,7 +43,7 @@ import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
-import com.aidigame.hisun.pet.widget.fragment.MarketFragment;
+import com.aidigame.hisun.pet.widget.fragment.MyPetFragment;
 import com.example.android.bitmapfun.util.ImageCache;
 import com.example.android.bitmapfun.util.ImageFetcher;
 import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
@@ -218,24 +219,24 @@ public class HomeMyPetAdapter extends BaseAdapter {
 			if(Constants.user.aniList.contains(animal)){
 				if(Constants.user.userId==animal.master_id){
 					holder.biteIv.setImageResource(R.drawable.claw_touch1);
-					holder.biteTv.setText("萌叫叫");
+					holder.biteTv.setText("摸一摸");
 					if(animal.isVoiced==0){
-						holder.biteNumTv.setText("还未叫");
+						holder.biteNumTv.setText("还未摸");
 					}else{
-						holder.biteNumTv.setText("叫过了");
+						holder.biteNumTv.setText("还未摸");
 					}
 				}else{
-					holder.biteIv.setImageResource(R.drawable.claw_bite1);
-					holder.biteTv.setText("萌印象");
+					holder.biteIv.setImageResource(R.drawable.claw_touch1);
+					holder.biteTv.setText("摸一摸");
 					if(animal.touch_count==0){
 						holder.biteNumTv.setText("还未摸");
 					}else{
-						holder.biteNumTv.setText("摸过了");
+						holder.biteNumTv.setText("还未摸");
 					}
 				}
 			}else{
-				holder.biteIv.setImageResource(R.drawable.claw_bite1);
-				holder.biteTv.setText("萌印象");
+				holder.biteIv.setImageResource(R.drawable.claw_touch1);
+				holder.biteTv.setText("摸一摸");
 				if(animal.touch_count==0){
 					holder.biteNumTv.setText("还未摸");
 				}else{
@@ -383,7 +384,7 @@ public class HomeMyPetAdapter extends BaseAdapter {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Animal animal=animals.get(position);
+			final Animal animal=animals.get(position);
 			switch (v.getId()) {
 			case R.id.pet_icon:
 				if(PetKingdomActivity.petKingdomActivity!=null){
@@ -495,13 +496,9 @@ public class HomeMyPetAdapter extends BaseAdapter {
 					public void toDo() {
 						// TODO Auto-generated method stub
 						
-						Intent intent=null;
-//						homeActivity.showMarketFragment(1);
-						DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+						Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,MarketActivity.class);
 						
-						NewHomeActivity.homeActivity.finish();
-						intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,NewHomeActivity.class);
-						intent.putExtra("mode", NewHomeActivity.MARKETFRAGMENT);
+						
 						DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.startActivity(intent);
 						
 					}
@@ -522,7 +519,7 @@ public class HomeMyPetAdapter extends BaseAdapter {
 					public void unRegister() {
 						// TODO Auto-generated method stub
 //						dialog.dismiss();
-						if(!UserStatusUtil.isLoginSuccess(context, NewHomeActivity.homeActivity.homeFragment.popupParent, NewHomeActivity.homeActivity.homeFragment.black_layout)){
+						if(!UserStatusUtil.isLoginSuccess(context, HomeActivity.homeActivity.myPetFragment.popupParent, HomeActivity.homeActivity.myPetFragment.black_layout)){
 			        		
 			        	};
 					}
@@ -536,7 +533,10 @@ public class HomeMyPetAdapter extends BaseAdapter {
 				if(Constants.user!=null&&Constants.user.aniList!=null){
 					if(Constants.user.aniList.contains(animal)){
 						if(Constants.user.userId==animal.master_id){
-							Intent intent3=new Intent(context,BiteActivity.class);
+							/*Intent intent3=new Intent(context,BiteActivity.class);
+							intent3.putExtra("animal",animal);
+							context.startActivity(intent3);*/
+							Intent intent3=new Intent(context,TouchActivity.class);
 							intent3.putExtra("animal",animal);
 							context.startActivity(intent3);
 							tv=holder.biteNumTv;
@@ -550,9 +550,55 @@ public class HomeMyPetAdapter extends BaseAdapter {
 				tv=holder.biteNumTv;
 				break;
 			case R.id.play_layout:
-				Intent intent4=new Intent(context,PlayGameActivity.class);
+				
+				
+				if(Constants.user!=null&&Constants.user.aniList!=null){
+					if(Constants.user.aniList.contains(animal)){
+						new Thread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								final PetPicture pp=HttpUtil.shareFoodApi(handler, animal, context);
+								context.runOnUiThread(new Runnable() {
+									
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										if(pp==null){
+											if(Constants.user.userId==animal.master_id){
+												if(MyPetFragment.myPetFragment!=null){
+													MyPetFragment.myPetFragment.showCameraAlbum(animal,true);
+												}
+											}else{
+												Toast.makeText(context, "萌星 "+animal.pet_nickName+"，今天还没挣口粮呢~", Toast.LENGTH_LONG).show();
+											}
+										}else{
+											long time=pp.create_time+24*3600-System.currentTimeMillis()/1000;
+								    			if(time<=0){
+								    				Toast.makeText(context, "萌星 "+animal.pet_nickName+"，今天还没挣口粮呢~", Toast.LENGTH_LONG).show();
+								    				return;
+								    			}
+											Intent intent6=new Intent(context,Dialog6Activity.class);
+											intent6.putExtra("picture", pp);
+											context.startActivity(intent6);
+										}
+									}
+								});
+								
+								
+							}
+						}).start();
+					}else{
+//						Toast.makeText(context, "不是自己的萌宠", 1000).show();
+					}
+				}
+				
+				
+				
+				/*Intent intent4=new Intent(context,PlayGameActivity.class);
 				intent4.putExtra("animal",animal);
-				context.startActivity(intent4);
+				context.startActivity(intent4);*/
 				tv=holder.biteNumTv;
 				break;
 			case R.id.image_iv1:

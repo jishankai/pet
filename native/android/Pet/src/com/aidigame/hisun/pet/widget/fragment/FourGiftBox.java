@@ -27,7 +27,7 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1;
 import com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity;
-import com.aidigame.hisun.pet.ui.NewHomeActivity;
+import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
@@ -335,8 +335,8 @@ public class FourGiftBox {
 											@Override
 											public void run() {
 												// TODO Auto-generated method stub
-												if(MenuFragment.menuFragment!=null){
-													MenuFragment.menuFragment.goldTv.setText(""+Constants.user.coinCount);
+												if(UserCenterFragment.userCenterFragment!=null){
+													UserCenterFragment.userCenterFragment.goldNumTv.setText(""+Constants.user.coinCount);
 												}
 //												Toast.makeText(context, "购买了一个"+gift.name, Toast.LENGTH_LONG).show();
 											}
@@ -357,8 +357,8 @@ public class FourGiftBox {
 													}
 													gift.hasSendNum++;
 													gift.animal.send_gift_count++;
-													if(NewHomeActivity.homeActivity!=null){
-														NewHomeActivity.homeActivity.homeFragment.homeMyPet.adapter.updateTV("送了"+gift.animal.send_gift_count+"个",gift.add_rq);
+													if(HomeActivity.homeActivity!=null&&HomeActivity.homeActivity.myPetFragment!=null){
+														HomeActivity.homeActivity.myPetFragment.homeMyPet.adapter.updateTV("送了"+gift.animal.send_gift_count+"个",gift.add_rq);
 													}
 													isSendingGift=false;
 													MobclickAgent.onEvent(context, "gift_suc");
@@ -426,8 +426,8 @@ public class FourGiftBox {
 										gift.boughtNum--;
 										changeView(v, gift);
 										gift.hasSendNum++;
-										if(NewHomeActivity.homeActivity!=null){
-											NewHomeActivity.homeActivity.homeFragment.homeMyPet.adapter.updateTV("送了"+gift.hasSendNum+"个",gift.add_rq);
+										if(HomeActivity.homeActivity!=null&&HomeActivity.homeActivity.myPetFragment!=null){
+											HomeActivity.homeActivity.myPetFragment.homeMyPet.adapter.updateTV("送了"+gift.hasSendNum+"个",gift.add_rq);
 										}
 										MobclickAgent.onEvent(context, "gift_suc");
 										Map<String,String> map=new HashMap<String, String>();

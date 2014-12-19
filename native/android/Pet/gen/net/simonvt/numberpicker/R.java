@@ -8,50 +8,50 @@ package net.simonvt.numberpicker;
 
 public final class R {
 	public static final class attr {
-		public static final int internalLayout = 0x7f01007a;
-		public static final int internalMaxHeight = 0x7f010077;
-		public static final int internalMaxWidth = 0x7f010079;
-		public static final int internalMinHeight = 0x7f010076;
-		public static final int internalMinWidth = 0x7f010078;
-		public static final int numberPickerStyle = 0x7f010071;
-		public static final int selectionDivider = 0x7f010073;
-		public static final int selectionDividerHeight = 0x7f010074;
-		public static final int selectionDividersDistance = 0x7f010075;
-		public static final int solidColor = 0x7f010072;
-		public static final int virtualButtonPressedDrawable = 0x7f01007b;
+		public static final int internalLayout = 0x7f01006c;
+		public static final int internalMaxHeight = 0x7f010069;
+		public static final int internalMaxWidth = 0x7f01006b;
+		public static final int internalMinHeight = 0x7f010068;
+		public static final int internalMinWidth = 0x7f01006a;
+		public static final int numberPickerStyle = 0x7f010063;
+		public static final int selectionDivider = 0x7f010065;
+		public static final int selectionDividerHeight = 0x7f010066;
+		public static final int selectionDividersDistance = 0x7f010067;
+		public static final int solidColor = 0x7f010064;
+		public static final int virtualButtonPressedDrawable = 0x7f01006d;
 	}
 	public static final class color {
 		public static final int transparent = 0x7f090002;
 	}
 	public static final class drawable {
-		public static final int item_background_holo_dark = 0x7f02014f;
-		public static final int item_background_holo_light = 0x7f020150;
-		public static final int list_focused_holo = 0x7f020159;
-		public static final int list_longpressed_holo = 0x7f02015a;
-		public static final int list_pressed_holo_dark = 0x7f02015b;
-		public static final int list_pressed_holo_light = 0x7f02015c;
-		public static final int list_selector_background_transition_holo_dark = 0x7f02015d;
-		public static final int list_selector_background_transition_holo_light = 0x7f02015e;
-		public static final int list_selector_disabled_holo_dark = 0x7f02015f;
-		public static final int list_selector_disabled_holo_light = 0x7f020160;
-		public static final int np_numberpicker_selection_divider = 0x7f02017d;
+		public static final int item_background_holo_dark = 0x7f020179;
+		public static final int item_background_holo_light = 0x7f02017a;
+		public static final int list_focused_holo = 0x7f020182;
+		public static final int list_longpressed_holo = 0x7f020183;
+		public static final int list_pressed_holo_dark = 0x7f020184;
+		public static final int list_pressed_holo_light = 0x7f020185;
+		public static final int list_selector_background_transition_holo_dark = 0x7f020186;
+		public static final int list_selector_background_transition_holo_light = 0x7f020187;
+		public static final int list_selector_disabled_holo_dark = 0x7f020188;
+		public static final int list_selector_disabled_holo_light = 0x7f020189;
+		public static final int np_numberpicker_selection_divider = 0x7f0201a5;
 	}
 	public static final class id {
-		public static final int np__decrement = 0x7f0a0034;
-		public static final int np__increment = 0x7f0a0033;
-		public static final int np__numberpicker_input = 0x7f0a02c0;
+		public static final int np__decrement = 0x7f0a0031;
+		public static final int np__increment = 0x7f0a0030;
+		public static final int np__numberpicker_input = 0x7f0a02fa;
 	}
 	public static final class layout {
-		public static final int number_picker_with_selector_wheel = 0x7f0300bb;
+		public static final int number_picker_with_selector_wheel = 0x7f0300c3;
 	}
 	public static final class style {
-		public static final int NPWidget = 0x7f07000b;
-		public static final int NPWidget_Holo_Light_NumberPicker = 0x7f07000e;
-		public static final int NPWidget_Holo_NumberPicker = 0x7f07000d;
-		public static final int NPWidget_NumberPicker = 0x7f07000c;
+		public static final int NPWidget = 0x7f08000b;
+		public static final int NPWidget_Holo_Light_NumberPicker = 0x7f08000e;
+		public static final int NPWidget_Holo_NumberPicker = 0x7f08000d;
+		public static final int NPWidget_NumberPicker = 0x7f08000c;
 	}
 	public static final class styleable {
-		public static final int[] NumberPicker = { 0x7f010072, 0x7f010073, 0x7f010074, 0x7f010075, 0x7f010076, 0x7f010077, 0x7f010078, 0x7f010079, 0x7f01007a, 0x7f01007b };
+		public static final int[] NumberPicker = { 0x7f010064, 0x7f010065, 0x7f010066, 0x7f010067, 0x7f010068, 0x7f010069, 0x7f01006a, 0x7f01006b, 0x7f01006c, 0x7f01006d };
 		public static final int NumberPicker_internalLayout = 8;
 		public static final int NumberPicker_internalMaxHeight = 5;
 		public static final int NumberPicker_internalMaxWidth = 7;

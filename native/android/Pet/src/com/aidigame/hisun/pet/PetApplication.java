@@ -7,9 +7,11 @@ import java.util.LinkedList;
 import android.app.Activity;
 import android.app.Application;
 import android.graphics.Bitmap;
+import android.os.Handler;
 
 import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -42,6 +44,10 @@ public class PetApplication extends Application{
 		LogUtil.i("exception","petApplication执行onCreate方法" );
 		activityList=new LinkedList<Activity>();
 		constants=new Constants();
+		
+		
+		
+		
 		
 		File file=new File(Constants.Picture_Root_Path);
 		if(!file.exists()){

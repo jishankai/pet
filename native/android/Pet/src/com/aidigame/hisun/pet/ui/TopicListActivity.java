@@ -34,7 +34,7 @@ import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView;
 import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView.PullToRefreshAndMoreListener;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
+
 /**
  * 话题列表
  * @author admin

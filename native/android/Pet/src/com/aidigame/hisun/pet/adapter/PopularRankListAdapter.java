@@ -141,9 +141,9 @@ public class PopularRankListAdapter extends BaseAdapter {
 			holder.rankNoIV.setVisibility(View.GONE);
 			holder.rankNoTV.setVisibility(View.VISIBLE);
 			if(people.ranking<10){
-				holder.rankNoTV.setText(" "+(position));
+				holder.rankNoTV.setText(" "+(position+1));
 			}else{
-				holder.rankNoTV.setText(""+(position));
+				holder.rankNoTV.setText(""+(position+1));
 			}
 			
 		}

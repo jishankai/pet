@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    
+    
+    
+    
+     <!-- 正面，照片显示区域 -->
+      <android.support.v4.view.ViewPager
+               android:id="@+id/viewpager"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_below="@+id/title_layout"
+        android:layout_marginTop="5dp"
+        
+        android:layout_above="@+id/reward_layout"
+        android:layout_marginBottom="5dp">
+               
+           </android.support.v4.view.ViewPager>
+           <!--  <RelativeLayout 
+                android:id="@+id/image_layout"
+                android:layout_below="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/waterfull_frame"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_above="@+id/reward_layout"
+        android:layout_marginBottom="5dp"
+       >
+       <RelativeLayout 
+           android:layout_width="match_parent" 
+           android:orientation="vertical"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="10dp"
+           android:layout_marginRight="10dp"
+           android:layout_marginTop="10dp"
+           android:layout_marginBottom="20dp">
+           <android.support.v4.view.ViewPager
+               android:id="@+id/viewpager"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_above="@+id/beg_info_layout">
+               
+           </android.support.v4.view.ViewPager>
+           
+           <RelativeLayout 
+               android:id="@+id/beg_info_layout"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_above="@+id/line1"
+               
+               >
+               <LinearLayout 
+                   android:id="@+id/layout1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:gravity="left|bottom"
+               >
+                <TextView 
+                   android:text="已挣得"
+                   android:textSize="14sp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/orange_red1"/>
+                <TextView 
+                    android:id="@+id/food_num_tv"
+                   android:text="12034"
+                   android:textSize="22sp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/orange_red1"/>
+                 <TextView 
+                   android:text="份口粮"
+                   android:textSize="14sp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/orange_red1"/>
+                 </LinearLayout>
+                <LinearLayout 
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:gravity="right|bottom"
+               android:layout_alignBottom="@+id/layout1"
+               android:layout_alignParentRight="true"
+               android:paddingBottom="2dp"
+               >
+                 <TextView 
+                   android:text="倒计时："
+                   android:textSize="12sp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="20dp"/>
+                  <TextView 
+                      android:id="@+id/time_tv"
+                   android:text="24:00"
+                   android:textSize="12sp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="0dp"/>
+                 
+               </LinearLayout>
+           </RelativeLayout>
+           <View 
+               android:id="@+id/line1"
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#dddddd"
+               android:layout_above="@+id/show_topic_comment_tv"/>
+           <TextView 
+               android:id="@+id/show_topic_comment_tv"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="10dp"
+               android:layout_marginLeft="10dp"
+               android:layout_marginRight="10dp"
+               android:lineSpacingExtra="3dp"
+               android:focusable="false"
+               android:focusableInTouchMode="false"
+               android:text="我是帅锅，希望大家喜欢我和我的狗狗。我是帅锅，希望大家喜欢我和我的狗狗。"
+               android:textColor="#777777"
+               android:layout_alignParentBottom="true"/>
+
+       </RelativeLayout>
+
+        
+    </RelativeLayout>
+     -->
+    
+    
+   <!--  <LinearLayout 
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/more_num_background"
+    android:layout_below="@+id/image_layout"
+    android:layout_marginTop="-141dp" 
+    android:layout_marginLeft="55dp">
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1000"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
+        <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="100"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
+            <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
+                <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/white"
+        android:background="@drawable/more_item_bg"
+        android:textSize="16sp"/>
+    
+
+</LinearLayout> -->
+    
+    
+    
+    <!--顶部信息展示栏  -->
+    
+     <LinearLayout 
+         android:id="@+id/title_layout"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:gravity="center_vertical"
+               android:paddingBottom="5dp"
+               android:paddingTop="5dp"
+               android:background="#33fc7b51">
+               <com.aidigame.hisun.pet.view.RoundImageView 
+                   android:id="@+id/show_topic_peticon"
+                   android:layout_width="48dp"
+                   android:layout_height="48dp"
+                   android:layout_marginLeft="10dp"/>
+               <LinearLayout 
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:layout_marginRight="10dp"
+               android:layout_marginLeft="5dp"
+               >
+               <LinearLayout 
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_marginBottom="-5dp"
+               >
+               <ImageView 
+                   android:id="@+id/show_topic_petgender"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/female1"/>
+               <TextView 
+                   android:id="@+id/show_topic_petname"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="我是大萌星"
+                   android:textColor="@color/white"/>
+               
+               </LinearLayout>
+                <LinearLayout 
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:gravity="center_vertical"
+               >
+               <TextView 
+                   android:id="@+id/show_topic_pet_race"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="我为自己代粮"
+                   android:layout_marginLeft="15dp"
+                   android:textColor="@color/white"
+                   android:textSize="12sp"/>
+               <LinearLayout 
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:gravity="right|center_vertical"
+                  >
+                   <TextView 
+                       android:id="@+id/show_topic_username"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text=""
+                       android:textSize="12sp"
+                       android:layout_marginRight="5dp"
+                       android:textColor="@color/white"/>
+                   <com.aidigame.hisun.pet.view.RoundImageView 
+                       android:id="@+id/show_topic_usericon"
+                   android:layout_width="28dp"
+                   android:layout_height="28dp"/>
+               </LinearLayout>
+               
+               </LinearLayout>
+               </LinearLayout>
+           </LinearLayout>
+    
+    
+    
+    
+    
+    
+    
+    <!-- 赏tab -->
+    <RelativeLayout 
+        android:layout_width="330dp"
+        android:layout_height="84dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/reward_layout">
+                <RelativeLayout 
+                     android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/beg_food_tab"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="6dp"
+        android:id="@+id/reward_layout2">
+                <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/exchange_food_gray"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dp"
+                />
+        <LinearLayout 
+            android:id="@+id/show_more_num_layout"
+           
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            
+            android:layout_centerInParent="true">
+                <TextView 
+                android:id="@+id/give_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="1"
+                android:gravity="center"
+                android:textSize="20sp"/>
+           
+            <ImageView 
+                android:id="@+id/more_give_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back_white"
+                android:rotation="180"/>
+        </LinearLayout>
+    </RelativeLayout>
+               <ImageView
+                android:id="@+id/give_food_tv" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/give_heart"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                android:scaleType="fitXY"
+                android:layout_toRightOf="@+id/reward_layout2"
+                android:layout_marginLeft="-48dp"/>
+               
+               </RelativeLayout>
+   
+    
+    
+        
+    <!-- 进度条 -->
+    <LinearLayout 
+        android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="horizontal"
+    android:id="@+id/progress_layout"
+    ></LinearLayout>
+    
+     <!-- 注册弹窗使用 -->
+ <RelativeLayout 
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/black_layout"
+          android:visibility="visible"
+          android:gravity="center"
+          >
+          <View 
+              android:id="@+id/popup_parent"
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_centerInParent="true"/>
+      </RelativeLayout>
+    
+
+</RelativeLayout>

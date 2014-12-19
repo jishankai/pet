@@ -27,7 +27,7 @@
                   android:layout_height="wrap_content"
                   android:layout_alignParentTop="true"
                   android:layout_centerHorizontal="true"
-                  android:src="@drawable/more_friend" />
+                  android:src="@drawable/dialog_go_register_friend" />
 
               <ImageView
                   android:id="@+id/imageView2"
@@ -35,7 +35,7 @@
                   android:layout_height="wrap_content"
                   android:layout_marginRight="59dp"
                   android:layout_toLeftOf="@+id/imageView1"
-                  android:src="@drawable/more_weixin" />
+                  android:src="@drawable/dialog_go_register_weixin" />
 
               <ImageView
                   android:id="@+id/imageView4"
@@ -43,7 +43,7 @@
                   android:layout_height="wrap_content"
                   android:layout_marginLeft="59dp"
                   android:layout_toRightOf="@+id/imageView1"
-                  android:src="@drawable/more_xinlang" />
+                  android:src="@drawable/dialog_go_register_xinlang" />
 
               <TextView
                   android:id="@+id/textView2"

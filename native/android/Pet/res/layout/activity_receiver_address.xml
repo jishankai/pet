@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="@color/orange_red" 
+        android:background="#33fc7b51" 
         android:gravity="center_vertical"
         android:focusable="true"
         android:focusableInTouchMode="true">
@@ -52,9 +52,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/blur_view_top"
+       android:background="#4bffffff"
         android:focusable="true"
-        android:focusableInTouchMode="true" >
+        android:focusableInTouchMode="true" ><!--  android:background="@color/blur_view_top" -->
         
 
         <LinearLayout
@@ -64,8 +64,7 @@
             android:paddingLeft="15dp"
             android:gravity="center_vertical"
             android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-             android:background="@color/blur_view_top">
+            android:paddingBottom="12dp">
 
             <TextView
                 android:id="@+id/textView1"
@@ -76,10 +75,10 @@
                 android:textColor="@color/black" />
             <EditText 
                 android:id="@+id/name_et"
-                android:layout_width="100dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="姓名"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:layout_marginLeft="15dp"
                 android:textColor="#fc7b51"
                 android:singleLine="true"
@@ -96,8 +95,7 @@
             android:paddingLeft="15dp"
             android:gravity="center_vertical"
             android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:background="@color/blur_view_top">
+            android:paddingBottom="12dp">
 
             <TextView
                 android:id="@+id/textView1"
@@ -108,10 +106,10 @@
                 android:textColor="@color/black" />
             <EditText 
                 android:id="@+id/phone_num_et"
-                android:layout_width="100dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="手机号码"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:layout_marginLeft="15dp"
                 android:inputType="number"
                  android:textColor="#fc7b51"
@@ -129,8 +127,7 @@
             android:paddingLeft="15dp"
             android:gravity="center_vertical"
             android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:background="@color/blur_view_top">
+            android:paddingBottom="12dp">
 
             <TextView
                 android:id="@+id/textView1"
@@ -141,10 +138,10 @@
                 android:textColor="@color/black" />
             <EditText 
                 android:id="@+id/post_code_et"
-                android:layout_width="100dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="邮政编码"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:inputType="number"
                 android:layout_marginLeft="15dp"
                  android:textColor="#fc7b51"
@@ -162,8 +159,7 @@
             android:paddingLeft="15dp"
             android:gravity="center_vertical"
             android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:background="@color/blur_view_top">
+            android:paddingBottom="12dp">
 
             <TextView
                 android:id="@+id/textView1"
@@ -174,10 +170,10 @@
                 android:textColor="@color/black" />
             <EditText 
                 android:id="@+id/province_city_et"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="在北京市朝阳区"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:layout_marginLeft="15dp"
                  android:textColor="#fc7b51"
                 android:background="@null"
@@ -196,7 +192,7 @@
             android:gravity="center_vertical"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
-            android:background="@color/blur_view_top">
+            >
 
             <TextView
                 android:id="@+id/textView1"
@@ -207,10 +203,10 @@
                 android:textColor="@color/black" />
             <EditText 
                 android:id="@+id/receiver_address_et"
-                android:layout_width="100dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="详细地址"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:layout_marginLeft="15dp"
                  android:textColor="#fc7b51"
                   android:singleLine="true"

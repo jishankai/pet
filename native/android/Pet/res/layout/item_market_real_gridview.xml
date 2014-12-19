@@ -7,37 +7,15 @@
     <RelativeLayout
         android:id="@+id/box_layout"
         android:layout_width="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:paddingBottom="2dp"
-        android:background="@drawable/gift_box_background" >
-        <LinearLayout 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-                android:rotation="-45"
-                android:layout_marginLeft="3dp"
-                android:orientation="vertical"
-            >
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="人气"
-                android:textColor="@color/white"
-                android:textSize="6sp" 
-                
-                />
-        <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+100"
-                android:textColor="@color/white"
-                android:textSize="6sp" />
-        </LinearLayout>
+        android:layout_marginBottom="20dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/white"
+        >
         
 
         <LinearLayout
@@ -46,43 +24,48 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center_horizontal"
-            
-            android:paddingTop="15dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp" >
-             <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="108dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/cat_food" 
-            android:layout_marginTop="5dp"/>
-             <TextView
+            android:layout_centerInParent="true"
+            >
+        <TextView
                 android:id="@+id/textView1"
-                android:layout_width="108dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="为佳 宠物猫粮 幼猫 海洋鱼味 1.2kg"
-                android:textSize="12sp" 
-                android:layout_marginTop="10dp"/>
+                android:lineSpacingExtra="3dp"
+                android:textSize="14sp" />
+             <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/item_4_small" />
+             
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:background="@drawable/user_center_button_red"
+            android:gravity="center"
+            
             >
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/gold_image" />
+                android:layout_marginLeft="20dp"
+                
+                android:src="@drawable/exchange_food_gray" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3000"
+                android:textSize="20sp"
+                android:layout_marginRight="20dp"
                 android:layout_marginLeft="5dp"
-                android:textColor="@color/orange_red" />
+                android:textColor="@color/white"/>
 
         </LinearLayout>
         </LinearLayout>

@@ -35,7 +35,6 @@ import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.fragment.FourGiftBox;
 import com.aidigame.hisun.pet.widget.fragment.FourGiftBox.SendGiftResultListener;
-import com.aidigame.hisun.pet.widget.fragment.MarketFragment;
 import com.umeng.analytics.MobclickAgent;
 
 /**

@@ -11,11 +11,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="@color/blur_view_top">
+    ><!-- android:background="@color/blur_view_top" -->
     <View android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="@color/white"
-        android:id="@+id/top_white_view"/>
+        
+        android:id="@+id/top_white_view"/><!-- android:background="@color/white" -->
      <RelativeLayout
         android:id="@+id/bottom_linearlayout2"
         android:layout_width="match_parent"
@@ -76,7 +76,7 @@
      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="@color/orange_red" 
+        android:background="#33fc7b51" 
         android:gravity="center_vertical"
         android:focusable="true"
         android:focusableInTouchMode="true">

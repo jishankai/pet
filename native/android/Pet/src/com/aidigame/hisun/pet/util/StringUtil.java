@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,6 +35,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.CompressFormat;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.method.KeyListener;
@@ -221,6 +223,7 @@ public class StringUtil {
 	public static ArrayList<TalkMessage> getTalkHistory(Context context){
 		ArrayList<TalkMessage> datasMail=new ArrayList<TalkMessage>();
 		SharedPreferences sp=context.getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+		
 		String numString=sp.getString("talk_num", null);
 		if(!StringUtil.isEmpty(numString)){
 			String[] strs=numString.split(",");
@@ -390,6 +393,7 @@ public class StringUtil {
     			e.printStackTrace();
     		}
     	editor.commit();
+    	
 	}else{
 		editor.putString("talk_num", "");
 		editor.commit();
@@ -780,6 +784,55 @@ public class StringUtil {
 		}
 		
 	}
-
+	public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		bmp.compress(CompressFormat.PNG, 100, output);
+		if (needRecycle) {
+			bmp.recycle();
+		}
+		
+		byte[] result = output.toByteArray();
+		try {
+			output.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	public static String getRaceStr(int t){
+		String race="";
+		 if(t>100&&t<200){
+			  int type=t-101;
+			  String[] strArray=PetApplication.petApp.getResources().getStringArray(R.array.cat_race);
+//			  animal.from=1;
+			  if(type<strArray.length){
+				  race=strArray[type];
+			  }else{
+				  race=strArray[0];
+			  }
+			  
+		  }else if(t>200&&t<300){
+			  int type=t-201;
+			  String[] strArray=PetApplication.petApp.getResources().getStringArray(R.array.dog_race);
+//			  animal.from=2;
+			  if(type<strArray.length){
+				  race=strArray[type];
+			  }else{
+				  race=strArray[0];
+			  }
+		  }else if(t>300){
+			  int type=t-301;
+			  String[] strAStrings=PetApplication.petApp.getResources().getStringArray(R.array.other_race);
+			  if(type>0&&type<strAStrings.length){
+				  race=strAStrings[type];
+			  }else{
+				  race=strAStrings[0];
+			  }
+		  }
+		
+		
+		return race;
+	}
 
 }

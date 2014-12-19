@@ -14,6 +14,7 @@ import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HomeMyPetAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetPicture;
+import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -62,8 +63,21 @@ public class HomeMyPet implements IXListViewListener{
 					public void run() {
 						// TODO Auto-generated method stub
 						if(temp!=null&&temp.size()>0){
-							adapter.update(temp);
-							animals=temp;
+							animals=new ArrayList<Animal>();
+							for(int i=0;i<temp.size();i++){
+								if(temp.get(i).master_id==Constants.user.userId){
+									animals.add(temp.get(i));
+								}
+							}
+							for(int i=0;i<temp.size();i++){
+								if(!animals.contains(temp.get(i))){
+									animals.add(temp.get(i));
+								}
+							}
+							
+							
+							adapter.update(animals);
+							animals=animals;
 							adapter.notifyDataSetChanged();
 						}
 						
@@ -78,7 +92,7 @@ public class HomeMyPet implements IXListViewListener{
 	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
-new Thread(new Runnable() {
+          new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -91,8 +105,21 @@ new Thread(new Runnable() {
 					public void run() {
 						// TODO Auto-generated method stub
 						if(temp!=null&&temp.size()>0){
-							adapter.update(temp);
-							animals=temp;
+							animals=new ArrayList<Animal>();
+							for(int i=0;i<temp.size();i++){
+								if(temp.get(i).master_id==Constants.user.userId){
+									animals.add(temp.get(i));
+								}
+							}
+							for(int i=0;i<temp.size();i++){
+								if(!animals.contains(temp.get(i))){
+									animals.add(temp.get(i));
+								}
+							}
+							
+							
+							adapter.update(animals);
+							animals=animals;
 							adapter.notifyDataSetChanged();
 						}
 						
@@ -106,7 +133,7 @@ new Thread(new Runnable() {
 	@Override
 	public void onLoadMore() {
 		// TODO Auto-generated method stub
-new Thread(new Runnable() {
+        new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -118,8 +145,21 @@ new Thread(new Runnable() {
 					public void run() {
 						// TODO Auto-generated method stub
 						if(temp!=null&&temp.size()>0){
-							adapter.update(temp);
-							animals=temp;
+							animals=new ArrayList<Animal>();
+							for(int i=0;i<temp.size();i++){
+								if(temp.get(i).master_id==Constants.user.userId){
+									animals.add(temp.get(i));
+								}
+							}
+							for(int i=0;i<temp.size();i++){
+								if(!animals.contains(temp.get(i))){
+									animals.add(temp.get(i));
+								}
+							}
+							
+							
+							adapter.update(animals);
+							animals=animals;
 							adapter.notifyDataSetChanged();
 						}
 						

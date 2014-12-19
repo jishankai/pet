@@ -14,6 +14,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.TranslateAnimation;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -32,6 +33,14 @@ import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.WeixinShare;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
+import com.umeng.socialize.weixin.media.CircleShareContent;
 
 public class PlayGameActivity extends Activity {
 	WebView webView;
@@ -40,6 +49,7 @@ public class PlayGameActivity extends Activity {
 	Animal animal;
 	ImageView back;
 	TextView shareTv;
+	UMSocialService mController;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -52,18 +62,27 @@ public class PlayGameActivity extends Activity {
 		webView=(WebView)findViewById(R.id.webview);
 		back=(ImageView)findViewById(R.id.button1);
 		shareTv=(TextView)findViewById(R.id.three_point_iv);
+		mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+		
+		// 支持微信朋友圈
+		UMWXHandler wxCircleHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
+		wxCircleHandler.setToCircle(true);
+		wxCircleHandler.addToSocialSDK();
 		back.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(NewHomeActivity.homeActivity!=null){
-					ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-					am.moveTaskToFront(NewHomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
-				}else{
-					Intent intent=new Intent(PlayGameActivity.this,NewHomeActivity.class);
-					PlayGameActivity.this.startActivity(intent);
+				if(isTaskRoot()){
+					if(HomeActivity.homeActivity!=null){
+						ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+						am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), ActivityManager.MOVE_TASK_WITH_HOME);
+					}else{
+						Intent intent=new Intent(PlayGameActivity.this,HomeActivity.class);
+						PlayGameActivity.this.startActivity(intent);
+					}
 				}
+				
 				finish();
 			}
 		});
@@ -122,11 +141,12 @@ public class PlayGameActivity extends Activity {
 			bmp.compress(CompressFormat.PNG, 100, fos);
 			UserImagesJson.Data data=new UserImagesJson.Data();
 			data.path=path;
-			if(WeixinShare.shareHttpLink(shareUrl+animal.a_id, "O(∩_∩)O哈！", this)){
+			friendShare(path);
+			/*if(WeixinShare.shareHttpLink(shareUrl+animal.a_id, "O(∩_∩)O哈！", this)){
 //				Toast.makeText(this,"成功分享到微信。", Toast.LENGTH_LONG).show();
 			}else{
 				Toast.makeText(this,"分享到微信失败。", Toast.LENGTH_LONG).show();
-			}
+			}*/
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,6 +161,38 @@ public class PlayGameActivity extends Activity {
 			}
 		}
 	}
+	
+	 public void friendShare(String path){
+		   CircleShareContent circleMedia = new CircleShareContent();
+		   UMImage umImage=new UMImage(this, path);
+		   circleMedia.setShareImage(umImage);
+		   circleMedia.setTitle("痒痒痒，快给本宫挠挠！");
+		   circleMedia.setTargetUrl(shareUrl+animal.a_id);
+		   mController.setShareMedia(circleMedia);
+		   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,
+				   new SnsPostListener() {
+//	           @Override
+	           public void onStart() {
+//	               Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+	           }
+	           @Override
+	           public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
+	                if (eCode == 200) {
+	                 Toast.makeText(PlayGameActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+	                } else {
+	                     String eMsg = "";
+	                     if (eCode == -101){
+	                         eMsg = "没有授权";
+	                     }
+	                     Toast.makeText(PlayGameActivity.this, "分享失败[" + eCode + "] " + 
+	                                        eMsg,Toast.LENGTH_SHORT).show();
+	                }
+	         }
+	});
+		   
+			
+	   }
+	
 	   @Override
 	   protected void onPause() {
 	   	// TODO Auto-generated method stub

@@ -20,11 +20,13 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.AtUserListAdapter;
+import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.TalkMessage;
 import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -34,9 +36,9 @@ import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView;
 import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView.PullToRefreshAndMoreListener;
-import com.aidigame.hisun.pet.widget.fragment.HomeFragment;
+
 /**
- * @用户列表
+ * @用户列表和发布到列表
  * @author admin
  *
  */
@@ -46,13 +48,16 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 	
 	
 	ImageView back;
-	TextView sureTV,searchTV;
+	TextView sureTV,searchTV,titleTv;
 	EditText inputET;
 	PullToRefreshAndMoreView pullToRefreshAndMoreView;
 	ListView listView;
 	ArrayList<User> topicList;
+	ArrayList<Animal> animals;
 	AtUserListAdapter adapter;
 	String userIdString;
+	int mode;//1,@小伙伴；2，发布到某个宠物
+	RelativeLayout searchLayout;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			
@@ -65,6 +70,7 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_atuser_list);
+		mode=getIntent().getIntExtra("mode", 1);
 		initView();
 	}
 	private void initView() {
@@ -73,18 +79,19 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 		sureTV=(TextView)findViewById(R.id.sure_tv);
 		inputET=(EditText)findViewById(R.id.input_topic_et);
 		searchTV=(TextView)findViewById(R.id.textView2);
+		titleTv=(TextView)findViewById(R.id.textView1);
+		searchLayout=(RelativeLayout)findViewById(R.id.relativeLayout1);
 		pullToRefreshAndMoreView=(PullToRefreshAndMoreView)findViewById(R.id.activity_listview);
 		pullToRefreshAndMoreView.setListener(this);
 		listView=pullToRefreshAndMoreView.getListView();
 		
 		setBlurImageBackground();
-		
-		topicList=new ArrayList<User>();
-		
-		loadData();
-		adapter=new AtUserListAdapter(this, topicList);
-		listView.setAdapter(adapter);
-		back.setOnClickListener(new OnClickListener() {
+		if(mode==2){
+			chosePetInfo();
+		}else{
+			atUserInfo();
+		}
+        back.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -92,6 +99,18 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 				AtUserListActivity.this.finish();
 			}
 		});
+		
+	}
+	/**
+	 * @用户界面的列表
+	 */
+	public void atUserInfo(){
+		topicList=new ArrayList<User>();
+		
+		loadData();
+		adapter=new AtUserListAdapter(this, topicList,null);
+		listView.setAdapter(adapter);
+		
 		sureTV.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -210,6 +229,46 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 			}
 		});
 	}
+	
+	
+	public void chosePetInfo(){
+		titleTv.setText("发布到");
+		searchLayout.setVisibility(View.GONE);
+		animals=new ArrayList<Animal>();
+		for(int i=0;i<Constants.user.aniList.size();i++){
+			if(Constants.user.userId==Constants.user.aniList.get(i).master_id){
+				animals.add(Constants.user.aniList.get(i));
+			}
+		}
+		adapter=new AtUserListAdapter(this, null,animals);
+		listView.setAdapter(adapter);
+		sureTV.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Animal animal=null;
+				for(int i=0;i<Constants.user.aniList.size();i++){
+					if(Constants.user.aniList.get(i).isSelected){
+						animal=Constants.user.aniList.get(i);
+						break;
+					}
+				}
+				if(animal!=null){
+					if(SubmitPictureActivity.submitPictureActivity!=null){
+						SubmitPictureActivity.submitPictureActivity.setChosePet(animal);
+						AtUserListActivity.this.finish();
+					}
+				}else{
+					Toast.makeText(AtUserListActivity.this, "请选择一只宠物", Toast.LENGTH_LONG).show();
+				}
+				
+				
+				
+			}
+		});
+	}
+	
 	/**
 	 * 设置毛玻璃背景，列表滑动时顶部变透明并显示列表
 	 */

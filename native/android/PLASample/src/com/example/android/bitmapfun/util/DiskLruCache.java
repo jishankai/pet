@@ -178,7 +178,7 @@ public class DiskLruCache {
 	public Bitmap get(String key,BitmapFactory.Options options) {
 		synchronized (mLinkedHashMap) {
 			final String file = mLinkedHashMap.get(key);
-			
+			if(options!=null)
 			Log.i("me", "图片缩放尺寸大小为=="+options.inSampleSize);
 			if (file != null) {
 				if (BuildConfig.DEBUG) {

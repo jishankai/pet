@@ -124,9 +124,9 @@ public class AnimalsListAdapter extends BaseAdapter {
 		final Animal data=list.get(position);
 		holder.giftType.setVisibility(View.INVISIBLE);
 		if(data.is_follow){
-			holder.sendEmail.setBackgroundResource(R.drawable.button_green_right);;
+//			holder.sendEmail.setBackgroundResource(R.drawable.button_green_right);;
 		}else{
-			holder.sendEmail.setBackgroundResource(R.drawable.button_green_add);;
+//			holder.sendEmail.setBackgroundResource(R.drawable.button_green_add);;
 		}
 		
 //		holder.icon.setImageBitmap();
@@ -195,7 +195,7 @@ public class AnimalsListAdapter extends BaseAdapter {
 										// TODO Auto-generated method stub
 										
 										Toast.makeText(context, "取消关注成功", Toast.LENGTH_SHORT).show();
-										tv.setBackgroundResource(R.drawable.button_green_add);;
+//										tv.setBackgroundResource(R.drawable.button_green_add);;
 										data.is_follow=false;
 									}
 								});
@@ -214,7 +214,7 @@ public class AnimalsListAdapter extends BaseAdapter {
 									public void run() {
 										// TODO Auto-generated method stub
 										Toast.makeText(context, "添加关注成功", Toast.LENGTH_SHORT).show();
-										tv.setBackgroundResource(R.drawable.button_green_right);;
+//										tv.setBackgroundResource(R.drawable.button_green_right);;
 										data.is_follow=true;
 									}
 								});

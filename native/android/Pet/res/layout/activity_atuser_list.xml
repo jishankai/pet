@@ -11,24 +11,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="@color/blur_view_top">
+    ><!-- android:background="@color/blur_view_top" -->
     <View android:layout_width="match_parent"
-        android:layout_height="98dp"
-        android:background="@color/white"
-        android:id="@+id/top_white_view"/>
-    <com.aidigame.hisun.pet.view.PullToRefreshAndMoreView
-        android:id="@+id/activity_listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="64dp"
         
-    </com.aidigame.hisun.pet.view.PullToRefreshAndMoreView>
+        android:id="@+id/top_white_view"/><!--android:background="@color/white"  -->
+
 
 </LinearLayout>
-
-    <RelativeLayout
+ <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="98dp"
-        android:background="@color/orange_red"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#33fc7b51"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:paddingBottom="6dp" >
@@ -60,24 +58,24 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/button_green"
+            android:background="@drawable/exchange_button"
             android:gravity="center"
             android:text="确定"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
-        <View
+      <!--   <View
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="0.05dp"
             android:layout_below="@+id/back"
-            android:background="@color/orange_red" />
+            android:background="@color/orange_red" /> -->
 
         <RelativeLayout
             android:id="@+id/relativeLayout1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/line"
+            android:layout_height="34dp"
+            android:layout_below="@+id/back"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="6dp"
@@ -122,6 +120,13 @@
 
         
     </RelativeLayout>
-
+        <com.aidigame.hisun.pet.view.PullToRefreshAndMoreView
+        android:id="@+id/activity_listview"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/title"
+        android:layout_height="match_parent" >
+        
+    </com.aidigame.hisun.pet.view.PullToRefreshAndMoreView>
+</RelativeLayout>
     
 </FrameLayout>
