@@ -304,6 +304,21 @@ class UserController extends Controller
         try {
             $user = $device->register($aid, trim($name), $gender, $age, $type, trim($u_name), $u_gender, $u_city,  empty($invter)?NULL:$inviter, $weibo, $wechat);
 
+            $rtn_code = 0;
+            $times = 0;
+            while ($rtn_code!=200&&$times<10) { 
+                $url = "https://a1.easemob.com/aidigame/imengstar/users";
+                $data = array('username'=>$user->usr_id, 'password'=>$user->code);
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, CJSON::encode($data));
+                $rtn = curl_exec($ch);
+                $rtn_code = curl_getinfo($ch,CURLINFO_HTTP_CODE); 
+                curl_close($ch);
+            }
+
             $session['usr_id'] = $device->usr_id;
             $session['not_registered'] = FALSE;
             $user->login();
