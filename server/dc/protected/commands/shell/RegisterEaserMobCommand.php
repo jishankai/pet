@@ -11,7 +11,7 @@ class RegisterEaserMobCommand extends CConsoleCommand {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, arary('Content-type::”application/json”,”Authorization”:”r YWMtTp7twos3EeSYHsOnGR7qCAAAAUuwAR-1ErFSM6i9m7OaVhO-0RA5zpislhc'));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json','Authorization:Bearer YWMtTp7twos3EeSYHsOnGR7qCAAAAUuwAR-1ErFSM6i9m7OaVhO-0RA5zpislhc'));
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         $output = curl_exec($ch);
