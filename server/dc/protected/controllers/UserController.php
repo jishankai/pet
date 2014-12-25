@@ -317,6 +317,11 @@ class UserController extends Controller
                 $rtn = curl_exec($ch);
                 $rtn_code = curl_getinfo($ch,CURLINFO_HTTP_CODE); 
                 curl_close($ch);
+
+                $times++;
+            }
+            if ($times>=10) {
+                throw new PException('失败');
             }
 
             $session['usr_id'] = $device->usr_id;
