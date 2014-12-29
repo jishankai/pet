@@ -80,16 +80,16 @@ return array(
             'class'=>'application.extensions.file.CFile',
         ),
         // uncomment the following to enable URLs in path-format
-        /*
         'urlManager'=>array(
+            'showScriptName'=>FALSE,
             'urlFormat'=>'path',
             'rules'=>array(
-                '<controller:\w+>/<id:\d+>'=>'<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-                '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+                //'<controller:\w+>/<id:\d+>'=>'<controller>/view',
+                //'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+                //'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+                'socialCallback'=>'social/oAuth2CallbackApi'
             ),
         ),
-         */
 
         'cache' => array(
             /*
@@ -201,6 +201,10 @@ return array(
                 ),
                  */
             ),
+        ),
+        'curl'=> array(
+            'class' => 'ext.curl.Curl',
+            'options' => array(/* additional curl options */),
         ),
     ),
 
