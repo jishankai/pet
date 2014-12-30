@@ -27,11 +27,22 @@ class SocialController extends Controller
             )); 
             $t = json_decode($rtn);
             if (isset($t->errcode)) {
-                $this->redirect($this->createUrl(array('social/foodShareApi',array('img_id'=>$state))));
+                $this->redirect($this->createUrl('social/foodShareApi',array('img_id'=>$state)));
             } else {
-                
+                if (isset($t->openid)) {
+                    $usrinfo = Yii::app()->curl->get('https://api.weixin.qq.com/sns/userinfo',array(
+                        'access_token'=>$t->access_token,
+                        'openid'=>$t->openid,
+                    ));
+                    $u = json_decode($usrinfo);
+                    if (isset($u->errcode)) {
+                        $this->redirect($this->createUrl('social/foodShareApi',array('img_id'=>$state)));
+                    } else {
+                        $json = Yii::app()->curl->get($this->createUrl('user/login',array('uid'=>$u->unionid)));
+                    }
+                }                
             }
-            
+
         }
     }
 
