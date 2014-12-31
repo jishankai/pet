@@ -830,9 +830,12 @@ class AnimalController extends Controller
         $this->echoJsonData(array('isSuccess'=>true));
     }
 
-    public function actionFoodListApi($aid)
+    public function actionFoodListApi($aid, $page=0)
     {
-        $r = Yii::app()->db->createCommand('SELECT img_id, url, cmt, food, create_time FROM dc_image WHERE aid=:aid AND is_food=1')->bindValue(':aid', $aid)->queryAll();
+        $r = Yii::app()->db->createCommand('SELECT img_id, url, cmt, food, create_time FROM dc_image WHERE aid=:aid AND is_food=1 ORDER BY create_time DESC LIMIT :m, 30')->bindValues(array(
+            ':aid'=>$aid,
+            ':m'=>30*$page,
+        ))->queryAll();
 
         $this->echoJsonData(array($r));
     }
