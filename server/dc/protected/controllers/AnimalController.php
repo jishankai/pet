@@ -136,7 +136,7 @@ class AnimalController extends Controller
         $c = new CDbCriteria;
 
         $c->compare('aid', $aid);
-        $c->limit = 10;
+        $c->limit = 20;
         $c->order = 't.img_id DESC';
         if(isset($img_id)) {
             $c->addCondition("t.img_id<:img_id");
