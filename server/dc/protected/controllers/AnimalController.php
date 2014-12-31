@@ -84,7 +84,7 @@ class AnimalController extends Controller
 
     public function actionInfoApi($aid)
     {
-        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.master_id, a.t_rq, u.name AS u_name, u.tx AS u_tx, c.rank AS u_rank, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans, (SELECT COUNT(*) FROM dc_follow f WHERE f.aid=a.aid) AS followers FROM dc_animal a JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN dc_circle c ON a.aid=c.aid AND a.master_id=c.usr_id WHERE a.aid=:aid')->bindValue(':aid', $aid)->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.master_id, a.t_rq, u.name AS u_name, u.tx AS u_tx, c.rank AS u_rank, (SELECT COUNT(nid) FROM dc_news n WHERE n.aid=a.aid) AS news, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans, (SELECT COUNT(i.img_id) FROM dc_image i WHERE i.aid=a.aid) AS images, a.total_food, (SELECT SUM(i.gifts) FROM dc_image i WHERE i.aid=a.aid) AS gifts, (SELECT COUNT(*) FROM dc_follow f WHERE f.aid=a.aid) AS followers FROM dc_animal a JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN dc_circle c ON a.aid=c.aid AND a.master_id=c.usr_id WHERE a.aid=:aid')->bindValue(':aid', $aid)->queryRow();
 
         $this->echoJsonData($r);
     }
@@ -828,5 +828,12 @@ class AnimalController extends Controller
         }
 
         $this->echoJsonData(array('isSuccess'=>true));
+    }
+
+    public function actionFoodListApi($aid)
+    {
+        $r = Yii::app()->db->createCommand('SELECT img_id, url, cmt, food, create_time FROM dc_image WHERE aid=:aid AND is_food=1')->bindValue(':aid', $aid)->queryAll();
+
+        $this->echoJsonData(array($r));
     }
 }
