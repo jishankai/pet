@@ -4,8 +4,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<title>wram-winter-activities</title>
-		<link rel="stylesheet" type="text/css" href="w_act_style.css">
-		<link href="animate.css" rel="stylesheet" type="text/css">		
+		<link rel="stylesheet" type="text/css" href="css/w_act_style.css">
+		<link href="css/animate.css" rel="stylesheet" type="text/css">		
 		<script src="js/zepto.min.js"></script>		
 	</head>
 
@@ -16,14 +16,14 @@
 				<div class="hr_15"></div>
 				<div class="astory">
 					<h3>TA们的故事</h3>
-					<img src="images/a_right.png"/>
+					<img src="css/images/a_right.png"/>
 				</div>
 				<div class="event_s">
 					<h3 class="left">活动赞助</h3>
-					<img src="images/ali.png" alt="" class="left" />
+					<img src="css/images/ali.png" alt="" class="left" />
 				</div>
 			</div>
-			<img src="images/pet_head.png" class="pet_head"/>
+			<img src="css/images/pet_head.png" class="pet_head"/>
 			<div class="amain_bottom">
 				<div class="b_tit">
 					<h3>代粮喵：瓜皮</h3>
@@ -78,8 +78,8 @@
 							</div>
 							<div class="give_m"></div>
 							<div class="give_right">
-								<img src="images/reword_btn.gif" id="reward" onclick="aa()" />
-								<img src="images/reword_btn.png" style="display:none" id="reward1" />
+								<img src="css/images/reword_btn.gif" id="reward" onclick="aa()" />
+								<img src="css/images/reword_btn.png" style="display:none" id="reward1" />
 							</div>
 						</div>
 					</div>
@@ -88,7 +88,7 @@
 					
 					<div class="load_left">
 						<div class="logo_icon">
-							<img src="images/logo_icon.jpg"/>
+							<img src="css/images/logo_icon.jpg"/>
 						</div>
 						<div class="load_info">
 							<h3>宠物星球</h3>
@@ -96,7 +96,7 @@
 						</div>
 					</div>
 					<div class="load_right">
-						<img src="images/load.jpg"/>
+						<img src="css/images/load.jpg"/>
 					</div>
 				</div>
 			</div>
@@ -109,11 +109,11 @@
 	 
 	<div class="large animated fadeInDown" id="large_container" style="display:none">
 		<img id="large_img">
-		<a href="#" class="close" id="close"><img src="images/img_close.png"></a>
+		<a href="#" class="close" id="close"><img src="css/images/img_close.png"></a>
 			<div class="close_bigImg" id="close_bigImg" onmouseover="closeShow()" onmouseout="closeHide()"></div>
-			<a href="#"  id="left" ><img src="images/img_left.png"></a>
+			<a href="#"  id="left" ><img src="css/images/img_left.png"></a>
 			<div class="left_bigImg" id="left_bigImg" onmouseover="leftShow()" onmouseout="leftHide()"></div>
-			<a href="#"  id="right"><img src="images/img_right.png"></a>
+			<a href="#"  id="right"><img src="css/images/img_right.png"></a>
 			<div class="right_bigImg" id="right_bigImg" onmouseover="rightShow()" onmouseout="rightHide()"></div>
 	</div>
 

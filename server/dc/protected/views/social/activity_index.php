@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<title>wram-winter-activities2</title>
 
-		<link rel="stylesheet" type="text/css" href="w_act2.css">
+		<link rel="stylesheet" type="text/css" href="css/w_act2.css">
 
 		<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
 	</head>
@@ -13,7 +13,7 @@
 <body>
 <div class="wrapper">
 	<div class="bhead">
-		<img class="b_act" src="images/act2.png">
+		<img class="b_act" src="css/images/act2.png">
 	</div>
 	<div class="b_body">
 		<h3>代粮喵们</h3>
@@ -68,41 +68,41 @@
 		<h3 class="help_tit">TA们正在参与伸出援手</h3>
 		<ul class="help_head">
 			<li style="position: relative">
-				<img src="images/base_head1.JPG ">
-				<img src="images/photo-m-t.png" style="position: absolute;
+				<img src="css/images/base_head1.JPG ">
+				<img src="css/images/photo-m-t.png" style="position: absolute;
 	left:0;top:0px;z-index:1；">
 			</li>
 			<li style="position: relative">
-				<img src="images/base_head2.JPG">
-				<img src="images/photo-m-t.png" style="position: absolute;
+				<img src="css/images/base_head2.JPG">
+				<img src="css/images/photo-m-t.png" style="position: absolute;
 	left:0;top:0px;z-index:1；">
 			</li>
 			<li style="position: relative">
-				<img src="images/base_head3.JPG">
-				<img src="images/photo-m-t.png" style="position: absolute;
+				<img src="css/images/base_head3.JPG">
+				<img src="css/images/photo-m-t.png" style="position: absolute;
 	left:0;top:0px;z-index:1；">
 			</li>
 			<li style="position: relative">
-				<img src="images/base_head4.JPG">
-				<img src="images/photo-m-t.png" style="position: absolute;
+				<img src="css/images/base_head4.JPG">
+				<img src="css/images/photo-m-t.png" style="position: absolute;
 	left:0;top:0px;z-index:1；">
 			</li>
 			<li style="position: relative">
-				<img src="images/base_head5.JPG">
-				<img src="images/photo-m-t.png" style="position: absolute;
+				<img src="css/images/base_head5.JPG">
+				<img src="css/images/photo-m-t.png" style="position: absolute;
 	left:0;top:0px;z-index:1；">
 			</li>
 			<li style="position: relative">
-				<img src="images/base_head6.JPG">
-				<img src="images/photo-m-t.png" style="position: absolute;
+				<img src="css/images/base_head6.JPG">
+				<img src="css/images/photo-m-t.png" style="position: absolute;
 	left:0;top:0px;z-index:1；">
 			</li>
 			<li style="position: relative">
-				<img src="images/base_head7.JPG">
-				<img src="images/photo-m-t.png" style="position: absolute;
+				<img src="css/images/base_head7.JPG">
+				<img src="css/images/photo-m-t.png" style="position: absolute;
 	left:0;top:0px;z-index:1；">
 			</li>
-			<li><a href="#" class="b_more"><img src="images/b_right.png"></a></li>
+			<li><a href="#" class="b_more"><img src="css/images/b_right.png"></a></li>
 		</ul>
 		<h3 class="p_num">参与人数 <span>123445</span></h3>
 	</div>
@@ -110,7 +110,7 @@
 		<div class="load">				
 			<div class="load_left">
 				<div class="logo_icon">
-					<img src="images/logo_icon.jpg"/>
+					<img src="css/images/logo_icon.jpg"/>
 				</div>
 				<div class="load_info">
 					<h3>宠物星球</h3>
@@ -118,7 +118,7 @@
 				</div>
 			</div>
 			<div class="load_right">
-				<img src="images/load.jpg"/>
+				<img src="css/images/load.jpg"/>
 			</div>
 		</div>
 	</div>
