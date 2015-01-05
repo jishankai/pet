@@ -22,6 +22,13 @@ class SocialController extends Controller
 
         $this->render('activity_index');
     }
+
+    public function actionActivityview()
+    {
+        $this->layout = FALSE;
+
+        $this->render('activity_view');
+    }
     
     /*
     public function actionOAuth2CallbackApi($code, $state)
