@@ -16,6 +16,13 @@ class SocialController extends Controller
         $this->render('food', array('r'=>$r, 'to'=>$to));
     }
 
+    public function actionActivity()
+    {
+        $this->layout = FALSE;
+
+        $this->render('activity_index');
+    }
+    
     /*
     public function actionOAuth2CallbackApi($code, $state)
     {

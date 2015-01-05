@@ -63,6 +63,9 @@
 			</div>
 			<div class="target"></div>
 		</div>
+		<div class="give_sc" id="give_sc">
+			<h3>打赏成功～萌星<span>xxxx</span>感谢您的关爱</h3>
+		</div>
 		<div class="give_btn">
 			<div class="give_btn_bottom">
 				<div class="give_btn_con">
