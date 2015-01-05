@@ -729,7 +729,7 @@ var total = 9;
             if(i%3==1){
                 p = 0;
             }
-            tmpl+='<li data-id="'+i+'" class="animated bounceIn" style="width:'+picWidth+'px;height:'+picWidth+'px;padding-left:'+p+'px;padding-top:'+padding+'px;"><img src="img/'+i+'.png"></li>';
+            tmpl+='<li data-id="'+i+'" class="animated bounceIn" style="width:'+picWidth+'px;height:'+picWidth+'px;padding-left:'+p+'px;padding-top:'+padding+'px;"><img src="../css/img/'+i+'.png"></li>';
         }
         $('#container').html(tmpl);
     }
@@ -745,7 +745,7 @@ var total = 9;
             height:zWin.height()
             //top:$(window).scrollTop()
         }).show();
-        var imgsrc = 'img/'+id+'.png';
+        var imgsrc = '../css/img/'+id+'.png';
         var ImageObj = new Image();
         ImageObj.src = imgsrc;
         ImageObj.onload = function(){
