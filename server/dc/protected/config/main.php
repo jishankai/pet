@@ -92,7 +92,15 @@ return array(
             ),
              */
         ),
-
+        'alipay'=>array(
+            'class'=>'application.vendors.alipay.AlipayProxy',
+            'key'=>'your key',
+            'partner'=>'your partner id',
+            'seller_email'=>'jishankai@qq.com',
+            'return_url'=>'url for redirect notify',
+            'notify_url'=>'url for server side notify',
+            'show_url'=>'url for product detail',
+        ),
         'cache' => array(
             /*
             'class' => 'CFileCache',

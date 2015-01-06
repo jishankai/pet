@@ -1,0 +1,42 @@
+10
+
+dir
+0
+svn://leric.info/yeegt2/protected/vendors/alipay
+svn://leric.info
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+e32358f4-d6a5-445c-948b-e543d1f3e814
+
+AlipayProxy.php
+file
+
+
+
+add
+
+classes
+dir
+
+
+
+add
+
