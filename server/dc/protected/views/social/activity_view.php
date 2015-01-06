@@ -1,111 +1,107 @@
 <!DOCTYPE>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<title>wram-winter-activities</title>
-		<link rel="stylesheet" type="text/css" href="css/w_act_style.css">
-		<link href="css/animate.css" rel="stylesheet" type="text/css">		
-		<script src="js/zepto.min.js"></script>		
+		<meta name="viewport" content="width = device-width, initial-scale=1.0">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>暖冬活动详情页</title>
+		<link rel="stylesheet" type="text/css" href="css/act2_style.css">
+		<link rel="stylesheet" type="text/css" href="css/tishikuang.css">		
+		<script src="js/zepto.min.js"></script>
 	</head>
-
 <body>
-	<div class="wrapper comWidth">
-		<div class="amain_body">
-			<div class="amain_top">
-				<div class="hr_15"></div>
-				<div class="astory">
-					<h3>TA们的故事</h3>
-					<img src="css/images/a_right.png"/>
-				</div>
-				<div class="event_s">
-					<h3 class="left">活动赞助</h3>
-					<img src="css/images/ali.png" alt="" class="left" />
-				</div>
-			</div>
-			<img src="css/images/pet_head.png" class="pet_head"/>
-			<div class="amain_bottom">
-				<div class="b_tit">
-					<h3>代粮喵：瓜皮</h3>
-					<p>为北京香山地区流浪猫代粮</p>
-				</div>
-				<div class="d_act">
-					活动宣言：给香山的流浪喵们带来温暖的冬天！
-				</div>
-				<div class="atarget">
-					<div class="atarget_con">
-						<div class="afood_num left">目标还剩 <span id="afood">200</span> 份口粮</div>
-						<div class="atime right">倒计时：<span id="ad_time"></span></div>
-					</div>
-					<div class="aprogressbar">
-						<div class="abar" id="abar" style="width:60%"></div>
-					</div>
-				</div>
-				<div class="anote"> 
-					<p class="anotes left">
-						注：每人每天可以免费捐赠 5 份口粮 
-					</p>
-					<a href="#" class="right">关于活动</a>
-				</div>
-			</div>
-			<div class="aimg_box">
-				<h3 class="aimg_tit">
-					活动照片
-				</h3>
-				 
-			 	<ul class="img-container clearfix" id="container">
-				</ul> 
-				
-			</div>
-
-			<div class="float">
-				<div class="select_money_t" id="gold">
-					<div class="select_money">
-						<ul id="gold_num">
-							<li id="one">1000</li>
-							<li id="one1">100</li>
-							<li id="one2">10</li>
-							<li id="one3">1</li>
-						</ul>
-					</div>
-					<div class="target"></div>
-				</div>
-				<div class="give_btn">
-					<div class="give_btn_bottom">
-						<div class="give_btn_con">
-							<div class="give_left" >
-								<h3 id="g_num">1</h3>
-							</div>
-							<div class="give_m"></div>
-							<div class="give_right">
-								<img src="css/images/reword_btn.gif" id="reward" onclick="aa()" />
-								<img src="css/images/reword_btn.png" style="display:none" id="reward1" />
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="load">
-					
-					<div class="load_left">
-						<div class="logo_icon">
-							<img src="css/images/logo_icon.jpg"/>
-						</div>
-						<div class="load_info">
-							<h3>宠物星球</h3>
-							<p>我为自己代粮</p>
-						</div>
-					</div>
-					<div class="load_right">
-						<img src="css/images/load.jpg"/>
-					</div>
-				</div>
-			</div>
+<div class="act2_wrap comWidth">
+	<div class="act2_top">
+		<img src="css/images/head_background.png" alt="" class="act2_head">
+		<div class="other_story">
+			<img src="css/images/other_story.png" alt="">
+		</div>
+		<div class="sponsor">
+			<img src="css/images/act2_sponsor.png">
+		</div>
+		<div class="introduce">
+			<div class="pet_name">代粮喵：<span>16</span></div>
+			<div class="pet_place">代粮地点：<span>北京香山公园</span></div>
+			<div class="pet_weibo">新浪微博：<span>税后五百万翻番</span></div>
+		</div>
+		<div class="declaration">活动宣言：<span>给香山的流浪喵们带来温暖的冬天！</span></div>
+		<div class="act2_petHead">
+			<img  alt="" src="css/images/h2.png">
 
 		</div>
-
+		
+		<div class="act2_range">
+			<div class="hr_10"></div>
+			<div class="target">目标还剩 <span class="target_num" id="target_num">40000</span> 份口粮<span class="d_time" id="d_time"></span></div>
+			<div class="hr_10"></div>
+			<div class="aprogressbar">
+				<div class="abar" id="abar" style="width:60%"></div>
+			</div>
+		</div>
+		<div class="zhu">注：每人每天可以免费捐赠 5 份口粮</div>
+		<img src="css/images/dashed.png" alt="" class="dashed">
+	</div>
+	<div class="act2_body">
+		<div class="body_tit">活动照片</div>
+		<ul class="act2_imgBox clearfix" id="act2_imgBox">
+			<li><img src="css/img/1.png" alt=""></li>
+			<li><img src="css/img/2.png" alt=""></li>
+			<li><img src="css/img/3.png" alt=""></li>
+			<li><img src="css/img/4.png" alt=""></li>
+			<li><img src="css/img/5.png" alt=""></li>
+			<li><img src="css/img/6.png" alt=""></li>
+			<li><img src="css/img/6.png" alt=""></li>
+			<li><img src="css/img/6.png" alt=""></li>
+			<li><img src="css/img/6.png" alt=""></li>
+		</ul>
 	</div>
 
-	<!-- 大图显示 -->
+	<div class="float">
+		<div class="select_money_t" id="gold">
+			<div class="select_money">
+				<ul id="gold_num">
+					<li id="one">1000</li>
+					<li id="one1">100</li>
+					<li id="one2">10</li>
+					<li id="one3">1</li>
+				</ul>
+			</div>
+			<div class="target_3"></div>
+		</div>
+		<div class="give_btn">
+			<div class="give_btn_bottom">
+				<div class="give_btn_con">
+					<div class="give_left" >
+						<h3 id="g_num">1</h3>
+					</div>
+					<div class="give_m"></div>
+					
+					<div class="give_right">
+						<img src="css/images/reword_btn.gif" id="reward"  onclick="aa()" />
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="load">
+			
+			<div class="load_left">
+				<div class="logo_icon">
+					<img src="css/images/logo_icon.jpg"/>
+				</div>
+				<div class="load_info">
+					<h3>宠物星球</h3>
+					<p>我为自己代粮</p>
+				</div>
+			</div>
+			<div class="load_right">
+				<img src="css/images/load.jpg"/>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<!-- 大图显示 -->
 	 
 	<div class="large animated fadeInDown" id="large_container" style="display:none">
 		<img id="large_img">
@@ -117,19 +113,11 @@
 			<div class="right_bigImg" id="right_bigImg" onmouseover="rightShow()" onmouseout="rightHide()"></div>
 	</div>
 
-</body>
-<script src="js/alink.js"></script>
-<script>
 
-</script>
-	
+</body>	
+<script src="js/act2_link.js"></script>
+<script src="js/tishikuang.js"></script>
 </html>
-
-
-
-
-
-
 
 
 
