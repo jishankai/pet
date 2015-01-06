@@ -2,7 +2,7 @@
 
 class SocialController extends Controller
 {
-    public function filters() 
+    public function filters()
     {
         return array(
         );
@@ -29,7 +29,7 @@ class SocialController extends Controller
 
         $this->render('activity_view');
     }
-    
+
     /*
     public function actionOAuth2CallbackApi($code, $state)
     {

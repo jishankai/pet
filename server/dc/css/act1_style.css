@@ -1,0 +1,86 @@
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd,input{margin:0;padding:0;}
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+ul{list-style: none;}
+body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
+/*电脑适配*/
+@media only screen and (min-width: 650px){
+.comWidth{width:640px;height:100%;margin:auto auto;}
+
+}
+.act1_top img{width: 100%;}
+.act1_top{width:100%;height:auto;background-color: pink;}
+.act1_body{width:100%;height:auto;/*background-color: yellow;*/ }
+.ab_tit{
+	font-family: "Microsoft Yahei";
+	margin-top: 10px;
+	font-size: 30px;
+	margin-bottom:10px;
+	text-indent: 15px;
+	color: #7c7c7c;
+}
+
+.act1_imgList li{
+	float: left;
+	width: 210px;height: 210px;margin-left: 3px;
+}
+.head_imgList{margin-left: 3%;}
+.head_imgList li{float: left;margin-left: 2%;width: 10%;height: 8%;}
+.head_imgList img{width: 100%;height: 100%;}
+.act1_bottom{background-color: #efede4;}
+.am_tit{
+	font-size: 30px;font-weight: bold;
+	margin: 3%;
+	padding-top: 5px;
+}
+.person_num{font-size: 30px;margin: 3%;}
+.person_num span{color: #f4775e;}
+.hr_100{height: 100px;width: 100%;background-color: #f7f7f7;}
+/*下载*/
+.float{position: fixed;bottom: 0;left:center; width: 640px;}
+.load{
+	height: 98px;width: 640px;margin: 0 auto;
+	background-color: #ffffff;	
+}
+.load .load_left{float: left; width: 50%; height: 100%;}
+.logo_icon{
+	float: left;width: 40%;margin-top: 10px;
+	text-indent: 10%;
+}
+.load_info{float: right; width: 60%; margin-top: 4px;}
+.load_left h3{line-height:49px; font-size: 25px;}
+.load_left p{height:49px; font-size:25px; color: #777676;}
+.load .load_right{float: left; width: 50%; height: 100%; text-align: right;}
+
+/*手机适配（小）*/
+@media only screen and (min-width: 300px) and (max-width: 650px){
+
+.comWidth{width:100%;height:100%;margin:auto auto;}
+.ab_tit{
+	font-family: "Microsoft Yahei";
+	margin-top: 5px;
+	font-size: 15px;
+	margin-bottom:5px;
+	text-indent: 15px;
+	color: #7c7c7c;
+}
+.act1_imgList li{
+	float: left;
+	width: 30%;height: auto;
+	margin-left: 2%;margin-top: 2%;
+}
+.act1_imgList img{width: 100%;height: auto;}
+.am_tit{font-size: 15px;font-weight: bold;}
+.head_imgList li{width: 10%;height: 6%;}
+.person_num{font-size: 15px;}
+
+/*下载*/
+.load{height: 59px;width: 100%;}
+.logo_icon{margin-top: 6px;}
+.logo_icon img{width: 46px;height: 46px;}
+.load_info{ margin-top: 3px;}
+.load_left h3{line-height:28px; font-size: 14px;}
+.load_left p{height:28px; font-size:14px;}
+.load_right img{width: 122px;height: 58px;}
+.float{width: 100%;}
+}
