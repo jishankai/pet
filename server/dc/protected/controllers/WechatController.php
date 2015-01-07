@@ -2,7 +2,7 @@
 
 class WechatController extends Controller
 {
-    public function filters() 
+    public function filters()
     {
         return array(
             //'checkWechatSig',
@@ -17,21 +17,21 @@ class WechatController extends Controller
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$appid}&secret={$secret}";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $a = curl_exec($ch);
         $strjson=json_decode($a);
         $token = $strjson->access_token;
-        
-        $url = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token={$token}"; //查询地址 
+
+        $url = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token={$token}"; //查询地址
         $ch = curl_init();//新建curl
-        curl_setopt($ch, CURLOPT_URL, $url);//url  
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
+        curl_setopt($ch, CURLOPT_URL, $url);//url
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $b = curl_exec($ch); //输出   
-        curl_close($ch); 
+        $b = curl_exec($ch); //输出
+        curl_close($ch);
 
         echo $b;
     }
@@ -44,7 +44,7 @@ class WechatController extends Controller
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$appid}&secret={$secret}";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); 
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $a = curl_exec($ch);
@@ -116,13 +116,13 @@ class WechatController extends Controller
                 }
         ]
     }";  //提交内容
-    $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={$token}"; //查询地址 
+    $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={$token}"; //查询地址
     $ch = curl_init();//新建curl
-    curl_setopt($ch, CURLOPT_URL, $url);//url  
+    curl_setopt($ch, CURLOPT_URL, $url);//url
     curl_setopt($ch, CURLOPT_POST, 1);  //post
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);//post内容  
-    curl_exec($ch); //输出   
-    curl_close($ch); 
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);//post内容
+    curl_exec($ch); //输出
+    curl_close($ch);
     }
 
     public function actionMessageApi()
@@ -172,7 +172,7 @@ class WechatController extends Controller
                     </xml>";
                 $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr, $title, $picUrl, $url);
                  */
-            
+
             echo $resultStr;
         }else {
             echo '';
@@ -230,7 +230,7 @@ class WechatController extends Controller
             break;
         case "CLICK":
             $resultStr = $this->receiveClick($object);
-            break;    
+            break;
         default:
             break;
         }
@@ -308,8 +308,8 @@ class WechatController extends Controller
         }
     }
 
-    private function transmitText($object, $content) 
-    { 
+    private function transmitText($object, $content)
+    {
         $textTpl = "<xml>
             <ToUserName><![CDATA[%s]]></ToUserName>
             <FromUserName><![CDATA[%s]]></FromUserName>
@@ -319,13 +319,13 @@ class WechatController extends Controller
             <FuncFlag>0<FuncFlag>
             </xml>";
         $msgType = "text";
-        $resultStr = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $msgType, $content); 
+        $resultStr = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $msgType, $content);
 
-        return $resultStr; 
+        return $resultStr;
     }
 
-    private function transmitNews($object, $arr_item) 
-    { 
+    private function transmitNews($object, $arr_item)
+    {
         if(!is_array($arr_item)) return;
 
         $itemTpl = "
@@ -336,11 +336,11 @@ class WechatController extends Controller
             <Url><![CDATA[%s]]></Url>
             </item>
             ";
-        $item_str = ""; 
-        foreach ($arr_item as $item) 
+        $item_str = "";
+        foreach ($arr_item as $item)
             $item_str .= sprintf($itemTpl, $item['Title'], $item['Description'], $item['PicUrl'], $item['Url']);
 
-        $newsTpl = "<xml> 
+        $newsTpl = "<xml>
             <ToUserName><![CDATA[%s]]></ToUserName>
             <FromUserName><![CDATA[%s]]></FromUserName>
             <CreateTime>%s</CreateTime>
@@ -351,9 +351,63 @@ class WechatController extends Controller
             </Articles>
             <FuncFlag>0<FuncFlag>
             </xml>";
-        $resultStr = sprintf($newsTpl, $object->FromUserName, $object->ToUserName, time(), count($arr_item)); 
+        $resultStr = sprintf($newsTpl, $object->FromUserName, $object->ToUserName, time(), count($arr_item));
 
-        return $resultStr; 
-    } 
+        return $resultStr;
+    }
+
+/*
+    public function actionCallbackApi($code, $state)
+    {
+        if (isset($code)) {
+            $rtn = Yii::app()->curl->get('https://api.weixin.qq.com/sns/oauth2/access_token', array(
+                'appid'=>'',
+                'secret'=>'',
+                'code'=>$code,
+                'grant_type'=>'authorization_code',
+            ));
+            $t = json_decode($rtn);
+            if (isset($t->errcode)) {
+                $this->redirect($this->createUrl('social/foodShareApi',array('img_id'=>$state)));
+            } else {
+                if (isset($t->openid)) {
+                    $usrinfo = Yii::app()->curl->get('https://api.weixin.qq.com/sns/userinfo',array(
+                        'access_token'=>$t->access_token,
+                        'openid'=>$t->openid,
+                    ));
+                    $u = json_decode($usrinfo);
+                    if (isset($u->errcode)) {
+                        $this->redirect($this->createUrl('social/foodShareApi',array('img_id'=>$state)));
+                    } else {
+                        $json = Yii::app()->curl->get($this->createUrl('user/login',array('uid'=>$u->unionid)));
+                        $j = json_decode($json);
+                        if (!$j->isSuccess) {
+                            $aid = Yii::app()->db->createCommand('SELECT aid FROM dc_image WHERE img_id=:img_id')->bindValue(':img_id', $state)->queryScalar();
+                            $params = array(
+                                'aid'=>$aid,
+                                'u_name'=>$u->nickname,
+                                'u_gender'=>$u->sex,
+                                'u_city'=>1001,
+                                'wechat'=>$u->openid,
+                                'SID'=>$j->SID,
+                            );
+                            $params['sig'] = $this->signature();
+                            $res_register = Yii::app()->curl->get($this->createUrl('user/registerApi', $params));
+                            $json_register = json_decode($res_register);
+                            if (!isset($json_register->usr_id)) {
+                                $this->redirect($this->createUrl('social/foodShareApi',array('img_id'=>$state)));
+                            }
+                        }
+                        $this->layout = FALSE;
+                        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $state)->queryRow();
+                        $this->render('food', array('r'=>$r, 'sid'=>$j->SID));
+                    }
+                }
+            }
+
+        }
+    }
+*/
+
 }
 

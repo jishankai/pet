@@ -67,39 +67,6 @@ $(".give_left").click(function () {
 	})
 
 
-/*倒计时*/
-	window.onload=function(){
-     FreshTime();
-     
-    }
-function FreshTime()
-{
-        var endtime=new Date("2015/5/15,12:20:12");//结束时间
-        var nowtime = new Date();//当前时间
-
-        var lefttime= parseInt((endtime.getTime()-nowtime.getTime())/1000); 
-        h=  parseInt(lefttime/(60*60)%24);
-        m=  parseInt(lefttime/(60)%60);
-        s=  parseInt(lefttime%60);
-        
-        if(h < 10){
-    		h="0"+h;
-		}
-		if(m<10){
-			m="0"+m;
-		}
-		if(s<10){
-			s="0"+s;
-		}
-       
-        document.getElementById("time_img").innerHTML=h+":"+m+":"+s;
-        if(lefttime<=0){
-        document.getElementById("time_img").innerHTML="已结束";
-        }
-        setTimeout(FreshTime,1000);
-}
-
-
 /*弹框2*/
 function aa(){
     alertMsg_a("恭喜您充值成功了！", 0)

@@ -1,0 +1,178 @@
+/*弹框2*/
+
+ #alertMsg1 {
+            display: none;
+            width: 280px;height:220px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            box-shadow: 1px 1px 10px black;
+            padding: 10px;
+            position: absolute;
+            text-align: center;
+            background:url("images/t_bac.png")left top repeat;
+            z-index: 100000;
+            font-size: 14px;
+            color:#7a7a7a;
+        }
+
+        #alertClose_btn1{
+            display:block;
+            width:40px;height: 40px;
+            margin-left: 88%;
+            background: url("images/close.png")center center no-repeat;
+            background-size: 100% 100%;
+            cursor:pointer;
+        }
+
+        #alertMsg1_info{
+            width: 80%;
+            margin-left: 10%;
+            height: 40px;
+            line-height: 1.6em;
+            text-align: center;
+            font-size: 18px;
+        }
+
+
+        #alertMsg1_info1{margin-top: 1%;}
+        #alertMsg12_info1{margin-top: 0px!important;}
+
+
+        #alertMsg1_goPay{
+        	margin-top: 1%;
+        	display: none;
+        }
+
+
+        #alertMsg1_btn1,#alertMsg1_btn2,#alertMsg1_btn3{
+            display: inline-block;
+            background-color:#f88a69;
+            color: #000000;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            height: 40px;width: 130px;
+            border-radius:16px;
+            margin-top: 5%;
+            margin-left: 3%;
+
+        }
+        #alertMsg1_btn1,#alertMsg2_btn1{margin-left: 0px!important;}
+        
+        #alertMsg1_btn1 cite,#alertMsg1_btn2 cite,
+        #alertMsg1_btn3 cite
+        {
+            display: inline-block;
+            padding: 0 13px 0 10px;
+            color:#ffffff;
+            font-style: normal;
+            height: 40px;line-height: 40px;
+        }
+        
+        #alertMsg1_btn3{
+        	display: none!important;
+         }
+
+        #alertMsg1_gold{
+            float: left;
+            height: 30px;width:30px;
+            margin-left: 40%;
+          
+            
+        }
+        #alertMsg1_goldNum{
+            float: left;
+            font-size: 20px;
+            margin-top: 2px;
+
+        }
+        #alertMsg1_gold_wrap{
+            margin-top: 5%;
+            width: 100%;
+            height: 30px;
+        }
+
+
+/*弹框1*/
+ #alertMsg,#alertMsg2 {
+            /*margin-left:8%;*/
+            display: none;
+            width: 280px;height:220px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            box-shadow: 1px 1px 10px black;
+            padding: 10px;
+            position: absolute;
+            text-align: center;
+            background:url("images/t_bac.png")left top repeat;
+            z-index: 100000;
+            font-size: 12px;
+            color:#7a7a7a;
+        }
+
+        #alertClose_btn,#alertClose_btn2{
+            display:block;
+            width:40px;height: 40px;
+            margin-left: 88%;
+            background: url("images/close.png")center center no-repeat;
+            background-size: 100% 100%;
+            cursor:pointer;
+        }
+
+
+        #alertMsg_info
+        {
+            width: 100%;
+            margin-left: 10%;
+            height: 30px;
+            line-height: 1.6em;
+            text-align: center;
+            margin-top: 1%;
+            font-size: 20px;
+        }
+        #alertMsg_info,#alertMsg_info1,#alertMsg_info2{
+        	font-size: 14px!important;
+        	margin-left:0!important;
+        	font-weight: normal;
+
+        }
+        #alertMsg_info1{}
+
+        #alertMsg_dtime_info{margin-top: 1%;margin-bottom:2%;font-size: 10px;}
+        
+        #alertMsg_info2{margin-top: 5%;}
+        #alertMsg_btn1,#alertMsg2_btn1{
+            display: inline-block;
+            background-color:#f88a69;
+            color: #000000;
+            font-size: 18px;
+            text-decoration: none;
+            cursor: pointer;
+            height: 45px;width: 260px;
+            border-radius:20px;
+            margin-top: 8%;
+        }
+        #alertMsg_btn1{margin-top: 10%!important;}
+        #alertMsg_btn1 cite,#alertMsg2_btn1 cite{
+            line-height: 24px;
+            display: inline-block;
+            padding: 0 13px 0 10px;
+            color:#ffffff;
+            font-style: normal;
+            height: 50px;line-height: 50px;
+        }
+        #alertMsg_share{margin-top:1%;font-size: 10px;}
+        #alertMsg_share_red,#alertMsg_cnum,#alertMsg_snum{color:red;}
+
+        #alertMsg1_clock{width: 15px;height: 15px;}
+
+/*弹框3*/
+#alertMsg2_info{
+	font-size: 16px!important;
+	margin-left: 0px!important;
+	margin-bottom: 10%!important;
+    margin-top: 15%;
+}
+#alertMsg2_btn1{
+	margin-top: 10%!important;
+}

@@ -92,8 +92,14 @@ return array(
             ),
              */
         ),
+        'wechat'=>array(
+            'class'=>'application.extensions.wechat.oauth2',
+            'APPID'=>'',
+            'SECRET'=>'',
+            'REDIRECT_URL'=>'',
+        ),
         'alipay'=>array(
-            'class'=>'application.vendors.alipay.AlipayProxy',
+            'class'=>'application.extensions.alipay.AlipayProxy',
             'key'=>'your key',
             'partner'=>'your partner id',
             'seller_email'=>'jishankai@qq.com',

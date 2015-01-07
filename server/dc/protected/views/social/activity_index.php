@@ -1,10 +1,10 @@
 <!DOCTYPE>
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width = device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>暖冬活动进行中</title>
-	<link rel="stylesheet" type="text/css" href="css/act1_style.css">
+	<link rel="stylesheet" type="text/css" href="css/activity_index.css">
 
 </head>
 <body>
@@ -16,17 +16,17 @@
 		<div class="ab_tit">代粮喵们</div>
 		<div class="act1_imgBox">
 			<ul class="act1_imgList clearfix">
-				<li><img alt="" src="css/images/a1.png"></li>
-				<li><img alt="" src="css/images/a2.png"></li>
-				<li><img alt="" src="css/images/a3.png"></li>
-				<li><img alt="" src="css/images/a4.png"></li>
-				<li><img alt="" src="css/images/a5.png"></li>
-				<li><img alt="" src="css/images/a6.png"></li>
-			</ul>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>1))?>"><img alt="" src="css/images/a1.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>2))?>"><img alt="" src="css/images/a2.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>3))?>"><img alt="" src="css/images/a3.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>4))?>"><img alt="" src="css/images/a4.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>5))?>"><img alt="" src="css/images/a5.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>6))?>"><img alt="" src="css/images/a6.png"></a></li>
+			</u>
 		</div>
 	</div>
-	<div class="act1_bottom">
-		<div class="am_tit">TA们正在参与伸出援手</div>
+	<dlass="act1_bottom">
+	<div class="am_tit">TA们正在参与伸出援手</div>
 		<div class="head_imgBox">
 			<ul class="head_imgList clearfix">
 				<li style="position: relative">
@@ -66,7 +66,7 @@
 		<div class="hr_100"></div>
 	</div>
 	<div class="float">
-		<div class="load clearfix">				
+		<div class="load clearfix">
 			<div class="load_left">
 				<div class="logo_icon">
 					<img src="css/images/logo_icon.jpg"/>
