@@ -22,7 +22,11 @@ class WeiboController extends Controller
 			setcookie( 'weibojs_'.$oauth2->client_id, http_build_query($token) );
 			$uid_get = $oauth2->get_uid();
 			$u = $oauth2->show_user_by_id($uid_get['uid']);
-			$json = file_get_contents($this->createAbsoluteUrl('user/loginApi',array('uid'=>$u['id'])));
+			$params = array(
+				'uid'=>$u['id'],
+			);
+			$params['sig'] = $this->signature();
+			$json = file_get_contents($this->createAbsoluteUrl('user/loginApi', $params);
     	    $j = json_decode($json);
         	if (!$j['data']['isSuccess']) {
             	$aid = Yii::app()->db->createCommand('SELECT aid FROM dc_image WHERE img_id=:img_id')->bindValue(':img_id', $state)->queryScalar();
