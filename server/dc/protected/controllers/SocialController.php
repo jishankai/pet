@@ -1,5 +1,7 @@
 <?php
 
+Yii::import('ext.sinaWeibo.SinaWeibo',true);
+
 class SocialController extends Controller
 {
     public function filters()
@@ -8,7 +10,7 @@ class SocialController extends Controller
         );
     }
 
-    public function actionFoodShareApi($img_id, $to='', $SID='')
+    public function actionFoodShareApi($img_id, $to='weibo', $SID='')
     {
         switch ($to) {
             case 'wechat':
@@ -16,8 +18,8 @@ class SocialController extends Controller
                 $oauth2->get_code_by_authorize($img_id);
                 break;
             case 'weibo':
-                $oauth2 = Yii::app()->weibo;
-                $oauth2->getAuthorizeURL($oauth2->url, 'code', $img_id, 'mobile');
+                $oauth2 = new SinaWeibo(WB_AKEY, WB_SKEY);
+                $this->redirect($oauth2->getAuthorizeURL($oauth2->url, 'code', $img_id, 'mobile'));
                 break;
             default:
                 # code...

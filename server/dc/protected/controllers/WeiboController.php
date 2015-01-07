@@ -1,9 +1,11 @@
 <?php
 
+Yii::import('ext.sinaWeibo.SinaWeibo',true);
+
 class WeiboController extends Controller
 {
 	public function actionCallback(){
-		$oauth2 = Yii::app()->weibo;
+		$oauth2 = new SinaWeibo(WB_AKEY, WB_SKEY);
 		if (isset($_REQUEST['code'])) {
 			$keys = array();
 			$keys['code'] = $_REQUEST['code'];
@@ -13,7 +15,7 @@ class WeiboController extends Controller
 			} catch (OAuthException $e) {
 			}
 		} else {
-			$oauth2->getAuthorizeURL($oauth2->url, 'code', $state, 'mobile');
+			$this->redirect($oauth2->getAuthorizeURL($oauth2->url, 'code', $state, 'mobile'));
 		}
 
 		if ($token) {
@@ -36,7 +38,7 @@ class WeiboController extends Controller
             	$res_register = Yii::app()->curl->get($this->createUrl('user/registerApi', $params));
             	$json_register = json_decode($res_register);
             	if (!isset($json_register->usr_id)) {
-                	$oauth2->getAuthorizeURL($oauth2->url, 'code', $state, 'mobile');
+                	$this->redirect($oauth2->getAuthorizeURL($oauth2->url, 'code', $state, 'mobile'));
             	}
         	}
         	$this->layout = FALSE;

@@ -29,7 +29,8 @@ class AlipayService {
 	*$sign_type 签名类型
     */
     public function __construct($parameter, $key, $sign_type) {
-        $this->gateway = "https://www.alipay.com/cooperate/gateway.do?";
+        #$this->gateway = "https://www.alipay.com/cooperate/gateway.do?";
+        $this->gateway = "http://wappaygw.alipay.com/service/rest.htm?";
         $this->_key = $key;
         $this->sign_type = $sign_type;
         $this->parameter = para_filter($parameter);

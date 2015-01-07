@@ -37,8 +37,10 @@ class AlipayNotify {
 
         $this->transport = $transport;
         if($this->transport == "https") {
-            $this->gateway = "https://www.alipay.com/cooperate/gateway.do?";
+            #$this->gateway = "https://www.alipay.com/cooperate/gateway.do?";
+            $this->gateway = "https://mapi.alipay.com/gateway.do?service=notify_verify&";
         }else {
+            #$this->gateway = "http://notify.alipay.com/trade/notify_query.do?";
             $this->gateway = "http://notify.alipay.com/trade/notify_query.do?";
         }
         $this->partner          = $partner;

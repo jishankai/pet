@@ -22,13 +22,13 @@ class oauth2{
  	 * @param string $SECRET
  	 * @param string $REDIRECT_URL
  	 */
- 	function init($APPID,$SECRET,$REDIRECT_URL='http://kouliang.tuturead.com'){
+ 	function init($APPID='',$SECRET='',$REDIRECT_URL='http://kouliang.tuturead.com'){
  		$this->REDIRECT_URL=$REDIRECT_URL;
- 		$this->APPID=$APPID;
- 		$this->SECRET=$SECRET;
+ 		if ($APPID!='') $this->APPID=$APPID;
+ 		if ($SECRET!='') $this->SECRET=$SECRET;
  		
- 		$this->Code=$_GET['code'];//code
- 		$this->State=$_GET['state'];//state参数
+ 		if (isset($_GET['code'])) $this->Code=$_GET['code'];//code
+ 		if (isset($_GET['state'])) $this->State=$_GET['state'];//state参数
 
  	}
  	
@@ -39,7 +39,7 @@ class oauth2{
  	function get_code($state='1'){		
  		$APPID=$this->APPID;
  		$redirect_uri=$this->REDIRECT_URL;
- 		$url_get_code="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$APPID&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_base&state=$state#wechat_redirect";
+ 		$url_get_code="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$APPID&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_login&state=$state#wechat_redirect";
  		header("Location: $url_get_code");//重定向请求微信用户信息
  	}
  	/**
@@ -65,7 +65,7 @@ class oauth2{
  	function get_code_by_authorize($state){
  		$APPID=$this->APPID;
  		$redirect_uri=$this->REDIRECT_URL;
- 		$url_get_code="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$APPID&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_userinfo&state=$state#wechat_redirect";
+ 		$url_get_code="https://open.weixin.qq.com/connect/oauth2/authorize?appid=$APPID&redirect_uri=$redirect_uri&response_type=code&scope=snsapi_login&state=$state#wechat_redirect";
  		header("Location: $url_get_code");//重定向请求微信用户信息		
  	}
  	
@@ -91,9 +91,8 @@ class oauth2{
  		$str_nickname=substr($content2,strpos($content2,",")+1);
  		$str_nickname=substr($str_nickname,12,strpos($str_nickname,",")-13);
  		
- 		$data=array('nickname'=>'','heading'=>'');
+ 		$data=$o2;
  		$data['nickname']=base64_encode($str_nickname);
- 		$data['headimgurl']=$o2['headimgurl'];
  		
  		return $data;
  		 		

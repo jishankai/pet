@@ -98,12 +98,6 @@ return array(
             'SECRET'=>'',
             'REDIRECT_URL'=>'',
         ),
-        'weibo'=>array(
-            'class'=>'application.extensions.sinaWeibo.SinaWeibo',
-            'client_id'=>'',
-            'client_secret'=>'',
-            'url'=>'',
-        ),
         'alipay'=>array(
             'class'=>'application.extensions.alipay.AlipayProxy',
             'key'=>'',
