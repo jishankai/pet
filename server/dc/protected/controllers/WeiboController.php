@@ -26,7 +26,7 @@ class WeiboController extends Controller
 				'uid'=>$u['id'],
 			);
 			$params['sig'] = $this->signature($params);
-			$json = file_get_contents($this->createAbsoluteUrl('user/loginApi', $params);
+			$json = file_get_contents($this->createAbsoluteUrl('user/loginApi', $params));
     	    $j = json_decode($json);
         	if (!$j['data']['isSuccess']) {
             	$aid = Yii::app()->db->createCommand('SELECT aid FROM dc_image WHERE img_id=:img_id')->bindValue(':img_id', $state)->queryScalar();
