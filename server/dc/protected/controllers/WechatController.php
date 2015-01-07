@@ -363,7 +363,7 @@ class WechatController extends Controller
         }
 
         $u = Yii::app()->wechat->get_userinfo_by_authorize($code);
-        $json = Yii::app()->curl->get($this->createUrl('user/login',array('uid'=>$u['unionid'])));
+        $json = file_get_contents($this->createUrl('user/login',array('uid'=>$u['unionid'])));
         $j = json_decode($json);
         if (!$j['data']['isSuccess']) {
             $aid = Yii::app()->db->createCommand('SELECT aid FROM dc_image WHERE img_id=:img_id')->bindValue(':img_id', $state)->queryScalar();
@@ -376,7 +376,7 @@ class WechatController extends Controller
                 'SID'=>$j['data']['SID'],
             );
             $params['sig'] = $this->signature();
-            $res_register = Yii::app()->curl->get($this->createUrl('user/registerApi', $params));
+            $res_register = file_get_contents($this->createUrl('user/registerApi', $params));
             $json_register = json_decode($res_register);
             if (!isset($json_register->usr_id)) {
                 Yii::app()->wechat->get_code_by_authorize($state);
