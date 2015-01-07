@@ -366,7 +366,7 @@ class WechatController extends Controller
         $params = array(
             'uid'=>$u['unionid'],
         );
-        $params['sig'] = $this->signature();
+        $params['sig'] = $this->signature($params);
         $json = file_get_contents($this->createAbsoluteUrl('user/loginApi', $params);
         $j = json_decode($json);
         if (!$j['data']['isSuccess']) {
@@ -379,7 +379,7 @@ class WechatController extends Controller
                 'wechat'=>$u['openid'],
                 'SID'=>$j['data']['SID'],
             );
-            $params['sig'] = $this->signature();
+            $params['sig'] = $this->signature($params);
             $res_register = file_get_contents($this->createAbsoluteUrl('user/registerApi', $params));
             $json_register = json_decode($res_register);
             if (!isset($json_register->usr_id)) {
