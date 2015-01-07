@@ -9,7 +9,7 @@ class WeiboController extends Controller
 		if (isset($_REQUEST['code'])) {
 			$keys = array();
 			$keys['code'] = $_REQUEST['code'];
-			$keys['redirect_uri'] = $this->createUrl('social/food', array('img_id',$_REQUEST['state']));
+			$keys['redirect_uri'] = $this->createAbsoluteUrl('social/food', array('img_id',$_REQUEST['state']));
 			try {
 				$token = $oauth2->getAccessToken( 'code', $keys ) ;
 			} catch (OAuthException $e) {
@@ -22,7 +22,7 @@ class WeiboController extends Controller
 			setcookie( 'weibojs_'.$oauth2->client_id, http_build_query($token) );
 			$uid_get = $oauth2->get_uid();
 			$u = $oauth2->show_user_by_id($uid_get['uid']);
-			$json = file_get_contents($this->createUrl('user/login',array('uid'=>$u['id'])));
+			$json = file_get_contents($this->createAbsoluteUrl('user/login',array('uid'=>$u['id'])));
     	    $j = json_decode($json);
         	if (!$j['data']['isSuccess']) {
             	$aid = Yii::app()->db->createCommand('SELECT aid FROM dc_image WHERE img_id=:img_id')->bindValue(':img_id', $state)->queryScalar();
@@ -35,7 +35,7 @@ class WeiboController extends Controller
                 	'SID'=>$j['data']['SID'],
             	);
             	$params['sig'] = $this->signature();
-            	$res_register = file_get_contents($this->createUrl('user/registerApi', $params));
+            	$res_register = file_get_contents($this->createAbsoluteUrl('user/registerApi', $params));
             	$json_register = json_decode($res_register);
             	if (!isset($json_register->usr_id)) {
                 	$this->redirect($oauth2->getAuthorizeURL($oauth2->url, 'code', $state, 'mobile'));
