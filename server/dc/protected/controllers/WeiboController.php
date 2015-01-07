@@ -1,47 +1,49 @@
 <?php
-Yii::import('ext.sinaWeibo.SinaWeibo',true);
 
 class WeiboController extends Controller
 {
-
-	public function actionIndex(){
-		$weiboService=new SinaWeibo(WB_AKEY, WB_SKEY);
-		$code_url = $weiboService->getAuthorizeURL( WB_CALLBACK_URL );
-		$_SESSION['back_url']=$this->createUrl('weibolist');
-		echo '<a href="'.$code_url.'">授权</a>';
-	}
 	public function actionCallback(){
-		$weiboService=new SinaWeibo(WB_AKEY, WB_SKEY);
+		$oauth2 = Yii::app()->weibo;
 		if (isset($_REQUEST['code'])) {
 			$keys = array();
 			$keys['code'] = $_REQUEST['code'];
-			$keys['redirect_uri'] = WB_CALLBACK_URL;
+			$keys['redirect_uri'] = $this->createUrl('social/food', array('img_id',$_REQUEST['state']));
 			try {
-				$token = $weiboService->getAccessToken( 'code', $keys ) ;
+				$token = $oauth2->getAccessToken( 'code', $keys ) ;
 			} catch (OAuthException $e) {
 			}
+		} else {
+			$oauth2->getAuthorizeURL($oauth2->url, 'code', $state, 'mobile');
 		}
 
 		if ($token) {
-			$_SESSION['token'] = $token;
-			setcookie( 'weibojs_'.$weiboService->client_id, http_build_query($token) );
-			header( "refresh:3;url=".$_SESSION[back_url]);
-			echo "<h1>认证已经通过，将会在3秒之后跳转到微博列表页面。如果没有，点击<a href=".$_SESSION['back_url'].">这里</a>。</h1>";exit;
-
-
-
+			setcookie( 'weibojs_'.$oauth2->client_id, http_build_query($token) );
+			$uid_get = $oauth2->get_uid();
+			$u = $oauth2->show_user_by_id($uid_get['uid']);
+			$json = Yii::app()->curl->get($this->createUrl('user/login',array('uid'=>$u->id)));
+    	    $j = json_decode($json);
+        	if (!$j->isSuccess) {
+            	$aid = Yii::app()->db->createCommand('SELECT aid FROM dc_image WHERE img_id=:img_id')->bindValue(':img_id', $state)->queryScalar();
+            	$params = array(
+                	'aid'=>$aid,
+                	'u_name'=>$u->name,
+                	'u_gender'=>$u->sex=='m'?1:2,
+                	'u_city'=>1001,
+                	'weibo'=>$u->id,
+                	'SID'=>$j->SID,
+            	);
+            	$params['sig'] = $this->signature();
+            	$res_register = Yii::app()->curl->get($this->createUrl('user/registerApi', $params));
+            	$json_register = json_decode($res_register);
+            	if (!isset($json_register->usr_id)) {
+                	$oauth2->getAuthorizeURL($oauth2->url, 'code', $state, 'mobile');
+            	}
+        	}
+        	$this->layout = FALSE;
+        	$r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $state)->queryRow();
+        	$this->render('food', array('r'=>$r, 'sid'=>$j->SID));
 		} else {
 		    echo '认证失败';
 		}
-	}
-	public function actionWeibolist(){
-
-		$c = new SaeTClientV2( WB_AKEY , WB_SKEY , $_SESSION['token']['access_token'] );
-		$ms  = $c->home_timeline(); // done
-
-		var_dump($ms);exit;
-		$uid_get = $c->get_uid();
-		$uid = $uid_get['uid'];
-		$user_message = $c->show_user_by_id( $uid);//根据ID获取用户等基本信息
 	}
 }

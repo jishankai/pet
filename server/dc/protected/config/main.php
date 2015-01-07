@@ -9,7 +9,7 @@ require_once(dirname(__FILE__).'/dc/const.cfg.php');
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'阿猫阿狗',
+	'name'=>'宠物星球',
     'theme'=>'blackboot',
     'defaultController'=>'site/login',
 
@@ -24,7 +24,7 @@ return array(
 	),
 
 	'modules'=>array(
-        // uncomment the following to enable the Gii tool         
+        // uncomment the following to enable the Gii tool
         'admin',
         'gii'=>array(
 			'class'=>'system.gii.GiiModule',
@@ -52,20 +52,20 @@ return array(
         ),
         /*
         'mobiledetect'=>array(
-            'class' => 'ext.MobileDetect.MobileDetect' 
+            'class' => 'ext.MobileDetect.MobileDetect'
         ),
          */
-        'image'=>array(    
+        'image'=>array(
             'class'=>'application.extensions.image.CImageComponent',
-            // GD or ImageMagick            
+            // GD or ImageMagick
             'driver'=>'GD',
-            // ImageMagick setup path       
+            // ImageMagick setup path
             'params'=>array('directory'=>'/usr/bin'),
         ),
 
         's3'=>array(
             'class'=>'ext.s3.ES3',
-            'aKey'=>AWS_ACCESS_KEY, 
+            'aKey'=>AWS_ACCESS_KEY,
             'sKey'=>AWS_SECRET_KEY,
         ),
 
@@ -98,14 +98,20 @@ return array(
             'SECRET'=>'',
             'REDIRECT_URL'=>'',
         ),
+        'weibo'=>array(
+            'class'=>'application.extensions.sinaWeibo.SinaWeibo',
+            'client_id'=>'',
+            'client_secret'=>'',
+            'url'=>'',
+        ),
         'alipay'=>array(
             'class'=>'application.extensions.alipay.AlipayProxy',
-            'key'=>'your key',
-            'partner'=>'your partner id',
+            'key'=>'',
+            'partner'=>'',
             'seller_email'=>'jishankai@qq.com',
-            'return_url'=>'url for redirect notify',
-            'notify_url'=>'url for server side notify',
-            'show_url'=>'url for product detail',
+            'return_url'=>'http://release4pet.aidigame.com/alipay/return',
+            'notify_url'=>'http://release4pet.aidigame.com/alipay/notify',
+            'show_url'=>'',
         ),
         'cache' => array(
             /*
@@ -118,7 +124,7 @@ return array(
                     'host' => '127.0.0.1',
                     'port' => 11211,
                     'weight' => 100,
-                ),  
+                ),
             ),
         ),
         'sessionCache' => array(

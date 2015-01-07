@@ -16,7 +16,7 @@ class AlipayProxy extends CComponent
 
     public function init()
     {
-        Yii::import('application.vendors.alipay.class.*');
+        Yii::import('application.extensions.alipay.class.*');
     }
 
     public function buildForm($request)
