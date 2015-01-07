@@ -28,7 +28,7 @@ class WeiboController extends Controller
 			$params['sig'] = $this->signature($params);
 			$json = file_get_contents($this->createAbsoluteUrl('user/loginApi', $params));
     	    $j = json_decode($json);
-        	if (!$j['data']['isSuccess']) {
+        	if (!$j->data->isSuccess) {
             	$aid = Yii::app()->db->createCommand('SELECT aid FROM dc_image WHERE img_id=:img_id')->bindValue(':img_id', $state)->queryScalar();
             	$params = array(
                 	'aid'=>$aid,
@@ -36,7 +36,7 @@ class WeiboController extends Controller
                 	'u_gender'=>$u['sex']=='m'?1:2,
                 	'u_city'=>1001,
                 	'weibo'=>$u['id'],
-                	'SID'=>$j['data']['SID'],
+                	'SID'=>$j->data->SID,
             	);
             	$params['sig'] = $this->signature($params);
             	$res_register = file_get_contents($this->createAbsoluteUrl('user/registerApi', $params));
@@ -47,7 +47,7 @@ class WeiboController extends Controller
         	}
         	$this->layout = FALSE;
         	$r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $state)->queryRow();
-        	$this->render('food', array('r'=>$r, 'sid'=>$j['data']['SID']));
+        	$this->render('food', array('r'=>$r, 'sid'=>$j->data->SID));
 		} else {
 		    echo '认证失败';
 		}
