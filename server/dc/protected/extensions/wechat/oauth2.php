@@ -22,7 +22,7 @@ class oauth2{
  	 * @param string $SECRET
  	 * @param string $REDIRECT_URL
  	 */
- 	function init($APPID='',$SECRET='',$REDIRECT_URL='http://kouliang.tuturead.com'){
+ 	function init($APPID='',$SECRET='',$REDIRECT_URL='http://kouliang.tuturead.com/index.php?r=wechat/callback'){
  		$this->REDIRECT_URL=$REDIRECT_URL;
  		if ($APPID!='') $this->APPID=$APPID;
  		if ($SECRET!='') $this->SECRET=$SECRET;
@@ -72,10 +72,9 @@ class oauth2{
  	/**
  	 * 授权获取用户信息
  	 */
- 	function get_userinfo_by_authorize(){
+ 	function get_userinfo_by_authorize($code){
  		$APPID=$this->APPID;
  		$SECRET=$this->SECRET;
- 		$code=$this->Code;
  			
  		$url="https://api.weixin.qq.com/sns/oauth2/access_token?appid=$APPID&secret=$SECRET&code=$code&grant_type=authorization_code";
  		$content=file_get_contents($url);
@@ -92,7 +91,7 @@ class oauth2{
  		$str_nickname=substr($str_nickname,12,strpos($str_nickname,",")-13);
  		
  		$data=$o2;
- 		$data['nickname']=base64_encode($str_nickname);
+ 		$data['nickname']=$str_nickname;
  		
  		return $data;
  		 		

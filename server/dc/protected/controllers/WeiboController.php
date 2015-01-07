@@ -22,17 +22,17 @@ class WeiboController extends Controller
 			setcookie( 'weibojs_'.$oauth2->client_id, http_build_query($token) );
 			$uid_get = $oauth2->get_uid();
 			$u = $oauth2->show_user_by_id($uid_get['uid']);
-			$json = Yii::app()->curl->get($this->createUrl('user/login',array('uid'=>$u->id)));
+			$json = Yii::app()->curl->get($this->createUrl('user/login',array('uid'=>$u['id'])));
     	    $j = json_decode($json);
-        	if (!$j->isSuccess) {
+        	if (!$j['data']['isSuccess']) {
             	$aid = Yii::app()->db->createCommand('SELECT aid FROM dc_image WHERE img_id=:img_id')->bindValue(':img_id', $state)->queryScalar();
             	$params = array(
                 	'aid'=>$aid,
-                	'u_name'=>$u->name,
-                	'u_gender'=>$u->sex=='m'?1:2,
+                	'u_name'=>$u['name'],
+                	'u_gender'=>$u['sex']=='m'?1:2,
                 	'u_city'=>1001,
-                	'weibo'=>$u->id,
-                	'SID'=>$j->SID,
+                	'weibo'=>$u['id'],
+                	'SID'=>$j['data']['SID'],
             	);
             	$params['sig'] = $this->signature();
             	$res_register = Yii::app()->curl->get($this->createUrl('user/registerApi', $params));
@@ -43,7 +43,7 @@ class WeiboController extends Controller
         	}
         	$this->layout = FALSE;
         	$r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $state)->queryRow();
-        	$this->render('food', array('r'=>$r, 'sid'=>$j->SID));
+        	$this->render('food', array('r'=>$r, 'sid'=>$j['data']['SID']));
 		} else {
 		    echo '认证失败';
 		}
