@@ -10,7 +10,7 @@ class SocialController extends Controller
         );
     }
 
-    public function actionFoodShareApi($img_id, $to='weibo', $SID='')
+    public function actionFoodShareApi($img_id, $to='', $SID='')
     {
         switch ($to) {
             case 'wechat':
