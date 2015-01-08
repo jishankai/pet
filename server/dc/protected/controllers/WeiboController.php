@@ -20,7 +20,7 @@ class WeiboController extends Controller
 
 		if ($token) {
 			setcookie( 'weibojs_'.$oauth2->client_id, http_build_query($token) );
-			$c = new SaeTClientV2( WB_AKEY , WB_SKEY , $token['acess_token'] );
+			$c = new SaeTClientV2( WB_AKEY , WB_SKEY , $token['access_token'] );
 			$uid_get = $c->get_uid();
 			$u = $c->show_user_by_id($uid_get['uid']);
 			$params = array(
