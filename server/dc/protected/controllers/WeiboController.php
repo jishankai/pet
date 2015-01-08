@@ -9,7 +9,7 @@ class WeiboController extends Controller
 		if (isset($_REQUEST['code'])) {
 			$keys = array();
 			$keys['code'] = $_REQUEST['code'];
-			$keys['redirect_uri'] = $this->createAbsoluteUrl('social/food', array('img_id',$_REQUEST['state']));
+			$keys['redirect_uri'] = $this->createAbsoluteUrl('social/food', array('img_id'=>$_REQUEST['state']));
 			try {
 				$token = $oauth2->getAccessToken( 'code', $keys ) ;
 			} catch (OAuthException $e) {
