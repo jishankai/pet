@@ -377,7 +377,7 @@ class WechatController extends Controller
                 'gender'=>$r['gender'],
                 'age'=>$r['age'],
                 'type'=>$r['type'],
-                'u_name'=>$u['nickname'],
+                'u_name'=>'萌'.mb_substr($u['unionid'], 0, 6),
                 'u_gender'=>$u['sex'],
                 'u_city'=>1001,
                 'code'=>'',
