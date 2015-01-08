@@ -198,7 +198,7 @@ class SaeTOAuthV2 {
 		$token = json_decode($response, true);
 		if ( is_array($token) && !isset($token['error']) ) {
 			$this->access_token = $token['access_token'];
-			$this->refresh_token = $token['refresh_token'];
+			//$this->refresh_token = $token['refresh_token'];
 		} else {
 			throw new OAuthException("get access token failed." . $token['error']);
 		}
@@ -354,6 +354,11 @@ class SaeTOAuthV2 {
 		curl_setopt($ci, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ci, CURLOPT_ENCODING, "");
 		curl_setopt($ci, CURLOPT_SSL_VERIFYPEER, $this->ssl_verifypeer);
+		if (version_compare(phpversion(), '5.4.0', '<')) {
+			curl_setopt($ci, CURLOPT_SSL_VERIFYHOST, 1);
+		} else {
+			curl_setopt($ci, CURLOPT_SSL_VERIFYHOST, 2);
+		}
 		curl_setopt($ci, CURLOPT_HEADERFUNCTION, array($this, 'getHeader'));
 		curl_setopt($ci, CURLOPT_HEADER, FALSE);
 
@@ -375,7 +380,17 @@ class SaeTOAuthV2 {
 		if ( isset($this->access_token) && $this->access_token )
 			$headers[] = "Authorization: OAuth2 ".$this->access_token;
 
-		$headers[] = "API-RemoteIP: " . $_SERVER['REMOTE_ADDR'];
+		if ( !empty($this->remote_ip) ) {
+			if ( defined('SAE_ACCESSKEY') ) {
+				$headers[] = "SaeRemoteIP: " . $this->remote_ip;
+			} else {
+				$headers[] = "API-RemoteIP: " . $this->remote_ip;
+			}
+		} else {
+			if ( !defined('SAE_ACCESSKEY') ) {
+				$headers[] = "API-RemoteIP: " . $_SERVER['REMOTE_ADDR'];
+			}
+		}
 		curl_setopt($ci, CURLOPT_URL, $url );
 		curl_setopt($ci, CURLOPT_HTTPHEADER, $headers );
 		curl_setopt($ci, CURLINFO_HEADER_OUT, TRUE );
@@ -389,10 +404,13 @@ class SaeTOAuthV2 {
 			echo "=====post data======\r\n";
 			var_dump($postfields);
 
-			echo '=====info====='."\r\n";
+			echo "=====headers======\r\n";
+			print_r($headers);
+
+			echo '=====request info====='."\r\n";
 			print_r( curl_getinfo($ci) );
 
-			echo '=====$response====='."\r\n";
+			echo '=====response====='."\r\n";
 			print_r( $response );
 		}
 		curl_close ($ci);
@@ -480,6 +498,39 @@ class SaeTClientV2
 	function __construct( $akey, $skey, $access_token, $refresh_token = NULL)
 	{
 		$this->oauth = new SaeTOAuthV2( $akey, $skey, $access_token, $refresh_token );
+	}
+
+	/**
+	 * 开启调试信息
+	 *
+	 * 开启调试信息后，SDK会将每次请求微博API所发送的POST Data、Headers以及请求信息、返回内容输出出来。
+	 *
+	 * @access public
+	 * @param bool $enable 是否开启调试信息
+	 * @return void
+	 */
+	function set_debug( $enable )
+	{
+		$this->oauth->debug = $enable;
+	}
+
+	/**
+	 * 设置用户IP
+	 *
+	 * SDK默认将会通过$_SERVER['REMOTE_ADDR']获取用户IP，在请求微博API时将用户IP附加到Request Header中。但某些情况下$_SERVER['REMOTE_ADDR']取到的IP并非用户IP，而是一个固定的IP（例如使用SAE的Cron或TaskQueue服务时），此时就有可能会造成该固定IP达到微博API调用频率限额，导致API调用失败。此时可使用本方法设置用户IP，以避免此问题。
+	 *
+	 * @access public
+	 * @param string $ip 用户IP
+	 * @return bool IP为非法IP字符串时，返回false，否则返回true
+	 */
+	function set_remote_ip( $ip )
+	{
+		if ( ip2long($ip) !== false ) {
+			$this->oauth->remote_ip = $ip;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -1067,15 +1118,38 @@ class SaeTClientV2
 	 * 对应API：{@link http://open.weibo.com/wiki/2/statuses/upload_url_text statuses/upload_url_text}
 	 *
 	 * @param string $status  要发布的微博文本内容，内容不超过140个汉字。
+	 * @param int $visible    微博的可见性，0：所有人能看，1：仅自己可见，2：密友可见，3：指定分组可见，默认为0
+	 * @param string $list_id 微博的保护投递指定分组ID，只有当visible参数为3时生效且必选。
+	 * @param string $pic_id 已经上传的图片pid，多个时使用英文半角逗号符分隔，最多不超过9个。
+	 * @param float $lat 纬度，有效范围：-90.0到+90.0，+表示北纬，默认为0.0。
+	 * @param float $long 经度，有效范围：-180.0到+180.0，+表示东经，默认为0.0。
+	 * @param string $annotations 元数据，主要是为了方便第三方应用记录一些适合于自己使用的信息，每条微博可以包含一个或者多个元数据，
+	 *                            必须以json字串的形式提交，字串长度不超过512个字符，具体内容可以自定。
 	 * @param string $url    图片的URL地址，必须以http开头。
 	 * @return array
 	 */
-	function upload_url_text( $status,  $url )
+	function upload_url_text( $status,  $url , $visible=0, $list_id=NULL, $pic_id=NULL, $lat = NULL, $long=NULL, $annotations=NULL)
 	{
 		$params = array();
 		$params['status'] = $status;
 		$params['url'] = $url;
-		return $this->oauth->post( 'statuses/upload', $params, true );
+		$params['visible'] = $visible;
+		if (!is_null($list_id)) {
+			$params['list_id'] = $list_id;
+		}
+		if (!is_null($pic_id)) {
+			$params['pic_id'] = $pic_id;
+		}
+		if (!is_null($lat)) {
+			$params['lat'] = $lat;
+		}
+		if (!is_null($long)) {
+			$params['long'] = $long;
+		}
+		if (!is_null($annotations)) {
+			$params['annotations'] = $annotations;
+		}
+		return $this->oauth->post( 'statuses/upload_url_text', $params, true );
 	}
 
 

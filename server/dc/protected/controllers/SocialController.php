@@ -19,7 +19,7 @@ class SocialController extends Controller
                 break;
             case 'weibo':
                 $oauth2 = new SinaWeibo(WB_AKEY, WB_SKEY);
-                $this->redirect($oauth2->getAuthorizeURL($oauth2->url, 'code', $img_id, 'mobile'));
+                $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', $img_id, 'mobile'));
                 break;
             default:
                 # code...

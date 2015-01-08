@@ -15,7 +15,7 @@ class WeiboController extends Controller
 			} catch (OAuthException $e) {
 			}
 		} else {
-			$this->redirect($oauth2->getAuthorizeURL($oauth2->url, 'code', $state, 'mobile'));
+			$this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', $state, 'mobile'));
 		}
 
 		if ($token) {
@@ -47,7 +47,7 @@ class WeiboController extends Controller
             	$res_register = file_get_contents($this->createAbsoluteUrl('user/registerApi', $params));
             	$json_register = json_decode($res_register);
             	if (!isset($json_register->usr_id)) {
-                	$this->redirect($oauth2->getAuthorizeURL($oauth2->url, 'code', $state, 'mobile'));
+                	$this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', $state, 'mobile'));
             	}
         	}
         	$this->layout = FALSE;
