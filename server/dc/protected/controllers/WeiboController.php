@@ -39,7 +39,7 @@ class WeiboController extends Controller
                 	'type'=>$r['type'],
                 	'code'=>'',
                 	'u_name'=>$u['name'],
-                	'u_gender'=>$u['sex']=='m'?1:2,
+                	'u_gender'=>$u['gender']=='m'?1:2,
                 	'u_city'=>1001,
                 	'weibo'=>$u['id'],
                 	'SID'=>$j->data->SID,
