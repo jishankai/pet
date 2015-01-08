@@ -217,6 +217,7 @@ public class ExchangeActivity extends Activity implements OnClickListener{
 								}
 							}
 							galleryAdapter.update(animals);
+							if(animals.size()>0)
 							loadIcon(animals.get(0));
 							galleryAdapter.notifyDataSetChanged();
 						}

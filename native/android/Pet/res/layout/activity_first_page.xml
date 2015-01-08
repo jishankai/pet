@@ -12,6 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:visibility="visible"
+        android:src="@drawable/start_image"
         />
   <!--   <ScrollView 
         android:id="@+id/scrllview"

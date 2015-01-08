@@ -692,9 +692,6 @@ public class NewRegisterActivity extends Activity {
 										if(UserCenterFragment.userCenterFragment!=null){
 									    	UserCenterFragment.userCenterFragment.updatateInfo();;
 										}
-										if(PetKingdomActivity.petKingdomActivity!=null){
-											PetKingdomActivity.petKingdomActivity.initArc();
-										}
 									}
 								});
 							}else{
@@ -1178,7 +1175,7 @@ public class NewRegisterActivity extends Activity {
 			if(isUserIcon){
 				userIconPath=path;
 				user_bmp=BitmapFactory.decodeFile(path,options);
-               if(user_bmp!=null){
+             /*  if(user_bmp!=null){
             	   
 				      path=ImageUtil.compressImage(user_bmp,"usr_icon");
 				      if(!StringUtil.isEmpty(path)){
@@ -1189,7 +1186,7 @@ public class NewRegisterActivity extends Activity {
 					    	  userIconPath=path;
 					      }
 				      }
-				}
+				}*/
 				if(StringUtil.isEmpty(userIconPath)){
 					Toast.makeText(this, "图片保存地址为空", Toast.LENGTH_LONG).show();
 				}else{
@@ -1200,7 +1197,7 @@ public class NewRegisterActivity extends Activity {
 				checkPetInfo();
 				petIconPath=path;
 				pet_bmp=BitmapFactory.decodeFile(path,options);
-				if(pet_bmp!=null){
+				/*if(pet_bmp!=null){
 					path=ImageUtil.compressImage(pet_bmp,"pet_icon");
 				      if(!StringUtil.isEmpty(path)){
 				    	  petIconPath=path;
@@ -1210,7 +1207,7 @@ public class NewRegisterActivity extends Activity {
 				    		  petIconPath=path;
 					      }
 				      }
-				}
+				}*/
 				if(StringUtil.isEmpty(petIconPath)){
 					Toast.makeText(this, "图片保存地址为空", Toast.LENGTH_LONG).show();
 				}else{
@@ -1290,6 +1287,10 @@ public class NewRegisterActivity extends Activity {
 							}
 							if(ChoseAcountTypeActivity.choseAcountTypeActivity!=null){
 								ChoseAcountTypeActivity.choseAcountTypeActivity.finish();
+							}
+							if(HomeActivity.homeActivity!=null&&HomeActivity.homeActivity.myPetFragment!=null){
+								HomeActivity.homeActivity.myPetFragment.cameraBt.setVisibility(View.VISIBLE);
+								HomeActivity.homeActivity.myPetFragment.homeMyPet.refresh();
 							}
 							UserStatusUtil.setDefaultKingdom();
 							NewRegisterActivity.this.finish();

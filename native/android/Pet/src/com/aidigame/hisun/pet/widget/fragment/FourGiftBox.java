@@ -27,6 +27,7 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1;
 import com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity;
+import com.aidigame.hisun.pet.ui.DialogNoteActivity;
 import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -315,7 +316,11 @@ public class FourGiftBox {
 									@Override
 									public void run() {
 										// TODO Auto-generated method stub
-										Toast.makeText(context, "Sorry~余额不足(⊙o⊙)哦~", Toast.LENGTH_LONG).show();
+//										Toast.makeText(context, "Sorry~余额不足(⊙o⊙)哦~", Toast.LENGTH_LONG).show();
+										Intent intent=new Intent(context,DialogNoteActivity.class);
+										intent.putExtra("mode", 10);
+										intent.putExtra("info", "Sorry~余额不足(⊙o⊙)哦~");
+										context.startActivity(intent);
 										if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.showProgress.progressCancel();;
 									}
 								});

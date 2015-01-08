@@ -180,7 +180,7 @@
                        
                           <View android:layout_width="match_parent"
             android:layout_height="0.2dp" 
-            android:id="@+id/view"
+            android:id="@+id/lineInvite"
             android:background="#beb5a5"/>   
             <LinearLayout
         android:id="@+id/linearlayout12"
@@ -217,6 +217,7 @@
                 <View android:layout_width="match_parent"
             android:layout_height="0.2dp" 
             android:id="@+id/view"
+             android:visibility="gone"
             android:background="#beb5a5"/>        
                  <LinearLayout
         android:id="@+id/bind_layout_weixin"
@@ -261,6 +262,7 @@
                 <View android:layout_width="match_parent"
             android:layout_height="0.2dp" 
             android:id="@+id/view"
+            android:visibility="gone"
             android:background="#beb5a5"/>
           
     <LinearLayout
@@ -306,6 +308,8 @@
                 <View android:layout_width="match_parent"
             android:layout_height="0.2dp" 
             android:id="@+id/view"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="#beb5a5"/>
             
 
@@ -371,6 +375,8 @@
         <View android:layout_width="match_parent"
             android:layout_height="0.2dp" 
             android:id="@+id/view"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="#beb5a5"/>
     </LinearLayout>
      

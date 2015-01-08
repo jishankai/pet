@@ -64,7 +64,7 @@
       <me.maxwin.view.XListView 
            android:layout_below="@+id/linelaout1"
           android:id="@+id/listview"
-          android:layout_marginTop="40dp"
+          android:layout_marginTop="54dp"
           android:visibility="invisible"
         android:scrollbars="vertical"
          android:fastScrollEnabled="true"

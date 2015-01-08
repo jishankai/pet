@@ -48,6 +48,7 @@ public class PetPicture implements Serializable{
 	public long create_time;
 	public String likers;
 	public String comments;
+	public long foodNum;
 	public long update_time;
 	public int gifts;
 	public String senders;

@@ -37,7 +37,6 @@ import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.widget.WeixinShare;
-import com.aidigame.hisun.pet.widget.XinlangShare;
 import com.example.android.bitmapfun.util.ImageCache;
 import com.example.android.bitmapfun.util.ImageFetcher;
 import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
@@ -48,15 +47,18 @@ import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.SinaShareContent;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 public class ActivityWebActivity extends Activity {
 	WebView webView;
-	String url="http://"+Constants.IP+Constants.URL_ROOT+"r=game/2048&sig=";
-	String shareUrl="http://"+Constants.IP+Constants.URL_ROOT+"r=game/dcz&aid=";
+//	String url="http://"+Constants.IP+Constants.URL_ROOT+"r=game/2048&sig=";
+//	String shareUrl="http://"+Constants.IP+Constants.URL_ROOT+"r=game/dcz&aid=";
 	Banner banner;
 	ImageView back;
 	TextView shareTv;
@@ -81,6 +83,8 @@ public class ActivityWebActivity extends Activity {
 		UMWXHandler wxCircleHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
 		wxCircleHandler.setToCircle(true);
 		wxCircleHandler.addToSocialSDK();
+		SinaSsoHandler  sinaSsoHandler=new SinaSsoHandler(this);
+		sinaSsoHandler.addToSocialSDK();
 		back.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -109,8 +113,8 @@ public class ActivityWebActivity extends Activity {
 			}
 
 		});
-		LogUtil.i("me", "逗一逗url="+url);
-		webView.loadUrl(banner.url);
+//		LogUtil.i("me", "逗一逗url="+url);
+		webView.loadUrl(banner.url+"&SID="+Constants.SID);
 		
 		webView.setWebViewClient(new WebViewClient(){
 			@Override
@@ -281,7 +285,8 @@ public class ActivityWebActivity extends Activity {
 				
 		   }
 		   public void xinlangShare(){
-			   if(UserStatusUtil.hasXinlangAuth(this)){
+			   
+			  /* if(UserStatusUtil.hasXinlangAuth(this)){
 					shareLayout.setVisibility(View.INVISIBLE);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					if(banner.icon_path!=null){
@@ -303,10 +308,57 @@ public class ActivityWebActivity extends Activity {
 					
 					
 					
+				}*/
+			   
+			   
+			   shareLayout.setVisibility(View.INVISIBLE);
+				UserImagesJson.Data data=new UserImagesJson.Data();
+				if(banner.icon_path!=null){
+					data.path=banner.icon_path;
+					data.des=banner.description+" "+banner.url+" "+"（分享自@宠物星球社交应用）";
+		   	   SinaShareContent content=new SinaShareContent();
+		   	   content.setShareContent(data.des);
+		   	   UMImage umImage=new UMImage(ActivityWebActivity.this, data.path);
+		   	  
+		   	   content.setShareImage(umImage);
+		   	   mController.setShareMedia(content);
+		   	   mController.postShare(ActivityWebActivity.this, SHARE_MEDIA.SINA,new SnsPostListener() {
+		   		
+		   		@Override
+		   		public void onStart() {
+		   			// TODO Auto-generated method stub
+		   			
+		   		}
+		   		
+		   		@Override
+		   		public void onComplete(SHARE_MEDIA arg0, int eCode, SocializeEntity arg2) {
+		   			// TODO Auto-generated method stub
+		   			if (eCode == 200) {
+		                   Toast.makeText(ActivityWebActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+		                  } else {
+		                       String eMsg = "";
+		                       if (eCode == -101){
+		                           eMsg = "没有授权";
+		                       }
+		                       Toast.makeText(ActivityWebActivity.this, "分享失败[" + eCode + "] " + 
+		                                          eMsg,Toast.LENGTH_SHORT).show();
+		                  }
+		   		}
+		   	});
+			 
 				}
 				
 				
 		   }
+		   @Override
+			protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+				// TODO Auto-generated method stub
+				super.onActivityResult(requestCode, resultCode, data);
+				UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+		        if(ssoHandler != null){
+		           ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+		        }
+			}
 	   @Override
 	   protected void onPause() {
 	   	// TODO Auto-generated method stub

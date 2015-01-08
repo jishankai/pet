@@ -84,16 +84,10 @@ public class ContributeRankListActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				Intent intent=new Intent(ContributeRankListActivity.this,UserDossierActivity.class);
+				Intent intent=new Intent(ContributeRankListActivity.this,UserCardActivity.class);
 				intent.putExtra("user", peopleList.get(position));
-				if(UserDossierActivity.userDossierActivity!=null&&UserDossierActivity.userDossierActivity.loadedImage1!=null){
-					if(UserDossierActivity.userDossierActivity!=null&&!UserDossierActivity.userDossierActivity.loadedImage1.isRecycled()){
-						UserDossierActivity.userDossierActivity.loadedImage1.recycle();
-						UserDossierActivity.userDossierActivity.loadedImage1=null;
-					}
-					UserDossierActivity.userDossierActivity.linearLayout2.setBackgroundDrawable(null);
-				}
-				if(UserDossierActivity.userDossierActivity!=null)UserDossierActivity.userDossierActivity.finish();
+				
+				if(UserCardActivity.userCardActivity!=null)UserCardActivity.userCardActivity.finish();
 				ContributeRankListActivity.this.startActivity(intent);
 			}
 		});

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -84,6 +85,7 @@ public class DialogNoteActivity extends Activity{
 		    note2.setVisibility(View.VISIBLE);
 		    iv.setImageResource(R.drawable.gold1);
 		    tv.setText("+ "+num);
+		    if(Constants.user!=null)
 		    Constants.user.coinCount+=num;
 		    startShowAnimation(view);
 		    if(UserCenterFragment.userCenterFragment!=null){
@@ -149,6 +151,19 @@ public class DialogNoteActivity extends Activity{
 		    if(UserCenterFragment.userCenterFragment!=null){
 		    	UserCenterFragment.userCenterFragment.updatateInfo();;
 			}
+			return;
+		}else if(mode==10){
+			setContentView(R.layout.dialog_exp_gold_contribute_add);
+		    View view=findViewById(R.id.layout);
+		    ImageView iv=(ImageView)findViewById(R.id.imageView1);
+		    TextView tv=(TextView)findViewById(R.id.textView1);
+		    iv.setImageResource(R.drawable.emotion_sweat);
+		    iv.setVisibility(View.GONE);
+		    String info=getIntent().getStringExtra("info");
+		    tv.setText(info);
+//		    tv.setTextSize(getResources().getDimensionPixelSize(R.dimen.text_size_12));
+		    tv.setTextColor(getResources().getColor(R.color.dialog_text_gray));
+		    startShowAnimation(view);
 			return;
 		}
 		
@@ -274,15 +289,46 @@ public class DialogNoteActivity extends Activity{
 	/**
 	 * 动画，显示并隐藏
 	 */
-	public void startShowAnimation(View view){
-		AlphaAnimation alphaAnimation=new AlphaAnimation(0.2f, 1f);
-		alphaAnimation.setDuration(1500);
+	public void startShowAnimation(final View view){
+		AlphaAnimation alphaAnimation=new AlphaAnimation(0.0f, 1f);
+		alphaAnimation.setDuration(500);
 		alphaAnimation.setFillAfter(true);
-		alphaAnimation.setRepeatCount(1);
-		alphaAnimation.setRepeatMode(Animation.REVERSE);
+		alphaAnimation.setRepeatCount(0);
 		view.clearAnimation();
-		
+		final AlphaAnimation alphaAnimation2=new AlphaAnimation(1.0f, 0f);
+		alphaAnimation2.setDuration(500);
+		alphaAnimation2.setFillAfter(true);
+		alphaAnimation2.setRepeatCount(0);
 		alphaAnimation.setAnimationListener(new AnimationListener() {
+			
+			@Override
+			public void onAnimationStart(Animation animation) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				// TODO Auto-generated method stub
+				new Handler().postDelayed(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						view.clearAnimation();
+						view.startAnimation(alphaAnimation2);
+					}
+				}, 500);
+				
+			}
+		});
+alphaAnimation2.setAnimationListener(new AnimationListener() {
 			
 			@Override
 			public void onAnimationStart(Animation animation) {

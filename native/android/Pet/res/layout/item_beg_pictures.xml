@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:gravity="center_horizontal">
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="5dp">
+        <ImageView 
+            android:id="@+id/beg_picture"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/bug"
+            android:layout_marginLeft="10dp"
+            android:scaleType="centerCrop"/>
+        <TextView 
+            android:id="@+id/food_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/orange_red1"
+            android:textSize="16sp"
+            android:text="已挣得口粮：5903份"
+            android:layout_toRightOf="@+id/beg_picture"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="8dp"/>
+        <TextView 
+            android:id="@+id/des_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_above="@+id/time_tv"
+            android:text="饭后蕉蕉，一沓，每次两粒，绞架益达，饭后蕉蕉，一沓，每次两粒，绞架益达"
+            android:layout_toRightOf="@+id/beg_picture"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@+id/food_num"
+            android:layout_marginRight="8dp"/>
+        <TextView 
+            android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#7a7a7a"
+            android:textSize="14sp"
+            android:text="一小时前"
+            android:layout_marginLeft="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="8dp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+    <!-- 赏tab -->
+    <RelativeLayout 
+        android:layout_width="270dp"
+        android:visibility="visible"
+        android:layout_height="74dp"
+        
+         android:layout_marginBottom="-10dp"
+        android:id="@+id/reward_layout"><!-- 330dp 84dp-->
+                <RelativeLayout 
+                     android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/beg_food_tab"
+        
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="6dp"
+        android:id="@+id/reward_layout2"><!--android:layout_centerHorizontal="true"  -->
+                <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/exchange_food_gray"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dp"
+                />
+        <LinearLayout 
+            android:id="@+id/show_more_num_layout"
+           
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            
+            android:layout_centerInParent="true">
+                <TextView 
+                android:id="@+id/give_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="1"
+                android:gravity="center"
+                android:textSize="20sp"/>
+           
+            <ImageView 
+                android:id="@+id/more_give_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back_white"
+                android:rotation="180"/>
+        </LinearLayout>
+    </RelativeLayout>
+               <ImageView
+                android:id="@+id/give_food_tv" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/give_heart"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                android:scaleType="fitXY"
+                android:layout_toRightOf="@+id/reward_layout2"
+                android:layout_marginLeft="-48dp"/>
+               
+               </RelativeLayout>
+   
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="#b9b9b9"/>
+    
+
+</LinearLayout>

@@ -45,6 +45,8 @@ public class XListViewFooter extends LinearLayout {
 			mHintView.setText(R.string.xlistview_footer_hint_ready);
 		} else if (state == STATE_LOADING) {
 			mProgressBar.setVisibility(View.VISIBLE);
+			mHintView.setVisibility(View.VISIBLE);
+			mHintView.setText(R.string.xlistview_header_hint_loading);
 		} else {
 			mHintView.setVisibility(View.VISIBLE);
 			mHintView.setText(R.string.xlistview_footer_hint_normal);

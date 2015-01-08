@@ -62,9 +62,9 @@ public class ChoseStarActivity extends Activity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				final String url=HttpUtil.downloadWelcomeImage(null,ChoseStarActivity.this);
+//				final String url=HttpUtil.downloadWelcomeImage(null,ChoseStarActivity.this);
 				ImageLoader imageLoader=ImageLoader.getInstance();
-				imageLoader.loadImage(Constants.WELCOME_IMAGE+url,new ImageLoadingListener() {
+				imageLoader.loadImage(Constants.WELCOME_IMAGE+"home.jpg"/*url*/,new ImageLoadingListener() {
 					
 					@Override
 					public void onLoadingStarted(String imageUri, View view) {
@@ -78,7 +78,7 @@ public class ChoseStarActivity extends Activity {
 						// TODO Auto-generated method stub
 						LogUtil.i("me","下载欢迎图片  失败"+imageUri);
 						Intent intent=new Intent(ChoseStarActivity.this,FirstPageActivity.class);
-						intent.putExtra("url", url);
+						intent.putExtra("url", /*url*/"home.jpg");
 						ChoseStarActivity.this.startActivity(intent);
 //						ChoseStarActivity.this.finish();
 					}
@@ -87,7 +87,7 @@ public class ChoseStarActivity extends Activity {
 					public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
 						// TODO Auto-generated method stub
 						Intent intent=new Intent(ChoseStarActivity.this,FirstPageActivity.class);
-						intent.putExtra("url", url);
+						intent.putExtra("url", /*url*/"home.jpg");
 						ChoseStarActivity.this.startActivity(intent);
 //						ChoseStarActivity.this.finish();
 						new Thread(new Runnable() {
@@ -115,7 +115,7 @@ public class ChoseStarActivity extends Activity {
 						// TODO Auto-generated method stub
 						LogUtil.i("me","下载欢迎图片  取消"+imageUri);
 						Intent intent=new Intent(ChoseStarActivity.this,FirstPageActivity.class);
-						intent.putExtra("url", url);
+						intent.putExtra("url", /*url*/"home.jpg");
 						ChoseStarActivity.this.startActivity(intent);
 //						ChoseStarActivity.this.finish();
 					}

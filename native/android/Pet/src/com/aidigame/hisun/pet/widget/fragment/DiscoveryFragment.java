@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
@@ -65,13 +66,13 @@ import com.aidigame.hisun.pet.service.BlurImageBroadcastReceiver;
 import com.aidigame.hisun.pet.ui.AlbumPictureBackground;
 import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1;
 import com.aidigame.hisun.pet.ui.HomeActivity;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
+import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
 import com.aidigame.hisun.pet.ui.PlayGameActivity;
 import com.aidigame.hisun.pet.ui.PopularRankListActivity;
 import com.aidigame.hisun.pet.ui.ShakeActivity;
 import com.aidigame.hisun.pet.ui.TakePictureBackground;
 import com.aidigame.hisun.pet.ui.TouchActivity;
-import com.aidigame.hisun.pet.ui.UserDossierActivity;
+import com.aidigame.hisun.pet.ui.UserCardActivity;
 import com.aidigame.hisun.pet.ui.UsersListActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.ImageUtil;
@@ -368,6 +369,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 		   searchLayout=(LinearLayout)menuView.findViewById(R.id.search_llayout);
 		   tabLayout=(LinearLayout)menuView.findViewById(R.id.tab_llayout);
 		   searchListview=(XListView)menuView.findViewById(R.id.listview);
+		   searchListview.setSelector(new BitmapDrawable());
 		   searchIv.setOnClickListener(this);
 		   searchOrCancelTv.setOnClickListener(this);
 		   spinnerTv.setOnClickListener(this);
@@ -428,26 +430,23 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 				Object o=parent.getItemAtPosition(position);
 				if(o instanceof User){
 					User u=(User)o;
-					if(UserDossierActivity.userDossierActivity!=null){
-						if(UserDossierActivity.userDossierActivity.loadedImage1!=null&&!UserDossierActivity.userDossierActivity.loadedImage1.isRecycled()){
-							UserDossierActivity.userDossierActivity.loadedImage1.recycle();
-							UserDossierActivity.userDossierActivity.loadedImage1=null;
-						}
-						UserDossierActivity.userDossierActivity.finish();
+					if(UserCardActivity.userCardActivity!=null){
+						
+						UserCardActivity.userCardActivity.finish();
 					}
-					Intent intent=new Intent(homeActivity,UserDossierActivity.class);
+					Intent intent=new Intent(homeActivity,UserCardActivity.class);
 					intent.putExtra("user", u);
 					homeActivity.startActivity(intent);
 				}else{
 					Animal a=(Animal)o;
-					if(PetKingdomActivity.petKingdomActivity!=null){
-						if(PetKingdomActivity.petKingdomActivity.loadedImage1!=null&&!PetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
-							PetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
-							PetKingdomActivity.petKingdomActivity.loadedImage1=null;
+					if(NewPetKingdomActivity.petKingdomActivity!=null){
+						if(NewPetKingdomActivity.petKingdomActivity.loadedImage1!=null&&!NewPetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
+							NewPetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
+							NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
 						}
-						PetKingdomActivity.petKingdomActivity.finish();
+						NewPetKingdomActivity.petKingdomActivity.finish();
 					}
-					Intent intent=new Intent(homeActivity,PetKingdomActivity.class);
+					Intent intent=new Intent(homeActivity,NewPetKingdomActivity.class);
 					intent.putExtra("animal", a);
 					homeActivity.startActivity(intent);
 				}
@@ -527,7 +526,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 			LogUtil.i("me","home_right_layout点击事件");
 			break;
 		case R.id.search_iv:
-			if(!showSearch){
+			if(/*!showSearch*/true){
 				showSearch=true;
 				tabLayout.setVisibility(View.INVISIBLE);
 				searchLayout.setVisibility(View.VISIBLE);
@@ -539,7 +538,8 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 				searchInputEt.setSelection(0);
 				InputMethodManager im=(InputMethodManager)homeActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
 				im.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-			}else{
+				
+			}/*else{
 				showSearch=false;
 				tabLayout.setVisibility(View.VISIBLE);
 				searchLayout.setVisibility(View.INVISIBLE);
@@ -548,7 +548,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 				InputMethodManager im=(InputMethodManager)homeActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
 				if(im.isActive())
 				im.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-			}
+			}*/
 			
 			break;
 		case R.id.searchOrCancelTv:
@@ -558,6 +558,21 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 					Toast.makeText(homeActivity, "正在搜索，请稍后", Toast.LENGTH_LONG).show();
 					return;
 				}
+				
+				/*if(homeActivity.getWindow().getAttributes().softInputMode==WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+
+				 {
+				 //隐藏软键盘
+				 homeActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+				 homeActivity.getWindow().getAttributes().softInputMode=WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED;
+					
+				 }*/
+				InputMethodManager im=(InputMethodManager)homeActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+				boolean flag=im.isActive();
+//				im.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+				im.hideSoftInputFromWindow(searchInputEt.getWindowToken(), 0);
+			    
+			
 				searchPetOrUser(false);
 				aid=-1;
 				page=0;
@@ -567,6 +582,10 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 				searchIv.setVisibility(View.VISIBLE);
 				viewPager.setVisibility(View.VISIBLE);
 				searchListview.setVisibility(View.INVISIBLE);
+				InputMethodManager im=(InputMethodManager)homeActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+				boolean flag=im.isActive();
+//				im.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+				im.hideSoftInputFromWindow(searchInputEt.getWindowToken(), 0);
 			}
 			break;
 		case R.id.title_tv:
@@ -594,6 +613,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 				InputMethodManager im=(InputMethodManager)homeActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
 				if(im.isActive())
 				im.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+				
 			}
 			
 			
@@ -634,6 +654,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 	 */
 	private void searchPetOrUser(boolean isMore) {
 		// TODO Auto-generated method stub
+		
 	    if(!isMore){
 	    	name=searchInputEt.getEditableText().toString();
 			if(StringUtil.isEmpty(name)){
@@ -656,6 +677,11 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 	    	
 	    	
 	    }
+	    if(showProgress!=null){
+			showProgress.showProgress();
+		}else{
+			showProgress=new ShowProgress(homeActivity, progressLayout);
+		}
 	    MobclickAgent.onEvent(homeActivity, "search");
 		isSearching=true;
         new Thread(new Runnable() {
@@ -670,7 +696,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-							
+							showProgress.progressCancel();
 							if(animals!=null){
 								searchListview.setVisibility(View.VISIBLE);
 								viewPager.setVisibility(View.INVISIBLE);
@@ -708,7 +734,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-							
+							showProgress.progressCancel();
 							if(users!=null){
 								searchListview.setVisibility(View.VISIBLE);
 								viewPager.setVisibility(View.INVISIBLE);

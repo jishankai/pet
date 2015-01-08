@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,7 +25,7 @@ import com.aidigame.hisun.pet.bean.PetNews;
 import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
+import com.aidigame.hisun.pet.ui.PetTrendsActivity;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -37,11 +38,11 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 public class KingdomTrendsListAdapter extends BaseAdapter {
 	ArrayList<PetNews> list;
 	DisplayImageOptions displayImageOptions;//显示图片的格式
-	PetKingdomActivity context;
+	PetTrendsActivity context;
 	Animal animal;
 	ArrayList<Gift> giftList;
 	String lastJob;
-	public KingdomTrendsListAdapter(ArrayList<PetNews> list,PetKingdomActivity context,Animal animal){
+	public KingdomTrendsListAdapter(ArrayList<PetNews> list,PetTrendsActivity context,Animal animal){
 		this.list=list;
 		this.context=context;
 		BitmapFactory.Options options=new BitmapFactory.Options();
@@ -338,7 +339,7 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				context.clickItem3();
+//				context.clickItem3();
 			}
 		});
 		holder.playWithIV.setOnClickListener(new OnClickListener() {
@@ -346,7 +347,7 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				context.clickItem4();
+//				context.clickItem4();
 			}
 		});
 		

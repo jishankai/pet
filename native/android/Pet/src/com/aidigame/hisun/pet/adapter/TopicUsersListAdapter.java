@@ -24,7 +24,7 @@ import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.bean.PetPicture.Comments;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
-import com.aidigame.hisun.pet.ui.UserDossierActivity;
+import com.aidigame.hisun.pet.ui.UserCardActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
@@ -59,9 +59,15 @@ public class TopicUsersListAdapter extends BaseAdapter {
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
 		        .decodingOptions(options)
                 .build();
+		if(this.users==null){
+			this.users=new ArrayList<User>();
+		}
 	}
 	public void update(ArrayList<User> users){
 		this.users=users;
+		if(this.users==null){
+			this.users=new ArrayList<User>();
+		}
 	}
 
 	@Override
@@ -160,7 +166,7 @@ public class TopicUsersListAdapter extends BaseAdapter {
 		@Override
 		public boolean onSingleTapUp(MotionEvent arg0) {
 			// TODO Auto-generated method stub
-				if(UserDossierActivity.userDossierActivity!=null){
+				/*if(UserDossierActivity.userDossierActivity!=null){
 					if(UserDossierActivity.userDossierActivity.loadedImage1!=null&&!UserDossierActivity.userDossierActivity.loadedImage1.isRecycled()){
 						UserDossierActivity.userDossierActivity.loadedImage1.recycle();
 						UserDossierActivity.userDossierActivity.loadedImage1=null;
@@ -173,7 +179,11 @@ public class TopicUsersListAdapter extends BaseAdapter {
 				}
 				Intent intent=new Intent(context,UserDossierActivity.class);
 				intent.putExtra("user", user);
-				context.startActivity(intent);
+				context.startActivity(intent);*/
+			Intent intent=new Intent(context,UserCardActivity.class);
+			intent.putExtra("user", user);
+			intent.putExtra("from", 1);
+			context.startActivity(intent);
 			return true;
 		}
 		

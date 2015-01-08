@@ -33,8 +33,7 @@ import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.http.json.UserImagesJson.Data;
 import com.aidigame.hisun.pet.ui.ChatActivity;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
-import com.aidigame.hisun.pet.ui.UserDossierActivity;
+import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -137,7 +136,7 @@ public class AnimalsListAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Animal animal=list.get(position);
-				Intent intent=new Intent(context,PetKingdomActivity.class);
+				Intent intent=new Intent(context,NewPetKingdomActivity.class);
 				intent.putExtra("animal", animal);
 				context.startActivity(intent);
 			

@@ -25,8 +25,9 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
 import com.aidigame.hisun.pet.ui.ChoseKingActivity;
+import com.aidigame.hisun.pet.ui.DialogNoteActivity;
+import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.ui.NewRegisterActivity;
-import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.view.RoundImageView;
 import com.aidigame.hisun.pet.widget.fragment.DialogNote;
@@ -181,10 +182,11 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 					}
 					
 					if(Constants.user.coinCount<num){
-						/*Intent intent=new Intent(homeActivity,ChoseAcountTypeActivity.class);
-						intent.putExtra("from", 1);
-						homeActivity.startActivity(intent);*/
-						DialogNote dialog=new DialogNote(context.popupParent, context, context.black_layout, 1);
+//						DialogNote dialog=new DialogNote(context.popupParent, context, context.black_layout, 1);
+						Intent intent=new Intent(context,DialogNoteActivity.class);
+						intent.putExtra("mode", 10);
+						intent.putExtra("info", "钱包君告急！挣够金币再来捧萌星吧");
+						context.startActivity(intent);
 					}else{
 					
 					
@@ -195,8 +197,8 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 						public void getResult(boolean isSuccess) {
 							// TODO Auto-generated method stub
 							if(isSuccess){
-								if(UserDossierActivity.userDossierActivity!=null){
-									UserDossierActivity.userDossierActivity.addNewKingdom();
+								if(HomeActivity.homeActivity!=null&&HomeActivity.homeActivity.myPetFragment!=null){
+									HomeActivity.homeActivity.myPetFragment.homeMyPet.refresh();
 								}
 								context.finish();
 								if(ChoseAcountTypeActivity.choseAcountTypeActivity!=null)ChoseAcountTypeActivity.choseAcountTypeActivity.finish();

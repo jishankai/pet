@@ -129,7 +129,7 @@
             android:id="@+id/pet_icon"
             android:layout_width="46dp"
             android:layout_height="46dp"
-            android:src="@drawable/bug"
+            android:src="@drawable/pet_icon"
             android:layout_alignParentRight="true"
             android:layout_marginTop="4dp"
             android:layout_marginRight="28.5dp"

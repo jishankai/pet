@@ -19,7 +19,7 @@ import com.aidigame.hisun.pet.ui.MessageActivity;
 import com.aidigame.hisun.pet.ui.MyItemActivity;
 import com.aidigame.hisun.pet.ui.PlayGameActivity;
 import com.aidigame.hisun.pet.ui.SetupActivity;
-import com.aidigame.hisun.pet.ui.UserDossierActivity;
+import com.aidigame.hisun.pet.ui.UserCardActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -146,6 +146,8 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 			Intent intent1=new Intent(homeActivity,MessageActivity.class);
 			homeActivity.startActivity(intent1);
 			messageNumTv.setVisibility(View.INVISIBLE);
+			
+			
 			break;
 		case R.id.market_layout:
 			if(MarketActivity.marketActivity!=null){
@@ -214,7 +216,7 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 					
 					return;
 				}
-			if(UserDossierActivity.userDossierActivity!=null){
+			/*if(UserDossierActivity.userDossierActivity!=null){
 				if(UserDossierActivity.userDossierActivity.loadedImage1!=null&&!UserDossierActivity.userDossierActivity.loadedImage1.isRecycled()){
 					UserDossierActivity.userDossierActivity.loadedImage1.recycle();
 				}
@@ -223,7 +225,10 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 			}
 			Intent intent=new Intent(homeActivity,UserDossierActivity.class);
 			intent.putExtra("user",Constants.user);
-			homeActivity.startActivity(intent);
+			homeActivity.startActivity(intent);*/
+			 Intent intent=new Intent(homeActivity,UserCardActivity.class);
+				intent.putExtra("user",Constants.user);
+				homeActivity.startActivity(intent);
 			break;
 		case R.id.setup_iv:
 			if(SetupActivity.setupActivity!=null){
@@ -261,11 +266,12 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 			}else{
 				goldNumTv.setText("0");
 			}
+			getNewsNum();
 		}else{
 			goldLayout.setVisibility(View.GONE);
 			loginTv.setVisibility(View.VISIBLE);
 		}
-		getNewsNum();
+		
 	}
 	public void loadIcon(){
 BitmapFactory.Options options=new BitmapFactory.Options();

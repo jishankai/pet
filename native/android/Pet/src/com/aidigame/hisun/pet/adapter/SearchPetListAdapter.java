@@ -21,7 +21,6 @@ import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserJson;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;

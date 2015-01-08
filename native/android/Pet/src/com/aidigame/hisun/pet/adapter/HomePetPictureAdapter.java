@@ -45,10 +45,11 @@ import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
+import com.aidigame.hisun.pet.ui.DialogNoteActivity;
 import com.aidigame.hisun.pet.ui.HomeActivity;
+import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
-import com.aidigame.hisun.pet.ui.UserDossierActivity;
+import com.aidigame.hisun.pet.ui.UserCardActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
@@ -236,7 +237,11 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 							}
 							
 							if(Constants.user.coinCount<num){
-								DialogNote dialog=new DialogNote(HomeActivity.homeActivity.discoveryFragment.popupParent, HomeActivity.homeActivity, HomeActivity.homeActivity.discoveryFragment.black_layout, 1);
+//								DialogNote dialog=new DialogNote(HomeActivity.homeActivity.discoveryFragment.popupParent, HomeActivity.homeActivity, HomeActivity.homeActivity.discoveryFragment.black_layout, 1);
+								Intent intent=new Intent(context,DialogNoteActivity.class);
+								intent.putExtra("mode", 10);
+								intent.putExtra("info", "钱包君告急！挣够金币再来捧萌星吧");
+								context.startActivity(intent);
 								return;
 						}
 						
@@ -337,14 +342,14 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(PetKingdomActivity.petKingdomActivity!=null){
-					if(PetKingdomActivity.petKingdomActivity.loadedImage1!=null&&!PetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
-						PetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
+				if(NewPetKingdomActivity.petKingdomActivity!=null){
+					if(NewPetKingdomActivity.petKingdomActivity.loadedImage1!=null&&!NewPetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
+						NewPetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
 					}
-					PetKingdomActivity.petKingdomActivity.loadedImage1=null;
-					PetKingdomActivity.petKingdomActivity.finish();
+					NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
+					NewPetKingdomActivity.petKingdomActivity.finish();
 				}
-				Intent intent=new Intent(context,PetKingdomActivity.class);
+				Intent intent=new Intent(context,NewPetKingdomActivity.class);
 				intent.putExtra("animal",data);
 				context.startActivity(intent);
 			}
@@ -354,7 +359,7 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					if(UserDossierActivity.userDossierActivity!=null){
+					/*if(UserDossierActivity.userDossierActivity!=null){
 						if(UserDossierActivity.userDossierActivity.loadedImage1!=null&&!UserDossierActivity.userDossierActivity.loadedImage1.isRecycled()){
 							UserDossierActivity.userDossierActivity.loadedImage1.recycle();
 						}
@@ -365,6 +370,12 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 					user.userId=data.master_id;
 					user.u_iconUrl=data.u_tx;
 					Intent intent=new Intent(context,UserDossierActivity.class);
+					intent.putExtra("user",user);
+					context.startActivity(intent);*/
+					User user=new User();
+					user.userId=data.master_id;
+					user.u_iconUrl=data.u_tx;
+					Intent intent=new Intent(context,UserCardActivity.class);
 					intent.putExtra("user",user);
 					context.startActivity(intent);
 				}

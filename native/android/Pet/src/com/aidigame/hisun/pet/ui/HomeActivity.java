@@ -1,5 +1,10 @@
 package com.aidigame.hisun.pet.ui;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.aidigame.hisun.pet.FirstPageActivity;
 import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
@@ -18,6 +23,7 @@ import com.umeng.analytics.MobclickAgent;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.opengl.Visibility;
@@ -26,6 +32,7 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -82,11 +89,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		messageNumTv=(TextView)findViewById(R.id.message_tv);
 		handler=HandleHttpConnectionException.getInstance().getHandler(this);
 		homeActivity=this;
-		/*if(FirstPageActivity.firstPageActivity!=null){
-			ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-			am.moveTaskToFront(FirstPageActivity.firstPageActivity.getTaskId(), 0);
-			rootLayout.setVisibility(View.INVISIBLE);
-		}*/
+		
 		
 		
 		popupParent=findViewById(R.id.popup_parent);
@@ -99,8 +102,11 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		initBottomTab();
 		if(Constants.isSuccess){
 			getNewsNum();
+			
 		}
 	}
+
+
 
 
 	private void showHomeMyPetFragment() {
@@ -126,7 +132,18 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		FragmentManager  fm=getSupportFragmentManager();
 		FragmentTransaction ft=fm.beginTransaction();
 		ft.replace(R.id.fragment_framelayout, myPetFragment, "HOME_MY_PET");
+		 if(discoveryFragment!=null){
+	        	ft.remove(discoveryFragment);
+	        	
+	        	discoveryFragment=null;
+	        	
+			}
+	        if(begFoodFragment!=null){
+	        	ft.remove(begFoodFragment);
+	        	begFoodFragment=null;
+	        }
 		ft.commit();
+	    System.gc();
 		current_show=HOME_MY_PET;
 	}
 	private void showBegFoodFragment(){
@@ -135,10 +152,23 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		if(begFoodFragment==null){
 			begFoodFragment=new BegFoodFragment();
 		}
+		
 		FragmentManager fm=getSupportFragmentManager();
 		FragmentTransaction ft=fm.beginTransaction();
 		ft.replace(R.id.fragment_framelayout_beg, begFoodFragment, "HOME_BEG_FOOD");
+        if(discoveryFragment!=null){
+        	ft.remove(discoveryFragment);
+        	
+        	discoveryFragment=null;
+        	
+		}
+        if(myPetFragment!=null){
+        	ft.remove(myPetFragment);
+        	myPetFragment=null;
+        }
+		
 		ft.commit();
+		System.gc();
 		current_show=HOME_BEG_FOOD;
 	}
 	private void showUserCenterFragment(){
@@ -153,6 +183,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		FragmentTransaction ft=fm.beginTransaction();
 		ft.replace(R.id.fragment_framelayout_beg, userCenterFragment, "HOME_USER_CENTER");
 		ft.commit();
+		System.gc();
 		current_show=HOME_USER_CENTER;
 	}
 	/**
@@ -168,7 +199,18 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		FragmentManager  fm=getSupportFragmentManager();
 		FragmentTransaction ft=fm.beginTransaction();
 		ft.replace(R.id.fragment_framelayout, discoveryFragment, "HOME_DISCORY");
+		 if(myPetFragment!=null){
+	        	ft.remove(myPetFragment);
+	        	
+	        	myPetFragment=null;
+	        	
+			}
+	        if(begFoodFragment!=null){
+	        	ft.remove(begFoodFragment);
+	        	begFoodFragment=null;
+	        }
 		ft.commit();
+		System.gc();
 		current_show=HOME_DISCORY;
 	}
 	@Override
@@ -456,7 +498,6 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 							}
 						}).start();
 			}
-		 
-
+	
 	      
 }

@@ -19,7 +19,6 @@ import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
-import com.aidigame.hisun.pet.widget.XinlangShare;
 import com.example.android.bitmapfun.util.ImageCache;
 import com.example.android.bitmapfun.util.ImageFetcher;
 import com.example.android.bitmapfun.util.ImageWorker;
@@ -32,17 +31,21 @@ import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
 import com.umeng.socialize.media.SinaShareContent;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -100,7 +103,8 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 		UMWXHandler wxCircleHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
 		wxCircleHandler.setToCircle(true);
 		wxCircleHandler.addToSocialSDK();
-		
+		SinaSsoHandler  sinaSsoHandler=new SinaSsoHandler(this);
+		sinaSsoHandler.addToSocialSDK();
 		
 		
 		closeIv.setOnClickListener(this);
@@ -136,6 +140,8 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 				if(listener!=null){
 					listener.onClose();
 				}
+				iv.setImageDrawable(new BitmapDrawable());
+				System.gc();
 				finish();
 				break;
 			case R.id.weixin:
@@ -179,7 +185,7 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 			
 			final BitmapFactory.Options options=new BitmapFactory.Options();
 			options.inJustDecodeBounds=false;
-			options.inSampleSize=StringUtil.topicImageGetScaleByDPI(this);
+			options.inSampleSize=StringUtil.getScaleByDPI(this);
 			LogUtil.i("me", "照片详情页面Topic图片缩放比例"+StringUtil.topicImageGetScaleByDPI(this));
 			if(StringUtil.topicImageGetScaleByDPI(this)>=2){
 				options.inPreferredConfig=Bitmap.Config.ARGB_4444;
@@ -335,7 +341,43 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 				
 		   }
 		 public void xinlangShare(){
-			 if(!UserStatusUtil.hasXinlangAuth(this)){
+			 UserImagesJson.Data data=new UserImagesJson.Data();
+				data.path=path;
+				data.des="轻轻一点，免费赏粮！快把你每天的免费粮食赏给我家"+pp.animal.pet_nickName+"！#挣口粮# "+shareUrl+pp.img_id+"&to=webo"+"（分享自@宠物星球社交应用）";
+			
+		   	   SinaShareContent content=new SinaShareContent();
+		   	   content.setShareContent(data.des);
+		   	   UMImage umImage=new UMImage(Dialog6Activity.this, data.path);
+		   	  
+		   	   content.setShareImage(umImage);
+		   	   mController.setShareMedia(content);
+		   	   mController.postShare(Dialog6Activity.this, SHARE_MEDIA.SINA,new SnsPostListener() {
+		   		
+		   		@Override
+		   		public void onStart() {
+		   			// TODO Auto-generated method stub
+		   			
+		   		}
+		   		
+		   		@Override
+		   		public void onComplete(SHARE_MEDIA arg0, int eCode, SocializeEntity arg2) {
+		   			// TODO Auto-generated method stub
+		   			if (eCode == 200) {
+		                   Toast.makeText(Dialog6Activity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+		                  } else {
+		                       String eMsg = "";
+		                       if (eCode == -101){
+		                           eMsg = "没有授权";
+		                       }
+		                       Toast.makeText(Dialog6Activity.this, "分享失败[" + eCode + "] " + 
+		                                          eMsg,Toast.LENGTH_SHORT).show();
+		                  }
+		   		}
+		   	});
+			 
+			 
+			 
+		/*	 if(!UserStatusUtil.hasXinlangAuth(this)){
 					return;
 				}
 					UserImagesJson.Data data=new UserImagesJson.Data();
@@ -343,7 +385,17 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 					data.des="轻轻一点，免费赏粮！快把你每天的免费粮食赏给我家"+pp.animal.pet_nickName+"！#挣口粮# "+shareUrl+pp.img_id+"&to=webo"+"（分享自@宠物星球社交应用）";
 					if(UserStatusUtil.hasXinlangAuth(this)){
 						XinlangShare.sharePicture(data,this);
-					}
+					}*/
 		 }
+		 
+		 @Override
+		protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+			// TODO Auto-generated method stub
+			super.onActivityResult(requestCode, resultCode, data);
+			UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+	        if(ssoHandler != null){
+	           ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+	        }
+		}
 		
 }

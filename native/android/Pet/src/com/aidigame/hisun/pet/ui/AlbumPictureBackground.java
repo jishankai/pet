@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
@@ -116,6 +117,7 @@ public class AlbumPictureBackground extends Activity {
                 }
 			}
 			loadBitmap(data.getData());
+			
 			switch (mode) {
 			case MODE_REGISTER:
 				LogUtil.i("me", "msg.what================");

@@ -34,10 +34,21 @@ public class HandleHttpConnectionException {
 //	public static final int 
     private static HandleHttpConnectionException handleHttpConnectionException=new HandleHttpConnectionException();
     Context context;
+    public static long last_time=0;
     public Handler handler=new Handler(){
     	public void handleMessage(android.os.Message msg) {
     		switch (msg.what) {
 			case Network_Status_Error:
+				long now=System.currentTimeMillis();
+				if(last_time!=0){
+					if(10*60*1000>now-last_time){
+						
+						return;
+					}
+				}
+					last_time=now;
+				
+				
 				if(HomeActivity.homeActivity!=null){
 					Intent intent=new Intent(HomeActivity.homeActivity,DialogNoteActivity.class);
 					intent.putExtra("mode", 9);

@@ -15,17 +15,17 @@
         android:layout_marginTop="10dp"/>
     <TextView 
         android:id="@+id/register_tv"
-        android:layout_width="match_parent"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_red_button"
         android:text="没问题"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:textColor="@color/white"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:gravity="center"
         
         />
@@ -50,7 +50,7 @@
             android:id="@+id/note_tv1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:text="捧了人家可要对人家负责呀~"
             
             android:textColor="#7a7a7a"/>
@@ -58,7 +58,7 @@
              android:id="@+id/note_tv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_marginTop="5dp"
             android:lineSpacingExtra="3dp"
             android:text="一定要让TA成为宇宙中最闪亮的萌星~"
@@ -68,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:lineSpacingExtra="3dp"
             android:text="温馨提示：本次捧星会消耗您10个金币哦~"
             android:textColor="#7a7a7a"

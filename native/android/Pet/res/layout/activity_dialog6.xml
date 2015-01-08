@@ -66,12 +66,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
-            <TextView 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="已收到"
-                android:textColor="@color/orange_red1"
-                android:textSize="18sp"/>
             <ImageView 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,6 +78,28 @@
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/orange_red1"
                 android:textSize="20sp"/>
+             <LinearLayout 
+        android:id="@+id/time_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp">
+        <ImageView 
+            
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/clock"/>
+         <TextView 
+             android:id="@+id/time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="24:00:00"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/orange_red1"
+            android:textSize="20sp"/>
+    </LinearLayout>
             
         </LinearLayout>
     <LinearLayout 
@@ -114,37 +130,14 @@
             android:src="@drawable/dialog_go_register_xinlang"
             android:layout_marginLeft="20dp"/>
     </LinearLayout>
-    <LinearLayout 
-        android:id="@+id/time_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone"
-        android:layout_below="@+id/share_layout"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp">
-        <TextView 
-            
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="距下一次发布还剩"
-            android:textColor="@color/orange_red1"
-            android:textSize="14sp"/>
-         <TextView 
-             android:id="@+id/time_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="24:00:00"
-            android:textColor="@color/orange_red1"
-            android:textSize="14sp"/>
-    </LinearLayout>
+   
     <TextView 
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/orange_red1"
         android:textSize="12sp"
-        android:layout_below="@+id/time_layout"
+        android:layout_below="@+id/share_layout"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="每人每天都有免费赏粮机会快喊小伙伴一起打赏吧~"

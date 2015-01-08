@@ -9,6 +9,6 @@
     <string name="xlistview_header_hint_ready">松开刷新</string>
     <string name="xlistview_header_hint_loading">一大波萌星正在接近~</string>
     <string name="xlistview_header_last_time">上次更新时间：</string>
-    <string name="xlistview_footer_hint_normal">上拉刷新</string>
+    <string name="xlistview_footer_hint_normal"></string><!-- 上拉刷新 -->
     <string name="xlistview_footer_hint_ready">松开刷新</string>
 </resources>

@@ -31,6 +31,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
+import com.aidigame.hisun.pet.http.json.UserImagesJson.Data;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -49,23 +52,16 @@ import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.WeixinShare;
-import com.aidigame.hisun.pet.widget.XinlangShare;
 import com.aviary.android.feather.FeatherActivity;
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
-import com.sina.weibo.sdk.auth.WeiboAuth;
-import com.sina.weibo.sdk.auth.WeiboAuthListener;
-import com.sina.weibo.sdk.constant.WBConstants;
-import com.sina.weibo.sdk.exception.WeiboException;
-import com.sina.weibo.sdk.net.AsyncWeiboRunner;
-import com.sina.weibo.sdk.net.RequestListener;
-import com.sina.weibo.sdk.net.WeiboParameters;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.SinaShareContent;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 /**
@@ -411,38 +407,61 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 					info = info.replaceAll("\\s+", " ");
 					info.trim();
 					Bitmap bitmap=null;
-					if(new File(finalPath).length()>1024*1024*2){
+					if(new File(finalPath).length()>1024*1024*1){
+						BitmapFactory.Options options=new BitmapFactory.Options();
+						options.inSampleSize=2;
+						bitmap=BitmapFactory.decodeFile(finalPath,options);
+					}else if(new File(finalPath).length()>1024*512*1){
 						BitmapFactory.Options options=new BitmapFactory.Options();
 						options.inSampleSize=2;
 						bitmap=BitmapFactory.decodeFile(finalPath,options);
 					}
 					
-				
+				  
 					
 					FileOutputStream fos=null;
 					FileOutputStream fos1=null;
 					try {
 						String path2=null;
-						if(bitmap!=null){
-							String path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
-							fos = new FileOutputStream(new File(path));
-							if(new File(finalPath).length()>1024*1024*2){
-								bitmap.compress(CompressFormat.JPEG, 90, fos);
+						boolean canCompress=true;
+						if(bitmap==null){
+							canCompress=false;
+							BitmapFactory.Options options=new BitmapFactory.Options();
+							if(new File(finalPath).length()>1024*1024*1){
+								options.inSampleSize=2;
 							}else{
-								bitmap.compress(CompressFormat.JPEG, 90, fos);
+								options.inSampleSize=2;
 							}
-							try {
-								Thread.sleep(100);
-							} catch (InterruptedException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+							
+							bitmap=BitmapFactory.decodeFile(finalPath,options);
+						}
+						if(bitmap!=null){
+							if(canCompress){
+								String path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
+								fos = new FileOutputStream(new File(path));
+								
+//									if(new File(finalPath).length()>1024*1024*1){
+										bitmap.compress(CompressFormat.JPEG, 90, fos);
+//									}else{
+//										bitmap.compress(CompressFormat.JPEG, 90, fos);
+//									}
+									try {
+										Thread.sleep(100);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								File file=new File(path);
+								path2=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"@"+file.length()+"@_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
+								file.renameTo(new File(path2));
+							}else{
+								File file=new File(finalPath);
+								path2=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"@"+file.length()+"@_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
+								file.renameTo(new File(path2));
 							}
-							File file=new File(path);
-							path2=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"@"+file.length()+"@_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
-							file.renameTo(new File(path2));
 						}
 						
-					
+						
 					
 					
 					
@@ -488,47 +507,8 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 						 
 						 
 						 if(sendToXinlang){
-							 boolean hasAuth=false;
-							 
-							 
-							 if(Constants.accessToken==null){
-									SharedPreferences sPreferences=getSharedPreferences("setup", Context.MODE_WORLD_WRITEABLE);
-									String token=sPreferences.getString("xinlangToken", null);
-									if(token!=null){
-										Oauth2AccessToken accessToken=Oauth2AccessToken.parseAccessToken(token);
-										if(accessToken!=null){
-											if(accessToken.isSessionValid()){
-												Constants.accessToken=accessToken;
-												hasAuth=true;
-											}
-										}
-									 }
-							  }else{
-								  if(Constants.accessToken.isSessionValid()){
-										hasAuth=true;
-								  }
-							  }
-							 if(hasAuth){
-								 Constants.shareMode=2;
-								 if(StringUtil.isEmpty(petPicture.cmt)){
-									 data.des=(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"分享照片http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
-								 }else{
-									 data.des=petPicture.cmt+(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
-								 }
-								 
-								 XinlangShare.sharePicture(data,SubmitPictureActivity.this);
-								 addShares(false);
-							 }else{
-								 if(StringUtil.isEmpty(petPicture.cmt)){
-									 data.des=(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"分享照片http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
-								 }else{
-									 data.des=petPicture.cmt+(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
-								 }
-								 xinlangAuth(SubmitPictureActivity.this,data,petPicture2);
-								
-								 return;
-							 }
-						 }
+							 xinlangShare(data);
+						 }else
 						 if(sendToWeixin){
 							 friendShare(data);
 						 }else{
@@ -559,6 +539,8 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 					}
 					
 				}
+
+				
 			}).start();
 			
 //			this.finish();
@@ -632,155 +614,65 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 		LogUtil.i("me", "uri="+uri.toString()+",path="+path);
 		if(uri==null)return;
 		Cursor cursor=getContentResolver().query(uri, null, null, null, null);
+		int w=Constants.screen_width-getResources().getDimensionPixelSize(R.dimen.one_dip)*20;
 		if(cursor!=null){
 			cursor.moveToFirst();
 			String path=cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA));
 			BitmapFactory.Options options=new BitmapFactory.Options();
 			options.inSampleSize=2;
+			options.inJustDecodeBounds=true;
 			Bitmap bitmap=BitmapFactory.decodeFile(path,options);
 			Matrix matrix=new Matrix();
-			
 			submitBt.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+			RelativeLayout.LayoutParams param=(RelativeLayout.LayoutParams)imageView.getLayoutParams();
+			if(param==null){
+				param=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+			}
+			
+			param.height=(int)(w*1f/options.outWidth*1f*options.outHeight);
+			imageView.setLayoutParams(param);
+			/*submitBt.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
 			float scale=submitBt.getMeasuredWidth()/(bitmap.getWidth()*1f);
 			matrix.postScale(scale, scale);
-//			bitmap=Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(),matrix,true);
+			bitmap=Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(),matrix,true);*/
+			
+			options.inJustDecodeBounds=false;
+			bitmap=BitmapFactory.decodeFile(path,options);
 			imageView.setImageBitmap(bitmap);
 			finalPath=path;
 			cursor.close();
 		}else{
 			String path=uri.getPath();
 			if(!StringUtil.isEmpty(path)){
+				finalPath=path;
 				BitmapFactory.Options options=new BitmapFactory.Options();
-				options.inSampleSize=1;
-				if(new File(finalPath).length()>1024*1024){
-					options.inSampleSize=2;
-				}
-				Bitmap bitmap=BitmapFactory.decodeFile(path);
+				options.inSampleSize=2;
+				
+				options.inJustDecodeBounds=true;
+				Bitmap bitmap=BitmapFactory.decodeFile(path,options);
 				Matrix matrix=new Matrix();
+				submitBt.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+				RelativeLayout.LayoutParams param=(RelativeLayout.LayoutParams)imageView.getLayoutParams();
+				if(param==null){
+					param=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
+				}
+				param.height=(int)(w*1f/options.outWidth*1f*options.outHeight);
+				imageView.setLayoutParams(param);
+				/*Matrix matrix=new Matrix();
 				
 				submitBt.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
 				float scale=submitBt.getMeasuredWidth()/(bitmap.getWidth()*1f);
 				matrix.postScale(scale, scale);
-//				bitmap=Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(),matrix,true);
+				bitmap=Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(),matrix,true);*/
+				if(new File(finalPath).length()>1024*1024){
+					options.inSampleSize=2;
+				}
+				options.inJustDecodeBounds=false;
+				bitmap=BitmapFactory.decodeFile(path,options);
 				imageView.setImageBitmap(bitmap);
 				finalPath=path;
 			}
 		}
-	}
-	public void xinlangAuth(final Activity context,final UserImagesJson.Data data,final PetPicture petPicture2){
-		runOnUiThread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				WeiboAuth weiboAuth=new WeiboAuth(context, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
-				weiboAuth.authorize(new WeiboAuthListener() {
-					
-					@Override
-					public void onWeiboException(WeiboException arg0) {
-						// TODO Auto-generated method stub
-						
-//							Toast.makeText(FirstPageActivity.this, "获取新浪微博授权 失败", Toast.LENGTH_LONG).show();;
-							LogUtil.i("exception", arg0.getMessage());
-							if(sendToWeixin){
-								friendShare(data);
-							 }else{
-								 over();
-							 }
-							return;
-					}
-					
-					@Override
-					public void onComplete(Bundle arg0) {
-						// TODO Auto-generated method stub
-						LogUtil.i("me", "授权code完毕");
-						if(arg0==null){
-							Toast.makeText(context, "获取新浪微博授权 失败", Toast.LENGTH_LONG).show();;
-							return;
-						};
-						String code=arg0.getString("code");
-						if(code==null){
-							Toast.makeText(context, "获取新浪微博授权 失败", Toast.LENGTH_LONG).show();;
-							return;
-						};;
-						WeiboParameters parameters=new WeiboParameters();
-						parameters.put(WBConstants.AUTH_PARAMS_CLIENT_ID,Constants.APP_KEY);
-						parameters.put(WBConstants.AUTH_PARAMS_CLIENT_SECRET, Constants.APP_SECRET);
-						parameters.put(WBConstants.AUTH_PARAMS_GRANT_TYPE,    "authorization_code");
-						parameters.put(WBConstants.AUTH_PARAMS_CODE,          code);
-						parameters.put(WBConstants.AUTH_PARAMS_REDIRECT_URL,  Constants.REDIRECT_URL);
-						//异步请求获取token
-						AsyncWeiboRunner.requestAsync(Constants.OAUTH2_ACCESS_TOKEN_URL, parameters, "POST", new RequestListener() {
-							
-							@Override
-							public void onWeiboException(WeiboException arg0) {
-								// TODO Auto-generated method stub
-								Toast.makeText(context, "获取新浪微博授权 失败", Toast.LENGTH_LONG).show();;
-								if(sendToWeixin){
-									friendShare(data);
-								}else{
-									 over();
-								 }
-							}
-							
-							@Override
-							public void onComplete(String arg0) {
-								// TODO Auto-generated method stub
-								if(arg0!=null){
-									/*
-									 * {"access_token":"2.00iDvQeF2RJa2Bd245f03f0fgRNORB","remind_in":"157679999",
-									 * "expires_in":157679999,"uid":"5175750186",
-									 * "scope":"follow_app_official_microblog"}
-									 */
-									Oauth2AccessToken accessToken=new Oauth2AccessToken(arg0);
-									LogUtil.i("me", ""+arg0);
-									if(accessToken!=null&&accessToken.isSessionValid()){
-										SharedPreferences sp=context.getSharedPreferences("setup", Context.MODE_WORLD_WRITEABLE);
-										Editor editor=sp.edit();
-										editor.putString("xinlangToken", arg0);
-										editor.commit();
-										Constants.accessToken=accessToken;
-										LogUtil.i("me", ""+arg0);
-										XinlangShare.getXinLangInfo(context);
-										Toast.makeText(context, "获取新浪微博授权成功", Toast.LENGTH_LONG).show();
-										Constants.shareMode=2;
-										XinlangShare.sharePicture(data,SubmitPictureActivity.this);
-										 
-									}else{
-										Toast.makeText(context, "获取新浪微博授权  失败", Toast.LENGTH_LONG).show();;
-									}
-								}else{
-									Toast.makeText(context, "获取新浪微博授权 失败", Toast.LENGTH_LONG).show();;
-								}
-								
-								if(sendToWeixin){
-									friendShare(data);
-								}else{
-									 over();
-								 }
-								
-							}
-							
-						});
-					}
-					
-					@Override
-					public void onCancel() {
-						// TODO Auto-generated method stub
-						Toast.makeText(context, "获取新浪微博授权 失败", Toast.LENGTH_LONG).show();
-						
-						if(sendToWeixin){
-							friendShare(data);
-						}else{
-							 over();
-						 }
-						
-						return;
-					}
-				}, WeiboAuth.OBTAIN_AUTH_CODE);
-			}
-		});
-		
 	}
 	public void addShares(boolean over1){
 		final boolean over=over1;
@@ -845,12 +737,54 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	   }
-	      
+	      private void xinlangShare(final Data data) {
+				// TODO Auto-generated method stub
+
+		   	   SinaShareContent sinaShareContent = new SinaShareContent();
+		   	   UMImage umImage=new UMImage(this, data.path);
+		   	sinaShareContent.setShareImage(umImage);
+//		   	   circleMedia.setTargetUrl("");
+		   	sinaShareContent.setShareContent(animal.pet_nickName);
+		   	   
+		   	   mController.setShareMedia(sinaShareContent);
+		   	   mController.postShare(this,SHARE_MEDIA.SINA,
+		   			   new SnsPostListener() {
+		              @Override
+		              public void onStart() {
+//		                  Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+		              }
+		              @Override
+		              public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
+		                   if (eCode == 200) {
+		                  	addShares(false);
+		                    Toast.makeText(SubmitPictureActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+		                   } else {
+		                	   over();
+		                        String eMsg = "";
+		                        if (eCode == -101){
+		                            eMsg = "没有授权";
+		                        }
+		                        Toast.makeText(SubmitPictureActivity.this, "分享失败[" + eCode + "] " + 
+		                                           eMsg,Toast.LENGTH_SHORT).show();
+		                   }
+		                   if(sendToWeixin){
+		                	   friendShare(data);
+		                   }else{
+		                	   over();
+		                   }
+		                   
+		                   
+		            }
+		   });
+		      
+			}
 	      public void friendShare(UserImagesJson.Data data){
 	   	   CircleShareContent circleMedia = new CircleShareContent();
 	   	   UMImage umImage=new UMImage(this, data.path);
 	   	   circleMedia.setShareImage(umImage);
 //	   	   circleMedia.setTargetUrl("");
+	   	circleMedia.setShareContent(animal.pet_nickName);
+	   	   
 	   	   mController.setShareMedia(circleMedia);
 	   	   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,
 	   			   new SnsPostListener() {

@@ -22,11 +22,13 @@ import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.ui.ChatActivity;
 import com.aidigame.hisun.pet.ui.ModifyPetInfoActivity;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
+import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.TakePictureBackground;
 import com.aidigame.hisun.pet.ui.TouchActivity;
 import com.aidigame.hisun.pet.ui.WarningDialogActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
+import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.widget.fragment.DialogNote;
 import com.aidigame.hisun.pet.widget.fragment.DialogJoinKingdom;
@@ -37,7 +39,9 @@ import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.SinaShareContent;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
@@ -73,6 +77,8 @@ public class ShowMore implements OnClickListener{
 		UMWXHandler wxCircleHandler = new UMWXHandler(activity,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
 		wxCircleHandler.setToCircle(true);
 		wxCircleHandler.addToSocialSDK();
+		SinaSsoHandler  sinaSsoHandler=new SinaSsoHandler(activity);
+		sinaSsoHandler.addToSocialSDK();
 		initView();
 		
 		initListener();
@@ -145,14 +151,16 @@ public class ShowMore implements OnClickListener{
 //			pictureOrMailTv.setText("拍照");
 			twoLayout.setVisibility(View.GONE);
 			oneLayout.setVisibility(View.GONE);
-			twoLayout2.setVisibility(View.VISIBLE);
+//			twoLayout2.setVisibility(View.VISIBLE);
+			twoLayout2.setVisibility(View.GONE);
 		}else{
 			/*
 			 * 其他人的王国
 			 */
 			oneLayout.setVisibility(View.GONE);
 			twoLayout2.setVisibility(View.GONE);
-			twoLayout.setVisibility(View.VISIBLE);
+//			twoLayout.setVisibility(View.VISIBLE);
+			twoLayout.setVisibility(View.GONE);
 			if(!animal.is_join){
 				joinTv.setBackgroundResource(R.drawable.button_green);
 				
@@ -347,8 +355,8 @@ public class ShowMore implements OnClickListener{
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-							if(activity instanceof PetKingdomActivity){
-								final PetKingdomActivity p=(PetKingdomActivity)activity;
+							if(activity instanceof NewPetKingdomActivity){
+								final NewPetKingdomActivity p=(NewPetKingdomActivity)activity;
 								DialogNote dialog=new DialogNote(p.popupParent, p, p.black_layout, 2);
 								dialog.setAnimal(animal);
 								dialog.setListener(new DialogNote.ResultListener() {
@@ -381,7 +389,7 @@ public class ShowMore implements OnClickListener{
 								focusTv.setText("取消关注");
 								animal.is_follow=true;
 								animal.followers++;
-								final PetKingdomActivity p=(PetKingdomActivity)activity;
+								final NewPetKingdomActivity p=(NewPetKingdomActivity)activity;
 								p.fansNum(animal.followers, true);
 							}
 						});
@@ -398,13 +406,13 @@ public class ShowMore implements OnClickListener{
 	private void joinkingdom() {
 		// TODO Auto-generated method stub
 		if(animal==null)return;
-		if(activity instanceof PetKingdomActivity){
-			final PetKingdomActivity p=(PetKingdomActivity)activity;
+		if(activity instanceof NewPetKingdomActivity){
+			final NewPetKingdomActivity p=(NewPetKingdomActivity)activity;
 			if(!animal.is_join){
 				/*
 				 * 退出王国
 				 */
-			if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()>=10&&PetKingdomActivity.petKingdomActivity!=null){
+			if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()>=10&&NewPetKingdomActivity.petKingdomActivity!=null){
 				int num=0;
 				if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
 					num=(Constants.user.aniList.size()+1)*5;
@@ -413,7 +421,7 @@ public class ShowMore implements OnClickListener{
 				}
 				
 				if(Constants.user.coinCount<num){
-					DialogNote dialog=new DialogNote(PetKingdomActivity.petKingdomActivity.popupParent, PetKingdomActivity.petKingdomActivity, PetKingdomActivity.petKingdomActivity.black_layout, 1);
+					DialogNote dialog=new DialogNote(NewPetKingdomActivity.petKingdomActivity.popupParent, NewPetKingdomActivity.petKingdomActivity, NewPetKingdomActivity.petKingdomActivity.black_layout, 1);
 					return;
 				}
 					
@@ -474,7 +482,6 @@ public class ShowMore implements OnClickListener{
 					boolean flag=WeixinShare.regToWeiXin(activity);
 					if(!flag){
 						Toast.makeText(activity,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
-						
 						return;
 					}
 				}
@@ -540,7 +547,8 @@ public class ShowMore implements OnClickListener{
 				parent.setVisibility(View.INVISIBLE);
 				rootParent.setBackgroundDrawable(null);
 				rootCanTouch=false;
-				if(!UserStatusUtil.hasXinlangAuth(activity)){
+				xinlangShare(sharePath);
+				/*if(!UserStatusUtil.hasXinlangAuth(activity)){
 					return;
 				}
 					UserImagesJson.Data data=new UserImagesJson.Data();
@@ -555,7 +563,7 @@ public class ShowMore implements OnClickListener{
 							data.des="我发现了一枚萌萌哒新伙伴"+user.u_nick+"，可以一起愉快的玩耍啦！http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
 						}
 						XinlangShare.sharePicture(data,activity);
-					}
+					}*/
 					parent.setVisibility(View.INVISIBLE);
 				
 			}
@@ -630,7 +638,49 @@ public class ShowMore implements OnClickListener{
 	   });
 	   		
 	      }
-	
+	      public void xinlangShare(String bmpPath){
+	   	   UserImagesJson.Data data=new UserImagesJson.Data();
+	   		if(bmpPath!=null){
+	   			data.path=bmpPath;
+	   			if(animal!=null){
+					Constants.whereShare=2;
+					data.des="雷达报告发现一只萌宠，火速围观！http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+				}else if(user!=null){
+					Constants.whereShare=3;
+					data.des="我发现了一枚萌萌哒新伙伴"+user.u_nick+"，可以一起愉快的玩耍啦！http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+				}
+	   		}
+	   	   SinaShareContent content=new SinaShareContent();
+	   	   content.setShareContent(data.des);
+	   	   UMImage umImage=new UMImage(activity, data.path);
+	   	  
+	   	   content.setShareImage(umImage);
+	   	   mController.setShareMedia(content);
+	   	   mController.postShare(activity, SHARE_MEDIA.SINA,new SnsPostListener() {
+	   		
+	   		@Override
+	   		public void onStart() {
+	   			// TODO Auto-generated method stub
+	   			
+	   		}
+	   		
+	   		@Override
+	   		public void onComplete(SHARE_MEDIA arg0, int eCode, SocializeEntity arg2) {
+	   			// TODO Auto-generated method stub
+	   			if (eCode == 200) {
+	                   Toast.makeText(activity, "分享成功.", Toast.LENGTH_SHORT).show();
+	                  } else {
+	                       String eMsg = "";
+	                       if (eCode == -101){
+	                           eMsg = "没有授权";
+	                       }
+	                       Toast.makeText(activity, "分享失败[" + eCode + "] " + 
+	                                          eMsg,Toast.LENGTH_SHORT).show();
+	                  }
+	   		}
+	   	});
+	   	   
+	      }
 	
 	boolean justShare=false;
 	public void onlyCanShare(){

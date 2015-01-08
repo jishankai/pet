@@ -67,12 +67,10 @@ import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
 import com.aidigame.hisun.pet.ui.ChoseStarActivity;
 import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1;
 import com.aidigame.hisun.pet.ui.HomeActivity;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.ui.PlayGameActivity;
 import com.aidigame.hisun.pet.ui.ShakeActivity;
 import com.aidigame.hisun.pet.ui.TakePictureBackground;
 import com.aidigame.hisun.pet.ui.TouchActivity;
-import com.aidigame.hisun.pet.ui.UserDossierActivity;
 import com.aidigame.hisun.pet.ui.UsersListActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.ImageUtil;
@@ -363,7 +361,7 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 				num=100;
 			}
 			
-			if(Constants.user.coinCount>=num){
+			if(/*Constants.user.coinCount>=num*/true){
 				Intent intent=new Intent(homeActivity,ChoseAcountTypeActivity.class);
 				intent.putExtra("from", 1);
 				homeActivity.startActivity(intent);

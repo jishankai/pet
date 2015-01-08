@@ -27,8 +27,8 @@ import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
+import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
@@ -220,8 +220,8 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 //                context.finish();
 				break;
 			case 2:
-				if(context instanceof PetKingdomActivity){
-					PetKingdomActivity p=(PetKingdomActivity)context;
+				if(context instanceof NewPetKingdomActivity){
+					NewPetKingdomActivity p=(NewPetKingdomActivity)context;
 					if(!UserStatusUtil.isLoginSuccess(context, p.popupParent, p.black_layout)){
 						return;
 					}

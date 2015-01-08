@@ -92,8 +92,7 @@ public class UsersListActivity extends Activity {
 				// TODO Auto-generated method stub
 //				if(!UserStatusUtil.isLoginSuccess(UsersListActivity.this,popup_parent,black_layout))return;
 				final User user=list.get(position);
-				if(UserDossierActivity.userDossierActivity!=null)UserDossierActivity.userDossierActivity.finish();
-				Intent intent=new Intent(UsersListActivity.this,UserDossierActivity.class);
+				Intent intent=new Intent(UsersListActivity.this,UserCardActivity.class);
 				intent.putExtra("user", user);
 				UsersListActivity.this.startActivity(intent);
 				UsersListActivity.this.finish();

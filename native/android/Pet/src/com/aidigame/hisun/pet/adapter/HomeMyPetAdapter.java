@@ -34,8 +34,8 @@ import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1;
 import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.ui.InviteOthersDialogActivity;
 import com.aidigame.hisun.pet.ui.MarketActivity;
+import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
 import com.aidigame.hisun.pet.ui.PlayGameActivity;
 import com.aidigame.hisun.pet.ui.ShakeActivity;
 import com.aidigame.hisun.pet.ui.TouchActivity;
@@ -219,26 +219,26 @@ public class HomeMyPetAdapter extends BaseAdapter {
 			if(Constants.user.aniList.contains(animal)){
 				if(Constants.user.userId==animal.master_id){
 					holder.biteIv.setImageResource(R.drawable.claw_touch1);
-					holder.biteTv.setText("摸一摸");
+					holder.biteTv.setText("萌印象");
 					if(animal.isVoiced==0){
-						holder.biteNumTv.setText("还未摸");
+						holder.biteNumTv.setText("没摸过");
 					}else{
-						holder.biteNumTv.setText("还未摸");
+						holder.biteNumTv.setText("摸过了");
 					}
 				}else{
 					holder.biteIv.setImageResource(R.drawable.claw_touch1);
-					holder.biteTv.setText("摸一摸");
+					holder.biteTv.setText("萌印象");
 					if(animal.touch_count==0){
-						holder.biteNumTv.setText("还未摸");
+						holder.biteNumTv.setText("没摸过");
 					}else{
-						holder.biteNumTv.setText("还未摸");
+						holder.biteNumTv.setText("摸过了");
 					}
 				}
 			}else{
 				holder.biteIv.setImageResource(R.drawable.claw_touch1);
-				holder.biteTv.setText("摸一摸");
+				holder.biteTv.setText("萌印象");
 				if(animal.touch_count==0){
-					holder.biteNumTv.setText("还未摸");
+					holder.biteNumTv.setText("没摸过");
 				}else{
 					holder.biteNumTv.setText("摸过了");
 				}
@@ -387,14 +387,14 @@ public class HomeMyPetAdapter extends BaseAdapter {
 			final Animal animal=animals.get(position);
 			switch (v.getId()) {
 			case R.id.pet_icon:
-				if(PetKingdomActivity.petKingdomActivity!=null){
-					if(PetKingdomActivity.petKingdomActivity.loadedImage1!=null&&!PetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
-						PetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
+				if(NewPetKingdomActivity.petKingdomActivity!=null){
+					if(NewPetKingdomActivity.petKingdomActivity.loadedImage1!=null&&!NewPetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
+						NewPetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
 					}
-					PetKingdomActivity.petKingdomActivity.loadedImage1=null;
-					PetKingdomActivity.petKingdomActivity.finish();
+					NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
+					NewPetKingdomActivity.petKingdomActivity.finish();
 				}
-				Intent intent=new Intent(context,PetKingdomActivity.class);
+				Intent intent=new Intent(context,NewPetKingdomActivity.class);
 				intent.putExtra("animal",animal);
 				context.startActivity(intent);
 				break;

@@ -1,5 +1,7 @@
 package com.aidigame.hisun.pet;
 
+import java.io.File;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
@@ -166,6 +168,10 @@ public class FirstPageActivity extends Activity{
 			}
 		});
 		
+		
+		
+		loadWelcomePage();
+		
 		String url=getIntent().getStringExtra("url");
 						BitmapFactory.Options options=new BitmapFactory.Options();
 						options.inJustDecodeBounds=false;
@@ -183,7 +189,52 @@ public class FirstPageActivity extends Activity{
 						        .decodingOptions(options)
 				                .build();
 						ImageLoader imageLoader=ImageLoader.getInstance();
-						imageLoader.displayImage(Constants.WELCOME_IMAGE+url, imageView,new ImageLoadingListener() {
+			
+			
+	}
+	
+	public void loadWelcomePage(){
+         new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				final String url=HttpUtil.downloadWelcomeImage(null,FirstPageActivity.this);
+				/*try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}*/
+				runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						foodNum.setText(""+Constants.Toatl_food);
+						petNum.setText(""+Constants.Toatl_animal);
+						ImageLoader imageLoader=ImageLoader.getInstance();
+						BitmapFactory.Options options=new BitmapFactory.Options();
+						options.inJustDecodeBounds=false;
+						options.inSampleSize=1;
+						options.inPreferredConfig=Bitmap.Config.RGB_565;
+						options.inPurgeable=true;
+						options.inInputShareable=true;
+						DisplayImageOptions displayImageOptions=new DisplayImageOptions
+					            .Builder()
+					            .showImageOnLoading(R.drawable.blur)
+						        .cacheInMemory(true)
+						        .cacheOnDisc(false)
+						        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
+						        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+						        .decodingOptions(options)
+				                .build();
+						File f=new File(Constants.Picture_Root_Path+File.separator+"imageloader"+File.separator+"cache"+File.separator+"150654825");
+						if(f.exists()){
+							f.delete();
+						}
+						
+						imageLoader.displayImage(Constants.WELCOME_IMAGE+/*url*/"home.jpg", imageView, displayImageOptions,new ImageLoadingListener() {
 							
 							@Override
 							public void onLoadingStarted(String imageUri, View view) {
@@ -196,20 +247,15 @@ public class FirstPageActivity extends Activity{
 									FailReason failReason) {
 								// TODO Auto-generated method stub
 								LogUtil.i("me","下载欢迎图片  失败"+imageUri);
-								
+								begLayout.setVisibility(View.VISIBLE);
+								imageView.setVisibility(View.GONE);
 							}
 							
 							@Override
-							public void onLoadingComplete(String imageUri, View view,final Bitmap loadedImage) {
+							public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
 								// TODO Auto-generated method stub
-								LogUtil.i("me","下载欢迎图片  完成"+imageUri+"imageview.getwidth="+imageView.getWidth()+",imageview.getheight=="+imageView.getHeight());
-								if(ChoseStarActivity.choseStarActivity!=null){
-									ChoseStarActivity.choseStarActivity.finish();
-									ChoseStarActivity.choseStarActivity=null;
-								}
 								
-								
-								handler.postDelayed(new Runnable() {
+                                    handler.postDelayed(new Runnable() {
 									
 									@Override
 									public void run() {
@@ -277,30 +323,19 @@ public class FirstPageActivity extends Activity{
 							public void onLoadingCancelled(String imageUri, View view) {
 								// TODO Auto-generated method stub
 								LogUtil.i("me","下载欢迎图片  取消"+imageUri);
-								/*Intent intent=new Intent(FirstPageActivity.this,NewHomeActivity.class);
-								FirstPageActivity.this.startActivity(intent);
-								FirstPageActivity.this.finish();*/
-								RelativeLayout.LayoutParams param=(RelativeLayout.LayoutParams)begLayout1.getLayoutParams();
-								if(param==null){
-									param=new RelativeLayout.LayoutParams(imageView.getWidth(), imageView.getHeight());
-								}
-								param.width=imageView.getWidth();
-								param.height=imageView.getHeight();
-								begLayout1.setLayoutParams(param);
 								begLayout.setVisibility(View.VISIBLE);
 								imageView.setVisibility(View.GONE);
-								if(HomeActivity.homeActivity!=null){
-									HomeActivity.homeActivity.rootLayout.setVisibility(View.VISIBLE);
-								}
-								if(ChoseStarActivity.choseStarActivity!=null){
-									ChoseStarActivity.choseStarActivity.finish();
-									ChoseStarActivity.choseStarActivity=null;
-								}
 							}
 						});
-//						imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+url, imageView);
+					}
+				});
+				
 			
+		}
+	}).start();
+	     
 	}
+	
 	/**
 	 * 
 	 * 登陆

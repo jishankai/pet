@@ -277,6 +277,92 @@ public class HttpUtil {
 			
 		return false;
 	}
+	public static ArrayList<PetPicture> petBegPicturesList(Handler handler, Animal animal,int page,Activity activity) {
+		String url = "http://" + Constants.PET_BEG_PICTURE_LIST;
+		DefaultHttpClient client = new DefaultHttpClient();
+		ArrayList<PetPicture> list=null;
+		String value="";
+		String SIG = null;
+		String param=null;
+			value = "aid="+animal.a_id+"&page="+page;
+			
+			SIG = getMD5Value(value);
+			param = ""+ animal.a_id
+					+ "&sig=" + SIG + "&SID=" + Constants.SID+"&page="+page;
+		LogUtil.i("me", "value" + value);
+		
+		
+		url = url + param;
+		HttpGet get = new HttpGet(url);
+		String result=connect(client, handler, get);
+			LogUtil.i("me", "修改信息url==" + url);
+			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
+				LogUtil.i("me", "修改信息返回结果==" + result);
+				  int status=handleResult(activity,result,handler);
+				  if(status==0){
+					 /*
+					  * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0.0","confVersion":"1.1",
+					  * "data":[[
+					  * {"img_id":"1941","url":"298_mmexport1419298263144.jpg",
+					  * "cmt":"\u7c73\u5708\u5708\u997f\u4e86\u3002\u6c42\u53e3\u7cae\u3002",
+					  * "food":"107","create_time":"1419685231"},
+					  * {"img_id":"1904","url":"298_-185116349a9c62a3.jpg",
+					  * "cmt":"\u5c3c\u739b\u65e9\u4e0a\u5730\u94c1\u5751\u7239\u554a\u3002\u6324\u6210\u8fd9\u6837\u4e86\uff01\u7ed9\u70b9\u53e3\u7cae\u5b89\u6170\u5b89\u6170\u5427",
+					  * "food":"6","create_time":"1419561381"},
+					  * {"img_id":"1814","url":"298_mmexport1419298240661.jpg",
+					  * "cmt":"\u4eca\u5929\u6211\u957f\u8fd9\u6837\u3002","food":"148","create_time":"1419386262"},
+					  * {"img_id":"1792","url":"298_mmexport1419298226062.jpg",
+					  * "cmt":"\u5feb\u70b9\u7ed9\u53e3\u7cae\uff01\u8be5\u6b7b\u6211\u7684\u8033\u6735\u3002\u3002\u3002",
+					  * "food":"2011","create_time":"1419299753"}
+					  * ]],"currentTime":1420012615}
+					  */
+					  
+					try {
+						JSONObject jo;
+						jo = new JSONObject(result);
+						String dataStr=jo.getString("data");
+						  if(!StringUtil.isEmpty(dataStr)&&!"[[]]".equals(dataStr)){
+							  JSONArray temp=jo.getJSONArray("data");
+							  if(temp!=null&&temp.length()>0){
+								  JSONArray ja=temp.getJSONArray(0);
+								  if(ja!=null){
+									  PetPicture pp=null;
+									  JSONObject jobj=null;
+									  list=new ArrayList<PetPicture>();
+									  for(int i=0;i<ja.length();i++){
+										  jobj=ja.getJSONObject(i);
+										  pp=new PetPicture();
+										  pp.img_id=jobj.getInt("img_id");
+										  pp.animal=animal;
+										  pp.url=jobj.getString("url");
+										  pp.cmt=jobj.getString("cmt");
+										  pp.foodNum=jobj.getLong("food");
+										  pp.create_time=jobj.getLong("create_time");
+										  list.add(pp);
+									  }
+									  return list;
+								  }
+							  }
+						  }	 
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						if(handler!=null)
+							handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
+					}
+					   
+					
+
+					  return list;
+				  }else if(status==1){
+					  return list;
+				  }else if(status==2){
+					  return petBegPicturesList(handler, animal, page, activity);
+				  }
+			}
+			
+		return list;
+	}
 	/**
 	 * 要口粮列表api
 	 * @param handler
@@ -1134,10 +1220,10 @@ public class HttpUtil {
 					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
 						  petPicture.animal.foodNum=jo.getJSONObject("data").getLong("food");
 						  Constants.user.coinCount=jo.getJSONObject("data").getInt("gold");
-						  Intent intent=new Intent(activity,DialogNoteActivity.class);
+						  /*Intent intent=new Intent(activity,DialogNoteActivity.class);
 						  intent.putExtra("mode", 8);
 					    	intent.putExtra("name", petPicture.animal.pet_nickName);
-					    	activity.startActivity(intent);
+					    	activity.startActivity(intent);*/
 							return true;
 					  }
 					  } catch (JSONException e) {
@@ -1821,8 +1907,6 @@ public class HttpUtil {
 	 * @param user
 	 */
 	public static boolean  login(Context context,Handler handler) {
-		if(Constants.accessToken!=null)
-		LogUtil.i("me", "新浪微博授权token:"+Constants.accessToken.getToken());
 		String uid =null;
 			uid = getIMEI(PetApplication.petApp);
 			Constants.IMIE=uid;
@@ -2182,12 +2266,15 @@ public class HttpUtil {
 		try {
 			String result = connect(client, handler, get);
             /*
-             * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
-             * "data":{"aid":"1000000188","name":"gcc","tx":"","gender":"2","from":"0",
-             * "type":"107","age":"5","master_id":"196",
-             * "t_rq":"0","u_name":"moon","u_tx":"","u_rank":"1",
-             * "fans":"1","followers":"0"},
-             * "currentTime":1409724781}
+             * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0.0","confVersion":"1.1",
+             * "data":{"aid":"298","name":"\u8bf7\u53eb\u6211\u7c73\u5708\u5708",
+             * "tx":"298_1414137295274_pet_icon.png","gender":"2",
+             * "from":"1","type":"124","age":"48","master_id":"304",
+             * "t_rq":"36824","msg":"\u5f00\u73a9\u800d\uff01",
+             * "u_name":"\u4e00\u53ea\u7490","u_tx":"304_1414137337872_usr_icon.png",
+             * "u_rank":"0","news":"721","fans":"80",
+             * "images":"75","total_food":"2272","gifts":"32",
+             * "followers":"88"},"currentTime":1420013316}
              */
 			LogUtil.i("me", "url" + url);
 			if(!StringUtil.isEmpty(result)&&!"null".equals(result)&&!"false".equals(result)){
@@ -2204,10 +2291,15 @@ public class HttpUtil {
 							  animal.pet_nickName=object.getString("name");
 							  animal.pet_iconUrl=object.getString("tx");
 							  animal.a_gender=object.getInt("gender");
+							  animal.imagesNum=object.getLong("images");
+							  animal.totalfoods=object.getLong("total_food");
+//							  animal.giftsNum=object.getLong("gifts");
+							  animal.newsNum=object.getLong("news");
 							  String aidStr=""+animal.a_id;
 							  animal.from=Integer.parseInt(aidStr.substring(0, 1));
 							  animal.type=object.getInt("type");
 							  animal.a_age=object.getInt("age");
+							  animal.announceStr=object.getString("msg");
 							  if(animal.a_age<=0)animal.a_age=1;
 							  animal.a_age_str=getAge(animal.a_age);
 							  
@@ -4189,7 +4281,8 @@ public class HttpUtil {
      */
     public static String uploadUserIcon(String path,final Activity activity,long aid) {
     	String TAG = "tx";
-
+            File fi=new File(path);
+            LogUtil.i("me", "头像大小"+fi.length());
 
     	     int TIME_OUT = 50 * 1000; // 超时时间
 
@@ -7208,6 +7301,9 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 					user.password=obj.getString("password");
 					user.weixin_id=obj.getString("wechat");
 					user.xinlang_id=obj.getString("weibo");
+					if(dataStr.contains("code")){
+						user.code=obj.getString("code");
+					}
 					if(dataStr.contains("food")){
 						user.food=obj.getInt("food");
 					}

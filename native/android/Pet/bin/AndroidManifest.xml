@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aidigame.hisun.pet"
-    android:versionCode="24"
-    android:versionName="1.1.0" >
+    android:versionCode="25"
+    android:versionName="1.1.1" >
 
     <uses-sdk
         android:minSdkVersion="12"
@@ -35,15 +35,15 @@
         android:theme="@style/AppTheme" >
         
         <!-- 百度定位服务 -->
-        <service
+      <!--   <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote">
-           <!--  <intent-filter>
+            <intent-filter>
                 <action android:name="com.baidu.location.service_v2.2" >
                 </action>
-            </intent-filter> -->
-        </service>
+            </intent-filter>
+        </service> -->
 
         <!-- meta-data需要写在application中 -->
         <meta-data
@@ -151,14 +151,12 @@
             android:theme="@android:style/Theme.Translucent"  -->
         </activity><!--  -->
         <activity android:name="com.aidigame.hisun.pet.FirstPageActivity"
-           
-           
              android:configChanges="keyboardHidden|orientation|navigation">
         <!-- android:theme="@android:style/Theme.Translucent"  -->
-                       <!--  <intent-filter >
+                        <intent-filter >
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter> -->
+            </intent-filter>
         </activity>
         <activity android:name="com.aidigame.hisun.pet.ui.ChoseClassActivity"
             android:theme="@android:style/Theme.Translucent"
@@ -182,12 +180,19 @@
                     <activity android:name="com.aidigame.hisun.pet.ui.MessageActivity"
             android:theme="@android:style/Theme.Translucent"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.PetFansActivity"
+            android:theme="@android:style/Theme.Translucent"
+             android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.BegPicturesActivity"
+            android:theme="@android:style/Theme.Translucent"
+            android:hardwareAccelerated="true"
+             android:configChanges="keyboardHidden|orientation|navigation"></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.ChoseStarActivity"
              android:configChanges="keyboardHidden|orientation|navigation">
-                        <intent-filter >
+                        <!-- <intent-filter >
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            </intent-filter> -->
                     </activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity"
              android:configChanges="keyboardHidden|orientation|navigation">
@@ -206,14 +211,26 @@
                     <activity android:name="com.aidigame.hisun.pet.ui.PetKingdomActivity"
              android:configChanges="keyboardHidden|orientation|navigation"
             ></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.NewPetKingdomActivity"
+                         
+             android:configChanges="keyboardHidden|orientation|navigation"
+            ></activity><!-- android:launchMode="singleInstance" -->
                     <activity android:name="com.aidigame.hisun.pet.ui.UserDossierActivity"
              android:configChanges="keyboardHidden|orientation|navigation"
              ></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.ExchangeActivity"
              android:configChanges="keyboardHidden|orientation|navigation"
              ></activity>
+                    <activity android:name="com.aidigame.hisun.pet.ui.PetTrendsActivity"
+             android:configChanges="keyboardHidden|orientation|navigation"
+             ></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.PlayGameActivity"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.PetGiftActivity"
+             android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.PetPicturesActivity"
+             android:configChanges="keyboardHidden|orientation|navigation"
+             android:hardwareAccelerated="true"></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.ActivityWebActivity"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.ReceiverAddressActivity"
@@ -257,6 +274,9 @@
                     <activity android:name="com.aidigame.hisun.pet.ui.ShakeActivity"
                         android:theme="@style/Theme.Transparent2"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.UserCardActivity"
+                        android:theme="@style/Theme.Transparent"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
                      <activity android:name="com.aidigame.hisun.pet.ui.DialogGoRegisterActivity"
                         android:theme="@style/Theme.Transparent2"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
@@ -278,7 +298,7 @@
                         android:theme="@style/Theme.Transparent"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                       <activity android:name="com.aidigame.hisun.pet.ui.DialogNoteActivity"
-                        android:theme="@style/Theme.Transparent1"
+                        android:theme="@style/Theme.Transparent3"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                       <activity android:name="com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity"
                         android:theme="@style/Theme.Transparent1"
@@ -340,8 +360,20 @@
         <activity android:name="com.umeng.fb.ContactActivity"
          android:theme="@android:style/Theme.NoTitleBar"/>
         <meta-data android:value="546ad32dfd98c57ed4006955" android:name="UMENG_APPKEY"></meta-data>
-        <meta-data android:value="qq" android:name="UMENG_CHANNEL"/>
+        <meta-data android:value="aidi" android:name="UMENG_CHANNEL"/>
         <!--  <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/> -->
+        <!-- 友盟分享弹窗 -->
+        <activity
+            android:name="com.umeng.socialize.view.ShareActivity"
+            android:configChanges="orientation|keyboard"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:theme="@style/Theme.UMDialog"
+            android:windowSoftInputMode="stateVisible|adjustResize" >
+        </activity>
+        
+        
+        
     </application>
 
 </manifest>

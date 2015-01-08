@@ -32,8 +32,7 @@ import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.http.json.UserImagesJson.Data;
 import com.aidigame.hisun.pet.ui.ChatActivity;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
-import com.aidigame.hisun.pet.ui.UserDossierActivity;
+import com.aidigame.hisun.pet.ui.UserCardActivity;
 import com.aidigame.hisun.pet.ui.UsersListActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
@@ -147,8 +146,8 @@ public class UsersListAdapter extends BaseAdapter {
 					UsersListActivity u=(UsersListActivity)context;
 					if(!UserStatusUtil.isLoginSuccess(u,u.popup_parent,u.black_layout))return;
 				}*/
-				if(UserDossierActivity.userDossierActivity!=null)UserDossierActivity.userDossierActivity.finish();
-				Intent intent=new Intent(context,UserDossierActivity.class);
+				if(UserCardActivity.userCardActivity!=null)UserCardActivity.userCardActivity.finish();
+				Intent intent=new Intent(context,UserCardActivity.class);
 				intent.putExtra("user", list.get(position));
 				context.startActivity(intent);
 			}

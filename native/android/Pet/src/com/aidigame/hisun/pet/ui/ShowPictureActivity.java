@@ -49,7 +49,7 @@ public class ShowPictureActivity extends Activity {
 		UiUtil.setScreenInfo(this);
 		BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
-		options.inSampleSize=1;
+		options.inSampleSize=StringUtil.getScaleByDPI(this);
 //		options.inPreferredConfig=Bitmap.Config.RGB_565;
 //		options.inPurgeable=true;
 //		options.inInputShareable=true;

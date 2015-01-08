@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,7 +46,7 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 	int cityValue=0;
 	String province;
 	String city;
-	EditText nameET,phoneET,postCodeET,provinceCityET,addressET;
+	EditText nameET,phoneET,postCodeET,addressET,provinceCityET;
 	TextView provinceTV,titleTV,saveTV;
 	ImageView back;
 	LinearLayout addressLayout,blurLayout;
@@ -110,6 +111,7 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 		back=(ImageView)findViewById(R.id.back);
 		
 		
+		
 		provinceCityET.setText(Constants.user.province+" "+Constants.user.city);
 		
 		
@@ -133,8 +135,19 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 				}
 			}
 		});
-		
-		
+		provinceCityET.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				/*if(getWindow().getAttributes().softInputMode==WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED){
+					InputMethodManager m = (InputMethodManager)   
+							getSystemService(Context.INPUT_METHOD_SERVICE);   
+							m.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+				}*/
+			}
+		});
+		provinceCityET.setInputType(InputType.TYPE_NULL);
 		
 		provincesList=new ArrayList<String>();
 		for(int i=0;i<AddressData.PROVINCES.length;i++){

@@ -23,8 +23,7 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.http.json.UserJson;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
-import com.aidigame.hisun.pet.ui.UserDossierActivity;
+import com.aidigame.hisun.pet.ui.UserCardActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
@@ -106,13 +105,13 @@ public class KingdomPeoplesAdapter extends BaseAdapter {
 		LogUtil.i("exception", "position========"+position);
 		final User data=list.get(position);
 		final RoundImageView view=holder.roundImageView;
-		view.setOnClickListener(new OnClickListener() {
+		/*view.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 			}
-		});
+		});*/
 		 BitmapFactory.Options options=new BitmapFactory.Options();
 		    options.inSampleSize=8;
 		    options.inPreferredConfig=Bitmap.Config.RGB_565;
@@ -137,11 +136,10 @@ public class KingdomPeoplesAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(UserDossierActivity.userDossierActivity!=null){
-					UserDossierActivity.userDossierActivity.finish();
-				}
-				Intent intent=new Intent(context,UserDossierActivity.class);
+				
+				Intent intent=new Intent(context,UserCardActivity.class);
 				intent.putExtra("user", data);
+				intent.putExtra("from", 1);
 				context.startActivity(intent);
 				
 			}

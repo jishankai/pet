@@ -12,7 +12,7 @@
         android:src="@drawable/dialog_close_white"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="5dp"/>
     <LinearLayout 
          android:id="@+id/register_tv"
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
         android:background="@drawable/dialog_gray_button"
         android:text="取消"
         android:textColor="@color/white"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:gravity="center"
         
         />
@@ -43,7 +43,7 @@
         android:background="@drawable/dialog_red_button"
         android:text="去绑定"
         android:textColor="@color/white"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:gravity="center"/>
     </LinearLayout>
     

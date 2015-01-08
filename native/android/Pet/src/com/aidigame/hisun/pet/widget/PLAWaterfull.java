@@ -330,7 +330,21 @@ public class PLAWaterfull implements IXListViewListener{
 				
 				
 			});
+            options.inSampleSize=StringUtil.getScaleByDPI(activity,duitangInfo.getIsrc());;
             mImageFetcher.setImageCache(new ImageCache(activity, new ImageCacheParams(duitangInfo.getIsrc())));
+          /*  if(duitangInfo.getIsrc().contains("@")){
+            	int a=duitangInfo.getIsrc().indexOf("@");
+            	int b=duitangInfo.getIsrc().lastIndexOf("@");
+            	int lenth=Integer.parseInt(duitangInfo.getIsrc().substring(a+1, b));
+            	if(lenth>1024*100){
+            		options.inSampleSize=4;
+            	}else{
+            		options.inSampleSize=StringUtil.getScaleByDPI(activity);;
+            	}
+            }else{
+        		options.inSampleSize=StringUtil.getScaleByDPI(activity);;
+        	}*/
+            LogUtil.i("mi", "options.inSampleSize"+options.inSampleSize);
             mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/duitangInfo.getIsrc(), holder.imageView,options);
             return convertView;
         }
@@ -715,6 +729,7 @@ public class PLAWaterfull implements IXListViewListener{
 							if(params==null){
 								params=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
 							}
+							if(bs!=null&&bs.size()>1)
 							circleHandler.sendEmptyMessageDelayed(1, 4000);
 							/*params.width=rootLayout.getWidth();
 							params.height=rootLayout.getHeight();*/

@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.ui;
 
+import java.io.File;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
@@ -464,8 +466,8 @@ public class ModifyPetInfoActivity extends Activity {
 											if(UserCenterFragment.userCenterFragment!=null){
 										    	UserCenterFragment.userCenterFragment.updatateInfo();;
 											}
-											if(UserDossierActivity.userDossierActivity!=null){
-												UserDossierActivity.userDossierActivity.setUserInfo(Constants.user);
+											if(UserCardActivity.userCardActivity!=null){
+												UserCardActivity.userCardActivity.setUserInfo(Constants.user);
 											}
 										}
 									});
@@ -712,8 +714,8 @@ public class ModifyPetInfoActivity extends Activity {
 											if(UserCenterFragment.userCenterFragment!=null){
 										    	UserCenterFragment.userCenterFragment.updatateInfo();;
 											}
-											if(PetKingdomActivity.petKingdomActivity!=null){
-												PetKingdomActivity.petKingdomActivity.setPetInfo(animal);
+											if(NewPetKingdomActivity.petKingdomActivity!=null){
+												NewPetKingdomActivity.petKingdomActivity.setPetInfo(animal);
 											
 											}
 										}
@@ -857,6 +859,13 @@ public class ModifyPetInfoActivity extends Activity {
 			}else if(requestCode==12){
 				
 				String path=data.getStringExtra("path");
+				 File fi=new File(path);
+				LogUtil.i("me", "相册返回头像大小"+fi.length());
+				/*File f=new File(path);
+				String name=f.getParentFile().getAbsolutePath()+File.separator+System.currentTimeMillis()+".jpg";
+				path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+".jpg";
+				boolean flag=f.renameTo(new File(path));*/
+				
 				Intent intent=new Intent(this,com.aviary.android.feather.FeatherActivity.class);
 				intent.setData(Uri.parse("file://"+path));
 				intent.putExtra(com.aviary.android.feather.library.Constants.EXTRA_IN_API_KEY_SECRET, Constants.EXTRA_IN_API_KEY_SECRET);
@@ -884,6 +893,8 @@ public class ModifyPetInfoActivity extends Activity {
 			BitmapFactory.Options options=new BitmapFactory.Options();
 			options.inSampleSize=StringUtil.topicImageGetScaleByDPI(this);
 			if(isUserIcon){
+				 File fi=new File(path);
+		            LogUtil.i("me", "aviary返回头像大小"+fi.length());
 				userIconPath=path;
 				
 				user_bmp=BitmapFactory.decodeFile(path,options);

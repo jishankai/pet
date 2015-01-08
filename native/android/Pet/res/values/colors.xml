@@ -25,4 +25,11 @@
     <color name="set_up_text_gray">#a2a2a2</color>
     <color name="dossier_tab_color">#f5f5f5</color>
     <color name="dialog_text_gray">#7a7a7a</color>
+    
+    
+    	<color name="umeng_socialize_text_title">#464f61</color>
+    		<color name="umeng_socialize_divider">#E6E6E6</color>
+    			<color name="umeng_socialize_text_share_content">#666666</color>
+        	<color name="umeng_socialize_list_item_bgcolor">#FFFFFF</color>
+    		
 </resources>

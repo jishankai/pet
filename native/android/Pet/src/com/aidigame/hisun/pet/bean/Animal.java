@@ -53,7 +53,10 @@ public class Animal implements Serializable{
 	public int touch_count=3;
 	public int isVoiced=1;
 	public String invite_code;
-	
+	public long imagesNum;
+	public long totalfoods;
+	public long giftsNum;
+	public long newsNum;
 	
 	
 	public ArrayList<PetPicture> picturs;

@@ -16,7 +16,6 @@ import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.WeixinShare;
-import com.aidigame.hisun.pet.widget.XinlangShare;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
@@ -32,6 +31,8 @@ import com.umeng.socialize.controller.listener.SocializeListeners.SocializeClien
 import com.umeng.socialize.controller.listener.SocializeListeners.UMAuthListener;
 import com.umeng.socialize.controller.listener.SocializeListeners.UMDataListener;
 import com.umeng.socialize.exception.SocializeException;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import android.app.Activity;
@@ -102,6 +103,9 @@ public class RegisterNoteDialog extends Activity implements OnClickListener{
 		UMWXHandler wxHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
 		wxHandler.setRefreshTokenAvailable(false);
 		wxHandler.addToSocialSDK();
+		SinaSsoHandler sinaSsoHandler=new SinaSsoHandler(this);
+		
+		sinaSsoHandler.addToSocialSDK();
 		cancelTv.setOnClickListener(this);
 		weixinLayout.setOnClickListener(this);
 		accountLayout.setOnClickListener(this);
@@ -255,38 +259,7 @@ public class RegisterNoteDialog extends Activity implements OnClickListener{
 			}
 		}).start();
 	}
-	/*public void weixinLogin(){
-		
-		boolean flag=WeixinShare.regToWeiXin(this);
-		if(!flag){
-			Toast.makeText(this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
-			return;
-		}
-		final SendAuth.Req req = new SendAuth.Req();
-		req.scope = "snsapi_userinfo";
-		req.state = "pet";
-		Constants.api.sendReq(req);
-		Intent intent=new Intent();
-		LogUtil.i("mi", "===="+"微信授权");
-		Constants.api.handleIntent(intent, new IWXAPIEventHandler() {
-			
-			@Override
-			public void onResp(BaseResp arg0) {
-				// TODO Auto-generated method stub
-				LogUtil.i("mi", "===="+arg0.toString());
-				LogUtil.i("mi", "===="+arg0.transaction);
-			}
-			
-			@Override
-			public void onReq(BaseReq arg0) {
-				// TODO Auto-generated method stub
-				LogUtil.i("mi", "==2=="+arg0.toString());
-				LogUtil.i("mi", "===2="+arg0.transaction);
-			}
 
-		});
-		
-	}*/
 	
 	/**
 	 * 微信授权登录
@@ -416,7 +389,116 @@ public class RegisterNoteDialog extends Activity implements OnClickListener{
 	 */
 	public void xinlangLogin(){
 		LogUtil.i("exception", "新浪微博授权：");
-		XinlangShare.xinlangAuth(this, true);
+//		XinlangShare.xinlangAuth(this, true);
+		mController.doOauthVerify(this,SHARE_MEDIA.SINA , new UMAuthListener() {
+			
+			@Override
+			public void onStart(SHARE_MEDIA arg0) {
+				// TODO Auto-generated method stub
+				LogUtil.i("exception", "新浪微博授权开始：");
+			}
+			
+			@Override
+			public void onError(SocializeException arg0, SHARE_MEDIA arg1) {
+				// TODO Auto-generated method stub
+				LogUtil.i("exception", "新浪微博授权出错："+arg0.getMessage());
+				Toast.makeText(RegisterNoteDialog.this, "授权错误", Toast.LENGTH_SHORT).show();
+		        if(showProgress!=null)showProgress.progressCancel();
+			}
+			
+			@Override
+			public void onComplete(Bundle arg0, SHARE_MEDIA arg1) {
+				// TODO Auto-generated method stub
+				LogUtil.i("exception", "新浪微博授权onComplete：");
+				if(showProgress!=null)showProgress.showProgress();;
+				mController.getPlatformInfo(RegisterNoteDialog.this, SHARE_MEDIA.SINA, new UMDataListener() {
+				    @Override
+				    public void onStart() {
+//				        Toast.makeText(RegisterNoteDialog.this, "获取平台数据开始...", Toast.LENGTH_SHORT).show();
+				    	LogUtil.i("exception", "获取新浪微博信息开始：");
+				    }                                              
+				    @Override
+				        public void onComplete(final int status, final Map<String, Object> info) {
+				    	/*
+				    	 * D/TestData(27729): uid=3835971321
+
+12-31 13:55:45.400: D/TestData(27729): favourites_count=0
+
+12-31 13:55:45.400: D/TestData(27729): location=北京 石景山区
+
+12-31 13:55:45.400: D/TestData(27729): description=
+
+12-31 13:55:45.400: D/TestData(27729): verified=false
+
+12-31 13:55:45.400: D/TestData(27729): friends_count=18
+
+12-31 13:55:45.400: D/TestData(27729): gender=1
+
+12-31 13:55:45.400: D/TestData(27729): screen_name=shicx2014
+
+12-31 13:55:45.400: D/TestData(27729): statuses_count=153
+
+12-31 13:55:45.400: D/TestData(27729): followers_count=2
+
+12-31 13:55:45.400: D/TestData(27729): profile_image_url=http://tp2.sinaimg.cn/3835971321/180/0/1
+
+12-31 13:55:45.400: D/TestData(27729): access_token=2.00L42bLESzSe4E097cb335b7umIATE
+				    	 */
+				    	new Thread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								LogUtil.i("exception", "获取新浪微博信息完成：");
+					            if(status == 200 && info != null){
+					                StringBuilder sb = new StringBuilder();
+					                Set<String> keys = info.keySet();
+					                
+					                User user=new User();
+					                if("1".equals(""+(Integer)info.get("gender"))){
+					                	user.u_gender=1;
+					                }else{
+					                	user.u_gender=2;
+					                }
+					                user.u_nick=(String)info.get("screen_name");
+					                user.xinlang_id=""+info.get("uid");
+					                user.u_iconPath=(String)info.get("profile_image_url");
+					                
+					              
+					                
+					                
+					               
+					                	if(!StringUtil.isEmpty(user.u_iconPath)){
+						                	boolean flag=HttpUtil.downloadImage(user.u_iconPath, Constants.Picture_ICON_Path+File.separator+"xinlang_"+user.xinlang_id+".png");
+											if(flag){
+												user.u_iconPath=Constants.Picture_ICON_Path+File.separator+"xinlang_"+user.xinlang_id+".png";
+											}
+						                }
+						                bindLogin(user,false);
+					                
+					                
+					                for(String key : keys){
+					                   sb.append(key+"="+info.get(key).toString()+"\r\n");
+					                }
+					                Log.d("TestData",sb.toString());
+					            }else{
+					               Log.d("TestData","发生错误："+status);
+					           }
+							}
+						}).start();
+				    	
+				        }
+				});
+			}
+			
+			@Override
+			public void onCancel(SHARE_MEDIA arg0) {
+				// TODO Auto-generated method stub
+				LogUtil.i("exception", "新浪微博授权取消：");
+				 if(showProgress!=null)showProgress.progressCancel();
+			        Toast.makeText(RegisterNoteDialog.this, "授权取消", Toast.LENGTH_SHORT).show();
+			}
+		});
 	}
 	/**
 	 * 微信或新浪绑定登陆
@@ -623,4 +705,13 @@ public class RegisterNoteDialog extends Activity implements OnClickListener{
 	   	StringUtil.umengOnResume(this);
 			if(showProgress!=null)showProgress.progressCancel();;;
 	   }
+		    @Override
+			protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+				// TODO Auto-generated method stub
+				super.onActivityResult(requestCode, resultCode, data);
+				UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+		        if(ssoHandler != null){
+		           ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+		        }
+			}
 }

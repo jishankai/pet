@@ -6,6 +6,7 @@ import com.aidigame.hisun.pet.util.UiUtil;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -43,6 +44,7 @@ public class Dialog3Activity extends Activity implements OnClickListener{
 			isWeixin=getIntent().getBooleanExtra("isWeixin", false);
 			note1Tv.setVisibility(View.GONE);
 			note2Tv.setText("若您尚未设置登陆码，成功切换账号后，当前账号会丢失哦~");
+			note2Tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
 		}
 		if(mode==2){
 			initView2();

@@ -65,21 +65,21 @@ public class ImageAdapter1 extends BaseAdapter {
 	private Activity mContext;
     int total=1999999999;
 	ArrayList<PetPicture> list;
-	ImageFetcher mImageFetcher1;
+	/*ImageFetcher mImageFetcher1;
 	ImageFetcher mImageFetcher2;
 	ImageFetcher mImageFetcher3;
 	ImageFetcher mImageFetcher4;
-	ImageFetcher mImageFetcher5;
+	ImageFetcher mImageFetcher5;*/
 	BitmapFactory.Options options;
 	private ImageView[] mImages;
     String[] urls;
 	public ImageAdapter1(Activity c, ArrayList<PetPicture> list) {
 		mContext = c;
-		mImageFetcher1=new ImageFetcher(c, 240,240);
+		/*mImageFetcher1=new ImageFetcher(c, 240,240);
 		mImageFetcher2=new ImageFetcher(c, 240,240);
 		mImageFetcher3=new ImageFetcher(c, 240,240);
 		mImageFetcher4=new ImageFetcher(c, 240,240);
-		mImageFetcher5=new ImageFetcher(c, 240,240);
+		mImageFetcher5=new ImageFetcher(c, 240,240);*/
 		this.list = list;
 		urls=new String[list.size()];
 		options=new BitmapFactory.Options();
@@ -94,7 +94,7 @@ public class ImageAdapter1 extends BaseAdapter {
 	
 	int count=0;
 	boolean flag=false;
-	public void loadData(){
+	public void loadData(){/*
 		for(int i=0;i<list.size();i++){
 			if(i==0)url1=list.get(i).url;
 			if(i==1)url2=list.get(i).url;
@@ -139,6 +139,19 @@ public class ImageAdapter1 extends BaseAdapter {
 								
 							}
 						});
+						options.inSampleSize=16;
+						if(url1.contains("@")){
+			            	int a=url1.indexOf("@");
+			            	int b=url1.lastIndexOf("@");
+			            	int lenth=Integer.parseInt(url1.substring(a+1, b));
+			            	if(lenth>1024*100){
+			            		options.inSampleSize=4;
+			            	}else{
+			            		options.inSampleSize=StringUtil.getScaleByDPI(mContext);;
+			            	}
+			            }else{
+			        		options.inSampleSize=StringUtil.getScaleByDPI(mContext);;
+			        	}
 						mImageFetcher1.loadImage(url1, new ImageView(mContext), options);
 					
 				}
@@ -152,7 +165,7 @@ public class ImageAdapter1 extends BaseAdapter {
 				});
 			}
 		}).start();
-	}
+	*/}
 
 
 
@@ -196,7 +209,19 @@ public class ImageAdapter1 extends BaseAdapter {
 		
 		
 		BitmapFactory.Options options=new BitmapFactory.Options();
-		options.inSampleSize=StringUtil.getScaleByDPI(mContext);
+		options.inSampleSize=StringUtil.getScaleByDPIget4(mContext,list.get(position%list.size()).petPicture_path);
+		/*if(list.get(position%list.size()).petPicture_path.contains("@")){
+        	int a=list.get(position%list.size()).petPicture_path.indexOf("@");
+        	int b=list.get(position%list.size()).petPicture_path.lastIndexOf("@");
+        	int lenth=Integer.parseInt(list.get(position%list.size()).petPicture_path.substring(a+1, b));
+        	if(lenth>1024*100){
+        		options.inSampleSize=4;
+        	}else{
+        		options.inSampleSize=StringUtil.getScaleByDPI(mContext);;
+        	}
+        }else{
+    		options.inSampleSize=StringUtil.getScaleByDPI(mContext);;
+    	}*/
 		Bitmap bmp=BitmapFactory.decodeFile(list.get(position%list.size()).petPicture_path,options);
 		final PetPicture p=list.get(position%list.size());
 		

@@ -78,7 +78,14 @@ public class ChosePetActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				Intent intent=new Intent(ChosePetActivity.this,PetKingdomActivity.class);
+				if(NewPetKingdomActivity.petKingdomActivity!=null){
+					if(NewPetKingdomActivity.petKingdomActivity.loadedImage1!=null&&!NewPetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
+						NewPetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
+						NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
+					}
+					NewPetKingdomActivity.petKingdomActivity.finish();
+				}
+				Intent intent=new Intent(ChosePetActivity.this,NewPetKingdomActivity.class);
 				intent.putExtra("animal", list.get(position));
 				ChosePetActivity.this.startActivity(intent);
 				

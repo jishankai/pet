@@ -49,6 +49,7 @@
              android:layout_alignParentTop="true"
              android:layout_centerHorizontal="true"
              android:text="祭司" 
+             android:textColor="@color/black"
              android:textSize="14sp"
              android:paddingLeft="5dp"/>
                      <TextView

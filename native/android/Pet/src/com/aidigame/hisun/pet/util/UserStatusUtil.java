@@ -21,11 +21,8 @@ import com.aidigame.hisun.pet.ui.ChoseStarActivity;
 import com.aidigame.hisun.pet.ui.DialogGoRegisterActivity;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.RegisterNoteDialog;
-import com.aidigame.hisun.pet.ui.UserDossierActivity;
-import com.aidigame.hisun.pet.widget.XinlangShare;
 import com.aidigame.hisun.pet.widget.fragment.DialogNote;
 import com.aidigame.hisun.pet.widget.fragment.UserCenterFragment;
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 public class UserStatusUtil {
 	/**
@@ -68,7 +65,7 @@ public class UserStatusUtil {
 	 */
 	public static void downLoadUserInfo(final Activity context){
 		final Handler handler=HandleHttpConnectionException.getInstance().getHandler(context);
-		if(Constants.isSuccess&&Constants.user==null){
+		if(Constants.isSuccess&&Constants.user!=null){
 			new Thread(new Runnable() {
 				 
 				@Override
@@ -95,65 +92,13 @@ public class UserStatusUtil {
 			}).start();
 		}
 	}
-	/**
-	 * 判断是否获得新浪授权,没有授权，去获得授权
-	 * @param context
-	 * @return
-	 */
-	public static boolean hasXinlangAuth(final Activity context){
-		boolean flag=false;
-		if(Constants.accessToken==null){
-			SharedPreferences sPreferences=context.getSharedPreferences("setup", Context.MODE_WORLD_WRITEABLE);
-			String token=sPreferences.getString("xinlangToken", null);
-			if(token!=null){
-				Oauth2AccessToken accessToken=Oauth2AccessToken.parseAccessToken(token);
-				if(accessToken!=null){
-					if(!accessToken.isSessionValid()){
-						AlertDialog.Builder builder=new AlertDialog.Builder(context);
-						builder.setTitle("提示").setMessage("新浪微博登陆账号已过期，请重新登陆！")
-						.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-							
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								// TODO Auto-generated method stub
-								XinlangShare.xinlangAuth(context,false);
-							}
-						});
-						
-						builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-							
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								// TODO Auto-generated method stub
-								dialog.dismiss();
-							}
-						});
-						final AlertDialog dialog=builder.create();
-						
-					}else{
-						Constants.accessToken=accessToken;
-						flag=true;
-					}
-				}else{
-//					if(!(context instanceof SubmitPictureActivity))
-					XinlangShare.xinlangAuth(context,false);
-				}
-				
-			}else{
-//				if((context instanceof SubmitPictureActivity))
-				XinlangShare.xinlangAuth(context,false);
-			}
-		}else{
-			flag=true;
-		}
-		return flag;
-	}
+	
 	/**
 	 * 是否获得授权
 	 * @param context
 	 * @return
 	 */
-	public static boolean isXinlangAuth(final Activity context){
+	public static boolean isXinlangAuth(final Activity context){/*
 		boolean flag=false;
 		if(Constants.accessToken==null){
 			SharedPreferences sPreferences=context.getSharedPreferences("setup", Context.MODE_WORLD_WRITEABLE);
@@ -179,6 +124,8 @@ public class UserStatusUtil {
 			flag=true;
 		}
 		return flag;
+	*/
+	return true;	
 	}
 	public static void setDefaultKingdom(){
 		if(UserCenterFragment.userCenterFragment!=null){
@@ -189,14 +136,7 @@ public class UserStatusUtil {
 			UserCenterFragment.userCenterFragment.updatateInfo();;
 		}
 		
-		if(UserDossierActivity.userDossierActivity!=null){
-			/*
-			 * 1.用户王国列表
-			 * 2.资料中间栏
-			 */
-			UserDossierActivity.userDossierActivity.addNewKingdom();
-			UserDossierActivity.userDossierActivity.setUserInfo(Constants.user);
-		}
+		
 		if(NewShowTopicActivity.newShowTopicActivity!=null){
 		}
 	}

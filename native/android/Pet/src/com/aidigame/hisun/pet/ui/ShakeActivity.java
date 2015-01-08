@@ -11,6 +11,7 @@ import java.util.Random;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -58,7 +59,6 @@ import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
 import com.aidigame.hisun.pet.widget.ShakeSensor;
 import com.aidigame.hisun.pet.widget.WeixinShare;
-import com.aidigame.hisun.pet.widget.XinlangShare;
 import com.aidigame.hisun.pet.widget.ShakeSensor.OnShakeLisener;
 import com.aviary.android.feather.library.utils.BitmapUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -72,7 +72,10 @@ import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.SinaShareContent;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
@@ -127,14 +130,18 @@ public class ShakeActivity extends Activity {
     	
     	
     	mController = UMServiceFactory.getUMSocialService("com.umeng.share");
-		// 添加微信平台
+		
+    	// 添加微信平台
 		UMWXHandler wxHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
 		wxHandler.addToSocialSDK();
 		// 支持微信朋友圈
 		UMWXHandler wxCircleHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
 		wxCircleHandler.setToCircle(true);
 		wxCircleHandler.addToSocialSDK();
-    	
+		SinaSsoHandler  sinaSsoHandler=new SinaSsoHandler(this);
+		sinaSsoHandler.addToSocialSDK();
+		
+		
     	
     	giftList=StringUtil.getGiftList(this);
     	animal=(Animal)getIntent().getSerializableExtra("animal");
@@ -412,7 +419,7 @@ public class ShakeActivity extends Activity {
 								if(user!=null){
 									viewPager.setCurrentItem(2);
 									optortunity=0;
-									if(HomeActivity.homeActivity!=null){
+									if(HomeActivity.homeActivity!=null&&HomeActivity.homeActivity.myPetFragment!=null){
 										LogUtil.i("mi", "还剩"+0+"次机会");
 										HomeActivity.homeActivity.myPetFragment.homeMyPet.adapter.updateTV("还剩"+optortunity+"次",gift.add_rq);
 									}
@@ -583,9 +590,9 @@ public class ShakeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(!UserStatusUtil.hasXinlangAuth(ShakeActivity.this)){
+				/*if(!UserStatusUtil.hasXinlangAuth(ShakeActivity.this)){
 					return;
-				}
+				}*/
 				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
 				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
 				FileOutputStream fos=null;
@@ -601,9 +608,7 @@ public class ShakeActivity extends Activity {
 						data.des="随便一摇就摇会有"+"惊喜，快来试试吧？http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
 					}
 					
-					if(UserStatusUtil.hasXinlangAuth(ShakeActivity.this)){
-						XinlangShare.sharePicture(data,ShakeActivity.this);
-					}
+					xinlangShare(data);
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -624,10 +629,9 @@ public class ShakeActivity extends Activity {
 	 @Override
 	    protected void onDestroy() {
 	    	// TODO Auto-generated method stub
-	    	if(PetKingdomActivity.petKingdomActivity!=null)PetKingdomActivity.petKingdomActivity.kingdomTrends.onRefresh(null);
 	    	if(shakeSensor!=null)
 	    	shakeSensor.stop();
-	    	if(HomeActivity.homeActivity!=null){
+	    	if(HomeActivity.homeActivity!=null&&HomeActivity.homeActivity.myPetFragment!=null){
 				LogUtil.i("mi", "还剩"+optortunity+"次机会");
 				HomeActivity.homeActivity.myPetFragment.homeMyPet.adapter.tv=null;
 				HomeActivity.homeActivity.myPetFragment.homeMyPet.adapter.contriTV=null;
@@ -669,6 +673,7 @@ public class ShakeActivity extends Activity {
 	   		                public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
 	   		                     if (eCode == 200) {
 	   		                         Toast.makeText(ShakeActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+	   		                         shareNumChange();
 	   		                     } else {
 	   		                          String eMsg = "";
 	   		                          if (eCode == -101){
@@ -697,6 +702,7 @@ public class ShakeActivity extends Activity {
 	              @Override
 	              public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
 	                   if (eCode == 200) {
+	                	   shareNumChange();
 	                    Toast.makeText(ShakeActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
 	                   } else {
 	                        String eMsg = "";
@@ -819,7 +825,7 @@ public class ShakeActivity extends Activity {
 										if(gift!=null){
 											initView22();
 										}
-										if(HomeActivity.homeActivity!=null){
+										if(HomeActivity.homeActivity!=null&&HomeActivity.homeActivity.myPetFragment!=null){
 											LogUtil.i("mi", "还剩"+optortunity+"次机会");
 											HomeActivity.homeActivity.myPetFragment.homeMyPet.adapter.updateTV("还剩"+optortunity+"次",0);
 										}
@@ -871,7 +877,7 @@ public class ShakeActivity extends Activity {
 								if(anim!=null)anim.cancel();
 								viewPager.setCurrentItem(0);
 								initVibrator();
-								if(HomeActivity.homeActivity!=null){
+								if(HomeActivity.homeActivity!=null&&HomeActivity.homeActivity.myPetFragment!=null){
 									LogUtil.i("mi", "还剩"+optortunity+"次机会");
 									HomeActivity.homeActivity.myPetFragment.homeMyPet.adapter.updateTV("还剩"+optortunity+"次",0);
 								}
@@ -881,4 +887,58 @@ public class ShakeActivity extends Activity {
 				}
 			}).start();
 	    }
+	    public void xinlangShare(UserImagesJson.Data data){
+				
+		   	   SinaShareContent content=new SinaShareContent();
+		   	   content.setShareContent(data.des);
+		   	   UMImage umImage=new UMImage(this, data.path);
+		   	  
+		   	   content.setShareImage(umImage);
+		   	   mController.setShareMedia(content);
+		   	   mController.postShare(this, SHARE_MEDIA.SINA,new SnsPostListener() {
+		   		
+		   		@Override
+		   		public void onStart() {
+		   			// TODO Auto-generated method stub
+		   			
+		   		}
+		   		
+		   		@Override
+		   		public void onComplete(SHARE_MEDIA arg0, int eCode, SocializeEntity arg2) {
+		   			// TODO Auto-generated method stub
+		   			if (eCode == 200) {
+		   				shareNumChange();
+		                   Toast.makeText(ShakeActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+		                  } else {
+		                       String eMsg = "";
+		                       if (eCode == -101){
+		                           eMsg = "没有授权";
+		                       }
+		                       Toast.makeText(ShakeActivity.this, "分享失败[" + eCode + "] " + 
+		                                          eMsg,Toast.LENGTH_SHORT).show();
+		                  }
+		   		}
+		   	});
+			 
+			 
+			 
+		/*	 if(!UserStatusUtil.hasXinlangAuth(this)){
+					return;
+				}
+					UserImagesJson.Data data=new UserImagesJson.Data();
+					data.path=path;
+					data.des="轻轻一点，免费赏粮！快把你每天的免费粮食赏给我家"+pp.animal.pet_nickName+"！#挣口粮# "+shareUrl+pp.img_id+"&to=webo"+"（分享自@宠物星球社交应用）";
+					if(UserStatusUtil.hasXinlangAuth(this)){
+						XinlangShare.sharePicture(data,this);
+					}*/
+		 }
+	    @Override
+		protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+			// TODO Auto-generated method stub
+			super.onActivityResult(requestCode, resultCode, data);
+			UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+	        if(ssoHandler != null){
+	           ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+	        }
+		}
 }

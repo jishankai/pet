@@ -35,8 +35,8 @@ import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.http.json.UserImagesJson.Data;
 import com.aidigame.hisun.pet.ui.ChatActivity;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
-import com.aidigame.hisun.pet.ui.UserDossierActivity;
+import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
+import com.aidigame.hisun.pet.ui.UserCardActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -209,25 +209,22 @@ public class HomeSearchListAdapter extends BaseAdapter {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(mode==1){
-					if(PetKingdomActivity.petKingdomActivity!=null){
-						if(PetKingdomActivity.petKingdomActivity.loadedImage1!=null&&!PetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
-							PetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
-							PetKingdomActivity.petKingdomActivity.loadedImage1=null;
+					if(NewPetKingdomActivity.petKingdomActivity!=null){
+						if(NewPetKingdomActivity.petKingdomActivity.loadedImage1!=null&&!NewPetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
+							NewPetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
+							NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
 						}
-						PetKingdomActivity.petKingdomActivity.finish();
+						NewPetKingdomActivity.petKingdomActivity.finish();
 					}
-					Intent intent=new Intent(context,PetKingdomActivity.class);
+					Intent intent=new Intent(context,NewPetKingdomActivity.class);
 					intent.putExtra("animal", animalList.get(position));
 					context.startActivity(intent);
 				}else{
-					if(UserDossierActivity.userDossierActivity!=null){
-						if(UserDossierActivity.userDossierActivity.loadedImage1!=null&&!UserDossierActivity.userDossierActivity.loadedImage1.isRecycled()){
-							UserDossierActivity.userDossierActivity.loadedImage1.recycle();
-							UserDossierActivity.userDossierActivity.loadedImage1=null;
-						}
-						UserDossierActivity.userDossierActivity.finish();
+					if(UserCardActivity.userCardActivity!=null){
+						
+						UserCardActivity.userCardActivity.finish();
 					}
-					Intent intent=new Intent(context,UserDossierActivity.class);
+					Intent intent=new Intent(context,UserCardActivity.class);
 					intent.putExtra("user", userList.get(position));
 					context.startActivity(intent);
 				}

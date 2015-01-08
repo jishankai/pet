@@ -58,9 +58,9 @@ public class SetupActivity extends Activity implements OnClickListener{
 	public RelativeLayout black_layout;
 	TextView fileSizeTV,tv12;
 	LinearLayout progressLayout,
-	linearLayout6,linearLayout7,linearLayout8,linearLayout9,linearLayout10,linearLayout11;
+	linearLayout6,linearLayout7,linearLayout8,linearLayout9,linearLayout10,linearLayout11,shangNoteLayout;
 
-	ImageView back;
+	ImageView back,shangNoteIv;
 	ImageView iv3;
 	public static boolean getXinlangAuth=false;
 	ShowProgress showProgress;
@@ -100,11 +100,19 @@ public class SetupActivity extends Activity implements OnClickListener{
 		linearLayout9=(LinearLayout)findViewById(R.id.linearlayout9);
 		linearLayout10=(LinearLayout)findViewById(R.id.linearlayout10);
 		linearLayout11=(LinearLayout)findViewById(R.id.linearlayout11);
+		shangNoteLayout=(LinearLayout)findViewById(R.id.shang_note_layout);
+		shangNoteIv=(ImageView)findViewById(R.id.shang_note_iv);
 		progressLayout=(LinearLayout)findViewById(R.id.progresslayout);
 				
 		setBlurImageBackground();
 		setFileSize();
-		
+		SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME,Context.MODE_WORLD_WRITEABLE);
+		boolean show=sp.getBoolean(Constants.GIVE_FOOD_NOTE_SHOW, false);
+		if(!show){
+			shangNoteIv.setImageResource(R.drawable.checked);
+		}else{
+			shangNoteIv.setImageResource(R.drawable.unchecked);
+		}
 //		linearLayout11.setBackgroundResource(R.color.orange_red);
 		
 	}
@@ -211,7 +219,7 @@ public class SetupActivity extends Activity implements OnClickListener{
 		scrollView=(ScrollView)findViewById(R.id.scrollview);
 		touchSlop=ViewConfiguration.get(this).getScaledTouchSlop();
 		
-        scrollView.setOnTouchListener(new OnTouchListener() {
+        /*scrollView.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -245,7 +253,7 @@ public class SetupActivity extends Activity implements OnClickListener{
 				}
 				return false;
 			}
-		});
+		});*/
 	}
 
 	private void initListener() {
@@ -264,6 +272,7 @@ public class SetupActivity extends Activity implements OnClickListener{
 		linearLayout9.setOnClickListener(this);
 		linearLayout10.setOnClickListener(this);
 		linearLayout11.setOnClickListener(this);
+		shangNoteLayout.setOnClickListener(this);
 		
 	}
 	
@@ -326,6 +335,16 @@ public class SetupActivity extends Activity implements OnClickListener{
 		case R.id.linearlayout11:
 			Intent intent11=new Intent(this,AboutUsActivity.class);
 			this.startActivity(intent11);
+			break;
+		case R.id.shang_note_layout:
+			boolean show=sp.getBoolean(Constants.GIVE_FOOD_NOTE_SHOW, false);
+			if(!show){
+				shangNoteIv.setImageResource(R.drawable.unchecked);
+				editor.putBoolean(Constants.GIVE_FOOD_NOTE_SHOW, true);
+			}else{
+				shangNoteIv.setImageResource(R.drawable.checked);
+				editor.putBoolean(Constants.GIVE_FOOD_NOTE_SHOW, false);
+			}
 			break;
 		}
 		editor.commit();

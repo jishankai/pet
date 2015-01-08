@@ -168,7 +168,7 @@
                    android:id="@+id/show_topic_peticon"
                    android:layout_width="54dp"
                    android:layout_height="54dp"
-                   android:src="@drawable/bug"/>
+                   android:src="@drawable/pet_icon"/>
                <LinearLayout 
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
@@ -226,7 +226,7 @@
                        android:id="@+id/show_topic_usericon"
                    android:layout_width="28dp"
                    android:layout_height="28dp"
-                   android:src="@drawable/bug"/>
+                   android:src="@drawable/user_icon"/>
                </LinearLayout>
                
                </LinearLayout>
@@ -775,6 +775,7 @@
                   android:layout_height="wrap_content"
                   android:visibility="visible"
                   android:text="分享"
+                  android:textSize="16sp"
                   android:textColor="#858585"
                   android:layout_marginTop="15dp"
                   />
@@ -788,7 +789,24 @@
                   android:layout_width="match_parent"
                   android:gravity="center"
                   android:layout_height="wrap_content"
+                  android:text="捧TA"
+                   android:textSize="16sp"
+                   android:id="@+id/pengta_tv"
+                  android:textColor="#858585"
+                  android:layout_marginTop="10dp"
+                  />
+              <View 
+                  android:layout_width="match_parent"
+                  android:layout_height="1dp"
+                  android:background="#e7e7e7"
+                  android:visibility="visible"
+                  android:layout_marginTop="5dp"/>
+              <TextView 
+                  android:layout_width="match_parent"
+                  android:gravity="center"
+                  android:layout_height="wrap_content"
                   android:text="私信"
+                   android:textSize="16sp"
                    android:id="@+id/messagetv"
                   android:textColor="#858585"
                   android:layout_marginTop="10dp"
@@ -803,6 +821,7 @@
                   android:gravity="center"
                   android:layout_height="wrap_content"
                   android:text="举报此照"
+                   android:textSize="16sp"
                    android:id="@+id/reporttv"
                   android:textColor="#858585"
                   android:layout_marginTop="10dp"
@@ -817,6 +836,7 @@
                   android:gravity="center"
                   android:layout_height="wrap_content"
                   android:text="取消"
+                   android:textSize="16sp"
                    android:id="@+id/canceltv"
                   android:textColor="#858585"
                   android:layout_marginTop="10dp"

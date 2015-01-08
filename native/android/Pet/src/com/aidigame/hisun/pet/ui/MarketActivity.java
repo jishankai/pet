@@ -131,7 +131,11 @@ public class MarketActivity extends Activity implements OnClickListener{
 					return;
 				}
 				if(Constants.user.coinCount-gift.price<0){
-					Toast.makeText(MarketActivity.this, "Sorry~余额不足(⊙o⊙)哦~", Toast.LENGTH_LONG).show();
+//					Toast.makeText(MarketActivity.this, "Sorry~余额不足(⊙o⊙)哦~", Toast.LENGTH_LONG).show();
+					Intent intent=new Intent(MarketActivity.this,DialogNoteActivity.class);
+					intent.putExtra("mode", 10);
+					intent.putExtra("info", "Sorry~余额不足(⊙o⊙)哦~");
+					startActivity(intent);
 					return;
 				}
 				isBuying=true;

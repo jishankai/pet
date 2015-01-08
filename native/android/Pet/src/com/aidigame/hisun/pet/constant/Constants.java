@@ -7,7 +7,6 @@ import android.os.Environment;
 
 import com.aidigame.hisun.pet.bean.User;
 import com.aidigame.hisun.pet.http.json.InfoJson;
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 
 public class Constants {
@@ -130,7 +129,8 @@ public class Constants {
 	
 	//修改用户信息
 	public static String BEG_FOOD_LIST=IP2+URL_ROOT2+"r=image/ask4FoodApi&page=";
-	
+	//宠物所有的求口粮图片
+	public static String PET_BEG_PICTURE_LIST=IP2+URL_ROOT2+"r=animal/foodListApi&aid=";
 	//赏口粮图片信息
 	public static String SHARE_FOOD=IP2+URL_ROOT2+"r=animal/foodApi&aid=";
 	//兑换礼物列表
@@ -375,7 +375,6 @@ public class Constants {
             "email,direct_messages_read,direct_messages_write,"
             + "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
             + "follow_app_official_microblog," + "invitation_write";
-    public static Oauth2AccessToken accessToken;
     /** 通过 code 获取 Token 的 URL */
     public static final String OAUTH2_ACCESS_TOKEN_URL = "https://open.weibo.cn/oauth2/access_token";
 	

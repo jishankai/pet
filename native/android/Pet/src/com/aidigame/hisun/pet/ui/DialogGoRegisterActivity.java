@@ -13,13 +13,14 @@ import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.ShowProgress;
-import com.aidigame.hisun.pet.widget.XinlangShare;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners.UMAuthListener;
 import com.umeng.socialize.controller.listener.SocializeListeners.UMDataListener;
 import com.umeng.socialize.exception.SocializeException;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 import android.app.Activity;
@@ -73,6 +74,8 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 		UMWXHandler wxHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
 		wxHandler.setRefreshTokenAvailable(false);
 		wxHandler.addToSocialSDK();
+		SinaSsoHandler handler=new SinaSsoHandler(this);
+		handler.addToSocialSDK();
 		
 		weixinLayout.setOnClickListener(this);
 		accountLayout.setOnClickListener(this);
@@ -238,7 +241,121 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 		 * 新浪授权登陆
 		 */
 		public void xinlangLogin(){
-			XinlangShare.xinlangAuth(this, true);
+			LogUtil.i("exception", "新浪微博授权：");
+//			XinlangShare.xinlangAuth(this, true);
+			mController.doOauthVerify(this,SHARE_MEDIA.SINA , new UMAuthListener() {
+				
+				@Override
+				public void onStart(SHARE_MEDIA arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onError(SocializeException arg0, SHARE_MEDIA arg1) {
+					// TODO Auto-generated method stub
+					Toast.makeText(DialogGoRegisterActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
+			        if(showProgress!=null)showProgress.progressCancel();
+				}
+				
+				@Override
+				public void onComplete(Bundle arg0, SHARE_MEDIA arg1) {
+					// TODO Auto-generated method stub
+					if(showProgress!=null)showProgress.showProgress();;
+					mController.getPlatformInfo(DialogGoRegisterActivity.this, SHARE_MEDIA.SINA, new UMDataListener() {
+					    @Override
+					    public void onStart() {
+//					        Toast.makeText(RegisterNoteDialog.this, "获取平台数据开始...", Toast.LENGTH_SHORT).show();
+					    }                                              
+					    @Override
+					        public void onComplete(final int status, final Map<String, Object> info) {
+					    	/*
+					    	 * D/TestData(27729): uid=3835971321
+
+	12-31 13:55:45.400: D/TestData(27729): favourites_count=0
+
+	12-31 13:55:45.400: D/TestData(27729): location=北京 石景山区
+
+	12-31 13:55:45.400: D/TestData(27729): description=
+
+	12-31 13:55:45.400: D/TestData(27729): verified=false
+
+	12-31 13:55:45.400: D/TestData(27729): friends_count=18
+
+	12-31 13:55:45.400: D/TestData(27729): gender=1
+
+	12-31 13:55:45.400: D/TestData(27729): screen_name=shicx2014
+
+	12-31 13:55:45.400: D/TestData(27729): statuses_count=153
+
+	12-31 13:55:45.400: D/TestData(27729): followers_count=2
+
+	12-31 13:55:45.400: D/TestData(27729): profile_image_url=http://tp2.sinaimg.cn/3835971321/180/0/1
+
+	12-31 13:55:45.400: D/TestData(27729): access_token=2.00L42bLESzSe4E097cb335b7umIATE
+					    	 */
+					    	new Thread(new Runnable() {
+								
+								@Override
+								public void run() {
+									// TODO Auto-generated method stub
+									if(status == 200 && info != null){
+						                StringBuilder sb = new StringBuilder();
+						                Set<String> keys = info.keySet();
+						                
+						                User user=new User();
+						                if("1".equals(""+(Integer)info.get("gender"))){
+						                	user.u_gender=1;
+						                }else{
+						                	user.u_gender=2;
+						                }
+						                user.u_nick=(String)info.get("screen_name");
+						                user.xinlang_id=""+info.get("uid");
+						                user.u_iconPath=(String)info.get("profile_image_url");
+						                
+						              
+						                
+						                
+						               
+						                	if(!StringUtil.isEmpty(user.u_iconPath)){
+							                	boolean flag=HttpUtil.downloadImage(user.u_iconPath, Constants.Picture_ICON_Path+File.separator+"xinlang_"+user.xinlang_id+".png");
+												if(flag){
+													user.u_iconPath=Constants.Picture_ICON_Path+File.separator+"xinlang_"+user.xinlang_id+".png";
+												}
+							                }
+							                bindLogin(user,false);
+						                
+						                
+						                for(String key : keys){
+						                   sb.append(key+"="+info.get(key).toString()+"\r\n");
+						                }
+						                Log.d("TestData",sb.toString());
+						            }else{
+						               Log.d("TestData","发生错误："+status);
+						           }
+								}
+							}).start();
+					            
+					        }
+					});
+				}
+				
+				@Override
+				public void onCancel(SHARE_MEDIA arg0) {
+					// TODO Auto-generated method stub
+					 if(showProgress!=null)showProgress.progressCancel();
+				        Toast.makeText(DialogGoRegisterActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
+				}
+			});
+		}
+		@Override 
+		protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		    super.onActivityResult(requestCode, resultCode, data);
+		    /**使用SSO授权必须添加如下代码 */
+		    UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+		    if(ssoHandler != null){
+		       ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+		    }
 		}
 		/**
 		 * 微信或新浪绑定登陆

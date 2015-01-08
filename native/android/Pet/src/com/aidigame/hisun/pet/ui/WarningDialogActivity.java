@@ -88,11 +88,10 @@ public class WarningDialogActivity extends Activity {
 				if(NewShowTopicActivity.newShowTopicActivity!=null){
 //					ShowTopicActivity.showTopicActivity.reportLayout.setVisibility(View.INVISIBLE);
 				}
-				if(mode==3)
-				if(UserDossierActivity.userDossierActivity!=null){
-					UserDossierActivity.userDossierActivity.moreLayout.setVisibility(View.INVISIBLE);
-					UserDossierActivity.userDossierActivity.moreParentLayout.setBackgroundDrawable(null);
+				if(mode==3){
+					
 				}
+				
 				if(mode==4){
 				
 				}
@@ -118,11 +117,10 @@ public class WarningDialogActivity extends Activity {
 				if(NewShowTopicActivity.newShowTopicActivity!=null){
 //					ShowTopicActivity.showTopicActivity.reportLayout.setVisibility(View.INVISIBLE);
 				}
-				if(mode==3)
-					if(UserDossierActivity.userDossierActivity!=null){
-						UserDossierActivity.userDossierActivity.moreLayout.setVisibility(View.INVISIBLE);
-						UserDossierActivity.userDossierActivity.moreParentLayout.setBackgroundDrawable(null);
-					}
+				if(mode==3){
+					
+				}
+					
                if(mode==4){
 					
 				}
@@ -256,10 +254,7 @@ public class WarningDialogActivity extends Activity {
 								Toast.makeText(WarningDialogActivity.this, "举报失败", Toast.LENGTH_LONG).show();
 							}
 							finish();
-							if(UserDossierActivity.userDossierActivity!=null){
-								UserDossierActivity.userDossierActivity.moreLayout.setVisibility(View.INVISIBLE);
-								UserDossierActivity.userDossierActivity.moreParentLayout.setBackgroundDrawable(null);
-							}
+						
 							
 						}
 					});

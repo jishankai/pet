@@ -25,7 +25,7 @@ import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
-import com.aidigame.hisun.pet.ui.PetKingdomActivity;
+import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
 import com.aidigame.hisun.pet.ui.PopularRankListActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.view.RoundImageView;
@@ -172,7 +172,7 @@ public class PopularRankListAdapter extends BaseAdapter {
 		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+people.pet_iconUrl, holder.icon, displayImageOptions);
 		
 		switch (people.change) {
-		case -1:
+		case 1:
 			holder.trendIV.setVisibility(View.VISIBLE);
 			holder.trendIV.setImageResource(R.drawable.arrow_rank_list_green);
 			break;
@@ -180,7 +180,7 @@ public class PopularRankListAdapter extends BaseAdapter {
 //			holder.trendIV.setImageResource(R.drawable.arrow_rank_list_equal);
 			holder.trendIV.setVisibility(View.GONE);
 			break;
-		case 1:
+		case -1:
 			holder.trendIV.setVisibility(View.VISIBLE);
 			holder.trendIV.setImageResource(R.drawable.arrow_rank_list_red);
 			break;
@@ -237,8 +237,18 @@ public class PopularRankListAdapter extends BaseAdapter {
 								@Override
 								public void run() {
 									// TODO Auto-generated method stub
-									Intent intent=new Intent(context,PetKingdomActivity.class);
+									Intent intent=new Intent(context,NewPetKingdomActivity.class);
 									intent.putExtra("animal", user);
+									if(NewPetKingdomActivity.petKingdomActivity!=null){
+										if(NewPetKingdomActivity.petKingdomActivity.loadedImage1!=null){
+											if(!NewPetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
+												NewPetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
+												NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
+											}
+											NewPetKingdomActivity.petKingdomActivity.linearLayout2.setBackgroundDrawable(null);
+										}
+										NewPetKingdomActivity.petKingdomActivity.finish();
+									}
 									context.startActivity(intent);
 								}
 							});

@@ -583,7 +583,63 @@ public class StringUtil {
 	/**
 	 * 根据手机的dpi不同，设定不同的缩放比例
 	 */
+	public static int getScaleByDPI(Activity activity,String path){
+		DisplayMetrics displayMetrics=new DisplayMetrics();
+	    activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+	    int desityDpi=displayMetrics.densityDpi;
+	    float desity=displayMetrics.density;
+	    LogUtil.i("mi", "desity="+desityDpi);
+	    if(desityDpi<=320){
+	    	if(path.contains("@")){
+            	int a=path.indexOf("@");
+            	int b=path.lastIndexOf("@");
+            	int lenth=Integer.parseInt(path.substring(a+1, b));
+            	if(lenth>1024*100){
+            		return 4;
+            	}else{
+            		return 2;
+            	}
+            }else{
+        		return 4;
+        	}
+	    }else if(desityDpi<480){
+	    	
+	    }
+	    return 2;
+	}
+	public static int getScaleByDPIget4(Activity activity,String path){
+		DisplayMetrics displayMetrics=new DisplayMetrics();
+	    activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+	    int desityDpi=displayMetrics.densityDpi;
+	    float desity=displayMetrics.density;
+	    LogUtil.i("mi", "desity="+desityDpi);
+	    	if(path.contains("@")){
+            	int a=path.indexOf("@");
+            	int b=path.lastIndexOf("@");
+            	int lenth=Integer.parseInt(path.substring(a+1, b));
+            	if(lenth>1024*100){
+            		return 4;
+            	}else{
+            		return 2;
+            	}
+            }else{
+        		return 4;
+        	}
+	}
 	public static int getScaleByDPI(Activity activity){
+		DisplayMetrics displayMetrics=new DisplayMetrics();
+	    activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+	    int desityDpi=displayMetrics.densityDpi;
+	    float desity=displayMetrics.density;
+	    if(desityDpi<=320){
+	    	
+        		return 4;
+	    }else if(desityDpi<480){
+	    	
+	    }
+	    return 2;
+	}
+	public static int getScaleByDPI4(Activity activity){
 		DisplayMetrics displayMetrics=new DisplayMetrics();
 	    activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 	    int desityDpi=displayMetrics.densityDpi;
@@ -768,7 +824,7 @@ public class StringUtil {
 		}else if(time/(60*60*24)<30){
 			sb.append(  str+time/(60*60*24)+"天");
 		}else if(time/(60*60*24*30)<12){
-			sb.append(  str+time/(60*60*24)+"个月");
+			sb.append(  str+time/(60*60*24*30)+"个月");
 		}else if(time/(60*60*24*30*12)<1000){
 			sb.append( str+time/(60*60*24*30*12)+"年");
 		}

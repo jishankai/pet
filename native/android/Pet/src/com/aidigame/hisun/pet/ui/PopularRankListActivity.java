@@ -109,17 +109,17 @@ public class PopularRankListActivity extends Activity {
 			public void onItemClick(PLA_AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				Intent intent=new Intent(PopularRankListActivity.this,PetKingdomActivity.class);
+				Intent intent=new Intent(PopularRankListActivity.this,NewPetKingdomActivity.class);
 				intent.putExtra("animal", peopleList.get((int)id));
-				if(PetKingdomActivity.petKingdomActivity!=null){
-					if(PetKingdomActivity.petKingdomActivity.loadedImage1!=null){
-						if(!PetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
-							PetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
-							PetKingdomActivity.petKingdomActivity.loadedImage1=null;
+				if(NewPetKingdomActivity.petKingdomActivity!=null){
+					if(NewPetKingdomActivity.petKingdomActivity.loadedImage1!=null){
+						if(!NewPetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
+							NewPetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
+							NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
 						}
-						PetKingdomActivity.petKingdomActivity.linearLayout2.setBackgroundDrawable(null);
+						NewPetKingdomActivity.petKingdomActivity.linearLayout2.setBackgroundDrawable(null);
 					}
-					PetKingdomActivity.petKingdomActivity.finish();
+					NewPetKingdomActivity.petKingdomActivity.finish();
 				}
 				PopularRankListActivity.this.startActivity(intent);
 			}
@@ -199,6 +199,7 @@ public class PopularRankListActivity extends Activity {
 		adapter=new PopularRankListAdapter(this,peopleList,1);
 		listView.setPullRefreshEnable(false);
 		listView.setPullLoadEnable(true);
+		listView.setSelector(new BitmapDrawable());
 		listView.setXListViewListener(new IXListViewListener() {
 			
 			@Override

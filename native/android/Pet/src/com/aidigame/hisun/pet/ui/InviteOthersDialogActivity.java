@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
@@ -31,12 +32,23 @@ import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
 import com.aidigame.hisun.pet.widget.WeixinShare;
-import com.aidigame.hisun.pet.widget.XinlangShare;
 import com.aidigame.hisun.pet.widget.fragment.UserCenterFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.controller.listener.SocializeListeners.SnsPostListener;
+import com.umeng.socialize.media.SinaShareContent;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
+import com.umeng.socialize.weixin.media.CircleShareContent;
+import com.umeng.socialize.weixin.media.WeiXinShareContent;
 /**
  * 邀请相关弹出窗
  * @author admin
@@ -49,6 +61,7 @@ public class InviteOthersDialogActivity extends Activity {
 	LinearLayout llayout1,llayout2,llayout3,llayout4,shareBitmapLayout;
 	DisplayImageOptions displayImageOptions;
 	Handler handler;
+	UMSocialService mController;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -78,6 +91,19 @@ public class InviteOthersDialogActivity extends Activity {
 		llayout3=(LinearLayout)findViewById(R.id.llayout3);
 		llayout4=(LinearLayout)findViewById(R.id.llayout4);
 		mode=getIntent().getIntExtra("mode", 1);
+		
+		
+		mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+		
+		// 添加微信平台
+				UMWXHandler wxHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
+				wxHandler.addToSocialSDK();
+				// 支持微信朋友圈
+				UMWXHandler wxCircleHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
+				wxCircleHandler.setToCircle(true);
+				wxCircleHandler.addToSocialSDK();
+				SinaSsoHandler  sinaSsoHandler=new SinaSsoHandler(this);
+				sinaSsoHandler.addToSocialSDK();
 		ImageLoader imageLoader=ImageLoader.getInstance();
 		findViewById(R.id.close_iv).setOnClickListener(new OnClickListener() {
 			
@@ -236,14 +262,14 @@ new Thread(new Runnable() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(Constants.api==null){
+				/*if(Constants.api==null){
 					boolean flag=WeixinShare.regToWeiXin(InviteOthersDialogActivity.this);
 					if(!flag){
 						Toast.makeText(InviteOthersDialogActivity.this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
 
 						return;
 					}
-				}
+				}*/
 				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
 				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
 				FileOutputStream fos=null;
@@ -252,7 +278,8 @@ new Thread(new Runnable() {
 					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
-					if(Constants.api==null){
+					weixinShare(data);
+				/*	if(Constants.api==null){
 						boolean flag=WeixinShare.regToWeiXin(InviteOthersDialogActivity.this);
 						if(!flag){
 							Toast.makeText(InviteOthersDialogActivity.this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
@@ -265,7 +292,7 @@ new Thread(new Runnable() {
 						MobclickAgent.onEvent(InviteOthersDialogActivity.this, "invite_share");
 					}else{
 						Toast.makeText(InviteOthersDialogActivity.this,"分享失败。", Toast.LENGTH_LONG).show();
-					}
+					}*/
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -287,14 +314,14 @@ new Thread(new Runnable() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(Constants.api==null){
+			/*	if(Constants.api==null){
 					boolean flag=WeixinShare.regToWeiXin(InviteOthersDialogActivity.this);
 					if(!flag){
 						Toast.makeText(InviteOthersDialogActivity.this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
 						
 						return;
 					}
-				}
+				}*/
 				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
 				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
 				FileOutputStream fos=null;
@@ -303,12 +330,13 @@ new Thread(new Runnable() {
 					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
-					if(WeixinShare.shareBitmap(data, 2)){
+					friendShare(data);
+					/*if(WeixinShare.shareBitmap(data, 2)){
 						MobclickAgent.onEvent(InviteOthersDialogActivity.this, "invite_share");
 //						Toast.makeText(InviteOthersDialogActivity.this,"成功分享到微信。", Toast.LENGTH_LONG).show();
 					}else{
 						Toast.makeText(InviteOthersDialogActivity.this,"分享到微信失败。", Toast.LENGTH_LONG).show();
-					}
+					}*/
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -330,9 +358,9 @@ new Thread(new Runnable() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(!UserStatusUtil.hasXinlangAuth(InviteOthersDialogActivity.this)){
+				/*if(!UserStatusUtil.hasXinlangAuth(InviteOthersDialogActivity.this)){
 					return;
-				}
+				}*/
 				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
 				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
 				FileOutputStream fos=null;
@@ -342,11 +370,12 @@ new Thread(new Runnable() {
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
 					data.des="我家萌星最闪亮！小伙伴们快来助力~~邀请码："+animal.invite_code+"，http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
-					if(UserStatusUtil.hasXinlangAuth(InviteOthersDialogActivity.this)){
+					xinlangShare(data);
+					/*if(UserStatusUtil.hasXinlangAuth(InviteOthersDialogActivity.this)){
 						
 						XinlangShare.sharePicture(data,InviteOthersDialogActivity.this);
 						MobclickAgent.onEvent(InviteOthersDialogActivity.this, "invite_share");
-					}
+					}*/
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -376,5 +405,118 @@ new Thread(new Runnable() {
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	   }
+	      
+	      public void weixinShare(UserImagesJson.Data data){
+		   	   WeiXinShareContent weixinContent = new WeiXinShareContent();
+		   	 //设置分享文字
+		   /*	 weixinContent.setShareContent("");
+		   	 //设置title
+		   	 weixinContent.setTitle("");*/
+		   	 //设置分享图片
+		   	 UMImage umImage=new UMImage(this,data.path );
+		   	 weixinContent.setShareImage(umImage);
+		   	 mController.setShareMedia(weixinContent);
+//		   	 mController.openShare(this, true);
+		   	 mController.postShare(this,SHARE_MEDIA.WEIXIN, 
+		   		        new SnsPostListener() {
+		   		                @Override
+		   		                public void onStart() {
+//		   		                    Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+		   		                }
+		   		                @Override
+		   		                public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
+		   		                     if (eCode == 200) {
+		   		                    	MobclickAgent.onEvent(InviteOthersDialogActivity.this, "invite_share");
+		   		                         Toast.makeText(InviteOthersDialogActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+		   		                     } else {
+		   		                          String eMsg = "";
+		   		                          if (eCode == -101){
+		   		                              eMsg = "没有授权";
+		   		                          }
+		   		                          Toast.makeText(InviteOthersDialogActivity.this, "分享失败[" + eCode + "] " + 
+		   		                                             eMsg,Toast.LENGTH_SHORT).show();
+		   		                     }
+		   		              }
+		   		});
+		   	   
+		   		
+		      }
+		 public void friendShare(UserImagesJson.Data data){
+			   CircleShareContent circleMedia = new CircleShareContent();
+			   UMImage umImage=new UMImage(this, data.path);
+			   circleMedia.setShareImage(umImage);
+			  /* circleMedia.setShareContent("努力卖萌，只为给自己代粮！快把你每天的免费粮食赏给我~");
+			   circleMedia.setTitle("轻轻一点，免费赏粮！我家"+pp.animal.pet_nickName+"的口粮就靠你啦~");
+			   circleMedia.setTargetUrl(shareUrl+pp.img_id+"&to=wechat");*/
+			   mController.setShareMedia(circleMedia);
+			   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,
+					   new SnsPostListener() {
+//		           @Override
+		           public void onStart() {
+//		               Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+		           }
+		           @Override
+		           public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
+		                if (eCode == 200) {
+		                	MobclickAgent.onEvent(InviteOthersDialogActivity.this, "invite_share");
+		                 Toast.makeText(InviteOthersDialogActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+		                } else {
+		                     String eMsg = "";
+		                     if (eCode == -101){
+		                         eMsg = "没有授权";
+		                     }
+		                     Toast.makeText(InviteOthersDialogActivity.this, "分享失败[" + eCode + "] " + 
+		                                        eMsg,Toast.LENGTH_SHORT).show();
+		                }
+		         }
+		});
+			   
+				
+		   }
+		 public void xinlangShare(UserImagesJson.Data data){
+			
+		   	   SinaShareContent content=new SinaShareContent();
+		   	   content.setShareContent(data.des);
+		   	   UMImage umImage=new UMImage(this, data.path);
+		   	  
+		   	   content.setShareImage(umImage);
+		   	   mController.setShareMedia(content);
+		   	   mController.postShare(this, SHARE_MEDIA.SINA,new SnsPostListener() {
+		   		
+		   		@Override
+		   		public void onStart() {
+		   			// TODO Auto-generated method stub
+		   			
+		   		}
+		   		
+		   		@Override
+		   		public void onComplete(SHARE_MEDIA arg0, int eCode, SocializeEntity arg2) {
+		   			// TODO Auto-generated method stub
+		   			if (eCode == 200) {
+		                   Toast.makeText(InviteOthersDialogActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+		                   MobclickAgent.onEvent(InviteOthersDialogActivity.this, "invite_share");    
+		   			} else {
+		                       String eMsg = "";
+		                       if (eCode == -101){
+		                           eMsg = "没有授权";
+		                       }
+		                       Toast.makeText(InviteOthersDialogActivity.this, "分享失败[" + eCode + "] " + 
+		                                          eMsg,Toast.LENGTH_SHORT).show();
+		                  }
+		   		}
+		   	});
+			 
+		 }
+		 
+		 @Override
+		protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+			// TODO Auto-generated method stub
+			super.onActivityResult(requestCode, resultCode, data);
+			UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+	        if(ssoHandler != null){
+	           ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+	        }
+		}  
+	      
 
 }

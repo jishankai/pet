@@ -32,7 +32,6 @@ import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.WeixinShare;
-import com.aidigame.hisun.pet.widget.XinlangShare;
 import com.aidigame.hisun.pet.widget.fragment.DialogNote;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
@@ -40,6 +39,8 @@ import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners.UMAuthListener;
 import com.umeng.socialize.controller.listener.SocializeListeners.UMDataListener;
 import com.umeng.socialize.exception.SocializeException;
+import com.umeng.socialize.sso.SinaSsoHandler;
+import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 public class AccountActivity extends Activity implements OnClickListener{
@@ -49,6 +50,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 	UMSocialService mController;
 	ImageView back,bindWeixinIV,bindXinlangIV,shareWeixinIV,shareXinlangIV;
 	LinearLayout progressLayout,linearLayout2,linearlayout12,linearlayout13;
+	View lineInvite;
 	ShowProgress showProgress;
 	int acount=-1;//1同步发送到新浪微博，2 绑定新浪微博；-1 Activity启动时进入onResume方法，啥也不做。
 	Handler handler;
@@ -64,6 +66,11 @@ public class AccountActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.activity_account);
 		accountActivity=this;
 		handler=HandleHttpConnectionException.getInstance().getHandler(this);
+		mController = (UMSocialService) UMServiceFactory.getUMSocialService("com.umeng.login");
+		SinaSsoHandler sinaSsoHandler=new SinaSsoHandler(this);
+		UMWXHandler wxHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
+		wxHandler.addToSocialSDK();
+		sinaSsoHandler.addToSocialSDK();
 		initView();
 	}
 	private void initView() {
@@ -98,14 +105,17 @@ public class AccountActivity extends Activity implements OnClickListener{
 		
 		linearLayout2=(LinearLayout)findViewById(R.id.linearlayout2);
 		linearlayout12=(LinearLayout)findViewById(R.id.linearlayout12);
+		lineInvite=findViewById(R.id.lineInvite);
 		linearlayout13=(LinearLayout)findViewById(R.id.linearlayout13);
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
 		popupParent=(View)findViewById(R.id.popup_parent);
 		if(!StringUtil.isEmpty(Constants.CON_VERSION)&&"1.0".equals(Constants.CON_VERSION))
 		{
 			linearlayout12.setVisibility(View.GONE);
+			lineInvite.setVisibility(View.GONE);
 		}else{
 			linearlayout12.setVisibility(View.VISIBLE);
+			lineInvite.setVisibility(View.VISIBLE);
 		}
 		
 		linearlayout12.setOnClickListener(this);
@@ -272,7 +282,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 				}else{
 					showProgress.progressCancel();
 				}
-				XinlangShare.xinlangAuth(this, true);
+				
 				/*acount=2;
 				if(UserStatusUtil.hasXinlangAuth(this)){
 					editor.putBoolean(Constants.LOCK_TO_XINLANG, true);
@@ -297,7 +307,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 		case R.id.share_weixin:
            if(!sp.getBoolean(Constants.PICTURE_SEND_TO_WEIXIN, false)){
 				
-				if(Constants.api==null){
+				/*if(Constants.api==null){
 					boolean flag=WeixinShare.regToWeiXin(this);
 					if(!flag){
 						Toast.makeText(this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
@@ -311,7 +321,43 @@ public class AccountActivity extends Activity implements OnClickListener{
 				}else{
 					editor.putBoolean(Constants.PICTURE_SEND_TO_WEIXIN, true);
 					shareWeixinIV.setImageResource(R.drawable.checked);
-				}
+				}*/
+        	   mController.doOauthVerify(this, SHARE_MEDIA.WEIXIN, new UMAuthListener() {
+       		    @Override
+       		    public void onStart(SHARE_MEDIA platform) {
+       		        Toast.makeText(AccountActivity.this, "授权开始", Toast.LENGTH_SHORT).show();
+       		    }
+       		    @Override
+       		    public void onError(SocializeException e, SHARE_MEDIA platform) {
+       		        Toast.makeText(AccountActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
+       		     SharedPreferences sp=getSharedPreferences("setup", Context.MODE_WORLD_READABLE);
+        			Editor editor=sp.edit();
+       		     shareWeixinIV.setImageResource(R.drawable.unchecked);
+					editor.putBoolean(Constants.PICTURE_SEND_TO_WEIXIN, false);
+					editor.commit();
+       		        if(showProgress!=null)showProgress.progressCancel();
+       		    }
+       		    @Override
+       		    public void onComplete(Bundle value, SHARE_MEDIA platform) {
+       		        Toast.makeText(AccountActivity.this, "授权完成", Toast.LENGTH_SHORT).show();
+       		     SharedPreferences sp=getSharedPreferences("setup", Context.MODE_WORLD_READABLE);
+       			Editor editor=sp.edit();
+       		     editor.putBoolean(Constants.PICTURE_SEND_TO_WEIXIN, true);
+					shareWeixinIV.setImageResource(R.drawable.checked);
+					editor.commit();
+//       		        getWeixinInfo();
+       		    }
+       		    @Override
+       		    public void onCancel(SHARE_MEDIA platform) {
+       		    	 if(showProgress!=null)showProgress.progressCancel();
+       		        Toast.makeText(AccountActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
+       		     shareWeixinIV.setImageResource(R.drawable.unchecked);
+       		  SharedPreferences sp=getSharedPreferences("setup", Context.MODE_WORLD_READABLE);
+     			Editor editor=sp.edit();
+					editor.putBoolean(Constants.PICTURE_SEND_TO_WEIXIN, false);
+					editor.commit();
+       		    }
+       		} );
 			}else{
 				editor.putBoolean(Constants.PICTURE_SEND_TO_WEIXIN, false);
 				shareWeixinIV.setImageResource(R.drawable.unchecked);
@@ -321,13 +367,43 @@ public class AccountActivity extends Activity implements OnClickListener{
 		case R.id.share_xinlang:
 			acount=1;
 			if(!sp.getBoolean(Constants.PICTURE_SEND_TO_XINLANG, false)){
-				if(UserStatusUtil.hasXinlangAuth(this)){
-					shareXinlangIV.setImageResource(R.drawable.checked);
-					editor.putBoolean(Constants.PICTURE_SEND_TO_XINLANG, true);
-				}else{
-					shareXinlangIV.setImageResource(R.drawable.unchecked);
-					editor.putBoolean(Constants.PICTURE_SEND_TO_XINLANG, false);
-				}
+				 mController.doOauthVerify(this, SHARE_MEDIA.SINA, new UMAuthListener() {
+		       		    @Override
+		       		    public void onStart(SHARE_MEDIA platform) {
+		       		        Toast.makeText(AccountActivity.this, "授权开始", Toast.LENGTH_SHORT).show();
+		       		    }
+		       		    @Override
+		       		    public void onError(SocializeException e, SHARE_MEDIA platform) {
+		       		        Toast.makeText(AccountActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
+		       		     SharedPreferences sp=getSharedPreferences("setup", Context.MODE_WORLD_READABLE);
+		        			Editor editor=sp.edit();
+		        			shareXinlangIV.setImageResource(R.drawable.unchecked);
+							editor.putBoolean(Constants.PICTURE_SEND_TO_XINLANG, false);
+							editor.commit();
+		       		        if(showProgress!=null)showProgress.progressCancel();
+		       		    }
+		       		    @Override
+		       		    public void onComplete(Bundle value, SHARE_MEDIA platform) {
+		       		        Toast.makeText(AccountActivity.this, "授权完成", Toast.LENGTH_SHORT).show();
+		       		     SharedPreferences sp=getSharedPreferences("setup", Context.MODE_WORLD_READABLE);
+		       			Editor editor=sp.edit();
+		       		     editor.putBoolean(Constants.PICTURE_SEND_TO_XINLANG, true);
+		       		  shareXinlangIV.setImageResource(R.drawable.checked);
+							editor.commit();
+//		       		        getWeixinInfo();
+		       		    }
+		       		    @Override
+		       		    public void onCancel(SHARE_MEDIA platform) {
+		       		    	 if(showProgress!=null)showProgress.progressCancel();
+		       		        Toast.makeText(AccountActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
+		       		     shareXinlangIV.setImageResource(R.drawable.unchecked);
+		       		  SharedPreferences sp=getSharedPreferences("setup", Context.MODE_WORLD_READABLE);
+		     			Editor editor=sp.edit();
+							editor.putBoolean(Constants.PICTURE_SEND_TO_XINLANG, false);
+							editor.commit();
+		       		    }
+		       		} );
+				
 			}else{
 				editor.putBoolean(Constants.PICTURE_SEND_TO_XINLANG, false);
 				shareXinlangIV.setImageResource(R.drawable.unchecked);
@@ -387,7 +463,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 		 * 微信权限
 		 */
 		
-		mController = (UMSocialService) UMServiceFactory.getUMSocialService("com.umeng.login");
+//		mController = (UMSocialService) UMServiceFactory.getUMSocialService("com.umeng.login");
 		
 		UMWXHandler wxHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
 		wxHandler.addToSocialSDK();
@@ -605,5 +681,13 @@ public class AccountActivity extends Activity implements OnClickListener{
 	    	}
 	    }
 	   }
-
+	      @Override
+			protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+				// TODO Auto-generated method stub
+				super.onActivityResult(requestCode, resultCode, data);
+				UMSsoHandler ssoHandler = mController.getConfig().getSsoHandler(requestCode) ;
+		        if(ssoHandler != null){
+		           ssoHandler.authorizeCallBack(requestCode, resultCode, data);
+		        }
+			}
 }

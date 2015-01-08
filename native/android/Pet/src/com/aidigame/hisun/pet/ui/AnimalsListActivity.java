@@ -84,7 +84,14 @@ public class AnimalsListActivity extends Activity {
 						// TODO Auto-generated method stub
 						Animal u=HttpUtil.animalInfo(AnimalsListActivity.this,user, handleHttpConnectionException.getHandler(AnimalsListActivity.this));
 						if(u!=null){
-							Intent intent=new Intent(AnimalsListActivity.this,PetKingdomActivity.class);
+							if(NewPetKingdomActivity.petKingdomActivity!=null){
+								if(NewPetKingdomActivity.petKingdomActivity.loadedImage1!=null&&!NewPetKingdomActivity.petKingdomActivity.loadedImage1.isRecycled()){
+									NewPetKingdomActivity.petKingdomActivity.loadedImage1.recycle();
+									NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
+								}
+								NewPetKingdomActivity.petKingdomActivity.finish();
+							}
+							Intent intent=new Intent(AnimalsListActivity.this,NewPetKingdomActivity.class);
 							intent.putExtra("animal", u);
 							AnimalsListActivity.this.startActivity(intent);
 							AnimalsListActivity.this.finish();
