@@ -284,7 +284,8 @@ class UserController extends Controller
         //$u_namelen = (strlen($u_name)+mb_strlen($u_name,"UTF8"))/2;
         $u_namelen = mb_strlen($u_name,"UTF8");
         if ($u_namelen>8) {
-            throw new PException('用户名超过最大长度');
+            //throw new PException('用户名超过最大长度');
+            $u_name = mb_substr($u_name, 0, 8);
         }
         if (User::model()->isNameExist(trim($u_name))) {
             throw new PException('用户名已被注册');
