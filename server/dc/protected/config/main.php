@@ -21,6 +21,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
         'application.extensions.*',
+        'application.extensions.alipay.*',
 	),
 
 	'modules'=>array(
@@ -97,15 +98,6 @@ return array(
             'APPID'=>'',
             'SECRET'=>'',
             'REDIRECT_URL'=>'',
-        ),
-        'alipay'=>array(
-            'class'=>'application.extensions.alipay.AlipayProxy',
-            'key'=>'',
-            'partner'=>'',
-            'seller_email'=>'liria@aidigame.com',
-            'return_url'=>'http://release4pet.aidigame.com/alipay/return',
-            'notify_url'=>'http://release4pet.aidigame.com/alipay/notify',
-            'show_url'=>'',
         ),
         'cache' => array(
             /*
