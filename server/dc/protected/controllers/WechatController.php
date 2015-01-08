@@ -364,7 +364,7 @@ class WechatController extends Controller
 
         $u = Yii::app()->wechat->get_userinfo_by_authorize($code);
         $params = array(
-            'uid'=>$u['unionid'],
+            'uid'=>$u['openid'],
         );
         $params['sig'] = $this->signature($params);
         $json = file_get_contents($this->createAbsoluteUrl('user/loginApi', $params));
@@ -381,7 +381,7 @@ class WechatController extends Controller
                 'u_gender'=>$u['sex'],
                 'u_city'=>1001,
                 'code'=>'',
-                'wechat'=>$u['openid'],
+                'wechat'=>$u['unionid'],
                 'SID'=>$j->data->SID,
             );
             $params['sig'] = $this->signature($params);
