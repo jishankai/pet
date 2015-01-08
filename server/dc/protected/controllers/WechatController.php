@@ -370,9 +370,13 @@ class WechatController extends Controller
         $json = file_get_contents($this->createAbsoluteUrl('user/loginApi', $params));
         $j = json_decode($json);
         if (!$j->data->isSuccess) {
-            $aid = Yii::app()->db->createCommand('SELECT aid FROM dc_image WHERE img_id=:img_id')->bindValue(':img_id', $state)->queryScalar();
+            $r = Yii::app()->db->createCommand('SELECT a.aid,a.name,a.gender,a.age,a.type FROM dc_image i INNER JONIN dc_animal a ON i.aid=a.aid WHERE img_id=:img_id')->bindValue(':img_id', $state)->queryRow();
             $params = array(
-                'aid'=>$aid,
+                'aid'=>$r['aid'],
+                'name'=>$r['name'],
+                'gender'=>$r['gender'],
+                'age'=>$r['age'],
+                'type'=>$r['type'],
                 'u_name'=>$u['nickname'],
                 'u_gender'=>$u['sex'],
                 'u_city'=>1001,
