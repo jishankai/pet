@@ -31,7 +31,7 @@ class SocialController extends Controller
         $this->render('food', array('r'=>$r, 'sid'=>$SID));
     }
 
-    public function actionActivity()
+    public function actionActivity($SID)
     {
         $this->layout = FALSE;
 
