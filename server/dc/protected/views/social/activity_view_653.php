@@ -7,6 +7,15 @@
 		<link rel="stylesheet" type="text/css" href="css/activity_view.css">
 		<link rel="stylesheet" type="text/css" href="css/alert.css">
 		<script src="js/zepto.min.js"></script>
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
+                var s = document.getElementsByTagName("script")[0]; 
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
 	</head>
 <body>
 <div class="act2_wrap comWidth">

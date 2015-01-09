@@ -25,12 +25,12 @@
 		<div class="ab_tit">代粮喵们</div>
 		<div class="act1_imgBox">
 			<ul class="act1_imgList clearfix">
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>1))?>"><img alt="" src="css/images/a1.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>2))?>"><img alt="" src="css/images/a2.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>3))?>"><img alt="" src="css/images/a3.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>4))?>"><img alt="" src="css/images/a4.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>5))?>"><img alt="" src="css/images/a5.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>6))?>"><img alt="" src="css/images/a6.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>653))?>"><img alt="" src="css/images/a1.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>651))?>"><img alt="" src="css/images/a2.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>652))?>"><img alt="" src="css/images/a3.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>660))?>"><img alt="" src="css/images/a4.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>654))?>"><img alt="" src="css/images/a5.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>655))?>"><img alt="" src="css/images/a6.png"></a></li>
 			</u>
 		</div>
 	</div>
