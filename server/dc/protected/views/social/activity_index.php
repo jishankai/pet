@@ -1,8 +1,3 @@
-<?php 
-require("hm.php");
-$_hmt = new _HMT("fffd5628b5c5fe81d7a7867d554d07ca");
-$_hmtPixel = $_hmt->trackPageView();
-?>
 <!DOCTYPE>
 <html>
 <head>
@@ -10,10 +5,18 @@ $_hmtPixel = $_hmt->trackPageView();
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>暖冬活动进行中</title>
 	<link rel="stylesheet" type="text/css" href="css/activity_index.css">
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
 
 </head>
 <body>
-<img src="<?php echo $_hmtPixel; ?>" width="0" height="0" />
 <div class="act1_wrap comWidth">
 	<div class="act1_top">
 		<img alt="" src="css/images/act2.png">

@@ -1,8 +1,3 @@
-<?php 
-require("hm.php");
-$_hmt = new _HMT("fffd5628b5c5fe81d7a7867d554d07ca");
-$_hmtPixel = $_hmt->trackPageView();
-?>
 <!DOCTYPE>
 <html>
 <head>
@@ -11,9 +6,17 @@ $_hmtPixel = $_hmt->trackPageView();
 <title>我为自己代粮</title>
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 </head>
 <body>
-<img src="<?php echo $_hmtPixel; ?>" width="0" height="0" />
 <div class="comWidth">
 	<div class="food_title">
 		<h3>宠物星球<i>-我为自己代粮</i></h3>
