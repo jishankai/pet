@@ -28,10 +28,10 @@ $(".give_left").click(function () {
 
 /*加1效果*/
 
-	$("#reward").click(function(){
+	/*$("#reward").click(function(){
 		var b=parseInt($(".food_num").html());
 		var c=parseInt($("#g_num").html());
-		/*$(".food_num").html(b+c);*/
+		
 
 
 		var left = parseInt($('.food_num').position().left-80), top =  parseInt($('.food_num').position().top-40), obj=$('.food_num');
@@ -64,7 +64,7 @@ $(".give_left").click(function () {
 
 
 
-	})
+	})*/
 
 
 /*弹框2*/

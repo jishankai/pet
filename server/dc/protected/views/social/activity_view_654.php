@@ -7,16 +7,16 @@
 		<link rel="stylesheet" type="text/css" href="css/activity_view.css">
 		<link rel="stylesheet" type="text/css" href="css/alert.css">		
 		<script src="js/zepto.min.js"></script>
-        <script>
-            var _hmt = _hmt || [];
-            (function() {
-                var hm = document.createElement("script");
-                hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
-                var s = document.getElementsByTagName("script")[0]; 
-                s.parentNode.insertBefore(hm, s);
-            })();
-        </script>
 	</head>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 <body>
 <div class="act2_wrap comWidth">
 	<div class="act2_top">
@@ -30,9 +30,9 @@
 		<div class="introduce">
 			<div class="pet_name">代粮喵：<span>77</span></div>
 			<div class="pet_place">代粮地点：<span>北京紫竹院公园</span></div>
-			<div class="pet_weibo">新浪微博：<span><a href="http://weibo.com/u/1678351712?topnav=1&wvr=6&topsug=1">十四阙</a></span></div>
+			<div class="pet_weibo"><a href="http://weibo.com/u/1678351712?topnav=1&wvr=6&topsug=1">新浪微博：<span>十四阙</span></a></div>
 		</div>
-		<div class="declaration">活动宣言：<span>给紫竹院的流浪喵们带来温暖的冬天！</span></div>
+		
 		<div class="act2_petHead">
 			<img  alt="" src="css/images/h5.png">
 
@@ -40,13 +40,16 @@
 		
 		<div class="act2_range">
 			<div class="hr_10"></div>
-			<div class="target">目标还剩 <span class="target_num" id="target_num">40000</span> 份口粮<span class="d_time" id="d_time"></span></div>
+			<div class="target_Box clearfix">
+				<div class="target">目标还剩 <span class="target_num" id="target_num">243000</span> 份口粮</div>
+				<div class="d_time" id="d_time"></div>
+			</div>
 			<div class="hr_10"></div>
 			<div class="aprogressbar">
-				<div class="abar" id="abar" style="width:60%"></div>
+				<div class="abar" id="abar" style="width:10%"></div>
 			</div>
 		</div>
-		<div class="zhu">注：每人每天可以免费捐赠 5 份口粮</div>
+		<div class="zhu">注：每人每天可以免费捐赠 3 份口粮</div>
 		<img src="css/images/dashed.png" alt="" class="dashed">
 	</div>
 	<div class="act2_body">
@@ -61,8 +64,8 @@
 			<li ><img src="css/img/zzy/7.png" alt="" name="7"></li>
 			<li ><img src="css/img/zzy/8.png" alt="" name="8"></li>
 			<li ><img src="css/img/zzy/9.png" alt="" name="9"></li>
-			<li ><img src="css/img/zzy/10.png" alt="" name="10"></li>
 		</ul>
+		<div class="hr_100"></div>
 	</div>
 
 	<div class="float">
@@ -92,8 +95,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="load">
-			
+
+		<div class="load_shadow"><img src="css/images/load_shadow.png"></div>
+		<div class="load">	
 			<div class="load_left">
 				<div class="logo_icon">
 					<img src="css/images/logo_icon.jpg"/>
@@ -114,7 +118,13 @@
 <!-- 大图显示 -->
 	 
 	<div class="large animated fadeInDown" id="large_container" style="display:none">
-		
+
+		<div class="hr_10"></div>
+		<div class="bigImg_btn">
+			<span id="s_one">上一张</span>
+			<span id="close_one">关闭</span>
+			<span id="x_one">下一张</span>
+		</div>
 		<div class="large_imgBox">
 			<img id="large_img" name="">
 			<a href="#" class="close" id="close"><img src="css/images/img_close.png"></a>
@@ -149,26 +159,18 @@
     });
 
 /*触屏时单击关闭*/
-  $('#large_container').tap(function(){
+ $('#close_one').click(function(){
         $('#container').css({height:'auto','overflow':'auto'})
         $('#large_container').hide();
     });
-
-/*左滑屏幕*/
-
-$('#large_container').swipeLeft(function(){
-        var a=document.getElementById("large_img"); 
-        var x=parseInt(a.name);
-        var y=x+1;
-        if(y>9){
-            y=9;
-        }
-        a.src="css/img/zzy/"+y+".png"; 
-        a.name=y;
-});
+ $('#close_bigImg').click(function(){
+        $('#container').css({height:'auto','overflow':'auto'})
+        $('#large_container').hide();
+    });
+  
 
 /*浏览器中单击右图标*/
-$('#right_bigImg').click(function(){
+$('#x_one').tap(function(){
     var a=document.getElementById("large_img"); 
         var x=parseInt(a.name);
         var y=x+1;
@@ -178,21 +180,30 @@ $('#right_bigImg').click(function(){
         a.src="css/img/zzy/"+y+".png"; 
         a.name=y;     
 });
+$('#right_bigImg').click(function(){
+    var a=document.getElementById("large_img"); 
+        var x=parseInt(a.name);
+        var y=x+1;
+        if(y>9){
+            y=9;
+        }
+        a.src="css/img/zzy/"+y+".png"; 
+        a.name=y;     
+});
 
 
-/*手机中右滑*/
-$('#large_container').swipeRight(function(){
-     var a=document.getElementById("large_img"); 
+/*浏览器中单击左图标*/
+$('#left_bigImg').click(function(){
+    var a=document.getElementById("large_img"); 
         var x=parseInt(a.name);
         var y=x-1;
         if(y<1){
             y=1;
         }
-        a.src="css/img/zzy/"+y+".png"; 
-        a.name=y;
+        a.src="css/img/zzy/"+y+".png";
+        a.name=y;       
 });
-/*浏览器中单击左图标*/
-$('#left_bigImg').click(function(){
+$('#s_one').tap(function(){
     var a=document.getElementById("large_img"); 
         var x=parseInt(a.name);
         var y=x-1;
@@ -215,12 +226,6 @@ $('#act2_imgBox img').click(function(){
         a.src = this.src;
         a.name = this.name;
 
-    });
-
-/*浏览器中单击关闭按钮*/
-$('#close_bigImg').click(function(){
-        $('#container').css({height:'auto','overflow':'auto'})
-        $('#large_container').hide();
     });
 
 /*浏览器版大图*/
@@ -255,6 +260,24 @@ function rightHide(){
    
     left.style.display="none";
 }
+/*赏按钮（进度条相关）*/
+$("#reward").click(function(){
+    var b=parseInt($("#target_num").html());
+    var c=parseInt($("#g_num").html());
+    $("#target_num").html(b-c);
+    var d=parseInt($("#target_num").html());
+
+    /*进度条*/
+    var total=243000;
+    var pwidth=(total-d)/total*100+"%";
+    $("#abar").width(pwidth);
+
+    /*弹出框*/
+
+    $("#shadow_Box").css('display','block');
+    $("#t2").css('display','block');
+
+});
 </script>
 </html>
 

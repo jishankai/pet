@@ -7,8 +7,6 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 @media only screen and (min-width: 650px){
 .comWidth{width:640px;height:100%;margin:auto auto;}
 
-
-
 }
 
 .act1_top img{width: 100%;}
@@ -17,10 +15,11 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 .ab_tit{
 	font-family: "Microsoft Yahei";
 	margin-top: 10px;
-	font-size: 30px;
+	font-size: 26px;
 	margin-bottom:10px;
-	text-indent: 15px;
+	text-indent: 1%;
 	color: #7c7c7c;
+	font-weight: bold;
 }
 
 .act1_imgList li{
@@ -36,11 +35,11 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 	margin: 3%;
 	padding-top: 5px;
 }
-.person_num{font-size: 30px;margin: 3%;}
+.person_num{font-size: 24px;margin: 3%;}
 .person_num span{color: #f4775e;}
 .hr_100{height: 100px;width: 100%;background-color: #f7f7f7;}
 /*下载*/
-.float{position: fixed;bottom: 0;left:center; width: 640px;}
+
 .load{
 	height: 98px;width: 640px;margin: 0 auto;
 	background-color: #ffffff;	
@@ -54,6 +53,7 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 .load_left h3{line-height:49px; font-size: 25px;}
 .load_left p{height:49px; font-size:25px; color: #777676;}
 .load .load_right{float: left; width: 50%; height: 100%; text-align: right;}
+.float{position: fixed;bottom: 0;left:center; width: 640px;}
 
 /*手机适配（小）*/
 @media only screen and (min-width: 300px) and (max-width: 650px){
@@ -63,8 +63,8 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 	font-family: "Microsoft Yahei";
 	margin-top: 5px;
 	font-size: 15px;
-	margin-bottom:5px;
-	text-indent: 15px;
+	margin-bottom:0px;
+	text-indent: 2%;
 	color: #7c7c7c;
 }
 .act1_imgList li{
@@ -74,7 +74,8 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 }
 .act1_imgList img{width: 100%;height: auto;}
 .am_tit{font-size: 15px;font-weight: bold;}
-.head_imgList li{width: 10%;height: 6%;}
+/*.head_imgList li{width: 10%;height: 6%;}*/
+
 .person_num{font-size: 15px;}
 
 /*下载*/
@@ -86,4 +87,25 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 .load_left p{height:28px; font-size:14px;}
 .load_right img{width: 122px;height: 58px;}
 .float{width: 100%;}
+}
+/*微信头像匹配*/
+@media only screen and (min-width: 300px) and (max-width: 350px){
+	.head_imgList li{width: 30px;height: 30px;}
+	.person_num{font-size: 12px;}
+}
+@media only screen and (min-width: 351px) and (max-width: 400px){
+	.head_imgList li{width: 35px;height: 35px;}
+	.person_num{font-size: 13px;}
+}
+@media only screen and (min-width: 401px) and (max-width: 450px){
+	.head_imgList li{width: 40px;height: 40px;}
+}
+@media only screen and (min-width: 451px) and (max-width: 500px){
+	.head_imgList li{width: 45px;height: 45px;}
+}
+@media only screen and (min-width: 501px) and (max-width: 550px){
+	.head_imgList li{width: 50px;height: 50px;}
+}
+@media only screen and (min-width: 551px) and (max-width: 600px){
+	.head_imgList li{width: 55px;height: 55px;}
 }

@@ -63,20 +63,21 @@ $(".give_left").click(function () {
 
 /*赏*/
 
-$("#reward").click(function(){
+/*$("#reward").click(function(){
     var b=parseInt($("#target_num").html());
     var c=parseInt($("#g_num").html());
     $("#target_num").html(b-c);
     var d=parseInt($("#target_num").html());
 
-    /*进度条*/
+    进度条
     var total=100000;
     var pwidth=(total-d)/total*100+"%";
-    $("#abar").width(pwidth);
+    $("#abar").width(pwidth);*/
 
     /*弹出框*/
-
+/*
     $("#shadow_Box").css('display','block');
     $("#t2").css('display','block');
 
 });
+*/

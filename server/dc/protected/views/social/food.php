@@ -9,12 +9,13 @@
 <script>
     var _hmt = _hmt || [];
     (function() {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
-        var s = document.getElementsByTagName("script")[0]; 
-        s.parentNode.insertBefore(hm, s);
-    })();
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
 </script>
+
 </head>
 <body>
 <div class="comWidth">
@@ -27,7 +28,7 @@
 	<div class="food_body">
 		<div class="info">
         <img src="http://pet4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" alt="" class="ph_m"/>
-			<img src="css/images/photo-m-t.png" alt="" class="ph_m"/>
+			<img src="css/images/photo-m-t1.png" alt="" class="ph_m"/>
 			<div class="info_tit">
             <h3><?php echo $r['name']?></h3>
 				<img src="css/images/man_icon.jpg">
@@ -57,9 +58,10 @@
         	<div class="come_from">
             <h3><?php echo $r['cmt']?></h3>
         	</div>
-
+        	<div class="hr_100"></div>
 	
 	</div>
+
 	<div class="float">
 		<div class="select_money_t" id="gold">
 			<div class="select_money">
@@ -82,12 +84,8 @@
 						<h3 id="g_num">1</h3>
 					</div>
 					<div class="give_m"></div>
-					<!-- <div class="give_right">
-						<h3 id="reward">赏</h3>
-					</div> -->
 					<div class="give_right">
-						<img src="css/images/reword_btn.png" id="reward"  />
-						<img src="css/images/reword_btn.png" style="display:none" id="reward1" />
+						<img src="images/reword_btn.gif" id="reward"  onclick="aa()" />
 					</div>
 				</div>
 			</div>
@@ -144,5 +142,53 @@ function FreshTime()
         }
         setTimeout(FreshTime,1000);
 }
+
+$("#reward").click(function(){
+
+		var b=parseInt($(".food_num").html());
+		var c=parseInt($("#g_num").html());
+        var n=c;
+        var img_id = <?php echo $img_id ?>;
+        var to = <?php echo $to ?>;
+        var aid =<?php echo $aid ?>;
+        var sid =<?php echo $SID ?>;
+        var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
+        $.getJSON(<?php echo $this->createUrl('images/rewardFoodMobileApi')?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&SID='+sid+'&sig='+sig, function(data){
+        	/*alert(data);*/
+            var b=parseInt($(".food_num").html());
+
+            var left = parseInt($('.food_num').position().left-80), top =  parseInt($('.food_num').position().top-40), obj=$('.food_num');
+        	if(data==1){
+        		$('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+1</b></div>');
+        		}
+       		 else if(data==10){
+           		 $('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+10</b></div>');
+        		}
+        	else if(data==100){
+           		 $('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+100</b></div>');
+        		}
+        	else if(data==1000){
+            	$('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+1000</b></div>');
+        		}
+       		$('.food_num').remove("#zhan");
+
+        	$('#zhan').css({'position':'absolute','z-index':'1','color':'#C30','left':left+'px','top':top+'px','font-size':'24px'});
+        	$('#zhan').animate({top:top-40,opacity: 0},1000,
+        	function(){
+            	$(this).fadeOut(100).remove();
+            	var Num = parseInt(obj.text());
+               	Num=Num+c;
+               	obj.text(Num);
+        	});
+        	aa();
+
+
+        });
+	
+
+    });
+
+
+
 </script>
 </html>
