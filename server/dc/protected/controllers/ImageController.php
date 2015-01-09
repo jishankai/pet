@@ -361,7 +361,6 @@ class ImageController extends Controller
 
         $user = User::model()->findByPk($this->usr_id);
 
-        $session = Yii::app()->session;
         if (!isset($session['food'])) {
             $session['food'] = 5;
         }
