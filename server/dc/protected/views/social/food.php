@@ -149,7 +149,7 @@ $("#reward").click(function(){
 		var c=parseInt($("#g_num").html());
         var n=c;
         var img_id = <?php echo $img_id ?>;
-        var to = <?php echo $to ?>;
+        var to = <?php echo "'".$to."'" ?>;
         var aid =<?php echo $aid ?>;
         var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
         $.getJSON(<?php echo "'".$this->createUrl('images/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&SID='+<?php echo "'".$sid."'" ?>+'&sig='+sig, function(data){
