@@ -391,9 +391,10 @@ class WechatController extends Controller
                 Yii::app()->wechat->get_code_by_authorize($state);
             }
         }
-        $this->layout = FALSE;
+        $session = Yii::app()->session->readSession($j->data->SID);
+        setcookie('wechatauth2_'.$oauth2->APPID, http_build_query(array('usr_id'=>$session['usr_id'])) );
         $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $state)->queryRow();
-        $this->render('/social/food', array('r'=>$r, 'to'=>'wechat', 'sid'=>$j->data->SID));
+        $this->renderPartial('/social/food', array('r'=>$r, 'to'=>'wechat', 'sid'=>$j->data->SID));
     }
 
 }
