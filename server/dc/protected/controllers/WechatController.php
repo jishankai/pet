@@ -394,9 +394,9 @@ class WechatController extends Controller
         $oauth2 = Yii::app()->wechat;
         setcookie('wechatauth2_'.$oauth2->APPID, http_build_query(array('usr_id'=>$j->data->usr_id));
         if ($img_id==0) {
-            $this->redirect(array('social/activityview', 'aid'=>$aid, 'sid'=>$j->data->SID));
+            $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$j->data->SID));
         } else {
-            $this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'sid'=>$j->data->SID));
+            $this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$j->data->SID));
         }
     }
 

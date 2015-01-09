@@ -394,9 +394,9 @@ class ImageController extends Controller
         }
 
         if ($img_id==0) {
-            $this->redirect(array('social/activityview', 'aid'=>$aid, 'sid'=>$SID));
+            $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$SID));
         } else {
-            $this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'sid'=>$SID));
+            $this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$SID));
         }
     }
 
