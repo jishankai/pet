@@ -744,7 +744,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 		   	   UMImage umImage=new UMImage(this, data.path);
 		   	sinaShareContent.setShareImage(umImage);
 //		   	   circleMedia.setTargetUrl("");
-		   	sinaShareContent.setShareContent(animal.pet_nickName);
+		   	sinaShareContent.setShareContent(data.des);
 		   	   
 		   	   mController.setShareMedia(sinaShareContent);
 		   	   mController.postShare(this,SHARE_MEDIA.SINA,
@@ -783,7 +783,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 	   	   UMImage umImage=new UMImage(this, data.path);
 	   	   circleMedia.setShareImage(umImage);
 //	   	   circleMedia.setTargetUrl("");
-	   	circleMedia.setShareContent(animal.pet_nickName);
+//	   	circleMedia.setShareContent(animal.pet_nickName);
 	   	   
 	   	   mController.setShareMedia(circleMedia);
 	   	   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,

@@ -1240,6 +1240,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 						if(param2==null){
 							param2=new ScrollView.LayoutParams(ScrollView.LayoutParams.MATCH_PARENT,petPicture.likeUsersList.size()*start);
 						}
+						if(petPicture.likeUsersList==null)petPicture.likeUsersList=new ArrayList<User>();
 						param2.height=(petPicture.likeUsersList.size())*start;
 						listView.setLayoutParams(param2);
 						
@@ -2189,7 +2190,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	 //设置分享图片
 	 UMImage umImage=new UMImage(this,bmpPath );
 	 weixinContent.setShareImage(umImage);
-	 weixinContent.setShareContent(petPicture.animal.pet_nickName);
+//	 weixinContent.setShareContent(petPicture.animal.pet_nickName);
 	 mController.setShareMedia(weixinContent);
 //	 mController.openShare(this, true);
 	 mController.postShare(this,SHARE_MEDIA.WEIXIN, 
@@ -2263,7 +2264,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	   CircleShareContent circleMedia = new CircleShareContent();
 	   UMImage umImage=new UMImage(this, bmpPath);
 	   circleMedia.setShareImage(umImage);
-		circleMedia.setShareContent(petPicture.animal.pet_nickName);
+//		circleMedia.setShareContent(petPicture.animal.pet_nickName);
 //	   circleMedia.setTargetUrl("你的URL链接");
 	   mController.setShareMedia(circleMedia);
 	   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,

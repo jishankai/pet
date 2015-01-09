@@ -190,7 +190,7 @@
                    android:id="@+id/show_topic_petname"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="大黄青葱岁月"
+                   android:text=""
                    android:textColor="#565656"/>
                
                </LinearLayout>
@@ -204,7 +204,7 @@
                    android:id="@+id/show_topic_pet_race"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="金毛"
+                   android:text=""
                    android:layout_marginLeft="15dp"
                    android:textColor="#606060"
                    android:textSize="12sp"/>
@@ -218,7 +218,7 @@
                        android:id="@+id/show_topic_username"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="By-彭于晏帅哥欧巴"
+                       android:text=""
                        android:textSize="12sp"
                        android:layout_marginRight="5dp"
                        android:textColor="#606060"/>
