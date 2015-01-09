@@ -7,7 +7,6 @@
 		<link rel="stylesheet" type="text/css" href="css/activity_view.css">
 		<link rel="stylesheet" type="text/css" href="css/alert.css">
 		<script src="js/zepto.min.js"></script>
-        <script src="js/jquery.md5.js"></script>
 	</head>
     <script>
         var _hmt = _hmt || [];
@@ -142,6 +141,7 @@
 </body>
 <script src="js/activity_view.js"></script>
 <script src="js/alert.js"></script>
+<script src="js/jquery.md5.js"></script>
 <script type="text/javascript">
 	var zWin = $(window);
 
