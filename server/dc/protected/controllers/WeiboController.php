@@ -54,6 +54,8 @@ class WeiboController extends Controller
             	}
         	}
         	$session = Yii::app()->session->readSession($j->data->SID);
+        	Yii::import('ext.sinaWeibo.SinaWeibo',true);
+            $oauth2 = new SinaWeibo(WB_AKEY, WB_SKEY);
         	setcookie('weibooauth2_'.$oauth2->client_id, http_build_query(array('usr_id'=>$session['usr_id'])) );
         	if ($img_id==0) {
             	$this->renderPartial('/social/activity_view_'.$aid, array('aid'=>$aid, 'sid'=>$j->data->SID));

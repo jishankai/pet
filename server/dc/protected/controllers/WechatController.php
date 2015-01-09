@@ -391,6 +391,7 @@ class WechatController extends Controller
                 Yii::app()->wechat->get_code_by_authorize($state);
             }
         }
+        $oauth2 = Yii::app()->wechat;
         $session = Yii::app()->session->readSession($j->data->SID);
         setcookie('wechatauth2_'.$oauth2->APPID, http_build_query(array('usr_id'=>$session['usr_id'])));
         if ($img_id==0) {
