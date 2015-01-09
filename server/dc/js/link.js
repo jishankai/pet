@@ -182,7 +182,7 @@ function alertMsg_a(msg, mode) { //mode为空，即只有一个确认按钮，mo
 
 
         var alertMsg1_gold = document.createElement('img');
-        alertMsg1_gold.src="images/gold.png";
+        alertMsg1_gold.src="css/images/gold.png";
         alertMsg1_gold.id = 'alertMsg1_gold';
         alertMsg1_gold_wrap.appendChild(alertMsg1_gold);
 

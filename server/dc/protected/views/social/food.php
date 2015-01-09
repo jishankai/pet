@@ -85,7 +85,7 @@
 					</div>
 					<div class="give_m"></div>
 					<div class="give_right">
-						<img src="images/reword_btn.gif" id="reward"  onclick="aa()" />
+						<img src="css/images/reword_btn.gif" id="reward"  onclick="aa()" />
 					</div>
 				</div>
 			</div>
