@@ -334,6 +334,7 @@ class ImageController extends Controller
                     $this->usr_id = $usr_id;
                 } else {
                     $oauth2->get_code_by_authorize(http_build_query(array('img_id'=>$img_id, 'aid'=>$aid)));
+                    exit;
                 }
                 break;
             case 'weibo':
@@ -345,13 +346,13 @@ class ImageController extends Controller
                     $this->usr_id = $usr_id;
                 } else {
                     $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id, 'aid'=>$aid)), 'mobile'));
+                    exit;
                 }
                 break;
             default:
                 # code...
                 break;
             }
-            exit;
         }
 
         if ($img_id!=0) {
