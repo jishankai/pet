@@ -7,7 +7,7 @@ class ImageController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - recommendApi,randomApi,infoApi,recoApi,reportApi,ask4FoodApi,bannerApi',
+            'getUserId - recommendApi,randomApi,infoApi,recoApi,reportApi,ask4FoodApi,bannerApi,rewardFoodMobileApi',
             array(
                 'COutputCache + randomApi',
                 'duration' => 300,
@@ -306,25 +306,96 @@ class ImageController extends Controller
 
     public function actionAsk4FoodApi($page=0)
     {
-       $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE is_food=1 AND i.create_time>=:create_time ORDER BY i.create_time DESC LIMIT :m,30')->bindValues(array(':create_time'=> time()-(60*60*24), ':m'=>$page*30))->queryAll();
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE is_food=1 AND i.create_time>=:create_time ORDER BY i.create_time DESC LIMIT :m,30')->bindValues(array(':create_time'=> time()-(60*60*24), ':m'=>$page*30))->queryAll();
 
-       $this->echoJsonData(array($r));
+        $this->echoJsonData(array($r));
+    }
+
+    public function actionRewardFoodMobileApi($img_id=0, $n, $to='', $aid=0)
+    {
+        switch ($to) {
+            case 'wechat':
+                $oauth2 = Yii::app()->wechat;
+                $key = 'wechatoauth2_'.$oauth2->APPID;
+                if (isset($_COOKIE[$key])&&$cookie=parse_str($_COOKIE[$key])) {
+                    $this->usr_id = $cookie['usr_id'];
+                } else {
+                    $oauth2->get_code_by_authorize($img_id);
+                }
+                break;
+            case 'weibo':
+                Yii::import('ext.sinaWeibo.SinaWeibo',true);
+                $oauth2 = new SinaWeibo(WB_AKEY, WB_SKEY);
+                $key = 'weibooauth2_'.$oauth2->client_id;
+                if (isset($_COOKIE[$key])&&$cookie=parse_str($_COOKIE[$key])) {
+                    $this->usr_id = $cookie['usr_id'];
+                } else {
+                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', $img_id, 'mobile'));
+                }
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        if ($img_id!=0) {
+            $image = Image::model()->findByPk($img_id); 
+            $aid = $image->aid;
+        } 
+        $animal = Animal::model()->findByPk($aid);
+       
+        $user = User::model()->findByPk($this->usr_id);
+
+        $session = Yii::app()->session;
+        if (!isset($session['food'])) {
+            $session['food'] = 5;
+        }
+
+        if ($session['food']+$user->gold<$n) {
+            throw new PException('您的余粮不足');
+        }
+
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            if ($session['food']>=$n) {
+                $session['food']-=$n;
+            } else {
+                $user->gold-=($n-$session['food']);
+                $session['food']=0;
+                $user->saveAttributes(array('gold'));
+            }
+            if ($img_id!=0) {
+                $image->food+=$n;
+                $image->saveAttributes(array('food'));
+            }
+            $animal->food+=$n;
+            $animal->total_food+=$n;
+            $animal->saveAttributes(array('food','total_food'));
+            
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+
+        $this->echoJsonData(array('food'=>$image->food, 'gold'=>$user->gold));
     }
 
     public function actionRewardFoodApi($img_id, $n)
     {
-       $image = Image::model()->findByPk($img_id); 
-       $animal = Animal::model()->findByPk($image->aid);
-       $user = User::model()->findByPk($this->usr_id);
+        $image = Image::model()->findByPk($img_id); 
+        $animal = Animal::model()->findByPk($image->aid);
+       
+        $user = User::model()->findByPk($this->usr_id);
 
-       $session = Yii::app()->session;
-       if (!isset($session['food'])) {
-           $session['food'] = 5;
-       }
+        $session = Yii::app()->session;
+        if (!isset($session['food'])) {
+            $session['food'] = 5;
+        }
 
-       if ($session['food']+$user->gold<$n) {
-           throw new PException('您的余粮不足');
-       }
+        if ($session['food']+$user->gold<$n) {
+            throw new PException('您的余粮不足');
+        }
 
         $transaction = Yii::app()->db->beginTransaction();
         try {
@@ -341,6 +412,7 @@ class ImageController extends Controller
 
             $image->saveAttributes(array('food'));
             $animal->saveAttributes(array('food','total_food'));
+            
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
