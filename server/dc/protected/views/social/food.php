@@ -153,37 +153,37 @@ $("#reward").click(function(){
         var to = <?php echo "'".$to."'" ?>;
         var aid =<?php echo $aid ?>;
         var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
-        $.getJSON(<?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&SID='+<?php echo "'".$sid."'" ?>+'&sig='+sig, function(data){
+        window.open(<?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&SID='+<?php echo "'".$sid."'" ?>+'&sig='+sig);
         	/*alert(data);*/
-            var b=parseInt($(".food_num").html());
+        //     var b=parseInt($(".food_num").html());
 
-            var left = parseInt($('.food_num').position().left-80), top =  parseInt($('.food_num').position().top-40), obj=$('.food_num');
-        	if(data==1){
-        		$('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+1</b></div>');
-        		}
-       		 else if(data==10){
-           		 $('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+10</b></div>');
-        		}
-        	else if(data==100){
-           		 $('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+100</b></div>');
-        		}
-        	else if(data==1000){
-            	$('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+1000</b></div>');
-        		}
-       		$('.food_num').remove("#zhan");
+        //     var left = parseInt($('.food_num').position().left-80), top =  parseInt($('.food_num').position().top-40), obj=$('.food_num');
+        // 	if(data==1){
+        // 		$('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+1</b></div>');
+        // 		}
+       	// 	 else if(data==10){
+        //    		 $('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+10</b></div>');
+        // 		}
+        // 	else if(data==100){
+        //    		 $('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+100</b></div>');
+        // 		}
+        // 	else if(data==1000){
+        //     	$('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+1000</b></div>');
+        // 		}
+       	// 	$('.food_num').remove("#zhan");
 
-        	$('#zhan').css({'position':'absolute','z-index':'1','color':'#C30','left':left+'px','top':top+'px','font-size':'24px'});
-        	$('#zhan').animate({top:top-40,opacity: 0},1000,
-        	function(){
-            	$(this).fadeOut(100).remove();
-            	var Num = parseInt(obj.text());
-               	Num=Num+c;
-               	obj.text(Num);
-        	});
-        	aa();
+        // 	$('#zhan').css({'position':'absolute','z-index':'1','color':'#C30','left':left+'px','top':top+'px','font-size':'24px'});
+        // 	$('#zhan').animate({top:top-40,opacity: 0},1000,
+        // 	function(){
+        //     	$(this).fadeOut(100).remove();
+        //     	var Num = parseInt(obj.text());
+        //        	Num=Num+c;
+        //        	obj.text(Num);
+        // 	});
+        // 	aa();
 
 
-        });
+        // });
 	
 
     });
