@@ -361,7 +361,9 @@ class WechatController extends Controller
         if (!isset($code)) {
             Yii::app()->wechat->get_code_by_authorize($state);
         }
-        parse_str($state);
+        $tmp_arr = explode('_', $state);
+        $img_id = $tmp_arr[0];
+        $aid = $tmp_arr[1];
         $u = Yii::app()->wechat->get_userinfo_by_authorize($code);
         $params = array(
             'uid'=>$u['openid'],
