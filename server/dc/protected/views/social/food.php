@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>我为自己代粮</title>
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+<script src="js/jquery.md5.js"></script>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
 <script>
     var _hmt = _hmt || [];
