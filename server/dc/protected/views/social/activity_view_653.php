@@ -268,7 +268,7 @@ var c=parseInt($("#g_num").html());
 var n=c;
 var aid =<?php echo $aid ?>;
 var sig =$.md5('aid='+aid+'&n='+n+'dog&cat');
-$.getJSON(<?php echo "'".$this->createUrl('images/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&SID='<?php echo "'".$sid."." ?>+'&sig='+sig, function(data){
+$.getJSON(<?php echo "'".$this->createUrl('images/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&SID='<?php echo "'".$sid."'" ?>+'&sig='+sig, function(data){
 
    $("#reward").click(function(){
 
