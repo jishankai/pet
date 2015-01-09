@@ -370,7 +370,7 @@ class ImageController extends Controller
 
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $user->gold-=$n
+            $user->gold-=$n;
             $user->saveAttributes(array('gold'));
             
             if ($img_id!=0) {
