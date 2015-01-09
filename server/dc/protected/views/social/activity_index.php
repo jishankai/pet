@@ -1,3 +1,8 @@
+<?php 
+require("hm.php");
+$_hmt = new _HMT("fffd5628b5c5fe81d7a7867d554d07ca");
+$_hmtPixel = $_hmt->trackPageView();
+?>
 <!DOCTYPE>
 <html>
 <head>
@@ -8,6 +13,7 @@
 
 </head>
 <body>
+<img src="<?php echo $_hmtPixel; ?>" width="0" height="0" />
 <div class="act1_wrap comWidth">
 	<div class="act1_top">
 		<img alt="" src="css/images/act2.png">
