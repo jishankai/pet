@@ -153,7 +153,7 @@ $("#reward").click(function(){
         var to = <?php echo "'".$to."'" ?>;
         var aid =<?php echo $aid ?>;
         var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
-        location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
+        location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&SID='+<?php echo "'".$sid."'" ?>+'&sig='+sig;
         	/*alert(data);*/
         //     var b=parseInt($(".food_num").html());
 
