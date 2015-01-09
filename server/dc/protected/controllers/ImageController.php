@@ -316,10 +316,8 @@ class ImageController extends Controller
         if ($SID!='') {
             $session = Yii::app()->session;
             $this->usr_id = $session['usr_id'];
-        } else {
-            session_start();
-            $session = $_SESSION;
-        }
+        } 
+
         if (!isset($this->usr_id)) {
             if ($to=='') {
                 if (strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")) {
@@ -366,23 +364,15 @@ class ImageController extends Controller
 
         $user = User::model()->findByPk($this->usr_id);
 
-        if (!isset($session['food'])) {
-            $session['food'] = 5;
-        }
-
-        if ($session['food']+$user->gold<$n) {
+        if ($user->gold<$n) {
             throw new PException('您的余粮不足');
         }
 
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            if ($session['food']>=$n) {
-                $session['food']-=$n;
-            } else {
-                $user->gold-=($n-$session['food']);
-                $session['food']=0;
-                $user->saveAttributes(array('gold'));
-            }
+            $user->gold-=$n
+            $user->saveAttributes(array('gold'));
+            
             if ($img_id!=0) {
                 $image->food+=$n;
                 $image->saveAttributes(array('food'));
