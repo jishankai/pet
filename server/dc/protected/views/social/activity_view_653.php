@@ -267,7 +267,10 @@ var c=parseInt($("#g_num").html());
 
 var n=c;
 var aid =<?php echo $aid ?>;
-var sid =<?php echo $sid ?>;
+<?php if (empty($sid) ?>;
+    var sid = '';
+<?php else ?>
+    var sid = <?php echo $sid?>;
 var sig =$.md5('aid='+aid+'&n='+n+'dog&cat');
 $.getJSON(<?php echo $this->createUrl('images/rewardFoodMobileApi')?>+'&aid='+aid+'&n='+n+'&SID='+sid+'&sig='+sig, function(data){
 

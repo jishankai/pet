@@ -85,7 +85,7 @@
 					</div>
 					<div class="give_m"></div>
 					<div class="give_right">
-						<img src="css/images/reword_btn.gif" id="reward"  onclick="aa()" />
+						<img src="css/images/reword_btn.gif" id="reward"/>
 					</div>
 				</div>
 			</div>
@@ -151,7 +151,10 @@ $("#reward").click(function(){
         var img_id = <?php echo $img_id ?>;
         var to = <?php echo $to ?>;
         var aid =<?php echo $aid ?>;
-        var sid =<?php echo $sid ?>;
+        <?php if (empty($sid) ?>;
+            var sid = '';
+        <?php else ?>
+            var sid = <?php echo $sid?>;
         var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
         $.getJSON(<?php echo $this->createUrl('images/rewardFoodMobileApi')?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&SID='+sid+'&sig='+sig, function(data){
         	/*alert(data);*/
