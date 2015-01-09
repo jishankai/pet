@@ -311,31 +311,46 @@ class ImageController extends Controller
         $this->echoJsonData(array($r));
     }
 
-    public function actionRewardFoodMobileApi($img_id=0, $n, $to='', $aid=0)
+    public function actionRewardFoodMobileApi($img_id=0, $n, $to='', $aid=0, $SID='')
     {
-        switch ($to) {
+        if ($SID!='') {
+            $session = Yii::app()->session->readSession($SID);
+            $this->usr_id = $session['usr_id'];
+        } 
+        if (!isset($this->usr_id)) {
+            if ($to=='') {
+                if (strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")) {
+                    $to = 'wechat';
+                } else {
+                    $to = 'weibo';
+                }
+            }
+            switch ($to) {
             case 'wechat':
                 $oauth2 = Yii::app()->wechat;
                 $key = 'wechatoauth2_'.$oauth2->APPID;
-                if (isset($_COOKIE[$key])&&$cookie=parse_str($_COOKIE[$key])) {
-                    $this->usr_id = $cookie['usr_id'];
+                if (isset($_COOKIE[$key])&&$cookie=$_COOKIE[$key]) {
+                    parse_str($cookie);
+                    $this->usr_id = $usr_id;
                 } else {
-                    $oauth2->get_code_by_authorize($img_id);
+                    $oauth2->get_code_by_authorize(http_build_query(array('img_id'=>$img_id, 'aid'=>$aid)));
                 }
                 break;
             case 'weibo':
                 Yii::import('ext.sinaWeibo.SinaWeibo',true);
                 $oauth2 = new SinaWeibo(WB_AKEY, WB_SKEY);
                 $key = 'weibooauth2_'.$oauth2->client_id;
-                if (isset($_COOKIE[$key])&&$cookie=parse_str($_COOKIE[$key])) {
-                    $this->usr_id = $cookie['usr_id'];
+                if (isset($_COOKIE[$key])&&$cookie=$_COOKIE[$key]) {
+                    parse_str($cookie);
+                    $this->usr_id = $usr_id;
                 } else {
-                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', $img_id, 'mobile'));
+                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id, 'aid'=>$aid)), 'mobile'));
                 }
                 break;
             default:
                 # code...
                 break;
+            }
         }
 
         if ($img_id!=0) {
@@ -343,7 +358,7 @@ class ImageController extends Controller
             $aid = $image->aid;
         } 
         $animal = Animal::model()->findByPk($aid);
-       
+
         $user = User::model()->findByPk($this->usr_id);
 
         $session = Yii::app()->session;

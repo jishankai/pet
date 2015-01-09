@@ -20,9 +20,9 @@ class SocialController extends Controller
         $this->renderPartial('activity_index', array('sid'=>$SID));
     }
 
-    public function actionActivityview($id, $SID='')
+    public function actionActivityview($aid, $SID='')
     {
-        $this->renderPartial('activity_view_'.$id, array('sid'=>$SID));
+        $this->renderPartial('activity_view_'.$aid, array('sid'=>$SID));
     }
 
 }

@@ -20,6 +20,7 @@ class WeiboController extends Controller
 		}
 
 		if ($token) {
+			parse_str($state);
 			setcookie( 'weibojs_'.$oauth2->client_id, http_build_query($token) );
 			$c = new SaeTClientV2( WB_AKEY , WB_SKEY , $token['access_token'] );
 			$uid_get = $c->get_uid();
@@ -31,7 +32,7 @@ class WeiboController extends Controller
 			$json = file_get_contents($this->createAbsoluteUrl('user/loginApi', $params));
     	    $j = json_decode($json);
         	if (!$j->data->isSuccess) {
-            	$r = Yii::app()->db->createCommand('SELECT a.aid,a.name,a.gender,a.age,a.type FROM dc_image i INNER JOIN dc_animal a ON i.aid=a.aid WHERE img_id=:img_id')->bindValue(':img_id', $state)->queryRow();
+            	$r = Yii::app()->db->createCommand('SELECT a.aid,a.name,a.gender,a.age,a.type FROM dc_animal a WHERE aid=:aid')->bindValue(':aid', $aid)->queryRow();
             	$params = array(
                 	'aid'=>$r['aid'],
                 	'name'=>$r['name'],
@@ -54,8 +55,12 @@ class WeiboController extends Controller
         	}
         	$session = Yii::app()->session->readSession($j->data->SID);
         	setcookie('weibooauth2_'.$oauth2->client_id, http_build_query(array('usr_id'=>$session['usr_id'])) );
-        	$r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $state)->queryRow();
-        	$this->renderPartial('/social/food', array('r'=>$r, 'to'=>'weibo', 'sid'=>$j->data->SID));
+        	if ($img_id==0) {
+            	$this->renderPartial('/social/activity_view_'.$aid, array('sid'=>$j->data->SID))
+        	} else {
+            	$r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $img_id)->queryRow();
+           		$this->renderPartial('/social/food', array('r'=>$r, 'to'=>'wechat', 'sid'=>$j->data->SID));
+        	}
 		} else {
 		    echo '认证失败';
 		}
