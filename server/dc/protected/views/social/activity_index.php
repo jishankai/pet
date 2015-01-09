@@ -24,12 +24,12 @@
 		<div class="ab_tit">点击代粮喵头像，为ta的小伙伴捐粮</div>
 		<div class="act1_imgBox">
 			<ul class="act1_imgList clearfix">
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>653))?>"><img alt="" src="css/images/a1.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>651))?>"><img alt="" src="css/images/a2.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>652))?>"><img alt="" src="css/images/a3.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>660))?>"><img alt="" src="css/images/a4.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>654))?>"><img alt="" src="css/images/a5.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('id'=>655))?>"><img alt="" src="css/images/a6.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>653))?>"><img alt="" src="css/images/a1.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>651))?>"><img alt="" src="css/images/a2.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>652))?>"><img alt="" src="css/images/a3.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>660))?>"><img alt="" src="css/images/a4.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>654))?>"><img alt="" src="css/images/a5.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>655))?>"><img alt="" src="css/images/a6.png"></a></li>
 			</u>
 		</div>
 	</div>
