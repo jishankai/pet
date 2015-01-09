@@ -316,7 +316,10 @@ class ImageController extends Controller
         if ($SID!='') {
             $session = Yii::app()->session;
             $this->usr_id = $session['usr_id'];
-        } 
+        } else {
+            session_start();
+            $session = $_SESSION;
+        }
         if (!isset($this->usr_id)) {
             if ($to=='') {
                 if (strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")) {
