@@ -351,6 +351,7 @@ class ImageController extends Controller
                 # code...
                 break;
             }
+            exit;
         }
 
         if ($img_id!=0) {
