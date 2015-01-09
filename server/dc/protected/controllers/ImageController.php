@@ -314,7 +314,7 @@ class ImageController extends Controller
     public function actionRewardFoodMobileApi($img_id=0, $n, $to='', $aid=0, $SID='')
     {
         if ($SID!='') {
-            $session = Yii::app()->session->readSession($SID);
+            $session = Yii::app()->session;
             $this->usr_id = $session['usr_id'];
         } 
         if (!isset($this->usr_id)) {
@@ -394,10 +394,10 @@ class ImageController extends Controller
         }
 
         if ($img_id==0) {
-            $this->renderPartial('/social/activity_view_'.$aid, array('aid'=>$aid, 'sid'=>$j->data->SID));
+            $this->renderPartial('/social/activity_view_'.$aid, array('aid'=>$aid, 'sid'=>$SID));
         } else {
             $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $img_id)->queryRow();
-            $this->renderPartial('/social/food', array('r'=>$r, 'img_id'=>$img_id, 'to'=>'wechat', 'aid'=>$aid, 'sid'=>$j->data->SID));
+            $this->renderPartial('/social/food', array('r'=>$r, 'img_id'=>$img_id, 'to'=>'wechat', 'aid'=>$aid, 'sid'=>$SID));
         }
     }
 
