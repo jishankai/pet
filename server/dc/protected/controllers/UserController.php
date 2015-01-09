@@ -287,9 +287,10 @@ class UserController extends Controller
             //throw new PException('用户名超过最大长度');
             $u_name = mb_substr($u_name, 0, 8);
         }
+        /*
         if (User::model()->isNameExist(trim($u_name))) {
             throw new PException('用户名已被注册');
-        }
+        }*/
         if (!preg_match($pattern, trim($u_name))) {
             throw new PException('用户名含有特殊字符');
         }
