@@ -39,7 +39,7 @@ class WeiboController extends Controller
                 	'age'=>$r['age'],
                 	'type'=>$r['type'],
                 	'code'=>'',
-                	'u_name'=>$u['name'],
+                	'u_name'=>'星'.mb_substr($u['id'], 0, 6),
                 	'u_gender'=>$u['gender']=='m'?1:2,
                 	'u_city'=>1001,
                 	'weibo'=>$u['id'],
