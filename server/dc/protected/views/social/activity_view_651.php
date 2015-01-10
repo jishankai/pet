@@ -30,7 +30,7 @@
 		<div class="introduce">
 			<div class="pet_name">代粮喵：<span>16</span></div>
 			<div class="pet_place">代粮地点：<span>北京香山公园</span></div>
-			<div class="pet_weibo"><a href="http://weibo.com/u/1678351712?topnav=1&wvr=6&topsug=1">新浪微博：<span>十四阙</span></a></div>
+			<div class="pet_weibo"><a href="http://weibo.com/u/1678351712?topnav=1&wvr=6&topsug=1">新浪微博：<span><u>十四阙</u></span></a></div>
 		</div>
 		<div class="act2_petHead">
 			<img  alt="" src="css/images/h2.png">

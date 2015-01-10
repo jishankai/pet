@@ -31,7 +31,7 @@
 		<div class="introduce">
 			<div class="pet_name">代粮喵：<span>酥饼</span></div>
 			<div class="pet_place">代粮地点：<span>北京动物园</span></div>
-			<div class="pet_weibo"><a href="http://weibo.com/u/5041262490?topnav=1&wvr=6&topsug=1">新浪微博：<span>酥饼大人</span></a></div>
+			<div class="pet_weibo"><a href="http://weibo.com/u/5041262490?topnav=1&wvr=6&topsug=1">新浪微博：<span><u>酥饼大人</u></span></a></div>
 		</div>
 		<div class="act2_petHead">
 			<img  alt="" src="css/images/h4.png">
