@@ -108,7 +108,7 @@
 			<div class="load_right">
 				<a href="http://home4pet.aidigame.com" target="_blank">
                     <img src="css/images/load.jpg"/>
-                </a>ß
+                </a>
 			</div>
 		</div>
 	</div>
