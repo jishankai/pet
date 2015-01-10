@@ -24,9 +24,6 @@
 		<div class="other_story">
 			<img src="css/images/other_story.png" alt="">
 		</div>
-		<div class="sponsor">
-			<img src="css/images/act2_sponsor.png">
-		</div>
 		<div class="introduce">
 			<div class="pet_name">代粮喵：<span>猴子和ta的小伙伴</span></div>
 			<div class="pet_place">代粮地点：<span>北京清华大学</span></div>
