@@ -51,7 +51,7 @@
             });
         });
  
-    }, false)
+    }, false)};
     </script>
 </head>
 <body>
