@@ -24,12 +24,12 @@
 		<div class="ab_tit">点击代粮喵头像，为ta的小伙伴捐粮</div>
 		<div class="act1_imgBox">
 			<ul class="act1_imgList clearfix">
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>653))?>"><img alt="" src="css/images/a1.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>651))?>"><img alt="" src="css/images/a2.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>652))?>"><img alt="" src="css/images/a3.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>660))?>"><img alt="" src="css/images/a4.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>654))?>"><img alt="" src="css/images/a5.png"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>655))?>"><img alt="" src="css/images/a6.png"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>653))?>"><img alt="" src="css/images/a1.jpg"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>651))?>"><img alt="" src="css/images/a2.jpg"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>652))?>"><img alt="" src="css/images/a3.jpg"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>660))?>"><img alt="" src="css/images/a4.jpg"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>654))?>"><img alt="" src="css/images/a5.jpg"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>655))?>"><img alt="" src="css/images/a6.jpg"></a></li>
 			</u>
 		</div>
 	</div>
@@ -39,41 +39,67 @@
 		<div class="head_imgBox">
 			<ul class="head_imgList clearfix">
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head1.JPG" id="head1">
+					<img alt="" src="css/images/base_head1.jpg" id="head1">
 					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head2.JPG" id="head2">
+					<img alt="" src="css/images/base_head2.jpg" id="head2">
 					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head3.JPG" id="head3">
+					<img alt="" src="css/images/base_head3.jpg" id="head3">
 					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head4.JPG" id="head4">
+					<img alt="" src="css/images/base_head4.jpg" id="head4">
 					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head5.JPG" id="head5">
+					<img alt="" src="css/images/base_head5.jpg" id="head5">
 					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head6.JPG" id="head6">
+					<img alt="" src="css/images/base_head6.jpg" id="head6">
 					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head7.JPG" id="head7">
+					<img alt="" src="css/images/base_head7.jpg" id="head7">
 					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head8.JPG" id="head8">
+					<img alt="" src="css/images/base_head8.jpg" id="head8">
 					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
 				</li>
 
 			</ul>
 		</div>
-		<div class="person_num">每天都能免费赠3份，爱心不怕重复，明天再来哟！</div>
+		<div class="mian">每天都能免费赠3份，爱心不怕重复，明天再来哟！</div>
+		<div id="tabs">
+			<ul>
+				<li class="on">活动介绍</li>
+				<li>参与方式</li>
+				<li>主办方介绍</li>
+			</ul>
+			<div>
+				<p>宠物星球社交应用携手酷宠新天地流浪动物救助平台，为北京地区的流浪猫筹集1个月的冬粮。</p>
+				<p>筹集粮食目标是由酷宠新天地流浪动物救助平台经过详细调研、科学计算出的。</p>
+				<p>筹得的粮食将由酷宠新天地流浪动物救助平台统一调派发放。</p>
+				<p>技术支持：宠物星球社交应用</p>
+				<p>粮食提供：宠物星球社交应用，好时天然猫粮，嘉吉天然猫粮</p>
+
+			</div>
+			<div class="hide">
+				<p>1.点击代粮猫头像进入捐粮页面→在相应区域主页选择捐粮份数→点击“赏”→完成相关授权→捐赠成功</p>
+				<p>2.每人每天都能获得金币用于捐粮，连续登陆天数越长获得金币越多哦！爱心不怕积累和重复，记得每天都要来！</p>
+				<p>3.你的朋友也可以在你分享出的活动页面进行捐助！快喊小伙伴一起为流浪喵筹集冬粮吧！</p>
+
+			</div>
+			<div class="hide">
+				<p>宠物星球社交应用是一个萌宠至上的宠物社区，在这里你可以：卖萌换口粮，让你家宝贝为自己代粮！结交萌宠和亲亲主人，交流我们的小秘密！参加星球活动，和可爱萌宠大联欢！我们希望，展示每一只宠物的与众不同，打造最闪亮的萌星！</p>
+				<p>酷宠新天地流浪动物救助平台，是一个致力于帮助流浪猫狗寻找领养主人的优秀平台，通过对各地区领养信息的扩散宣传，为每一个等家的小生命搭建爱心桥梁。同时传递科学养宠与责任养宠的理念，领养代替购买，让生命不再流浪。</p>
+
+			</div>
+		</div>
 		<div class="hr_100"></div>
 	</div>
 	<div class="float">
@@ -115,13 +141,31 @@
 	var ad6=Math.floor((Math.random())*4+20);
 	var ad7=Math.floor((Math.random())*4+24);
 	var ad8=Math.floor((Math.random())*4+28);
-	head1.src="css/images/base_head"+ad1+".JPG";
-	head2.src="css/images/base_head"+ad2+".JPG";
-	head3.src="css/images/base_head"+ad3+".JPG";
-	head4.src="css/images/base_head"+ad4+".JPG";
-	head5.src="css/images/base_head"+ad5+".JPG";
-	head6.src="css/images/base_head"+ad6+".JPG";
-	head7.src="css/images/base_head"+ad7+".JPG";
-	head8.src="css/images/base_head"+ad8+".JPG";
+	head1.src="css/images/base_head"+ad1+".jpg";
+	head2.src="css/images/base_head"+ad2+".jpg";
+	head3.src="css/images/base_head"+ad3+".jpg";
+	head4.src="css/images/base_head"+ad4+".jpg";
+	head5.src="css/images/base_head"+ad5+".jpg";
+	head6.src="css/images/base_head"+ad6+".jpg";
+	head7.src="css/images/base_head"+ad7+".jpg";
+	head8.src="css/images/base_head"+ad8+".jpg";
+	window.onload = function(){
+		var oTab = document.getElementById("tabs");
+		var oUl = oTab.getElementsByTagName("ul")[0];
+		var oLis = oUl.getElementsByTagName("li");
+		var oDivs= oTab.getElementsByTagName("div");
+
+		for(var i= 0,len = oLis.length;i<len;i++){
+			oLis[i].index = i;
+			oLis[i].onclick = function() {
+				for(var n= 0;n<len;n++){
+					oLis[n].className = "";
+					oDivs[n].className = "hide";
+				}
+				this.className = "on";
+				oDivs[this.index].className = "";
+			}
+		};
+	}
 </script>
 </html>

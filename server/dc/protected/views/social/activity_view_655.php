@@ -59,15 +59,15 @@
 	<div class="act2_body">
 		<div class="body_tit">活动照片</div>
 		<ul class="act2_imgBox clearfix" id="act2_imgBox">
-			<li ><img src="css/img/qh/1.png" alt="" name="1"></li>
-			<li ><img src="css/img/qh/2.png" alt="" name="2"></li>
-			<li ><img src="css/img/qh/3.png" alt="" name="3"></li>
-			<li ><img src="css/img/qh/4.png" alt="" name="4"></li>
-			<li ><img src="css/img/qh/5.png" alt="" name="5"></li>
-			<li ><img src="css/img/qh/6.png" alt="" name="6"></li>
-			<li ><img src="css/img/qh/7.png" alt="" name="7"></li>
-			<li ><img src="css/img/qh/8.png" alt="" name="8"></li>
-			<li ><img src="css/img/qh/9.png" alt="" name="9"></li>
+			<li ><img src="css/img/qh/1.jpg" alt="" name="1"></li>
+			<li ><img src="css/img/qh/2.jpg" alt="" name="2"></li>
+			<li ><img src="css/img/qh/3.jpg" alt="" name="3"></li>
+			<li ><img src="css/img/qh/4.jpg" alt="" name="4"></li>
+			<li ><img src="css/img/qh/5.jpg" alt="" name="5"></li>
+			<li ><img src="css/img/qh/6.jpg" alt="" name="6"></li>
+			<li ><img src="css/img/qh/7.jpg" alt="" name="7"></li>
+			<li ><img src="css/img/qh/8.jpg" alt="" name="8"></li>
+			<li ><img src="css/img/qh/9.jpg" alt="" name="9"></li>
 		</ul>
 		<div class="hr_100"></div>
 	</div>
@@ -184,7 +184,7 @@ $('#x_one').tap(function(){
         if(y>9){
             y=9;
         }
-        a.src="css/img/qh/"+y+".png"; 
+        a.src="css/img/qh/"+y+".jpg"; 
         a.name=y;     
 });
 $('#right_bigImg').click(function(){
@@ -194,9 +194,8 @@ $('#right_bigImg').click(function(){
         if(y>10){
             y=10;
         }
-        a.src="css/img/qh/"+y+".png"; 
-        a.name=y;     
-});
+        a.src="css/img/qh/"+y+".jpg"; 
+        a.name=y;     jpg;
 
 /*浏览器中单击左图标*/
 $('#left_bigImg').click(function(){
@@ -206,7 +205,7 @@ $('#left_bigImg').click(function(){
         if(y<1){
             y=1;
         }
-        a.src="css/img/qh/"+y+".png";
+        a.src="css/img/qh/"+y+".jpg";
         a.name=y;       
 });
 $('#s_one').tap(function(){
@@ -216,7 +215,7 @@ $('#s_one').tap(function(){
         if(y<1){
             y=1;
         }
-        a.src="css/img/qh/"+y+".png";
+        a.src="css/img/qh/"+y+".jpg";
         a.name=y;       
 });
 

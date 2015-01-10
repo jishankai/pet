@@ -44,7 +44,7 @@
 				<div class="target">目标还剩 <span class="target_num" id="target_num"><?php echo 162000-$food?></span> 份口粮</div>
 				<div class="d_time" id="d_time"></div>
 			</div>
-			<div class="hr_20"></div>
+			<div class="hr_10"></div>
 			<div class="aprogressbar">
 				<div class="abar" id="abar" style="width:<?php echo ceil($food/16200)?>%"></div>
 			</div>
@@ -55,15 +55,15 @@
 	<div class="act2_body">
 		<div class="body_tit">活动照片</div>
 		<ul class="act2_imgBox clearfix" id="act2_imgBox">
-			<li ><img src="css/img/bh/1.png" alt="" name="1"></li>
-			<li ><img src="css/img/bh/2.png" alt="" name="2"></li>
-			<li ><img src="css/img/bh/3.png" alt="" name="3"></li>
-			<li ><img src="css/img/bh/4.png" alt="" name="4"></li>
-			<li ><img src="css/img/bh/5.png" alt="" name="5"></li>
-			<li ><img src="css/img/bh/6.png" alt="" name="6"></li>
-			<li ><img src="css/img/bh/7.png" alt="" name="7"></li>
-			<li ><img src="css/img/bh/8.png" alt="" name="8"></li>
-			<li ><img src="css/img/bh/9.png" alt="" name="9"></li>		
+			<li ><img src="css/img/bh/1.jpg" alt="" name="1"></li>
+			<li ><img src="css/img/bh/2.jpg" alt="" name="2"></li>
+			<li ><img src="css/img/bh/3.jpg" alt="" name="3"></li>
+			<li ><img src="css/img/bh/4.jpg" alt="" name="4"></li>
+			<li ><img src="css/img/bh/5.jpg" alt="" name="5"></li>
+			<li ><img src="css/img/bh/6.jpg" alt="" name="6"></li>
+			<li ><img src="css/img/bh/7.jpg" alt="" name="7"></li>
+			<li ><img src="css/img/bh/8.jpg" alt="" name="8"></li>
+			<li ><img src="css/img/bh/9.jpg" alt="" name="9"></li>		
 		</ul>
 		<div class="hr_100"></div>
 	</div>
@@ -179,7 +179,7 @@ $('#x_one').tap(function(){
         if(y>10){
             y=10;
         }
-        a.src="css/img/bh/"+y+".png"; 
+        a.src="css/img/bh/"+y+".jpg"; 
         a.name=y;     
 });
 $('#right_bigImg').click(function(){
@@ -189,7 +189,7 @@ $('#right_bigImg').click(function(){
         if(y>9){
             y=9;
         }
-        a.src="css/img/bh/"+y+".png"; 
+        a.src="css/img/bh/"+y+".jpg"; 
         a.name=y;     
 });
 
@@ -201,7 +201,7 @@ $('#left_bigImg').click(function(){
         if(y<1){
             y=1;
         }
-        a.src="css/img/bh/"+y+".png";
+        a.src="css/img/bh/"+y+".jpg";
         a.name=y;       
 });
 $('#s_one').tap(function(){
@@ -211,7 +211,7 @@ $('#s_one').tap(function(){
         if(y<1){
             y=1;
         }
-        a.src="css/img/bh/"+y+".png";
+        a.src="css/img/bh/"+y+".jpg";
         a.name=y;       
 });
 
