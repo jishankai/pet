@@ -189,7 +189,8 @@ $('#right_bigImg').click(function(){
             y=10;
         }
         a.src="css/img/qh/"+y+".jpg"; 
-        a.name=y;     jpg;
+        a.name=y;
+});
 
 /*浏览器中单击左图标*/
 $('#left_bigImg').click(function(){
