@@ -148,8 +148,6 @@
 </body>	
 <script src="js/activity_view.js"></script>
 <script src="js/alert.js"></script>
-<script src="js/jquery-1.5.2.min.js"></script>
-<script src="js/jquery.md5.js"></script>
 <script type="text/javascript">
 	var zWin = $(window);
 

@@ -143,8 +143,7 @@
 </body>
 <script src="js/activity_view.js"></script>
 <script src="js/alert.js"></script>
-<script src="js/jquery-1.5.2.min.js"></script>
-<script src="js/jquery.md5.js"></script>
+<script src="js/md5.js"></script>
 <script type="text/javascript">
 	var zWin = $(window);
 
@@ -276,7 +275,7 @@ var c=parseInt($("#g_num").html());
 
 var n=c;
 var aid =<?php echo $aid ?>;
-var sig =$.md5('aid='+aid+'&n='+n+'dog&cat');
+var sig =md5('aid='+aid+'&n='+n+'dog&cat');
 location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
 });
 </script>
