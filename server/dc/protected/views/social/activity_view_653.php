@@ -66,7 +66,7 @@
 	</div>
 
 	<div class="float">
-		<div class="select_money_t" id="gold">
+		<!-- <div class="select_money_t" id="gold">
 			<div class="select_money">
 				<ul id="gold_num">
 					<li id="one">1000</li>
@@ -76,7 +76,7 @@
 				</ul>
 			</div>
 			<div class="target_3"></div>
-		</div>
+		</div> -->
 		<div class="give_btn">
 			<div class="give_btn_bottom">
 				<div class="give_btn_con">

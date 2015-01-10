@@ -63,7 +63,7 @@
 	</div>
 
 	<div class="float">
-		<div class="select_money_t" id="gold">
+		<!-- <div class="select_money_t" id="gold">
 			<div class="select_money">
 				<ul id="gold_num">
 					<li id="one">1000</li>
@@ -73,7 +73,7 @@
 				</ul>
 			</div>
 			<div class="target"></div>
-		</div>
+		</div> -->
 		<div class="give_sc" id="give_sc">
 			<h3>打赏成功～萌星<span>xxxx</span>感谢您的关爱</h3>
 		</div>
