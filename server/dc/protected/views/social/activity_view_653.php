@@ -18,9 +18,9 @@
         })();
         document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
             window.shareData = {
-                "timeLineLink": "http://"+window.local.host+"/index.php?r=social/activityview&"+<?php echo $aid?>,   
-                "sendFriendLink": "http://"+window.local.host+"/index.php?r=social/activityview&"+<?php echo $aid?>,
-                "weiboLink": "http://"+window.local.host+"/index.php?r=social/activityview&"+<?php echo $aid?>,
+                "timeLineLink": "http://"+window.local.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>,   
+                "sendFriendLink": "http://"+window.local.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>,
+                "weiboLink": "http://"+window.local.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>,
                 "tTitle": "北航喵年夜饭 大！募！集！",
                 "tContent": "宠物星球已经召集"+<?php echo $users?>+"位小伙伴为北航喵募集年夜饭，下一位暖心小天使是你吗？",
                 "fTitle": "北航喵年夜饭 大！募！集！",
