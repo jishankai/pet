@@ -26,7 +26,7 @@ class SocialController extends Controller
     {
         $food = Yii::app()->db->createCommand('SELECT food FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
         
-        $this->renderPartial('activity_view_'.$aid, array('aid'=>$aid, 'alert_flag'=$alert_flag, 'food'=>$food, 'sid'=>$SID));
+        $this->renderPartial('activity_view_'.$aid, array('aid'=>$aid, 'alert_flag'=>$alert_flag, 'food'=>$food, 'sid'=>$SID));
     }
 
 }
