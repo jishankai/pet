@@ -35,7 +35,7 @@
 	</div>
 	<div class="act1_bottom">
 	<!-- <div class="am_tit">TA们正在参与伸出援手</div> -->
-	<div class="person_num">已经有<span>123445</span>人参与了捐粮，快来加入爱心大军~~</div>
+	<div class="person_num">已经有<span><?php echo $users ?></span>人参与了捐粮，快来加入爱心大军~~</div>
 		<div class="head_imgBox">
 			<ul class="head_imgList clearfix">
 				<li style="position: relative">

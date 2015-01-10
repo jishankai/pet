@@ -29,7 +29,7 @@
 		</div>
 		<div class="introduce">
 			<div class="pet_name">代粮喵：<span>税后五百万翻番</span></div>
-			<div class="pet_place">代粮地点：<span>北京航天航空学院</span></div>
+			<div class="pet_place">代粮地点：<span>北京航空航天大学</span></div>
 			<div class="pet_weibo"><a href="http://weibo.com/u/1883332187?topnav=1&wvr=6&topsug=1">新浪微博：<span>税后五百万翻番</span></a></div>
 		</div>
 		<!-- <div class="declaration">活动宣言：<span>给北航的流浪喵们带来温暖的冬天！</span></div> -->
@@ -41,12 +41,12 @@
 		<div class="act2_range">
 			<div class="hr_10"></div>
 			<div class="target_Box clearfix">
-				<div class="target">目标还剩 <span class="target_num" id="target_num">162000</span> 份口粮</div>
+				<div class="target">目标还剩 <span class="target_num" id="target_num"><?php echo 162000-$food?></span> 份口粮</div>
 				<div class="d_time" id="d_time"></div>
 			</div>
 			<div class="hr_20"></div>
 			<div class="aprogressbar">
-				<div class="abar" id="abar" style="width:10%"></div>
+				<div class="abar" id="abar" style="width:<?php echo ceil($food/16200)?>%"></div>
 			</div>
 		</div>
 		<div class="zhu">注：每人每天可以免费捐赠 3 份口粮</div>
@@ -89,7 +89,7 @@
 					<div class="give_m"></div>
 
 					<div class="give_right">
-						<img src="css/images/reword_btn.gif" id="reward"  onclick="aa()" />
+						<img src="css/images/reword_btn.gif" id="reward" />
 
 					</div>
 				</div>

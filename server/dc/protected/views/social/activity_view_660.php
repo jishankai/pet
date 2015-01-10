@@ -41,12 +41,12 @@
 		<div class="act2_range">
 			<div class="hr_10"></div>
 			<div class="target_Box clearfix">
-				<div class="target">目标还剩 <span class="target_num" id="target_num">243000</span> 份口粮</div>
+				<div class="target">目标还剩 <span class="target_num" id="target_num"><?php echo 243000-$food ?></span> 份口粮</div>
 				<div class="d_time" id="d_time"></div>
 			</div>
 			<div class="hr_10"></div>
 			<div class="aprogressbar">
-				<div class="abar" id="abar" style="width:10%"></div>
+				<div class="abar" id="abar" style="width:<?php echo ceil($food/16200)?>%"></div>
 			</div>
 		</div>
 		<div class="zhu">注：每人每天可以免费捐赠 3 份口粮</div>
@@ -89,7 +89,7 @@
 					<div class="give_m"></div>
 					
 					<div class="give_right">
-						<img src="css/images/reword_btn.gif" id="reward"  onclick="aa()" />
+						<img src="css/images/reword_btn.gif" id="reward"  />
 						
 					</div>
 				</div>
