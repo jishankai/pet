@@ -18,9 +18,9 @@
         })();
         document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
             window.shareData = {
-                "timeLineLink": "http://"+window.local.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>,   
-                "sendFriendLink": "http://"+window.local.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>,
-                "weiboLink": "http://"+window.local.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>,
+                "timeLineLink": "http://"+window.location.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>,   
+                "sendFriendLink": "http://"+window.location.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>,
+                "weiboLink": "http://"+window.location.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>,
                 "tTitle": "清华喵年夜饭 大！募！集！",
                 "tContent": "宠物星球已经召集"+<?php echo $users?>+"位小伙伴为清华喵募集年夜饭，下一位暖心小天使是你吗？",
                 "fTitle": "清华喵年夜饭 大！募！集！",
@@ -31,7 +31,7 @@
         // 发送给好友
         WeixinJSBridge.on('menu:share:appmessage', function (argv) {
             WeixinJSBridge.invoke('sendAppMessage', {
-                "img_url": "http://"+window.local.host+"/css/images/a6.jpg",
+                "img_url": "http://"+window.location.host+"/css/images/a6.jpg",
                 "img_width": "401",
                 "img_height": "275",
                 "link": window.shareData.sendFriendLink,
@@ -44,7 +44,7 @@
         // 分享到朋友圈
         WeixinJSBridge.on('menu:share:timeline', function (argv) {
             WeixinJSBridge.invoke('shareTimeline', {
-                "img_url": "http://"+window.local.host+"/css/images/a6.jpg",
+                "img_url": "http://"+window.location.host+"/css/images/a6.jpg",
                 "img_width": "401",
                 "img_height": "275",
                 "link": window.shareData.timeLineLink,
