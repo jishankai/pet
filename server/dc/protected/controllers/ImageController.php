@@ -311,7 +311,7 @@ class ImageController extends Controller
         $this->echoJsonData(array($r));
     }
 
-    public function actionRewardFoodMobileApi($img_id=0, $n, $to='', $aid=0, $SID='')
+    public function actionRewardFoodMobileApi($aid=0, $n, $to='', $img_id=0, $SID='')
     {
         if ($SID!='') {
             $session = Yii::app()->session;
