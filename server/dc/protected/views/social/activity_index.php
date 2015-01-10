@@ -64,12 +64,12 @@
 		<div class="ab_tit">点击代粮喵头像，为ta的小伙伴捐粮</div>
 		<div class="act1_imgBox">
 			<ul class="act1_imgList clearfix">
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>653))?>"><img alt="" src="css/images/a1.jpg"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>651))?>"><img alt="" src="css/images/a2.jpg"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>652))?>"><img alt="" src="css/images/a3.jpg"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>660))?>"><img alt="" src="css/images/a4.jpg"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>654))?>"><img alt="" src="css/images/a5.jpg"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>655))?>"><img alt="" src="css/images/a6.jpg"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>653, 'SID'=>$sid))?>"><img alt="" src="css/images/a1.jpg"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>651, 'SID'=>$sid))?>"><img alt="" src="css/images/a2.jpg"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>652, 'SID'=>$sid))?>"><img alt="" src="css/images/a3.jpg"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>660, 'SID'=>$sid))?>"><img alt="" src="css/images/a4.jpg"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>654, 'SID'=>$sid))?>"><img alt="" src="css/images/a5.jpg"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>655, 'SID'=>$sid))?>"><img alt="" src="css/images/a6.jpg"></a></li>
 			</u>
 		</div>
 	</div>
@@ -135,8 +135,8 @@
 
 			</div>
 			<div class="hide">
-				<p>宠物星球社交应用是一个萌宠至上的宠物社区，在这里你可以：卖萌换口粮，让你家宝贝为自己代粮！结交萌宠和亲亲主人，交流我们的小秘密！参加星球活动，和可爱萌宠大联欢！我们希望，展示每一只宠物的与众不同，打造最闪亮的萌星！</p>
-				<p>酷宠新天地流浪动物救助平台，是一个致力于帮助流浪猫狗寻找领养主人的优秀平台，通过对各地区领养信息的扩散宣传，为每一个等家的小生命搭建爱心桥梁。同时传递科学养宠与责任养宠的理念，领养代替购买，让生命不再流浪。</p>
+				<p><font color="blue">宠物星球社交应用</font>是一个萌宠至上的宠物社区，在这里你可以：<br />卖萌换口粮，让你家宝贝为自己代粮！<br />结交萌宠和亲亲主人，交流我们的小秘密！<br />参加星球活动，和可爱萌宠大联欢！<br />我们希望，展示每一只宠物的与众不同，打造最闪亮的萌星！</p>
+				<p><font color="green">酷宠新天地流浪动物救助平台</font>是一个致力于帮助流浪猫狗寻找领养主人的优秀平台，通过对各地区领养信息的扩散宣传，为每一个等家的小生命搭建爱心桥梁。同时传递科学养宠与责任养宠的理念，领养代替购买，让生命不再流浪。</p>
 
 			</div>
 		</div>
