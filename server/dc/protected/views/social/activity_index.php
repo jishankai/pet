@@ -13,43 +13,46 @@
           var s = document.getElementsByTagName("script")[0]; 
           s.parentNode.insertBefore(hm, s);
         })();
-        window.shareData = {
-        "timeLineLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",   
-        "sendFriendLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",
-        "weiboLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",
-        "tTitle": "宠物星球·年夜饭计划",
-        "tContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。",
-        "fTitle": "宠物星球·年夜饭计划",
-        "fContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。",
-        "wContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。"
-        };
-        
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        	window.shareData = {
+        		"timeLineLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",   
+        		"sendFriendLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",
+        		"weiboLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",
+        		"tTitle": "宠物星球·年夜饭计划",
+        		"tContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。",
+        		"fTitle": "宠物星球·年夜饭计划",
+        		"fContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。",
+        		"wContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。"
+        	};
+        	
         // 发送给好友
         WeixinJSBridge.on('menu:share:appmessage', function (argv) {
-            WeixinJSBridge.invoke('sendAppMessage', {
-                "img_url": "http://"+window.location.host+"/css/images/w1.jpg",
-                "img_width": "401",
-                "img_height": "275",
-                "link": window.shareData.sendFriendLink,
-                "desc": window.shareData.fContent,
-                "title": window.shareData.fTitle
-            }, function (res) {
-                _report('send_msg', res.err_msg);
-            })
+        	WeixinJSBridge.invoke('sendAppMessage', {
+        		"img_url": "http://"+window.location.host+"/css/images/w1.jpg",
+        		"img_width": "401",
+        		"img_height": "275",
+        		"link": window.shareData.sendFriendLink,
+        		"desc": window.shareData.fContent,
+        		"title": window.shareData.fTitle
+        	}, function (res) {
+        		_report('send_msg', res.err_msg);
+        	})
         });
         // 分享到朋友圈
         WeixinJSBridge.on('menu:share:timeline', function (argv) {
-            WeixinJSBridge.invoke('shareTimeline', {
-                "img_url": "http://"+window.location.host+"/css/images/w1.jpg",
-                "img_width": "401",
-                "img_height": "275",
-                "link": window.shareData.timeLineLink,
-                "desc": window.shareData.tContent,
-                "title": window.shareData.tTitle
-            }, function (res) {
-                _report('timeline', res.err_msg);
-            });
+        	WeixinJSBridge.invoke('shareTimeline', {
+        		"img_url": "http://"+window.location.host+"/css/images/w1.jpg",
+        		"img_width": "401",
+        		"img_height": "275",
+        		"link": window.shareData.timeLineLink,
+        		"desc": window.shareData.tContent,
+        		"title": window.shareData.tTitle
+        	}, function (res) {
+        		_report('timeline', res.err_msg);
+        	});
         });
+        
+    }, false)
     </script>
 </head>
 <body>
