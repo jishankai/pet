@@ -19,7 +19,7 @@ class SocialController extends Controller
     {
         $users = Yii::app()->db->createCommand('SELECT COUNT(usr_id) FROM dc_user')->queryScalar();
        
-       $this->renderPartial('activity_index', array('users'=>$users, 'sid'=>$SID));
+        $this->renderPartial('activity_index', array('users'=>$users, 'sid'=>$SID));
     }
 
     public function actionActivityview($aid, $SID='')
