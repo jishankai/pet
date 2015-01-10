@@ -18,7 +18,7 @@
 <body>
 <div class="act1_wrap comWidth">
 	<div class="act1_top">
-		<img alt="" src="css/images/act2.jpg">
+		<img alt="" src="css/images/1.jpg">
 	</div>
 	<div class="act1_body">
 		<div class="ab_tit">点击代粮喵头像，为ta的小伙伴捐粮</div>
