@@ -60,7 +60,8 @@ a:hover{color: #fb9174;}
     width: 80px;height: 130px;
     position: absolute;right:0px;top:180px;
 }
-#s_one,#x_one,#close_one{color:black;font-size:16px;}
+#s_one,#x_one,#close_one{font-size:16px;}
+#close_one{margin: 0 40px;}
 .act2_body{margin-bottom: 210px;}
 .hr_100{height: 100px;width: 100%;}
 
@@ -181,7 +182,7 @@ a:hover{color: #fb9174;}
 	width: 50%;
 	height: 100%;
 }
-.logo_icon{float: left;width: 40%;text-indent: 10%;}
+.logo_icon{float: left;width: 40%;text-indent: 10%;margin-top: 10px;}
 .load_info{
 	float: right;
 	
@@ -316,8 +317,7 @@ a:hover{color: #fb9174;}
 #s_one,#x_one,#close_one{color:#777777;font-size:20px;}
 #close_one{margin: 0 20px;}
 .hr_100{height: 150px;width: 100%;}
-.load_shadow{height: 20px;}
-.load_shadow img{height: 100%;width: 100%;}
+
 
 }
 /*手机大屏部分属性适配*/

@@ -9,9 +9,30 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 
 }
 
+/*选项卡*/
+#tabs {width:100%;height:auto;}
+        #tabs ul{list-style:none;display: block;height:35px;line-height:35px;}
+        #tabs ul li{
+        	background:#ffffff;cursor:pointer;
+        	float:left;list-style:none;
+        	height:35px;line-height:35px;
+        	border-bottom:none;
+        	display:inline-block;width:33.3333333333%;
+        	text-align: center;
+        }
+        #tabs ul li.on{background:url("../css/images/target_h.png")center bottom no-repeat;background-color: #ffffff;}
+        #tabs div{
+         
+            padding:15px;
+            background-color:#e2e2e2;
+        }
+
+        .hide{display: none;}
+
+
 .act1_top img{width: 100%;}
 .act1_top{width:100%;height:auto;background-color: pink;}
-.act1_body{width:100%;height:auto;/*background-color: yellow;*/ }
+.act1_body{width:100%;height:auto; }
 .ab_tit{
 	font-family: "Microsoft Yahei";
 	margin-top: 10px;
@@ -35,7 +56,9 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 	margin: 3%;
 	padding-top: 5px;
 }
-.person_num{font-size: 24px;margin: 3%;}
+
+.person_num{font-size: 24px;margin:3%;padding-top: 3%;}
+.mian{font-size: 24px;margin: 3%;}
 .person_num span{color: #f4775e;}
 .hr_100{height: 100px;width: 100%;background-color: #f7f7f7;}
 /*下载*/
@@ -74,9 +97,8 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 }
 .act1_imgList img{width: 100%;height: auto;}
 .am_tit{font-size: 15px;font-weight: bold;}
-/*.head_imgList li{width: 10%;height: 6%;}*/
+.person_num{font-size: 15px;padding-top: 3%;}
 
-.person_num{font-size: 15px;}
 
 /*下载*/
 .load{height: 59px;width: 100%;}
@@ -92,10 +114,12 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 @media only screen and (min-width: 300px) and (max-width: 350px){
 	.head_imgList li{width: 30px;height: 30px;}
 	.person_num{font-size: 12px;}
+	.mian{font-size: 12px;}
 }
 @media only screen and (min-width: 351px) and (max-width: 400px){
 	.head_imgList li{width: 35px;height: 35px;}
 	.person_num{font-size: 13px;}
+	.mian{font-size: 13px;}
 }
 @media only screen and (min-width: 401px) and (max-width: 450px){
 	.head_imgList li{width: 40px;height: 40px;}
