@@ -24,7 +24,7 @@
         		"fContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。",
         		"wContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。"
         	};
-        	
+
         // 发送给好友
         WeixinJSBridge.on('menu:share:appmessage', function (argv) {
         	WeixinJSBridge.invoke('sendAppMessage', {
@@ -51,8 +51,8 @@
         		_report('timeline', res.err_msg);
         	});
         });
-        
-    }, false)
+
+    }	, false)
     </script>
 </head>
 <body>

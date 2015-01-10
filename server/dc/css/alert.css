@@ -167,11 +167,11 @@
         #alertMsg1_clock{width: 15px;height: 15px;}
 
 /*弹框3*/
-#alertMsg2_info{
-	font-size: 16px!important;
+#alertMsg2_info,#alertMsg21_info,#alertMsg22_info{
+	font-size: 15px!important;
 	margin-left: 0px!important;
-	margin-bottom: 10%!important;
-    margin-top: 15%;
+	margin-bottom: 4%!important;
+  /*  margin-top: 15%;*/
 }
 #alertMsg2_btn1{
 	margin-top: 10%!important;
