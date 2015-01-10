@@ -50,8 +50,6 @@
                 _report('timeline', res.err_msg);
             });
         });
- 
-    }, false)};
     </script>
 </head>
 <body>
