@@ -15,8 +15,48 @@
           hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
           var s = document.getElementsByTagName("script")[0]; 
           s.parentNode.insertBefore(hm, s);
-      })();
-  </script>
+        })();
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            window.shareData = {
+                "timeLineLink": "http://"+window.local.host+"/index.php?r=social/activityview&"+<?echo $aid?>,   
+                "sendFriendLink": "http://"+window.local.host+"/index.php?r=social/activityview&"+<?echo $aid?>,
+                "weiboLink": "http://"+window.local.host+"/index.php?r=social/activityview&"+<?echo $aid?>,
+                "tTitle": "动物园喵年夜饭 大！募！集！",
+                "tContent": "宠物星球已经召集"+<?php echo $users?>+"位小伙伴为动物园喵募集年夜饭，下一位暖心小天使是你吗？",
+                "fTitle": "动物园喵年夜饭 大！募！集！",
+                "fContent": "宠物星球已经召集"+<?php echo $users?>+"位小伙伴为动物园喵募集年夜饭，下一位暖心小天使是你吗？",
+                "wContent": "宠物星球已经召集"+<?php echo $users?>+"位小伙伴为动物园喵募集年夜饭，下一位暖心小天使是你吗？"
+            };
+
+        // 发送给好友
+        WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+            WeixinJSBridge.invoke('sendAppMessage', {
+                "img_url": "http://"+window.local.host+"/css/images/a4.jpg",
+                "img_width": "401",
+                "img_height": "275",
+                "link": window.shareData.sendFriendLink,
+                "desc": window.shareData.fContent,
+                "title": window.shareData.fTitle
+            }, function (res) {
+                _report('send_msg', res.err_msg);
+            })
+        });
+        // 分享到朋友圈
+        WeixinJSBridge.on('menu:share:timeline', function (argv) {
+            WeixinJSBridge.invoke('shareTimeline', {
+                "img_url": "http://"+window.local.host+"/css/images/a4.jpg",
+                "img_width": "401",
+                "img_height": "275",
+                "link": window.shareData.timeLineLink,
+                "desc": window.shareData.tContent,
+                "title": window.shareData.tTitle
+            }, function (res) {
+                _report('timeline', res.err_msg);
+            });
+        });
+
+    }, false)
+    </script>
 
 <body>
 <div class="act2_wrap comWidth">
@@ -268,7 +308,7 @@ function rightHide(){
 window.onload=function(){
     FreshTime();
     if (<?php echo $alert_flag?>) {
-        no_gold();
+        cc();
     };
 }
 $("#reward").click(function(){

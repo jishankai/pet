@@ -24,9 +24,10 @@ class SocialController extends Controller
 
     public function actionActivityview($aid, $alert_flag=0, $SID='')
     {
+        $users = Yii::app()->db->createCommand('SELECT COUNT(usr_id) FROM dc_user')->queryScalar();
         $food = Yii::app()->db->createCommand('SELECT food FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
         
-        $this->renderPartial('activity_view_'.$aid, array('aid'=>$aid, 'alert_flag'=>$alert_flag, 'food'=>$food, 'sid'=>$SID));
+        $this->renderPartial('activity_view_'.$aid, array('aid'=>$aid, 'users'=>$users, 'alert_flag'=>$alert_flag, 'food'=>$food, 'sid'=>$SID));
     }
 
 }

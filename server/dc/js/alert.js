@@ -109,7 +109,7 @@ function alertMsg(msg, mode) { //mode为空，即只有一个确认按钮，mode
 
         var alertMsg_snum = document.createElement('span');
         alertMsg_snum.id = 'alertMsg_snum';
-        var total=100000;
+        var total=parseInt(document.getElementById("total").innerHTML);
         var a=parseInt(document.getElementById("target_num").innerHTML);
         var c=total-a;
         alertMsg_snum.innerHTML = c;
@@ -433,14 +433,22 @@ function alertMsg_b(msg, mode) { //mode为空，即只有一个确认按钮，mo
         //创建弹出框里面的内容P标签
         var alertMsg2_info = document.createElement('P');
         alertMsg2_info.id = 'alertMsg2_info';
-        alertMsg2_info.innerHTML = "快转发微博或复制网址给好友吧~";
+        alertMsg2_info.innerHTML = "今天的免费份数用光啦～";
         alertBox2.appendChild(alertMsg2_info);
 
-       /* var alertMsg2_info1 = document.createElement('P');
-        alertMsg2_info1.id = 'alertMsg2_info1';
-        alertMsg2_info1.innerHTML = "快分享给好友吧～";
-        alertBox2.appendChild(alertMsg2_info1);
-*/
+        var alertMsg21_info = document.createElement('P');
+        alertMsg21_info.id = 'alertMsg21_info';
+        alertMsg21_info.innerHTML = "明天还有更多免费份数任你壕！";
+        alertBox2.appendChild(alertMsg21_info);
+
+        var alertMsg22_info = document.createElement('P');
+        alertMsg22_info.id = 'alertMsg22_info';
+        alertMsg22_info.innerHTML = "下载宠物星球app，超多萌宠治愈你";
+        alertBox2.appendChild(alertMsg22_info);
+
+
+
+ 
         //创建按钮
         var b_btn1 = document.createElement('a');
         b_btn1.id = 'alertMsg2_btn1';
@@ -566,7 +574,7 @@ function alertMsg_e(msg, mode) { //mode为空，即只有一个确认按钮，mo
         alertBox1.appendChild(alertMsg12_info1);
 
 
-         var alertMsg1_gold_wrap = document.createElement('div');
+        var alertMsg1_gold_wrap = document.createElement('div');
         alertMsg1_gold_wrap.id = 'alertMsg1_gold_wrap';
         alertBox1.appendChild(alertMsg1_gold_wrap);
 

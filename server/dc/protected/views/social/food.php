@@ -120,7 +120,7 @@
 	window.onload=function(){
      FreshTime();
      if (<?php echo $alert_flag?>) {
-        no_gold();
+        cc();
      };
     }
 function FreshTime()
