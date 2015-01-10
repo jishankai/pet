@@ -53,7 +53,7 @@
 				<div class="abar" id="abar" style="width:<?php echo ceil($food/16200)?>%"></div>
 			</div>
 		</div>
-		<div class="zhu">注：每人每天可以免费捐赠 3 份口粮</div>
+		<div class="zhu">注：连续登陆天数越长，能免费捐助的份数就越多哦！</div>
 		<img src="css/images/dashed.png" alt="" class="dashed">
 	</div>
 	<div class="act2_body">
