@@ -108,7 +108,9 @@
 				</div>
 			</div>
 			<div class="load_right">
-				<img src="css/images/load.jpg"/>
+				<a href="https://home4pet.aidigame.com" target="_blank">
+                    <img src="css/images/load.jpg"/>
+                </a>
 			</div>
 		</div>
 	</div>
@@ -262,34 +264,18 @@ function rightHide(){
     left.style.display="none";
 }
 /*赏按钮（进度条相关）*/
-
+window.onload=function(){
+    if (<?php echo $alert_flag?>) {
+        no_gold();
+    };
+}
 var b=parseInt($("#target_num").html());
 var c=parseInt($("#g_num").html());
 
 var n=c;
 var aid =<?php echo $aid ?>;
 var sig =$.md5('aid='+aid+'&n='+n+'dog&cat');
-$.getJSON(<?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&SID='<?php echo "'".$sid."'"+'&sig='+sig ?>, function(data){
-
-   $("#reward").click(function(){
-
-    $("#target_num").html(b-c);
-    var d=parseInt($("#target_num").html());
-
-    /*进度条*/
-    var total=162000;
-    var pwidth=(total-d)/total*100+"%";
-    $("#abar").width(pwidth);
-
-    /*弹出框*/
-
-    $("#shadow_Box").css('display','block');
-    $("#t2").css('display','block');
-
-});
-});  	
-
-
+location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='<?php echo "'".$sid."'" ?>
 
 </script>
 </html>

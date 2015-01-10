@@ -90,7 +90,9 @@
 				</div>
 			</div>
 			<div class="load_right">
-				<img src="css/images/load.jpg"/>
+				<a href="https://home4pet.aidigame.com" target="_blank">
+				    <img src="css/images/load.jpg"/>
+                </a>
 			</div>
 		</div>
 	</div>

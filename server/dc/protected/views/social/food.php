@@ -102,7 +102,9 @@
 				</div>
 			</div>
 			<div class="load_right">
-				<img src="css/images/load.jpg"/>
+				<a href="https://home4pet.aidigame.com" target="_blank">
+                    <img src="css/images/load.jpg"/>
+                </a>
 			</div>
 		</div>
 	</div>
@@ -112,10 +114,14 @@
 
 <script type="text/javascript" src="js/link.js"></script>
 <script type="text/javascript" src="js/jquery.md5.js"></script>
+<script type="text/javascript" src="js/alert.js"></script>
 <script type="text/javascript">
 /*倒计时*/
 	window.onload=function(){
      FreshTime();
+     if (<?php echo $alert_flag?>) {
+        no_gold();
+     };
     }
 function FreshTime()
 {

@@ -364,8 +364,9 @@ class ImageController extends Controller
 
         $user = User::model()->findByPk($this->usr_id);
 
+        $alert_flag = 0;
         if ($user->gold<$n) {
-            throw new PException('您的余粮不足');
+            $alert_flag = 1;
         }
 
         $transaction = Yii::app()->db->beginTransaction();
@@ -388,9 +389,9 @@ class ImageController extends Controller
         }
 
         if ($img_id==0) {
-            $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$SID));
+            $this->redirect(array('social/activityview', 'aid'=>$aid, 'alert_flag'=>$alert_flag, 'SID'=>$SID));
         } else {
-            $this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$SID));
+            $this->redirect(array('social/foodShareApi', 'alert_flag'=>$alert_flag, img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$SID));
         }
     }
 

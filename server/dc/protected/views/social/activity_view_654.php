@@ -108,7 +108,9 @@
 				</div>
 			</div>
 			<div class="load_right">
-				<img src="css/images/load.jpg"/>
+				<a href="https://home4pet.aidigame.com" target="_blank">
+                    <img src="css/images/load.jpg"/>
+                </a>
 			</div>
 		</div>
 	</div>
@@ -261,23 +263,19 @@ function rightHide(){
     left.style.display="none";
 }
 /*赏按钮（进度条相关）*/
-$("#reward").click(function(){
-    var b=parseInt($("#target_num").html());
-    var c=parseInt($("#g_num").html());
-    $("#target_num").html(b-c);
-    var d=parseInt($("#target_num").html());
+window.onload=function(){
+    if (<?php echo $alert_flag?>) {
+        no_gold();
+    };
+}
+var b=parseInt($("#target_num").html());
+var c=parseInt($("#g_num").html());
 
-    /*进度条*/
-    var total=243000;
-    var pwidth=(total-d)/total*100+"%";
-    $("#abar").width(pwidth);
+var n=c;
+var aid =<?php echo $aid ?>;
+var sig =$.md5('aid='+aid+'&n='+n+'dog&cat');
+location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='<?php echo "'".$sid."'" ?>
 
-    /*弹出框*/
-
-    $("#shadow_Box").css('display','block');
-    $("#t2").css('display','block');
-
-});
 </script>
 </html>
 
