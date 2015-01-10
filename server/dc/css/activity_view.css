@@ -62,7 +62,7 @@ a:hover{color: #fb9174;}
 }
 #s_one,#x_one,#close_one{font-size:16px;}
 #close_one{margin: 0 40px;}
-.act2_body{margin-bottom: 210px;}
+.act2_body{padding-bottom: 210px;}
 .hr_100{height: 100px;width: 100%;}
 
 }

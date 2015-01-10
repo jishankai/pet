@@ -186,8 +186,8 @@ $('#right_bigImg').click(function(){
     var a=document.getElementById("large_img"); 
         var x=parseInt(a.name);
         var y=x+1;
-        if(y>10){
-            y=10;
+        if(y>9){
+            y=9;
         }
         a.src="css/img/zwy/"+y+".jpg"; 
         a.name=y;     
