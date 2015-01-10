@@ -6,7 +6,7 @@
     define('DB_MAX_INT', 999999999);
     define('VERSION', '1.0.0');
     define('LOGIN_VERSION', '1.0.0');
-	define('CONF_VERSION', '1.0');
+	define('CONF_VERSION', '1.1');
     define('SIGKEY', 'dog&cat');
 	
     //notification
@@ -20,17 +20,17 @@
     define('AWS_S3_BUCKET', 'jishankai4test');
 
     //OSS
-    define('OSS_ACCESS_KEY', '');
-    define('OSS_SECRET_KEY', '');
-    define('OSS_ENDPOINT', '');
-    define('OSS_PREFIX', '');
+    define('OSS_ACCESS_KEY', 'k81GLIYHXaGKTuFD');
+    define('OSS_SECRET_KEY', 'XO1qXBf1kIwxgoeyxoAkyAshxcNiJo');
+    define('OSS_ENDPOINT', 'http://oss-cn-beijing-internal.aliyuncs.com');
+    define('OSS_PREFIX', 'pet');
 
     //MYSQL
-    define('MYSQL_MASTER_SERVER', '');
-    define('MYSQL_SLAVE_SERVER', '');
-    define('MYSQL_MASTER_USER', '');
-    define('MYSQL_SLAVE_USER', '');
-    define('MYSQL_MASTER_PASSWORD', '');
-    define('MYSQL_SLAVE_PASSWORD', '');
-    define('MYSQL_DB_NAME', '');
+    define('MYSQL_MASTER_SERVER', '10.171.90.112');
+    define('MYSQL_SLAVE_SERVER', '10.173.0.203');
+    define('MYSQL_MASTER_USER', 'jishankai');
+    define('MYSQL_SLAVE_USER', 'jishankai');
+    define('MYSQL_MASTER_PASSWORD', 'jishankai');
+    define('MYSQL_SLAVE_PASSWORD', 'jishankai');
+    define('MYSQL_DB_NAME', 'pet');
     

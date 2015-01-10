@@ -87,7 +87,7 @@ class Controller extends CController
         $timestamp = $_GET["timestamp"];
         $nonce = $_GET["nonce"];
 
-        $token = TOKEN;
+        $token = 'skji1987';
         $tmpArr = array($token, $timestamp, $nonce);
         sort($tmpArr, SORT_STRING);
         $tmpStr = implode( $tmpArr );

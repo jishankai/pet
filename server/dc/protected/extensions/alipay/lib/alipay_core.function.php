@@ -97,7 +97,6 @@ function getHttpResponsePOST($url, $cacert_url, $para, $input_charset = '') {
 	if (trim($input_charset) != '') {
 		$url = $url."_input_charset=".$input_charset;
 	}
-	var_dump($url);
 	$curl = curl_init($url);
 	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);//SSL证书认证
 	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);//严格认证
@@ -107,6 +106,7 @@ function getHttpResponsePOST($url, $cacert_url, $para, $input_charset = '') {
 	curl_setopt($curl,CURLOPT_POST,true); // post传输数据
 	curl_setopt($curl,CURLOPT_POSTFIELDS,$para);// post传输数据
 	$responseText = curl_exec($curl);
+	var_dump($responseText);
 	//var_dump( curl_error($curl) );//如果执行curl过程中出现异常，可打开此开关，以便查看异常内容
 	curl_close($curl);
 	
