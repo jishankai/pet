@@ -269,6 +269,7 @@ window.onload=function(){
         no_gold();
     };
 }
+$("#reward").click(function(){
 var b=parseInt($("#target_num").html());
 var c=parseInt($("#g_num").html());
 
@@ -276,7 +277,7 @@ var n=c;
 var aid =<?php echo $aid ?>;
 var sig =$.md5('aid='+aid+'&n='+n+'dog&cat');
 location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='<?php echo "'".$sid."'" ?>
-
+});
 </script>
 </html>
 
