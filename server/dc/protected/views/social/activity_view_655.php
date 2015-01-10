@@ -7,11 +7,6 @@
 		<link rel="stylesheet" type="text/css" href="css/activity_view.css">
 		<link rel="stylesheet" type="text/css" href="css/alert.css">		
 		<script src="js/zepto.min.js"></script>
-		<style type="text/css">
-			@media only screen and (min-width: 300px) and (max-width: 650px){
-				.pet_name{font-size: 13px;}
-			}
-		</style>
 	</head>
     <script>
         var _hmt = _hmt || [];
