@@ -21,7 +21,7 @@
 <body>
 <div class="act2_wrap comWidth">
 	<div class="act2_top">
-		<img src="css/images/head_background.png" alt="" class="act2_head">
+		<img src="css/images/head_background.jpg" alt="" class="act2_head">
 		<div class="other_story">
 			<img src="css/images/other_story.png" alt="">
 		</div>
