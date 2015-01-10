@@ -108,7 +108,7 @@
 				</div>
 			</div>
 			<div class="load_right">
-				<a href="https://home4pet.aidigame.com" target="_blank">
+				<a href="http://home4pet.aidigame.com" target="_blank">
                     <img src="css/images/load.jpg"/>
                 </a>
 			</div>
