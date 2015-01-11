@@ -14,7 +14,7 @@ a:hover{color: #fb9174;}
 	position:fixed;top:0px;left:0px;text-align: center;
 	background-color:black;
 }
-.close,.left,.right{display: none;}
+#close,#left,#right{display: none;}
 
 /*电脑适配*/
 @media only screen and (min-width: 650px){
