@@ -367,25 +367,25 @@ class ImageController extends Controller
         $alert_flag = 0;
         if ($user->gold<$n) {
             $alert_flag = 1;
-        }
+        } else {
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $user->gold-=$n;
+                $user->saveAttributes(array('gold'));
 
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            $user->gold-=$n;
-            $user->saveAttributes(array('gold'));
-            
-            if ($img_id!=0) {
-                $image->food+=$n;
-                $image->saveAttributes(array('food'));
+                if ($img_id!=0) {
+                    $image->food+=$n;
+                    $image->saveAttributes(array('food'));
+                }
+                $animal->food+=$n;
+                $animal->total_food+=$n;
+                $animal->saveAttributes(array('food','total_food'));
+
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollback();
+                throw $e;
             }
-            $animal->food+=$n;
-            $animal->total_food+=$n;
-            $animal->saveAttributes(array('food','total_food'));
-            
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollback();
-            throw $e;
         }
 
         if ($img_id==0) {
