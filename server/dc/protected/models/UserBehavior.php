@@ -334,10 +334,10 @@ class UserBehavior extends CActiveRecordBehavior
                  $this->owner->gold+=$event->params['rank']*RANKUP_A;
                  break;
              case 'invite':
-                 $this->owner->gold+=300;
+                 $this->owner->gold+=0;//300;
                  break;
              case 'inviter':
-                 $this->owner->gold+=300;
+                 $this->owner->gold+=0;//300;
                  break;
              case 'upload':
                  $this->owner->gold+=PHOTO_GOLD;
