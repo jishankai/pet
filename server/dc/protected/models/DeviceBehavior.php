@@ -12,7 +12,7 @@ class DeviceBehavior extends CActiveRecordBehavior
         $user->city = $u_city;
         $user->code = $this->createInviteCode();
         $user->inviter = $inviter;
-        $user->gold = 500;
+        $user->gold = 0;
         $user->weibo = $weibo;
         $user->wechat = $wechat;
         $reward_items = array(

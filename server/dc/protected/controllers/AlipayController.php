@@ -4,7 +4,7 @@ class AlipayController extends Controller
 {
 	public function actionPay()
 	{
-		$this->renderPartial('index');
+		$this->renderPartial('pay');
 	}
 
 	public function actionAlipayapi()
