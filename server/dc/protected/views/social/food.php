@@ -227,7 +227,7 @@ $("#reward").click(function(){
     var shareData = {
         title: "轻轻一点，免费赏粮！<?php echo $r['name']?>的口粮就靠你啦~",
         desc: "努力卖萌，只为自己代粮！快把你每天的免费粮食赏给我~",
-        link: window.location.href, 
+        link: "http://"+window.location.host+"/index.php?r=social/foodShareApi&img_id=<?php echo $img_id?>", 
         imgUrl: "http://pet4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>"
     };
     wx.onMenuShareAppMessage(shareData);
