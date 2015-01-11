@@ -6,6 +6,7 @@
 <title>我为自己代粮</title>
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
+<link type="text/css" rel="stylesheet" href="css/alert.css"/>
 <script>
     var _hmt = _hmt || [];
     (function() {
