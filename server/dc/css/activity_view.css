@@ -203,7 +203,7 @@ a:hover{color: #fb9174;}
 
 /*手机适配（小）*/
 @media only screen and (min-width: 300px) and (max-width: 650px){
-
+.close,.left,.right{display: none;}
 .comWidth{width:100%;height:100%;margin:auto auto;}
 .act2_head{width: 100%;height: 79px;}
 .other_story{
