@@ -56,13 +56,13 @@
                     <dt>卖家支付宝帐户：</dt>
                   <dd>
                         <span class="null-star">*</span>
-                        <input size="30" name="WIDseller_email" value="linia@aidigame.com" />
+                        <input size="30" name="WIDseller_email" value="liria@aidigame.com" />
                         <span></span>
                     </dd>
                     <dt>商户订单号：</dt>
                     <dd>
                         <span class="null-star">*</span>
-                        <input size="30" name="WIDout_trade_no" value="cwxq000001" />
+                        <input size="30" name="WIDout_trade_no" value="cwxq<?php echo time()?>" />
                         <span></span>
                     </dd>
                     <dt>订单名称：</dt>
