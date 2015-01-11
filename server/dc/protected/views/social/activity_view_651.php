@@ -27,7 +27,7 @@ $signPackage = $jssdk->GetSignPackage();
 	<div class="act2_top">
 		<img src="css/images/head_background.jpg" alt="" class="act2_head">
 		<div class="other_story">
-			<img src="css/images/other_story.png" alt="">
+			<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=202818856&idx=4&sn=16fd774ac39ab9cd94ddfa6c2fe6d6c9#rd"><img src="css/images/other_story.png" alt=""></a>
 		</div>
 		<div class="introduce">
 			<div class="pet_name">代粮喵：<span>16</span></div>
