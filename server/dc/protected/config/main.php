@@ -95,8 +95,8 @@ return array(
         ),
         'wechat'=>array(
             'class'=>'application.extensions.wechat.oauth2',
-            'APPID'=>'wx60351bb051c0a468',
-            'SECRET'=>'478f8aecb0a6f9af1ffe81ab24e8d8f6',
+            'APPID'=>WECHAT_OAUTH2_ID,
+            'SECRET'=>WECHAT_OAUTH2_SECRET,
             'REDIRECT_URL'=>'http://release4pet.aidigame.com/wechat/callback',
         ),
         'cache' => array(

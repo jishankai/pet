@@ -1,8 +1,8 @@
 <?php
     define('PATH', dirname(dirname(dirname(dirname(__FILE__))))); 
-    define('APPFILEINFOKEY', 'appFileInfoKey_06b286e2b77448d1fc46dbffb0d0beca');       
-    define('APPFILEMD5KEY', 'appFileMD5Key_030197af1c1adadebd4508e791631d4a'); 
-	define('TOKEN_SECRET_KEY', 'tokenSecretKey_abc');
+    define('APPFILEINFOKEY', '');       
+    define('APPFILEMD5KEY', ''); 
+	define('TOKEN_SECRET_KEY', '');
     define('DB_MAX_INT', 999999999);
     define('VERSION', '1.0.0');
     define('LOGIN_VERSION', '1.0.0');
@@ -20,17 +20,29 @@
     define('AWS_S3_BUCKET', 'jishankai4test');
 
     //OSS
-    define('OSS_ACCESS_KEY', 'k81GLIYHXaGKTuFD');
-    define('OSS_SECRET_KEY', 'XO1qXBf1kIwxgoeyxoAkyAshxcNiJo');
-    define('OSS_ENDPOINT', 'http://oss-cn-beijing-internal.aliyuncs.com');
-    define('OSS_PREFIX', 'pet');
+    define('OSS_ACCESS_KEY', '');
+    define('OSS_SECRET_KEY', '');
+    define('OSS_ENDPOINT', '');
+    define('OSS_PREFIX', '');
 
     //MYSQL
-    define('MYSQL_MASTER_SERVER', '10.171.90.112');
-    define('MYSQL_SLAVE_SERVER', '10.173.0.203');
-    define('MYSQL_MASTER_USER', 'jishankai');
-    define('MYSQL_SLAVE_USER', 'jishankai');
-    define('MYSQL_MASTER_PASSWORD', 'jishankai');
-    define('MYSQL_SLAVE_PASSWORD', 'jishankai');
-    define('MYSQL_DB_NAME', 'pet');
+    define('MYSQL_MASTER_SERVER', '');
+    define('MYSQL_SLAVE_SERVER', '');
+    define('MYSQL_MASTER_USER', '');
+    define('MYSQL_SLAVE_USER', '');
+    define('MYSQL_MASTER_PASSWORD', '');
+    define('MYSQL_SLAVE_PASSWORD', '');
+    define('MYSQL_DB_NAME', '');
+
+    //WECHAT_MP
+    define('WECHAT_MP_ID', '');
+    define('WECHAT_MP_SECRET', '');
+
+    //WECHAT_OAUTH2
+    define('WECHAT_OAUTH2_ID', '');
+    define('WECHAT_OAUTH2_SECRET', '');
+
+    //ALIPAY
+    define('ALIPAY_PID', '');
+    define('ALIPAY_AKEY', '');
     
