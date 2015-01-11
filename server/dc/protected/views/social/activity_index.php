@@ -18,46 +18,6 @@ $signPackage = $jssdk->GetSignPackage();
           var s = document.getElementsByTagName("script")[0]; 
           s.parentNode.insertBefore(hm, s);
         })();
-    //     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-    //     	window.shareData = {
-    //     		"timeLineLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",   
-    //     		"sendFriendLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",
-    //     		"weiboLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",
-    //     		"tTitle": "宠物星球·年夜饭计划",
-    //     		"tContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。",
-    //     		"fTitle": "宠物星球·年夜饭计划",
-    //     		"fContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。",
-    //     		"wContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。"
-    //     	};
-
-    //     // 发送给好友
-    //     WeixinJSBridge.on('menu:share:appmessage', function (argv) {
-    //     	WeixinJSBridge.invoke('sendAppMessage', {
-    //     		"img_url": "http://"+window.location.host+"/css/images/w1.jpg",
-    //     		"img_width": "401",
-    //     		"img_height": "275",
-    //     		"link": window.shareData.sendFriendLink,
-    //     		"desc": window.shareData.fContent,
-    //     		"title": window.shareData.fTitle
-    //     	}, function (res) {
-    //     		_report('send_msg', res.err_msg);
-    //     	})
-    //     });
-    //     // 分享到朋友圈
-    //     WeixinJSBridge.on('menu:share:timeline', function (argv) {
-    //     	WeixinJSBridge.invoke('shareTimeline', {
-    //     		"img_url": "http://"+window.location.host+"/css/images/w1.jpg",
-    //     		"img_width": "401",
-    //     		"img_height": "275",
-    //     		"link": window.shareData.timeLineLink,
-    //     		"desc": window.shareData.tContent,
-    //     		"title": window.shareData.tTitle
-    //     	}, function (res) {
-    //     		_report('timeline', res.err_msg);
-    //     	});
-    //     });
-
-    // }	, false)
     </script>
 </head>
 <body>
@@ -129,8 +89,8 @@ $signPackage = $jssdk->GetSignPackage();
 				<p>宠物星球社交应用携手酷宠新天地流浪动物救助平台，为北京地区的流浪猫筹集1个月的冬粮。</p>
 				<p>筹集粮食目标是由酷宠新天地流浪动物救助平台经过详细调研、科学计算出的。</p>
 				<p>筹得的粮食将由酷宠新天地流浪动物救助平台统一调派发放。</p>
-				<p>技术支持：<font color="blue">宠物星球社交应用</font></p>
-				<p>粮食提供：<font color="green">宠物星球社交应用，好时天然猫粮，美国嘉吉佩玛思特猫粮</font></p>
+				<p>技术支持：<font color="orange">宠物星球社交应用</font></p>
+				<p>粮食提供：<font color="orange">宠物星球社交应用</font>，<font color="purple">好时天然猫粮</font></p>
 
 			</div>
 			<div class="hide">
@@ -140,7 +100,7 @@ $signPackage = $jssdk->GetSignPackage();
 
 			</div>
 			<div class="hide">
-				<p><font color="blue">宠物星球社交应用</font>是一个萌宠至上的宠物社区，在这里你可以：<br />卖萌换口粮，让你家宝贝为自己代粮！<br />结交萌宠和亲亲主人，交流我们的小秘密！<br />参加星球活动，和可爱萌宠大联欢！<br />我们希望，展示每一只宠物的与众不同，打造最闪亮的萌星！</p>
+				<p><font color="orange">宠物星球社交应用</font>是一个萌宠至上的宠物社区，在这里你可以：<br />卖萌换口粮，让你家宝贝为自己代粮！<br />结交萌宠和亲亲主人，交流我们的小秘密！<br />参加星球活动，和可爱萌宠大联欢！<br />我们希望，展示每一只宠物的与众不同，打造最闪亮的萌星！</p>
 				<p><font color="green">酷宠新天地流浪动物救助平台</font>是一个致力于帮助流浪猫狗寻找领养主人的优秀平台，通过对各地区领养信息的扩散宣传，为每一个等家的小生命搭建爱心桥梁。同时传递科学养宠与责任养宠的理念，领养代替购买，让生命不再流浪。</p>
 
 			</div>
@@ -235,90 +195,15 @@ $signPackage = $jssdk->GetSignPackage();
   wx.ready(function () {
     // 在这里调用 API
     var shareData = {
-    	title: '微信JS-SDK Demo',
-    	desc: '微信JS-SDK,帮助第三方为用户提供更优质的移动web服务',
-    	link: 'http://demo.open.weixin.qq.com/jssdk/',
-    	imgUrl: 'http://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRt8Qia4lv7k3M9J1SKqKCImxJCt7j9rHYicKDI45jRPBxdzdyREWnk0ia0N5TMnMfth7SdxtzMvVgXg/0'
+    	title: "宠物星球·年夜饭计划",
+    	desc: "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。",
+    	link: "http://"+window.location.host+"/index.php?r=social/newYearEvent",
+    	imgUrl: "http://"+window.location.host+"/css/images/w1.jpg"
     };
     wx.onMenuShareAppMessage(shareData);
     wx.onMenuShareTimeline(shareData);
+    wx.onMenuShareQQ(shareData);
+    wx.onMenuShareWeibo(shareData);
   });
-  wx.onMenuShareAppMessage({
-      title: '互联网之子',
-      desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
-      link: 'http://movie.douban.com/subject/25785114/',
-      imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
-      trigger: function (res) {
-        alert('用户点击发送给朋友');
-      },
-      success: function (res) {
-        alert('已分享');
-      },
-      cancel: function (res) {
-        alert('已取消');
-      },
-      fail: function (res) {
-        alert(JSON.stringify(res));
-      }
-    });
-  wx.onMenuShareTimeline({
-      title: '互联网之子',
-      link: 'http://movie.douban.com/subject/25785114/',
-      imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
-      trigger: function (res) {
-        alert('用户点击分享到朋友圈');
-      },
-      success: function (res) {
-        alert('已分享');
-      },
-      cancel: function (res) {
-        alert('已取消');
-      },
-      fail: function (res) {
-        alert(JSON.stringify(res));
-      }
-    });
-  wx.onMenuShareQQ({
-      title: '互联网之子',
-      desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
-      link: 'http://movie.douban.com/subject/25785114/',
-      imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
-      trigger: function (res) {
-        alert('用户点击分享到QQ');
-      },
-      complete: function (res) {
-        alert(JSON.stringify(res));
-      },
-      success: function (res) {
-        alert('已分享');
-      },
-      cancel: function (res) {
-        alert('已取消');
-      },
-      fail: function (res) {
-        alert(JSON.stringify(res));
-      }
-    });
-  wx.onMenuShareWeibo({
-      title: '互联网之子',
-      desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
-      link: 'http://movie.douban.com/subject/25785114/',
-      imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
-      trigger: function (res) {
-        alert('用户点击分享到微博');
-      },
-      complete: function (res) {
-        alert(JSON.stringify(res));
-      },
-      success: function (res) {
-        alert('已分享');
-      },
-      cancel: function (res) {
-        alert('已取消');
-      },
-      fail: function (res) {
-        alert(JSON.stringify(res));
-      }
-    });
 </script>
 </html>

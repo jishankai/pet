@@ -1,9 +1,14 @@
+<?php
+require_once "jssdk.php";
+$jssdk = new JSSDK(WECHAT_MP_NAME, WECHAT_MP_AKEY);
+$signPackage = $jssdk->GetSignPackage();
+?>
 <!DOCTYPE>
 <html>
 	<head>
 		<meta name="viewport" content="width = device-width, initial-scale=1.0">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<title>暖冬活动详情页--香山十四阙</title>
+		<title>香山喵年夜饭 大！募！集！</title>
 		<link rel="stylesheet" type="text/css" href="css/activity_view.css">
 		<link rel="stylesheet" type="text/css" href="css/alert.css">
 		<script src="js/zepto.min.js"></script>
@@ -16,46 +21,6 @@
           var s = document.getElementsByTagName("script")[0]; 
           s.parentNode.insertBefore(hm, s);
         })();
-        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-            window.shareData = {
-                "timeLineLink": "http://"+window.location.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>,   
-                "sendFriendLink": "http://"+window.location.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>,
-                "weiboLink": "http://"+window.location.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>,
-                "tTitle": "香山喵年夜饭 大！募！集！",
-                "tContent": "宠物星球已经召集"+<?php echo $users?>+"位小伙伴为香山喵募集年夜饭，下一位暖心小天使是你吗？",
-                "fTitle": "香山喵年夜饭 大！募！集！",
-                "fContent": "宠物星球已经召集"+<?php echo $users?>+"位小伙伴为香山喵募集年夜饭，下一位暖心小天使是你吗？",
-                "wContent": "宠物星球已经召集"+<?php echo $users?>+"位小伙伴为香山喵募集年夜饭，下一位暖心小天使是你吗？"
-            };
-
-        // 发送给好友
-        WeixinJSBridge.on('menu:share:appmessage', function (argv) {
-            WeixinJSBridge.invoke('sendAppMessage', {
-                "img_url": "http://"+window.location.host+"/css/images/a2.jpg",
-                "img_width": "401",
-                "img_height": "275",
-                "link": window.shareData.sendFriendLink,
-                "desc": window.shareData.fContent,
-                "title": window.shareData.fTitle
-            }, function (res) {
-                _report('send_msg', res.err_msg);
-            })
-        });
-        // 分享到朋友圈
-        WeixinJSBridge.on('menu:share:timeline', function (argv) {
-            WeixinJSBridge.invoke('shareTimeline', {
-                "img_url": "http://"+window.location.host+"/css/images/a2.jpg",
-                "img_width": "401",
-                "img_height": "275",
-                "link": window.shareData.timeLineLink,
-                "desc": window.shareData.tContent,
-                "title": window.shareData.tTitle
-            }, function (res) {
-                _report('timeline', res.err_msg);
-            });
-        });
-
-    }, false)
     </script>
 <body>
 <div class="act2_wrap comWidth">
@@ -317,6 +282,39 @@ var aid =<?php echo $aid ?>;
 var sig =md5('aid='+aid+'&n='+n+'dog&cat');
 location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
 });
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+  // 注意：所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。 
+  // 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
+  // 完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+  wx.config({
+    appId: '<?php echo $signPackage["appId"];?>',
+    timestamp: <?php echo $signPackage["timestamp"];?>,
+    nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+    signature: '<?php echo $signPackage["signature"];?>',
+    jsApiList: [
+      // 所有要调用的 API 都要加到这个列表中
+      'checkJsApi',
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+    ]
+  });
+  wx.ready(function () {
+    // 在这里调用 API
+    var shareData = {
+        title: "香山喵年夜饭 大！募！集！",
+        desc: "宠物星球已经召集"+<?php echo $users?>+"位小伙伴为香山喵募集年夜饭，下一位暖心小天使是你吗？",
+        link: "http://"+window.location.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>, ,
+        imgUrl: "http://"+window.location.host+"/css/images/a2.jpg"
+    };
+    wx.onMenuShareAppMessage(shareData);
+    wx.onMenuShareTimeline(shareData);
+    wx.onMenuShareQQ(shareData);
+    wx.onMenuShareWeibo(shareData);
+  });
 </script>
 </html>
 
