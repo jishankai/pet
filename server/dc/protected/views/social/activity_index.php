@@ -1,3 +1,8 @@
+<?php
+require_once "jssdk.php";
+$jssdk = new JSSDK(WECHAT_MP_NAME, WECHAT_MP_AKEY);
+$signPackage = $jssdk->GetSignPackage();
+?>
 <!DOCTYPE>
 <html>
 <head>
@@ -13,46 +18,46 @@
           var s = document.getElementsByTagName("script")[0]; 
           s.parentNode.insertBefore(hm, s);
         })();
-        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-        	window.shareData = {
-        		"timeLineLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",   
-        		"sendFriendLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",
-        		"weiboLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",
-        		"tTitle": "宠物星球·年夜饭计划",
-        		"tContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。",
-        		"fTitle": "宠物星球·年夜饭计划",
-        		"fContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。",
-        		"wContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。"
-        	};
+    //     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    //     	window.shareData = {
+    //     		"timeLineLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",   
+    //     		"sendFriendLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",
+    //     		"weiboLink": "http://"+window.location.host+"/index.php?r=social/newYearEvent",
+    //     		"tTitle": "宠物星球·年夜饭计划",
+    //     		"tContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。",
+    //     		"fTitle": "宠物星球·年夜饭计划",
+    //     		"fContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。",
+    //     		"wContent": "举手之劳，免费捐粮。你的轻轻一点，给ta一个温暖冬天。"
+    //     	};
 
-        // 发送给好友
-        WeixinJSBridge.on('menu:share:appmessage', function (argv) {
-        	WeixinJSBridge.invoke('sendAppMessage', {
-        		"img_url": "http://"+window.location.host+"/css/images/w1.jpg",
-        		"img_width": "401",
-        		"img_height": "275",
-        		"link": window.shareData.sendFriendLink,
-        		"desc": window.shareData.fContent,
-        		"title": window.shareData.fTitle
-        	}, function (res) {
-        		_report('send_msg', res.err_msg);
-        	})
-        });
-        // 分享到朋友圈
-        WeixinJSBridge.on('menu:share:timeline', function (argv) {
-        	WeixinJSBridge.invoke('shareTimeline', {
-        		"img_url": "http://"+window.location.host+"/css/images/w1.jpg",
-        		"img_width": "401",
-        		"img_height": "275",
-        		"link": window.shareData.timeLineLink,
-        		"desc": window.shareData.tContent,
-        		"title": window.shareData.tTitle
-        	}, function (res) {
-        		_report('timeline', res.err_msg);
-        	});
-        });
+    //     // 发送给好友
+    //     WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+    //     	WeixinJSBridge.invoke('sendAppMessage', {
+    //     		"img_url": "http://"+window.location.host+"/css/images/w1.jpg",
+    //     		"img_width": "401",
+    //     		"img_height": "275",
+    //     		"link": window.shareData.sendFriendLink,
+    //     		"desc": window.shareData.fContent,
+    //     		"title": window.shareData.fTitle
+    //     	}, function (res) {
+    //     		_report('send_msg', res.err_msg);
+    //     	})
+    //     });
+    //     // 分享到朋友圈
+    //     WeixinJSBridge.on('menu:share:timeline', function (argv) {
+    //     	WeixinJSBridge.invoke('shareTimeline', {
+    //     		"img_url": "http://"+window.location.host+"/css/images/w1.jpg",
+    //     		"img_width": "401",
+    //     		"img_height": "275",
+    //     		"link": window.shareData.timeLineLink,
+    //     		"desc": window.shareData.tContent,
+    //     		"title": window.shareData.tTitle
+    //     	}, function (res) {
+    //     		_report('timeline', res.err_msg);
+    //     	});
+    //     });
 
-    }	, false)
+    // }	, false)
     </script>
 </head>
 <body>
@@ -207,5 +212,105 @@
 			}
 		};
 	}
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+  // 注意：所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。 
+  // 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
+  // 完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+  wx.config({
+    appId: '<?php echo $signPackage["appId"];?>',
+    timestamp: <?php echo $signPackage["timestamp"];?>,
+    nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+    signature: '<?php echo $signPackage["signature"];?>',
+    jsApiList: [
+      // 所有要调用的 API 都要加到这个列表中
+      'checkJsApi',
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+    ]
+  });
+  wx.ready(function () {
+    // 在这里调用 API
+  });
+  wx.onMenuShareAppMessage({
+      title: '互联网之子',
+      desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
+      link: 'http://movie.douban.com/subject/25785114/',
+      imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
+      trigger: function (res) {
+        alert('用户点击发送给朋友');
+      },
+      success: function (res) {
+        alert('已分享');
+      },
+      cancel: function (res) {
+        alert('已取消');
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });
+  wx.onMenuShareTimeline({
+      title: '互联网之子',
+      link: 'http://movie.douban.com/subject/25785114/',
+      imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
+      trigger: function (res) {
+        alert('用户点击分享到朋友圈');
+      },
+      success: function (res) {
+        alert('已分享');
+      },
+      cancel: function (res) {
+        alert('已取消');
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });
+  wx.onMenuShareQQ({
+      title: '互联网之子',
+      desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
+      link: 'http://movie.douban.com/subject/25785114/',
+      imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
+      trigger: function (res) {
+        alert('用户点击分享到QQ');
+      },
+      complete: function (res) {
+        alert(JSON.stringify(res));
+      },
+      success: function (res) {
+        alert('已分享');
+      },
+      cancel: function (res) {
+        alert('已取消');
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });
+  wx.onMenuShareWeibo({
+      title: '互联网之子',
+      desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
+      link: 'http://movie.douban.com/subject/25785114/',
+      imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
+      trigger: function (res) {
+        alert('用户点击分享到微博');
+      },
+      complete: function (res) {
+        alert(JSON.stringify(res));
+      },
+      success: function (res) {
+        alert('已分享');
+      },
+      cancel: function (res) {
+        alert('已取消');
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });
 </script>
 </html>
