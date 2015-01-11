@@ -310,7 +310,7 @@ location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'"
     var shareData = {
         title: "动物园喵年夜饭 大！募！集！",
         desc: "宠物星球已经召集"+<?php echo $users?>+"位小伙伴为动物园喵募集年夜饭，下一位暖心小天使是你吗？",
-        link: "http://"+window.location.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>, ,
+        link: "http://"+window.location.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>, 
         imgUrl: "http://"+window.location.host+"/css/images/a4.jpg"
     };
     wx.onMenuShareAppMessage(shareData);

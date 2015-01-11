@@ -8,7 +8,7 @@ $signPackage = $jssdk->GetSignPackage();
 <head>
 	<meta name="viewport" content="width = device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>暖冬活动进行中</title>
+	<title>宠物星球年夜饭计划</title>
 	<link rel="stylesheet" type="text/css" href="css/activity_index.css">
     <script>
         var _hmt = _hmt || [];
