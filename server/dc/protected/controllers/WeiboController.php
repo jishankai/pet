@@ -19,7 +19,7 @@ class WeiboController extends Controller
 			$this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', $state, 'mobile'));
 		}
 
-		if ($token) {
+		if (isset($token)) {
 			parse_str($state);
 			setcookie( 'weibojs_'.$oauth2->client_id, http_build_query($token) );
 			$c = new SaeTClientV2( WB_AKEY , WB_SKEY , $token['access_token'] );
@@ -40,7 +40,7 @@ class WeiboController extends Controller
                 	'age'=>$r['age'],
                 	'type'=>$r['type'],
                 	'code'=>'',
-                	'u_name'=>'星'.mb_substr($u['id'], 0, 6),
+                	'u_name'=>'星'.$u['id'],
                 	'u_gender'=>$u['gender']=='m'?1:2,
                 	'u_city'=>1001,
                 	'weibo'=>$u['id'],
