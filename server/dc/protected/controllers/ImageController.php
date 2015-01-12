@@ -320,7 +320,7 @@ class ImageController extends Controller
 
         if (!isset($this->usr_id)) {
             if ($to=='') {
-                if (strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")) {
+                if (isset($_SERVER['HTTP_USER_AGENT'])&&strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")) {
                     $to = 'wechat';
                 } else {
                     $to = 'weibo';
