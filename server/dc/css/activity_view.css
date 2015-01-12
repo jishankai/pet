@@ -72,7 +72,6 @@ a:hover{color: #fb9174;}
 .other_story{position: absolute;top:12px;right: 3%;}
 .the_more{position: absolute;top:12px;left: 3%;color: #0066ff;}
 .the_more a{color: #0066ff;text-decoration: underline;}
-.sponsor{position: absolute;top:88px;right: 3%;}
 .introduce{
 	margin-left: 192px;margin-top: 8px;
 	font-size: 24px;color: #979797;
@@ -213,11 +212,6 @@ a:hover{color: #fb9174;}
 	position: absolute;top:6px;right: 3%;
 }
 .other_story img{width: 100%;height: 100%;}
-.sponsor{
-	width: 122px;height: 26px;
-	position: absolute;top:44px;right: 3%;
-}
-.sponsor img{width: 100%;height: 100%;}
 .introduce{
 	margin-left: 30%;margin-top: 4px;
 	font-size: 12px;
