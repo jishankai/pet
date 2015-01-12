@@ -51,7 +51,7 @@ $signPackage = $jssdk->GetSignPackage();
 			</div>
 			<div class="hr_10"></div>
 			<div class="aprogressbar">
-				<div class="abar" id="abar" style="width:<?php echo sprintf("%.4f",$food/16200)?>%"></div>
+				<div class="abar" id="abar" style="width:<?php echo sprintf("%.2f",$food*100/243000)?>%"></div>
 			</div>
 		</div>
 		<div class="zhu">注：连续登陆天数越长，能免费捐助的份数就越多哦！</div>
