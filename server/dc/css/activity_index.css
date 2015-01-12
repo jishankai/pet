@@ -34,14 +34,10 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 .act1_top{width:100%;height:auto;background-color: pink;}
 .act1_body{width:100%;height:auto; }
 .ab_tit{
-	font-family: "Microsoft Yahei";
-	margin-top: 10px;
-	font-size: 26px;
-	margin-bottom:10px;
-	text-indent: 1%;
-	color: #7c7c7c;
-	font-weight: bold;
+    width: 100%;
+    padding: 1% 0px;
 }
+.ab_tit img{width: 80%;}
 
 .act1_imgList li{
 	float: left;
@@ -83,12 +79,7 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 
 .comWidth{width:100%;height:100%;margin:auto auto;}
 .ab_tit{
-	font-family: "Microsoft Yahei";
-	margin-top: 5px;
-	font-size: 15px;
-	margin-bottom:0px;
-	text-indent: 2%;
-	color: #7c7c7c;
+    padding:2% 0px 0px 2%;
 }
 .act1_imgList li{
 	float: left;

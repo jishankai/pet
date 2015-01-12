@@ -26,7 +26,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<img alt="" src="css/images/1.jpg">
 	</div>
 	<div class="act1_body">
-		<div class="ab_tit">点击代粮喵头像，为ta的小伙伴捐粮</div>
+		<div class="ab_tit"><img src="css/images/ab_tit.gif"></div>
 		<div class="act1_imgBox">
 			<ul class="act1_imgList clearfix">
                 <li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>654, 'SID'=>$sid))?>"><img alt="" src="css/images/a5.jpg"></a></li>
