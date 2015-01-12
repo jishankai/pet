@@ -29,11 +29,11 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="ab_tit">点击代粮喵头像，为ta的小伙伴捐粮</div>
 		<div class="act1_imgBox">
 			<ul class="act1_imgList clearfix">
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>653, 'SID'=>$sid))?>"><img alt="" src="css/images/a1.jpg"></a></li>
+                <li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>654, 'SID'=>$sid))?>"><img alt="" src="css/images/a5.jpg"></a></li>
 				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>651, 'SID'=>$sid))?>"><img alt="" src="css/images/a2.jpg"></a></li>
 				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>652, 'SID'=>$sid))?>"><img alt="" src="css/images/a3.jpg"></a></li>
 				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>660, 'SID'=>$sid))?>"><img alt="" src="css/images/a4.jpg"></a></li>
-				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>654, 'SID'=>$sid))?>"><img alt="" src="css/images/a5.jpg"></a></li>
+				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>653, 'SID'=>$sid))?>"><img alt="" src="css/images/a1.jpg"></a></li>
 				<li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>655, 'SID'=>$sid))?>"><img alt="" src="css/images/a6.jpg"></a></li>
 			</u>
 		</div>

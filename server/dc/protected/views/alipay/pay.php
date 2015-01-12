@@ -7,9 +7,9 @@
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
 <style type="text/css">
-	li{width:100px;height:20px;}
-	li.color{color:red;background:#eee;}
-	form{display: none;}
+    li{width:100px;height:20px;}
+    li.color{color:red;background:#eee;}
+    form{display: none;}
 </style>
 </head>
 <script>
@@ -23,52 +23,52 @@
 </script>
 <body>
 <div class="comWidth">
-	<div class="pay_title">
-		<h3>充值</h3>
-	</div>
-	<div class="gold">
-		<ul class="money_list">
-            <li id="1"><div class="num">100</div><div class="money">￥1</div></li>	
+    <div class="pay_title">
+        <h3>充值</h3>
+    </div>
+    <div class="gold">
+        <ul class="money_list" id="money_list">
+            <li id="1"><div class="num">100</div><div class="money">￥1</div></li>   
             <li id="5"><div class="num">500</div><div class="money">￥5</div></li>
             <li id="10"><div class="num">1050</div><div class="money">￥10</div></li>
              <div class="hr_3"></div>
             <li id="100"><div class="num">11000</div><div class="money">￥100</div></li>
         </ul>
-	</div>
-	<div class="pay_select">
-		<h3>选择支付方式</h3>
-	</div>
-	
-	<div class="share">
-		<img src="css/images/pay.jpg" id="z_f_b">
-		<img src="css/images/pay1.jpg" id="z_f_b1" style="display:none;">
-	<div>
-	
+    </div>
+    <div class="pay_select">
+        <h3>选择支付方式</h3>
+    </div>
+    
+    <div class="share">
+        <img src="css/images/pay.jpg" id="z_f_b">
+        <img src="css/images/pay1.jpg" id="z_f_b1" style="display:none;">
+    <div>
+    
 
-	<div class="foot" onclick="document.forms[0].submit();">
-		
-	</div>
+    <div class="foot" onclick="document.forms[0].submit();">
+        
+    </div>
 
-	<!-- 表单 -->
-	 <form name=alipayment action=<?php echo $this->createUrl('alipay/alipayapi')?> method=post target="_blank">
+    <!-- 表单 -->
+     <form name=alipayment action=<?php echo $this->createUrl('alipay/alipayapi')?> method=post target="_blank">
             <div id="body" style="clear:left">
                 <dl class="content">
                     <dt>卖家支付宝帐户：</dt>
                   <dd>
                         <span class="null-star">*</span>
-                        <input size="30" name="WIDseller_email" value="liria@aidigame.com" />
+                        <input size="30" name="WIDseller_email" value="linia@aidigame.com" />
                         <span></span>
                     </dd>
                     <dt>商户订单号：</dt>
                     <dd>
                         <span class="null-star">*</span>
-                        <input size="30" name="WIDout_trade_no" value="cwxq<?php echo time()?>" />
+                        <input size="30" name="WIDout_trade_no" value="cwxq000001" />
                         <span></span>
                     </dd>
                     <dt>订单名称：</dt>
                     <dd>
                         <span class="null-star">*</span>
-                        <input size="30" name="WIDsubject" value="1元100个金币"/>
+                        <input size="30" name="WIDsubject" id="dname"/>
                         <span></span>
                     </dd>
                     <dt>付款金额：</dt>
@@ -77,7 +77,7 @@
                         <input size="30" name="WIDtotal_fee" id="rmb" />
                         <span></span>
                     </dd>
-					<dt></dt>
+                    <dt></dt>
                     <dd>
                         <span class="new-btn-login-sp">
                             <button class="new-btn-login" type="submit" style="text-align:center;">确 认</button>
@@ -85,38 +85,54 @@
                     </dd>
                 </dl>
             </div>
-		</form>	
-	
-	
+        </form> 
+    
+    
 </div>
 
 
 </body>
-	<script>
+    <script>
 
-		$(function(){
+        $(function(){
 
-			$("#money_list li").click(function(){
-				$(this).addClass("color").siblings().removeClass();
-				 $("#rmb").val($(this).attr("id"));
-			});
+            $("#money_list li").click(function(){
+                $(this).addClass("color").siblings().removeClass();
+                 $("#rmb").val($(this).attr("id"));
+                 var rmb = $(this).attr("id");
+                 var gold = 0;
+                 if(rmb==1){
+                    gold = 100;
+                 }
+                 else if(rmb==5){
+                    gold = 500;
+                 }
+                 else if(rmb==10){
+                    gold = 1050;
+                 }
+                 else if(rmb==100){
+                    gold = 11000;
+                 }
+                 
+                 $("#dname").val(rmb+"元"+gold+"个金币");
+            });
 
-			$("#z_f_b").click(function(){
-				$(this).css("display","none");
-				$("#z_f_b1").css("display","block");
+            $("#z_f_b").click(function(){
+                $(this).css("display","none");
+                $("#z_f_b1").css("display","block");
 
-			});
+            });
 
-			$("#z_f_b1").click(function(){
-				$(this).css("display","none");
-				$("#z_f_b").css("display","block");
+            $("#z_f_b1").click(function(){
+                $(this).css("display","none");
+                $("#z_f_b").css("display","block");
 
-			});
+            });
 
-		});
+        });
 
 
-	</script>
+    </script>
 
 
 </html>
