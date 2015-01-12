@@ -45,7 +45,7 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
 
 .act1_imgList li{
 	float: left;
-	width: 40%;height: 30%;margin-left: 3px;
+	width: 30%;height: 30%;margin-left: 3px;
 }
 .head_imgList{margin-left: 3%;}
 .head_imgList li{float: left;margin-left: 2%;width: 60px;height: 60px;}
