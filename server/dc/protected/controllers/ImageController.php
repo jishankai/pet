@@ -365,7 +365,7 @@ class ImageController extends Controller
         $user = User::model()->findByPk($this->usr_id);
 
         $alert_flag = 0;
-        if ($user->gold<$n) {
+        if ($user->gold<=0) {
             $alert_flag = 1;
         } else {
             $transaction = Yii::app()->db->beginTransaction();
