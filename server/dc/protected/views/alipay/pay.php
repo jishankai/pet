@@ -116,19 +116,6 @@
                  
                  $("#dname").val(rmb+"元"+gold+"个金币");
             });
-
-            $("#z_f_b").click(function(){
-                $(this).css("display","none");
-                $("#z_f_b1").css("display","block");
-
-            });
-
-            $("#z_f_b1").click(function(){
-                $(this).css("display","none");
-                $("#z_f_b").css("display","block");
-
-            });
-
         });
 
 
