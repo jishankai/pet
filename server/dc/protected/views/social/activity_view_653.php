@@ -30,7 +30,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=202818856&idx=2&sn=359a79ad682fb561abd8894bff775553#rd"><img src="css/images/other_story.png" alt=""></a>
 		</div>
         <div class="the_more">
-            <<a href="http://release4pet.aidigame.com/index.php?r=social/newYearEvent">更多喵</a>
+            <a href="http://release4pet.aidigame.com/index.php?r=social/newYearEvent">更多喵</a>
         </div>
 		<div class="introduce">
 			<div class="pet_name">代粮喵：<span>税后五百万翻番</span></div>

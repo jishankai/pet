@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>pay-test</title>
+<title>我的口粮你做主</title>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
 <style type="text/css">
