@@ -545,10 +545,11 @@ class UserController extends Controller
                 }
                 //奖励
                 $user->invite();
-                if (isset($inviter)) {
-                    $inviter_obj = User::model()->findByPk($inviter);
-                    $inviter_obj->inviter($user->name, $invite_aid);
-                }
+                $user->inviter = $inviter;
+                $user->saveAttributes(array('inviter'));
+                $inviter_obj = User::model()->findByPk($inviter);
+                $inviter_obj->inviter($user->name, $invite_aid);
+
                 $transaction->commit();
             } catch (Exception $e) {
                 $transaction->rollback();

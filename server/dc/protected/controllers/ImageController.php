@@ -377,8 +377,8 @@ class ImageController extends Controller
                     $image->food+=$n;
                     $image->saveAttributes(array('food'));
                 }
-                $animal->food+=$n;
-                $animal->total_food+=$n;
+                $animal->food+=$n*rand(1,20);
+                $animal->total_food+=$n*rand(1,20);
                 $animal->saveAttributes(array('food','total_food'));
 
                 $transaction->commit();
