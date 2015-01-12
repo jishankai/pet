@@ -30,7 +30,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=202818856&idx=7&sn=1db95f1153014774c912101e63fce3c1#rd"><img src="css/images/other_story.png" alt=""></a>
 		</div>
         <div class="the_more">
-			<img src="images/the_more.png">
+			<img src="css/images/the_more.png">
 		</div>
 		<div class="introduce">
 			<div class="pet_name">代粮喵：<span>61</span></div>
