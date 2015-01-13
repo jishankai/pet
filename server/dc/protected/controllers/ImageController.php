@@ -135,6 +135,7 @@ class ImageController extends Controller
 
                     if ($is_food) {
                         $animal = Animal::model()->findByPk($aid);
+                        Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->usr_id, "完挣口粮照片，可以再点一下“挣口粮”，就能发到微信微博，让小伙伴帮着赏粮呢，只需要轻轻一点哟~");
                         $circles = Circle::model()->findAllByAttributes(array('aid'=>$aid));
                         foreach ($circles as $circle) {
                             if (isset($circle) and isset($animal)) {
