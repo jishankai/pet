@@ -234,9 +234,9 @@ a:hover{color: #fb9174;}
 	width: 90%;height: 52px;margin: 10px auto 0px;
 	
 }
-.target{font-size: 11px;}
+.target{font-size: 10px;}
 .hr_10{width: 100%;height: 8px;}
-.d_time{font-size: 10px;margin-right: 5%;}
+.d_time{font-size: 8px;margin-right: 5%;}
 
 /*进度条*/
 .aprogressbar{ 
@@ -323,6 +323,6 @@ a:hover{color: #fb9174;}
 }
 /*手机大屏部分属性适配*/
 @media only screen and (min-width: 370px) and (max-width: 450px){
-.target{font-size: 13px;}
-.d_time{font-size: 12px;}
+.target{font-size: 12px;}
+.d_time{font-size: 10px;}
 }
