@@ -173,10 +173,14 @@ class UserController extends Controller
                 $session = Yii::app()->session;
                 $id = $session['id'];
                 $device = Device::model()->findByPk($id);
-                $device->usr_id = $user->usr_id;
-                $device->saveAttributes(array('usr_id'));
-                $session['usr_id'] = $user->usr_id;
-                $isBinded = TRUE;
+                if (isset($device)) {
+                    $device->usr_id = $user->usr_id;
+                    $device->saveAttributes(array('usr_id'));
+                    $session['usr_id'] = $user->usr_id;
+                    $isBinded = TRUE;
+                } else {
+                    throw new PException('绑定失败');
+                }
 
                 $this->echoJsonData(array('usr_id'=>$user->usr_id, 'aid'=>$user->aid, 'isBinded'=>$isBinded));
             } else {
