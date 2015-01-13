@@ -56,42 +56,76 @@ class WechatController extends Controller
             \"button\":[
                 {
                 \"type\":\"click\",
-                \"name\":\"关于应用\",
+                \"name\":\"免费捐粮\",
                 \"sub_button\":[
                     {
                     \"type\":\"view\",
-                    \"name\":\"应用下载\",
-                    \"url\":\"http://home4pet.aidigame.com\"
+                    \"name\":\"活动介绍\",
+                    \"url\":\"http://release4pet.aidigame.com/index.php?r=social/newYearEvent\"
                     },
                     {
-                    \"type\":\"click\",
-                    \"name\":\"我要吐槽\",
-                    \"key\":\"key_wytc\"
-                    }
-                ]
-                },
-                {
-                \"type\":\"click\",
-                \"name\":\"我要投稿\",
-                \"sub_button\":[
-                    {
-                    \"type\":\"click\",
-                    \"name\":\"故事投稿\",
-                    \"key\":\"key_gstg\"
+                    \"type\":\"view\",
+                    \"name\":\"活动介绍\",
+                    \"url\":\"http://release4pet.aidigame.com/index.php?r=social/newYearEvent\"
                     },
                     {
-                    \"type\":\"click\",
-                    \"name\":\"封面投稿\",
-                    \"key\":\"key_fmtg\"
-                    }
-
+                    \"type\":\"view\",
+                    \"name\":\"香山喵\",
+                    \"url\":\"http://t.cn/RZXn0cD\"
+                    },
+                    {
+                    \"type\":\"view\",
+                    \"name\":\"植物园喵\",
+                    \"url\":\"http://t.cn/RZXnY4H\"
+                    },
+                    {
+                    \"type\":\"view\",
+                    \"name\":\"紫竹院喵\",
+                    \"url\":\"http://t.cn/RZXn1OH\"
+                    },
+                    {
+                    \"type\":\"view\",
+                    \"name\":\"动物园喵\",
+                    \"url\":\"http://t.cn/RZXn8Oy\"
+                    },
+                    {
+                    \"type\":\"view\",
+                    \"name\":\"北航喵\",
+                    \"url\":\"http://t.cn/RZXnSkV\"
+                    },
+                    {
+                    \"type\":\"view\",
+                    \"name\":\"清华喵\",
+                    \"url\":\"http://t.cn/RZXneWv\"
+                    },
                 ]
                 },
+                // {
+                // \"type\":\"click\",
+                // \"name\":\"我要投稿\",
+                // \"sub_button\":[
+                //     {
+                //     \"type\":\"click\",
+                //     \"name\":\"故事投稿\",
+                //     \"key\":\"key_gstg\"
+                //     },
+                //     {
+                //     \"type\":\"click\",
+                //     \"name\":\"封面投稿\",
+                //     \"key\":\"key_fmtg\"
+                //     }
 
+                // ]
+                // },
                 {
                 \"type\":\"click\",
                 \"name\":\"内容回顾\",
                 \"sub_button\":[
+                    {
+                    \"type\":\"click\",
+                    \"name\":\"流浪猫咪\",
+                    \"key\":\"key_llmm\"
+                    },
                     {
                     \"type\":\"click\",
                     \"name\":\"萌星物语\",
@@ -107,13 +141,29 @@ class WechatController extends Controller
                     \"name\":\"往期活动\",
                     \"key\":\"key_wqhd\"
                     },
+                    // {
+                    // \"type\":\"click\",
+                    // \"name\":\"搞笑图片\",
+                    // \"key\":\"key_gxtp\"
+                    // },
+                ]
+                },
+                {
+                \"type\":\"click\",
+                \"name\":\"关于应用\",
+                \"sub_button\":[
+                    {
+                    \"type\":\"view\",
+                    \"name\":\"应用下载\",
+                    \"url\":\"http://home4pet.aidigame.com\"
+                    },
                     {
                     \"type\":\"click\",
-                    \"name\":\"搞笑图片\",
-                    \"key\":\"key_gxtp\"
-                    },
+                    \"name\":\"我要吐槽\",
+                    \"key\":\"key_wytc\"
+                    }
                 ]
-                }
+                },
         ]
     }";  //提交内容
     $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={$token}"; //查询地址
@@ -201,7 +251,7 @@ class WechatController extends Controller
                 $resultStr = $this->transmitNews($object, $a);
                 break;
             case '4':
-                $a = Util::loadConfig('wechat_gxtp');
+                $a = Util::loadConfig('wechat_llmm');
                 $resultStr = $this->transmitNews($object, $a);
                 break;
             default:
@@ -225,7 +275,7 @@ class WechatController extends Controller
 回复【1】查看暖暖哒【萌星物语】
 回复【2】查看实用哒【宠物讲堂】
 回复【3】查看精彩哒【往期活动】
-回复【4】查看蠢萌哒【搞笑图片】";
+回复【4】查看蠢萌哒【流浪猫咪】";
             $resultStr = $this->transmitText($object, $contentStr);
             break;
         case "CLICK":
@@ -294,6 +344,10 @@ class WechatController extends Controller
                 break;
             case 'key_wqhd':
                 $a = Util::loadConfig('wechat_wqhd');
+                $resultStr = $this->transmitNews($object, $a);
+                break;
+            case 'key_llmm':
+                $a = Util::loadConfig('wechat_llmm');
                 $resultStr = $this->transmitNews($object, $a);
                 break;
             default:
