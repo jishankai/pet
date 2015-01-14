@@ -12,7 +12,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<link rel="stylesheet" type="text/css" href="css/activity_view.css">
 		<link rel="stylesheet" type="text/css" href="css/alert.css">		
 		<script src="js/zepto.min.js"></script>
-        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1950643552" type="text/javascript" charset="utf-8"></script>
 	</head>
     <script>
         var _hmt = _hmt || [];
@@ -32,7 +32,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=202818856&idx=3&sn=997206b6421e354e08f38782b40d0abb#rd"><img src="css/images/other_story.png" alt=""></a>
 		</div>
         <div class="wb">
-            <wb:share-button appkey="392HpS" addition="simple" type="button" ralateUid="5252680717" default_text="北京动物园的流浪喵还差<?php echo 243000-$food?>份口粮才能温暖过冬呢~轻轻一点，免费捐粮！快来和我一起做爱心小天使~" pic="http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimages%2Fa4.jpg"></wb:share-button>
+            <wb:publish toolbar="face,topic" button_type="red" button_size="small" id="wb" default_text="#暖冬季•年夜饭计划#北京动物园的流浪喵还差<?php echo 243000-$food?>份口粮才能温暖过冬呢~轻轻一点，免费捐粮！快来和我一起做爱心小天使~" button_text="暖冬季•年夜饭计划" default_image="http://kouliang.tuturead.com/css/images/a4.jpg" ></wb:publish>
         </div>
         <div class="the_more">
 			<a href="http://release4pet.aidigame.com/index.php?r=social/newYearEvent"><img src="css/images/the_more.png"></a>
