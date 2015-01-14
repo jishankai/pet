@@ -34,7 +34,7 @@ $signPackage = $jssdk->GetSignPackage();
 		</div>
 		<div class="introduce">
 			<div class="pet_name">代粮喵：<span>猴子和ta的小伙伴</span></div>
-			<div class="pet_place">代粮地点：<span>北京清华大学</span></div>
+			<div class="pet_place">代粮地点：<span>清华大学</span></div>
 			<div class="pet_weibo"><a href="http://weibo.com/u/1411960057?topnav=1&wvr=6&topsug=1">新浪微博：<span><u>扑倒所有喵</u></span></a></div>
 		</div>
 		<div class="act2_petHead">
