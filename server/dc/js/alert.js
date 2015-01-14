@@ -442,18 +442,22 @@ function alertMsg_b(msg, mode) { //mode为空，即只有一个确认按钮，mo
         alertBox2.appendChild(alertMsg21_info);
 
 
+        var alertMsg21_box = document.createElement('div');
+        alertMsg21_box.id = 'alertMsg21_box';
+        alertBox2.appendChild(alertMsg21_box);
+
         var alertMsg21_checkbox = document.createElement('input');
         alertMsg21_checkbox.id = 'alertMsg21_checkbox';
         alertMsg21_checkbox.type="checkbox";
         alertMsg21_checkbox.checked="true";
        
-        alertBox2.appendChild(alertMsg21_checkbox);
+        alertMsg21_box.appendChild(alertMsg21_checkbox);
 
 
         var alertMsg22_info = document.createElement('label');
         alertMsg22_info.id = 'alertMsg22_info';
         alertMsg22_info.innerHTML = "分享给小伙伴，召集更多爱心小天使~";
-        alertBox2.appendChild(alertMsg22_info);
+        alertMsg21_box.appendChild(alertMsg22_info);
 
 
 
