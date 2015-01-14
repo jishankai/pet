@@ -12,7 +12,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<link rel="stylesheet" type="text/css" href="css/activity_view.css">
 		<link rel="stylesheet" type="text/css" href="css/alert.css">		
 		<script src="js/zepto.min.js"></script>
-        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1950643552" type="text/javascript" charset="utf-8"></script>
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 	</head>
     <script>
         var _hmt = _hmt || [];
@@ -32,7 +32,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=202818856&idx=3&sn=997206b6421e354e08f38782b40d0abb#rd"><img src="css/images/other_story.png" alt=""></a>
 		</div>
         <div class="wb">
-            <!-- <wb:publish toolbar="face,topic" button_type="red" button_size="small" id="wb" default_text="#暖冬季•年夜饭计划#北京动物园的流浪喵还差<?php echo 243000-$food?>份口粮才能温暖过冬呢~轻轻一点，免费捐粮！快来和我一起做爱心小天使~" button_text="暖冬季•年夜饭计划" default_image="http://kouliang.tuturead.com/css/images/a4.jpg" ></wb:publish> -->
+            <wb:publish action="publish" type="mobile" language="zh_cn" button_type="red" button_size="small" button_text="暖冬季•年夜饭" uid="5252680717" default_text="快来和我一起为动物园的流浪喵捐冬粮吧~http://t.cn/RZXn8Oy" tag="暖冬季•年夜饭计划" default_image="http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fdwy%2F9.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fdwy%2F8.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fdwy%2F7.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fdwy%2F6.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fdwy%2F5.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fdwy%2F4.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fdwy%2F3.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fdwy%2F2.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fdwy%2F1.jpg" appkey="392HpS" ></wb:publish>
         </div>
         <div class="the_more">
 			<a href="http://release4pet.aidigame.com/index.php?r=social/newYearEvent"><img src="css/images/the_more.png"></a>

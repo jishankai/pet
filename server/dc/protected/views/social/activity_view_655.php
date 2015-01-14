@@ -12,7 +12,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<link rel="stylesheet" type="text/css" href="css/activity_view.css">
 		<link rel="stylesheet" type="text/css" href="css/alert.css">		
 		<script src="js/zepto.min.js"></script>
-        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=1950643552" type="text/javascript" charset="utf-8"></script>
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 	</head>
     <script>
         var _hmt = _hmt || [];
@@ -28,10 +28,10 @@ $signPackage = $jssdk->GetSignPackage();
 	<div class="act2_top">
 		<img src="css/images/head_background.jpg" alt="" class="act2_head">
 		<div class="other_story">
-			<!-- <a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=202818856&idx=6&sn=2c271cdef7592bf8da326e8763bd3af4#rd"><img src="css/images/other_story.png" alt=""></a> -->
+			<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=202818856&idx=6&sn=2c271cdef7592bf8da326e8763bd3af4#rd"><img src="css/images/other_story.png" alt=""></a>
 		</div>
         <div class="wb">
-            <wb:publish toolbar="face,topic" button_type="red" button_size="small" id="wb" default_text="#暖冬季•年夜饭计划#清华大学的流浪喵还差<?php echo 99000-$food?>份口粮才能温暖过冬呢~轻轻一点，免费捐粮！快来和我一起做爱心小天使~" button_text="暖冬季•年夜饭计划" default_image="http://kouliang.tuturead.com/css/images/a6.jpg" ></wb:publish>
+            <wb:publish action="publish" type="mobile" language="zh_cn" button_type="red" button_size="small" button_text="暖冬季•年夜饭" uid="5252680717" default_text="快来和我一起为清华的流浪喵捐冬粮吧~http://t.cn/RZXneWv" tag="暖冬季•年夜饭计划" default_image="http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fqh%2F9.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fqh%2F8.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fqh%2F7.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fqh%2F6.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fqh%2F5.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fqh%2F4.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fqh%2F3.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fqh%2F2.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fqh%2F1.jpg" appkey="392HpS" ></wb:publish>
         </div>
         <div class="the_more">
 			<a href="http://release4pet.aidigame.com/index.php?r=social/newYearEvent"><img src="css/images/the_more.png"></a>
