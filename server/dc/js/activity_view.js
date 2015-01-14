@@ -75,6 +75,9 @@ $(".give_left").click(function () {
     $("#abar").width(pwidth);*/
 
     /*弹出框*/
+    $("#share_box").click(function(){
+        $(this).css('display','none');
+    });
 /*
     $("#shadow_Box").css('display','block');
     $("#t2").css('display','block');
