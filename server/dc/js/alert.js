@@ -433,7 +433,7 @@ function alertMsg_b(msg, mode) { //mode为空，即只有一个确认按钮，mo
         //创建弹出框里面的内容P标签
         var alertMsg2_info = document.createElement('P');
         alertMsg2_info.id = 'alertMsg2_info';
-        alertMsg2_info.innerHTML = "今天的免费份数用光啦～";
+        alertMsg2_info.innerHTML = "今天的免费份数用光啦";
         alertBox2.appendChild(alertMsg2_info);
 
         var alertMsg21_info = document.createElement('P');
@@ -441,9 +441,18 @@ function alertMsg_b(msg, mode) { //mode为空，即只有一个确认按钮，mo
         alertMsg21_info.innerHTML = "明天还有更多免费份数任你壕！";
         alertBox2.appendChild(alertMsg21_info);
 
-        var alertMsg22_info = document.createElement('P');
+
+        var alertMsg21_checkbox = document.createElement('input');
+        alertMsg21_checkbox.id = 'alertMsg21_checkbox';
+        alertMsg21_checkbox.type="checkbox";
+        alertMsg21_checkbox.checked="true";
+       
+        alertBox2.appendChild(alertMsg21_checkbox);
+
+
+        var alertMsg22_info = document.createElement('label');
         alertMsg22_info.id = 'alertMsg22_info';
-        alertMsg22_info.innerHTML = "下载宠物星球app，超多萌宠治愈你";
+        alertMsg22_info.innerHTML = "分享给小伙伴，召集更多爱心小天使~";
         alertBox2.appendChild(alertMsg22_info);
 
 
@@ -455,9 +464,22 @@ function alertMsg_b(msg, mode) { //mode为空，即只有一个确认按钮，mo
         b_btn1.href = 'javas' + 'cript:void(0)';
         b_btn1.innerHTML = '<cite>好的</cite>';
         b_btn1.onclick = function () {
-            document.body.removeChild(alertBox2);
-            document.body.removeChild(shadowDiv2);
-            return true;
+            var flag=document.getElementById("alertMsg21_checkbox").checked;
+            if(flag){
+                /*alert(flag);*/
+                document.body.removeChild(alertBox2);
+                document.body.removeChild(shadowDiv2);
+                var ua = navigator.userAgent.toLowerCase();  
+                if(ua.match(/MicroMessenger/i)!="micromessenger") { 
+                    document.getElementById("wb").click();
+                }
+                return true;
+           
+            }else{
+                document.body.removeChild(alertBox2);
+                document.body.removeChild(shadowDiv2);
+                return true;
+           }
         };
         alertBox2.appendChild(b_btn1);
 

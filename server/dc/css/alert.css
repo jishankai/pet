@@ -167,12 +167,24 @@
         #alertMsg1_clock{width: 15px;height: 15px;}
 
 /*弹框3*/
-#alertMsg2_info,#alertMsg21_info,#alertMsg22_info{
+#alertMsg2_info,#alertMsg21_info{
 	font-size: 15px!important;
 	margin-left: 0px!important;
 	margin-bottom: 4%!important;
   /*  margin-top: 15%;*/
 }
+#alertMsg21_info{
+    margin-bottom: 15%!important;
+}
+#alertMsg22_info{
+    font-size: 14px;
+    display: inline-block;
+    line-height: 40px;
+    height: 16px;
+}
 #alertMsg2_btn1{
-	margin-top: 10%!important;
+	margin-top: 4%!important;
+}
+#alertMsg21_checkbox{
+  
 }
