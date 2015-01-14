@@ -70,7 +70,7 @@ a:hover{color: #fb9174;}
 .act2_top{position: relative;}
 .act2_head{width: 100%;height: 158px;}
 .other_story{position: absolute;top:12px;right: 3%;}
-.wb{position:absolute;top:90px;right: 3%;}
+.wb{position:absolute;top:200px;right: 3%;}
 .the_more{position: absolute;top:12px;left: 3%;}
 .introduce{
 	margin-left: 192px;margin-top: 8px;
@@ -212,6 +212,7 @@ a:hover{color: #fb9174;}
 	position: absolute;top:6px;right: 3%;
 }
 .other_story img{width: 100%;height: 100%;}
+.wb{position:absolute;top:90px;right: 3%;}
 .the_more{
     height: 23px;width: 56px;
     position: absolute;top:6px;left: 3%;
