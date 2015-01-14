@@ -472,6 +472,8 @@ function alertMsg_b(msg, mode) { //mode为空，即只有一个确认按钮，mo
                 var ua = navigator.userAgent.toLowerCase();  
                 if(ua.match(/MicroMessenger/i)!="micromessenger") { 
                     document.getElementById("wb").click();
+                } else {
+                    document.getElementById("share_box").style.display="block";
                 }
                 return true;
            
@@ -647,3 +649,7 @@ function alertMsg_e(msg, mode) { //mode为空，即只有一个确认按钮，mo
 
         document.body.appendChild(alertBox1);
     }
+
+$("#share_box").click(function(){
+    $(this).css('display','none');
+});
