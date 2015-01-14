@@ -474,6 +474,7 @@ function alertMsg_b(msg, mode) { //mode为空，即只有一个确认按钮，mo
                     document.getElementById("wb").click();
                 } else {
                     document.getElementById("share_box").style.display="block";
+                    document.getElementById("share_img").style.display="block";
                 }
                 return true;
            

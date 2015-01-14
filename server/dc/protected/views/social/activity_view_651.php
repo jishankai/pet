@@ -24,7 +24,7 @@ $signPackage = $jssdk->GetSignPackage();
         })();
     </script>
 <body>
-<div class="share_box" id="share_box"><img src="css/images/share_img.png" class="share_img"></div>
+<div class="share_box" id="share_box"><img src="css/images/share_img.png" class="share_img" id="share_img"></div>
 <div class="act2_wrap comWidth">
 	<div class="act2_top">
 		<img src="css/images/head_background.jpg" alt="" class="act2_head">

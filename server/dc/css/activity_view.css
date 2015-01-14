@@ -20,7 +20,7 @@ a:hover{color: #fb9174;}
     left: 0px;top:0px;z-index: 1000;
     background: url("../css/images/black_t.png")left top repeat;
 }
-.share_img{width: 100%;}
+.share_img{width: 100%;display: none;}
 /*电脑适配*/
 @media only screen and (min-width: 650px){
 .comWidth{width:640px;height:100%;margin:auto auto;}
