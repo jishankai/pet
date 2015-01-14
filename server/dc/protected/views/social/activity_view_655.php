@@ -28,7 +28,7 @@ $signPackage = $jssdk->GetSignPackage();
 	<div class="act2_top">
 		<img src="css/images/head_background.jpg" alt="" class="act2_head">
 		<div class="other_story">
-			<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=202818856&idx=6&sn=2c271cdef7592bf8da326e8763bd3af4#rd"><img src="css/images/other_story.png" alt=""></a>
+			<!-- <a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=202818856&idx=6&sn=2c271cdef7592bf8da326e8763bd3af4#rd"><img src="css/images/other_story.png" alt=""></a> -->
 		</div>
         <div class="wb">
             <wb:publish toolbar="face,topic" button_type="red" button_size="small" id="wb" default_text="#暖冬季•年夜饭计划#清华大学的流浪喵还差<?php echo 99000-$food?>份口粮才能温暖过冬呢~轻轻一点，免费捐粮！快来和我一起做爱心小天使~" button_text="暖冬季•年夜饭计划" default_image="http://kouliang.tuturead.com/css/images/a6.jpg" ></wb:publish>
