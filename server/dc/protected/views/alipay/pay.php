@@ -6,11 +6,6 @@
 <title>我的口粮你做主</title>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
 <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
-<style type="text/css">
-    li{width:100px;height:20px;}
-    li.color{color:red;background:#eee;}
-    form{display: none;}
-</style>
 </head>
 <script>
     var _hmt = _hmt || [];
@@ -43,45 +38,40 @@
         <img src="css/images/pay.jpg" id="z_f_b">
         <img src="css/images/pay1.jpg" id="z_f_b1" style="display:none;">
     <div>
-    
-
-    <div class="foot" onclick="document.forms[0].submit();">
-        
-    </div>
 
     <!-- 表单 -->
      <form name=alipayment action=<?php echo $this->createUrl('alipay/alipayapi')?> method=post target="_blank">
             <div id="body" style="clear:left">
                 <dl class="content">
-                    <dt>卖家支付宝帐户：</dt>
-                  <dd>
+                    <dt class="p1">卖家支付宝帐户：</dt>
+                    <dd class="p11">
                         <span class="null-star">*</span>
-                        <input size="30" name="WIDseller_email" value="liria@aidigame.com" />
+                        <input size="30" name="WIDseller_email" value="linia@aidigame.com" />
                         <span></span>
                     </dd>
-                    <dt>商户订单号：</dt>
-                    <dd>
+                    <dt class="p2">商户订单号：</dt>
+                    <dd class="p22">
                         <span class="null-star">*</span>
                         <input size="30" name="WIDout_trade_no" value="cwxq000001" />
                         <span></span>
                     </dd>
-                    <dt>订单名称：</dt>
-                    <dd>
+                    <dt class="p3">订单名称：</dt>
+                    <dd class="p33">
                         <span class="null-star">*</span>
                         <input size="30" name="WIDsubject" id="dname"/>
                         <span></span>
                     </dd>
-                    <dt>付款金额：</dt>
-                    <dd>
+                    <dt class="p4">付款金额：</dt>
+                    <dd class="p44">
                         <span class="null-star">*</span>
                         <input size="30" name="WIDtotal_fee" id="rmb" />
                         <span></span>
                     </dd>
-                    <dt></dt>
+          
                     <dd>
-                        <span class="new-btn-login-sp">
-                            <button class="new-btn-login" type="submit" style="text-align:center;">确 认</button>
-                        </span>
+                              
+                            <input class="new-btn-login" type="submit" value="" style="text-align:center;">
+                      
                     </dd>
                 </dl>
             </div>
