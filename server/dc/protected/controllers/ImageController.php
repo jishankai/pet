@@ -51,6 +51,13 @@ class ImageController extends Controller
         if (isset($_POST['is_food'])) {
             $is_food = $_POST['is_food'];
         }
+
+        $session = Yii::app()->session;
+        if (isset($session['is_food'])) {
+            throw new PException('您今天已经求过口粮啦');
+        } else {
+            $session['is_food'] = 1;
+        }
         /*
         if (isset($_FILES['image'])) {
         Yii::trace("Image: ".$_FILES['image'], 'access');
