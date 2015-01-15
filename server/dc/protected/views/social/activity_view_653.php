@@ -40,7 +40,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="introduce">
 			<div class="pet_name">代粮喵：<span>税后五百万</span></div>
 			<div class="pet_place">代粮地点：<span>北京航空航天大学</span></div>
-			<div class="pet_weibo"><a href="http://weibo.com/u/1883332187?topnav=1&wvr=6&topsug=1">新浪微博：<span><u>税后五百万</u></span></a></div>
+			<div class="pet_weibo"><a href="http://weibo.com/u/1883332187?topnav=1&wvr=6&topsug=1">新浪微博：<span><u>税后五百万翻番</u></span></a></div>
 		</div>
 		<!-- <div class="declaration">活动宣言：<span>给北航的流浪喵们带来温暖的冬天！</span></div> -->
 		<div class="act2_petHead">
