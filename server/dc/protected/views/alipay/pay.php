@@ -45,7 +45,7 @@
                     <dt class="p1">卖家支付宝帐户：</dt>
                     <dd class="p11">
                         <span class="null-star">*</span>
-                        <input size="30" name="WIDseller_email" value="linia@aidigame.com" />
+                        <input size="30" name="WIDseller_email" value="liria@aidigame.com" />
                         <span></span>
                     </dd>
                     <dt class="p2">商户订单号：</dt>
