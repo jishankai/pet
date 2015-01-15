@@ -36,7 +36,6 @@
     
     <div class="share">
         <img src="css/images/pay.jpg" id="z_f_b">
-        <img src="css/images/pay1.jpg" id="z_f_b1" style="display:none;">
     <div>
 
     <!-- 表单 -->
