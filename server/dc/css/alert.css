@@ -189,15 +189,6 @@
 }
 #alertMsg21_checkbox{
 }
-#alertMsg2_info{
-    font-size: 16px!important;
-    margin-left: 0px!important;
-    margin-bottom: 10%!important;
-    margin-top: 15%;
-}
-#alertMsg2_btn1{
-    margin-top: 10%!important;
-}
 /*筹集完成后弹框*/
 #alertMsg8_info,#alertMsg8_info1{
     font-size: 16px;
