@@ -52,7 +52,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<div class="hr_10"></div>
 			<div class="target_Box clearfix">
 				<!-- <div class="target"><?php //echo $food>162000?'目标<span class="target_num" id="target_num">162000</span>，已超出<span class="target_num" id="target_num">'.($food-162000).'</span>份！撒花~~':'<span class="target_num" id="target_num">162000</span>还剩 <span class="target_num" id="target_num">'.(162000-$food).'</span> 份口粮'?></div> -->
-				<div class="target">目标<span class="target_num" id="target_num">162000</span>达成！请小伙伴们点击“更多喵”帮助其他群互区！</div>
+				<div class="target">目标<span class="target_num" id="target_num">162000</span>达成！请点击“更多喵”帮助其他群互区！</div>
                 <div class="d_time">达成时间：2015年1月16日15时50分</div>
 			</div>
 			<div class="hr_10"></div>
