@@ -774,11 +774,11 @@ function alertMsg_f(msg, mode) { //mode为空，即只有一个确认按钮，mo
         b_btn8.onclick = function () {
             document.body.removeChild(alertBox8);
             document.body.removeChild(shadowDiv8);
-            document.location.href = "http://"+document.location.host+"/index.php?r=social/activityview&aid=651", 
-            return true;
+            window.open("http://"+document.location.host+"/index.php?r=social/activityview&aid=651");
+            return true; 
         };
         alertBox8.appendChild(b_btn8);
 
         document.body.appendChild(alertBox8);
     }
-}
+
