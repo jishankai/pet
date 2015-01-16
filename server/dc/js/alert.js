@@ -781,3 +781,4 @@ function alertMsg_f(msg, mode) { //mode为空，即只有一个确认按钮，mo
 
         document.body.appendChild(alertBox8);
     }
+}
