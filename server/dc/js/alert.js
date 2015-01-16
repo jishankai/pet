@@ -658,3 +658,126 @@ function alertMsg_e(msg, mode) { //mode为空，即只有一个确认按钮，mo
 $("#share_box").click(function(){
     $(this).css('display','none');
 });
+
+/*筹集完成后的提示框*/
+function ff(){
+    alertMsg_f("恭喜您充值成功了！", 0)
+}
+
+function alertMsg_f(msg, mode) { //mode为空，即只有一个确认按钮，mode为1时有确认和取消两个按钮
+    msg = msg || '';
+    mode = mode || 0;
+    var top = document.body.scrollTop || document.documentElement.scrollTop;
+    var isIe = (document.all) ? true : false;
+    var isIE6 = isIe && !window.XMLHttpRequest;
+    var sTop = document.documentElement.scrollTop || document.body.scrollTop;
+    var sLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+    var winSize = function(){
+        var xScroll, yScroll, windowWidth, windowHeight, pageWidth, pageHeight;
+            // innerHeight获取的是可视窗口的高度，IE不支持此属性
+            if (window.innerHeight && window.scrollMaxY) {
+                xScroll = document.body.scrollWidth;
+                yScroll = window.innerHeight + window.scrollMaxY;
+            } else if (document.body.scrollHeight > document.body.offsetHeight) { // all but Explorer Mac
+                xScroll = document.body.scrollWidth;
+                yScroll = document.body.scrollHeight;
+            } else { // Explorer Mac...would also work in Explorer 6 Strict, Mozilla and Safari
+                xScroll = document.body.offsetWidth;
+                yScroll = document.body.offsetHeight;
+            }
+
+            if (self.innerHeight) {    // all except Explorer
+                windowWidth = self.innerWidth;
+                windowHeight = self.innerHeight;
+            } else if (document.documentElement && document.documentElement.clientHeight) { // Explorer 6 Strict Mode
+                windowWidth = document.documentElement.clientWidth;
+                windowHeight = document.documentElement.clientHeight;
+            } else if (document.body) { // other Explorers
+                windowWidth = document.body.clientWidth;
+                windowHeight = document.body.clientHeight;
+            }
+
+            // for small pages with total height less then height of the viewport
+            if (yScroll < windowHeight) {
+                pageHeight = windowHeight;
+            } else {
+                pageHeight = yScroll;
+            }
+
+            // for small pages with total width less then width of the viewport
+            if (xScroll < windowWidth) {
+                pageWidth = windowWidth;
+            } else {
+                pageWidth = xScroll;
+            }
+
+            return{
+                'pageWidth':pageWidth,
+                'pageHeight':pageHeight,
+                'windowWidth':windowWidth,
+                'windowHeight':windowHeight
+            }
+        }();
+        //alert(winSize.pageWidth);
+        //遮罩层
+        var styleStr8 = 'top:0;left:0;position:absolute;z-index:10000;background:#000000;width:' + winSize.pageWidth + 'px;height:' +  (winSize.pageHeight + 30) + 'px;';
+        styleStr8 += (isIe) ? "filter:alpha(opacity=60);" : "opacity:0.6;"; //遮罩层DIV
+        var shadowDiv8 = document.createElement('div'); //添加阴影DIV
+        shadowDiv8.style.cssText = styleStr8; //添加样式
+        shadowDiv8.id = "shadowDiv8";
+        
+        document.body.insertBefore(shadowDiv8, document.body.firstChild); //遮罩层加入文档
+        //弹出框
+        var styleStr7 = 'display:block;position:fixed;_position:absolute;left:' + (winSize.windowWidth / 2 - 150) + 'px;top:' + (winSize.windowHeight / 2 - 150) + 'px;_top:' + (winSize.windowHeight / 2 + top - 150)+ 'px;'; //弹出框的位置
+        var alertBox8 = document.createElement('div');
+        alertBox8.id = 'alertMsg8';
+        alertBox8.style.cssText = styleStr7;
+
+        //创建关闭按钮
+        var alertClose_btn8 = document.createElement('a');
+        alertClose_btn8.id = 'alertClose_btn8';
+        alertClose_btn8.innerHTML = "";
+        alertBox8.appendChild(alertClose_btn8);
+
+        alertClose_btn8.onclick = function () {
+            document.body.removeChild(alertBox8);
+            document.body.removeChild(shadowDiv8);
+            return true;
+        };
+
+        //创建弹出框里面的内容P标签
+        var alertMsg8_info = document.createElement('P');
+        alertMsg8_info.id = 'alertMsg8_info';
+        alertMsg8_info.innerHTML = "北航喵的年夜饭已经集齐啦～";
+        alertBox8.appendChild(alertMsg8_info);
+
+        var alertMsg8_info1 = document.createElement('P');
+        alertMsg8_info1.id = 'alertMsg8_info1';
+        alertMsg8_info1.innerHTML = "继续帮助";
+        alertBox8.appendChild(alertMsg8_info1);
+
+        var alertMsg8_info2 = document.createElement('span');
+        alertMsg8_info2.id = 'alertMsg8_info2';
+        alertMsg8_info2.innerHTML = "香山";
+        alertMsg8_info1.appendChild(alertMsg8_info2);
+
+        var alertMsg8_info3 = document.createElement('span');
+        alertMsg8_info3.id = 'alertMsg8_info3';
+        alertMsg8_info3.innerHTML = "的流浪猫好吗？";
+        alertMsg8_info1.appendChild(alertMsg8_info3);
+
+        //创建按钮
+        var b_btn8 = document.createElement('a');
+        b_btn8.id = 'alertMsg8_btn1';
+        b_btn8.href = 'javas' + 'cript:void(0)';
+        b_btn8.innerHTML = '<cite>好的</cite>';
+        b_btn8.onclick = function () {
+            document.body.removeChild(alertBox8);
+            document.body.removeChild(shadowDiv8);
+            document.location.href = "http://"+document.location.host+"/index.php?r=social/activityview&aid=651", 
+            return true;
+        };
+        alertBox8.appendChild(b_btn8);
+
+        document.body.appendChild(alertBox8);
+    }
