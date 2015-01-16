@@ -51,8 +51,9 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="act2_range">
 			<div class="hr_10"></div>
 			<div class="target_Box clearfix">
-				<div class="target"><?php echo $food>162000?'目标<span class="target_num" id="target_num">162000</span>，已超出<span class="target_num" id="target_num">'.($food-162000).'</span>份！撒花~~':'<span class="target_num" id="target_num">162000</span>还剩 <span class="target_num" id="target_num">'.(162000-$food).'</span> 份口粮'?></div>
-				<div class="d_time" id="d_time"></div>
+				<!-- <div class="target"><?php //echo $food>162000?'目标<span class="target_num" id="target_num">162000</span>，已超出<span class="target_num" id="target_num">'.($food-162000).'</span>份！撒花~~':'<span class="target_num" id="target_num">162000</span>还剩 <span class="target_num" id="target_num">'.(162000-$food).'</span> 份口粮'?></div> -->
+				<div class="target">北航喵目标已达成！请点击更多喵帮助其他群互区！</div>>
+                <div class="d_time" id="d_time"></div>
 			</div>
 			<div class="hr_10"></div>
 			<div class="aprogressbar">
@@ -281,13 +282,13 @@ window.onload=function(){
     };
 }
 $("#reward").click(function(){
-var b=parseInt($("#target_num").html());
-var c=parseInt($("#g_num").html());
+// var b=parseInt($("#target_num").html());
+// var c=parseInt($("#g_num").html());
 
-var n=c;
-var aid =<?php echo $aid ?>;
-var sig =md5('aid='+aid+'&n='+n+'dog&cat');
-location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
+// var n=c;
+// var aid =<?php echo $aid ?>;
+// var sig =md5('aid='+aid+'&n='+n+'dog&cat');
+// location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
 });
 </script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
