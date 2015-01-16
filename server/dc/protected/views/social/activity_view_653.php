@@ -51,12 +51,12 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="act2_range">
 			<div class="hr_10"></div>
 			<div class="target_Box clearfix">
-				<div class="target">目标<span class="target_num" id="target_num">162000</span>还剩 <span class="target_num" id="target_num"><?php echo 162000-$food?></span> 份口粮</div>
+				<div class="target"><?php echo $food>162000?'超出目标<span class="target_num" id="target_num">162000</span>已有<span class="target_num" id="target_num">'.($food-162000):'目标<span class="target_num" id="target_num">162000</span>还剩 <span class="target_num" id="target_num">'.(162000-$food)?></span> 份口粮</div>
 				<div class="d_time" id="d_time"></div>
 			</div>
 			<div class="hr_10"></div>
 			<div class="aprogressbar">
-				<div class="abar" id="abar" style="width:<?php echo sprintf("%.2f",$food*100/162000)?>%"></div>
+				<div class="abar" id="abar" style="width:<?php echo $food>162000?100:sprintf("%.2f",$food*100/162000)?>%"></div>
 			</div>
 		</div>
 		<div class="zhu">注：连续登陆天数越长，能免费捐助的份数就越多哦！</div>
