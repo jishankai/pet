@@ -24,6 +24,8 @@ $signPackage = $jssdk->GetSignPackage();
         })();
     </script>
 <body>
+<span id="dq" style="display:none">香山</span>
+<span id="zy" style="display:none">植物园</span>
 <div class="share_box" id="share_box"><img src="css/images/share_img.png" class="share_img" id="share_img"></div>
 <div class="act2_wrap comWidth">
 	<div class="act2_top">
@@ -50,8 +52,10 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="act2_range">
 			<div class="hr_10"></div>
 			<div class="target_Box clearfix">
-				<div class="target">目标<span class="target_num" id="target_num">495000</span>还剩 <span class="target_num" id="target_num"><?php echo 495000-$food ?></span> 份口粮</div>
-				<div class="d_time" id="d_time"></div>
+				<!-- <div class="target">目标<span class="target_num" id="target_num">495000</span>还剩 <span class="target_num" id="target_num"><?php echo 495000-$food ?></span> 份口粮</div>
+				<div class="d_time" id="d_time"></div> -->
+                <div class="target">目标<span class="target_num" id="target_num">495000</span>达成！</div>
+                <div class="d_time">达成时间：2015年1月19日20时40分</div>
 			</div>
 			<div class="hr_10"></div>
 			<div class="aprogressbar">
