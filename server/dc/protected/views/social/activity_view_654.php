@@ -53,8 +53,10 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="act2_range">
 			<div class="hr_10"></div>
 			<div class="target_Box clearfix">
-				<div class="target">目标<span class="target_num" id="target_num">243000</span>还剩 <span class="target_num" id="target_num"><?php echo 243000-$food ?></span> 份口粮</div>
-				<div class="d_time" id="d_time"></div>
+				<!-- <div class="target">目标<span class="target_num" id="target_num">243000</span>还剩 <span class="target_num" id="target_num"><?php echo 243000-$food ?></span> 份口粮</div>
+				<div class="d_time" id="d_time"></div> -->
+                <div class="target">目标<span class="target_num" id="target_num">162000</span>达成！</div>
+                <div class="d_time">达成时间：2015年1月19日16时21分</div>
 			</div>
 			<div class="hr_10"></div>
 			<div class="aprogressbar">
@@ -283,13 +285,14 @@ window.onload=function(){
     };
 }
 $("#reward").click(function(){
-var b=parseInt($("#target_num").html());
-var c=parseInt($("#g_num").html());
+    ff();
+// var b=parseInt($("#target_num").html());
+// var c=parseInt($("#g_num").html());
 
-var n=c;
-var aid =<?php echo $aid ?>;
-var sig =md5('aid='+aid+'&n='+n+'dog&cat');
-location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
+// var n=c;
+// var aid =<?php echo $aid ?>;
+// var sig =md5('aid='+aid+'&n='+n+'dog&cat');
+// location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
 });
 </script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
