@@ -286,13 +286,14 @@ window.onload=function(){
     };
 }
 $("#reward").click(function(){
-var b=parseInt($("#target_num").html());
-var c=parseInt($("#g_num").html());
+    ff();
+// var b=parseInt($("#target_num").html());
+// var c=parseInt($("#g_num").html());
 
-var n=c;
-var aid =<?php echo $aid ?>;
-var sig =md5('aid='+aid+'&n='+n+'dog&cat');
-location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
+// var n=c;
+// var aid =<?php echo $aid ?>;
+// var sig =md5('aid='+aid+'&n='+n+'dog&cat');
+// location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
 });
 </script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
