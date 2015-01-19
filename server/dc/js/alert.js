@@ -782,13 +782,7 @@ function alertMsg_f(msg, mode) { //mode为空，即只有一个确认按钮，mo
             document.body.removeChild(alertBox8);
             document.body.removeChild(shadowDiv8);
             var a=document.getElementById("dq").innerHTML;
-            if(a=="紫竹院"){
-                window.open("http://"+document.location.host+"/index.php?r=social/activityview&aid=652");
-            } else if(a=="北航") {
-                window.open("http://"+document.location.host+"/index.php?r=social/activityview&aid=660");
-            } else if(a=="香山") {
-                window.open("http://"+document.location.host+"/index.php?r=social/activityview&aid=652");
-            }
+            window.open("http://"+document.location.host+"/index.php?r=social/activityview&aid=660");
             return true; 
         };
         alertBox8.appendChild(b_btn8);
