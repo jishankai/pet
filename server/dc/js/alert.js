@@ -748,8 +748,14 @@ function alertMsg_f(msg, mode) { //mode为空，即只有一个确认按钮，mo
         //创建弹出框里面的内容P标签
         var alertMsg8_info = document.createElement('P');
         alertMsg8_info.id = 'alertMsg8_info';
-        alertMsg8_info.innerHTML = "北航喵的年夜饭已经集齐啦～";
+        /*alertMsg8_info.innerHTML = "北航喵";*/
+        alertMsg8_info.innerHTML = document.getElementById("dq").innerHTML;
         alertBox8.appendChild(alertMsg8_info);
+
+        var alertMsg8_info1 = document.createElement('span');
+        alertMsg8_info1.id = 'alertMsg8_info1';
+        alertMsg8_info1.innerHTML = "的年夜饭已经集齐啦～";
+        alertMsg8_info.appendChild(alertMsg8_info1);
 
         var alertMsg8_info1 = document.createElement('P');
         alertMsg8_info1.id = 'alertMsg8_info1';
@@ -758,7 +764,8 @@ function alertMsg_f(msg, mode) { //mode为空，即只有一个确认按钮，mo
 
         var alertMsg8_info2 = document.createElement('span');
         alertMsg8_info2.id = 'alertMsg8_info2';
-        alertMsg8_info2.innerHTML = "香山";
+        /*alertMsg8_info2.innerHTML = "香山";*/
+        alertMsg8_info2.innerHTML = document.getElementById("zy").innerHTML;
         alertMsg8_info1.appendChild(alertMsg8_info2);
 
         var alertMsg8_info3 = document.createElement('span');
@@ -774,7 +781,12 @@ function alertMsg_f(msg, mode) { //mode为空，即只有一个确认按钮，mo
         b_btn8.onclick = function () {
             document.body.removeChild(alertBox8);
             document.body.removeChild(shadowDiv8);
-            window.open("http://"+document.location.host+"/index.php?r=social/activityview&aid=651");
+            var a=document.getElementById("dq").innerHTML;
+            if(a=="紫竹院"){
+                window.open("http://"+document.location.host+"/index.php?r=social/activityview&aid=660");
+            } else if(a=="北航") {
+                window.open("http://"+document.location.host+"/index.php?r=social/activityview&aid=651");
+            }
             return true; 
         };
         alertBox8.appendChild(b_btn8);

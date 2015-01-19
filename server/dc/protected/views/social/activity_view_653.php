@@ -24,6 +24,8 @@ $signPackage = $jssdk->GetSignPackage();
         })();
     </script>
 <body> 
+<span id="dq" style="display:none">北航</span>
+<span id="zy" style="display:none">香山</span>
 <div class="share_box" id="share_box"><img src="css/images/share_img.png" class="share_img" id="share_img"></div>
 <div class="act2_wrap comWidth">
 	<div class="act2_top">
