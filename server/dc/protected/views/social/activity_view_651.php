@@ -37,7 +37,7 @@ $signPackage = $jssdk->GetSignPackage();
             <wb:publish action="publish" type="mobile" id="wb" language="zh_cn" button_type="red" button_size="small" button_text="暖冬季" uid="5252680717" default_text="快来和我一起为香山的流浪喵捐冬粮吧~http://t.cn/RZXn0cD" tag="暖冬季•年夜饭计划" default_image="http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fxs%2F9.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fxs%2F8.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fxs%2F7.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fxs%2F6.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fxs%2F5.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fxs%2F4.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fxs%2F3.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fxs%2F2.jpg,http%3A%2F%2Fkouliang.tuturead.com%2Fcss%2Fimg%2Fxs%2F1.jpg" appkey="392HpS" ></wb:publish>
         </div>
         <div class="the_more">
-			<a href="http://release4pet.aidigame.com/index.php?r=social/newYearEvent"><img src="css/images/the_more.png"></a>
+			<a href="http://release4pet.aidigame.com/index.php?r=social/newYearEvent&SID=<?php echo $sid?>"><img src="css/images/the_more.png"></a>
 		</div>
 		<div class="introduce">
 			<div class="pet_name">代粮喵：<span>16</span></div>
