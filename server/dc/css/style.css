@@ -1,34 +1,9 @@
 body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd,input{margin:0;padding:0;}
 
 body{background-color: #EEEEEE;}
-
 .clearfix:after{content:"";display:block;clear:both;}
 .clearfix{zoom:1;}
 .comWidth{width:100%;height:100%;margin:auto auto;}
-
-.p1, .p11, .p2, .p22, .p3, .p33, .p4,.p44{
-	display: none;
-}
-li{width:100px;height:20px;}
-li.color{color:red;background:#eee;}
-.new-btn-login{
-	width: 100%;height: 109px;
-	background-color: black;
-	background:url("
-
-
-
-
-
-		images/to_pay.png")center center no-repeat;
-	margin-bottom: 116px;
-	margin-top: 40px;
-	border:none;
-}
-
-#zhan{position: fixed;bottom: 0px;left: auto;}
-.share{padding-top: 20px;margin: 0 auto;}
-.share img{margin-left: 30%;}
 .pay_title{margin-top:66px;margin-bottom:58px;}
 .pay_title h3{
 	line-height:100%;
@@ -67,12 +42,42 @@ li.color{color:red;background:#eee;}
 .pay_select h3{font-size: 29px;text-indent: 8.75%;padding-top:38px;color: #555554;}
 .share{
 	height:228px;width: 100%;
-	background-color:#EAE8DC;
+	background-color:blue;
 }
-.share input{ font-size: 100px;}
+
+.share{
+	background-color: #EAE8DC;
+	width:93.75%;
+	margin:0 auto;
+	border-radius:0 0 20px 20px;
+}
+.share ul{list-style: none;}
+.share li{
+	height:228px;width:100%;
+	font-size: 31px;
+	margin-bottom: 61px;
+}
+.share .weixin{
+	width:50%;height: 100%;
+	float: left;
+	background:url("images/weixin.png")center center no-repeat;
+}
+.share .z_f_b{
+	width: 50%;height: 100%;
+	background-color: green;
+	float: right;
+	background:url("images/pay.jpg")center center no-repeat;
+}
+
+.foot{
+	width: 100%;height: 109px;
+	background-color: black;
+	background:url("images/to_pay.png")center center no-repeat;
+	margin-bottom: 116px;
+}
+
 
 @media only screen and (min-width: 320px) and (max-width: 767px){
-#z_f_b, #z_f_b1{width: 128px;height: 30px;}
 .pay_title{margin-top:33px;margin-bottom:29px;}
 .pay_title h3{
 
@@ -100,7 +105,25 @@ li.color{color:red;background:#eee;}
 .hr_3{height:1.5px;}
 .pay_select{height:49px;}
 .pay_select h3{font-size: 14.5px;padding-top:19px;}
+.share{
+	height:114px;
+}
 
+.share{
+
+	border-radius:0 0 10px 10px;
+}
+
+.share li{
+	height:114px;
+	margin-bottom: 30.5px;
+}
+.share .weixin{
+	background-size: 121px 48.5px;
+}
+.share .z_f_b{
+	background-size: 128px 30.5px;
+}
 
 .foot{
 	height: 54.5px;
@@ -132,7 +155,7 @@ li.color{color:red;background:#eee;}
 	height: auto;width:100%;
 	background:url(images/base.png)center top no-repeat;
 	background-size: 93.75% 100%;
-	margin-bottom: 40%;
+	margin-bottom: 30%;
 }
 
 @media only screen and (min-width: 450px) and (max-width: 600px){
@@ -260,8 +283,7 @@ li.color{color:red;background:#eee;}
 	height: 90px;
 	font-size: 26px;
 	margin-top:12px;
-	/*text-align: center;*/
-	margin-left: 7.6%;
+	text-align: center;
 }
 .give_btn{
 	margin-top:20px;
@@ -269,7 +291,6 @@ li.color{color:red;background:#eee;}
 	margin-bottom: 46px; 
 }
 
-.hr_100{width: 100%;height: 100px;}
 
 /*画按钮*/
 .give_btn_bottom{
@@ -291,7 +312,7 @@ li.color{color:red;background:#eee;}
 .give_right{
 	width: 132px;
 	float: right;
-	padding-right: 30px;
+	padding-right: 60px;
 	text-align: center;
 }
 .give_right img{
@@ -455,7 +476,7 @@ li.color{color:red;background:#eee;}
 .give_right{
 	width: 73px;height: 67px;
 	float: right;
-	padding-right: 10px;
+	padding-right: 26px;
 	text-align: center;
 }
 .give_right img{width: 100%;height: 100%;}
@@ -541,7 +562,7 @@ li.color{color:red;background:#eee;}
 
 .give_right{
 	width: 113px;height: 103px;
-	padding-right: 15px;
+	padding-right: 30px;
 }
 .giv_right img{width: 100%;height: 100%;}
 
@@ -700,7 +721,7 @@ li.color{color:red;background:#eee;}
 .give_right{
 	width: 132px;
 	float: right;
-	padding-right: 30px;
+	padding-right: 60px;
 	text-align: center;
 }
 .give_right img{
