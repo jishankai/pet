@@ -67,7 +67,7 @@ $signPackage = $jssdk->GetSignPackage();
         	<div class="hr_100"></div>
 	
 	</div>
-
+  <div class="hr"></div>
 	<div class="float">
 		<!-- <div class="select_money_t" id="gold">
 			<div class="select_money">
