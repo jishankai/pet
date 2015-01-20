@@ -44,36 +44,44 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="head_imgBox">
 			<ul class="head_imgList clearfix">
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head1.jpg" id="head1">
-					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
+                    <img alt="" src="css/images/head/1.gif" id="head1">
+					<!-- <img alt="" src="css/images/base_head1.jpg" id="head1"> -->
+					<!-- <img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；"> -->
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head2.jpg" id="head2">
-					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
+                    <img alt="" src="css/images/head/2.gif" id="head2">
+					<!-- <img alt="" src="css/images/base_head2.jpg" id="head2"> -->
+					<!-- <img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；"> -->
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head3.jpg" id="head3">
-					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
+                    <img alt="" src="css/images/head/3.gif" id="head3">
+					<!-- <img alt="" src="css/images/base_head3.jpg" id="head3"> -->
+					<!-- <img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；"> -->
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head4.jpg" id="head4">
-					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
+                    <img alt="" src="css/images/head/4.gif" id="head4">
+					<!-- <img alt="" src="css/images/base_head4.jpg" id="head4"> -->
+					<!-- <img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；"> -->
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head5.jpg" id="head5">
-					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
+                    <img alt="" src="css/images/head/5.gif" id="head5">
+					<!-- <img alt="" src="css/images/base_head5.jpg" id="head5"> -->
+					<!-- <img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；"> -->
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head6.jpg" id="head6">
-					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
+                    <img alt="" src="css/images/head/6.gif" id="head6">
+					<!-- <img alt="" src="css/images/base_head6.jpg" id="head6"> -->
+					<!-- <img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；"> -->
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head7.jpg" id="head7">
-					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
+                    <img alt="" src="css/images/head/7.gif" id="head7">
+					<!-- <img alt="" src="css/images/base_head7.jpg" id="head7"> -->
+					<!-- <img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；"> -->
 				</li>
 				<li style="position: relative">
-					<img alt="" src="css/images/base_head8.jpg" id="head8">
-					<img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；">
+                    <img alt="" src="css/images/head/8.gif" id="head8">
+					<!-- <img alt="" src="css/images/base_head8.jpg" id="head8"> -->
+					<!-- <img src="css/images/photo-m-t.png" style="position: absolute;left:0;top:0px;z-index:1；"> -->
 				</li>
 
 			</ul>
@@ -130,30 +138,55 @@ $signPackage = $jssdk->GetSignPackage();
 </div>
 </body>
 <script type="text/javascript">
-	var head1=document.getElementById("head1");
-	var head2=document.getElementById("head2");
-	var head3=document.getElementById("head3");
-	var head4=document.getElementById("head4");
-	var head5=document.getElementById("head5");
-	var head6=document.getElementById("head6");
-	var head7=document.getElementById("head7");
-	var head8=document.getElementById("head8");
-	var ad1=Math.floor((Math.random())*4);
-	var ad2=Math.floor((Math.random())*4+4);
-	var ad3=Math.floor((Math.random())*4+8);
-	var ad4=Math.floor((Math.random())*4+12);
-	var ad5=Math.floor((Math.random())*4+16);
-	var ad6=Math.floor((Math.random())*4+20);
-	var ad7=Math.floor((Math.random())*4+24);
-	var ad8=Math.floor((Math.random())*4+28);
-	head1.src="css/images/base_head"+ad1+".jpg";
-	head2.src="css/images/base_head"+ad2+".jpg";
-	head3.src="css/images/base_head"+ad3+".jpg";
-	head4.src="css/images/base_head"+ad4+".jpg";
-	head5.src="css/images/base_head"+ad5+".jpg";
-	head6.src="css/images/base_head"+ad6+".jpg";
-	head7.src="css/images/base_head"+ad7+".jpg";
-	head8.src="css/images/base_head"+ad8+".jpg";
+    var head1=document.getElementById("head1");
+    var head2=document.getElementById("head2");
+    var head3=document.getElementById("head3");
+    var head4=document.getElementById("head4");
+    var head5=document.getElementById("head5");
+    var head6=document.getElementById("head6");
+    var head7=document.getElementById("head7");
+    var head8=document.getElementById("head8");
+    var ad1=Math.floor((Math.random())*6);
+    var ad2=Math.floor((Math.random())*6+6);
+    var ad3=Math.floor((Math.random())*6+12);
+    var ad4=Math.floor((Math.random())*6+18);
+    var ad5=Math.floor((Math.random())*6+24);
+    var ad6=Math.floor((Math.random())*6+30);
+    var ad7=Math.floor((Math.random())*6+36);
+    var ad8=Math.floor((Math.random())*6+42);
+
+    head1.src="css/images/head/"+ad1+".gif";
+    head2.src="css/images/head/"+ad2+".gif";
+    head3.src="css/images/head/"+ad3+".gif";
+    head4.src="css/images/head/"+ad4+".gif";
+    head5.src="css/images/head/"+ad5+".gif";
+    head6.src="css/images/head/"+ad6+".gif";
+    head7.src="css/images/head/"+ad7+".gif";
+    head8.src="css/images/head/"+ad8+".gif";
+	// var head1=document.getElementById("head1");
+	// var head2=document.getElementById("head2");
+	// var head3=document.getElementById("head3");
+	// var head4=document.getElementById("head4");
+	// var head5=document.getElementById("head5");
+	// var head6=document.getElementById("head6");
+	// var head7=document.getElementById("head7");
+	// var head8=document.getElementById("head8");
+	// var ad1=Math.floor((Math.random())*4);
+	// var ad2=Math.floor((Math.random())*4+4);
+	// var ad3=Math.floor((Math.random())*4+8);
+	// var ad4=Math.floor((Math.random())*4+12);
+	// var ad5=Math.floor((Math.random())*4+16);
+	// var ad6=Math.floor((Math.random())*4+20);
+	// var ad7=Math.floor((Math.random())*4+24);
+	// var ad8=Math.floor((Math.random())*4+28);
+	// head1.src="css/images/base_head"+ad1+".jpg";
+	// head2.src="css/images/base_head"+ad2+".jpg";
+	// head3.src="css/images/base_head"+ad3+".jpg";
+	// head4.src="css/images/base_head"+ad4+".jpg";
+	// head5.src="css/images/base_head"+ad5+".jpg";
+	// head6.src="css/images/base_head"+ad6+".jpg";
+	// head7.src="css/images/base_head"+ad7+".jpg";
+	// head8.src="css/images/base_head"+ad8+".jpg";
 	window.onload = function(){
 		var oTab = document.getElementById("tabs");
 		var oUl = oTab.getElementsByTagName("ul")[0];
