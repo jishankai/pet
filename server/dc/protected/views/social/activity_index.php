@@ -86,7 +86,7 @@ $signPackage = $jssdk->GetSignPackage();
 
 			</ul>
 		</div>
-		<div class="mian">连续登陆天数越长，能免费捐助的份数就越多哦！</div>
+		<div class="mian">因为过于感动，CTO已疯！请好心人捐款救助！支付宝：like.tita@hotmail.com</div>
 		<div id="tabs">
 			<ul>
 				<li class="on">活动介绍</li>
