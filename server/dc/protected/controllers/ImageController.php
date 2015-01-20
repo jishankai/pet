@@ -22,7 +22,7 @@ class ImageController extends Controller
                 'COutputCache + favoriteApi',
                 'duration' => 300,
                 'varyByParam' => array('img_id'),
-                'varyBySession' => true,
+                'varyBySession' => true,ima
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
                     'sql' => 'SELECT MAX(i.update_time) FROM dc_follow f LEFT JOIN dc_image i ON f.aid=i.aid WHERE usr_id = :usr_id',
@@ -54,10 +54,10 @@ class ImageController extends Controller
 
         if (isset($is_food)&&$is_food) {
             $session = Yii::app()->session;
-            if (isset($session['is_food'])) {
+            if (isset($session[$aid.'_is_food'])) {
                 throw new PException('您今天已经求过口粮啦');
             } else {
-                $session['is_food'] = 1;
+                $session[$aid.'_is_food'] = 1;
             }
         } 
         
