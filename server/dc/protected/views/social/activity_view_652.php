@@ -280,7 +280,7 @@ function rightHide(){
 }
 /*赏按钮（进度条相关）*/
 window.onload=function(){
-    FreshTime();
+    // FreshTime();
     if (<?php echo $alert_flag?>) {
         cc();
     };
