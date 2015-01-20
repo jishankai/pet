@@ -37,7 +37,8 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #f7f7f7;}
     width: 100%;
     padding: 1% 0px;
 }
-.ab_tit img{width: 80%;}
+.ab_tit .tit_img{width: 60%;}
+.android_btn, .apple_btn{width:13%;margin-left: 1%;}
 
 .act1_imgList li{
 	float: left;

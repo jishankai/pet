@@ -55,14 +55,19 @@ $signPackage = $jssdk->GetSignPackage();
 			<div class="target_Box clearfix">
 				<div class="target">超出目标<span class="target_num" id="target_num">162000</span>了 <span class="target_num" id="target_num"><?php echo $food-162000?></span> 份</div>
 				<!-- <div class="target">目标<span class="target_num" id="target_num">162000</span>达成！</div> -->
-                <div class="d_time">达成时间：2015年1月16日15时50分</div>
+                <div class="
+                ">达成时间：2015年1月16日15时50分</div>
 			</div>
 			<div class="hr_10"></div>
 			<div class="aprogressbar">
 				<div class="abar" id="abar" style="width:<?php echo $food>162000?100:sprintf("%.2f",$food*100/162000)?>%"></div>
 			</div>
 		</div>
-		<div class="zhu">注：连续登陆天数越长，能免费捐助的份数就越多哦！</div>
+		<div class="zhu">
+            <img src="css/images/ab_tit1.gif" class="tit_img">
+            <a href="http://home4pet.aidigame.com/pet_release_1.1.2.apk"><img src="css/images/android.png" class="android_btn"></a>
+            <a href="https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?"><img src="css/images/apple.png" class="apple_btn"></a>
+        </div>
 		<img src="css/images/dashed.png" alt="" class="dashed">
 	</div>
 	<div class="act2_body">

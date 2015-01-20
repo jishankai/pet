@@ -62,7 +62,11 @@ $signPackage = $jssdk->GetSignPackage();
 				<div class="abar" id="abar" style="width:<?php echo sprintf("%.2f",$food*100/495000)?>%"></div>
 			</div>
 		</div>
-		<div class="zhu">注：连续登陆天数越长，能免费捐助的份数就越多哦！</div>
+		<div class="zhu">
+            <img src="css/images/ab_tit1.gif" class="tit_img">
+            <a href="http://home4pet.aidigame.com/pet_release_1.1.2.apk"><img src="css/images/android.png" class="android_btn"></a>
+            <a href="https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?"><img src="css/images/apple.png" class="apple_btn"></a>
+        </div>
 		<img src="css/images/dashed.png" alt="" class="dashed">
 	</div>
 	<div class="act2_body">

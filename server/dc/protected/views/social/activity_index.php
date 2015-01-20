@@ -26,7 +26,11 @@ $signPackage = $jssdk->GetSignPackage();
 		<img alt="" src="css/images/1.jpg">
 	</div>
 	<div class="act1_body">
-		<div class="ab_tit"><img src="css/images/ab_tit.gif"></div>
+		<div class="ab_tit">
+            <img src="css/images/ab_tit1.gif" class="tit_img">
+            <a href="http://home4pet.aidigame.com/pet_release_1.1.2.apk"><img src="css/images/android.png" class="android_btn"></a>
+            <a href="https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?"><img src="css/images/apple.png" class="apple_btn"></a>
+        </div>
 		<div class="act1_imgBox">
 			<ul class="act1_imgList clearfix">
                 <li><a href="<?php echo $this->createUrl('social/activityview',array('aid'=>654, 'SID'=>$sid))?>"><img alt="" src="css/images/a5.jpg"></a></li>
@@ -89,16 +93,19 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="mian">因为过于感动，CTO已疯！请好心人捐款救助！</div>
 		<div id="tabs">
 			<ul>
-				<li class="on">活动介绍</li>
+				<li class="on" style="color:red;">喜大普奔</li>
 				<li>参与方式</li>
 				<li>主办方介绍</li>
 			</ul>
 			<div>
-				<p>宠物星球社交应用携手酷宠新天地流浪动物救助平台，为北京地区的流浪猫筹集1个月的冬粮。</p>
+                <p>喜大普奔~严寒和雾霾都挡不住小伙伴们的爱心！据活动结束还有两天，各位可爱的小主就帮助我们筹集齐了六个地区的冬粮，流浪喵的年夜饭有着落啦！小宠这厢有礼了喵~（看看上边羞耻的动态图就知道我们有多开心了~~才不会告诉你那是我们单身的CTO呢！）</p>
+                <p>截止目标达成，共有22000位网友参与了我们的公益捐粮活动。我们也将在本周六（1月24日），和@酷宠新天地流浪动物救助平台 @全峰快递集团 一起，专车为各个群护区捐赠大家打赏的年夜饭。届时，将有微博全程直播，欢迎大家监督~</p>
+                <p>小宠在这里代表为本次活动辛勤付出的全体工作人员，向支持公益和陪伴宠物星球成长的你们，说一声：谢谢。</p>
+				<!-- <p>宠物星球社交应用携手酷宠新天地流浪动物救助平台，为北京地区的流浪猫筹集1个月的冬粮。</p>
 				<p>筹集粮食目标是由酷宠新天地流浪动物救助平台经过详细调研、科学计算出的。</p>
 				<p>筹得的粮食将由酷宠新天地流浪动物救助平台统一调派发放。</p>
 				<p>技术支持：<font color="orange">宠物星球社交应用</font></p>
-				<p>粮食提供：<font color="orange">宠物星球社交应用</font>，<font color="purple">好时天然猫粮</font></p>
+				<p>粮食提供：<font color="orange">宠物星球社交应用</font>，<font color="purple">好时天然猫粮</font></p> -->
 
 			</div>
 			<div class="hide">

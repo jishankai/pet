@@ -254,6 +254,8 @@ a:hover{color: #fb9174;}
 .aprogressbar .abar {height:8px;} 
 
 .zhu{font-size: 11px;margin-left: 9%;margin-top: 5px;}
+.zhu .tit_img{width: 60%;}
+.android_btn, .apple_btn{width:12%;margin-left: 2%;}
 .dashed{width: 90%;margin-left: 19px;margin-top: 5px;}
 .body_tit{font-size: 14px;margin: 5px 2% 3px;}
 
