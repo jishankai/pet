@@ -86,7 +86,7 @@ $signPackage = $jssdk->GetSignPackage();
 
 			</ul>
 		</div>
-		<div class="mian">因为过于感动，CTO已疯！请好心人捐款救助！</div>
+		<div class="mian">因为过于感动，CTO已疯！请好心人捐款救助！Wechat:skji1987</div>
 		<div id="tabs">
 			<ul>
 				<li class="on">活动介绍</li>
