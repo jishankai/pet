@@ -306,10 +306,10 @@ class AnimalController extends Controller
             $n = $this->countCircle($this->usr_id);
             $user = User::model()->findByPk($this->usr_id);
             if ($n>10) {
-                if ($n<=21) {
+                if ($n<=20) {
                     $g = $n*5;
                 } else {
-                    $g = 200;
+                    $g = 100;
                 }
                 if ($user->gold<$n) {
                     throw new PException('亲，您的金币不足');

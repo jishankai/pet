@@ -59,7 +59,7 @@ $signPackage = $jssdk->GetSignPackage();
             </div>
 			<div class="hr_10"></div>
 			<div class="aprogressbar">
-				<div class="abar" id="abar" style="width:<?php echo sprintf("%.4f",$food*100/342000)?>%"></div>
+				<div class="abar" id="abar" style="width:<?php echo sprintf("%.2f",100)?>%"></div>
 			</div>
 		</div>
 		<div class="zhu">
