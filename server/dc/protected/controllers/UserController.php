@@ -156,19 +156,28 @@ class UserController extends Controller
         $this->echoJsonData(array('isBinded'=>$isBinded));
     }
 
-    public function actionLoginBy3PartyApi($weibo='', $wechat='')
+    public function actionLoginBy3PartyApi($weibo='', $wechat='', $wechat_union='')
     {
         $isBinded = FALSE;
         if ((isset($weibo)&&$weibo!='') or (isset($wechat)&&$wechat!='')) {
             $c = new CDbCriteria;
             if (isset($weibo)&&$weibo!='') {
                 $c->compare('weibo',$weibo);
+                $user = User::model()->find($c);
             }
             if (isset($wechat)&&$wechat!='') {
                 $c->compare('wechat',$wechat); 
+                $user = User::model()->find($c);
+                if (isset($wechat_union)&&$wechat_union!='') {
+                    if (isset($user)) {
+                        $user->wechat = $wechat_union;
+                        $user->saveAttributes(array('wechat'));
+                    } else {
+                        $user = User::model()->findByAttributes(array('wechat'=>$wechat_union));
+                    }
+                }
             }
 
-            $user = User::model()->find($c);
             if (isset($user)) {
                 $session = Yii::app()->session;
                 $id = $session['id'];
