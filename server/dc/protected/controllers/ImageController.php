@@ -389,6 +389,18 @@ class ImageController extends Controller
                     $image->saveAttributes(array('food'));
                     $animal->food+=$n;
                     $animal->total_food+=$n;
+
+                    $circle = Circle::model()->findByPk(array('aid'=>$image->aid,'usr_id'=>$this->usr_id));
+                    if (isset($circle)) {
+                        $circle->t_contri+=$n;
+                        $circle->m_contri+=$n;
+                        $circle->w_contri+=$n;
+                        $circle->d_contri+=$n;
+
+                        $user->contributionChange($circle);
+
+                        $circle->saveAttributes(array('t_contri','m_contri','w_contri','d_contri'));
+                    }
                 } else {
                     $animal->food+=$n*rand(1,20);
                     $animal->total_food+=$n*rand(1,20);
@@ -440,6 +452,18 @@ class ImageController extends Controller
 
             $image->saveAttributes(array('food'));
             $animal->saveAttributes(array('food','total_food'));
+
+            $circle = Circle::model()->findByPk(array('aid'=>$image->aid,'usr_id'=>$this->usr_id));
+            if (isset($circle)) {
+                $circle->t_contri+=$n;
+                $circle->m_contri+=$n;
+                $circle->w_contri+=$n;
+                $circle->d_contri+=$n;
+
+                $user->contributionChange($circle);
+
+                $circle->saveAttributes(array('t_contri','m_contri','w_contri','d_contri'));
+            }
             
             $transaction->commit();
         } catch (Exception $e) {
