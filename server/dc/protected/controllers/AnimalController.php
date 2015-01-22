@@ -839,4 +839,9 @@ class AnimalController extends Controller
 
         $this->echoJsonData(array($r));
     }
+
+    public function actionInfoShare($aid, $SID='')
+    {
+        echo 1;
+    }
 }
