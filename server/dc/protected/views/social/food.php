@@ -157,15 +157,16 @@ function FreshTime()
 }
 
 $("#reward").click(function(){
-
-		var b=parseInt($(".food_num").html());
-		var c=parseInt($("#g_num").html());
-        var n=c;
-        var img_id = <?php echo $img_id ?>;
-        var to = <?php echo "'".$to."'" ?>;
-        var aid =<?php echo $aid ?>;
-        var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
-        location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
+  if ($("#time_img").html!="已结束") {
+    var b=parseInt($(".food_num").html());
+    var c=parseInt($("#g_num").html());
+    var n=c;
+    var img_id = <?php echo $img_id ?>;
+    var to = <?php echo "'".$to."'" ?>;
+    var aid =<?php echo $aid ?>;
+    var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
+    location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
+  }
         	/*alert(data);*/
         //     var b=parseInt($(".food_num").html());
 
