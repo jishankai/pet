@@ -180,11 +180,11 @@ class SiteController extends Controller
 
     public function actionFaq()
     {
-            echo "1";
+        $this->renderPartial('faq');
     } 
 
     public function actionAgreement()
     {
-            echo "1";
+        $this->renderPartial('agreement');
     }    
 }
