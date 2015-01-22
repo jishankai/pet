@@ -125,7 +125,9 @@ class ApiJsonResponse
         if($return){
             return $json;
         }else{
-            Yii::trace($json, 'json');
+            //Yii::trace($json, 'json');
+            $json = str_replace('"\u0001"', '"1"', $json);
+            $json = str_replace('"\u0000"', '"0"', $json);
             echo urldecode($json);
         }
     }
