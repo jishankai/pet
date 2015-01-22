@@ -177,4 +177,14 @@ class SiteController extends Controller
         $this->render('welcome'); 
 
     }
+
+    public function actionFaq()
+    {
+            echo "1";
+    } 
+
+    public function actionAgreement()
+    {
+            echo "1";
+    }    
 }
