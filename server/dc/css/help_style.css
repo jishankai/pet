@@ -1,0 +1,143 @@
+*{margin: 0px;padding:0px;}
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+ul{list-style: none;}
+body{
+	font-family: "NSimSun";
+}
+a{text-decoration: none;}
+#help0, #help1, #help2, #help3, #help4, #help5, #help6{display: none;}
+/*帮助首页*/
+.wraper{
+	width: 100%;height:100%;
+	margin: 0 auto;
+	background-color: #ffffff;
+}
+.help_tit{
+	width: 100%;height: 80px;
+	line-height:80px;
+	background-color: #fc9574;	
+}
+.tit_noicon{
+	font-size: 30px;
+	color:#fff;
+	text-indent: 41%;
+	background-size: auto 70%;
+}
+.tit{
+	font-size: 30px;
+	color:#fff;
+	text-indent: 41%;
+	background: url(../css/images/wright_right.png)left center no-repeat;
+	background-size: auto 70%;
+}
+.help_list li{
+	width: 100%;height: 70px;
+	border-bottom: 3px solid #d7d2ce;
+	background: url(../css/images/b_right.png)95% center no-repeat;
+	background-size: auto 70%;
+	text-indent: 8.3%;
+}
+.help_list li a{
+	text-decoration:none;
+	height: 70px;
+	line-height: 70px;
+	color:#000;
+	font-size: 20px;
+}
+
+/*帮助详情页*/
+.details_list li{
+	width: 100%;height: auto;
+}
+.details_list{
+	background-color: rgba(240,240,240,0.3);
+}
+.list_tit{
+	width: 100%;height: 70px;
+	line-height:70px;
+	text-indent: 12%;
+	font-size: 20px;
+	background: url(../css/images/question.png)5% center no-repeat;
+	background-size: auto 50%;
+}
+.list_con{
+	width: auto;height: auto;
+	font-size: 18px;
+	padding:20px 5% 40px;
+	line-height: 30px;
+	background-color: rgba(252,162,131,0.3);
+}
+@media only screen and (min-width: 650px){
+
+.wraper{
+	width: 650px;height:100%;
+	
+}
+
+}
+
+
+@media only screen and (min-width: 320px) and (max-width: 650px){
+
+.help_tit{
+	height: 50px;
+	line-height:50px;
+}
+
+.tit, .tit_noicon{
+	font-size: 24px;height: 100%;
+	text-indent: 38%;
+}	
+
+.help_list li{
+	height: 40px;
+	border-bottom: 1px solid #d7d2ce;
+}
+.help_list li a{
+	height: 40px;
+	line-height: 40px;
+	font-size: 16px;
+}
+
+.list_tit{
+	height: 40px;
+	line-height:40px;
+	font-size: 16px;	
+}
+.list_con{
+	font-size: 14px;
+	padding:10px 5% 20px;
+	line-height: 20px;
+	
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
