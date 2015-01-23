@@ -26,7 +26,8 @@ return array(
 
 	'modules'=>array(
         // uncomment the following to enable the Gii tool
-        'admin',
+        // 'admin',
+        /*
         'gii'=>array(
 			'class'=>'system.gii.GiiModule',
 			'password'=>false,
@@ -35,6 +36,7 @@ return array(
             'ipFilters'=>false,
             'generatorPaths'=>array('application.gii'),
 		),
+        */
 	),
 
     // add behaviors to application.
@@ -75,6 +77,13 @@ return array(
             'aKey'=>OSS_ACCESS_KEY,
             'sKey'=>OSS_SECRET_KEY,
             'endpoint'=>OSS_ENDPOINT,
+        ),
+
+        'easemob'=>array(
+            'client_id' => EASEMOB_ID,
+            'client_secret' => EASEMOB_SECRET,
+            'org_name' => EASEMOB_ORG,
+            'app_name' => EASEMOB_APP
         ),
 
         'file'=>array(

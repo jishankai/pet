@@ -350,6 +350,14 @@ class AnimalController extends Controller
 
             $a = Animal::model()->findByPk($aid);
             Talk::model()->sendMsg(NPC_SYSTEM_USRID, $a->master_id, "路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～");
+            $easemob = Yii::app()->easemob;
+            $easemob->sendToUsers($a->master_id, NPC_SYSTEM_USRID, array(
+                'mixed'=>TRUE,
+                'msg'=>"路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～",
+                'ext'=>array(
+                    'nickname'=>'事务官',
+                ),
+            ));
 
             $transaction->commit();
 

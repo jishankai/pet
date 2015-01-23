@@ -348,6 +348,14 @@ class UserController extends Controller
             $user->login();
 
             Talk::model()->sendMsg(NPC_SYSTEM_USRID, $user->usr_id, "HI~我是事务官，欢迎来到宠物星球，以后星球上的新鲜事，本汪会光速传达你，放心交给我吧，汪汪");
+            $easemob = Yii::app()->easemob;
+            $easemob->sendToUsers($user->usr_id, NPC_SYSTEM_USRID, array(
+                'mixed'=>TRUE,
+                'msg'=>"HI~我是事务官，欢迎来到宠物星球，以后星球上的新鲜事，本汪会光速传达你，放心交给我吧，汪汪",
+                'ext'=>array(
+                    'nickname'=>'事务官',
+                ),
+            ));
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();

@@ -140,16 +140,44 @@ class ImageController extends Controller
                         $usr_ids = explode(',',$model->relates);
                         foreach ($usr_ids as $usr_id) {
                             Talk::model()->sendMsg(NPC_IMAGE_USRID, $usr_id, $user->name."[".$model->img_id."]在爱宠的照片中@了你，没想到你人缘还不错，还真让本喵吃惊呀");
+                            $easemob = Yii::app()->easemob;
+                            $easemob->sendToUsers($usr_id, NPC_IMAGE_USRID, array(
+                                'mixed'=>TRUE,
+                                'msg'=>$user->name."在爱宠的照片中@了你，没想到你人缘还不错，还真让本喵吃惊呀",
+                                'ext'=>array(
+                                    'type'=>'1',
+                                    'img_id'=>$model->img_id,
+                                    'nickname'=>'联络官',
+                                ),
+                            ));
                         }
                     }
 
                     if ($is_food) {
                         $animal = Animal::model()->findByPk($aid);
                         Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->usr_id, "发完挣口粮照片，可以再点一下“挣口粮”，就能发到微信微博，让小伙伴帮着赏粮呢，只需要轻轻一点哟~");
+                        $easemob = Yii::app()->easemob;
+                        $easemob->sendToUsers($this->usr_id, NPC_SYSTEM_USRID, array(
+                            'mixed'=>TRUE,
+                            'msg'=>"发完正口粮照片，可以再点一下挣口粮，就能发到微信微博，让小伙伴帮着赏粮呢，只需要轻轻一点呦",
+                            'ext'=>array(
+                                'nickname'=>'事务官',
+                            ),
+                        ));
                         $circles = Circle::model()->findAllByAttributes(array('aid'=>$aid));
                         foreach ($circles as $circle) {
                             if (isset($circle) and isset($animal)) {
                                 Talk::model()->sendMsg(NPC_IMAGE_USRID, $circle->usr_id, "[".$model->img_id."]大萌星".$animal->name."发布了一张挣口粮的新萌照，快去支持吧～");
+                                $easemob = Yii::app()->easemob;
+                                $easemob->sendToUsers($circle->usr_id, NPC_IMAGE_USRID, array(
+                                    'mixed'=>TRUE,
+                                    'msg'=>"大萌星".$animal->name."发布了一张挣口粮的新萌照，快去支持吧～",
+                                    'ext'=>array(
+                                        'type'=>'2',
+                                        'img_id'=>$model->img_id,
+                                        'nickname'=>'联络官',
+                                    ),
+                                ));
                             }
                         }
                     }
@@ -521,8 +549,28 @@ class ImageController extends Controller
             }
             if (isset($_POST['reply_id'])) {
                 Talk::model()->sendMsg(NPC_IMAGE_USRID, $_POST['reply_id'], "[".$image->img_id."]".$user->name."回复了你：".$body);
+                $easemob = Yii::app()->easemob;
+                $easemob->sendToUsers($_POST['reply_id'], NPC_IMAGE_USRID, array(
+                    'mixed'=>TRUE,
+                    'msg'=>$user->name."回复了你：".$body,
+                    'ext'=>array(
+                        'type'=>'1',
+                        'img_id'=>$image->img_id,
+                        'nickname'=>'联络官',
+                    ),
+                ));
             } else {
                 Talk::model()->sendMsg(NPC_IMAGE_USRID, $animal->master_id, "[".$image->img_id."]".$user->name."评论了你：".$body);
+                $easemob = Yii::app()->easemob;
+                $easemob->sendToUsers($animal->master_id, NPC_IMAGE_USRID, array(
+                    'mixed'=>TRUE,
+                    'msg'=>$user->name."评论了你：".$body,
+                    'ext'=>array(
+                        'type'=>'1',
+                        'img_id'=>$image->img_id,
+                        'nickname'=>'联络官',
+                    ),
+                ));
             }
 
             $this->echoJsonData(array('exp'=>$user->exp-$ex_exp, 'gold'=>$user->gold-$ex_gold, 'lv'=>$user->lv-$ex_lv));

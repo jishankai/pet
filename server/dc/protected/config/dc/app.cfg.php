@@ -45,4 +45,10 @@
     //ALIPAY
     define('ALIPAY_PID', '');
     define('ALIPAY_AKEY', '');
+
+    //EASEMOB
+    define('EASEMOB_ID', '');
+    define('EASEMOB_SECRET', '');
+    define('EASEMOB_ORG', '');
+    define('EASEMOB_APP', '');
     
