@@ -80,6 +80,7 @@ return array(
         ),
 
         'easemob'=>array(
+            'class'=>'ext.easemob.Easemob',
             'client_id' => EASEMOB_ID,
             'client_secret' => EASEMOB_SECRET,
             'org_name' => EASEMOB_ORG,
