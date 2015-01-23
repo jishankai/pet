@@ -773,7 +773,7 @@ class AnimalController extends Controller
 
     public function actionFoodApi($aid)
     {
-        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.food, i.create_time FROM dc_image i WHERE i.aid=:aid AND is_food=1 AND i.create_time>=:create_time')->bindValues(array(':aid'=>$aid, ':create_time'=> time()-(60*60*24)))->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.food, i.cmt, i.create_time FROM dc_image i WHERE i.aid=:aid AND is_food=1 AND i.create_time>=:create_time')->bindValues(array(':aid'=>$aid, ':create_time'=> time()-(60*60*24)))->queryRow();
 
         $this->echoJsonData(array($r));
     }
