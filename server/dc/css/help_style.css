@@ -14,23 +14,14 @@ a{text-decoration: none;}
 	background-color: #ffffff;
 }
 .help_tit{
-	width: 100%;height: 80px;
+	width: 90%;height: 80px;
 	line-height:80px;
-	background-color: #fc9574;	
+	background-color: rgba(252,162,131,0.8);	
+	color:#ffffff;
+	padding:0 5%;
 }
-.tit_noicon{
-	font-size: 30px;
-	color:#fff;
-	text-indent: 41%;
-	background-size: auto 70%;
-}
-.tit{
-	font-size: 30px;
-	color:#fff;
-	text-indent: 41%;
-	background: url(../css/images/wright_right.png)left center no-repeat;
-	background-size: auto 70%;
-}
+.tit{float: right;font-size: 26px;}
+.back{text-decoration: underline;font-size: 20px;color: #ffffff;}
 .help_list li{
 	width: 100%;height: 70px;
 	border-bottom: 3px solid #d7d2ce;
@@ -84,12 +75,6 @@ a{text-decoration: none;}
 	height: 50px;
 	line-height:50px;
 }
-
-.tit, .tit_noicon{
-	font-size: 24px;height: 100%;
-	text-indent: 38%;
-}	
-
 .help_list li{
 	height: 40px;
 	border-bottom: 1px solid #d7d2ce;
@@ -111,6 +96,8 @@ a{text-decoration: none;}
 	line-height: 20px;
 	
 }
+.back{font-size: 14px;}
+.tit{font-size: 20px;}
 
 }
 

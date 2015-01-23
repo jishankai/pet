@@ -157,7 +157,7 @@ function FreshTime()
 }
 
 $("#reward").click(function(){
-  if ($("#time_img").html!="已结束") {
+  if ($("#time_img")[0].innerHTML!="已结束") {
     var b=parseInt($(".food_num").html());
     var c=parseInt($("#g_num").html());
     var n=c;

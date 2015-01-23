@@ -8,9 +8,9 @@
 	</head>
 <body>
 <div class="wraper" id="wraper_index">
-	<div class="help_tit">
+	<!-- <div class="help_tit">
 		<h3 class="tit_noicon">常见问题</h3>
-	</div>
+	</div> -->
 	<div class="help_body">
 		<ul class="help_list" id="help_list">
 			<li><a href="#">萌星与捧TA</a></li>
@@ -26,12 +26,9 @@
 
 <!-- 萌星与捧TA -->
 <div class="wraper" id="help0">
-	<a href="http://192.168.10.151:8001/index.php?r=social/newYearEvent">
-		<div class="help_tit" id="help_tit">
-
-			<h3 class="tit">常见问题</h3>
-		</div>
-	</a>
+	<div class="help_tit" id="help_tit">
+		<a class="back" href="http://<?php echo $_SERVER['HTTP_HOST']?>/index.php?r=site/faq">返回目录</a><span class="tit">萌星与捧TA</span>
+	</div>
 	<div class="Details_body">
 		<ul class="details_list">
 			<li>
@@ -70,12 +67,9 @@
 
 <!-- 挣口粮与兑换 -->
 <div class="wraper" id="help1">
-<a href="http://192.168.10.151:8001/index.php?r=social/newYearEvent">
-	<div class="help_tit">
-
-		<h3 class="tit">常见问题</h3>
+	<div class="help_tit" id="help_tit">
+		<a class="back" href="http://<?php echo $_SERVER['HTTP_HOST']?>/index.php?r=site/faq">返回目录</a><span class="tit">挣口粮与兑换</span>
 	</div>
-</a>
 	<div class="Details_body">
 		<ul class="details_list">
 			<li>
@@ -110,12 +104,9 @@
 <!-- 贡献度 -->
 
 <div class="wraper" id="help2">
-	<a href="http://192.168.10.151:8001/index.php?r=social/newYearEvent">
-		<div class="help_tit">
-
-			<h3 class="tit">常见问题</h3>
-		</div>
-	</a>
+	<div class="help_tit" id="help_tit">
+		<a class="back" href="http://<?php echo $_SERVER['HTTP_HOST']?>/index.php?r=site/faq">返回目录</a><span class="tit">贡献度</span>
+	</div>
 	<div class="Details_body">
 		<ul class="details_list">
 			<li>
@@ -150,12 +141,9 @@
 <!-- 萌星人气值 -->
 
 <div class="wraper" id="help3">
-	<a href="http://192.168.10.151:8001/index.php?r=social/newYearEvent">
-		<div class="help_tit">
-
-			<h3 class="tit">常见问题</h3>
-		</div>
-	</a>
+	<div class="help_tit" id="help_tit">
+		<a class="back" href="http://<?php echo $_SERVER['HTTP_HOST']?>/index.php?r=site/faq">返回目录</a><span class="tit">萌星人气值</span>
+	</div>
 	<div class="Details_body">
 		<ul class="details_list">
 			<li>
@@ -188,12 +176,9 @@
 </div>
 <!-- 基本动作 -->
 <div class="wraper" id="help4">
-	<a href="http://192.168.10.151:8001/index.php?r=social/newYearEvent">
-		<div class="help_tit">
-
-			<h3 class="tit">常见问题</h3>
-		</div>
-	</a>
+	<div class="help_tit" id="help_tit">
+		<a class="back" href="http://<?php echo $_SERVER['HTTP_HOST']?>/index.php?r=site/faq">返回目录</a><span class="tit">基本动作</span>
+	</div>
 	<div class="Details_body">
 		<ul class="details_list">
 			<li>
@@ -220,12 +205,9 @@
 
 <!-- 金币 -->
 <div class="wraper" id="help5">
-	<a href="http://192.168.10.151:8001/index.php?r=social/newYearEvent">
-		<div class="help_tit">
-
-			<h3 class="tit">常见问题</h3>
-		</div>
-	</a>
+	<div class="help_tit" id="help_tit">
+		<a class="back" href="http://<?php echo $_SERVER['HTTP_HOST']?>/index.php?r=site/faq">返回目录</a><span class="tit">金币</span>
+	</div>
 	<div class="Details_body">
 		<ul class="details_list">
 			<li>
@@ -249,12 +231,9 @@
 
 <!-- 献爱心 -->
 <div class="wraper" id="help6">
-	<a href="http://192.168.10.151:8001/index.php?r=social/newYearEvent">
-		<div class="help_tit">
-
-			<h3 class="tit">常见问题</h3>
-		</div>
-	</a>
+	<div class="help_tit" id="help_tit">
+		<a class="back" href="http://<?php echo $_SERVER['HTTP_HOST']?>/index.php?r=site/faq">返回目录</a><span class="tit">献爱心</span>
+	</div>
 	<div class="Details_body">
 		<ul class="details_list">
 			<li>
