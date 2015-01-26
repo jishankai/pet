@@ -1,0 +1,229 @@
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd,input{margin:0;padding:0;}
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+ul{list-style: none;}
+body{font-family: "Microsoft YaHei";}
+h1,h2,h3,h4,h5,h6{font-weight: normal;}
+.hr_125{width:100%;height: 125px;}
+
+.comWidth{width:640px;height:100%;margin:0 auto;}
+.pi_top{
+	width: 100%;height: 590px;
+	/*background-color: pink;*/
+	background:url(../css/images/pi_top.jpg)left top no-repeat;
+	background-size: 100% 100%;
+}
+
+.header{
+	width: 450px;height: 208px;
+	margin: 0 auto;
+	/*background-color: green;*/
+	position: relative;
+}
+#bt_fllow, #pi_head, #owner_head{
+	border-radius:50%;
+}
+.pi_head_wrap{
+	width: 208px;height: 208px;
+	position: absolute;left: 119px;top:0px;
+}
+
+#pi_head{
+	width: 158px;height: 158px;
+	position: absolute; left:146px; top:24px;
+}
+#bt_fllow{
+	width: 78px;height: 78px;
+	position: absolute;left: 0px;top:78px;
+}
+#owner_head{
+	width: 78px;height: 78px;
+	position: absolute;right: 0px;top:78px;
+}
+.owner{
+	color:#ffffff;
+	font-size: 20px;
+	position: absolute;right: 8px;top:162px;
+}
+
+.pi_name{
+	height: 35px;line-height: 35px;
+	/*background-color: yellow;*/
+	font-size: 30px;
+	text-align: center;
+	color: #ffffff;
+}
+#pi_sex{width: auto;height: 75%;}
+.pet_info{
+	width: auto;height: auto;/*background-color: red;*/
+	color:#f4f0ee;
+	text-align: center;
+	font-size: 25px;
+	padding-top: 16px;
+	padding-bottom: 18px;
+}
+#breed{float: left;width: 49%;text-align: right;}
+#vertical{float: left;width: 2%;}
+#age{float:right;width: 49%;text-align: left;}
+#signature{
+	margin: 0 auto;
+	width: 92.3%;height: 50px;line-height: 50px;
+	text-align: center;
+	font-size: 25px;color: #747070;
+	background: url(../css/images/bg_signature.png)center center no-repeat;
+	background-size: 100% 100%;
+	margin-bottom: 5px;
+}
+.tab{
+	width: 91.4%; height:100px;
+	/*background: blue;*/
+	margin: 0 auto;
+	color: #ffffff;
+	border-top: 1px solid #fff;
+}
+.tab li{
+	width: 32%;height: 100%;
+	text-align: center;
+	float:left;
+}
+.middle{border-left: 1px solid #fff;border-right: 1px solid #fff;}
+.tab h3{font-size: 38px;margin-top: 8px;}
+.tab p{font-size: 28px;}
+.imgBox{
+	width: 100%;height: auto;
+	/*background-color: orange;*/
+}
+.imgBox li{
+	float: left;
+	width: 32%;
+	margin-left: 1%;
+	margin-top:1%;
+}
+.imgBox li img{width: 100%;height: 100%;}
+
+/*下载*/
+
+.load{
+	height: 98px;width: 640px;margin: 0 auto;
+	background-color: #ffffff;	
+}
+.load .load_left{float: left; width: 50%; height: 100%;}
+.logo_icon{
+	float: left;width: 40%;margin-top: 10px;
+	text-indent: 10%;
+}
+.load_info{float: right; width: 60%; margin-top: 4px;}
+.load_left h3{line-height:49px; font-size: 25px;}
+.load_left p{height:49px; font-size:25px; color: #777676;}
+.load .load_right{float: left; width: 50%; height: 100%; text-align: right;}
+.float{position: fixed;bottom: 0;left:center; width: 640px;}
+
+
+
+@media only screen and (min-width: 300px) and (max-width: 650px){
+	.comWidth{width:100%;height:100%;margin:0 auto;}
+
+	/*下载*/
+	.load{height: 59px;width: 100%;}
+	.logo_icon{margin-top: 6px;}
+	.logo_icon img{width: 46px;height: 46px;}
+	.load_info{ margin-top: 3px;}
+	.load_left h3{line-height:28px; font-size: 14px;}
+	.load_left p{height:28px; font-size:14px;}
+	.load_right img{width: 122px;height: 58px;}
+	.float{width: 100%;}
+
+}
+@media only screen and (min-width: 300px) and (max-width: 370px){
+	.hr_125{width:100%;height: 62.5px;}
+	.pi_top{height: 295px;}
+	.header{width: 225px;height: 104px;}
+	.pi_head_wrap{
+		width: 104px;height: 104px;
+		position: absolute;left: 59.5px;top:0px;
+	}
+	#pi_head{
+			width: 79px;height: 79px;
+			position: absolute; left:73px; top:14px;
+		}
+	#bt_fllow{
+			width: 39px;height: 39px;
+			position: absolute;left: 0px;top:39px;
+		}
+	#owner_head{
+			width: 39px;height: 39px;
+			position: absolute;right: 0px;top:39px;
+		}
+	.owner{
+		color:#ffffff;
+		font-size: 10px;
+		position: absolute;right: 2px;top:81px;
+	}
+
+	.pi_name{font-size: 15px;height: 17.5px;line-height: 17.5px;}
+	.pet_info{font-size: 12.5px;padding-top: 8px;padding-bottom: 9px;}
+	#signature{
+		height: 25px;line-height: 25px;
+		font-size: 12.5px;
+	}
+
+	.tab{
+		height:50px;
+	}
+	.tab h3{font-size: 19px;margin-top: 4px;}
+	.tab p{font-size: 14px;}
+}
+@media only screen and (min-width: 371px) and (max-width: 530px){
+	.hr_125{width:100%;height: 81.25px;}
+	.pi_top{height: 383.5px;}
+	.header{width: 292.5px;height: 135.2px;}
+	.pi_head_wrap{
+		width: 135.2px;height: 135.2px;
+		position: absolute;left: 77.35px;top:0px;
+	}
+	#pi_head{
+			width: 102.7px;height: 102.7px;
+			position: absolute; left:94.9px; top:16px;
+		}
+	#bt_fllow{
+			width: 50.7px;height: 50.7px;
+			position: absolute;left: 0px;top:50.7px;
+		}
+	#owner_head{
+			width: 50.7px;height: 50.7px;
+			position: absolute;right: 0px;top:50.7px;
+		}
+	.owner{
+		color:#ffffff;
+		font-size: 13px;
+		position: absolute;right: 5.2px;top:105.3px;
+	}
+	.pi_name{font-size: 20px;height: 22.75px;line-height: 22.75px;}
+	.pet_info{font-size: 16.25px;padding-top: 10.4px;padding-bottom: 11.7px;}
+	#signature{
+		height: 32.5px;line-height: 32.5px;
+		font-size: 16.25px;
+	}
+
+	.tab{
+		height:65px;
+	}
+	.tab h3{font-size: 24.7px;margin-top: 5.2px;}
+	.tab p{font-size: 18.2px;}
+}
+@media only screen and (min-width: 531px){
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
