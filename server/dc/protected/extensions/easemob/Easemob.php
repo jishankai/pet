@@ -46,7 +46,7 @@ class Easemob
 
         $this->url = self::URL . '/' . $this->org_name . '/' . $this->app_name;
     } 
-    
+
     /**
      * 创建新用户[授权模式]
      * @param $username
@@ -213,7 +213,7 @@ class Easemob
      */
     private function cacheToken($saveToken = false)
     {
-        $cacheFilePath = dirname(dirname(dirname(__FILE__))) . '/storage/data';
+        $cacheFilePath = dirname(dirname(dirname(__FILE__))) . '/data/easemob_data';
         if ($saveToken) {
             $saveToken['expires_in'] = $saveToken['expires_in'] + time();
             if ($this->storageAdapter) {
