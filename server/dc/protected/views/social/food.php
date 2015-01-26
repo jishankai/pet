@@ -26,11 +26,13 @@ $signPackage = $jssdk->GetSignPackage();
 <body>
 <div class="comWidth">
 	<div class="food_title">
-		<h3>宠物星球<i>-我为自己代粮</i></h3>
-	</div>
-	<div class="logo">
-		<img src="css/images/r_logo.png" alt=""/>
-	</div>
+    <!-- <h3>宠物星球<i>-我为自己代粮</i></h3> -->
+    <h3>请在浏览器中打开</h3>
+  </div>
+  <div class="logo">
+    <!-- <img src="css/images/r_logo.png" alt=""/> -->
+    <img src="css/images/load.jpg" alt=""/>
+  </div>
 	<div class="food_body">
 		<div class="info">
         <img src="http://pet4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" alt="" class="ph_m"/>
@@ -196,7 +198,7 @@ $signPackage = $jssdk->GetSignPackage();
 				</div>
 			</div>
 		</div>
-		<div class="load">
+		<!-- <div class="load">
 			
 			<div class="load_left">
 				<div class="logo_icon">
@@ -212,7 +214,7 @@ $signPackage = $jssdk->GetSignPackage();
                     <img src="css/images/load.jpg"/>
                 </a>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	
 </div>
