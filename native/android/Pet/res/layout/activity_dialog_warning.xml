@@ -83,17 +83,14 @@
             android:orientation="vertical"
             android:gravity="center_horizontal"
             >
-            <TextView 
+            
+            <WebView 
+                android:id="@+id/webview"
                 android:layout_width="300dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:lineSpacingExtra="3dp"
-                android:text="@string/user_agreement"
-                />
+                android:layout_marginRight="10dp"/>
              
         </LinearLayout>
     </ScrollView>

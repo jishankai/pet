@@ -21,10 +21,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
+import com.aidigame.hisun.pet.huanxin.SettingsActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -49,7 +51,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 	public static AccountActivity accountActivity;
 	UMSocialService mController;
 	ImageView back,bindWeixinIV,bindXinlangIV,shareWeixinIV,shareXinlangIV;
-	LinearLayout progressLayout,linearLayout2,linearlayout12,linearlayout13;
+	LinearLayout progressLayout,linearLayout2,linearlayout12,linearlayout13,messageLayout;
 	View lineInvite;
 	ShowProgress showProgress;
 	int acount=-1;//1同步发送到新浪微博，2 绑定新浪微博；-1 Activity启动时进入onResume方法，啥也不做。
@@ -84,6 +86,8 @@ public class AccountActivity extends Activity implements OnClickListener{
 		back=(ImageView)findViewById(R.id.back);
 		progressLayout=(LinearLayout)findViewById(R.id.progress_layout);
 		
+		messageLayout=(LinearLayout)findViewById(R.id.message_layout);
+		
 		
 		bindWeixinIV=(ImageView)findViewById(R.id.setup_imageview1);
 		bindXinlangIV=(ImageView)findViewById(R.id.setup_imageview2);
@@ -98,6 +102,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 		bindXinlang.setOnClickListener(this);
 		shareWeixinLayout.setOnClickListener(this);
 		shareXinlangLayout.setOnClickListener(this);
+		messageLayout.setOnClickListener(this);
 		back.setOnClickListener(this);
 		weixinTv=(TextView)findViewById(R.id.weixin_bind_tv);
 		xinlangTv=(TextView)findViewById(R.id.xinlang_bind_tv);
@@ -187,6 +192,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 		case R.id.set_pass_layout:
 			if(SetPassActivity.setPassActivity!=null){
 				SetPassActivity.setPassActivity.finish();
+				SetPassActivity.setPassActivity=null;
 			}
 			Intent intent1=new Intent(this,SetPassActivity.class);
 			
@@ -225,6 +231,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 			}
 			if(RegisterNoteDialog.registerNoteDialog!=null){
 				RegisterNoteDialog.registerNoteDialog.finish();
+				RegisterNoteDialog.registerNoteDialog=null;
 			}
 			Intent intent2=new Intent(this,RegisterNoteDialog.class);
 			intent2.putExtra("mode", 2);
@@ -246,7 +253,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 					}else{
 						showProgress.progressCancel();
 					}
-					weixinLogin();
+				
 					/*if(Constants.api==null){
 						boolean flag=WeixinShare.regToWeiXin(this);
 						if(!flag){
@@ -419,7 +426,18 @@ public class AccountActivity extends Activity implements OnClickListener{
 					this.startActivity(intent);
 				}
 			}
+			accountActivity=null;
+			
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			finish();
+			System.gc();
+			break;
+		case R.id.message_layout:
+			Intent intent=new Intent(this,SettingsActivity.class);
+			startActivity(intent);
+			
 			break;
 		}
 		editor.commit();
@@ -455,200 +473,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 	
 	
 	
-	/**
-	 * 微信授权登录
-	 */
-	public void weixinLogin(){
-		/*
-		 * 微信权限
-		 */
-		
-//		mController = (UMSocialService) UMServiceFactory.getUMSocialService("com.umeng.login");
-		
-		UMWXHandler wxHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
-		wxHandler.addToSocialSDK();
-		mController.doOauthVerify(this, SHARE_MEDIA.WEIXIN, new UMAuthListener() {
-		    @Override
-		    public void onStart(SHARE_MEDIA platform) {
-		        Toast.makeText(AccountActivity.this, "授权开始", Toast.LENGTH_SHORT).show();
-		    }
-		    @Override
-		    public void onError(SocializeException e, SHARE_MEDIA platform) {
-		        Toast.makeText(AccountActivity.this, "授权错误", Toast.LENGTH_SHORT).show();
-		        if(showProgress!=null)showProgress.progressCancel();
-		    }
-		    @Override
-		    public void onComplete(Bundle value, SHARE_MEDIA platform) {
-		        Toast.makeText(AccountActivity.this, "授权完成", Toast.LENGTH_SHORT).show();
-
-		        getWeixinInfo();
-		    }
-		    @Override
-		    public void onCancel(SHARE_MEDIA platform) {
-		    	 if(showProgress!=null)showProgress.progressCancel();
-		        Toast.makeText(AccountActivity.this, "授权取消", Toast.LENGTH_SHORT).show();
-		    }
-		} );
-	}
-	public void getWeixinInfo(){
-		 //获取相关授权信息
-		if(showProgress!=null)showProgress.showProgress();;
-        mController.getPlatformInfo(AccountActivity.this, SHARE_MEDIA.WEIXIN, new UMDataListener() {
-    @Override
-    public void onStart() {
-        Toast.makeText(AccountActivity.this, "获取平台数据开始...", Toast.LENGTH_SHORT).show();
-    }                                              
-    @Override
-        public void onComplete(final int status, final Map<String, Object> info) {
-    	/*
-    	 * 12-08 15:32:28.550: D/TestData(17146): sex=1
-
-12-08 15:32:28.550: D/TestData(17146): nickname=祥
-
-12-08 15:32:28.550: D/TestData(17146): unionid=ooe9XuJBHjz90GNnv1aaUqRZDRJk
-
-12-08 15:32:28.550: D/TestData(17146): province=Beijing
-
-12-08 15:32:28.550: D/TestData(17146): openid=oo1jksxuyAFH-BGeUH_vhSP-TdFQ
-
-12-08 15:32:28.550: D/TestData(17146): language=zh_CN
-
-12-08 15:32:28.550: D/TestData(17146): headimgurl=http://wx.qlogo.cn/mmopen/LPLYlyQ5GAoM88JEWfkpldwnQeGod3Og2jE9QxIz76GPQIP0JD7fWdeFaCBEKu2o6bia7oTAxgoLHUia9QsDK8saichJRLABD6z/0
-
-12-08 15:32:28.550: D/TestData(17146): country=CN
-
-                      city=Haidian
-    	 */
-    	new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				  if(status == 200 && info != null){
-		                StringBuilder sb = new StringBuilder();
-		                Set<String> keys = info.keySet();
-		               
-		                User user=new User();
-		                if("1".equals(""+(Integer)info.get("sex"))){
-		                	user.u_gender=1;
-		                }else{
-		                	user.u_gender=2;
-		                }
-		                user.u_nick=(String)info.get("nickname");
-		                user.weixin_id=(String)info.get("openid");
-		                user.u_iconPath=(String)info.get("headimgurl");
-		                
-		              
-		                
-		                
-		               
-		                	if(!StringUtil.isEmpty(user.u_iconPath)){
-			                	boolean flag=HttpUtil.downloadImage(user.u_iconPath, Constants.Picture_ICON_Path+File.separator+"weixin_"+user.weixin_id+".png");
-								if(flag){
-									user.u_iconPath=Constants.Picture_ICON_Path+File.separator+"weixin_"+user.weixin_id+".png";
-								}
-			                }
-			                bindLogin(user,true);
-		                
-		                for(String key : keys){
-		                   sb.append(key+"="+info.get(key).toString()+"\r\n");
-		                  
-		                }
-		                Log.d("TestData",sb.toString());
-		            }else{
-		               Log.d("TestData","发生错误："+status);
-		           }
-			}
-		}).start();
-          
-        }
-});
-	}
-	/**
-	 * 微信或新浪绑定登陆
-	 * @param user
-	 */
-	public void bindLogin(final User user,final boolean isWeixin){
-//		 if(showProgress!=null)showProgress.progressCancel();
-		
-		boolean flag=false;
-		if(isWeixin){
-			flag= HttpUtil.isBind(handler, user.weixin_id, isWeixin, AccountActivity.this);
-		}else{
-			flag= HttpUtil.isBind(handler, user.xinlang_id, isWeixin, AccountActivity.this);
-		}
-		 final boolean isBinded=flag;
-		 runOnUiThread(new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					if(isBinded){
-						if(isWeixin){
-							bindWeixinIV.setVisibility(View.GONE);
-							weixinTv.setVisibility(View.VISIBLE);
-							weixinTv.setText("已绑定");
-						}else{
-							bindXinlangIV.setVisibility(View.GONE);
-							xinlangTv.setVisibility(View.VISIBLE);
-							xinlangTv.setText("已绑定");
-						}
-						 if(showProgress!=null)showProgress.progressCancel();
-						
-						 if(isWeixin){
-								Toast.makeText(AccountActivity.this, "已经绑定微信账号", Toast.LENGTH_LONG).show();
-							}else{
-								Toast.makeText(AccountActivity.this, "已经绑定新浪账号", Toast.LENGTH_LONG).show();
-							}
-					}else{
-						new Thread(new Runnable() {
-							
-							@Override
-							public void run() {
-								// TODO Auto-generated method stub
-								boolean flag=false;
-								if(isWeixin){
-									flag=HttpUtil.bindAccount(handler, user.weixin_id, isWeixin, AccountActivity.this);
-								}else{
-									flag=HttpUtil.bindAccount(handler, user.xinlang_id, isWeixin, AccountActivity.this);
-								}
-								final boolean binded=flag;
-								runOnUiThread(new Runnable() {
-									
-									@Override
-									public void run() {
-										// TODO Auto-generated method stub
-										 if(showProgress!=null)showProgress.progressCancel();
-										if(binded){
-											if(isWeixin){
-												bindWeixinIV.setVisibility(View.GONE);;
-												weixinTv.setVisibility(View.VISIBLE);
-												weixinTv.setText("已绑定");
-											}else{
-												bindXinlangIV.setVisibility(View.GONE);;
-												xinlangTv.setVisibility(View.VISIBLE);
-												xinlangTv.setText("已绑定");
-											}
-										}else{
-											if(isWeixin){
-												Toast.makeText(AccountActivity.this, "绑定微信失败", Toast.LENGTH_LONG).show();
-											}else{
-												Toast.makeText(AccountActivity.this, "绑定新浪失败", Toast.LENGTH_LONG).show();
-											}
-											
-										}
-										
-									}
-								});
-								
-							}
-						}).start();
-					}
-					
-				}
-			});
-		
-	}
+	
 	
 	public void showProgress(){
 		if(showProgress!=null)showProgress.showProgress();;

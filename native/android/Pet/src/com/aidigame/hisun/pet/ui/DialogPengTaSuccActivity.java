@@ -85,7 +85,7 @@ public class DialogPengTaSuccActivity extends Activity{
 		    Constants.user.coinCount+=num;
 		    startShowAnimation(view);
 		    if(UserCenterFragment.userCenterFragment!=null){
-		    	UserCenterFragment.userCenterFragment.updatateInfo();;
+		    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 			}
 			return;
 		}else if(mode==7){
@@ -231,7 +231,7 @@ public class DialogPengTaSuccActivity extends Activity{
 			}
 		});
 		if(UserCenterFragment.userCenterFragment!=null){
-	    	UserCenterFragment.userCenterFragment.updatateInfo();;
+	    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 		}
 	}
 	public void setDialogGoListerer(DialogNoteGoListener listener){

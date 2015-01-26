@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.TranslateAnimation;
@@ -25,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.Banner;
@@ -100,7 +102,12 @@ public class ActivityWebActivity extends Activity {
 					}
 				}
 				
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(ActivityWebActivity.this)){
+					PetApplication.petApp.activityList.remove(ActivityWebActivity.this);
+				}
 				finish();
+				System.gc();
 			}
 		});
 		shareTv.setOnClickListener(new OnClickListener() {
@@ -161,6 +168,16 @@ public class ActivityWebActivity extends Activity {
 		imageFetcher.loadImage(banner.icon, new ImageView(this), options);
 		
 		
+	}
+    
+		@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+			if(keyCode==KeyEvent.KEYCODE_BACK&&webView.canGoBack()){
+				webView.goBack();
+				return true;
+			}
+		return super.onKeyDown(keyCode, event);
 	}
 
 		/**

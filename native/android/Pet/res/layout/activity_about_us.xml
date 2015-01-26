@@ -68,7 +68,7 @@
              android:paddingBottom="10dp"
              android:background="@color/white"
              android:textSize="18sp"
-             android:text="微信公众号：宠物星球" />
+             android:text="微信号：imengstar" />
 
           <TextView
               android:id="@+id/textView6"
@@ -88,7 +88,7 @@
               android:layout_marginTop="25dp"
               android:layout_marginLeft="35dp"
               android:layout_height="wrap_content"
-              android:text="邮箱： contact@aidigame.com" />
+              android:text="邮箱： contact@imengstar.com" />
 
       
           <TextView

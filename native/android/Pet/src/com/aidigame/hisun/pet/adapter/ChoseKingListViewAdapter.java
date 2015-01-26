@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.KingdomCard;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
@@ -55,8 +55,8 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 	boolean isBind;
 	int mode;
 	int from;//默认值为0，进行注册；1，已经注册过
-	User user;
-	public ChoseKingListViewAdapter(ChoseKingActivity context,ArrayList<Animal> list,int mode,int from,boolean isBind,User user){
+	MyUser user;
+	public ChoseKingListViewAdapter(ChoseKingActivity context,ArrayList<Animal> list,int mode,int from,boolean isBind,MyUser user){
 		this.context=context;
 		this.list=list;
 		this.mode=mode;
@@ -175,9 +175,16 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 				if(from==1){
 					
 					int num=0;
-					if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
-						num=(Constants.user.aniList.size()+1)*5;
-					}else  if(Constants.user.aniList.size()>20){
+					int count=0;
+					for(int i=0;i<Constants.user.aniList.size();i++){
+//						if(Constants.user.aniList.get(i).master_id!=Constants.user.userId)
+							count++;
+					}
+					
+					
+					if(count>=10&&count<=20){
+						num=(count)*5;
+					}else if(count>20){
 						num=100;
 					}
 					
@@ -201,7 +208,10 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 									HomeActivity.homeActivity.myPetFragment.homeMyPet.refresh();
 								}
 								context.finish();
-								if(ChoseAcountTypeActivity.choseAcountTypeActivity!=null)ChoseAcountTypeActivity.choseAcountTypeActivity.finish();
+								if(ChoseAcountTypeActivity.choseAcountTypeActivity!=null){
+									ChoseAcountTypeActivity.choseAcountTypeActivity.finish();
+									ChoseAcountTypeActivity.choseAcountTypeActivity=null;
+								}
 							}
 						}
 					});

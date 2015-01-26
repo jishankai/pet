@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import android.R.integer;
 import android.R.string;
 
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.http.json.LoginJson.Data;
 /**
  * {"state":0,"errorCode":0,"errorMessage":"",
@@ -80,12 +80,12 @@ if(array2==null||array2.length()==0)return;
 JSONObject  jb=null;
 JSONObject  jb1=null;
 Data data=null;
-User user=null;
+MyUser user=null;
 for(int i=0;i<array2.length();i++){
 	jb=array2.getJSONObject(i);
 	jb1=jb.getJSONObject("user");
 	data=new Data();
-	user=new User();
+	user=new MyUser();
 	data.user=user;
 	if(json.contains("usr_id")){
 		user.userId=jb1.getInt("usr_id");
@@ -144,7 +144,7 @@ for(int i=0;i<array2.length();i++){
 	}
 
 	public static class Data{
-		public User user;
+		public MyUser user;
 		public boolean isFriend;
 		public boolean isSelected=false;
 		@Override

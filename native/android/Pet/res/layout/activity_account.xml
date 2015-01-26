@@ -212,7 +212,40 @@
             android:layout_marginRight="15dp"/>
        
     </LinearLayout>
-        
+        <View android:layout_width="match_parent"
+            android:layout_height="0.2dp" 
+            android:id="@+id/lineInvite"
+            android:background="#beb5a5"/>   
+            <LinearLayout
+        android:id="@+id/message_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="5dp"
+        android:clickable="true"
+        android:paddingBottom="5dp">
+        <TextView
+            android:id="@+id/tv122"
+             android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="消息推送设置"
+            android:layout_marginLeft="30dp"
+            android:textSize="14sp"
+             android:textColor="@color/black"
+            />
+
+        <ImageView
+            android:id="@+id/imageView124"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/back" 
+            android:rotation="180"
+            android:padding="4dp"
+            android:layout_marginRight="15dp"/>
+       
+    </LinearLayout>
                
                 <View android:layout_width="match_parent"
             android:layout_height="0.2dp" 

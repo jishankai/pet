@@ -5,17 +5,18 @@ import java.util.ArrayList;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.LoginJson;
+import com.aidigame.hisun.pet.huanxin.DemoHXSDKHelper;
 import com.aidigame.hisun.pet.ui.AccountActivity;
 import com.aidigame.hisun.pet.ui.ChargeActivity;
 import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
 import com.aidigame.hisun.pet.ui.ExchangeActivity;
 import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.ui.MarketActivity;
-import com.aidigame.hisun.pet.ui.MessageActivity;
+import com.aidigame.hisun.pet.ui.ModifyPetInfoActivity;
 import com.aidigame.hisun.pet.ui.MyItemActivity;
 import com.aidigame.hisun.pet.ui.PlayGameActivity;
 import com.aidigame.hisun.pet.ui.SetupActivity;
@@ -26,6 +27,7 @@ import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
+import com.easemob.chat.EMChatManager;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -53,15 +55,16 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 	HomeActivity homeActivity;
 	Handler handler;
 	View view;
-	ImageView setupIv,genderIv;
+	ImageView setupIv,genderIv,modifyIv;
 	RoundImageView userIcon;
-	TextView userNameTv,userCityTv,messageNumTv,loginTv;
-	public TextView goldNumTv;
+	TextView userNameTv,userCityTv,loginTv;
+	public TextView goldNumTv,messageNumTv;
 	RelativeLayout chargeLayout,goldLayout;
 	LinearLayout messageLayout,marketLayout,exchangeLayout,giveLayout,giftLayout,accountLayout;
 	
 	View popupParent;
 	RelativeLayout black_layout;
+	
 	public static UserCenterFragment userCenterFragment;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,17 +104,35 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 		chargeLayout=(RelativeLayout)view.findViewById(R.id.charge_layout);
 		goldLayout=(RelativeLayout)view.findViewById(R.id.gold_layout);
 		loginTv=(TextView)view.findViewById(R.id.user_center_login);
+		modifyIv=(ImageView)view.findViewById(R.id.modify_iv);
 		initListener();
 		if(Constants.user!=null){
-			updatateInfo();
-			
+			updatateInfo(true);
 		}else{
 			goldLayout.setVisibility(View.GONE);
 			loginTv.setVisibility(View.VISIBLE);
 		}
 	}
 
-
+    @Override
+    public void onResume() {
+    	// TODO Auto-generated method stub
+    	super.onResume();
+     	if(Constants.isSuccess){
+			
+			if(Constants.user!=null&&!DemoHXSDKHelper.getInstance().isLogined()){
+				
+			}else{
+				int count=EMChatManager.getInstance().getUnreadMsgsCount();
+				if(count==0){
+					messageNumTv.setVisibility(View.INVISIBLE);
+				}else{
+					messageNumTv.setVisibility(View.VISIBLE);
+					messageNumTv.setText(""+count);
+				}
+			}
+		}
+    }
 
 	private void initListener() {
 		// TODO Auto-generated method stub
@@ -125,6 +146,7 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 		accountLayout.setOnClickListener(this);
 		chargeLayout.setOnClickListener(this);
 		loginTv.setOnClickListener(this);
+		modifyIv.setOnClickListener(this);
 	}
 
 	@Override
@@ -140,18 +162,22 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 				}
 			break;
 		case R.id.message_layout:
-			if(MessageActivity.messageActivity!=null){
+			/*if(MessageActivity.messageActivity!=null){
 				MessageActivity.messageActivity.finish();
+				MessageActivity.messageActivity=null;
 			}
 			Intent intent1=new Intent(homeActivity,MessageActivity.class);
 			homeActivity.startActivity(intent1);
-			messageNumTv.setVisibility(View.INVISIBLE);
+			messageNumTv.setVisibility(View.INVISIBLE);*/
 			
+			startActivity(new Intent(homeActivity, com.aidigame.hisun.pet.huanxin.MainActivity.class));
 			
 			break;
 		case R.id.market_layout:
 			if(MarketActivity.marketActivity!=null){
+				
 				MarketActivity.marketActivity.finish();
+				MarketActivity.marketActivity=null;
 			}
 			Intent intent2=new Intent(homeActivity,MarketActivity.class);
 			this.startActivity(intent2);
@@ -170,6 +196,7 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 		case R.id.gift_layout:
 			if(MyItemActivity.myItemActivity!=null){
 				MyItemActivity.myItemActivity.finish();
+				MyItemActivity.myItemActivity=null;
 			}
 			Intent intent3=new Intent(homeActivity,MyItemActivity.class);
 			homeActivity.startActivity(intent3);
@@ -193,6 +220,7 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 			}
 			if(AccountActivity.accountActivity!=null){
 				AccountActivity.accountActivity.finish();
+				AccountActivity.accountActivity=null;
 			}
 			Intent intent7=new Intent(homeActivity,AccountActivity.class);
 			homeActivity.startActivity(intent7);
@@ -233,16 +261,26 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 		case R.id.setup_iv:
 			if(SetupActivity.setupActivity!=null){
 				SetupActivity.setupActivity.finish();
+				SetupActivity.setupActivity=null;
 			}
 			Intent intent5=new Intent(homeActivity,SetupActivity.class);
 			homeActivity.startActivity(intent5);
+			break;
+		case R.id.modify_iv:
+			 if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
+					
+					return;
+				}
+			 Intent intent8=new Intent(homeActivity,ModifyPetInfoActivity.class);
+				intent8.putExtra("mode", 2);
+				this.startActivity(intent8);
 			break;
 
 		default:
 			break;
 		}
 	}
-	public void updatateInfo() {
+	public void updatateInfo(boolean loadUserInfo) {
 		// TODO Auto-generated method stub
 		
 		if(Constants.user!=null){
@@ -266,7 +304,21 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 			}else{
 				goldNumTv.setText("0");
 			}
-			getNewsNum();
+			getNewsNum(loadUserInfo);
+			if(Constants.isSuccess){
+				
+				if(Constants.user!=null&&!DemoHXSDKHelper.getInstance().isLogined()){
+					
+				}else{
+					int count=EMChatManager.getInstance().getUnreadMsgsCount();
+					if(count==0){
+						messageNumTv.setVisibility(View.INVISIBLE);
+					}else{
+						messageNumTv.setVisibility(View.VISIBLE);
+						messageNumTv.setText(""+count);
+					}
+				}
+			}
 		}else{
 			goldLayout.setVisibility(View.GONE);
 			loginTv.setVisibility(View.VISIBLE);
@@ -293,7 +345,7 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 		ImageLoader imageLoader2=ImageLoader.getInstance();
 		imageLoader2.displayImage(Constants.USER_DOWNLOAD_TX+Constants.user.u_iconUrl, userIcon, displayImageOptions2);
 	}
-	public void getNewsNum(){
+	public void getNewsNum(final boolean loadUserInfo){
 		//获取消息和活动数目
 		new Thread(new Runnable() {
 					
@@ -301,24 +353,32 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 					public void run() {
 						// TODO Auto-generated method stub
 						LogUtil.i("mi","用户个人中心获取用户信息");
-						final int mail_count=StringUtil.getNewMessageNum(homeActivity,handler);
+//						final int mail_count=StringUtil.getNewMessageNum(homeActivity,handler);
 						  final ArrayList<Animal> temp=HttpUtil.usersKingdom(homeActivity,Constants.user, 1, handler);
+						  final MyUser u=HttpUtil.info(homeActivity, handler, Constants.user.userId);
 						homeActivity.runOnUiThread(new Runnable() {
 							
 							@Override
 							public void run() {
 								// TODO Auto-generated method stub
 								
-								if(mail_count!=0){
+								/*if(mail_count!=0){
 									messageNumTv.setVisibility(View.VISIBLE);
 									messageNumTv.setText(""+(mail_count));
 									
 								}else{
 									messageNumTv.setVisibility(View.INVISIBLE);
-								}
+								}*/
+								u.currentAnimal=Constants.user.currentAnimal;
+								u.aniList=Constants.user.aniList;
+								Constants.user=u;
 								if(temp!=null){
 									Constants.user.aniList=temp;
 								}
+								if(loadUserInfo){
+									updatateInfo(false);
+								}
+								
 							}
 						});
 						

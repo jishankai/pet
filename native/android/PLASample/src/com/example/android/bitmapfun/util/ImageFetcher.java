@@ -42,8 +42,8 @@ import com.huewu.pla.sample.BuildConfig;
 public class ImageFetcher extends ImageResizer {
     private static final String TAG = "ImageFetcher";
     private static final int HTTP_CACHE_SIZE = 10 * 1024 * 1024; // 10MB
-//    public static final String HTTP_CACHE_DIR = "http";
-    public static String UPLOAD_IMAGE_RETURN_URL="http://pet4upload.oss-cn-beijing.aliyuncs.com/";
+//    public static final String HTTP_CACHE_DIR = "http";   //pet-test
+    public static String UPLOAD_IMAGE_RETURN_URL="http://pet4upload.oss-cn-beijing.aliyuncs.com/";//http://pet4upload.oss-cn-beijing.aliyuncs.com/
     public   String itemUrl=null;
     /**
      * Initialize providing a target image width and height for the processing images.

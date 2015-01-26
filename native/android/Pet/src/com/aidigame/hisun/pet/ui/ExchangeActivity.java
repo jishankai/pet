@@ -31,6 +31,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.GalleryAdapter;
 import com.aidigame.hisun.pet.adapter.GalleryAdapter.ClickViewListener;
@@ -383,7 +384,13 @@ public class ExchangeActivity extends Activity implements OnClickListener{
 					this.startActivity(intent);
 				}
 			}
+			exchangeActivity=null;
+			
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			finish();
+			System.gc();
 			break;
 		case R.id.type_layout:
 			showType();

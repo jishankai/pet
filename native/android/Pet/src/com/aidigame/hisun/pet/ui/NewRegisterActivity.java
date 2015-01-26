@@ -45,10 +45,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aidigame.hisun.pet.FirstPageActivity;
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HomeViewPagerAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -112,7 +113,7 @@ public class NewRegisterActivity extends Activity {
 	Animal animal;
 	HandleHttpConnectionException handleHttpConnectionException;
 	boolean isBind=false;
-	User user;
+	MyUser user;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -174,7 +175,7 @@ public class NewRegisterActivity extends Activity {
 		from=getIntent().getIntExtra("from", 0);
 		isBind=getIntent().getBooleanExtra("isBind", false);
 		if(isBind){
-			user=(User)getIntent().getSerializableExtra("user");
+			user=(MyUser)getIntent().getSerializableExtra("user");
 		}
 		TextView title=(TextView)findViewById(R.id.textView11);
 		if(from==1){
@@ -239,7 +240,12 @@ public class NewRegisterActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(NewRegisterActivity.this)){
+					PetApplication.petApp.activityList.remove(NewRegisterActivity.this);
+				}
 				NewRegisterActivity.this.finish();
+				System.gc();
 			}
 		});
 		viewList.add(view1);
@@ -325,7 +331,7 @@ public class NewRegisterActivity extends Activity {
 		}
 		LogUtil.i("mi","NewRegisterActivity::::"+ "isBind?"+(isBind));
 		if(isBind){
-			user=(User)getIntent().getSerializableExtra("user");
+			user=(MyUser)getIntent().getSerializableExtra("user");
 			LogUtil.i("mi","NewRegisterActivity::::"+ "user==null?"+(user==null));
 			setUserInfo(user);
 		}
@@ -367,7 +373,7 @@ public class NewRegisterActivity extends Activity {
 	 * 设置用户信息，资料修改时使用
 	 * @param animal
 	 */
-	public void setUserInfo(User user){
+	public void setUserInfo(MyUser user){
 		// 加入狗或猫的王国,将宠物相关信息填入注册表格中
     	imageLoader=ImageLoader.getInstance();
     	//TODO 暂时注释掉
@@ -545,7 +551,7 @@ public class NewRegisterActivity extends Activity {
 				}else
 				if(mode!=5){
 					String code="";
-					final User user=new User();
+					final MyUser user=new MyUser();
 					if(mode==1||mode==2){
 						user.currentAnimal=animal;
 						user.pet_nickName=animal.pet_nickName;
@@ -560,6 +566,7 @@ public class NewRegisterActivity extends Activity {
 						if(isBind){
 							user.weixin_id=NewRegisterActivity.this.user.weixin_id;
 							user.xinlang_id=NewRegisterActivity.this.user.xinlang_id;
+							user.wechat_union=NewRegisterActivity.this.user.wechat_union;
 							user.isBind=isBind;
 						}
 					}else{
@@ -649,7 +656,7 @@ public class NewRegisterActivity extends Activity {
 								Constants.isSuccess=true;
 								editor.commit();
 								
-								User user=null;
+								MyUser user=null;
 								while(user==null||user.userId==0||user.currentAnimal==null||user.currentAnimal.a_id==0){
 									try {
 										Thread.sleep(100);
@@ -666,10 +673,14 @@ public class NewRegisterActivity extends Activity {
 								
 								Constants.user.aniList=new ArrayList<Animal>();
 								Constants.user.aniList.add(Constants.user.currentAnimal);
-								if(ChoseKingActivity.choseKingActivity!=null)ChoseKingActivity.choseKingActivity.finish();
+								if(ChoseKingActivity.choseKingActivity!=null){
+									ChoseKingActivity.choseKingActivity.finish();
+									ChoseKingActivity.choseKingActivity=null;
+								}
 								NewRegisterActivity.this.finish();
 								if(ChoseAcountTypeActivity.choseAcountTypeActivity!=null){
 									ChoseAcountTypeActivity.choseAcountTypeActivity.finish();
+									ChoseAcountTypeActivity.choseAcountTypeActivity=null;
 								}
 								runOnUiThread(new Runnable() {
 									
@@ -690,7 +701,10 @@ public class NewRegisterActivity extends Activity {
 										
 										
 										if(UserCenterFragment.userCenterFragment!=null){
-									    	UserCenterFragment.userCenterFragment.updatateInfo();;
+									    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
+										}
+										if(HomeActivity.homeActivity!=null){
+											HomeActivity.homeActivity.initEMChatLogin();
 										}
 									}
 								});
@@ -708,7 +722,7 @@ public class NewRegisterActivity extends Activity {
 				
 				}else{
 					String code="";
-					final User user=new User();
+					final MyUser user=new MyUser();
 					if(animal.master_id!=Constants.user.userId){
 						//被认养的宠物
 						user.pet_nickName=animal.pet_nickName;
@@ -746,7 +760,7 @@ public class NewRegisterActivity extends Activity {
 							// TODO Auto-generated method stub
 							boolean flag=HttpUtil.modifyUserInfo(handleHttpConnectionException.getHandler(NewRegisterActivity.this),user,NewRegisterActivity.this);
 							if(flag){
-								User user=HttpUtil.info(NewRegisterActivity.this,handleHttpConnectionException.getHandler(NewRegisterActivity.this),Constants.user.userId);
+								MyUser user=HttpUtil.info(NewRegisterActivity.this,handleHttpConnectionException.getHandler(NewRegisterActivity.this),Constants.user.userId);
 								Constants.user=user;
 								
 									
@@ -777,7 +791,7 @@ public class NewRegisterActivity extends Activity {
 											
 											NewRegisterActivity.this.finish();
 											if(UserCenterFragment.userCenterFragment!=null){
-										    	UserCenterFragment.userCenterFragment.updatateInfo();;
+										    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 											}
 										}
 									});
@@ -1287,6 +1301,7 @@ public class NewRegisterActivity extends Activity {
 							}
 							if(ChoseAcountTypeActivity.choseAcountTypeActivity!=null){
 								ChoseAcountTypeActivity.choseAcountTypeActivity.finish();
+								ChoseAcountTypeActivity.choseAcountTypeActivity=null;
 							}
 							if(HomeActivity.homeActivity!=null&&HomeActivity.homeActivity.myPetFragment!=null){
 								HomeActivity.homeActivity.myPetFragment.cameraBt.setVisibility(View.VISIBLE);

@@ -20,7 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.ui.ContributeRankListActivity;
 import com.aidigame.hisun.pet.ui.ContributeRankListActivity.People;
@@ -36,14 +36,14 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 public class ContributeRankListAdapter extends BaseAdapter {
 	DisplayImageOptions displayImageOptions;//显示图片的格式
     ContributeRankListActivity  context;
-    ArrayList<User> list;
+    ArrayList<MyUser> list;
     int mode;//1,长列表；2，短列表
     Handler handler=new Handler(){
     	public void handleMessage(android.os.Message msg) {
     		
     	};
     };
-    public ContributeRankListAdapter(ContributeRankListActivity context,ArrayList<User> list,int mode){
+    public ContributeRankListAdapter(ContributeRankListActivity context,ArrayList<MyUser> list,int mode){
     	this.context=context;
     	this.list=list;
     	this.mode=mode;
@@ -63,7 +63,7 @@ public class ContributeRankListAdapter extends BaseAdapter {
 		        .decodingOptions(options)
                 .build();
     }
-    public void updateData(ArrayList<User> list){
+    public void updateData(ArrayList<MyUser> list){
     	this.list=list;
     }
 	@Override
@@ -107,7 +107,7 @@ public class ContributeRankListAdapter extends BaseAdapter {
 		}else{
 			holder=(Holder)convertView.getTag();
 		}
-		User people=list.get(position);
+		MyUser people=list.get(position);
 		
 		if(people.ranking==1){
 			holder.rankNoIV.setVisibility(View.VISIBLE);

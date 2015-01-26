@@ -8,7 +8,7 @@ import java.util.ArrayList;
  *
  */
 public class KingdomCard {
-	public User user;
+	public MyUser user;
 	public ArrayList<PetPicture> list;
 
 }

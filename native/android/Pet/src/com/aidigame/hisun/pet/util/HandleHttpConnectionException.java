@@ -33,7 +33,7 @@ public class HandleHttpConnectionException {
 	public static final int SHOW_NOTE=6000;//登陆成功
 //	public static final int 
     private static HandleHttpConnectionException handleHttpConnectionException=new HandleHttpConnectionException();
-    Context context;
+//    Context context;
     public static long last_time=0;
     public Handler handler=new Handler(){
     	public void handleMessage(android.os.Message msg) {
@@ -58,29 +58,29 @@ public class HandleHttpConnectionException {
 //				Toast.makeText(context, "请检查网络连接", Toast.LENGTH_LONG).show();
 				break;
 			case Connect_Error_1XX:
-				Toast.makeText(context, "信息提示", Toast.LENGTH_LONG).show();
+				Toast.makeText(PetApplication.petApp, "信息提示", Toast.LENGTH_LONG).show();
 				break;
 			case Connect_Error_3XX:
-				Toast.makeText(context, "重定向", Toast.LENGTH_LONG).show();
+				Toast.makeText(PetApplication.petApp, "重定向", Toast.LENGTH_LONG).show();
 				break;
 			case Connect_Error_4XX:
-				Toast.makeText(context, "客户端错误", Toast.LENGTH_LONG).show();
+				Toast.makeText(PetApplication.petApp, "客户端错误", Toast.LENGTH_LONG).show();
 				break;
 			case Connect_Error_5XX:
-				Toast toast=new Toast(context);
+				/*Toast toast=new Toast(context);
 				View view=LayoutInflater.from(context).inflate(R.layout.widget_toast_one_message, null);
 				toast.setView(view);
 				toast.setDuration(Toast.LENGTH_LONG);
-				toast.show();
-//				Toast.makeText(context, "服务端错误", Toast.LENGTH_LONG).show();
+				toast.show();*/
+				Toast.makeText(PetApplication.petApp, "服务器内部错误", Toast.LENGTH_LONG).show();
 				break;
 			case Json_Data_Server_Exception:
 				String errorMsg=(String)msg.obj;
-				Toast.makeText(context, ""+errorMsg, Toast.LENGTH_LONG).show();
+				Toast.makeText(PetApplication.petApp, ""+errorMsg, Toast.LENGTH_LONG).show();
 //				Toast.makeText(context, "系统错误", Toast.LENGTH_LONG).show();
 				break;
 			case Json_Data_Parse_Exception:
-				Toast.makeText(context, "数据异常", Toast.LENGTH_LONG).show();
+				Toast.makeText(PetApplication.petApp, "数据异常", Toast.LENGTH_LONG).show();
 				break;
 			case CONNECT_OUT_TIME:
               if(HomeActivity.homeActivity!=null){
@@ -104,7 +104,7 @@ public class HandleHttpConnectionException {
 		return handleHttpConnectionException;
 	}
 	public Handler getHandler(Context context){
-		this.context=context;
+//		this.context=context;
 		return handler;
 	}
 

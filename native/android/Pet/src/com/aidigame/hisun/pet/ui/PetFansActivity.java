@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.KingdomPeoplesAdapter;
 import com.aidigame.hisun.pet.adapter.KingdomTrendsListAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetNews;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -39,7 +40,7 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 	XListView xListView;
 	 KingdomPeoplesAdapter adapter;
 	   Handler handler;
-	   public ArrayList<User> datas;
+	   public ArrayList<MyUser> datas;
 	   int last_id=-1;
 	   Animal animal;
 		public View popupParent;
@@ -74,7 +75,13 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 					    startActivity(intent);
 					}
 				}
+				petFansActivity=null;
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(PetFansActivity.this)){
+					PetApplication.petApp.activityList.remove(PetFansActivity.this);
+				}
 				finish();
+				System.gc();
 			}
 		});
 		
@@ -84,7 +91,7 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 		xListView.setPullRefreshEnable(true);
 		xListView.setXListViewListener(this);
 		xListView.setAdapter(adapter);
-		datas=new ArrayList<User>();
+		datas=new ArrayList<MyUser>();
 		adapter=new KingdomPeoplesAdapter(this, datas);
 	
 		xListView.setAdapter(adapter);
@@ -93,15 +100,15 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 	public void loadData(){
 		last_id=-1;
 		new Thread(new Runnable() {
-			ArrayList<User> temp=new ArrayList<User>();
+			ArrayList<MyUser> temp=new ArrayList<MyUser>();
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				ArrayList<User> userList=HttpUtil.kingdomPeoples(PetFansActivity.this,last_id, animal, handler);
+				ArrayList<MyUser> userList=HttpUtil.kingdomPeoples(PetFansActivity.this,last_id, animal, handler);
 				
 				if(userList!=null){
 					if(userList.size()>0){
-						User data=null;
+						MyUser data=null;
 						for(int i=0;i<userList.size();i++){
 							data=userList.get(i);
 							if(!temp.contains(data)){
@@ -128,15 +135,15 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 		// TODO Auto-generated method stub
 		last_id=-1;
 		new Thread(new Runnable() {
-			ArrayList<User> temp=new ArrayList<User>();
+			ArrayList<MyUser> temp=new ArrayList<MyUser>();
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				ArrayList<User> userList=HttpUtil.kingdomPeoples(PetFansActivity.this,last_id, animal, handler);
+				ArrayList<MyUser> userList=HttpUtil.kingdomPeoples(PetFansActivity.this,last_id, animal, handler);
 				
 				if(userList!=null){
 					if(userList.size()>0){
-						User data=null;
+						MyUser data=null;
 						for(int i=0;i<userList.size();i++){
 							data=userList.get(i);
 							if(!temp.contains(data)){
@@ -169,15 +176,15 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 		}
 		
 		new Thread(new Runnable() {
-			ArrayList<User> temp=new ArrayList<User>();
+			ArrayList<MyUser> temp=new ArrayList<MyUser>();
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				ArrayList<User> userList=HttpUtil.kingdomPeoples(PetFansActivity.this,last_id, animal, handler);
+				ArrayList<MyUser> userList=HttpUtil.kingdomPeoples(PetFansActivity.this,last_id, animal, handler);
 				
 				if(userList!=null){
 					if(userList.size()>0){
-						User data=null;
+						MyUser data=null;
 						for(int i=0;i<datas.size();i++){
 							if(!temp.contains(datas.get(i))){
 								temp.add(datas.get(i));

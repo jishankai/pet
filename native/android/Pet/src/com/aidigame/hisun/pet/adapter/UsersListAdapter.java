@@ -23,15 +23,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.http.json.UserImagesJson.Data;
-import com.aidigame.hisun.pet.ui.ChatActivity;
+import com.aidigame.hisun.pet.huanxin.ChatActivity;
 import com.aidigame.hisun.pet.ui.UserCardActivity;
 import com.aidigame.hisun.pet.ui.UsersListActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -53,11 +54,11 @@ public class UsersListAdapter extends BaseAdapter {
 	DisplayImageOptions displayImageOptions;//显示图片的格式
     ImageLoader imageLoader;
 	Activity context;
-	ArrayList<User> list;
+	ArrayList<MyUser> list;
 	Handler handler;
 	int animalType=1;//1,猫；2狗
 	HandleHttpConnectionException handleHttpConnectionException;
-	public UsersListAdapter(Activity context,ArrayList<User> list,Handler handler,int animalType){
+	public UsersListAdapter(Activity context,ArrayList<MyUser> list,Handler handler,int animalType){
 		this.context=context;
 		this.list=list;
 		this.handler=handler;
@@ -80,7 +81,7 @@ public class UsersListAdapter extends BaseAdapter {
                 .build();
 	}
 	public void updateList(
-			ArrayList<User> temp) {
+			ArrayList<MyUser> temp) {
 		// TODO Auto-generated method stub
 		this.list=temp;
 	}
@@ -124,7 +125,7 @@ public class UsersListAdapter extends BaseAdapter {
 		}
 		LogUtil.i("exception", "position========"+position);
 //		if(position<list.size()){
-		final User data=list.get(position);
+		final MyUser data=list.get(position);
 		if(data.senderOrLiker==1){
 			holder.giftType.setImageResource(R.drawable.ball_red_gift);
 		}else if(data.senderOrLiker==2){
@@ -146,7 +147,14 @@ public class UsersListAdapter extends BaseAdapter {
 					UsersListActivity u=(UsersListActivity)context;
 					if(!UserStatusUtil.isLoginSuccess(u,u.popup_parent,u.black_layout))return;
 				}*/
-				if(UserCardActivity.userCardActivity!=null)UserCardActivity.userCardActivity.finish();
+				if(UserCardActivity.userCardActivity!=null){
+					if(PetApplication.petApp.activityList.contains(UserCardActivity.userCardActivity)){
+						PetApplication.petApp.activityList.remove(UserCardActivity.userCardActivity);
+					}
+					UserCardActivity.userCardActivity.finish();
+					UserCardActivity.userCardActivity=null;
+					System.gc();
+				}
 				Intent intent=new Intent(context,UserCardActivity.class);
 				intent.putExtra("user", list.get(position));
 				context.startActivity(intent);
@@ -198,7 +206,7 @@ public class UsersListAdapter extends BaseAdapter {
 //		}
 		return convertView;
 	}
-	public void loadIcon(RoundImageView icon,final User data){
+	public void loadIcon(RoundImageView icon,final MyUser data){
 		
 		imageLoader=ImageLoader.getInstance();
 		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+data.u_iconUrl, icon, displayImageOptions);

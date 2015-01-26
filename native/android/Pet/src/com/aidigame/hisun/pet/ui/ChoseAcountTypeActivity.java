@@ -15,8 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aidigame.hisun.pet.FirstPageActivity;
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -38,7 +39,7 @@ public class ChoseAcountTypeActivity extends Activity {
 	int mode;
 	int from;//默认值为0，进行注册；1，已经注册过
 	boolean isBind=false;//是否绑定新浪微博或微信账号
-	User user;
+	MyUser user;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -49,7 +50,7 @@ public class ChoseAcountTypeActivity extends Activity {
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		choseAcountTypeActivity=this;
 		isBind=getIntent().getBooleanExtra("isBind", false);
-		if(isBind)user=(User)getIntent().getSerializableExtra("user");
+		if(isBind)user=(MyUser)getIntent().getSerializableExtra("user");
 		initView();
 	}
 	private void initView() {
@@ -95,7 +96,13 @@ public class ChoseAcountTypeActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				
+				choseAcountTypeActivity=null;
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(ChoseAcountTypeActivity.this)){
+					PetApplication.petApp.activityList.remove(ChoseAcountTypeActivity.this);
+				}
 				ChoseAcountTypeActivity.this.finish();
+				System.gc();
 			}
 		});
 		hasPetIV.setOnClickListener(new OnClickListener() {

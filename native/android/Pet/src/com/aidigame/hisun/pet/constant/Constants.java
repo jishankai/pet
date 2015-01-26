@@ -5,7 +5,7 @@ import java.io.File;
 import android.R.integer;
 import android.os.Environment;
 
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.http.json.InfoJson;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 
@@ -39,7 +39,7 @@ public class Constants {
 	public static int planet=1;//1.猫；2.狗
 	//aviary第三方类库的key值
 	public static String EXTRA_IN_API_KEY_SECRET="f6d0dd319088fd5a";
-	public static User user;
+	public static MyUser user;
 	public static boolean netStatus;//网络状态，是否联网
 	//注册成功
 	public static final int REGISTER_SUCCESS=1;
@@ -57,17 +57,26 @@ public class Constants {
 //	public static String URL_ROOT="/dc/index.php?";
 	public static String URL_ROOT="/index.php?";
 	public static String URL_ROOT2="/index.php?";//
-	public static String IP="release4pet.aidigame.com";//   dev.jishankai.me:8001  release4pet.aidigame.com  dev4pet.aidigame.com
-	public static String IP2="release4pet.aidigame.com";//:8080   123.57.39.48
+	public static String IP="release4pet.aidigame.com";//   release4pet.aidigame.com   dev4pet.aidigame.com
+	public static String IP2="release4pet.aidigame.com";//release4pet.aidigame.com
 	//下载头像
 //	public static String USER_DOWNLOAD_TX="http://"+IP+"/dc/images/tx/";
 	public static String USER_DOWNLOAD_TX="http://pet4tx.oss-cn-beijing.aliyuncs.com/"+"tx_usr/";
+	                                      //http://pet4tx.oss-cn-beijing.aliyuncs.com/
+	                                      //-test
+	
+	
 	public static String ANIMAL_DOWNLOAD_TX="http://pet4tx.oss-cn-beijing.aliyuncs.com/"+"tx_ani/";
+                                          //http://pet4tx.oss-cn-beijing.aliyuncs.com/
+	
+	
     //下载声音
     public static String DOWNLOAD_VOICE="http://pet4voices.oss-cn-beijing.aliyuncs.com/ani/";//不需要加密
   //欢迎页图片下载
-    public static String WELCOME_IMAGE="http://pet4welcome.oss-cn-beijing.aliyuncs.com/";//"http://"+IP+URL_ROOT+"r=user/welcomeApi"
+    public static String WELCOME_IMAGE="http://pet4welcome.oss-cn-beijing.aliyuncs.com/";//
+                                       //http://pet4welcome.oss-cn-beijing.aliyuncs.com/
     public static String UPLOAD_IMAGE_RETURN_URL="http://pet4upload.oss-cn-beijing.aliyuncs.com/";
+                                      //http://pet4upload.oss-cn-beijing.aliyuncs.com/
     public static String DOWNLOAD_FOOD_PATH="item/";
 	
 	
@@ -399,6 +408,11 @@ public class Constants {
     public static final String BASEIC_SHAREDPREFERENCE_NAME_GUIDE1="guide1";	
     public static final String BASEIC_SHAREDPREFERENCE_NAME_GUIDE2="guide2";
     public static final String BASEIC_SHAREDPREFERENCE_NAME_GUIDE3="guide3";
+    public static final String BASEIC_SHAREDPREFERENCE_NAME_GUIDE4="guide4";
+    public static final String BASEIC_SHAREDPREFERENCE_NAME_GUIDE5="guide5";
+    public static final String BASEIC_SHAREDPREFERENCE_NAME_GUIDE6="guide6";
+    public static final String BASEIC_SHAREDPREFERENCE_NAME_GUIDE7="guide7";
+    public static final String BASEIC_VERSION="version";
     public static final String LOCK_TO_WEIXIN="LOCK_TO_WEIXIN";//账号绑定到微信，返回boolean值   是否绑定
     public static final String LOCK_TO_XINLANG="LOCK_TO_XINLANG";//账号绑定到新浪，返回boolean值   是否绑定
     //照片是否同步发送到微信朋友圈

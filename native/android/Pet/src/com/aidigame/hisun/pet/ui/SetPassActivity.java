@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.ui;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
@@ -243,7 +244,13 @@ public class SetPassActivity extends Activity implements OnClickListener{
 						this.startActivity(intent);
 					}
 				}
+				setPassActivity=null;
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+					PetApplication.petApp.activityList.remove(this);
+				}
 				finish();
+				System.gc();
 				break;
 			case R.id.login_sure:
 				if(!canClick)return;

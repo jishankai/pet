@@ -109,9 +109,9 @@ public final class R {
 		public static final int visibility = 0x7f010013;
 	}
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f020156;
-		public static final int news_item_bg = 0x7f020189;
-		public static final int xlistview_arrow = 0x7f020249;
+		public static final int ic_launcher = 0x7f0201c4;
+		public static final int news_item_bg = 0x7f020205;
+		public static final int xlistview_arrow = 0x7f0202f4;
 	}
 	public static final class id {
 		public static final int afterDescendants = 0x7f060028;
@@ -123,7 +123,7 @@ public final class R {
 		public static final int auto = 0x7f06000b;
 		public static final int beforeDescendants = 0x7f060027;
 		public static final int blocksDescendants = 0x7f060029;
-		public static final int card_list = 0x7f0602bb;
+		public static final int card_list = 0x7f0602fc;
 		public static final int center = 0x7f06001f;
 		public static final int defaultPosition = 0x7f060011;
 		public static final int disabled = 0x7f06002a;
@@ -139,7 +139,7 @@ public final class R {
 		public static final int insideOverlay = 0x7f060007;
 		public static final int invisible = 0x7f060002;
 		public static final int left = 0x7f060012;
-		public static final int like = 0x7f0602bd;
+		public static final int like = 0x7f0602fe;
 		public static final int list = 0x7f060046;
 		public static final int locale = 0x7f060019;
 		public static final int low = 0x7f06000c;
@@ -147,20 +147,20 @@ public final class R {
 		public static final int multipleChoice = 0x7f06002e;
 		public static final int multipleChoiceModal = 0x7f06002f;
 		public static final int never = 0x7f060010;
-		public static final int news_list = 0x7f060256;
-		public static final int news_pic = 0x7f060257;
-		public static final int news_title = 0x7f060258;
+		public static final int news_list = 0x7f0602a3;
+		public static final int news_pic = 0x7f0602a4;
+		public static final int news_title = 0x7f0602a5;
 		public static final int no = 0x7f060023;
 		public static final int none = 0x7f060004;
 		public static final int normal = 0x7f06002b;
 		public static final int outsideInset = 0x7f06000a;
 		public static final int outsideOverlay = 0x7f060009;
-		public static final int ptr_id_header = 0x7f0602f1;
-		public static final int ptr_id_image = 0x7f0602f2;
-		public static final int ptr_id_last_updated = 0x7f0602f6;
-		public static final int ptr_id_spinner = 0x7f0602f3;
-		public static final int ptr_id_text = 0x7f0602f5;
-		public static final int ptr_id_textwrapper = 0x7f0602f4;
+		public static final int ptr_id_header = 0x7f060331;
+		public static final int ptr_id_image = 0x7f060332;
+		public static final int ptr_id_last_updated = 0x7f060336;
+		public static final int ptr_id_spinner = 0x7f060333;
+		public static final int ptr_id_text = 0x7f060335;
+		public static final int ptr_id_textwrapper = 0x7f060334;
 		public static final int right = 0x7f060013;
 		public static final int rtl = 0x7f060017;
 		public static final int scrapped_view = 0x7f060000;
@@ -169,30 +169,30 @@ public final class R {
 		public static final int software = 0x7f060014;
 		public static final int textEnd = 0x7f06001e;
 		public static final int textStart = 0x7f06001d;
-		public static final int thumbnail = 0x7f0602bc;
+		public static final int thumbnail = 0x7f0602fd;
 		public static final int vertical = 0x7f060006;
 		public static final int viewEnd = 0x7f060021;
 		public static final int viewStart = 0x7f060020;
 		public static final int visible = 0x7f060001;
-		public static final int xlistview_footer_content = 0x7f06034e;
-		public static final int xlistview_footer_hint_textview = 0x7f060350;
-		public static final int xlistview_footer_progressbar = 0x7f06034f;
-		public static final int xlistview_header_arrow = 0x7f060355;
-		public static final int xlistview_header_content = 0x7f060351;
-		public static final int xlistview_header_hint_textview = 0x7f060353;
-		public static final int xlistview_header_progressbar = 0x7f060356;
-		public static final int xlistview_header_text = 0x7f060352;
-		public static final int xlistview_header_time = 0x7f060354;
+		public static final int xlistview_footer_content = 0x7f0603b5;
+		public static final int xlistview_footer_hint_textview = 0x7f0603b7;
+		public static final int xlistview_footer_progressbar = 0x7f0603b6;
+		public static final int xlistview_header_arrow = 0x7f0603bc;
+		public static final int xlistview_header_content = 0x7f0603b8;
+		public static final int xlistview_header_hint_textview = 0x7f0603ba;
+		public static final int xlistview_header_progressbar = 0x7f0603bd;
+		public static final int xlistview_header_text = 0x7f0603b9;
+		public static final int xlistview_header_time = 0x7f0603bb;
 		public static final int yes = 0x7f060022;
 	}
 	public static final class layout {
 		public static final int act_pull_to_refresh_sample = 0x7f030000;
 		public static final int act_sample = 0x7f030001;
-		public static final int infos_list = 0x7f030088;
-		public static final int item_sample = 0x7f0300af;
-		public static final int ptr_header = 0x7f0300d8;
-		public static final int xlistview_footer = 0x7f0300f6;
-		public static final int xlistview_header = 0x7f0300f7;
+		public static final int infos_list = 0x7f030097;
+		public static final int item_sample = 0x7f0300ba;
+		public static final int ptr_header = 0x7f0300e3;
+		public static final int xlistview_footer = 0x7f030110;
+		public static final int xlistview_header = 0x7f030111;
 	}
 	public static final class string {
 		public static final int app_name = 0x7f080000;

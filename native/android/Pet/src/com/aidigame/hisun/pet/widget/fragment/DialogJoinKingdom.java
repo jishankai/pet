@@ -53,12 +53,25 @@ public class DialogJoinKingdom {
 		view=LayoutInflater.from(context).inflate(R.layout.popup_dialog_join_kingdom, null);
 		noteTv=(TextView)view.findViewById(R.id.note_tv);
 		
-		if(Constants.user.aniList.size()>=10){
-			if(Constants.user.aniList.size()<=20){
-				num=(Constants.user.aniList.size()+1)*5;
-			}else{
-				num=100;
-			}
+		
+		
+		
+		int count=0;
+		for(int i=0;i<Constants.user.aniList.size();i++){
+//			if(Constants.user.aniList.get(i).master_id!=Constants.user.userId)
+				count++;
+		}
+		
+		
+		if(count>10&&count<=20){
+			num=(count)*5;
+		}else if(count>20){
+			num=100;
+		}
+		if(count>=10){
+			
+			
+			
 			String htmlStr1="<html>"
 		             +"<body>"
 					    +"温馨提示：本次成功捧星会消耗您"

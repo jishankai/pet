@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.ui;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
@@ -126,20 +127,36 @@ public class Dialog3Activity extends Activity implements OnClickListener{
 			
 			switch (v.getId()) {
 			case R.id.close:
-				finish();
+				
 				if(listener!=null){
 					listener.onClose();
 				}
-				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+					PetApplication.petApp.activityList.remove(this);
+				}
+				finish();
+				System.gc();
 				break;
 			case R.id.register_tv:
-				finish();
+				
 				if(listener!=null){
 					listener.onButtonTwo();
 				}
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+					PetApplication.petApp.activityList.remove(this);
+				}
+				finish();
+				System.gc();
 				break;
 			case R.id.choice_one_layout:
-				if(mode!=4)finish();
+				if(mode!=4){
+					
+					if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+						PetApplication.petApp.activityList.remove(this);
+					}
+					finish();
+					System.gc();
+				}
 				if(listener!=null){
 					listener.onButtonOne();
 				}

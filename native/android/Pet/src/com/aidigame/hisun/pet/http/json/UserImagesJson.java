@@ -15,7 +15,7 @@ import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetPicture;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.util.StringUtil;
 /**
  * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
@@ -251,7 +251,7 @@ public class UserImagesJson  implements Serializable{
 		public int img_id;
 		public String update_time;
 		public String path;//图片下载到本地 之后的保存地址
-		public User  user;
+		public MyUser  user;
 		public boolean isUser=true;
 		public boolean isFriend;
 		public ArrayList<String> likers_icons_urls;

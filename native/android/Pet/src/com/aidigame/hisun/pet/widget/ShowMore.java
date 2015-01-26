@@ -16,11 +16,11 @@ import android.widget.Toast;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
-import com.aidigame.hisun.pet.ui.ChatActivity;
+import com.aidigame.hisun.pet.huanxin.ChatActivity;
 import com.aidigame.hisun.pet.ui.ModifyPetInfoActivity;
 import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
@@ -28,6 +28,7 @@ import com.aidigame.hisun.pet.ui.TakePictureBackground;
 import com.aidigame.hisun.pet.ui.TouchActivity;
 import com.aidigame.hisun.pet.ui.WarningDialogActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
+import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.widget.fragment.DialogNote;
@@ -59,7 +60,7 @@ public class ShowMore implements OnClickListener{
 	ImageView weixinIv,friendIv,xinlangIv;
 	TextView joinTv,focusTv,pictureOrMailTv,cancelTv,pictrueTv,modifyTv;
 	Animal animal;
-	User user;
+	MyUser user;
 	HandleHttpConnectionException handleHttpConnectionException;
 	public String sharePath;
 	UMSocialService mController;
@@ -181,7 +182,7 @@ public class ShowMore implements OnClickListener{
 			focusTv.setVisibility(View.GONE);
 		}
 	}
-	public void userDossier(final User user){
+	public void userDossier(final MyUser user){
 		/*
 		 * 查看其他人的个人资料
 		 */
@@ -478,13 +479,13 @@ public class ShowMore implements OnClickListener{
 				parent.setVisibility(View.INVISIBLE);
 				rootParent.setBackgroundDrawable(null);
 				rootCanTouch=false;
-				if(Constants.api==null){
+				/*if(Constants.api==null){
 					boolean flag=WeixinShare.regToWeiXin(activity);
 					if(!flag){
 						Toast.makeText(activity,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
 						return;
 					}
-				}
+				}*/
 				UserImagesJson.Data data=new UserImagesJson.Data();
 				data.path=sharePath;
 				weixinShare(sharePath);
@@ -575,13 +576,13 @@ public class ShowMore implements OnClickListener{
 	 public void weixinShare(String path){
 	   	   WeiXinShareContent weixinContent = new WeiXinShareContent();
 	   	 //设置分享文字
-//	   	 weixinContent.setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能，微信");
+	   	 weixinContent.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
 	   	 //设置title
-//	   	 weixinContent.setTitle("友盟社会化分享组件-微信");
+	   	 weixinContent.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
 	   	 //设置分享内容跳转URL
-//	   	 weixinContent.setTargetUrl("你的URL链接");
+	   	 weixinContent.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
 	   	 //设置分享图片
-	   	 UMImage umImage=new UMImage(activity,path );
+	   	 UMImage umImage=new UMImage(activity,animal.pet_iconPath );
 	   	 weixinContent.setShareImage(umImage);
 	   	 mController.setShareMedia(weixinContent);
 //	   	 mController.openShare(this, true);
@@ -611,7 +612,13 @@ public class ShowMore implements OnClickListener{
 	      }
 	      public void friendShare(String path){
 	   	   CircleShareContent circleMedia = new CircleShareContent();
-	   	   UMImage umImage=new UMImage(activity, path);
+	   	 //设置分享文字
+	   	circleMedia.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
+		   	 //设置title
+	   	circleMedia.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+		   	 //设置分享内容跳转URL
+	   	circleMedia.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
+	   	   UMImage umImage=new UMImage(activity, animal.pet_iconPath);
 	   	   circleMedia.setShareImage(umImage);
 //	   	   circleMedia.setTargetUrl("你的URL链接");
 	   	   mController.setShareMedia(circleMedia);
@@ -651,8 +658,8 @@ public class ShowMore implements OnClickListener{
 				}
 	   		}
 	   	   SinaShareContent content=new SinaShareContent();
-	   	   content.setShareContent(data.des);
-	   	   UMImage umImage=new UMImage(activity, data.path);
+	   	   content.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~"+"http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id+"（分享自@宠物星球社交应用）");
+	   	   UMImage umImage=new UMImage(activity, animal.pet_iconPath);
 	   	  
 	   	   content.setShareImage(umImage);
 	   	   mController.setShareMedia(content);

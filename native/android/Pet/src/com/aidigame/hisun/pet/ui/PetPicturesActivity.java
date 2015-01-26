@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.GridPictureAdapter;
 import com.aidigame.hisun.pet.adapter.KingdomPeoplesAdapter;
@@ -13,7 +14,7 @@ import com.aidigame.hisun.pet.adapter.ShowTopicsAdapter2;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetNews;
 import com.aidigame.hisun.pet.bean.PetPicture;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
@@ -79,7 +80,15 @@ public class PetPicturesActivity extends Activity implements IXListViewListener{
 					    startActivity(intent);
 					}
 				}
+				petPictureActivity=null;
+				adapter.update(new ArrayList<PetPicture>());
+				adapter.notifyDataSetChanged();
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(PetPicturesActivity.this)){
+					PetApplication.petApp.activityList.remove(PetPicturesActivity.this);
+				}
 				finish();
+				System.gc();
 			}
 		});
 		

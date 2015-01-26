@@ -1,3 +1,4 @@
+# view res/layout/activity_chat_huanxin.xml #generated:214
 # view res/layout/activity_new_register.xml #generated:21
 # view res/layout/activity_shake.xml #generated:47
 # view res/layout/dialog_give_sb_gift.xml #generated:37
@@ -6,211 +7,256 @@
 # view res/layout/fragment_my_pet.xml #generated:73
 -keep class android.support.v4.view.ViewPager { <init>(...); }
 
-# view AndroidManifest.xml #generated:153
+# view AndroidManifest.xml #generated:158
 -keep class com.aidigame.hisun.pet.FirstPageActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:30
+# view AndroidManifest.xml #generated:35
 -keep class com.aidigame.hisun.pet.PetApplication { <init>(...); }
 
-# view AndroidManifest.xml #generated:343
+# view AndroidManifest.xml #generated:403
+-keep class com.aidigame.hisun.pet.huanxin.AddContactActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:440
+-keep class com.aidigame.hisun.pet.huanxin.AlertDialog { <init>(...); }
+
+# view AndroidManifest.xml #generated:395
+-keep class com.aidigame.hisun.pet.huanxin.ChatActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:452
+-keep class com.aidigame.hisun.pet.huanxin.ContextMenu { <init>(...); }
+
+# view res/layout/expression_gridview.xml #generated:7
+-keep class com.aidigame.hisun.pet.huanxin.ExpandGridView { <init>(...); }
+
+# view AndroidManifest.xml #generated:415
+-keep class com.aidigame.hisun.pet.huanxin.ImageGridActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:387
+-keep class com.aidigame.hisun.pet.huanxin.MainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:409
+-keep class com.aidigame.hisun.pet.huanxin.NewFriendsMsgActivity { <init>(...); }
+
+# view res/layout/activity_chat_huanxin.xml #generated:135
+-keep class com.aidigame.hisun.pet.huanxin.PasteEditText { <init>(...); }
+
+# view res/layout/activity_show_big_image.xml #generated:8
+-keep class com.aidigame.hisun.pet.huanxin.PhotoView { <init>(...); }
+
+# view AndroidManifest.xml #generated:427
+-keep class com.aidigame.hisun.pet.huanxin.RecorderVideoActivity { <init>(...); }
+
+# view res/layout/choose_griditem.xml #generated:12
+-keep class com.aidigame.hisun.pet.huanxin.RecyclingImageView { <init>(...); }
+
+# view AndroidManifest.xml #generated:445
+-keep class com.aidigame.hisun.pet.huanxin.SettingsActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:422
+-keep class com.aidigame.hisun.pet.huanxin.ShowBigImage { <init>(...); }
+
+# view AndroidManifest.xml #generated:433
+-keep class com.aidigame.hisun.pet.huanxin.ShowVideoActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:345
 -keep class com.aidigame.hisun.pet.service.DownLoadApkService { <init>(...); }
 
-# view AndroidManifest.xml #generated:266
+# view AndroidManifest.xml #generated:265
 -keep class com.aidigame.hisun.pet.ui.AboutUsActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:324
+# view AndroidManifest.xml #generated:326
 -keep class com.aidigame.hisun.pet.ui.AccountActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:234
+# view AndroidManifest.xml #generated:233
 -keep class com.aidigame.hisun.pet.ui.ActivityWebActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:315
+# view AndroidManifest.xml #generated:317
 -keep class com.aidigame.hisun.pet.ui.AddGoldContriExpActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:177
+# view AndroidManifest.xml #generated:182
 -keep class com.aidigame.hisun.pet.ui.AdviceActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:167
+# view AndroidManifest.xml #generated:172
 -keep class com.aidigame.hisun.pet.ui.AlbumPictureBackground { <init>(...); }
 
-# view AndroidManifest.xml #generated:270
+# view AndroidManifest.xml #generated:269
 -keep class com.aidigame.hisun.pet.ui.AnimalsListActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:243
+# view AndroidManifest.xml #generated:242
 -keep class com.aidigame.hisun.pet.ui.AtUserListActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:175
+# view AndroidManifest.xml #generated:180
 -keep class com.aidigame.hisun.pet.ui.AwardDetailActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:186
+# view AndroidManifest.xml #generated:191
 -keep class com.aidigame.hisun.pet.ui.BegPicturesActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:306
+# view AndroidManifest.xml #generated:305
 -keep class com.aidigame.hisun.pet.ui.BiteActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:251
+# view AndroidManifest.xml #generated:250
 -keep class com.aidigame.hisun.pet.ui.ChargeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:210
+# view AndroidManifest.xml #generated:209
 -keep class com.aidigame.hisun.pet.ui.ChatActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:197
+# view AndroidManifest.xml #generated:196
 -keep class com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:161
+# view AndroidManifest.xml #generated:166
 -keep class com.aidigame.hisun.pet.ui.ChoseClassActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:200
+# view AndroidManifest.xml #generated:199
 -keep class com.aidigame.hisun.pet.ui.ChoseKingActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:260
+# view AndroidManifest.xml #generated:259
 -keep class com.aidigame.hisun.pet.ui.ChosePetActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:190
--keep class com.aidigame.hisun.pet.ui.ChoseStarActivity { <init>(...); }
-
-# view AndroidManifest.xml #generated:248
+# view AndroidManifest.xml #generated:247
 -keep class com.aidigame.hisun.pet.ui.ContributeRankListActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:173
+# view AndroidManifest.xml #generated:178
 -keep class com.aidigame.hisun.pet.ui.DetailActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:297
+# view AndroidManifest.xml #generated:296
 -keep class com.aidigame.hisun.pet.ui.Dialog3Activity { <init>(...); }
 
-# view AndroidManifest.xml #generated:291
+# view AndroidManifest.xml #generated:290
 -keep class com.aidigame.hisun.pet.ui.Dialog4Activity { <init>(...); }
 
-# view AndroidManifest.xml #generated:294
+# view AndroidManifest.xml #generated:293
 -keep class com.aidigame.hisun.pet.ui.Dialog6Activity { <init>(...); }
 
-# view AndroidManifest.xml #generated:284
+# view AndroidManifest.xml #generated:283
 -keep class com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1 { <init>(...); }
 
-# view AndroidManifest.xml #generated:303
+# view AndroidManifest.xml #generated:302
 -keep class com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:280
+# view AndroidManifest.xml #generated:279
 -keep class com.aidigame.hisun.pet.ui.DialogGoRegisterActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:300
+# view AndroidManifest.xml #generated:299
 -keep class com.aidigame.hisun.pet.ui.DialogNoteActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:309
+# view AndroidManifest.xml #generated:308
 -keep class com.aidigame.hisun.pet.ui.DialogPengTaSuccActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:221
+# view AndroidManifest.xml #generated:220
 -keep class com.aidigame.hisun.pet.ui.ExchangeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:272
+# view AndroidManifest.xml #generated:271
 -keep class com.aidigame.hisun.pet.ui.FAQActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:245
+# view AndroidManifest.xml #generated:244
 -keep class com.aidigame.hisun.pet.ui.GiftInfoActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:145
+# view AndroidManifest.xml #generated:150
 -keep class com.aidigame.hisun.pet.ui.HomeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:330
+# view AndroidManifest.xml #generated:332
 -keep class com.aidigame.hisun.pet.ui.InviteOthersDialogActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:262
+# view AndroidManifest.xml #generated:261
 -keep class com.aidigame.hisun.pet.ui.MarketActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:180
+# view AndroidManifest.xml #generated:185
 -keep class com.aidigame.hisun.pet.ui.MessageActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:257
+# view AndroidManifest.xml #generated:256
 -keep class com.aidigame.hisun.pet.ui.ModifyPetInfoActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:268
+# view AndroidManifest.xml #generated:267
 -keep class com.aidigame.hisun.pet.ui.MyItemActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:136
+# view AndroidManifest.xml #generated:141
 -keep class com.aidigame.hisun.pet.ui.NewHomeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:214
+# view AndroidManifest.xml #generated:213
 -keep class com.aidigame.hisun.pet.ui.NewPetKingdomActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:207
+# view AndroidManifest.xml #generated:206
 -keep class com.aidigame.hisun.pet.ui.NewRegisterActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:128
+# view AndroidManifest.xml #generated:133
 -keep class com.aidigame.hisun.pet.ui.NewShowTopicActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:183
+# view AndroidManifest.xml #generated:188
 -keep class com.aidigame.hisun.pet.ui.PetFansActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:229
+# view AndroidManifest.xml #generated:228
 -keep class com.aidigame.hisun.pet.ui.PetGiftActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:211
+# view AndroidManifest.xml #generated:210
 -keep class com.aidigame.hisun.pet.ui.PetKingdomActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:231
+# view AndroidManifest.xml #generated:230
 -keep class com.aidigame.hisun.pet.ui.PetPicturesActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:224
+# view AndroidManifest.xml #generated:223
 -keep class com.aidigame.hisun.pet.ui.PetTrendsActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:227
+# view AndroidManifest.xml #generated:314
+-keep class com.aidigame.hisun.pet.ui.PictureBegActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:226
 -keep class com.aidigame.hisun.pet.ui.PlayGameActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:288
+# view AndroidManifest.xml #generated:287
 -keep class com.aidigame.hisun.pet.ui.PlayJokeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:254
+# view AndroidManifest.xml #generated:253
 -keep class com.aidigame.hisun.pet.ui.PopularRankListActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:236
+# view AndroidManifest.xml #generated:235
 -keep class com.aidigame.hisun.pet.ui.ReceiverAddressActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:321
+# view AndroidManifest.xml #generated:323
 -keep class com.aidigame.hisun.pet.ui.RegisterNoteDialog { <init>(...); }
 
-# view AndroidManifest.xml #generated:327
+# view AndroidManifest.xml #generated:329
 -keep class com.aidigame.hisun.pet.ui.SetPassActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:264
+# view AndroidManifest.xml #generated:263
 -keep class com.aidigame.hisun.pet.ui.SetupActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:274
+# view AndroidManifest.xml #generated:273
 -keep class com.aidigame.hisun.pet.ui.ShakeActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:133
+# view AndroidManifest.xml #generated:138
 -keep class com.aidigame.hisun.pet.ui.ShowPictureActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:124
+# view AndroidManifest.xml #generated:129
 -keep class com.aidigame.hisun.pet.ui.ShowTopicActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:122
+# view AndroidManifest.xml #generated:127
 -keep class com.aidigame.hisun.pet.ui.SubmitPictureActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:164
+# view AndroidManifest.xml #generated:169
 -keep class com.aidigame.hisun.pet.ui.TakePictureBackground { <init>(...); }
 
-# view AndroidManifest.xml #generated:241
+# view AndroidManifest.xml #generated:240
 -keep class com.aidigame.hisun.pet.ui.TopicListActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:312
+# view AndroidManifest.xml #generated:311
 -keep class com.aidigame.hisun.pet.ui.TouchActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:333
+# view AndroidManifest.xml #generated:335
 -keep class com.aidigame.hisun.pet.ui.UpdateAPKActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:277
+# view AndroidManifest.xml #generated:276
 -keep class com.aidigame.hisun.pet.ui.UserCardActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:218
+# view AndroidManifest.xml #generated:217
 -keep class com.aidigame.hisun.pet.ui.UserDossierActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:170
+# view AndroidManifest.xml #generated:175
 -keep class com.aidigame.hisun.pet.ui.UsersListActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:318
+# view AndroidManifest.xml #generated:320
 -keep class com.aidigame.hisun.pet.ui.WarningDialogActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:347
+# view AndroidManifest.xml #generated:349
 -keep class com.aidigame.hisun.pet.util.DeviceNetInfoUtil$NetworkStatusChangeReceiver { <init>(...); }
 
 # view res/layout/arc_menu.xml #generated:21
@@ -231,7 +277,6 @@
 -keep class com.aidigame.hisun.pet.view.HorizontialListView { <init>(...); }
 
 # view res/layout/activity_show_topic.xml #generated:441
-# view res/layout/fragment_message.xml #generated:31
 # view res/layout/widget_llistview1.xml #generated:7
 -keep class com.aidigame.hisun.pet.view.LinearLayoutForListView { <init>(...); }
 
@@ -239,7 +284,6 @@
 -keep class com.aidigame.hisun.pet.view.ListViewForScrollView { <init>(...); }
 
 # view res/layout/activity_show_topic.xml #generated:109
-# view res/layout/fragment_message.xml #generated:17
 -keep class com.aidigame.hisun.pet.view.MyScrollView { <init>(...); }
 
 # view res/layout/act_pull_to_refresh_sample.xml #generated:18
@@ -285,9 +329,6 @@
 # view res/layout/item_home_pet_pictures.xml #generated:67
 # view res/layout/item_kingdom_people_listview.xml #generated:21
 # view res/layout/item_listview_topic.xml #generated:15
-# view res/layout/item_mail_listview.xml #generated:37
-# view res/layout/item_mail_listview.xml #generated:99
-# view res/layout/item_message_list.xml #generated:20
 # view res/layout/item_only_icon.xml #generated:7
 # view res/layout/item_register_view1.xml #generated:183
 # view res/layout/item_register_view2.xml #generated:221
@@ -299,6 +340,15 @@
 # view res/layout/item_user_focus_listview.xml #generated:33
 # view res/layout/item_users_listview.xml #generated:19
 # view res/layout/itemtopic_users_list.xml #generated:16
+# view res/layout/row_chat_history.xml #generated:22
+# view res/layout/row_received_message.xml #generated:29
+# view res/layout/row_received_picture.xml #generated:29
+# view res/layout/row_received_video.xml #generated:29
+# view res/layout/row_received_voice.xml #generated:29
+# view res/layout/row_sent_message.xml #generated:29
+# view res/layout/row_sent_picture.xml #generated:29
+# view res/layout/row_sent_video.xml #generated:29
+# view res/layout/row_sent_voice.xml #generated:29
 -keep class com.aidigame.hisun.pet.view.RoundImageView { <init>(...); }
 
 # view res/layout/activity_touch.xml #generated:34
@@ -315,22 +365,22 @@
 # view res/layout/widget_waterfull.xml #generated:9
 -keep class com.aidigame.hisun.pet.waterfull1.LazyScrollView { <init>(...); }
 
-# view AndroidManifest.xml #generated:336
+# view AndroidManifest.xml #generated:338
 -keep class com.aidigame.hisun.pet.wxapi.WXEntryActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:71
+# view AndroidManifest.xml #generated:76
 -keep class com.aviary.android.feather.AlertActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:61
+# view AndroidManifest.xml #generated:66
 -keep class com.aviary.android.feather.FeatherActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:98
+# view AndroidManifest.xml #generated:103
 -keep class com.aviary.android.feather.cds.AviaryCdsProvider { <init>(...); }
 
-# view AndroidManifest.xml #generated:107
+# view AndroidManifest.xml #generated:112
 -keep class com.aviary.android.feather.cds.AviaryCdsReceiver { <init>(...); }
 
-# view AndroidManifest.xml #generated:83
+# view AndroidManifest.xml #generated:88
 -keep class com.aviary.android.feather.cds.AviaryCdsService { <init>(...); }
 
 # view res/layout/aviary_main_view.xml #generated:2
@@ -488,22 +538,30 @@
 # view res/layout/waterfallitem.xml #generated:2
 -keep class com.dodowaterfall.widget.FlowView { <init>(...); }
 
+# view AndroidManifest.xml #generated:386
+-keep class com.easemob.chat.EMChatService { <init>(...); }
+
+# view AndroidManifest.xml #generated:458
+-keep class com.easemob.chat.StartServiceReceiver { <init>(...); }
+
+# view res/layout/activity_pick_contact_no_checkbox.xml #generated:42
+-keep class com.easemob.chatuidemo.widget.Sidebar { <init>(...); }
+
 # view res/layout/act_sample.xml #generated:6
 -keep class com.huewu.pla.lib.MultiColumnListView { <init>(...); }
 
-# view res/layout/fragment_message.xml #generated:10
 # view res/layout/test_gridview.xml #generated:2
 # view res/layout/test_listview.xml #generated:2
 # view res/layout/test_scrollview.xml #generated:8
 -keep class com.miloisbadboy.view.PullToRefreshView { <init>(...); }
 
-# view AndroidManifest.xml #generated:360
+# view AndroidManifest.xml #generated:362
 -keep class com.umeng.fb.ContactActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:358
+# view AndroidManifest.xml #generated:360
 -keep class com.umeng.fb.ConversationActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:366
+# view AndroidManifest.xml #generated:368
 -keep class com.umeng.socialize.view.ShareActivity { <init>(...); }
 
 # view res/layout/umeng_socialize_post_share.xml #generated:2
@@ -539,4 +597,59 @@
 
 # view res/layout/number_picker_with_selector_wheel.xml #generated:22
 -keep class net.simonvt.numberpicker.NumberPicker$CustomEditText { <init>(...); }
+
+# onClick res/layout/commom_back_btn.xml #generated:2
+-keepclassmembers class * { *** back(...); }
+
+# onClick res/layout/alert_dialog.xml #generated:61
+-keepclassmembers class * { *** cancel(...); }
+
+# onClick res/layout/context_menu_for_text.xml #generated:10
+-keepclassmembers class * { *** copy(...); }
+
+# onClick res/layout/context_menu_for_image.xml #generated:28
+# onClick res/layout/context_menu_for_location.xml #generated:10
+# onClick res/layout/context_menu_for_text.xml #generated:28
+# onClick res/layout/context_menu_for_video.xml #generated:16
+# onClick res/layout/context_menu_for_voice.xml #generated:16
+-keepclassmembers class * { *** delete(...); }
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:135
+-keepclassmembers class * { *** editClick(...); }
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:25
+-keepclassmembers class * { *** emptyHistory(...); }
+
+# onClick res/layout/context_menu_for_image.xml #generated:45
+# onClick res/layout/context_menu_for_text.xml #generated:44
+-keepclassmembers class * { *** forward(...); }
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:175
+-keepclassmembers class * { *** more(...); }
+
+# onClick res/layout/alert_dialog.xml #generated:75
+-keepclassmembers class * { *** ok(...); }
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:184
+# onClick res/layout/activity_chat_huanxin.xml #generated:247
+# onClick res/layout/activity_chat_huanxin.xml #generated:277
+# onClick res/layout/activity_chat_huanxin.xml #generated:308
+# onClick res/layout/activity_chat_huanxin.xml #generated:338
+# onClick res/layout/activity_chat_huanxin.xml #generated:378
+# onClick res/layout/activity_chat_huanxin.xml #generated:410
+-keepclassmembers class * { *** onClick(...); }
+
+# onClick res/layout/activity_main.xml #generated:24
+# onClick res/layout/activity_main.xml #generated:59
+# onClick res/layout/activity_main.xml #generated:93
+-keepclassmembers class * { *** onTabClicked(...); }
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:94
+-keepclassmembers class * { *** setModeKeyboard(...); }
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:85
+-keepclassmembers class * { *** setModeVoice(...); }
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:43
+-keepclassmembers class * { *** toGroupDetails(...); }
 

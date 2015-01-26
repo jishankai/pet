@@ -46,7 +46,11 @@ public class AlbumPictureBackground extends Activity {
 				LogUtil.i("me", "图库返回的uri.getPath()="+uri.getPath());
 				intent3.putExtra("path", path);
 				AlbumPictureBackground.this.startActivity(intent3);
-				AlbumPictureBackground.this.finish();
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(AlbumPictureBackground.this)){
+					PetApplication.petApp.activityList.remove(AlbumPictureBackground.this);
+				}
+				finish();
+				System.gc();
 			}
 				
 		};
@@ -62,7 +66,11 @@ public class AlbumPictureBackground extends Activity {
 		isBeg=getIntent().getBooleanExtra("isBeg", false);
 		switch (mode) {
 		case -1:
-			this.finish();
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
+			finish();
+			System.gc();
 			break;
 		}
 		animal=(Animal)getIntent().getSerializableExtra("animal");

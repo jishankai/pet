@@ -241,8 +241,9 @@ public class UserActivityAdapter2 extends BaseAdapter  {
 					intent3.putExtra("from", "UserHomepageActivity");
 				}else{
 					intent3.putExtra("from", "OtherUserTopicActivity");
-					if(NewShowTopicActivity.newShowTopicActivity!=null)
-						NewShowTopicActivity.newShowTopicActivity.finish();
+					if(NewShowTopicActivity.newShowTopicActivity!=null){
+						NewShowTopicActivity.newShowTopicActivity.recyle();
+					}
 				}
 				context.startActivity(intent3);
               

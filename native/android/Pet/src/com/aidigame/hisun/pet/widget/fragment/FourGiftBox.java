@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Gift;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1;
@@ -326,7 +326,7 @@ public class FourGiftBox {
 								});
 							}else{
 								gift.buyingNum=1;
-								User user=HttpUtil.buyGift(context,gift, handleHttpConnectionException.getHandler(context));
+								MyUser user=HttpUtil.buyGift(context,gift, handleHttpConnectionException.getHandler(context));
 								if(user!=null){
 									Map<String,String> map=new HashMap<String, String>();
 									map.put("level", ""+gift.level);
@@ -415,7 +415,7 @@ public class FourGiftBox {
 							
 						}else{
 							
-							User user=HttpUtil.sendGift(context,gift, handleHttpConnectionException.getHandler(context));
+							MyUser user=HttpUtil.sendGift(context,gift, handleHttpConnectionException.getHandler(context));
 							if(user!=null){
 //								UserStatusUtil.checkUserExpGoldLvRankChange(user, (Activity)context, progress);
 								handleHttpConnectionException.getHandler(context).post(new Runnable() {

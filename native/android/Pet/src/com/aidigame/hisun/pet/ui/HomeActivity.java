@@ -9,6 +9,14 @@ import com.aidigame.hisun.pet.FirstPageActivity;
 import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.http.HttpUtil;
+import com.aidigame.hisun.pet.huanxin.ChatActivity;
+import com.aidigame.hisun.pet.huanxin.CommonUtils;
+import com.aidigame.hisun.pet.huanxin.Constant;
+import com.aidigame.hisun.pet.huanxin.DemoHXSDKHelper;
+import com.aidigame.hisun.pet.huanxin.User;
+import com.aidigame.hisun.pet.huanxin.UserDao;
+import com.aidigame.hisun.pet.ui.Dialog4Activity.Dialog3ActivityListener;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -18,12 +26,30 @@ import com.aidigame.hisun.pet.widget.fragment.BegFoodFragment;
 import com.aidigame.hisun.pet.widget.fragment.DiscoveryFragment;
 import com.aidigame.hisun.pet.widget.fragment.MyPetFragment;
 import com.aidigame.hisun.pet.widget.fragment.UserCenterFragment;
+import com.easemob.EMCallBack;
+import com.easemob.chat.EMChat;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMChatOptions;
+import com.easemob.chat.EMContactManager;
+import com.easemob.chat.EMGroupManager;
+import com.easemob.chat.EMMessage;
+import com.easemob.chat.NotificationCompat;
+import com.easemob.chat.EMMessage.ChatType;
+import com.easemob.chat.EMMessage.Type;
+import com.easemob.exceptions.EaseMobException;
+import com.easemob.util.EMLog;
+import com.easemob.util.EasyUtils;
+import com.easemob.util.HanziToPinyin;
 import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.opengl.Visibility;
@@ -63,13 +89,29 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 	public RelativeLayout rootLayout;
 	TextView messageNumTv;
 	Handler handler;
+	 protected NotificationManager notificationManager;
+	 private static final int notifiId = 11;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
+		handler=HandleHttpConnectionException.getInstance().getHandler(this);
+		homeActivity=this;
+		final boolean getinfo=getIntent().getBooleanExtra("getinfo", false);
+		if(getinfo){
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					getSIDAndUserID();
+				}
+			}).start();
+		}
 		setContentView(R.layout.activity_home_activity);
+		  notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		guideIv2=(ImageView)findViewById(R.id.guide2);
 		guideIv3=(ImageView)findViewById(R.id.guide3);
 		SharedPreferences sp=getSharedPreferences(Constants.BASEIC_SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
@@ -87,8 +129,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		
 		rootLayout=(RelativeLayout)findViewById(R.id.root_layout);
 		messageNumTv=(TextView)findViewById(R.id.message_tv);
-		handler=HandleHttpConnectionException.getInstance().getHandler(this);
-		homeActivity=this;
+		
 		
 		
 		
@@ -100,9 +141,37 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		
 		showBegFoodFragment();
 		initBottomTab();
-		if(Constants.isSuccess){
-			getNewsNum();
+		if(msgReceiver!=null){
+			unregisterReceiver(msgReceiver);
+			msgReceiver=null;
+		}
+		msgReceiver = new NewMessageBroadcastReceiver();
+		IntentFilter intentFilter = new IntentFilter(EMChatManager.getInstance().getNewMessageBroadcastAction());
+			intentFilter.setPriority(3);
+			registerReceiver(msgReceiver, intentFilter);
 			
+			
+			
+			// 注册一个离线消息的BroadcastReceiver
+			 /*IntentFilter offlineMessageIntentFilter = new
+			 IntentFilter(EMChatManager.getInstance()
+			 .getOfflineMessageBroadcastAction());
+			 registerReceiver(offlineMessageReceiver, offlineMessageIntentFilter);*/
+			
+		if(Constants.isSuccess){
+//			getNewsNum();
+			
+			if(Constants.user!=null&&!DemoHXSDKHelper.getInstance().isLogined()){
+				initEMChatLogin();
+			}else{
+				int count=EMChatManager.getInstance().getUnreadMsgsCount();
+				if(count==0){
+					messageNumTv.setVisibility(View.INVISIBLE);
+				}else{
+					messageNumTv.setVisibility(View.VISIBLE);
+					messageNumTv.setText(""+count);
+				}
+			}
 		}
 	}
 
@@ -174,10 +243,24 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 	private void showUserCenterFragment(){
 		frameLayout.setVisibility(View.GONE);
 		begFrameLayout.setVisibility(View.VISIBLE);
+		
+		SharedPreferences sp=getSharedPreferences(Constants.BASEIC_SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+		Editor e=sp.edit();
+		boolean guide5=sp.getBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE5, true);
+		if(guide5){
+			guideIv2.setImageResource(R.drawable.guide5);
+			guideIv2.setVisibility(View.VISIBLE);
+			e.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE5, false);
+			e.commit();
+		}else{
+			guideIv2.setVisibility(View.GONE);
+		}
+		
+		
 		if(userCenterFragment==null){
 			userCenterFragment=new UserCenterFragment();
 		}else{
-			userCenterFragment.updatateInfo();;
+			userCenterFragment.updatateInfo(true);;
 		}
 		FragmentManager fm=getSupportFragmentManager();
 		FragmentTransaction ft=fm.beginTransaction();
@@ -193,6 +276,20 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		// TODO Auto-generated method stub
 		begFrameLayout.setVisibility(View.GONE);
 		frameLayout.setVisibility(View.VISIBLE);
+		
+		SharedPreferences sp=getSharedPreferences(Constants.BASEIC_SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+		Editor e=sp.edit();
+		boolean guide6=sp.getBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE6, true);
+		if(guide6){
+			guideIv2.setImageResource(R.drawable.guide6);
+			guideIv2.setVisibility(View.VISIBLE);
+			e.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE6, false);
+			e.commit();
+		}else{
+			guideIv2.setVisibility(View.GONE);
+		}
+		
+		
 		if(discoveryFragment==null){
 			discoveryFragment=new DiscoveryFragment();
 		}
@@ -267,9 +364,9 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		 * 开始播放动画
 		 */
 		Animation anim=AnimationUtils.loadAnimation(this, R.anim.anim_joggling);
-		if(Constants.isSuccess){
+		/*if(Constants.isSuccess){
 			getNewsNum();
-		}
+		}*/
 		switch (id) {
 		case R.id.bottom_iv_my_pet:
 			petIV.clearAnimation();
@@ -296,7 +393,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		switch (id) {
 		case R.id.bottom_iv_my_pet:
 			if(current_show==HOME_MY_PET){
-				if(myPetFragment!=null){
+				if(myPetFragment!=null&&myPetFragment.homeMyPet!=null){
 					myPetFragment.homeMyPet.refresh();
 				}
 				return;
@@ -377,6 +474,71 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		
 		
 	}
+	
+	
+	public void getSIDAndUserID(){
+		String SID=HttpUtil.getSID(this,handler);
+		if("repate".equals(SID)){
+			Intent intent=new Intent(this,Dialog4Activity.class);
+			
+			Dialog4Activity.listener=new Dialog3ActivityListener() {
+				
+				@Override
+				public void onClose() {
+					// TODO Auto-generated method stub
+					finish();
+				}
+				
+				@Override
+				public void onButtonTwo() {
+					// TODO Auto-generated method stub
+					new Thread(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							Dialog4Activity.canClose=false;
+							getSIDAndUserID();
+						}
+					}).start();
+				}
+				
+				@Override
+				public void onButtonOne() {
+					// TODO Auto-generated method stub
+					finish();
+				}
+			};
+			intent.putExtra("mode", 5);
+			startActivity(intent);
+			
+			return;
+		}
+		
+		if(!StringUtil.isEmpty(SID)){
+			Constants.SID=SID;
+			
+		}else{
+			boolean flag=HttpUtil.login(this,handler);
+			if(flag){
+				SID=HttpUtil.getSID(this,handler);
+			}
+			
+		}
+		
+		//TODO 版本更新
+		
+		if(!StringUtil.isEmpty(Constants.CON_VERSION)&&!"1.0".equals(Constants.CON_VERSION)){
+			
+		}
+			String version=StringUtil.getAPKVersionName(this);
+			if(Constants.realVersion!=null&&StringUtil.canUpdate(this, Constants.realVersion)){
+				Intent intent=new Intent(HomeActivity.this,UpdateAPKActivity.class);
+				HomeActivity.this.startActivity(intent);
+			}
+		
+		
+	}
     
 	
 	   @Override
@@ -391,7 +553,19 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	   	if(Constants.isSuccess){
-			getNewsNum();
+//			getNewsNum();
+			
+			if(Constants.user!=null&&!DemoHXSDKHelper.getInstance().isLogined()){
+//				initEMChatLogin();
+			}else if(DemoHXSDKHelper.getInstance().isLogined()){
+				int count=EMChatManager.getInstance().getUnreadMsgsCount();
+				if(count==0){
+					messageNumTv.setVisibility(View.INVISIBLE);
+				}else{
+					messageNumTv.setVisibility(View.VISIBLE);
+					messageNumTv.setText(""+count);
+				}
+			}
 		}
 	   }
 	      
@@ -461,16 +635,27 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		        				activity.finish();
 		        			}
 		        		}
+		        		homeActivity=null;
 		        	    this.finish();
+		        	   EMChatOptions chatOptions = EMChatManager.getInstance().getChatOptions();
+		        		if (!chatOptions.getNotificationEnable()) { 
+		        	 try {
+		       		 unregisterReceiver(offlineMessageReceiver);
+		       		 } catch (Exception e) {
+		       		 }
+		        		}  
+		        	    
 		        	    MobclickAgent.onKillProcess(homeActivity);
-		        		System.exit(0);
+//		        		System.exit(0);
 		    		
 		    		
 		    	}
 		    	return super.onKeyDown(keyCode, event);
 		    }
 		 
-		 public void getNewsNum(){
+		 
+		 
+		/* public void getNewsNum(){
 				//获取消息和活动数目
 				new Thread(new Runnable() {
 							
@@ -497,7 +682,267 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 								
 							}
 						}).start();
-			}
+			}*/
+		 /**
+		  * 环信登陆
+		  */private NewMessageBroadcastReceiver msgReceiver;
+		 			public  void initEMChatLogin() {
+		 				// TODO Auto-generated method stub
+		 			// 注册一个接收消息的BroadcastReceiver
+		 				
+		 				
+		 				EMChatManager.getInstance().login(""+Constants.user.userId, Constants.user.code, new EMCallBack() {
+
+		 					@Override
+		 					public void onSuccess() {
+		 						//umeng自定义事件，开发者可以把这个删掉
+//		 						loginSuccess2Umeng(start);
+		 						
+		 						/*if (!progressShow) {
+		 							return;
+		 						}*/
+		 						// 登陆成功，保存用户名密码
+		 						PetApplication.setUserName(""+Constants.user.userId);
+		 						PetApplication.setPassword(Constants.user.code);
+		 						/*runOnUiThread(new Runnable() {
+		 							public void run() {
+		 								pd.setMessage("正在获取好友和群聊列表...");
+		 							}
+		 						});*/
+		 						try {
+		 							// ** 第一次登录或者之前logout后，加载所有本地群和回话
+		 							// ** manually load all local groups and
+		 							// conversations in case we are auto login
+		 							EMGroupManager.getInstance().loadAllGroups();
+		 							EMChatManager.getInstance().loadAllConversations();
+
+		 							// demo中简单的处理成每次登陆都去获取好友username，开发者自己根据情况而定
+		 							List<String> usernames = EMContactManager.getInstance().getContactUserNames();
+		 							EMLog.d("roster", "contacts size: " + usernames.size());
+		 							Map<String, User> userlist = new HashMap<String, User>();
+		 							for (String username : usernames) {
+		 								User user = new User();
+		 								user.setUsername(username);
+		 								setUserHearder(username, user);
+		 								userlist.put(username, user);
+		 							}
+		 							// 添加user"申请与通知"
+		 							User newFriends = new User();
+		 							newFriends.setUsername(Constant.NEW_FRIENDS_USERNAME);
+		 							newFriends.setNick("申请与通知");
+		 							newFriends.setHeader("");
+		 							userlist.put(Constant.NEW_FRIENDS_USERNAME, newFriends);
+		 							// 添加"群聊"
+		 							User groupUser = new User();
+		 							groupUser.setUsername(Constant.GROUP_USERNAME);
+		 							groupUser.setNick("群聊");
+		 							groupUser.setHeader("");
+		 							userlist.put(Constant.GROUP_USERNAME, groupUser);
+
+		 							// 存入内存
+		 							PetApplication.setContactList(userlist);
+		 							// 存入db
+		 							UserDao dao = new UserDao(HomeActivity.this);
+		 							List<User> users = new ArrayList<User>(userlist.values());
+		 							dao.saveContactList(users);
+
+		 							// 获取群聊列表(群聊里只有groupid和groupname等简单信息，不包含members),sdk会把群组存入到内存和db中
+		 							EMGroupManager.getInstance().getGroupsFromServer();
+		 						} catch (Exception e) {
+		 							e.printStackTrace();
+		 						}
+		 						//更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
+		 						boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(Constants.user.u_nick);
+		 						if (/*!updatenick*/true) {
+		 							EMLog.e("LoginActivity", "update current user nick fail"+updatenick);
+		 						}
+		 						final int count=EMChatManager.getInstance().getUnreadMsgsCount();
+		 						runOnUiThread(new Runnable() {
+									
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										if(count==0){
+				 							messageNumTv.setVisibility(View.INVISIBLE);
+				 							if(userCenterFragment!=null){
+				 								userCenterFragment.messageNumTv.setVisibility(View.INVISIBLE);
+				 							}
+				 						}else{
+				 							messageNumTv.setVisibility(View.VISIBLE);
+				 							messageNumTv.setText(""+count);
+				 							if(userCenterFragment!=null){
+				 								userCenterFragment.messageNumTv.setVisibility(View.VISIBLE);
+				 								userCenterFragment.messageNumTv.setText(""+count);
+				 							}
+				 						}
+									}
+								});
+		 						
+
+		 						/*if (!LoginActivity.this.isFinishing())
+		 							pd.dismiss();*/
+		 						// 进入主页面
+//		 						startActivity(new Intent(HomeActivity.this, MainActivity.class));
+//		 						finish();
+		 					}
+
+		 					@Override
+		 					public void onProgress(int progress, String status) {
+
+		 					}
+
+		 					@Override
+		 					public void onError(final int code, final String message) {
+		 						/*loginFailure2Umeng(start,code,message);
+
+		 						if (!progressShow) {
+		 							return;
+		 						}
+		 						runOnUiThread(new Runnable() {
+		 							public void run() {
+		 								pd.dismiss();
+		 								Toast.makeText(getApplicationContext(), "登录失败: " + message, 0).show();
+
+		 							}
+		 						});*/
+		 					}
+		 					/**
+		 					 * 设置hearder属性，方便通讯中对联系人按header分类显示，以及通过右侧ABCD...字母栏快速定位联系人
+		 					 * 
+		 					 * @param username
+		 					 * @param user
+		 					 */
+		 					protected void setUserHearder(String username, User user) {
+		 						String headerName = null;
+		 						if (!TextUtils.isEmpty(user.getNick())) {
+		 							headerName = user.getNick();
+		 						} else {
+		 							headerName = user.getUsername();
+		 						}
+		 						if (username.equals(Constant.NEW_FRIENDS_USERNAME)) {
+		 							user.setHeader("");
+		 						} else if (Character.isDigit(headerName.charAt(0))) {
+		 							user.setHeader("#");
+		 						} else {
+		 							user.setHeader(HanziToPinyin.getInstance().get(headerName.substring(0, 1)).get(0).target.substring(0, 1).toUpperCase());
+		 							char header = user.getHeader().toLowerCase().charAt(0);
+		 							if (header < 'a' || header > 'z') {
+		 								user.setHeader("#");
+		 							}
+		 						}
+		 					}
+		 				});
+		 			}
+		 			/**
+		 			 * 新消息广播接收者
+		 			 * 
+		 			 * 
+		 			 */
+		 			private class NewMessageBroadcastReceiver extends BroadcastReceiver {
+		 				@Override
+		 				public void onReceive(Context context, Intent intent) {
+		 					// 主页面收到消息后，主要为了提示未读，实际消息内容需要到chat页面查看
+		 					LogUtil.i("news", "接受新消息广播");
+
+		 					String from = intent.getStringExtra("from");
+		 					// 消息id
+		 					String msgId = intent.getStringExtra("msgid");
+		 					EMMessage message = EMChatManager.getInstance().getMessage(msgId);
+		 					// 2014-10-22 修复在某些机器上，在聊天页面对方发消息过来时不立即显示内容的bug
+		 					if (ChatActivity.activityInstance != null) {
+		 						if (message.getChatType() == ChatType.GroupChat) {
+		 							if (message.getTo().equals(ChatActivity.activityInstance.getToChatUsername()))
+		 								return;
+		 						} else {
+		 							if (from.equals(ChatActivity.activityInstance.getToChatUsername()))
+		 								return;
+		 						}
+		 					}
+		 					
+		 					// 注销广播接收者，否则在ChatActivity中会收到这个广播
+//		 					abortBroadcast();
+		 					
+		 					EMChatOptions chatOptions = EMChatManager.getInstance().getChatOptions();
+		 					if(chatOptions.getNotificationEnable())
+		 					notifyNewMessage(message);
+
+		 					// 刷新bottom bar消息未读数
+		 				int count=	EMChatManager.getInstance().getUnreadMsgsCount();
+		 				if(count==0){
+		 					messageNumTv.setVisibility(View.INVISIBLE);
+		 					if(UserCenterFragment.userCenterFragment!=null){
+		 						UserCenterFragment.userCenterFragment.messageNumTv.setVisibility(View.INVISIBLE);
+		 				        UserCenterFragment.userCenterFragment.messageNumTv.setText(""+0);
+		 					}
+		 				}else{
+		 					messageNumTv.setVisibility(View.VISIBLE);
+		 					messageNumTv.setText(""+count);
+		 					if(UserCenterFragment.userCenterFragment!=null){
+		 						UserCenterFragment.userCenterFragment.messageNumTv.setVisibility(View.VISIBLE);
+		 				        UserCenterFragment.userCenterFragment.messageNumTv.setText(""+count);
+		 					}
+		 				}
+
+		 				}
+		 			}
+		 		    /**
+		 		     * 当应用在前台时，如果当前消息不是属于当前会话，在状态栏提示一下
+		 		     * 如果不需要，注释掉即可
+		 		     * @param message
+		 		     */
+		 		    protected void notifyNewMessage(EMMessage message) {
+		 		        //如果是设置了不提醒只显示数目的群组(这个是app里保存这个数据的，demo里不做判断)
+		 		        //以及设置了setShowNotificationInbackgroup:false(设为false后，后台时sdk也发送广播)
+		 		        if(!EasyUtils.isAppRunningForeground(this)){
+		 		            return;
+		 		        }
+		 		        
+		 		        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+		 		                .setSmallIcon(getApplicationInfo().icon)
+		 		                .setWhen(System.currentTimeMillis()).setAutoCancel(true);
+		 		        
+		 		        String ticker = CommonUtils.getMessageDigest(message, this);
+		 		        if(message.getType() == Type.TXT)
+		 		            ticker = ticker.replaceAll("\\[.{2,3}\\]", "[表情]");
+		 		        //设置状态栏提示
+//		 		        mBuilder.setTicker(message.getFrom()+": " + ticker);
+		 		       try {
+						mBuilder.setTicker(message.getStringAttribute("nickname")+": " + ticker);
+					} catch (EaseMobException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+		 		        Notification notification = mBuilder.build();
+		 		        notificationManager.notify(notifiId, notification);
+		 		        notificationManager.cancel(notifiId);
+		 		    }
+		 		    
+		 		    
+		 		    
+		 			/**
+		 			 * 离线消息BroadcastReceiver sdk 登录后，服务器会推送离线消息到client，这个receiver，是通知UI
+		 			 * 有哪些人发来了离线消息 UI 可以做相应的操作，比如下载用户信息
+		 			 */
+		 			 private BroadcastReceiver offlineMessageReceiver = new
+		 			 BroadcastReceiver() {
+		 			
+		 			 @Override
+		 			 public void onReceive(Context context, Intent intent) {
+		 			 String[] users = intent.getStringArrayExtra("fromuser");
+		 			 String[] groups = intent.getStringArrayExtra("fromgroup");
+		 			 if (users != null) {
+		 			 for (String user : users) {
+		 			 System.out.println("收到user离线消息：" + user);
+		 			 }
+		 			 }
+		 			 if (groups != null) {
+		 			 for (String group : groups) {
+		 			 System.out.println("收到group离线消息：" + group);
+		 			 }
+		 			 }
+		 			 }
+		 			 };
 	
 	      
 }

@@ -27,19 +27,10 @@
          android:visibility="gone"
          android:paddingLeft="30dp"
          android:background="#70ffffff"/>
-     <ListView 
-         android:id="@+id/listview1"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent">
-         
-     </ListView>
-     <ListView 
-         android:id="@+id/listview2"
+     <WebView 
          android:layout_width="match_parent"
          android:layout_height="match_parent"
-         ><!-- android:visibility="gone" -->
-         
-     </ListView>
+         android:id="@+id/webview"/>
   
    
 </LinearLayout>

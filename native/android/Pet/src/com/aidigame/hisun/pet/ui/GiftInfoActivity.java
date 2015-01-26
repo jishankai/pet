@@ -18,6 +18,7 @@ import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Gift;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -135,7 +136,12 @@ public class GiftInfoActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.back:
+			
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			this.finish();
+			System.gc();
 			break;
 		case R.id.buy_tv:
 			Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
@@ -166,7 +172,11 @@ public class GiftInfoActivity extends Activity implements OnClickListener{
 //			Toast.makeText(this,"购买成功", Toast.LIGENGTH_SHORT).show();
 			break;
 		case R.id.close_iv:
-			finish();
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
+			this.finish();
+			System.gc();
 			break;
 		
 		   

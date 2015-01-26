@@ -6,12 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.MarketGridViewAdapter;
 import com.aidigame.hisun.pet.adapter.MarketRealGridViewAdapter;
 import com.aidigame.hisun.pet.adapter.MarketGridViewAdapter.ClickGiftListener;
 import com.aidigame.hisun.pet.bean.Gift;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -145,7 +146,7 @@ public class MarketActivity extends Activity implements OnClickListener{
 					public void run() {
 						// TODO Auto-generated method stub
 						gift.buyingNum=1;
-						final User user=HttpUtil.buyGift(MarketActivity.this,gift, handleHttpConnectionException.getHandler(MarketActivity.this));
+						final MyUser user=HttpUtil.buyGift(MarketActivity.this,gift, handleHttpConnectionException.getHandler(MarketActivity.this));
 						handleHttpConnectionException.getHandler(MarketActivity.this).post(new Runnable() {
 							
 							@Override
@@ -162,7 +163,7 @@ public class MarketActivity extends Activity implements OnClickListener{
 									coinNumTV.setText(""+user.coinCount);
 									Constants.user.coinCount=user.coinCount;
 									if(UserCenterFragment.userCenterFragment!=null){
-								    	UserCenterFragment.userCenterFragment.updatateInfo();;
+								    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 									}
 								}else{
 									Toast.makeText(MarketActivity.this, "购买礼物失败", Toast.LENGTH_LONG).show();
@@ -285,7 +286,13 @@ public class MarketActivity extends Activity implements OnClickListener{
 				    	this.startActivity(intent);
 				    }
 				}
+				marketActivity=this;
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+					PetApplication.petApp.activityList.remove(this);
+				}
 				finish();
+				System.gc();
 				break;
 			case R.id.gift_box_iv:
 	        if(!UserStatusUtil.isLoginSuccess(MarketActivity.this,popup_parent,black_layout)){

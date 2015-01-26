@@ -2,10 +2,11 @@ package com.aidigame.hisun.pet.ui;
 
 import java.util.ArrayList;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.UserPetsAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -49,7 +50,7 @@ public class UserCardActivity extends Activity implements OnClickListener{
 	Handler handler;
 	View popupParent;
 	RelativeLayout black_layout;
-	User user;
+	MyUser user;
 	public static UserCardActivity userCardActivity;
 	UserPetsAdapter userPetsAdapter;
 	ArrayList<Animal> animals;
@@ -64,7 +65,7 @@ public class UserCardActivity extends Activity implements OnClickListener{
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_user_card);
 		handler=HandleHttpConnectionException.getInstance().getHandler(this);
-		user=(User)getIntent().getSerializableExtra("user");
+		user=(MyUser)getIntent().getSerializableExtra("user");
 		userCardActivity=this;
 		from=getIntent().getIntExtra("from", 0);
 		initView();
@@ -110,7 +111,7 @@ public class UserCardActivity extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				final User u=HttpUtil.info(UserCardActivity.this, handler, user.userId);
+				final MyUser u=HttpUtil.info(UserCardActivity.this, handler, user.userId);
 				runOnUiThread(new Runnable() {
 					
 					@Override
@@ -153,11 +154,17 @@ public class UserCardActivity extends Activity implements OnClickListener{
 				}
 				if(NewPetKingdomActivity.petKingdomActivity!=null){
 					NewPetKingdomActivity.petKingdomActivity.finish();
+					NewPetKingdomActivity.petKingdomActivity=null;
 				}
 				Intent intent=new Intent(UserCardActivity.this,NewPetKingdomActivity.class);
 				intent.putExtra("animal",animals.get(position));
 				startActivity(intent);
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(UserCardActivity.this)){
+					PetApplication.petApp.activityList.remove(UserCardActivity.this);
+				}
 				finish();
+				System.gc();
 			}
 
 			@Override
@@ -205,7 +212,7 @@ new Thread(new Runnable() {
 			}
 		}).start();
 	}
-	public void setUserInfo(User user) {
+	public void setUserInfo(MyUser user) {
 		nameTv.setText(user.u_nick);
 		addressTv.setText(""+user.province+" | "+user.city);
 		goldNumTv.setText(""+user.coinCount);
@@ -265,7 +272,12 @@ new Thread(new Runnable() {
 					this.startActivity(intent);
 				}
 			}
+			if(PetApplication.petApp.activityList.contains(UserCardActivity.userCardActivity)){
+				PetApplication.petApp.activityList.remove(UserCardActivity.userCardActivity);
+			}
+			userCardActivity=null;
 			this.finish();
+			System.gc();
 			break;
 		case R.id.user_icon:
 			if(Constants.user!=null&&Constants.user.userId==user.userId){
@@ -336,15 +348,17 @@ new Thread(new Runnable() {
 				intent.putExtra("mode", 2);
 				startActivity(intent);
 			}else{
-				if(ChatActivity.chatActivity!=null){
-					ChatActivity.chatActivity.finish();
+				
+				if(com.aidigame.hisun.pet.huanxin.ChatActivity.activityInstance!=null){
+					com.aidigame.hisun.pet.huanxin.ChatActivity.activityInstance.finish();
 				}
-				Intent intent2=new Intent(this,ChatActivity.class);
+				Intent intent2=new Intent(this,com.aidigame.hisun.pet.huanxin.ChatActivity.class);
+				intent2.putExtra("chatType", com.aidigame.hisun.pet.huanxin.ChatActivity.CHATTYPE_SINGLE);
 				intent2.putExtra("user", user);
 				startActivity(intent2);
-				
+				finish();
 			}
-			finish();
+			
 			break;
 		}
 	}

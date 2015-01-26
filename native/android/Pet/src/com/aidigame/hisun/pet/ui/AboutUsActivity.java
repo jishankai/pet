@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.ui;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -64,7 +65,13 @@ public class AboutUsActivity extends Activity implements OnClickListener{
 					this.startActivity(intent);
 				}
 			}
+			
+			
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			this.finish();
+			System.gc();
 			break;
 
 		case R.id.textView4:

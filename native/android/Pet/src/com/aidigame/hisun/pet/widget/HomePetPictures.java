@@ -90,6 +90,10 @@ public class HomePetPictures implements IXListViewListener{
 	}
 	public void refresh(){
 		page=0;
+		adapter.updateTopics(new ArrayList<Animal>());
+		adapter.notifyDataSetChanged();
+		
+		
 		new Thread(new Runnable() {
         	ArrayList<PetPicture> temp=new ArrayList<PetPicture>();
 			@Override

@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.AbsListView.OnScrollListener;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
@@ -88,7 +89,12 @@ public class AwardDetailActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(AwardDetailActivity.this)){
+					PetApplication.petApp.activityList.remove(AwardDetailActivity.this);
+				}
 				AwardDetailActivity.this.finish();
+				System.gc();
 			}
 		});
 	}

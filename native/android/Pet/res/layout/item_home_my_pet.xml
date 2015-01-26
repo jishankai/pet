@@ -24,9 +24,9 @@
          <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/home_mypet_bg"
+        android:background="#336f331f"
         android:paddingBottom="10dp"
-        ><!-- #9a663433 -->
+        ><!-- android:background="@drawable/home_mypet_bg" -->
         
 
         <LinearLayout

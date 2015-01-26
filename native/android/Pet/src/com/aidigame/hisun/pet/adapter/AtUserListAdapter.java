@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.view.RoundImageView;
@@ -31,9 +31,9 @@ public class AtUserListAdapter extends BaseAdapter {
 	DisplayImageOptions displayImageOptions;//显示图片的格式
     ImageLoader imageLoader;
 	Context context;
-	ArrayList<User> list;
+	ArrayList<MyUser> list;
 	ArrayList<Animal> animals;
-	public AtUserListAdapter(Context context,ArrayList<User> list,ArrayList<Animal> animals){
+	public AtUserListAdapter(Context context,ArrayList<MyUser> list,ArrayList<Animal> animals){
 		this.context=context;
 		this.list=list;
 		this.animals=animals;
@@ -66,7 +66,7 @@ public class AtUserListAdapter extends BaseAdapter {
 		}
 		
 	}
-	public void updateList(ArrayList<User> list){
+	public void updateList(ArrayList<MyUser> list){
 		this.list=list;
 	}
 
@@ -129,7 +129,7 @@ public class AtUserListAdapter extends BaseAdapter {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					User data=(User)v.getTag();
+					MyUser data=(MyUser)v.getTag();
 					if(data.isSelected){
 						data.isSelected=false;
 						temp.setImageResource(R.drawable.atuser_list_unchecked);

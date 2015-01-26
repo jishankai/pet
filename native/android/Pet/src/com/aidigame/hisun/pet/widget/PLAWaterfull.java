@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.widget;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -480,7 +481,8 @@ public class PLAWaterfull implements IXListViewListener{
         		ImageFetcher imageFetcher=new ImageFetcher(activity, Constants.screen_width);
         		imageFetcher.itemUrl="banner/";
         		BitmapFactory.Options options=new BitmapFactory.Options();
-        		options.inSampleSize=2;
+        		options.inSampleSize=1;
+        		
         		imageFetcher.setImageCache(new ImageCache(activity, new ImageCacheParams(banners.get(position%banners.size()).img_url)));
         		
         		if(position==0){
@@ -761,7 +763,8 @@ public class PLAWaterfull implements IXListViewListener{
 
     @Override
     public void onRefresh() {
-    	
+    	mAdapter.mInfos=new ArrayList<DuitangInfo>();
+    	   mAdapter.notifyDataSetChanged();
         AddItemToContainer(++currentPage, 1,-1);
 
 new Thread(new Runnable() {

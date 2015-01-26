@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.BegPicturesAdapter;
 import com.aidigame.hisun.pet.adapter.GridPictureAdapter;
@@ -14,7 +15,7 @@ import com.aidigame.hisun.pet.adapter.ShowTopicsAdapter2;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetNews;
 import com.aidigame.hisun.pet.bean.PetPicture;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
@@ -81,7 +82,13 @@ public class BegPicturesActivity extends Activity implements IXListViewListener{
 					    startActivity(intent);
 					}
 				}
+				begPicturesActivity=null;
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(BegPicturesActivity.this)){
+					PetApplication.petApp.activityList.remove(BegPicturesActivity.this);
+				}
 				finish();
+				System.gc();
 			}
 		});
 		
@@ -220,7 +227,10 @@ final ArrayList<PetPicture> pps=HttpUtil.petBegPicturesList(handler,animal, last
 	  			/*DialogGiveSbGift dgb=new DialogGiveSbGift(this,data);
 	  			final AlertDialog dialog=new AlertDialog.Builder(this).setView(dgb.getView())
 	  					.show();*/
-	  			if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+	  			if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null){
+	  				DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+	  				DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity=null;
+	  			}
 	  			Intent intent=new Intent(this,DialogGiveSbGiftActivity1.class);
 	  			intent.putExtra("animal", animal);
 	  			this.startActivity(intent);
@@ -238,8 +248,11 @@ final ArrayList<PetPicture> pps=HttpUtil.petBegPicturesList(handler,animal, last
 	  				@Override
 	  				public void closeDialog() {
 	  					// TODO Auto-generated method stub
-	  					if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)
-	  					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+	  					if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null){
+	  						DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+	  						DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity=null;
+	  					}
+	  					
 	  					
 	  				}
 	  				@Override

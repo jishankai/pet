@@ -12,6 +12,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,11 +44,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HomeViewPagerAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetPicture;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.blur.Blur;
 import com.aidigame.hisun.pet.blur.TopCenterImageView;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -130,6 +132,7 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 		};
 	};
 	UMSocialService mController;
+	ImageView guideIv2;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -142,6 +145,10 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 		data=(Animal)getIntent().getSerializableExtra("animal");
 		MobclickAgent.onEvent(this, "pet_homenpage");
 		mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+		guideIv2=(ImageView)findViewById(R.id.guide2);
+		
+		
+		
 		initView();
 		initListener();
 		initModifySign();
@@ -152,13 +159,14 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 		if(Constants.user!=null&&Constants.user.userId==data.master_id){
 			modifyIv.setVisibility(View.VISIBLE);
 		}else{
-			modifyIv.setVisibility(View.GONE);
+			modifyIv.setBackgroundResource(R.drawable.private_message);
 		}
 		modifyIv.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(Constants.user!=null&&Constants.user.userId==data.master_id){
 				if(!canOver){
 					modifyEt.setFocusable(true);
 					modifyEt.setFocusableInTouchMode(true);
@@ -219,6 +227,19 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 					}).start();
 					
 				}
+			}else{
+				if(com.aidigame.hisun.pet.huanxin.ChatActivity.activityInstance!=null){
+					com.aidigame.hisun.pet.huanxin.ChatActivity.activityInstance.finish();
+				}
+				MyUser myUser=new MyUser();
+				Intent intent2=new Intent(NewPetKingdomActivity.this,com.aidigame.hisun.pet.huanxin.ChatActivity.class);
+				intent2.putExtra("chatType", com.aidigame.hisun.pet.huanxin.ChatActivity.CHATTYPE_SINGLE);
+				myUser.userId=data.master_id;
+				myUser.u_nick=data.u_name;
+				myUser.u_iconUrl=data.u_tx;
+				intent2.putExtra("user", myUser);
+				startActivity(intent2);
+			}
 			}
 		});
 		modifyEt.addTextChangedListener(new TextWatcher() {
@@ -356,6 +377,20 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 		}else{
 			supportIv.setImageResource(R.drawable.pet_raise_1);
 		}
+		if(Constants.user!=null&&data.master_id==Constants.user.userId){
+		SharedPreferences sp=getSharedPreferences(Constants.BASEIC_SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+		Editor e=sp.edit();
+		boolean guide7=sp.getBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE7, true);
+		if(guide7){
+			guideIv2.setVisibility(View.VISIBLE);
+			e.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE7, false);
+			e.commit();
+		}else{
+			
+			guideIv2.setVisibility(View.GONE);
+			
+		}
+		}
 		/*
 		 * 宠物种族
 		 */
@@ -414,7 +449,7 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 			public void onLoadingFailed(String imageUri, View view,
 					FailReason failReason) {
 				// TODO Auto-generated method stub
-				
+				data.pet_iconPath=StringUtil.compressEmotion(NewPetKingdomActivity.this, null);
 			}
 			
 			public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
@@ -429,7 +464,7 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 						/*添加毛玻璃效果
 						 *首先要将Bitmap的Config转化为Config.ARGB_8888类型的 
 						 */
-						
+						data.pet_iconPath=StringUtil.compressEmotion(NewPetKingdomActivity.this, loadedImage);
 //						loadedImage=Bitmap.createBitmap(pixels, loadedImage.getWidth(), loadedImage.getHeight(), Config.ARGB_8888);
 						LogUtil.i("mi", "图片像素数："+loadedImage.getByteCount());
 						Matrix matrix=new Matrix();
@@ -476,6 +511,7 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 									linearLayout2.setAlpha(0.9342857f);*/
 								}
 							});
+							
 					}
 				}).start();
 				
@@ -484,7 +520,7 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 			@Override
 			public void onLoadingCancelled(String imageUri, View view) {
 				// TODO Auto-generated method stub
-				
+				data.pet_iconPath=StringUtil.compressEmotion(NewPetKingdomActivity.this, null);
 			}
 		});
 		options=new BitmapFactory.Options();
@@ -623,7 +659,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		shakeLayout.setOnClickListener(this);
 		sendGiftLayout.setOnClickListener(this);
 		touchLayout.setOnClickListener(this);
-		
+		guideIv2.setOnClickListener(this);
 		
 		
 	}
@@ -634,6 +670,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		case R.id.trends_num_layout:
 			if(PetTrendsActivity.petTrendsActivity!=null){
 				PetTrendsActivity.petTrendsActivity.finish();
+				PetTrendsActivity.petTrendsActivity=null;
 			}
 			Intent intentTrends=new Intent(this,PetTrendsActivity.class);
 			intentTrends.putExtra("animal", data);
@@ -642,6 +679,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		case R.id.fans_num_layout:
 			if(PetFansActivity.petFansActivity!=null){
 				PetFansActivity.petFansActivity.finish();
+				PetFansActivity.petFansActivity=null;
 			}
 			Intent intentFans=new Intent(this,PetFansActivity.class);
 			intentFans.putExtra("animal", data);
@@ -650,6 +688,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		case R.id.picture_num_layout:
 			if(PetPicturesActivity.petPictureActivity!=null){
 				PetPicturesActivity.petPictureActivity.finish();
+				PetPicturesActivity.petPictureActivity=null;
 			}
 			Intent pictrueIntent=new Intent(this,PetPicturesActivity.class);
 			pictrueIntent.putExtra("animal", data);
@@ -658,6 +697,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		case R.id.food_layout:
 			if(BegPicturesActivity.begPicturesActivity!=null){
 				BegPicturesActivity.begPicturesActivity.finish();
+				BegPicturesActivity.begPicturesActivity=null;
 			}
 			Intent begIntent=new Intent(this,BegPicturesActivity.class);
 			begIntent.putExtra("animal", data);
@@ -666,6 +706,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		case R.id.rq_layout:
 			if(PopularRankListActivity.popularRankListActivity!=null){
 				PopularRankListActivity.popularRankListActivity.finish();
+				PopularRankListActivity.popularRankListActivity=null;
 			}
 			Intent rankIntent=new Intent(this,PopularRankListActivity.class);
 			startActivity(rankIntent);
@@ -673,6 +714,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		case R.id.gift_layout:
 			if(PetGiftActivity.petGiftActivity!=null){
 				PetGiftActivity.petGiftActivity.finish();
+				PetGiftActivity.petGiftActivity=null;
 			}
 			Intent giftIntent=new Intent(this,PetGiftActivity.class);
 			giftIntent.putExtra("animal", data);
@@ -717,11 +759,15 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 					this.startActivity(intent);
 				}
 				petKingdomActivity=null;
+				if(PetApplication.petApp.activityList.contains(this)){
+					PetApplication.petApp.activityList.remove(this);
+				}
 			this.finish();
+			System.gc();
 			break;
 		case R.id.user_icon:
 			Intent intent=new Intent(NewPetKingdomActivity.this,UserCardActivity.class);
-			data.user=new User();
+			data.user=new MyUser();
 			data.user.userId=data.master_id;
 			data.user.u_iconUrl=data.u_tx;
 			data.user.u_nick=data.u_name;
@@ -731,7 +777,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 			
 			break;
 		case R.id.join_kingdom_tv:
-			getSharePetKingdomPicture();
+//			getSharePetKingdomPicture();
 			new Thread(new Runnable() {
 				
 				@Override
@@ -744,14 +790,14 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 							@Override
 							public void run() {
 								// TODO Auto-generated method stub
-								if(!StringUtil.isEmpty(sharePath)){
+//								if(!StringUtil.isEmpty(sharePath)){
 //									if(flag){
 										new ShowMore(moreLayout, NewPetKingdomActivity.this,sharePath,moreParentLayout).kindomShowMore(data);
 //									}else{
 //										new ShowMore(moreLayout, NewPetKingdomActivity.this,sharePath,moreParentLayout).kindomShowMore(data)/*.onlyCanShare()*/;
 //									}
 									
-								}
+//								}
 								
 							}
 						});
@@ -792,6 +838,9 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 				return;
 			}
 			pengTA();
+			break;
+		case R.id.guide2:
+			guideIv2.setVisibility(View.GONE);
 			break;
 			
 		}
@@ -839,9 +888,16 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		}
 		isPenging=true;
 		int num=0;
-		if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
-			num=(Constants.user.aniList.size()+1)*5;
-		}else if(Constants.user.aniList.size()>20){
+		int count=0;
+		for(int i=0;i<Constants.user.aniList.size();i++){
+//			if(Constants.user.aniList.get(i).master_id!=Constants.user.userId)
+				count++;
+		}
+		
+		
+		if(count>=10&&count<=20){
+			num=(count)*5;
+		}else if(count>20){
 			num=100;
 		}
 		
@@ -876,6 +932,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		petKingdomActivity=null;
+		
 	}
 	
 	boolean isChangingUserIcon;

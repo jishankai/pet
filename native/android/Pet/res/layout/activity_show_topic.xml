@@ -754,7 +754,7 @@
 
       
  <!--更多功能展示  -->
-      <RelativeLayout 
+     <!--  <RelativeLayout 
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:id="@+id/more_layout"
@@ -844,7 +844,7 @@
                   />
               
           </LinearLayout>
-      </RelativeLayout>
+      </RelativeLayout> -->
       
       <!-- 分享 图标 -->
       <RelativeLayout 
@@ -960,6 +960,62 @@
             android:background="@color/gray_light"
             android:layout_below="@+id/report_tv"
             android:layout_marginTop="10dp"
+            android:id="@+id/report_line1"/>
+                         <LinearLayout 
+              android:id="@+id/one_button_layout"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingTop="10dp"
+              android:paddingBottom="10dp"
+              
+              android:gravity="center"><!-- android:paddingLeft="5dp"
+              android:paddingRight="5dp" -->
+              <LinearLayout 
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content">
+                 <TextView
+        android:id="@+id/reporttv"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:background="@drawable/report_bt"
+        android:gravity="center"
+        android:layout_marginRight="30dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        
+        android:textColor="@color/white"
+        android:text=""/>
+                   <TextView
+        android:id="@+id/pengta_tv"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:background="@drawable/peng_ta_bt"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:layout_marginRight="30dp"
+        android:text=""/>
+                  
+                    <TextView
+        android:id="@+id/messagetv"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:background="@drawable/private_message_bt"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:text=""/>
+              </LinearLayout>
+             
+          </LinearLayout>
+                        <View 
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/gray_light"
+            android:layout_below="@+id/report_tv"
+            
             android:id="@+id/report_line1"/>
 
         <TextView

@@ -5,8 +5,9 @@ import java.util.Map;
 import java.util.Set;
 
 import com.aidigame.hisun.pet.FirstPageActivity;
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.Dialog4Activity.Dialog3ActivityListener;
@@ -204,10 +205,20 @@ public class RegisterNoteDialog extends Activity implements OnClickListener{
 		case R.id.login_register_tv:
 			Intent intent=new Intent(this,ChoseAcountTypeActivity.class);
 			this.startActivity(intent);
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			finish();
+			System.gc();
 			break;
 		case R.id.cancel_tv:
+			registerNoteDialog=null;
+			
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			finish();
+			System.gc();
 			break;
 		case R.id.login_sure:
 			
@@ -326,7 +337,7 @@ public class RegisterNoteDialog extends Activity implements OnClickListener{
 		                StringBuilder sb = new StringBuilder();
 		                Set<String> keys = info.keySet();
 		               
-		                User user=new User();
+		                MyUser user=new MyUser();
 		                if("1".equals(""+(Integer)info.get("sex"))){
 		                	user.u_gender=1;
 		                }else{
@@ -335,7 +346,7 @@ public class RegisterNoteDialog extends Activity implements OnClickListener{
 		                user.u_nick=(String)info.get("nickname");
 		                user.weixin_id=(String)info.get("openid");
 		                user.u_iconPath=(String)info.get("headimgurl");
-		                
+		                user.wechat_union=(String)info.get("unionid");
 		              
 		                
 		                
@@ -454,7 +465,7 @@ public class RegisterNoteDialog extends Activity implements OnClickListener{
 					                StringBuilder sb = new StringBuilder();
 					                Set<String> keys = info.keySet();
 					                
-					                User user=new User();
+					                MyUser user=new MyUser();
 					                if("1".equals(""+(Integer)info.get("gender"))){
 					                	user.u_gender=1;
 					                }else{
@@ -504,13 +515,13 @@ public class RegisterNoteDialog extends Activity implements OnClickListener{
 	 * 微信或新浪绑定登陆
 	 * @param user
 	 */
-	public void bindLogin(final User user,final boolean isWeixin){
+	public void bindLogin(final MyUser user,final boolean isWeixin){
 //		 if(showProgress!=null)showProgress.progressCancel();
 		boolean flag=false;
 		if(isWeixin){
-			flag= HttpUtil.isBind(handler, user.weixin_id, isWeixin, RegisterNoteDialog.this);
+			flag= HttpUtil.isBind(handler, user.weixin_id, isWeixin, RegisterNoteDialog.this,user.wechat_union);
 		}else{
-			flag= HttpUtil.isBind(handler, user.xinlang_id, isWeixin, RegisterNoteDialog.this);
+			flag= HttpUtil.isBind(handler, user.xinlang_id, isWeixin, RegisterNoteDialog.this,null);
 		}
 		 final boolean isBinded=flag;
 		
@@ -657,15 +668,17 @@ public class RegisterNoteDialog extends Activity implements OnClickListener{
 						// TODO Auto-generated method stub
 						if(AccountActivity.accountActivity!=null){
 							AccountActivity.accountActivity.finish();
+							AccountActivity.accountActivity=null;
 						}
 						if(HomeActivity.homeActivity!=null){
 							if(HomeActivity.homeActivity.userCenterFragment!=null){
-								HomeActivity.homeActivity.userCenterFragment.updatateInfo();;
+								HomeActivity.homeActivity.userCenterFragment.updatateInfo(true);;
 							}
 							if(HomeActivity.homeActivity.myPetFragment!=null){
 								HomeActivity.homeActivity.myPetFragment.homeMyPet.refresh();
 							}
-							
+							com.aidigame.hisun.pet.PetApplication.logout(null);
+							HomeActivity.homeActivity.initEMChatLogin();
 							ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
 							am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), 0);
 						}else{

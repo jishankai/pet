@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.bean.PetPicture.Comments;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
@@ -33,12 +33,12 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 public class TopicUsersListAdapter extends BaseAdapter {
-	ArrayList<User> users;
+	ArrayList<MyUser> users;
 	Context context;
 	DisplayImageOptions displayImageOptions;
 	Animal animal;
 	GestureListener listener;
-	public TopicUsersListAdapter(Context context,ArrayList<User> users,Animal animal){
+	public TopicUsersListAdapter(Context context,ArrayList<MyUser> users,Animal animal){
 		this.context=context;
 		this.users=users;
 		this.animal=animal;
@@ -60,13 +60,13 @@ public class TopicUsersListAdapter extends BaseAdapter {
 		        .decodingOptions(options)
                 .build();
 		if(this.users==null){
-			this.users=new ArrayList<User>();
+			this.users=new ArrayList<MyUser>();
 		}
 	}
-	public void update(ArrayList<User> users){
+	public void update(ArrayList<MyUser> users){
 		this.users=users;
 		if(this.users==null){
-			this.users=new ArrayList<User>();
+			this.users=new ArrayList<MyUser>();
 		}
 	}
 
@@ -101,7 +101,7 @@ public class TopicUsersListAdapter extends BaseAdapter {
 		}else{
 			holder=(Holder)convertView.getTag();
 		}
-		User user=users.get(position);
+		MyUser user=users.get(position);
 		ImageLoader imageLoader=ImageLoader.getInstance();
 		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+user.u_iconUrl, holder.icon, displayImageOptions);
 		if(!StringUtil.isEmpty(user.u_nick)){
@@ -154,9 +154,9 @@ public class TopicUsersListAdapter extends BaseAdapter {
 	public class MyListGestureDector implements OnGestureListener{
     	int mode;//1，分享，送礼，点赞列表；2，评论列表
     	int touchSlop;
-    	User user;
+    	MyUser user;
     	Comments comments;
-    	public MyListGestureDector(User user){
+    	public MyListGestureDector(MyUser user){
     		
     		this.user=user;
     		this.comments=comments;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import me.maxwin.view.XListView;
 import me.maxwin.view.XListView.IXListViewListener;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.KingdomTrendsListAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
@@ -72,7 +73,13 @@ public class PetTrendsActivity extends Activity implements IXListViewListener{
 					    startActivity(intent);
 					}
 				}
+				petTrendsActivity=null;
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(PetTrendsActivity.this)){
+					PetApplication.petApp.activityList.remove(PetTrendsActivity.this);
+				}
 				finish();
+				System.gc();
 			}
 		});
 		

@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HomeViewPagerAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
@@ -200,10 +201,21 @@ public class DialogGiveSbGiftResultActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				finish();
+				
+				dialogGiveSbGiftActivity=null;
 				if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null){
 					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();;;
+					if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity)){
+						PetApplication.petApp.activityList.remove(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity);
+					}
+					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity=null;
+					
 				}
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(DialogGiveSbGiftResultActivity.this)){
+					PetApplication.petApp.activityList.remove(DialogGiveSbGiftResultActivity.this);
+				}
+				finish();
+				System.gc();
 			}
 		});
 		sureTV.setOnClickListener(new OnClickListener() {
@@ -211,10 +223,21 @@ public class DialogGiveSbGiftResultActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				finish();
+				
+				dialogGiveSbGiftActivity=null;
 				if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null){
-					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();;
+					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();;;
+					if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity)){
+						PetApplication.petApp.activityList.remove(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity);
+					}
+					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity=null;
+					
 				}
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(DialogGiveSbGiftResultActivity.this)){
+					PetApplication.petApp.activityList.remove(DialogGiveSbGiftResultActivity.this);
+				}
+				finish();
+				System.gc();
 			}
 		});
 		nextTV.setOnClickListener(new OnClickListener() {

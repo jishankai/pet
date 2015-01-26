@@ -8,13 +8,14 @@ import java.util.Date;
 import u.aly.co;
 import u.aly.p;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.CommentListViewAdapter;
 import com.aidigame.hisun.pet.adapter.TopicUsersListAdapter;
 import com.aidigame.hisun.pet.adapter.CommentListViewAdapter.ClickUserName;
 import com.aidigame.hisun.pet.adapter.TopicUsersListAdapter.GestureListener;
 import com.aidigame.hisun.pet.bean.PetPicture;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.bean.PetPicture.Comments;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
@@ -236,7 +237,9 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 								}else{
 									Toast.makeText(NewShowTopicActivity.this, "网络不给力~图片信息获取失败", Toast.LENGTH_LONG).show();
 								}
-								
+								if(showProgress==null){
+									showProgress=new ShowProgress(NewShowTopicActivity.this, progressLayout);
+								}
 								showProgress.progressCancel();
 								
 							}
@@ -256,7 +259,6 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	 */
 	private void initAlwaysStayView() {
 		// TODO Auto-generated method stub
-		moreLayout=(RelativeLayout)findViewById(R.id.more_layout);
 		bottomCommentIv=(ImageView)findViewById(R.id.bottom_iv_comment);
 		bottomLikeIv=(ImageView)findViewById(R.id.bottom_iv_like);
 		bottomGiftIv=(ImageView)findViewById(R.id.bottom_iv_gift);
@@ -402,17 +404,16 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	/**
 	 * 更多按钮显示的条目
 	 */
-	RelativeLayout moreLayout;
+//	RelativeLayout moreLayout;
 	
 	private void initMoreView() {
 		// TODO Auto-generated method stub
 		
-		TextView bigImageTv=(TextView)findViewById(R.id.bigimagetv);
+//		TextView bigImageTv=(TextView)findViewById(R.id.bigimagetv);
 		TextView chatTv=(TextView)findViewById(R.id.messagetv);
 		TextView reportTv=(TextView)findViewById(R.id.reporttv);
-		TextView cancelTv=(TextView)findViewById(R.id.canceltv);
+//		TextView cancelTv=(TextView)findViewById(R.id.canceltv);
 		final TextView pengta_tv=(TextView)findViewById(R.id.pengta_tv);
-		moreLayout.setClickable(true);
 		if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.contains(petPicture.animal) ){
 //			pengta_tv.setVisibility(View.GONE);
 		}
@@ -422,7 +423,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(!UserStatusUtil.isLoginSuccess(NewShowTopicActivity.this,popupParent,black_layout)){
-					moreLayout.setVisibility(View.INVISIBLE);
+					shareLayout.setVisibility(View.INVISIBLE);
 					return;
 				}
 				if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.contains(petPicture.animal) ){
@@ -431,13 +432,20 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					intent.putExtra("mode", 10);
 					intent.putExtra("info", "您已经捧TA了");
 					startActivity(intent);
-					moreLayout.setVisibility(View.GONE);
+					shareLayout.setVisibility(View.GONE);
 					return ;
 				}
 				int num=0;
-				if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
-					num=(Constants.user.aniList.size()+1)*5;
-				}else if(Constants.user.aniList.size()>20){
+				int count=0;
+				for(int i=0;i<Constants.user.aniList.size();i++){
+//					if(Constants.user.aniList.get(i).master_id!=Constants.user.userId)
+						count++;
+				}
+				
+				
+				if(count>=10&&count<=20){
+					num=(count)*5;
+				}else if(count>20){
 					num=100;
 				}
 				
@@ -447,7 +455,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					intent.putExtra("mode", 10);
 					intent.putExtra("info", "钱包君告急！挣够金币再来捧萌星吧");
 					startActivity(intent);
-					moreLayout.setVisibility(View.INVISIBLE);
+					shareLayout.setVisibility(View.INVISIBLE);
 					return;
 			}
 			
@@ -462,46 +470,29 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 //					pengta_tv.setVisibility(View.GONE);
 				}
 			});
-			moreLayout.setVisibility(View.INVISIBLE);
+			shareLayout.setVisibility(View.INVISIBLE);
 			}
 		});
-		moreLayout.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				moreLayout.setVisibility(View.INVISIBLE);
-			}
-		});
-		bigImageTv.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				shareLayout.setVisibility(View.VISIBLE);
-				moreLayout.setVisibility(View.INVISIBLE);
-			}
-		});
+		
+		
 		chatTv.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				if(!UserStatusUtil.isLoginSuccess(NewShowTopicActivity.this,popupParent,black_layout)){
-					moreLayout.setVisibility(View.INVISIBLE);
+					shareLayout.setVisibility(View.INVISIBLE);
 					return;
 				}
-				if(ChatActivity.chatActivity!=null){
-					ChatActivity.chatActivity.finish();
-				}
-				Intent intent=new Intent(NewShowTopicActivity.this,ChatActivity.class);
-				User user=new User();
+				
+				Intent intent=new Intent(NewShowTopicActivity.this,com.aidigame.hisun.pet.huanxin.ChatActivity.class);
+				MyUser user=new MyUser();
 				user.userId=petPicture.animal.master_id;
 				user.u_iconUrl=petPicture.animal.u_tx;
 				user.u_nick=petPicture.animal.u_name;
 				intent.putExtra("user",user);
 				NewShowTopicActivity.this.startActivity(intent);
-				moreLayout.setVisibility(View.INVISIBLE);
+				shareLayout.setVisibility(View.INVISIBLE);
 			}
 		});
 		reportTv.setOnClickListener(new OnClickListener() {
@@ -510,7 +501,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		Intent intent=new Intent(NewShowTopicActivity.this,WarningDialogActivity.class);
-		intent.putExtra("mode", 2);
+		intent.putExtra("mode", 2);//2
 		intent.putExtra("img_id", petPicture.img_id);
 		NewShowTopicActivity.this.startActivity(intent);
 		
@@ -522,17 +513,10 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				moreLayout.setVisibility(View.INVISIBLE);
 			}
 		}, 500);*/
-		moreLayout.setVisibility(View.INVISIBLE);
+		shareLayout.setVisibility(View.INVISIBLE);
 	}
 });
-		cancelTv.setOnClickListener(new OnClickListener() {
-	
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		moreLayout.setVisibility(View.INVISIBLE);
-	}
-});
+		
 		
 	}
 	
@@ -743,7 +727,8 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	   }
-		@Override
+		int current_Middle_tab_position=3;
+	      @Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			switch (v.getId()) {
@@ -769,7 +754,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					Toast.makeText(this, "网络不给力，数据加载中", Toast.LENGTH_LONG).show();
 					return;
 				}
-				moreLayout.setVisibility(View.VISIBLE);
+				shareLayout.setVisibility(View.VISIBLE);
 				break;
 			case R.id.show_topic_close_iv1:
 				close();
@@ -793,7 +778,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				intent1.putExtra("user", user);
 				this.startActivity(intent1);*/
 				Intent intent1=new Intent(this,UserCardActivity.class);
-				User user=new User();
+				MyUser user=new MyUser();
 				user.currentAnimal=petPicture.animal;
 				user.userId=petPicture.animal.master_id;
 				intent1.putExtra("user", user);
@@ -811,6 +796,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 						NewPetKingdomActivity.petKingdomActivity.loadedImage2=null;
 					}
 					NewPetKingdomActivity.petKingdomActivity.finish();
+					NewPetKingdomActivity.petKingdomActivity=null;
 				}
 				Intent intent2=new Intent(this,NewPetKingdomActivity.class);
 				intent2.putExtra("animal", petPicture.animal);
@@ -820,37 +806,64 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				close();
 				break;
 			case R.id.middle_tab_iv1:
-				if(petPicture.likeUsersList==null){
-					downLoadUserInfo(1);
+				if(current_Middle_tab_position==1){
+					if(petPicture.animal==null){
+						Toast.makeText(this, "网络不给力，数据加载中", Toast.LENGTH_LONG).show();
+						return;
+					}
+					actionLike();
 				}else{
-					showLikeUsersList();
+					if(petPicture.likeUsersList==null){
+						downLoadUserInfo(1);
+					}else{
+						showLikeUsersList();
+					}
 				}
+				
 				
 				break;
 			case R.id.middle_tab_iv2:
-                if(petPicture.giftUsersList==null){
-                	downLoadUserInfo(2);
+				if(current_Middle_tab_position==2){
+					if(petPicture.animal==null){
+						Toast.makeText(this, "网络不给力，数据加载中", Toast.LENGTH_LONG).show();
+						return;
+					}
+					sendGift();
 				}else{
-					showGiftUsersList();
+					 if(petPicture.giftUsersList==null){
+		                	downLoadUserInfo(2);
+						}else{
+							showGiftUsersList();
+						}
 				}
+               
 				
 				break;
 			case R.id.middle_tab_iv3:
-                 if(!loadIcon){
-                	 downLoadUserInfo(3);
-                 }else{
-                	 showCommentsUsersList();
-                 }
+				if(current_Middle_tab_position==3){
+					showCommentEditor();
+				}else{
+					if(!loadIcon){
+	                	 downLoadUserInfo(3);
+	                 }else{
+	                	 showCommentsUsersList();
+	                 }
+				}
+                 
                
 				
 				break;
 			case R.id.middle_tab_iv4:
-
-                if(petPicture.shareUsersList==null){
-                	downLoadUserInfo(4);
-				}else{
-					showShareUsersList();
-				}
+                if(current_Middle_tab_position==4){
+                	shareLayout.setVisibility(View.VISIBLE);
+                }else{
+                	if(petPicture.shareUsersList==null){
+                    	downLoadUserInfo(4);
+    				}else{
+    					showShareUsersList();
+    				}
+                }
+                
 				
 				break;
 			case R.id.send_comment:
@@ -867,7 +880,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				Intent intent=new Intent(NewShowTopicActivity.this,ShowPictureActivity.class);
 				intent.putExtra("url", petPicture.url);
 				NewShowTopicActivity.this.startActivity(intent);
-				moreLayout.setVisibility(View.INVISIBLE);
+				shareLayout.setVisibility(View.INVISIBLE);
 				break;
 			case R.id.guide1:
 				guideIv1.setVisibility(View.GONE);
@@ -919,6 +932,28 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 						// TODO Auto-generated method stub
 						hasStart=false;
 						current_page=-1;
+						if(petPicture.commentsList!=null&&petPicture.commentsList.size()>0&&current_show==SHOW_COMMENT_LIST){
+							SharedPreferences sp=getSharedPreferences(Constants.BASEIC_SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+							SharedPreferences.Editor e=sp.edit();
+							boolean guide4=sp.getBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE4, true);
+							if(guide4){
+								guideIv1.setImageResource(R.drawable.guide4);
+								guideIv1.setVisibility(View.VISIBLE);
+								
+								e.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE4, false);
+								e.commit();
+								guideIv1.setOnClickListener(new OnClickListener() {
+									
+									@Override
+									public void onClick(View v) {
+										// TODO Auto-generated method stub
+										guideIv1.setVisibility(View.GONE);
+									}
+								});
+							}else{
+								guideIv1.setVisibility(View.GONE);
+							}
+						}
 					}
 				});
 				mContainer.startAnimation(anim1);
@@ -937,7 +972,19 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					Intent intent=HomeActivity.homeActivity.getIntent();
 					if(intent!=null){
 						this.startActivity(intent);
+						if(bmp!=null){
+							if(!bmp.isRecycled())
+							bmp.recycle();
+							bmp=null;
+						}
+						imageView.setImageDrawable(null);
+						newShowTopicActivity=null;
+						
+						if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+							PetApplication.petApp.activityList.remove(this);
+						}
 						finish();
+						System.gc();
 						return;
 					}
 					
@@ -955,7 +1002,13 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				bmp=null;
 			}
 			imageView.setImageDrawable(null);
+			newShowTopicActivity=null;
+			
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			finish();
+			System.gc();
 		}
 		
 		/**
@@ -969,7 +1022,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					public void run() {
 						// TODO Auto-generated method stub
 						//加载用户信息
-						User user=HttpUtil.info(NewShowTopicActivity.this,null,-1);
+						MyUser user=HttpUtil.info(NewShowTopicActivity.this,null,-1);
 						
 					}
 				}).start();
@@ -1134,7 +1187,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					ArrayList<User> users=null;
+					ArrayList<MyUser> users=null;
 					switch (mode) {
 					case 1:
 						users=HttpUtil.getOthersList(petPicture.likers, handler,NewShowTopicActivity.this,2);
@@ -1151,8 +1204,8 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 						users=HttpUtil.getOthersList(petPicture.share_ids, handler,NewShowTopicActivity.this,4);
 						break;
 					}
-					if(users==null)users=new ArrayList<User>();
-					final ArrayList<User> temp=users;
+					if(users==null)users=new ArrayList<MyUser>();
+					final ArrayList<MyUser> temp=users;
 					runOnUiThread(new Runnable() {
 						
 						@Override
@@ -1198,6 +1251,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		 * 显示点赞用户列表
 		 */
 		public void showLikeUsersList(){
+			current_Middle_tab_position=1;
 			if(current_show!=SHOW_LIKE_LIST){
 				listView.removeAllViews();
 				topicUsersListAdapter=new TopicUsersListAdapter(this, petPicture.likeUsersList,petPicture.animal);
@@ -1240,7 +1294,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 						if(param2==null){
 							param2=new ScrollView.LayoutParams(ScrollView.LayoutParams.MATCH_PARENT,petPicture.likeUsersList.size()*start);
 						}
-						if(petPicture.likeUsersList==null)petPicture.likeUsersList=new ArrayList<User>();
+						if(petPicture.likeUsersList==null)petPicture.likeUsersList=new ArrayList<MyUser>();
 						param2.height=(petPicture.likeUsersList.size())*start;
 						listView.setLayoutParams(param2);
 						
@@ -1251,6 +1305,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		 * 显示送礼物用户列表
 		 */
 		public void showGiftUsersList(){
+			current_Middle_tab_position=2;
 			if(current_show!=SHOW_GIFT_LIST){
 				listView.removeAllViews();
 				topicUsersListAdapter=new TopicUsersListAdapter(this, petPicture.giftUsersList,petPicture.animal);
@@ -1301,6 +1356,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		 * 显示分享用户列表
 		 */
 		public void showShareUsersList(){
+			current_Middle_tab_position=4;
 			/*
 			 * 分享用户数据列表
 			 */
@@ -1355,6 +1411,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		 */
 		boolean loadIcon=false;
 		public void showCommentsUsersList(){
+			current_Middle_tab_position=3;
 			/*
 			 * 分享用户数据列表
 			 */
@@ -1375,6 +1432,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				}
 				
 			}
+			
 			commentListViewAdapter.setClickUserName(new ClickUserName() {
 				
 				@Override
@@ -1387,7 +1445,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				public void reportComment() {
 					// TODO Auto-generated method stub
 					Intent intent=new Intent(NewShowTopicActivity.this,WarningDialogActivity.class);
-					intent.putExtra("mode", 1);
+					intent.putExtra("mode", 1);//1
 					intent.putExtra("img_id", petPicture.img_id);
 					NewShowTopicActivity.this.startActivity(intent);
 				}
@@ -1521,12 +1579,12 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					if(StringUtil.isEmpty(petPicture.senders)){
 						
 						petPicture.senders=""+Constants.user.userId;
-						petPicture.giftUsersList=new ArrayList<User>();
+						petPicture.giftUsersList=new ArrayList<MyUser>();
 						petPicture.giftUsersList.add(Constants.user);
 					}else{
 						petPicture.senders+=","+Constants.user.userId;
 						if(petPicture.giftUsersList==null){
-							petPicture.giftUsersList=new ArrayList<User>();
+							petPicture.giftUsersList=new ArrayList<MyUser>();
 						}
 						if(!petPicture.giftUsersList.contains(Constants.user))
 						petPicture.giftUsersList.add(Constants.user);
@@ -1662,13 +1720,13 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub\
-					User temp=null;
+					MyUser temp=null;
 					if(replySb){
 						temp=HttpUtil.sendComment(NewShowTopicActivity.this,comment, petPicture.img_id,cmt.usr_id,cmt.name,handler);
 					}else{
 						temp=HttpUtil.sendComment(NewShowTopicActivity.this,comment, petPicture.img_id,-1,"",handler);
 					}
-					final User user=temp;
+					final MyUser user=temp;
 					runOnUiThread(new Runnable() {
 						public void run() {
 							if(user!=null){
@@ -1809,7 +1867,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		*/ 
 		boolean hasRecord=false;
 		float centerY;
-		public void applyRotation(int position, float start, float end) { 
+		/*public void applyRotation(int position, float start, float end) { 
 		// 计算中心点 
 		final float centerX = mContainer.getWidth() / 2.0f; 
 		final float centerY = mContainer.getHeight() / 2.0f; 
@@ -1830,7 +1888,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		rotation.setAnimationListener(new DisplayNextView(position)); 
 
 		mContainer.startAnimation(rotation); 
-		} 
+		} */
 		GestureDetector gestureDetector=new GestureDetector(new MyGestureDector(1));
 		GestureDetector gesture=new GestureDetector(new MyGestureDector(4));
 		private void clickIV1() {
@@ -1887,7 +1945,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 			});
 		
 		}	
-		private void clickIV2() {
+		/*private void clickIV2() {
 			// TODO Auto-generated method stub
 			twoLayout.setFocusable(true);
 			twoLayout.setFocusableInTouchMode(true);
@@ -1905,13 +1963,13 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				}
 			});
 	
-		}
+		}*/
 		/** 
 		* This class listens for the end of the first half of the animation. 
 		* It then posts a new action that effectively swaps the views when the container 
 		* is rotated 90 degrees and thus invisible. 
 		*/ 
-		private final class DisplayNextView implements Animation.AnimationListener { 
+		/*private final class DisplayNextView implements Animation.AnimationListener { 
 		private final int mPosition; 
 
 		private DisplayNextView(int position) { 
@@ -1927,12 +1985,12 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 
 		public void onAnimationRepeat(Animation animation) { 
 		} 
-		} 
+		} */
 		/** 
 		* This class is responsible for swapping the views and start the second 
 		* half of the animation. 
 		*/ 
-		private final class SwapViews implements Runnable { 
+		/*private final class SwapViews implements Runnable { 
 		private final int mPosition; 
 
 		public SwapViews(int position) { 
@@ -1955,12 +2013,6 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
         }else{
         	rotation = new Rotate3dAnimation(90, 0, centerX, centerY, 0.0f, true); //310.0f
         }
-      /*  if(positive){
-        	rotation = new Rotate3dAnimation(270, 360, centerX, centerY, 310.0f, false); 
-        }else{
-        	rotation = new Rotate3dAnimation(270, 180, centerX, centerY, 310.0f, false); 
-        }*/
-		
 		} else { 
 		//返回listview 
 			myScrollView.setVisibility(View.GONE); 
@@ -1971,11 +2023,6 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
         }else{
         	rotation = new Rotate3dAnimation(90, 0, centerX, centerY, 0.0f, true); //90 180  310.0f
         }
-       /* if(positive){
-        	rotation = new Rotate3dAnimation(270, 360, centerX, centerY, 310.0f, false); 
-        }else{
-        	rotation = new Rotate3dAnimation(270, 180, centerX, centerY, 310.0f, false); 
-        }*/
 		
 		} 
 
@@ -1985,7 +2032,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		//开始动画 
 		mContainer.startAnimation(rotation); 
 		} 
-		} 
+		} */
 		public boolean  positive=true;
 		boolean hasStart=false;
 		int touchSlop;
@@ -2005,11 +2052,12 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					if(mode==4){
 						if(ShowPictureActivity.showPictureActivity!=null){
 							ShowPictureActivity.showPictureActivity.finish();
+							ShowPictureActivity.showPictureActivity=null;
 						}
 						Intent intent=new Intent(NewShowTopicActivity.this,ShowPictureActivity.class);
 						intent.putExtra("url", petPicture.url);
 						NewShowTopicActivity.this.startActivity(intent);
-						moreLayout.setVisibility(View.INVISIBLE);
+						shareLayout.setVisibility(View.INVISIBLE);
 						return true;
 					}
 					return false;
@@ -2181,12 +2229,28 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 
    public void weixinShare(){
 	   WeiXinShareContent weixinContent = new WeiXinShareContent();
-	 //设置分享文字
-//	 weixinContent.setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能，微信");
-	 //设置title
-//	 weixinContent.setTitle("友盟社会化分享组件-微信");
-	 //设置分享内容跳转URL
-//	 weixinContent.setTargetUrl("你的URL链接");
+	   long time=petPicture.create_time+24*3600-System.currentTimeMillis()/1000;
+	  if("1".equals(petPicture.is_food)&&time>0){
+			 //设置分享文字
+			 weixinContent.setShareContent(StringUtil.isEmpty(petPicture.cmt)?"看在我这么努力卖萌的份上快来宠宠我！免费送我点口粮好不好？":petPicture.cmt);
+			 //设置title
+			 weixinContent.setTitle("轻轻一点，免费赏粮！我的口粮全靠你啦~");
+			 
+	  }else{
+		//设置分享文字
+		  if(StringUtil.isEmpty(petPicture.cmt)){
+			  weixinContent.setShareContent((StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"没有照片描述：这是我最新的美照哦~~打滚儿求表扬~~");
+		  }else{
+			  weixinContent.setShareContent(petPicture.cmt);
+		  }
+			
+			 //设置title
+			 weixinContent.setTitle("我是"+petPicture.animal.pet_nickName+"，你有没有爱上我？");
+	  }
+	//设置分享内容跳转URL
+		 weixinContent.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id="+petPicture.img_id/*+"&to=wechat"*/);
+	   
+
 	 //设置分享图片
 	 UMImage umImage=new UMImage(this,bmpPath );
 	 weixinContent.setShareImage(umImage);
@@ -2216,32 +2280,6 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		});
 	   
 	   
-	   
-	  /* if(Constants.api==null){
-			boolean flag=WeixinShare.regToWeiXin(this);
-			if(!flag){
-				Toast.makeText(this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
-				shareLayout.setVisibility(View.INVISIBLE);
-				moreLayout.setVisibility(View.INVISIBLE);
-				return;
-			}
-		}
-	   LogUtil.i("mi", "微信分享：授权=="+(Constants.api==null));
-		UserImagesJson.Data data1=new UserImagesJson.Data();
-		if(bmpPath!=null){
-			data1.path=bmpPath;
-			Constants.shareMode=0;
-			Constants.whereShare=0;
-			if(WeixinShare.shareBitmap(data1, 1)){
-				 LogUtil.i("mi", "微信分享：成功==");
-				MobclickAgent.onEvent(NewShowTopicActivity.this, "photo_share");
-			}else{
-				 LogUtil.i("mi", "微信分享：失败==");
-				Toast.makeText(NewShowTopicActivity.this,"分享失败。", Toast.LENGTH_LONG).show();
-			}
-		}else{
-			Toast.makeText(this, "图片路径有误", Toast.LENGTH_LONG).show();
-		}*/
 		
 		TranslateAnimation tAnimation2=new TranslateAnimation(0, 0, 0,shareLayout.getHeight() );
 		
@@ -2256,7 +2294,6 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 			public void run() {
 				// TODO Auto-generated method stub
 				shareLayout.setVisibility(View.INVISIBLE);
-				moreLayout.setVisibility(View.INVISIBLE);
 			}
 		}, 500);
    }
@@ -2264,8 +2301,26 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	   CircleShareContent circleMedia = new CircleShareContent();
 	   UMImage umImage=new UMImage(this, bmpPath);
 	   circleMedia.setShareImage(umImage);
-//		circleMedia.setShareContent(petPicture.animal.pet_nickName);
-//	   circleMedia.setTargetUrl("你的URL链接");
+	   long time=petPicture.create_time+24*3600-System.currentTimeMillis()/1000;
+	   if("1".equals(petPicture.is_food)&&time>0){
+			 //设置分享文字
+		   circleMedia.setShareContent(StringUtil.isEmpty(petPicture.cmt)?"看在我这么努力卖萌的份上快来宠宠我！免费送我点口粮好不好？":petPicture.cmt);
+			 //设置title
+		   circleMedia.setTitle("轻轻一点，免费赏粮！我的口粮全靠你啦~");
+			
+	  }else{
+		//设置分享文字
+		  if(StringUtil.isEmpty(petPicture.cmt)){
+			  circleMedia.setShareContent((StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"没有照片描述：这是我最新的美照哦~~打滚儿求表扬~~");
+		  }else{
+			  circleMedia.setShareContent(petPicture.cmt);
+		  }
+			
+			 //设置title
+		  circleMedia.setTitle("我是"+petPicture.animal.pet_nickName+"，你有没有爱上我？");
+	  }
+	   //设置分享内容跳转URL
+	   circleMedia.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id="+petPicture.img_id/*+"&to=wechat"*/);
 	   mController.setShareMedia(circleMedia);
 	   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,
 			   new SnsPostListener() {
@@ -2288,29 +2343,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
                 }
          }
 });
-	   /*if(Constants.api==null){
-			boolean flag=WeixinShare.regToWeiXin(this);
-			if(!flag){
-				Toast.makeText(this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
-				shareLayout.setVisibility(View.INVISIBLE);
-				moreLayout.setVisibility(View.INVISIBLE);
-				return;
-			}
-		}
-		UserImagesJson.Data data2=new UserImagesJson.Data();
-		if(bmpPath!=null){
-			data2.path=bmpPath;
-			Constants.whereShare=0;
-			Constants.shareMode=1;
-			if(WeixinShare.shareBitmap(data2, 2)){
-				MobclickAgent.onEvent(NewShowTopicActivity.this, "photo_share");
-			}else{
-				Toast.makeText(NewShowTopicActivity.this,"分享到微信失败。", Toast.LENGTH_LONG).show();
-			}
-		}else{
-			Toast.makeText(this, "图片路径有误", Toast.LENGTH_LONG).show();
-		}
-		*/
+	   
 		
 		TranslateAnimation tAnimation3=new TranslateAnimation(0, 0, 0,shareLayout.getHeight() );
 		
@@ -2325,7 +2358,6 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 			public void run() {
 				// TODO Auto-generated method stub
 				shareLayout.setVisibility(View.INVISIBLE);
-				moreLayout.setVisibility(View.INVISIBLE);
 			}
 		}, 500);
 		
@@ -2347,13 +2379,20 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(bmpPath!=null){
 			data.path=bmpPath;
 			if(StringUtil.isEmpty(petPicture.cmt)){
-				data.des=(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"分享照片http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+				data.des=(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"这是我最新的美照哦~~打滚儿求表扬~~"+"http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id="+petPicture.img_id+"分享照片（分享自@宠物星球社交应用）";
 			}else{
-				data.des=petPicture.cmt+(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+				data.des=petPicture.cmt+(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id="+petPicture.img_id+"（分享自@宠物星球社交应用）";
 			}
 		}
 	   SinaShareContent content=new SinaShareContent();
-	   content.setShareContent(data.des);
+	   long time=petPicture.create_time+24*3600-System.currentTimeMillis()/1000;
+	   if("1".equals(petPicture.is_food)&&time>0){
+		   content.setShareContent((StringUtil.isEmpty(petPicture.cmt)?"看在我这么努力卖萌的份上快来宠宠我！免费送我点口粮好不好？":petPicture.cmt)+"http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id="+petPicture.img_id/*+"&to=webo"*/+"（分享自@宠物星球社交应用）");
+	   }else{
+		   content.setShareContent(data.des);
+	   }
+	   
+	   
 	   UMImage umImage=new UMImage(this, data.path);
 	  
 	   content.setShareImage(umImage);
@@ -2394,7 +2433,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				final User user=HttpUtil.imageShareNumsApi(NewShowTopicActivity.this,petPicture.img_id, handler);
+				final MyUser user=HttpUtil.imageShareNumsApi(NewShowTopicActivity.this,petPicture.img_id, handler);
 				if(user!=null&&Constants.user!=null){
 					runOnUiThread(new Runnable() {
 						
@@ -2411,7 +2450,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 									petPicture.share_ids+=","+Constants.user.userId;
 								}
 								if(petPicture.shareUsersList==null){
-									petPicture.shareUsersList=new ArrayList<User>();
+									petPicture.shareUsersList=new ArrayList<MyUser>();
 								}
 								petPicture.shareUsersList.add(Constants.user);
 								if(current_show==SHOW_SHARE_LIST){
@@ -2436,8 +2475,8 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 				NewShowTopicActivity.newShowTopicActivity.bmp.recycle();
 			}
 			NewShowTopicActivity.newShowTopicActivity.bmp=null;
-			NewShowTopicActivity.newShowTopicActivity.finish();
 			NewShowTopicActivity.newShowTopicActivity=null;
+			finish();
 		}
 	}
 	public void onTouchScroll(MotionEvent arg0, MotionEvent arg1, float arg2,
@@ -2496,6 +2535,28 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 						// TODO Auto-generated method stub
 						hasStart=false;
 						current_page=-1;
+						if(petPicture.commentsList!=null&&petPicture.commentsList.size()>0&&current_show==SHOW_COMMENT_LIST){
+							SharedPreferences sp=getSharedPreferences(Constants.BASEIC_SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+							SharedPreferences.Editor e=sp.edit();
+							boolean guide4=sp.getBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE4, true);
+							if(guide4){
+								guideIv1.setImageResource(R.drawable.guide4);
+								guideIv1.setVisibility(View.VISIBLE);
+								
+								e.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE4, false);
+								e.commit();
+                                guideIv1.setOnClickListener(new OnClickListener() {
+									
+									@Override
+									public void onClick(View v) {
+										// TODO Auto-generated method stub
+										guideIv1.setVisibility(View.GONE);
+									}
+								});
+							}else{
+								guideIv1.setVisibility(View.GONE);
+							}
+						}
 					}
 				});
 				mContainer.startAnimation(anim1);

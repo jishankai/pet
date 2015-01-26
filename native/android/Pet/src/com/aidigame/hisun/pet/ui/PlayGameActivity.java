@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -83,7 +84,12 @@ public class PlayGameActivity extends Activity {
 					}
 				}
 				
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(PlayGameActivity.this)){
+					PetApplication.petApp.activityList.remove(PlayGameActivity.this);
+				}
 				finish();
+				System.gc();
 			}
 		});
 		shareTv.setOnClickListener(new OnClickListener() {

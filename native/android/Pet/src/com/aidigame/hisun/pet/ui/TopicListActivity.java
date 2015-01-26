@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.TopicListAdapter;
 import com.aidigame.hisun.pet.bean.Topic;
@@ -86,6 +87,10 @@ public class TopicListActivity extends Activity implements PullToRefreshAndMoreL
 				
 				SubmitPictureActivity.submitPictureActivity.setTopic(topicList.get(position));
 				TopicListActivity.this.finish();
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(TopicListActivity.this)){
+					PetApplication.petApp.activityList.remove(TopicListActivity.this);
+				}
+				System.gc();
 			}
 		});
 		back.setOnClickListener(new OnClickListener() {
@@ -93,7 +98,12 @@ public class TopicListActivity extends Activity implements PullToRefreshAndMoreL
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(TopicListActivity.this)){
+					PetApplication.petApp.activityList.remove(TopicListActivity.this);
+				}
 				TopicListActivity.this.finish();
+				System.gc();
 			}
 		});
 		sureTV.setOnClickListener(new OnClickListener() {

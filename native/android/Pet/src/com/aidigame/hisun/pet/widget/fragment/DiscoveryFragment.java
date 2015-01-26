@@ -49,6 +49,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aidigame.hisun.pet.FirstPageActivity;
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HomePetPictureAdapter;
 import com.aidigame.hisun.pet.adapter.HomeSearchListAdapter;
@@ -56,7 +57,7 @@ import com.aidigame.hisun.pet.adapter.HomeViewPagerAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.Gift;
 import com.aidigame.hisun.pet.bean.PetPicture;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.blur.TopCenterImageView;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
@@ -123,7 +124,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
    XListView searchListview;
    HomeSearchListAdapter homeSearchListAdapter;
    ArrayList<Animal>  searchAnimals;
-   ArrayList<User> searchUsers;
+   ArrayList<MyUser> searchUsers;
    PopupWindow popupWindow;
 	int searchMode=1;//1,搜索萌星；2，搜索用户
    
@@ -428,11 +429,15 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 					// TODO Auto-generated method stub
 				// TODO Auto-generated method stub
 				Object o=parent.getItemAtPosition(position);
-				if(o instanceof User){
-					User u=(User)o;
+				if(o instanceof MyUser){
+					MyUser u=(MyUser)o;
 					if(UserCardActivity.userCardActivity!=null){
-						
+						if(PetApplication.petApp.activityList.contains(UserCardActivity.userCardActivity)){
+							PetApplication.petApp.activityList.remove(UserCardActivity.userCardActivity);
+						}
 						UserCardActivity.userCardActivity.finish();
+						UserCardActivity.userCardActivity=null;
+						System.gc();
 					}
 					Intent intent=new Intent(homeActivity,UserCardActivity.class);
 					intent.putExtra("user", u);
@@ -445,6 +450,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 							NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
 						}
 						NewPetKingdomActivity.petKingdomActivity.finish();
+						NewPetKingdomActivity.petKingdomActivity=null;
 					}
 					Intent intent=new Intent(homeActivity,NewPetKingdomActivity.class);
 					intent.putExtra("animal", a);
@@ -500,17 +506,17 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 			viewPager.setCurrentItem(0);
 			break;
 		case R.id.button2:
-			new Thread(new Runnable() {
+			if(homePetPictures!=null){
+				homePetPictures.refresh();
+			}
+			/*new Thread(new Runnable() {
 				
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-//					refreshTopics();
-					if(homePetPictures!=null){
-						homePetPictures.refresh();
-					}
+					
 				}
-			}).start();
+			}).start();*/
 			viewPager.setCurrentItem(1);
 			break;
 		case R.id.button3:
@@ -621,6 +627,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 		case R.id.rq_rank_iv:
 			if(PopularRankListActivity.popularRankListActivity!=null){
 				PopularRankListActivity.popularRankListActivity.finish();
+				PopularRankListActivity.popularRankListActivity=null;
 			}
 			Intent intent=new Intent(homeActivity,PopularRankListActivity.class);
 			homeActivity.startActivity(intent);
@@ -728,7 +735,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 						}
 					});
 				}else{
-					final ArrayList<User> users=HttpUtil.searchUser(homeActivity,name, page, handleHttpConnectionException.getHandler(homeActivity));
+					final ArrayList<MyUser> users=HttpUtil.searchUser(homeActivity,name, page, handleHttpConnectionException.getHandler(homeActivity));
 					homeActivity.runOnUiThread(new Runnable() {
 						
 						@Override

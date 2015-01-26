@@ -22,10 +22,11 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.ContributeRankListAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -47,8 +48,8 @@ public class ContributeRankListActivity extends Activity {
 	TextView findMeTV,contributeTv;
 	ContributeRankListAdapter adapter;
 //	ContributeRankListAdapter adapter2;
-	public ArrayList<User> peopleList;
-	public ArrayList<User> tempList;
+	public ArrayList<MyUser> peopleList;
+	public ArrayList<MyUser> tempList;
 	PopupWindow popupWindow;
 	public boolean findMe=true;
 	public int category=1;
@@ -87,7 +88,15 @@ public class ContributeRankListActivity extends Activity {
 				Intent intent=new Intent(ContributeRankListActivity.this,UserCardActivity.class);
 				intent.putExtra("user", peopleList.get(position));
 				
-				if(UserCardActivity.userCardActivity!=null)UserCardActivity.userCardActivity.finish();
+				if(UserCardActivity.userCardActivity!=null){
+					if(PetApplication.petApp.activityList.contains(UserCardActivity.userCardActivity)){
+						PetApplication.petApp.activityList.remove(UserCardActivity.userCardActivity);
+					}
+					
+					UserCardActivity.userCardActivity=null;
+					UserCardActivity.userCardActivity.finish();
+					System.gc();
+				}
 				ContributeRankListActivity.this.startActivity(intent);
 			}
 		});
@@ -129,13 +138,13 @@ public class ContributeRankListActivity extends Activity {
 	private void loadData( final int category) {
 		// TODO Auto-generated method stub
 		this.category=category;
-		peopleList=new ArrayList<User>();
+		peopleList=new ArrayList<MyUser>();
 		new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				final ArrayList<User> users=HttpUtil.contributeRankList(ContributeRankListActivity.this,category, animal.a_id, handleHttpConnectionException.getHandler(ContributeRankListActivity.this));
+				final ArrayList<MyUser> users=HttpUtil.contributeRankList(ContributeRankListActivity.this,category, animal.a_id, handleHttpConnectionException.getHandler(ContributeRankListActivity.this));
 				if(users!=null){
 					runOnUiThread(new Runnable() {
 						public void run() {
@@ -150,7 +159,7 @@ public class ContributeRankListActivity extends Activity {
 				
 			}
 		}).start();
-		tempList=new ArrayList<User>();
+		tempList=new ArrayList<MyUser>();
 		/*for(int i=0;i<4;i++){
 			tempList.add(peopleList.get(i));
 		}*/
@@ -230,6 +239,10 @@ public class ContributeRankListActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				ContributeRankListActivity.this.finish();
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(ContributeRankListActivity.this)){
+					PetApplication.petApp.activityList.remove(ContributeRankListActivity.this);
+				}
+				System.gc();
 			}
 		});
 //		new Thread(new Runnable() {

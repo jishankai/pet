@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import android.R.integer;
 
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.http.json.LoginJson.Data;
 
 public class MessagJson implements Serializable{
@@ -77,7 +77,7 @@ public class MessagJson implements Serializable{
 									dataSystem=new DataSystem();
 									
 									dataSystem.create_time=o2.getLong("create_time");
-									dataSystem.fromUser=new User();
+									dataSystem.fromUser=new MyUser();
 									dataSystem.fromUser.userId=o2.getInt("from_id");
 									dataSystem.fromUser.pet_iconUrl=o2.getString("tx");
 									dataSystem.fromUser.pet_nickName=o2.getString("name");
@@ -115,7 +115,7 @@ public class MessagJson implements Serializable{
 	}
 	public static class DataSystem implements Serializable{
 		public String mail_id;
-		public User fromUser;
+		public MyUser fromUser;
 		public String body;
 		public boolean is_read;
 		public boolean is_system;

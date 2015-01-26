@@ -46,10 +46,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aidigame.hisun.pet.FirstPageActivity;
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HomeViewPagerAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.AddressData;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
@@ -234,7 +235,12 @@ public class ModifyPetInfoActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(ModifyPetInfoActivity.this)){
+					PetApplication.petApp.activityList.remove(ModifyPetInfoActivity.this);
+				}
 				ModifyPetInfoActivity.this.finish();
+				System.gc();
 			}
 		});
 		if(mode==1){
@@ -318,7 +324,7 @@ public class ModifyPetInfoActivity extends Activity {
 	 * 设置用户信息，资料修改时使用
 	 * @param animal
 	 */
-	public void setUserInfo(User user){
+	public void setUserInfo(MyUser user){
 		// 加入狗或猫的王国,将宠物相关信息填入注册表格中
     	imageLoader=ImageLoader.getInstance();
     	//TODO 暂时注释掉
@@ -426,7 +432,7 @@ public class ModifyPetInfoActivity extends Activity {
 				
                 handler.sendEmptyMessage(SHOW_PROGRESS);
 					String code="";
-					final User user=new User();
+					final MyUser user=new MyUser();
 						user.u_nick=userNameStr;
 						user.u_gender=Integer.parseInt(userSexStr);
 						user.uid=code;
@@ -440,7 +446,7 @@ public class ModifyPetInfoActivity extends Activity {
 							// TODO Auto-generated method stub
 							boolean flag=HttpUtil.modifyUserInfo(handleHttpConnectionException.getHandler(ModifyPetInfoActivity.this),user,ModifyPetInfoActivity.this);
 							if(flag){
-								User user=HttpUtil.info(ModifyPetInfoActivity.this,handleHttpConnectionException.getHandler(ModifyPetInfoActivity.this),Constants.user.userId);
+								MyUser user=HttpUtil.info(ModifyPetInfoActivity.this,handleHttpConnectionException.getHandler(ModifyPetInfoActivity.this),Constants.user.userId);
 								user.currentAnimal=Constants.user.currentAnimal;
 								user.aniList=Constants.user.aniList;
 								Constants.user=user;
@@ -464,7 +470,7 @@ public class ModifyPetInfoActivity extends Activity {
 											Toast.makeText(ModifyPetInfoActivity.this,"修改资料成功" , Toast.LENGTH_LONG).show();
 											ModifyPetInfoActivity.this.finish();
 											if(UserCenterFragment.userCenterFragment!=null){
-										    	UserCenterFragment.userCenterFragment.updatateInfo();;
+										    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 											}
 											if(UserCardActivity.userCardActivity!=null){
 												UserCardActivity.userCardActivity.setUserInfo(Constants.user);
@@ -659,7 +665,7 @@ public class ModifyPetInfoActivity extends Activity {
 				}
 				 handler.sendEmptyMessage(SHOW_PROGRESS);
 				 String code="";
-					final User user=new User();
+					final MyUser user=new MyUser();
 				 user.currentAnimal=animal;
 					user.pet_nickName=petNameStr;
 					user.a_gender=Integer.parseInt(petSexStr);
@@ -712,7 +718,7 @@ public class ModifyPetInfoActivity extends Activity {
 												
 											}
 											if(UserCenterFragment.userCenterFragment!=null){
-										    	UserCenterFragment.userCenterFragment.updatateInfo();;
+										    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 											}
 											if(NewPetKingdomActivity.petKingdomActivity!=null){
 												NewPetKingdomActivity.petKingdomActivity.setPetInfo(animal);

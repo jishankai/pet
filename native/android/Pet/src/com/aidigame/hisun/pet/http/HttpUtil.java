@@ -80,7 +80,7 @@ import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.bean.TalkMessage;
 import com.aidigame.hisun.pet.bean.TalkMessage.Msg;
 import com.aidigame.hisun.pet.bean.Topic;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.AddressData;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.json.ActivityJson;
@@ -110,7 +110,7 @@ public class HttpUtil {
 	 * 
 	 * @param user
 	 */
-	public static boolean register(Handler handler, User user,Activity activity) {
+	public static boolean register(Handler handler, MyUser user,Activity activity) {
 		String url = "http://" + Constants.REGISTER_PATH;
 		DefaultHttpClient client = new DefaultHttpClient();
 		
@@ -136,14 +136,14 @@ public class HttpUtil {
 				value = "age=" + user.a_age+"&aid="+user.currentAnimal.a_id + "&code="/* +1 */+ "&gender="
 						+ user.a_gender /*+  "&name="+user.pet_nickName*/+ "&type=" + user.race
 						+"&u_city="+user.city+"&u_gender="+user.u_gender/*+"&u_name="+user.u_nick*/
-						+"&wechat="+user.weixin_id+"&weibo="+user.xinlang_id;
+						+"&wechat="/*+user.weixin_id+"&wechat_union="*/+user.wechat_union+"&weibo="+user.xinlang_id;
 				
 				SIG = getMD5Value(value);
 				param = "&age=" + user.a_age +"&aid="+user.currentAnimal.a_id+ "&code="/* +1 */+ "&gender="
 						+ user.a_gender + "&name=" + pet_nickName + "&type=" + user.race
 						+"&u_city="+user.city+"&u_gender="+user.u_gender+"&u_name="+u_nick
 						+ "&sig=" + SIG + "&SID=" + Constants.SID
-						+"&wechat="+user.weixin_id+"&weibo="+user.xinlang_id;
+						+"&wechat="+user.wechat_union+"&weibo="+user.xinlang_id;
 			}else{
 				value = "age=" + user.a_age+"&aid="+user.currentAnimal.a_id + "&code="/* +1 */+ "&gender="
 						+ user.a_gender /*+  "&name="+user.pet_nickName*/+ "&type=" + user.race
@@ -162,14 +162,14 @@ public class HttpUtil {
             	value = "age=" + user.a_age+"&aid="+"0"  + "&code="/* +1 */+ "&gender="
     					+ user.a_gender /*+  "&name="+user.pet_nickName*/+ "&type=" + user.race
     					+"&u_city="+user.city+"&u_gender="+user.u_gender/*+"&u_name="+user.u_nick*/
-    					+"&wechat="+user.weixin_id+"&weibo="+user.xinlang_id;;
+    					+"&wechat="/*+user.weixin_id+"&wechat_union="*/+user.wechat_union+"&weibo="+user.xinlang_id;;
     		
     			SIG = getMD5Value(value);
     			param = "&age=" + user.a_age + "&code="/* +1 */+ "&gender="
     					+ user.a_gender + "&name=" + pet_nickName + "&type=" + user.race
     					+"&u_city="+user.city+"&u_gender="+user.u_gender+"&u_name="+u_nick
     					+ "&sig=" + SIG + "&SID=" + Constants.SID+"&aid=0"
-    					+"&wechat="+user.weixin_id+"&weibo="+user.xinlang_id;;
+    					+"&wechat="+user.wechat_union+"&weibo="+user.xinlang_id;;
 			}else{
 				value = "age=" + user.a_age+"&aid="+"0"  + "&code="/* +1 */+ "&gender="
 						+ user.a_gender /*+  "&name="+user.pet_nickName*/+ "&type=" + user.race
@@ -205,7 +205,7 @@ public class HttpUtil {
 							JSONObject j1=jo.getJSONObject("data");
 							int usr_id=j1.getInt("usr_id");
 							if(usr_id>0){
-								Constants.user=new User();
+								Constants.user=new MyUser();
 								Constants.user.userId=usr_id;
 								Constants.user.currentAnimal=new Animal();
 								Constants.user.currentAnimal.a_id=j1.getInt("aid");
@@ -233,7 +233,7 @@ public class HttpUtil {
 	 * @param activity
 	 * @return
 	 */
-	public static boolean modifyUserInfo(Handler handler, User user,Activity activity) {
+	public static boolean modifyUserInfo(Handler handler, MyUser user,Activity activity) {
 		String url = "http://" + Constants.USER_MODIFY;
 		DefaultHttpClient client = new DefaultHttpClient();
 		
@@ -708,7 +708,7 @@ public class HttpUtil {
 						
 						  boolean isBinded=jo.getJSONObject("data").getBoolean("isBinded");
 						    if(isBinded){
-						    	Constants.user=new User();
+						    	Constants.user=new MyUser();
 						        Constants.user.currentAnimal=new Animal();
 						    	Constants.isSuccess=true;
 						    	Constants.user.userId=jo.getJSONObject("data").getInt("usr_id");
@@ -739,14 +739,14 @@ public class HttpUtil {
 	 * @param activity
 	 * @return
 	 */
-	public static boolean isBind(Handler handler, String  id,boolean isWeixin,Activity activity) {
+	public static boolean isBind(Handler handler, String  id,boolean isWeixin,Activity activity,String wechat_union) {
 		String url = "http://" + Constants.IS_BIND;
 		DefaultHttpClient client = new DefaultHttpClient();
 		String value="";
 		String SIG = null;
 		String param=null;
 		if(isWeixin){
-			value = "wechat="+id;
+			value = "wechat="+id+"&wechat_union="+wechat_union;
 		}else{
 			value = "weibo="+id;
 		}
@@ -755,7 +755,7 @@ public class HttpUtil {
 			SIG = getMD5Value(value);
 			if(isWeixin){
 				param = "&wechat="+id
-						+ "&sig=" + SIG + "&SID=" + Constants.SID;
+						+ "&sig=" + SIG + "&SID=" + Constants.SID+"&wechat_union="+wechat_union;
 			}else{
 				param = "&weibo="+id
 						+ "&sig=" + SIG + "&SID=" + Constants.SID;
@@ -784,7 +784,7 @@ public class HttpUtil {
 					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
 						    boolean isBinded=jo.getJSONObject("data").getBoolean("isBinded");
 						    if(isBinded){
-						    	Constants.user=new User();
+						    	Constants.user=new MyUser();
 						        Constants.user.currentAnimal=new Animal();
 						    	Constants.isSuccess=true;
 						    	Constants.user.userId=jo.getJSONObject("data").getInt("usr_id");
@@ -802,7 +802,7 @@ public class HttpUtil {
 				  }else if(status==1){
 					  return false;
 				  }else if(status==2){
-					  return isBind(handler, id, isWeixin, activity);
+					  return isBind(handler, id, isWeixin, activity,wechat_union);
 				  }
 			}
 			
@@ -864,6 +864,7 @@ public class HttpUtil {
 							  pp.animal=animal;
 							  pp.animal.foodNum=j.getLong("food");
 							  pp.create_time=j.getLong("create_time");
+							  pp.cmt=j.getString("cmt");
 							  return pp;
 						  }
 						  
@@ -1545,7 +1546,7 @@ public class HttpUtil {
 		ArrayList<NameValuePair> pairs=new ArrayList<NameValuePair>();
     	NameValuePair pair=new BasicNameValuePair("msg",msg);//URLEncoder.encode(comment, "UTF-8")
 		pairs.add(pair);
-    	User user=null;
+    	MyUser user=null;
 		
 		
 		
@@ -1625,7 +1626,7 @@ public class HttpUtil {
 						/*
 						 *[[{"aid":"309","name":"\u963f\u9ec4",
 						 *"tx":"309_1414581941593_pet_icon.jpg","msg":"",
-						 *"t_rq":"825","rank":"0","t_contri":"818",
+						 *"t_rq":"825","rank":"0","t_contri":"818","u_name":"","u_tx":"",
 						 *"images":[{"img_id":"259","url":"309_1414206413260.png"},
 						 *{"img_id":"271","url":"309_1414235855186.png"}],
 						 *"percent":8,"shake_count":null,"gift_count":null,"is_touched":null,"is_voiced":null，"invite_code":"qf2wh3@155"}]]
@@ -1653,6 +1654,8 @@ public class HttpUtil {
 										  animal.pet_iconUrl=jo.getString("tx");
 										  animal.announceStr=jo.getString("msg");
 										  animal.u_rankCode=jo.getInt("rank");
+										  animal.u_name=jo.getString("u_name");
+										  animal.u_tx=jo.getString("u_tx");
 										  animal.invite_code=jo.getString("invite_code");
 										  if(StringUtil.isEmpty(animal.announceStr)){
 											  animal.announceStr="点击创建独一无二的萌宣言吧~";
@@ -1855,7 +1858,7 @@ public class HttpUtil {
 		return animals;
 	}
 	
-	public static boolean modifyPetInfo(Handler handler, User user,Activity activity) {
+	public static boolean modifyPetInfo(Handler handler, MyUser user,Activity activity) {
 		String url = "http://" + Constants.PET_MODIFY;
 		DefaultHttpClient client = new DefaultHttpClient();
 		
@@ -1963,7 +1966,7 @@ public class HttpUtil {
 		String url ="http://"+Constants.IP+Constants.GET_SID+uid+"&sig="+sig;
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		boolean flag=false;
 		String result=connect(client, handler, get);
             /*
@@ -1978,7 +1981,7 @@ public class HttpUtil {
 				LogUtil.i("me", "info返回结果" + result);
 				int status=handleResult(context,result,handler);
 				  if(status==0){
-					  user=new User();
+					  user=new MyUser();
 					  JSONObject j1=null;
 					try {
 						j1 = new JSONObject(result);
@@ -1991,7 +1994,7 @@ public class HttpUtil {
 						  if(!StringUtil.isEmpty(usr_id)&&!"null".equals(SID)&&!"false".equals(SID)){
 							  int id=Integer.parseInt(usr_id);
 							  if(id!=0&&id>0){
-								  Constants.user=new User();
+								  Constants.user=new MyUser();
 								  Constants.user.userId=id;
 								  Constants.isSuccess=true; 
 								  Constants.SID=SID;
@@ -2027,6 +2030,8 @@ public class HttpUtil {
 					  
 					
 				  }
+			}else{
+				return "repate";
 			}
 		return SID;
 	}
@@ -2038,7 +2043,7 @@ public class HttpUtil {
 		String param = SIG +"&planet="+planet+ "&SID=" + Constants.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		boolean flag=false;
 		try {
 			String result=connect(client, handler, get);
@@ -2052,7 +2057,7 @@ public class HttpUtil {
 				LogUtil.i("me", "info返回结果" + result);
 				int status=handleResult(context,result,handler);
 				  if(status==0){
-					  user=new User();
+					  user=new MyUser();
 					  JSONObject j1=new JSONObject(result);
 					  JSONObject j2=j1.getJSONObject("data");
 					  flag=j2.getBoolean("isSuccess");
@@ -2087,7 +2092,7 @@ public class HttpUtil {
 		String param = SIG +"&age="+animal.a_age+"&gender="+animal.a_gender+"&type="+animal.race+"&name="+temp+ "&SID=" + Constants.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		boolean flag=false;
 		try {
 			String result = connect(client, handler, get);
@@ -2140,7 +2145,7 @@ public class HttpUtil {
 		String param = SIG +"&aid="+animal.a_id+ "&SID=" + Constants.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		boolean flag=false;
 		String path=null;
 		try {
@@ -2202,7 +2207,7 @@ public class HttpUtil {
 	 * 
 	 * @param user
 	 */
-	public static User info(Activity activity,Handler handler,int usr_id) {
+	public static MyUser info(Activity activity,Handler handler,int usr_id) {
 		String url = "http://" + Constants.IP + Constants.INFO_PATH;
 		LogUtil.i("me", "获取用户信息方法正在执行++++++++++"+url );
 		DefaultHttpClient client = new DefaultHttpClient();
@@ -2217,7 +2222,7 @@ public class HttpUtil {
 		}
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		 LogUtil.i("me", "获取用户信息方法正在执行++++++++++"+url );
 			String result =connect(client, handler, get);
             /*
@@ -2499,7 +2504,7 @@ public class HttpUtil {
 	 * @param handler
 	 * @return
 	 */
-	public static  ArrayList<User> contributeRankList(Context context,int category,long aid,Handler handler) {
+	public static  ArrayList<MyUser> contributeRankList(Context context,int category,long aid,Handler handler) {
 		String url = "http://" + Constants.IP + Constants.CONTRIBUTE_RANK;
 		DefaultHttpClient client = new DefaultHttpClient();
 		boolean flag=false;
@@ -2513,7 +2518,7 @@ public class HttpUtil {
 		}
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-	    ArrayList<User> animalList=null;
+	    ArrayList<MyUser> animalList=null;
 		try {
 			String result = connect(client, handler, get);
             /*
@@ -2533,12 +2538,12 @@ public class HttpUtil {
 					  if(!StringUtil.isEmpty(dataStr)&&!"null".equals(dataStr)){
 						  JSONArray ja=j1.getJSONArray("data");
 						  if(ja!=null&&ja.length()>0){
-							  animalList=new ArrayList<User>();
-							  User animal=null;
+							  animalList=new ArrayList<MyUser>();
+							  MyUser animal=null;
 							  JSONObject j2=null;
 							  for(int i=0;i<ja.length();i++){
 								  j2=ja.getJSONObject(i);
-								  animal=new User();
+								  animal=new MyUser();
 								  animal.userId=j2.getInt("usr_id");
 								  animal.u_nick=j2.getString("name");
 								  animal.u_iconUrl=j2.getString("tx");
@@ -2788,11 +2793,11 @@ public class HttpUtil {
 	 * @param handler
 	 * @return
 	 */
-	public static ArrayList<User> kingdomPeoples(Context context,int usr_id,Animal animal,Handler handler) {
+	public static ArrayList<MyUser> kingdomPeoples(Context context,int usr_id,Animal animal,Handler handler) {
 		String url = "http://" + Constants.IP + Constants.KINGDOM_PEOPLES;
 		DefaultHttpClient client = new DefaultHttpClient();
 		boolean flag=false;
-		ArrayList<User> userList=null;
+		ArrayList<MyUser> userList=null;
 		String value = "aid="+animal.a_id;
 		String SIG = getMD5Value(value);
 		String param = SIG +"&aid="+animal.a_id+ "&SID=" + Constants.SID;
@@ -2828,12 +2833,12 @@ public class HttpUtil {
 							  ja=ja1.getJSONArray(0);
 						  }
 						  JSONObject j2=null;
-						  User user=null;
-						  userList=new ArrayList<User>();
+						  MyUser user=null;
+						  userList=new ArrayList<MyUser>();
 						  if(ja!=null&&ja.length()>0){
 							  for(int i=0;i<ja.length();i++){
 								  j2=ja.getJSONObject(i);
-								  user=new User();
+								  user=new MyUser();
 								  user.currentAnimal=new Animal();
 								  user.currentAnimal.a_id=animal.a_id;
 								  user.userId=j2.getInt("usr_id");
@@ -2901,7 +2906,7 @@ public class HttpUtil {
 		String param = SIG +"&aid="+animal.a_id+ "&SID=" + Constants.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		try {
 			String result = connect(client, handler, get);
             /*
@@ -2950,7 +2955,7 @@ public class HttpUtil {
 	 * @param mode
 	 * @return
 	 */
-	public static User imageShareNumsApi(Context context,int img_id,Handler handler) {
+	public static MyUser imageShareNumsApi(Context context,int img_id,Handler handler) {
 		String url = "http://" + Constants.IP + Constants.IMAGE_SHARE_NUM;
 		DefaultHttpClient client = new DefaultHttpClient();
 		String value = "img_id="+img_id;
@@ -2958,7 +2963,7 @@ public class HttpUtil {
 		String param = SIG +"&img_id="+img_id+ "&SID=" + Constants.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		try {
 			String result = connect(client, handler, get);
             /*
@@ -2976,7 +2981,7 @@ public class HttpUtil {
 					  JSONObject j1=new JSONObject(result);
 					  String dataStr=j1.getString("data");
 					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
-						  user=new User();
+						  user=new MyUser();
 						  if(dataStr.contains("\"gold\"")){
 							  JSONObject j2=j1.getJSONObject("data");
 							  int gold=0,exp=0,lv=0;
@@ -3031,7 +3036,7 @@ public class HttpUtil {
 		String param = SIG + "&SID=" + Constants.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		try {
 			String result = connect(client, handler, get);
             /*
@@ -3080,7 +3085,7 @@ public class HttpUtil {
 		
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		try {
 			String result =connect(client, handler, get);
             /*
@@ -3222,7 +3227,7 @@ public class HttpUtil {
 	 * @param handler
 	 * @return
 	 */
-	public static ArrayList<Animal> usersKingdom(Context context,User user,long aid,Handler handler) {
+	public static ArrayList<Animal> usersKingdom(Context context,MyUser user,long aid,Handler handler) {
 		String url = "http://" + Constants.IP + Constants.USER_PETS;
 		DefaultHttpClient client = new DefaultHttpClient();
 		boolean flag=false;
@@ -3387,7 +3392,7 @@ public class HttpUtil {
 	 * @param handler
 	 * @return
 	 */
-	public static ArrayList<Gift> userItems(Context context,User user,long aid,Handler handler) {
+	public static ArrayList<Gift> userItems(Context context,MyUser user,long aid,Handler handler) {
 		String url = "http://" + Constants.IP + Constants.USER_GIFT;
 		DefaultHttpClient client = new DefaultHttpClient();
 		ArrayList<Gift> total=StringUtil.getGiftList(PetApplication.petApp);
@@ -3481,7 +3486,7 @@ public class HttpUtil {
 	 * @param handler
 	 * @return
 	 */
-	public static ArrayList<PetPicture>  userActivity(Context context,User user,long aid,Handler handler) {
+	public static ArrayList<PetPicture>  userActivity(Context context,MyUser user,long aid,Handler handler) {
 		String url = "http://" + Constants.IP + Constants.USER_ACTIVITY;
 		DefaultHttpClient client = new DefaultHttpClient();
 		boolean flag=false;
@@ -3590,7 +3595,7 @@ public class HttpUtil {
 		
 		
 		
-		User user=null;
+		MyUser user=null;
 		try {
 			
 			HttpResponse response = client.execute(get);
@@ -3673,7 +3678,7 @@ public class HttpUtil {
 		
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		try {
 			String result = connect(client, handler, get);
             /*
@@ -3909,7 +3914,7 @@ public class HttpUtil {
 						  card=new KingdomCard();
 						  JSONObject j3=j2.getJSONObject("master");
 						  if(j3!=null){
-							  card.user=new User();
+							  card.user=new MyUser();
 							  card.user.userId=j3.getInt("usr_id");
 							  card.user.u_nick=j3.getString("name");
 							  card.user.u_iconUrl=j3.getString("tx");
@@ -3973,7 +3978,7 @@ public class HttpUtil {
 	
 	public static PetPicture uploadImage(PetPicture petPicture,Handler handler,Activity activity) {
 		boolean flag = false;
-		PetPicture  petPicture2=post(petPicture,activity);
+		PetPicture  petPicture2=post(petPicture,activity,handler);
 		if(petPicture2!=null&&petPicture2.errorCode==-1){
 			if(ShowDialog.count==0&&petPicture2.errorMessage!=null)
 				ShowDialog.show(petPicture2.errorMessage, activity);
@@ -4011,7 +4016,7 @@ public class HttpUtil {
 		String param = SIG + "&SID=" + Constants.SID+"&aid="+animal.a_id;;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		try {
             /**
              * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
@@ -4055,7 +4060,7 @@ public class HttpUtil {
      * @return String result of Service response
      * @throws IOException
      */
-    public static PetPicture post(PetPicture petPicture,Activity activity){
+    public static PetPicture post(PetPicture petPicture,Activity activity,Handler handler){
     	boolean flag = false;
     	String TAG="image";
 		String value = "aid="+petPicture.animal.a_id/*+"&relates="+"&topic_name="*/;//+"&topic_id="
@@ -4202,7 +4207,7 @@ public class HttpUtil {
 	        	int status=jsonObject.getInt("state");
 	        	if(status==2){
 	        		login(activity,null);
-	        		post(petPicture, activity);
+	        		post(petPicture, activity,handler);
 	        	}
 	        	String dataStr=jsonObject.getString("data");
 	        	if(!StringUtil.isEmpty(dataStr)&&!"null".equals(dataStr)){
@@ -4226,11 +4231,14 @@ public class HttpUtil {
 	        		return petPicture;
 	        	}
 	        }
+	        int status=handleResult(activity,sb2.toString(),handler);
+			  if(status==0){
 	        PetPicture  petPicture2=parseUpdateImageJson(sb2.toString());
 //	        UserImagesJson data=parseUpdateImageJson(sb2.toString());
 	        if(petPicture2!=null){
 	        	return petPicture2;
 	        }
+			  }
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -4581,10 +4589,11 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 								if(StringUtil.isEmpty(petPicture.likers)){
 									
 									petPicture.likers=""+Constants.user.userId;
-//									petPicture.likeUsersList=new ArrayList<User>();
-//									petPicture.likeUsersList.add(Constants.user);
+									petPicture.likeUsersList=new ArrayList<MyUser>();
+									petPicture.likeUsersList.add(Constants.user);
 								}else{
-//									petPicture.likeUsersList.add(Constants.user);
+									if(petPicture.likeUsersList==null)petPicture.likeUsersList=new ArrayList<MyUser>();
+									petPicture.likeUsersList.add(Constants.user);
 									petPicture.likers+=","+Constants.user.userId;
 								}
 								if(petPicture.like_txUrlList!=null&&Constants.user.u_iconUrl!=null){
@@ -4667,14 +4676,19 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 					return false;
 				}
 				/*
-				 * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
-				 * "data":{
-				 *    "image":{"img_id":"2499","aid":"1000000219","topic_id":"0","topic_name":"",
-				 *    "relates":"","cmt":"","url":"1000000219_1.1409797542.png",
-				 *    "likes":"1","likers":"231","gifts":"0","senders":"","comments":"","sharers":"",
-				 *    "shares":"0","create_time":"1409797540","update_time":"2014-09-04 03:05:50",
-				 *    "is_deleted":"\u0000"},"is_follow":false,"sender_tx":null,
-				 *    "liker_tx":["231_userHeadImage.png"]},"currentTime":1409801016}
+				 *    {"state":0,"errorCode":0,"errorMessage":"",
+				 *    "version":"1.0.0","confVersion":"1.1",
+				 *    "data":{"image":{"img_id":"3381","aid":"871","topic_id":"0",
+				 *    "topic_name":"\u6323\u53e3\u7cae","relates":"",
+				 *    "cmt":"\u6211\u4eec\u5c0f\u5976\u725b\u4fa7\u989c\u4e5f\u5f88\u7f8e\ud83d\ude18",
+				 *    "url":"871_1421909406@31510@_767&1024.png",
+				 *    "likes":"1","likers":"480","gifts":"0","senders":"",
+				 *    "comments":"usr_id:480,name:\u4e00\u652f\u7b77\u5b50,","shares":"0","sharers":"","reports":"0",
+				 *    "is_food":"\u0001","food":"0","create_time":"1421909405",
+				 *    "update_time":"2015-01-22 14:54:17","is_deleted":"\u0000"},
+				 *    "is_follow":"0","sender_tx":null,"liker_tx":["480_1421118051529@48304@_516&306.jpg"]},
+				 *    "currentTime":1421910639}
+				 *    
 				 */
 				JSONObject jsonArray=jsonObject.getJSONObject("data");
 				JSONObject image=jsonArray.getJSONObject("image");
@@ -4682,9 +4696,11 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 						petPicture.animal=new Animal();
 						petPicture.topic_id=image.getInt("topic_id");
 						petPicture.animal.a_id=image.getLong("aid");
-						petPicture.topic_name="#"+image.getString("topic_name")+"#";
+						petPicture.topic_name=/*"#"+*/image.getString("topic_name")/*+"#"*/;
 						petPicture.relates=image.getString("relates");
 						petPicture.url=image.getString("url");
+						petPicture.is_food=image.getString("is_food");
+						petPicture.animal.foodNum=image.getLong("food");
 						if(!StringUtil.isEmpty(petPicture.relates)){
 							String[] str=petPicture.relates.split(";");
 							for(int i=0;i<str.length;i++){
@@ -4778,13 +4794,13 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 						String tx=jsonArray.getString("liker_tx");
 						if(tx!=null&&!"null".equals(tx)){
 							JSONArray arrays=jsonArray.getJSONArray("liker_tx");
-							User user=null;
+							MyUser user=null;
 							if(arrays!=null&&arrays.length()>0){
 								ArrayList<String> strs=new ArrayList<String>();
 //								ArrayList<User> users=new ArrayList<User>();
 								for(int i=0;i<arrays.length();i++){
 									strs.add(arrays.getString(i));
-									user=new User();
+									user=new MyUser();
 									user.u_iconUrl=arrays.getString(i);
 //									users.add(user);
 								}
@@ -4796,13 +4812,13 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 						tx=jsonArray.getString("sender_tx");
 						if(tx!=null&&!"null".equals(tx)){
 							JSONArray arrays=jsonArray.getJSONArray("sender_tx");
-							User user=null;
+							MyUser user=null;
 							if(arrays!=null&&arrays.length()>0){
 								ArrayList<String> strs=new ArrayList<String>();
 //								ArrayList<User> users=new ArrayList<User>();
 								for(int i=0;i<arrays.length();i++){
 									strs.add(arrays.getString(i));
-									user=new User();
+									user=new MyUser();
 									user.u_iconUrl=arrays.getString(i);
 //									users.add(user);
 								}
@@ -5132,7 +5148,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 	 * @mode 1,送礼物；2，点赞；
 	 * @return
 	 */
-	public static ArrayList<User> getOthersList(String likers,Handler handler,Activity activity,int mode) {
+	public static ArrayList<MyUser> getOthersList(String likers,Handler handler,Activity activity,int mode) {
 		String url =Constants.OTHERS_INFO;
 		DefaultHttpClient client = new DefaultHttpClient();
 		String value = "usr_ids=" + likers + "dog&cat";
@@ -5141,7 +5157,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 				+Constants.SID ;
 		url = url + param;
 		boolean flag=false;
-		ArrayList<User> animalList=null;
+		ArrayList<MyUser> animalList=null;
 		HttpGet get = new HttpGet(url);
 		try {
 			String result =connect(client, handler, get);
@@ -5168,11 +5184,11 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 							 *"city":"1000","gender":"1"}
 							 */
 							JSONObject object3=null;
-							User user=null;
-							animalList=new ArrayList<User>();
+							MyUser user=null;
+							animalList=new ArrayList<MyUser>();
 							for(int i=0;i<array.length();i++){
 								object3=array.getJSONObject(i);
-								user=new User();
+								user=new MyUser();
 								user.userId=object3.getInt("usr_id");
 								user.u_nick=object3.getString("name");
 								user.u_iconUrl=object3.getString("tx");
@@ -5216,7 +5232,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 	 * @param mode
 	 * @return
 	 */
-	public static ArrayList<User> getBlockList(Handler handler,Activity activity) {
+	public static ArrayList<MyUser> getBlockList(Handler handler,Activity activity) {
 		String url =Constants.BLOCK_LIST;
 		DefaultHttpClient client = new DefaultHttpClient();
 		String value = "";
@@ -5225,7 +5241,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 				+Constants.SID ;
 		url = url + param;
 		boolean flag=false;
-		ArrayList<User> animalList=null;
+		ArrayList<MyUser> animalList=null;
 		HttpGet get = new HttpGet(url);
 		try {
 			String result =connect(client, handler, get);
@@ -5253,11 +5269,11 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 							 *data":[{"usr_id":"315","name":"\u6211\u7231\u4e48\u4e48\u54d2","tx":"315_1414160303402_usr_icon.png"}],"
 							 */
 							JSONObject object3=null;
-							User user=null;
-							animalList=new ArrayList<User>();
+							MyUser user=null;
+							animalList=new ArrayList<MyUser>();
 							for(int i=0;i<array.length();i++){
 								object3=array.getJSONObject(i);
-								user=new User();
+								user=new MyUser();
 								user.userId=object3.getInt("usr_id");
 								user.u_nick=object3.getString("name");
 								user.u_iconUrl=object3.getString("tx");
@@ -5326,7 +5342,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 					if(str==null||"null".equals(str))return false;
 				    
 					JSONObject jsonArray=jsonObject.getJSONObject("data");
-						    data.user=new User();
+						    data.user=new MyUser();
 						    data.isFriend=jsonArray.getBoolean("isFriend");
 							data.user.a_age=((JSONObject)jsonArray.getJSONObject("user")).getString("age");
 							data.user.pet_nickName=((JSONObject)jsonArray.getJSONObject("user")).getString("name");
@@ -6100,7 +6116,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
      * @param id
      * @return
      */
-    public static User sendComment(Context context,String comment,int id,int reply_id,String reply_name,Handler handler){
+    public static MyUser sendComment(Context context,String comment,int id,int reply_id,String reply_name,Handler handler){
     	String params="dog&cat";
     	String url=Constants.ADD_A_COMMENT+"&sig="+getMD5(params)+"&SID="+Constants.SID;
     	DefaultHttpClient client=new DefaultHttpClient();
@@ -6117,7 +6133,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 	    	pairs.add(pair);
 	    }
     	
-    	User user=null;
+    	MyUser user=null;
     	try {
 			post.setEntity(new UrlEncodedFormEntity(pairs,"UTF-8"));
 			HttpResponse response=client.execute(post);
@@ -6133,7 +6149,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 						String dataString=jo.getString("data");
 						if(!StringUtil.isEmpty(dataString)&&!"null".equals(dataString)){
 							JSONObject j1=jo.getJSONObject("data");
-							user=new User();
+							user=new MyUser();
 							user.exp=j1.getInt("exp");
 							user.coinCount=j1.getInt("gold");
 							user.lv=j1.getInt("lv");
@@ -6315,7 +6331,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		try {
 			String result = connect(client, handler, get);
             /*
@@ -6487,7 +6503,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		  temp=temp.substring(start, temp.indexOf("\"",start));
 		  return temp;
     }
-    public static User  sendGift(Context context,Gift gift,Handler handler) {
+    public static MyUser  sendGift(Context context,Gift gift,Handler handler) {
   		String url = "http://" + Constants.IP + Constants.SEND_GIFT_API;
   		DefaultHttpClient client = new DefaultHttpClient();
   		String value = "aid="+gift.aid;
@@ -6506,7 +6522,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   		param+="&item_id="+gift.no/*1102*/;
   		url = url +SIG+ param;
   		HttpGet get = new HttpGet(url);
-  		User user=null;
+  		MyUser user=null;
   		try {
   			String result =connect(client, handler, get);
               /*
@@ -6520,7 +6536,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   				  if(status==0){
   					  JSONObject jo=new JSONObject(result);
   					  JSONObject j1=jo.getJSONObject("data");
-  					  user=new User();
+  					  user=new MyUser();
   					  user.exp=j1.getInt("exp");
   					  user.lv=j1.getInt("lv");
   					  user.coinCount=j1.getInt("gold");
@@ -6543,7 +6559,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   		}
   		return user;
   	}
-    public static User buyGift(Context context,Gift gift,Handler handler) {
+    public static MyUser buyGift(Context context,Gift gift,Handler handler) {
   		String url = "http://" + Constants.IP + Constants.BUY_GIFT_API;
   		DefaultHttpClient client = new DefaultHttpClient();
   		String value = "item_id="+gift.no/*1102*/+"&num="+gift.buyingNum;
@@ -6552,7 +6568,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   		SIG = getMD5Value(value);
   		url = url +SIG+ param;
   		HttpGet get = new HttpGet(url);
-  		User user=null;
+  		MyUser user=null;
   		try {
   			LogUtil.i("me", "url" + url);
   			
@@ -6568,7 +6584,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   				  if(status==0){
   					  JSONObject jo=new JSONObject(result);
   					  JSONObject j1=jo.getJSONObject("data");
-  					  user=new User();
+  					  user=new MyUser();
   					  /*user.exp=j1.getInt("exp");
   					  user.lv=j1.getInt("lv");*/
   					  user.coinCount=j1.getInt("user_gold");
@@ -6610,7 +6626,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		}
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		try {
 			String result = connect(client, handler, get);
             /*
@@ -6651,7 +6667,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		String param = SIG +"&aid="+aid+ "&SID=" + Constants.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		try {
 			String result = connect(client, handler, get);
             /*
@@ -6699,7 +6715,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		
 		url = url + param;
 		HttpGet get = new HttpGet(url);
-		User user=null;
+		MyUser user=null;
 		try {
 			String result =connect(client, handler, get);
             /*
@@ -6849,7 +6865,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		}
 		return animalList;
 	}
-    public static ArrayList<User> searchUser(Context context,String name,int page,Handler handler) {
+    public static ArrayList<MyUser> searchUser(Context context,String name,int page,Handler handler) {
   		String url = "http://" + Constants.IP + Constants.SEARCH_USER;
   		DefaultHttpClient client = new DefaultHttpClient();
   		boolean flag=false;
@@ -6868,7 +6884,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   			param= SIG + "&SID=" + Constants.SID+"&page="+page+"&name="+name;
   		url = url + param;
   		HttpGet get = new HttpGet(url);
-  		ArrayList<User> users=null;
+  		ArrayList<MyUser> users=null;
   		try {
   			String result =connect(client, handler, get);
               /*
@@ -6887,14 +6903,14 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   					  JSONArray j2=j1.getJSONArray("data");
   					  JSONArray ja=null;
   					  JSONObject j4=null;
-  					  User user=null;
+  					  MyUser user=null;
   					  if(j2!=null&&j2.length()>0){
   						 ja=j2.getJSONArray(0);
   							  if(ja!=null&&ja.length()>0){
-  								  users=new ArrayList<User>();
+  								  users=new ArrayList<MyUser>();
   								  for(int i=0;i<ja.length();i++){
   									j4=ja.getJSONObject(i);
-  	  								user=new User();
+  	  								user=new MyUser();
   	  								user.userId=j4.getInt("usr_id");
   	  								user.u_nick=j4.getString("name");
   	  								user.u_iconUrl=j4.getString("tx");
@@ -7270,9 +7286,9 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		return loginJson;
 	}
 
-	public static User parseInfoJson(String json,Activity activity) {
+	public static MyUser parseInfoJson(String json,Activity activity) {
 		JSONObject jsonObject=null;
-		User user=null;
+		MyUser user=null;
 		try {
 			/*
              * {"state":0,"errorCode":0,"errorMessage":"","version":"1.0","confVersion":"1.0",
@@ -7292,7 +7308,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 				
 				if(data.length()>0){
 					JSONObject obj=data.getJSONObject(0);
-					user=new User();
+					user=new MyUser();
 					user.userId=obj.getInt("usr_id");
 					user.u_nick=obj.getString("name");
 					user.u_iconUrl=obj.getString("tx");
@@ -7544,13 +7560,13 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		if(status>100&&status<200){
 			if(handler!=null)
 			handler.sendEmptyMessage(HandleHttpConnectionException.Connect_Error_1XX);
-		}else if(status>300&&status<400){
+		}else if(status>=300&&status<400){
 			if(handler!=null)
 			handler.sendEmptyMessage(HandleHttpConnectionException.Connect_Error_3XX);
-		}else if(status>400&&status<500){
+		}else if(status>=400&&status<500){
 			if(handler!=null)
 			handler.sendEmptyMessage(HandleHttpConnectionException.Connect_Error_4XX);
-		}else if(status>500){
+		}else if(status>=500){
 			if(handler!=null)
 			handler.sendEmptyMessage(HandleHttpConnectionException.Connect_Error_5XX);
 		}

@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -19,6 +20,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.Gift;
 import com.aidigame.hisun.pet.bean.TalkMessage;
 import com.aidigame.hisun.pet.bean.TalkMessage.Msg;
@@ -889,6 +891,29 @@ public class StringUtil {
 		
 		
 		return race;
+	}
+	public static String  compressEmotion(Context context,Bitmap bmp){
+		
+		String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".jpg";
+		if(bmp==null){
+			bmp=BitmapFactory.decodeResource(context.getResources(), R.drawable.emotion_normal);
+		}
+		
+		FileOutputStream fos=null;
+		try {
+			fos = new FileOutputStream(new File(path));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		bmp.compress(CompressFormat.JPEG, 100, fos);
+		try {
+			Thread.sleep(60);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return path;
 	}
 
 }

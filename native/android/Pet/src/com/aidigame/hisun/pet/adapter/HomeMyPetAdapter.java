@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
@@ -68,7 +69,7 @@ public class HomeMyPetAdapter extends BaseAdapter {
 		op.inPurgeable=true;
 		op.inInputShareable=true;
 		handler=HandleHttpConnectionException.getInstance().getHandler(context);
-		BitmapFactory.Options options=new BitmapFactory.Options();
+		BitmapFactory.Options options=new BitmapFactory.Options(); 
 		options.inJustDecodeBounds=false;
 		options.inSampleSize=8;
 		options.inPreferredConfig=Bitmap.Config.RGB_565;
@@ -172,8 +173,10 @@ public class HomeMyPetAdapter extends BaseAdapter {
 		
 		if(Constants.user!=null&&Constants.user.userId==animal.master_id){
 			holder.modifyTv.setVisibility(View.VISIBLE);;
+			holder.modifyTv.setBackgroundResource(R.drawable.modify);
 		}else{
-			holder.modifyTv.setVisibility(View.GONE);;
+//			holder.modifyTv.setVisibility(View.GONE);;
+			holder.modifyTv.setBackgroundResource(R.drawable.private_message);
 		}
 		holder.iv1.setVisibility(View.INVISIBLE);
 		holder.iv2.setVisibility(View.INVISIBLE);
@@ -393,12 +396,14 @@ public class HomeMyPetAdapter extends BaseAdapter {
 					}
 					NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
 					NewPetKingdomActivity.petKingdomActivity.finish();
+					NewPetKingdomActivity.petKingdomActivity=null;
 				}
 				Intent intent=new Intent(context,NewPetKingdomActivity.class);
 				intent.putExtra("animal",animal);
 				context.startActivity(intent);
 				break;
 			case R.id.modify_announce_tv:
+				if(Constants.user!=null&&Constants.user.userId==animal.master_id){
 				if(!canOver){
 					holder.modifyEt.setFocusable(true);
 					holder.modifyEt.setFocusableInTouchMode(true);
@@ -463,6 +468,19 @@ public class HomeMyPetAdapter extends BaseAdapter {
 					}).start();
 					
 				}
+				}else{
+					if(com.aidigame.hisun.pet.huanxin.ChatActivity.activityInstance!=null){
+						com.aidigame.hisun.pet.huanxin.ChatActivity.activityInstance.finish();
+					}
+					MyUser myUser=new MyUser();
+					Intent intent2=new Intent(context,com.aidigame.hisun.pet.huanxin.ChatActivity.class);
+					intent2.putExtra("chatType", com.aidigame.hisun.pet.huanxin.ChatActivity.CHATTYPE_SINGLE);
+					myUser.userId=animals.get(position).master_id;
+					myUser.u_nick=animals.get(position).u_name;
+					myUser.u_iconUrl=animals.get(position).u_tx;
+					intent2.putExtra("user", myUser);
+					context.startActivity(intent2);
+				}
 
 				break;
 			case R.id.shake_layout:
@@ -506,8 +524,11 @@ public class HomeMyPetAdapter extends BaseAdapter {
 					@Override
 					public void closeDialog() {
 						// TODO Auto-generated method stub
-						if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)
-						DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+						if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null){
+							DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+							DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity=null;
+						}
+						
 					}
 					@Override
 					public void lastResult(boolean isSuccess) {
@@ -638,12 +659,7 @@ public class HomeMyPetAdapter extends BaseAdapter {
 				context.startActivity(intent6);*/
 				PetPicture p2=(PetPicture)v.getTag();
 				if(NewShowTopicActivity.newShowTopicActivity!=null){
-					NewShowTopicActivity.newShowTopicActivity.imageView.setImageDrawable(null);
-					if(NewShowTopicActivity.newShowTopicActivity.bmp!=null&&!NewShowTopicActivity.newShowTopicActivity.bmp.isRecycled()){
-						NewShowTopicActivity.newShowTopicActivity.bmp.recycle();
-					}
-					NewShowTopicActivity.newShowTopicActivity.bmp=null;
-					NewShowTopicActivity.newShowTopicActivity.finish();
+					NewShowTopicActivity.newShowTopicActivity.recyle();
 				}
 				Intent intent6=new Intent(context,NewShowTopicActivity.class);
 				intent6.putExtra("PetPicture", p2);
@@ -663,12 +679,7 @@ public class HomeMyPetAdapter extends BaseAdapter {
 				intent7.putExtra("PetPicture", p3);
 				context.startActivity(intent7);*/
 				if(NewShowTopicActivity.newShowTopicActivity!=null){
-					NewShowTopicActivity.newShowTopicActivity.imageView.setImageDrawable(null);
-					if(NewShowTopicActivity.newShowTopicActivity.bmp!=null&&!NewShowTopicActivity.newShowTopicActivity.bmp.isRecycled()){
-						NewShowTopicActivity.newShowTopicActivity.bmp.recycle();
-					}
-					NewShowTopicActivity.newShowTopicActivity.bmp=null;
-					NewShowTopicActivity.newShowTopicActivity.finish();
+					NewShowTopicActivity.newShowTopicActivity.recyle();
 				}
 				Intent intent7=new Intent(context,NewShowTopicActivity.class);
 				intent7.putExtra("PetPicture", p3);
@@ -689,12 +700,7 @@ public class HomeMyPetAdapter extends BaseAdapter {
 				context.startActivity(intent8);*/
 				PetPicture p4=(PetPicture)v.getTag();
 				if(NewShowTopicActivity.newShowTopicActivity!=null){
-					NewShowTopicActivity.newShowTopicActivity.imageView.setImageDrawable(null);
-					if(NewShowTopicActivity.newShowTopicActivity.bmp!=null&&!NewShowTopicActivity.newShowTopicActivity.bmp.isRecycled()){
-						NewShowTopicActivity.newShowTopicActivity.bmp.recycle();
-					}
-					NewShowTopicActivity.newShowTopicActivity.bmp=null;
-					NewShowTopicActivity.newShowTopicActivity.finish();
+					NewShowTopicActivity.newShowTopicActivity.recyle();
 				}
 				Intent intent8=new Intent(context,NewShowTopicActivity.class);
 				intent8.putExtra("PetPicture", p4);

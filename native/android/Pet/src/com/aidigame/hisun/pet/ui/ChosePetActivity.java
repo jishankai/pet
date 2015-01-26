@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.ChosePetListAdapter;
 import com.aidigame.hisun.pet.adapter.UsersListAdapter;
@@ -84,6 +85,7 @@ public class ChosePetActivity extends Activity {
 						NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
 					}
 					NewPetKingdomActivity.petKingdomActivity.finish();
+					NewPetKingdomActivity.petKingdomActivity=null;
 				}
 				Intent intent=new Intent(ChosePetActivity.this,NewPetKingdomActivity.class);
 				intent.putExtra("animal", list.get(position));
@@ -106,7 +108,12 @@ public class ChosePetActivity extends Activity {
 						ChosePetActivity.this.startActivity(intent);
 					}
 				}
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(ChosePetActivity.this)){
+					PetApplication.petApp.activityList.remove(ChosePetActivity.this);
+				}
 				finish();
+				System.gc();
 			}
 		});
 		/*new Thread(new Runnable() {

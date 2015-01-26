@@ -39,7 +39,7 @@
             android:textColor="@color/orange_red1"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="一打一打一打益达"
+            android:text=""
             />
         <ImageView 
             android:layout_width="wrap_content"

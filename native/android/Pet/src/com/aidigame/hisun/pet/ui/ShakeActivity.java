@@ -42,11 +42,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HomeViewPagerAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.Gift;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
@@ -97,7 +98,7 @@ public class ShakeActivity extends Activity {
       int optortunity=0;
       TextView titleTv;
       ImageView cloudIV1,cloudIV2;
-      User user;
+      MyUser user;
       Animal animal;
       Gift gift;//当前摇出的礼物
       int mode;//1，摇一摇；2，捣捣乱;
@@ -113,11 +114,11 @@ public class ShakeActivity extends Activity {
       ArrayList<Gift> giftList;
       Animation anim;
   	UMSocialService mController;
-      Handler handler=new Handler(){
+     /* Handler handler=new Handler(){
     	  public void handleMessage(android.os.Message msg) {
     		  
     	  };
-      };
+      };*/
       @Override
     protected void onCreate(Bundle savedInstanceState) {
     	// TODO Auto-generated method stub
@@ -194,8 +195,14 @@ public class ShakeActivity extends Activity {
 				// TODO Auto-generated method stub
 				if(shakeSensor!=null)
 				shakeSensor.stop();
+				shakeActivity=null;
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(ShakeActivity.this)){
+					PetApplication.petApp.activityList.remove(ShakeActivity.this);
+				}
 				
 				ShakeActivity.this.finish();
+				System.gc();
 			}
 		});;
 		nameTv.setText(animal.pet_nickName);
@@ -409,7 +416,7 @@ public class ShakeActivity extends Activity {
 					public void run() {
 						// TODO Auto-generated method stub
 						//送礼物
-						final User user=HttpUtil.sendGift(ShakeActivity.this,gift, handleHttpConnectionException);
+						final MyUser user=HttpUtil.sendGift(ShakeActivity.this,gift, handleHttpConnectionException);
 						isSending=false;
 						runOnUiThread(new Runnable() {
 							

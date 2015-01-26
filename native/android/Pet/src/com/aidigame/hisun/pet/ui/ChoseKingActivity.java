@@ -41,11 +41,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.ChoseKingListViewAdapter;
 import com.aidigame.hisun.pet.adapter.PopularWindowAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserJson;
@@ -99,7 +100,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 	int currentFrom;
 	long last_aid=0;
 	boolean isBind=false;
-	User user;
+	MyUser user;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -112,7 +113,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 		choseKingActivity=this;
 		from=getIntent().getIntExtra("from", 0);
 		isBind=getIntent().getBooleanExtra("isBind", isBind);
-		if(isBind)user=(User)getIntent().getSerializableExtra("user");
+		if(isBind)user=(MyUser)getIntent().getSerializableExtra("user");
 		inintView();
 	}
 	private void inintView(){
@@ -261,7 +262,13 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.chose_king_back:
+			choseKingActivity=null;
+			
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			this.finish();
+			System.gc();
 			break;
 		case R.id.chose_king_search:
 			functionLayout.setVisibility(View.INVISIBLE);

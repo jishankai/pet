@@ -20,11 +20,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.AnimalsListAdapter;
 import com.aidigame.hisun.pet.adapter.UsersListAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -90,6 +91,7 @@ public class AnimalsListActivity extends Activity {
 									NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
 								}
 								NewPetKingdomActivity.petKingdomActivity.finish();
+								NewPetKingdomActivity.petKingdomActivity=null;
 							}
 							Intent intent=new Intent(AnimalsListActivity.this,NewPetKingdomActivity.class);
 							intent.putExtra("animal", u);
@@ -105,7 +107,12 @@ public class AnimalsListActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(AnimalsListActivity.this)){
+					PetApplication.petApp.activityList.remove(AnimalsListActivity.this);
+				}
 				AnimalsListActivity.this.finish();
+				System.gc();
 			}
 		});
 		new Thread(new Runnable() {

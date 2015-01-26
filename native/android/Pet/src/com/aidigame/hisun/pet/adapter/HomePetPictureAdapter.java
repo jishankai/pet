@@ -41,7 +41,7 @@ import android.widget.Toast;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetPicture;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
@@ -229,10 +229,30 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
 						if(UserStatusUtil.isLoginSuccess(HomeActivity.homeActivity,HomeActivity.homeActivity.discoveryFragment.popupParent,HomeActivity.homeActivity.discoveryFragment.black_layout)){
+							
+							if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.contains(data) ){
+//								pengta_tv.setVisibility(View.GONE);
+								Intent intent=new Intent(context,DialogNoteActivity.class);
+								intent.putExtra("mode", 10);
+								intent.putExtra("info", "您已经捧TA了");
+								context.startActivity(intent);
+								supportIV.setImageResource(R.drawable.support_gray);
+								supportIV.setClickable(false);
+								return ;
+							}
+							
+							
 							int num=0;
-							if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
-								num=(Constants.user.aniList.size()+1)*5;
-							}else if(Constants.user.aniList.size()>20){
+							int count=0;
+							for(int i=0;i<Constants.user.aniList.size();i++){
+//								if(Constants.user.aniList.get(i).master_id!=Constants.user.userId)
+									count++;
+							}
+							
+							
+							if(count>=10&&count<=20){
+								num=(count)*5;
+							}else if(count>20){
 								num=100;
 							}
 							
@@ -348,6 +368,7 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 					}
 					NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
 					NewPetKingdomActivity.petKingdomActivity.finish();
+					NewPetKingdomActivity.petKingdomActivity=null;
 				}
 				Intent intent=new Intent(context,NewPetKingdomActivity.class);
 				intent.putExtra("animal",data);
@@ -372,7 +393,7 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 					Intent intent=new Intent(context,UserDossierActivity.class);
 					intent.putExtra("user",user);
 					context.startActivity(intent);*/
-					User user=new User();
+					MyUser user=new MyUser();
 					user.userId=data.master_id;
 					user.u_iconUrl=data.u_tx;
 					Intent intent=new Intent(context,UserCardActivity.class);

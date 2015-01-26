@@ -1,6 +1,7 @@
 package com.aidigame.hisun.pet.ui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -23,17 +24,19 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.SimpleUsersListAdapter;
 import com.aidigame.hisun.pet.adapter.UsersListAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
+import com.easemob.chat.EMContactManager;
 /**
  * 围观群众界面
  * @author admin
@@ -46,13 +49,14 @@ public class UsersListActivity extends Activity {
 	public RelativeLayout black_layout;
 	UsersListAdapter adapter;
 	SimpleUsersListAdapter adapter2;
-	ArrayList<User> list;
+	ArrayList<MyUser> list;
 	ListView  listView;
 	String likerString;
 	String senderString;
 	ImageView back;
 	TextView title,noteTv;
 	int mode=0;//0, 围观群众；1，设置黑名单
+	String block_list_str;
 	HandleHttpConnectionException handleHttpConnectionException;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
@@ -80,6 +84,25 @@ public class UsersListActivity extends Activity {
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
 		if(mode==1){
 			title.setText("解除黑名单");
+			List<String> list=EMContactManager.getInstance().getBlackListUsernames();
+			if(list!=null){
+				
+				for(int i=0;i<list.size();i++){
+					if(list.size()==1){
+						block_list_str=""+list.get(0);
+						break;
+					}
+					if(list.size()>1){
+						if(i==0){
+							block_list_str=""+list.get(0);
+						}else{
+							block_list_str+=","+list.get(i);
+						}
+					}
+				}
+				
+			}
+			
 		}else if(mode==0){
 			
 		}
@@ -91,11 +114,15 @@ public class UsersListActivity extends Activity {
 					int position, long id) {
 				// TODO Auto-generated method stub
 //				if(!UserStatusUtil.isLoginSuccess(UsersListActivity.this,popup_parent,black_layout))return;
-				final User user=list.get(position);
+				final MyUser user=list.get(position);
 				Intent intent=new Intent(UsersListActivity.this,UserCardActivity.class);
 				intent.putExtra("user", user);
 				UsersListActivity.this.startActivity(intent);
-				UsersListActivity.this.finish();
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(UsersListActivity.this)){
+					PetApplication.petApp.activityList.remove(UsersListActivity.this);
+				}
+				finish();
+				System.gc();
 				
 			}
 		});
@@ -113,17 +140,23 @@ public class UsersListActivity extends Activity {
 						UsersListActivity.this.startActivity(intent);
 					}
 				}
-				UsersListActivity.this.finish();
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(UsersListActivity.this)){
+					PetApplication.petApp.activityList.remove(UsersListActivity.this);
+				}
+				finish();
+				System.gc();
 			}
 		});
 		
 		if(mode==1){
-			list=new ArrayList<User>();
+			list=new ArrayList<MyUser>();
 			adapter2=new SimpleUsersListAdapter(this, list, handler);
 			listView.setAdapter(adapter2);
-			loadData2();
+			if(!StringUtil.isEmpty(block_list_str)){
+				loadData2();
+			}
 		}else{
-			list=new ArrayList<User>();
+			list=new ArrayList<MyUser>();
 			adapter=new UsersListAdapter(this, list,null,getIntent().getIntExtra("animalType", 1));
 			listView.setAdapter(adapter);
 			loadData1();
@@ -135,7 +168,7 @@ public class UsersListActivity extends Activity {
 	 */
 	public void loadData1(){
 		new Thread(new Runnable() {
-			ArrayList<User> temp,temp1;
+			ArrayList<MyUser> temp,temp1;
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
@@ -153,7 +186,7 @@ public class UsersListActivity extends Activity {
 						public void run() {
 							// TODO Auto-generated method stub
 							if(list==null){
-								list=new ArrayList<User>();
+								list=new ArrayList<MyUser>();
 							}
 							if(temp1!=null){
 								for(int i=0;i<temp1.size();i++){
@@ -177,11 +210,11 @@ public class UsersListActivity extends Activity {
 	
 	public void loadData2(){
 		new Thread(new Runnable() {
-			ArrayList<User> temp;
+			ArrayList<MyUser> temp;
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				temp=HttpUtil.getBlockList(handler, UsersListActivity.this);
+				temp=HttpUtil.getOthersList(block_list_str, handler,UsersListActivity.this,2);
 				if(temp!=null&&temp.size()>0){
 					for(int i=0;i<temp.size();i++){
 						list.add(temp.get(i));

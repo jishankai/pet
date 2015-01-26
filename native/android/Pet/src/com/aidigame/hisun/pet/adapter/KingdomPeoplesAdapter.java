@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aidigame.hisun.pet.R;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
@@ -39,9 +39,9 @@ public class KingdomPeoplesAdapter extends BaseAdapter {
 	DisplayImageOptions displayImageOptions;//显示图片的格式
     ImageLoader imageLoader;
 	Activity context;
-	ArrayList<User> list;
+	ArrayList<MyUser> list;
 	HandleHttpConnectionException handleHttpConnectionException;
-	public KingdomPeoplesAdapter(Activity context,ArrayList<User> list){
+	public KingdomPeoplesAdapter(Activity context,ArrayList<MyUser> list){
 		this.context=context;
 		this.list=list;
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
@@ -61,7 +61,7 @@ public class KingdomPeoplesAdapter extends BaseAdapter {
 		        .decodingOptions(options)
                 .build();
 	}
-	public void updateList(ArrayList<User> temp) {
+	public void updateList(ArrayList<MyUser> temp) {
 		// TODO Auto-generated method stub
 		this.list=temp;
 	}
@@ -103,7 +103,7 @@ public class KingdomPeoplesAdapter extends BaseAdapter {
 			holder=(Holder)convertView.getTag();
 		}
 		LogUtil.i("exception", "position========"+position);
-		final User data=list.get(position);
+		final MyUser data=list.get(position);
 		final RoundImageView view=holder.roundImageView;
 		/*view.setOnClickListener(new OnClickListener() {
 			
@@ -148,7 +148,7 @@ public class KingdomPeoplesAdapter extends BaseAdapter {
 //		}
 		return convertView;
 	}
-	public void loadIcon(RoundImageView icon,final User data){
+	public void loadIcon(RoundImageView icon,final MyUser data){
 		
 		imageLoader=ImageLoader.getInstance();
 		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+data.u_iconUrl, icon, displayImageOptions);

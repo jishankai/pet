@@ -50,6 +50,8 @@ public class HomeMyPet implements IXListViewListener{
 		return view;
 	}
 	public void refresh(){
+		adapter.update(new ArrayList<Animal>());
+		adapter.notifyDataSetChanged();
 		new Thread(new Runnable() {
 			
 			@Override
@@ -79,6 +81,8 @@ public class HomeMyPet implements IXListViewListener{
 							adapter.update(animals);
 							animals=animals;
 							adapter.notifyDataSetChanged();
+							
+							
 						}
 						
 						

@@ -1,6 +1,7 @@
 package com.aidigame.hisun.pet.ui;
 
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -12,6 +13,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +36,8 @@ public class WarningDialogActivity extends Activity {
 	Handler handler;
 	LinearLayout layout1,agreeLayout,agreeBottomLayout;
 	ReportResultListener reportResultListener;
+	WebView webView;
+	String url="http://"+Constants.IP+Constants.URL_ROOT+"r=site/agreement";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -42,6 +48,7 @@ public class WarningDialogActivity extends Activity {
 		agreeLayout=(LinearLayout)findViewById(R.id.agree_layout);
 		agreeBottomLayout=(LinearLayout)findViewById(R.id.agreelayout);
 		mode=getIntent().getIntExtra("mode", 1);
+		webView=(WebView)findViewById(R.id.webview);
 		if(mode==1){
 			img_id=getIntent().getIntExtra("img_id", -1);
 		}else if(mode==2){
@@ -73,9 +80,31 @@ public class WarningDialogActivity extends Activity {
 		}else if(mode==6){
 			layout1.setVisibility(View.GONE);
 			agreeLayout.setVisibility(View.VISIBLE);
+			WebSettings wb=webView.getSettings();
+			wb.setJavaScriptEnabled(true);
+			webView.setWebViewClient(new WebViewClient(){
+				@Override
+				public boolean shouldOverrideUrlLoading(WebView view, String url) {
+					// TODO Auto-generated method stub
+					view.loadUrl(url);
+					return true;
+				}
+			});
+			webView.loadUrl(url);
 		}else if(mode==7){
 			layout1.setVisibility(View.GONE);
 			agreeLayout.setVisibility(View.VISIBLE);
+			WebSettings wb=webView.getSettings();
+			wb.setJavaScriptEnabled(true);
+			webView.setWebViewClient(new WebViewClient(){
+				@Override
+				public boolean shouldOverrideUrlLoading(WebView view, String url) {
+					// TODO Auto-generated method stub
+					view.loadUrl(url);
+					return true;
+				}
+			});
+			webView.loadUrl(url);
 			agreeBottomLayout.setVisibility(View.GONE);
 		}
 		findViewById(R.id.close_iv).setOnClickListener(new OnClickListener() {

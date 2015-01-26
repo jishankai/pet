@@ -89,7 +89,7 @@ public class DialogNoteActivity extends Activity{
 		    Constants.user.coinCount+=num;
 		    startShowAnimation(view);
 		    if(UserCenterFragment.userCenterFragment!=null){
-		    	UserCenterFragment.userCenterFragment.updatateInfo();;
+		    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 			}
 			return;
 		}else if(mode==7){
@@ -135,7 +135,7 @@ public class DialogNoteActivity extends Activity{
 			    tv.setText("打赏成功~萌星 "+name+"感谢您的爱心！");
 			    startShowAnimation(view);
 			    if(UserCenterFragment.userCenterFragment!=null){
-			    	UserCenterFragment.userCenterFragment.updatateInfo();;
+			    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 				}
 				return;
 		}else if(mode==9){
@@ -149,7 +149,7 @@ public class DialogNoteActivity extends Activity{
 		    tv.setTextColor(getResources().getColor(R.color.dialog_text_gray));
 		    startShowAnimation(view);
 		    if(UserCenterFragment.userCenterFragment!=null){
-		    	UserCenterFragment.userCenterFragment.updatateInfo();;
+		    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 			}
 			return;
 		}else if(mode==10){
@@ -276,7 +276,7 @@ public class DialogNoteActivity extends Activity{
 			}
 		});
 		if(UserCenterFragment.userCenterFragment!=null){
-			UserCenterFragment.userCenterFragment.updatateInfo();;
+			UserCenterFragment.userCenterFragment.updatateInfo(true);;
 		}
 	}
 	public void setDialogGoListerer(DialogNoteGoListener listener){

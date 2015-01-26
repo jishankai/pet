@@ -4,12 +4,13 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.MarketGridViewAdapter;
 import com.aidigame.hisun.pet.adapter.MarketRealGridViewAdapter;
 import com.aidigame.hisun.pet.adapter.UserGiftGridViewAdapter;
 import com.aidigame.hisun.pet.bean.Gift;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -155,7 +156,13 @@ public class MyItemActivity extends Activity implements OnClickListener{
 				}
 				
 			}
+			myItemActivity=null;
+			
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			this.finish();
+			System.gc();
 			break;
 		}
 	}

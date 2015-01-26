@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HomeViewPagerAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
@@ -212,7 +213,12 @@ public class TouchActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(TouchActivity.this)){
+					PetApplication.petApp.activityList.remove(TouchActivity.this);
+				}
 				TouchActivity.this.finish();
+				System.gc();
 			}
 		});;
 		nameTv.setText(animal.pet_nickName);

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetPicture;
@@ -72,7 +73,8 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 	ImageFetcher mImageFetcher;
 	UMSocialService mController;
 	RelativeLayout parent;
-	String shareUrl="http://kouliang.tuturead.com/index.php?r=social/foodShareApi&img_id=";
+//	String shareUrl="http://kouliang.tuturead.com/index.php?r=social/foodShareApi&img_id=";
+	String shareUrl="http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id=";
 	String path;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -141,8 +143,13 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 					listener.onClose();
 				}
 				iv.setImageDrawable(new BitmapDrawable());
-				System.gc();
+				
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+					PetApplication.petApp.activityList.remove(this);
+				}
 				finish();
+				System.gc();
 				break;
 			case R.id.weixin:
 				weixinShare();
@@ -276,11 +283,16 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 		 public void weixinShare(){
 		   	   WeiXinShareContent weixinContent = new WeiXinShareContent();
 		   	 //设置分享文字
-		   	 weixinContent.setShareContent("努力卖萌，只为给自己代粮！快把你每天的免费粮食赏给我~");
+		   	   if(StringUtil.isEmpty(pp.cmt)){
+		   		 weixinContent.setShareContent("看在我这么努力卖萌的份上快来宠宠我！免费送我点口粮好不好？");
+		   	   }else{
+		   		 weixinContent.setShareContent(pp.cmt);
+		   	   }
+		   	
 		   	 //设置title
-		   	 weixinContent.setTitle("轻轻一点，免费赏粮！我家"+pp.animal.pet_nickName+"的口粮就靠你啦~");
+		   	 weixinContent.setTitle("轻轻一点，免费赏粮！我的口粮就靠你啦~");
 		   	 //设置分享内容跳转URL
-		   	 weixinContent.setTargetUrl(shareUrl+pp.img_id+"&to=wechat");
+		   	 weixinContent.setTargetUrl(shareUrl+pp.img_id/*+"&to=wechat"*/);
 		   	 //设置分享图片
 		   	 UMImage umImage=new UMImage(this,path );
 		   	 weixinContent.setShareImage(umImage);
@@ -313,9 +325,14 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 			   CircleShareContent circleMedia = new CircleShareContent();
 			   UMImage umImage=new UMImage(this, path);
 			   circleMedia.setShareImage(umImage);
-			   circleMedia.setShareContent("努力卖萌，只为给自己代粮！快把你每天的免费粮食赏给我~");
-			   circleMedia.setTitle("轻轻一点，免费赏粮！我家"+pp.animal.pet_nickName+"的口粮就靠你啦~");
-			   circleMedia.setTargetUrl(shareUrl+pp.img_id+"&to=wechat");
+			   if(StringUtil.isEmpty(pp.cmt)){
+				   circleMedia.setShareContent("看在我这么努力卖萌的份上快来宠宠我！免费送我点口粮好不好？");
+			   	   }else{
+			   		circleMedia.setShareContent(pp.cmt); 
+			   	   }
+			   
+			   circleMedia.setTitle("轻轻一点，免费赏粮！我的口粮就靠你啦~");
+			   circleMedia.setTargetUrl(shareUrl+pp.img_id/*+"&to=wechat"*/);
 			   mController.setShareMedia(circleMedia);
 			   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,
 					   new SnsPostListener() {
@@ -343,7 +360,7 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 		 public void xinlangShare(){
 			 UserImagesJson.Data data=new UserImagesJson.Data();
 				data.path=path;
-				data.des="轻轻一点，免费赏粮！快把你每天的免费粮食赏给我家"+pp.animal.pet_nickName+"！#挣口粮# "+shareUrl+pp.img_id+"&to=webo"+"（分享自@宠物星球社交应用）";
+				data.des=(StringUtil.isEmpty(pp.cmt)?"看在我这么努力卖萌的份上快来宠宠我！免费送我点口粮好不好？":pp.cmt)+shareUrl+pp.img_id/*+"&to=webo"*/+"（分享自@宠物星球社交应用）";
 			
 		   	   SinaShareContent content=new SinaShareContent();
 		   	   content.setShareContent(data.des);

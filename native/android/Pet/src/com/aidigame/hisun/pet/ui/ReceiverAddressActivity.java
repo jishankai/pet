@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.AddressData;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -221,7 +222,12 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 					this.startActivity(intent);
 				}
 			}
+			
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			finish();
+			System.gc();
 			break;
 		case R.id.save_tv:
 			saveAddress();

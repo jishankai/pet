@@ -25,6 +25,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.ShowTopicHorizontalAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
@@ -178,7 +179,12 @@ public class DetailActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(DetailActivity.this)){
+					PetApplication.petApp.activityList.remove(DetailActivity.this);
+				}
 				DetailActivity.this.finish();
+				System.gc();
 			}
 		});
 		findViewById(R.id.award_linearlayout).setOnClickListener(new OnClickListener() {

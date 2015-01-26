@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 

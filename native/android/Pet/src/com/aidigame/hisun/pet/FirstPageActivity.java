@@ -32,11 +32,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.blur.Blur;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
-import com.aidigame.hisun.pet.ui.ChoseStarActivity;
+import com.aidigame.hisun.pet.ui.Dialog4Activity;
+import com.aidigame.hisun.pet.ui.Dialog4Activity.Dialog3ActivityListener;
 import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.ui.UpdateAPKActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -51,7 +52,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 public class FirstPageActivity extends Activity{
 	ImageView welcomeImage;
-	ImageView imageView,begSure;
+	ImageView imageView,begSure,imageView11;
 	boolean canJump=false;
 	Animation animation;
 	HandleHttpConnectionException handleHttpConnectionException;
@@ -62,7 +63,7 @@ public class FirstPageActivity extends Activity{
 	Handler handler=new Handler(){
 		int lastY=0;
 		public void handleMessage(android.os.Message msg) {
-			if(msg.what==1){
+			/*if(msg.what==1){
 				int temp=scrollview.getScrollY();
 				LogUtil.i("mi", "lastY===="+lastY);
 				if(temp>=Constants.screen_height){
@@ -115,12 +116,31 @@ public class FirstPageActivity extends Activity{
 			}
 			if(msg.what==Constants.LOGIN_SUCCESS){
 				
-			}
+			}*/
 			if(msg.what==10){
 				Intent intent=new Intent(FirstPageActivity.this,HomeActivity.class);
 				FirstPageActivity.this.startActivity(intent);
+				firstPageActivity=null;
+				/*Runtime r=Runtime.getRuntime();
+				LogUtil.i("me", "Runtime.maxMemory()="+r.maxMemory()+";Runtime.totalMemory()="+r.totalMemory()+";Runtime.freeMemory()="+r.freeMemory());*/
+				if(PetApplication.petApp.activityList.contains(FirstPageActivity.this)){
+					PetApplication.petApp.activityList.remove(FirstPageActivity.this);
+				}
+				/*begLayout1.setVisibility(View.INVISIBLE);
+				begLayout1.setBackgroundDrawable(null);;
+				if(PetApplication.petApp.blurBmp!=null){
+					if(!PetApplication.petApp.blurBmp.isRecycled()){
+						PetApplication.petApp.blurBmp.recycle();
+					}
+					PetApplication.petApp.blurBmp=null;
+				}*/
+				/*if(handleHttpConnectionException.handler!=null){
+					handleHttpConnectionException.handler.removeCallbacks(null);
+					handleHttpConnectionException.handler=null;
+				}*/
 				
 				finish();
+				System.gc();
 			}
 			
 		};
@@ -146,6 +166,7 @@ public class FirstPageActivity extends Activity{
 		setContentView(R.layout.activity_first_page);
 		welcomeImage=(ImageView)findViewById(R.id.imageView1);
 		imageView=(ImageView)findViewById(R.id.imageView1);
+		imageView11=(ImageView)findViewById(R.id.imageView11);
 		begLayout1=(RelativeLayout)findViewById(R.id.beg_layout1);
 		begLayout=(RelativeLayout)findViewById(R.id.beg_layout);
 		begSure=(ImageView)findViewById(R.id.beg_sure);
@@ -170,7 +191,7 @@ public class FirstPageActivity extends Activity{
 		
 		
 		
-		loadWelcomePage();
+		loadWelcomePage(true);
 		
 		String url=getIntent().getStringExtra("url");
 						BitmapFactory.Options options=new BitmapFactory.Options();
@@ -193,7 +214,7 @@ public class FirstPageActivity extends Activity{
 			
 	}
 	
-	public void loadWelcomePage(){
+	public void loadWelcomePage(final boolean loadPicture){
          new Thread(new Runnable() {
 			
 			@Override
@@ -213,6 +234,9 @@ public class FirstPageActivity extends Activity{
 						// TODO Auto-generated method stub
 						foodNum.setText(""+Constants.Toatl_food);
 						petNum.setText(""+Constants.Toatl_animal);
+						if(loadPicture){
+							
+						
 						ImageLoader imageLoader=ImageLoader.getInstance();
 						BitmapFactory.Options options=new BitmapFactory.Options();
 						options.inJustDecodeBounds=false;
@@ -234,7 +258,7 @@ public class FirstPageActivity extends Activity{
 							f.delete();
 						}
 						
-						imageLoader.displayImage(Constants.WELCOME_IMAGE+/*url*/"home.jpg", imageView, displayImageOptions,new ImageLoadingListener() {
+						imageLoader.loadImage(Constants.WELCOME_IMAGE+/*url*/"home.jpg", /*imageView,*/ displayImageOptions,new ImageLoadingListener() {
 							
 							@Override
 							public void onLoadingStarted(String imageUri, View view) {
@@ -282,11 +306,12 @@ public class FirstPageActivity extends Activity{
 														@Override
 														public void run() {
 															// TODO Auto-generated method stub
-															
 															begLayout1.setBackgroundDrawable(new BitmapDrawable(PetApplication.petApp.blurBmp));
 															begLayout.setVisibility(View.VISIBLE);
+															imageView.setImageDrawable(new BitmapDrawable());
 															imageView.setVisibility(View.GONE);
-															
+															imageView11.setVisibility(View.GONE);
+															System.gc();
 															
 														}
 													});
@@ -325,9 +350,11 @@ public class FirstPageActivity extends Activity{
 								LogUtil.i("me","下载欢迎图片  取消"+imageUri);
 								begLayout.setVisibility(View.VISIBLE);
 								imageView.setVisibility(View.GONE);
+								imageView11.setVisibility(View.GONE);
 							}
 						});
 					}
+				}
 				});
 				
 			
@@ -365,7 +392,7 @@ public class FirstPageActivity extends Activity{
 						Constants.realVersion=sPreferences.getString("real_version", "");
 					}
 					if(Constants.isSuccess){
-						Constants.user=new User();
+						Constants.user=new MyUser();
 						Constants.user.userId=sPreferences.getInt("usr_id", 0);
 						Constants.user.u_nick=sPreferences.getString("name", "游荡的两脚兽");
 						Constants.user.coinCount=sPreferences.getInt("gold", 500);
@@ -412,6 +439,43 @@ public class FirstPageActivity extends Activity{
 	}
 	public void getSIDAndUserID(){
 		String SID=HttpUtil.getSID(this,handleHttpConnectionException.getHandler(FirstPageActivity.this));
+		if("repate".equals(SID)){
+			Intent intent=new Intent(this,Dialog4Activity.class);
+			
+			Dialog4Activity.listener=new Dialog3ActivityListener() {
+				
+				@Override
+				public void onClose() {
+					// TODO Auto-generated method stub
+					finish();
+				}
+				
+				@Override
+				public void onButtonTwo() {
+					// TODO Auto-generated method stub
+					new Thread(new Runnable() {
+						
+						@Override
+						public void run() {
+							// TODO Auto-generated method stub
+							Dialog4Activity.canClose=false;
+							loadWelcomePage(false);
+							getSIDAndUserID();
+						}
+					}).start();
+				}
+				
+				@Override
+				public void onButtonOne() {
+					// TODO Auto-generated method stub
+					finish();
+				}
+			};
+			intent.putExtra("mode", 5);
+			startActivity(intent);
+			
+			return;
+		}
 		SharedPreferences sPreferences=FirstPageActivity.this.getSharedPreferences("setup", Context.MODE_WORLD_WRITEABLE);
 		if(!StringUtil.isEmpty(SID)){
 			Constants.SID=SID;
@@ -463,6 +527,7 @@ public class FirstPageActivity extends Activity{
 			}
 			PetApplication.petApp.blurBmp=null;
 		}
+		System.gc();
 	};
 	/**
 	 * 注册广播接受者，当网络连接状态发生改变时，需要处理的事项
@@ -509,9 +574,7 @@ public class FirstPageActivity extends Activity{
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		if(keyCode==KeyEvent.KEYCODE_BACK){
-			if(ChoseStarActivity.choseStarActivity!=null){
-				ChoseStarActivity.choseStarActivity.finish();
-			}
+			
 			finish();
 			if(HomeActivity.homeActivity!=null){
 				HomeActivity.homeActivity.finish();

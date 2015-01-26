@@ -20,6 +20,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.StringAdapter;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -180,7 +181,12 @@ public class UpdateAPKActivity extends Activity {
 				 * 否，关掉对话框，回到应用
 				 * 是   弹框提示必须更新，如果不更新则程序关闭
 				 */
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(UpdateAPKActivity.this)){
+					PetApplication.petApp.activityList.remove(UpdateAPKActivity.this);
+				}
 				finish();
+				System.gc();
 			}
 		});
 		sureTv.setOnClickListener(new OnClickListener() {

@@ -24,11 +24,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.AtUserListAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.TalkMessage;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserJson;
@@ -52,7 +53,7 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 	EditText inputET;
 	PullToRefreshAndMoreView pullToRefreshAndMoreView;
 	ListView listView;
-	ArrayList<User> topicList;
+	ArrayList<MyUser> topicList;
 	ArrayList<Animal> animals;
 	AtUserListAdapter adapter;
 	String userIdString;
@@ -96,7 +97,12 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(AtUserListActivity.this)){
+					PetApplication.petApp.activityList.remove(AtUserListActivity.this);
+				}
 				AtUserListActivity.this.finish();
+				System.gc();
 			}
 		});
 		
@@ -105,7 +111,7 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 	 * @用户界面的列表
 	 */
 	public void atUserInfo(){
-		topicList=new ArrayList<User>();
+		topicList=new ArrayList<MyUser>();
 		
 		loadData();
 		adapter=new AtUserListAdapter(this, topicList,null);
@@ -192,7 +198,7 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 				}
 				String string=s.toString();
 				if(StringUtil.isEmpty(string))return;
-				ArrayList<User> temp=new ArrayList<User>();
+				ArrayList<MyUser> temp=new ArrayList<MyUser>();
 				for(int i=0;i<topicList.size();i++){
 					if (topicList.get(i).u_nick.contains(string)) {
 						if(!temp.contains(topicList.get(i)))
@@ -322,7 +328,7 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
             		   }
             		   
             	   }
-            	 final ArrayList<User> temp =HttpUtil.getOthersList(userIdString, handler,AtUserListActivity.this,0);
+            	 final ArrayList<MyUser> temp =HttpUtil.getOthersList(userIdString, handler,AtUserListActivity.this,0);
             	  if(temp!=null&&temp.size()>0){
             		  isSuccess=true;
             		  runOnUiThread(new Runnable() {

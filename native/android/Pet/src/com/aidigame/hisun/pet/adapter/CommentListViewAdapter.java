@@ -6,7 +6,7 @@ import u.aly.co;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.PetPicture;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.bean.PetPicture.Comments;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
@@ -301,7 +301,7 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 	}
 	
 	
-	public class MyListGestureDector implements OnGestureListener{
+	/*public class MyListGestureDector implements OnGestureListener{
     	int mode;//1，分享，送礼，点赞列表；2，评论列表
     	boolean hasStart=false;
     	int touchSlop;
@@ -385,6 +385,6 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 			hasStart=false;
 			return true;
 		}
-	}
+	}*/
 
 }

@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HomeViewPagerAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
@@ -145,12 +146,16 @@ public class DialogGiveSbGiftActivity1 extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				DialogGiveSbGiftActivity1.this.finish();
+				
 				DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity=null;
 				if(dialogGoListener!=null){
 					dialogGoListener.closeDialog();
 				}
-				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(DialogGiveSbGiftActivity1.this)){
+					PetApplication.petApp.activityList.remove(DialogGiveSbGiftActivity1.this);
+				}
+				DialogGiveSbGiftActivity1.this.finish();
+				System.gc();
 			}
 		});
 		

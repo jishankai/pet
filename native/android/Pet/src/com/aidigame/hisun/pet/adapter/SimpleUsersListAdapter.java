@@ -24,15 +24,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.http.json.UserImagesJson.Data;
-import com.aidigame.hisun.pet.ui.ChatActivity;
 import com.aidigame.hisun.pet.ui.UserCardActivity;
 import com.aidigame.hisun.pet.ui.UsersListActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -40,6 +40,8 @@ import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
+import com.easemob.chat.EMContactManager;
+import com.easemob.exceptions.EaseMobException;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -54,10 +56,10 @@ public class SimpleUsersListAdapter extends BaseAdapter {
 	DisplayImageOptions displayImageOptions;//显示图片的格式
     ImageLoader imageLoader;
 	Activity context;
-	ArrayList<User> list;
+	ArrayList<MyUser> list;
 	Handler handler;
 	HandleHttpConnectionException handleHttpConnectionException;
-	public SimpleUsersListAdapter(Activity context,ArrayList<User> list,Handler handler){
+	public SimpleUsersListAdapter(Activity context,ArrayList<MyUser> list,Handler handler){
 		this.context=context;
 		this.list=list;
 		this.handler=handler;
@@ -79,7 +81,7 @@ public class SimpleUsersListAdapter extends BaseAdapter {
                 .build();
 	}
 	public void updateList(
-			ArrayList<User> temp) {
+			ArrayList<MyUser> temp) {
 		// TODO Auto-generated method stub
 		this.list=temp;
 	}
@@ -118,7 +120,7 @@ public class SimpleUsersListAdapter extends BaseAdapter {
 		}
 		LogUtil.i("exception", "position========"+position);
 //		if(position<list.size()){
-		final User data=list.get(position);
+		final MyUser data=list.get(position);
 		
 //		holder.icon.setImageBitmap();
 		final RoundImageView view=holder.icon;
@@ -131,7 +133,14 @@ public class SimpleUsersListAdapter extends BaseAdapter {
 					UsersListActivity u=(UsersListActivity)context;
 					if(!UserStatusUtil.isLoginSuccess(u,u.popup_parent,u.black_layout))return;
 				}*/
-				if(UserCardActivity.userCardActivity!=null)UserCardActivity.userCardActivity.finish();
+				if(UserCardActivity.userCardActivity!=null){
+					if(PetApplication.petApp.activityList.contains(UserCardActivity.userCardActivity)){
+						PetApplication.petApp.activityList.remove(UserCardActivity.userCardActivity);
+					}
+					UserCardActivity.userCardActivity.finish();
+					UserCardActivity.userCardActivity=null;
+					System.gc();
+				}
 				Intent intent=new Intent(context,UserCardActivity.class);
 				intent.putExtra("user", list.get(position));
 				context.startActivity(intent);
@@ -159,7 +168,17 @@ public class SimpleUsersListAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				new Thread(new Runnable() {
+				try {
+					EMContactManager.getInstance().deleteUserFromBlackList(""+data.userId);
+					list.remove(data);
+					notifyDataSetChanged();
+					Toast.makeText(context, "取消拉黑成功", Toast.LENGTH_LONG).show();
+				} catch (EaseMobException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					Toast.makeText(context, "取消拉黑失败", Toast.LENGTH_LONG).show();
+				}
+				/*new Thread(new Runnable() {
 					
 					@Override
 					public void run() {
@@ -181,7 +200,7 @@ public class SimpleUsersListAdapter extends BaseAdapter {
 							}
 						});
 					}
-				}).start();
+				}).start();*/
 			}
 		});
 		
@@ -189,7 +208,7 @@ public class SimpleUsersListAdapter extends BaseAdapter {
 //		}
 		return convertView;
 	}
-	public void loadIcon(RoundImageView icon,final User data){
+	public void loadIcon(RoundImageView icon,final MyUser data){
 		
 		imageLoader=ImageLoader.getInstance();
 		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+data.u_iconUrl, icon, displayImageOptions);

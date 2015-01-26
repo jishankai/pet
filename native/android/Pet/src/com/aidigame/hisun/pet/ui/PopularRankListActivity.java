@@ -35,6 +35,7 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.PopularRankListAdapter;
 import com.aidigame.hisun.pet.adapter.PopularWindowAdapter;
@@ -120,6 +121,7 @@ public class PopularRankListActivity extends Activity {
 						NewPetKingdomActivity.petKingdomActivity.linearLayout2.setBackgroundDrawable(null);
 					}
 					NewPetKingdomActivity.petKingdomActivity.finish();
+					NewPetKingdomActivity.petKingdomActivity=null;
 				}
 				PopularRankListActivity.this.startActivity(intent);
 			}
@@ -233,7 +235,13 @@ public class PopularRankListActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				popularRankListActivity=null;
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(PopularRankListActivity.this)){
+					PetApplication.petApp.activityList.remove(PopularRankListActivity.this);
+				}
 				PopularRankListActivity.this.finish();
+				System.gc();
 			}
 		});
 		popularTV.setOnClickListener(new OnClickListener() {

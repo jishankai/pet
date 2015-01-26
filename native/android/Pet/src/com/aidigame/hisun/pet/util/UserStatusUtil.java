@@ -13,11 +13,10 @@ import android.os.Handler;
 import android.view.View;
 
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
-import com.aidigame.hisun.pet.ui.ChoseStarActivity;
 import com.aidigame.hisun.pet.ui.DialogGoRegisterActivity;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.RegisterNoteDialog;
@@ -72,7 +71,7 @@ public class UserStatusUtil {
 				public void run() {
 					// TODO Auto-generated method stub
 					//加载用户信息
-					User user=HttpUtil.info(context,handler,Constants.user.userId);
+					MyUser user=HttpUtil.info(context,handler,Constants.user.userId);
 					
 					if(user!=null){
 						Constants.user=user;
@@ -133,7 +132,7 @@ public class UserStatusUtil {
 			 * 官职
 			 * 王国头像列表
 			 */
-			UserCenterFragment.userCenterFragment.updatateInfo();;
+			UserCenterFragment.userCenterFragment.updatateInfo(true);;
 		}
 		
 		

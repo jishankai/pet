@@ -657,4 +657,12 @@
           android:visibility="invisible"
           android:gravity="center">
       </LinearLayout>
+       <ImageView 
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:src="@drawable/guide7"
+          android:scaleType="fitXY"
+          android:id="@+id/guide2"
+          android:visibility="gone"
+          />
 </FrameLayout>

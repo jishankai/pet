@@ -38,13 +38,15 @@ import android.widget.Toast;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetPicture;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.ChargeActivity;
 import com.aidigame.hisun.pet.ui.Dialog4Activity;
 import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
+import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
+import com.aidigame.hisun.pet.ui.PictureBegActivity;
 import com.aidigame.hisun.pet.ui.UserCardActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
@@ -112,6 +114,7 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 		options.inPreferredConfig=Bitmap.Config.RGB_565;
 		options.inPurgeable=true;
 		options.inInputShareable=true;
+		current_view=null;
 		initView();
 		return view;
 	}
@@ -130,15 +133,11 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 		petRaceTv=(TextView)view.findViewById(R.id.show_topic_pet_race);
 		userNameTv=(TextView)view.findViewById(R.id.show_topic_username);
 		
-//		foodNum=(TextView)view.findViewById(R.id.food_num_tv);
-//		timeTv=(TextView)view.findViewById(R.id.time_tv);
-//		desTv=(TextView)view.findViewById(R.id.show_topic_comment_tv);
+
 		giveNum=(TextView)view.findViewById(R.id.give_num);
 		moreGive=(ImageView)view.findViewById(R.id.more_give_iv);
 		giveHeartIv=(ImageView)view.findViewById(R.id.give_food_tv);
 		showMoreNumLayout=(RelativeLayout)view.findViewById(R.id.reward_layout2);
-//		imageRelativeLayout=(RelativeLayout)view.findViewById(R.id.image_layout);
-		
 		heartAnim=AnimationUtils.loadAnimation(homeActivity, R.anim.anim_scale_heart);
 		heartAnim.setInterpolator(new LinearInterpolator());
 		giveHeartIv.setAnimation(heartAnim);
@@ -194,23 +193,7 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 						public void run() {
 							// TODO Auto-generated method stub
 							if(pps.size()>list.size()){
-								viewList=new ArrayList<View>();
-								for(int i=0;i<pps.size();i++){
-					                View view=LayoutInflater.from(homeActivity).inflate(R.layout.item_imageview1, null);
-					                /*ImageView imageView=(ImageView)view.findViewById(R.id.imageview);
-					                ImageFetcher imageFetcher=new ImageFetcher(homeActivity, 0);
-					                imageFetcher.setImageCache(new ImageCache(homeActivity,pps.get(i).url));
-					                imageFetcher.loadImage(pps.get(i).url, imageView, options);
-					                TextView foodNum=(TextView)view.findViewById(R.id.food_num_tv);
-									TextView timeTv=(TextView)view.findViewById(R.id.time_tv);
-									TextView desTv=(TextView)view.findViewById(R.id.show_topic_comment_tv);
-									PetPicture pp=pps.get(i); 
-									if(!StringUtil.isEmpty(pp.cmt)){
-								    	   desTv.setText(pp.cmt);
-								    }
-									foodNum.setText(""+pp.animal.foodNum);*/
-									viewList.add(view);
-								}
+								
 							}
 							
 							
@@ -314,125 +297,12 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 				 }
 			}
 		});
-		/*giveHeartIv.setOnTouchListener(new OnTouchListener() {
-			int h,w;
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
-				RelativeLayout.LayoutParams param=(RelativeLayout.LayoutParams)giveHeartIv.getLayoutParams();
-				if(param==null){
-					param=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-				}
-				switch (event.getAction()) {
-				case MotionEvent.ACTION_DOWN:
-					heartAnim.cancel();
-					giveHeartIv.clearAnimation();
-					h=giveHeartIv.getHeight();
-					w=giveHeartIv.getWidth();
-					param.width=(int)(w*1.2f);
-					param.height=(int)(h*1.2f);
-					
-					
-					giveHeartIv.setLayoutParams(param);
-					break;
-
-				case MotionEvent.ACTION_UP:
-					param.width=w;
-					param.height=h;
-					
-					giveHeartIv.setLayoutParams(param);
-					giveHeartIv.clearAnimation();
-					heartAnim=AnimationUtils.loadAnimation(homeActivity, R.anim.anim_scale_heart);
-					heartAnim.setInterpolator(new LinearInterpolator());
-					heartAnim.setAnimationListener(animationListener);
-					giveHeartIv.setAnimation(heartAnim);
-					heartAnim.start();
-					if(isGiving){
-						Toast.makeText(homeActivity, "亲，正在打赏", 1000).show();
-						return true;
-					}
-					 if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
-						 return true;
-					 }
-					 if(Constants.user!=null){
-						 if(Constants.user.coinCount+Constants.user.food<current_give_num){
-							 Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
-									
-									@Override
-									public void onClose() {
-										// TODO Auto-generated method stub
-										isGiving=false;
-									}
-									
-									@Override
-									public void onButtonTwo() {
-										// TODO Auto-generated method stub
-										isGiving=false;
-										Intent intent=new Intent(homeActivity,ChargeActivity.class);
-										homeActivity.startActivity(intent);
-									}
-									
-									@Override
-									public void onButtonOne() {
-										// TODO Auto-generated method stub
-										isGiving=false;
-									}
-								};
-								 Intent intent=new Intent(homeActivity,Dialog4Activity.class);
-								 intent.putExtra("mode", 3);
-								 intent.putExtra("num", current_give_num);
-								 homeActivity.startActivity(intent);
-								 return true;
-						 }
-						 isGiving=true;
-						 if(Constants.user!=null&&Constants.user.food>0){
-							 giveFood(); 
-							 return true;
-						 }
-						 SharedPreferences sp=homeActivity.getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
-						 boolean flag=sp.getBoolean(Constants.GIVE_FOOD_NOTE_SHOW, false);
-						 
-						 if(!flag){
-							 Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
-								
-								@Override
-								public void onClose() {
-									// TODO Auto-generated method stub
-									isGiving=false;
-								}
-								
-								@Override
-								public void onButtonTwo() {
-									// TODO Auto-generated method stub
-									giveFood();
-								}
-								
-								@Override
-								public void onButtonOne() {
-									// TODO Auto-generated method stub
-									isGiving=false;
-								}
-							};
-							 Intent intent=new Intent(homeActivity,Dialog4Activity.class);
-							 intent.putExtra("mode", 2);
-							 intent.putExtra("num", current_give_num);
-							 homeActivity.startActivity(intent);
-						 }else{
-							 giveFood(); 
-						 }
-						 
-					 }
-					break;
-				}
-				return true;
-			}
-		});*/
 		showMoreNumLayout.setOnClickListener(this);
 		petIcon.setOnClickListener(this);
 		userIcon.setOnClickListener(this);
 	}
     boolean loadingMore=false;
-    ArrayList<View> viewList=new ArrayList<View>();
+//    ArrayList<View> viewList=new ArrayList<View>();
     
 	private void initViewPager() {
 		// TODO Auto-generated method stub
@@ -455,8 +325,9 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 			public void destroyItem(ViewGroup container, int position,
 					Object object) {
 				// TODO Auto-generated method stub
-				if(position<viewList.size())
-				container.removeView(viewList.get(position));
+					container.removeView((View)object);
+					System.gc();
+				
 //				super.destroyItem(container, position, object);
 			}
 
@@ -464,8 +335,11 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 			public Object instantiateItem(ViewGroup container,final int position) {
 				// TODO Auto-generated method stub
 				
-                    View view=viewList.get(position);
-                
+                    View view=LayoutInflater.from(homeActivity).inflate(R.layout.item_imageview1, null);;
+                    if(position==0&&current_view==null){
+                    	current_view=view;
+                    }
+                    view.setId(position);
                 	ImageView imageView=(ImageView)view.findViewById(R.id.imageview);
                     
                 ImageFetcher imageFetcher=new ImageFetcher(homeActivity, 0);
@@ -479,10 +353,24 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 				if(!StringUtil.isEmpty(pp.cmt)){
 			    	   desTv.setText(pp.cmt);
 			    }else{
-			    	desTv.setText("");
+			    	   desTv.setText("");
 			    }
 				foodNum.setText(""+pp.animal.foodNum);
-				
+				imageView.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						PetPicture p=list.get(position);
+						if(NewShowTopicActivity.newShowTopicActivity!=null){
+							NewShowTopicActivity.newShowTopicActivity.recyle();
+						}
+						Intent intent=new Intent(homeActivity,NewShowTopicActivity.class);
+//						Intent intent=new Intent(homeActivity,PictureBegActivity .class);
+						intent.putExtra("PetPicture", p);
+						homeActivity.startActivity(intent);
+					}
+				});
 				container.addView(view);
 				
 				return view;
@@ -498,12 +386,15 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(2);
 		viewPager.setPageTransformer(true, new PagerTransformer());
+		
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			
 			@Override
 			public void onPageSelected(int arg0) {
 				// TODO Auto-generated method stub
 				LogUtil.i("me", "current_position="+current_position);
+				View view=viewPager.findViewById(arg0);
+				current_view=view;
 				updateInfo(arg0);
 				if(list.size()>0&&list.size()-arg0<=3&&!loadingMore){
 					loadingMore=true;
@@ -529,6 +420,7 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 	 * @param position
 	 */
 	int current_position=0;
+	View current_view;
 	public void updateInfo(int position){
 		current_position=position;
 		PetPicture pp=list.get(position);
@@ -602,34 +494,7 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 		tv3=(TextView)view.findViewById(R.id.tv3);
 		tv2=(TextView)view.findViewById(R.id.tv2);
 		tv1=(TextView)view.findViewById(R.id.tv1);
-		/*LinearLayout.LayoutParams param1=(LinearLayout.LayoutParams)tv1.getLayoutParams();
-		if(param1==null){
-			param1=new LinearLayout.LayoutParams(homeActivity.getResources().getDimensionPixelSize(R.dimen.one_dip)*120, LinearLayout.LayoutParams.WRAP_CONTENT);
-		}
-		param1.width=homeActivity.getResources().getDimensionPixelSize(R.dimen.one_dip)*120;
-		tv1.setLayoutParams(param1);
-		
-		LinearLayout.LayoutParams param2=(LinearLayout.LayoutParams)tv2.getLayoutParams();
-		if(param2==null){
-			param2=new LinearLayout.LayoutParams(homeActivity.getResources().getDimensionPixelSize(R.dimen.one_dip)*120, LinearLayout.LayoutParams.WRAP_CONTENT);
-		}
-		param2.width=homeActivity.getResources().getDimensionPixelSize(R.dimen.one_dip)*120;
-		tv2.setLayoutParams(param2);
-		
-		LinearLayout.LayoutParams param3=(LinearLayout.LayoutParams)tv3.getLayoutParams();
-		if(param3==null){
-			param3=new LinearLayout.LayoutParams(homeActivity.getResources().getDimensionPixelSize(R.dimen.one_dip)*120, LinearLayout.LayoutParams.WRAP_CONTENT);
-		}
-		param3.width=homeActivity.getResources().getDimensionPixelSize(R.dimen.one_dip)*120;
-		tv3.setLayoutParams(param3);
-		
-		LinearLayout.LayoutParams param4=(LinearLayout.LayoutParams)tv4.getLayoutParams();
-		if(param4==null){
-			param4=new LinearLayout.LayoutParams(homeActivity.getResources().getDimensionPixelSize(R.dimen.one_dip)*120, LinearLayout.LayoutParams.WRAP_CONTENT);
-		}
-		param4.width=homeActivity.getResources().getDimensionPixelSize(R.dimen.one_dip)*120;
-		tv4.setLayoutParams(param1);
-		*/
+	
 		
 		moreNumWindow=new PopupWindow(view,homeActivity.getResources().getDimensionPixelSize(R.dimen.one_dip)*120,LayoutParams.WRAP_CONTENT);
 		moreNumWindow.setFocusable(true);
@@ -718,10 +583,10 @@ tv4.setOnClickListener(new OnClickListener() {
     		if(msg.what==1){
     			
     		LogUtil.i("me","有过一秒钟");
-    		if(current_position>=0&&current_position<list.size()){
+    		if(current_position>=0&&current_position<list.size()&&current_view!=null){
     			long time=list.get(current_position).create_time+24*3600-System.currentTimeMillis()/1000;
     			LogUtil.i("me","有过一秒钟time="+time);
-    			TextView timeTv=(TextView)viewList.get(current_position).findViewById(R.id.time_tv);
+    			TextView timeTv=(TextView)current_view.findViewById(R.id.time_tv);
     			if(time<=0){
     				timeTv.setText("00:00:00");
     				return;
@@ -749,7 +614,7 @@ tv4.setOnClickListener(new OnClickListener() {
     			}
     			LogUtil.i("me","有过一秒钟time="+hh+":"+mm+":"+ss);
     			LogUtil.i("me", "current_position="+current_position);
-    			if(current_position<viewList.size()){
+    			if(current_position<list.size()){
     				timeTv.setText(hh+":"+mm+":"+ss);
     			}
     			
@@ -785,7 +650,7 @@ tv4.setOnClickListener(new OnClickListener() {
 			intent1.putExtra("user", user);
 			this.startActivity(intent1);*/
 			Intent intent1=new Intent(homeActivity,UserCardActivity.class);
-			User user=new User();
+			MyUser user=new MyUser();
 			user.userId=list.get(current_position).animal.master_id;
 			intent1.putExtra("user", user);
 			this.startActivity(intent1);
@@ -801,6 +666,7 @@ tv4.setOnClickListener(new OnClickListener() {
 					NewPetKingdomActivity.petKingdomActivity.loadedImage2=null;
 				}
 				NewPetKingdomActivity.petKingdomActivity.finish();
+				System.gc();
 			}
 			Intent intent2=new Intent(homeActivity,NewPetKingdomActivity.class);
 			intent2.putExtra("animal", list.get(current_position).animal);
@@ -847,8 +713,6 @@ tv4.setOnClickListener(new OnClickListener() {
 							// TODO Auto-generated method stub
 							for(int i=0;i<pps.size();i++){
 								list.add(pps.get(i));
-								 View view=LayoutInflater.from(homeActivity).inflate(R.layout.item_imageview1, null);
-								 viewList.add(view);
 							}
 							pagerAdapter.notifyDataSetChanged();
 							loadingMore=false;
@@ -869,6 +733,7 @@ tv4.setOnClickListener(new OnClickListener() {
 				// TODO Auto-generated method stub
 				current_page=0;
 				current_position=0;
+				current_view=null;
 				final ArrayList<PetPicture> pps=HttpUtil.begFoodList(handler, current_page, homeActivity);
 				
 	          	if(pps!=null){
@@ -884,25 +749,7 @@ tv4.setOnClickListener(new OnClickListener() {
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-							if(pps.size()>list.size()){
-								viewList=new ArrayList<View>();
-								for(int i=0;i<pps.size();i++){
-					                View view=LayoutInflater.from(homeActivity).inflate(R.layout.item_imageview1, null);
-					                /*ImageView imageView=(ImageView)view.findViewById(R.id.imageview);
-					                ImageFetcher imageFetcher=new ImageFetcher(homeActivity, 0);
-					                imageFetcher.setImageCache(new ImageCache(homeActivity,pps.get(i).url));
-					                imageFetcher.loadImage(pps.get(i).url, imageView, options);
-					                TextView foodNum=(TextView)view.findViewById(R.id.food_num_tv);
-									TextView timeTv=(TextView)view.findViewById(R.id.time_tv);
-									TextView desTv=(TextView)view.findViewById(R.id.show_topic_comment_tv);
-									PetPicture pp=pps.get(i); 
-									if(!StringUtil.isEmpty(pp.cmt)){
-								    	   desTv.setText(pp.cmt);
-								    }
-									foodNum.setText(""+pp.animal.foodNum);*/
-									viewList.add(view);
-								}
-							}
+							if(pps.size()>list.size()){}
 							list=pps;
 							viewPager.removeAllViews();
 							viewPager.setAdapter(pagerAdapter);
@@ -943,7 +790,7 @@ tv4.setOnClickListener(new OnClickListener() {
 								int index=Constants.user.aniList.indexOf(animal);
 								Constants.user.aniList.get(index).foodNum+=current_give_num;
 							}
-							TextView foodNumTv=(TextView)viewList.get(current_position).findViewById(R.id.food_num_tv);
+							TextView foodNumTv=(TextView)current_view.findViewById(R.id.food_num_tv);
 							foodNumTv.setText(""+list.get(current_position).animal.foodNum);
 							giveFoodAnimation();
 						}else{
@@ -956,35 +803,8 @@ tv4.setOnClickListener(new OnClickListener() {
 		}).start();
 	}
 	public void giveFoodAnimation(){
-		View view=viewList.get(current_position);
-	/*	final LinearLayout layout=(LinearLayout)view.findViewById(R.id.anim_layout);
-		TextView numTv=(TextView)view.findViewById(R.id.anim_num_tv);
-		numTv.setText("+"+current_give_num);
-		layout.setVisibility(View.VISIBLE);
-		Animation anim=AnimationUtils.loadAnimation(homeActivity, R.anim.anim_set);
-		layout.clearAnimation();
-		layout.setAnimation(anim);
-		anim.setAnimationListener(new AnimationListener() {
-			
-			@Override
-			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				// TODO Auto-generated method stub
-				layout.setVisibility(View.GONE);
-			}
-		});
-		anim.start();*/
+		View view=current_view;
+	
 		final RelativeLayout layout=(RelativeLayout)view.findViewById(R.id.anim_layout);
 		final View animView=LayoutInflater.from(homeActivity).inflate(R.layout.item_food_anim_view, null);
 		

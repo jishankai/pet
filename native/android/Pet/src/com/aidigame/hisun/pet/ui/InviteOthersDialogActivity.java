@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
@@ -35,7 +35,9 @@ import com.aidigame.hisun.pet.widget.WeixinShare;
 import com.aidigame.hisun.pet.widget.fragment.UserCenterFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
@@ -114,7 +116,33 @@ public class InviteOthersDialogActivity extends Activity {
 			}
 		});
 		if(mode!=2)
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl, petIcon, displayImageOptions);
+		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl, petIcon, displayImageOptions,new ImageLoadingListener() {
+			
+			@Override
+			public void onLoadingStarted(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLoadingFailed(String imageUri, View view,
+					FailReason failReason) {
+				// TODO Auto-generated method stub
+				animal.pet_iconPath=StringUtil.compressEmotion(InviteOthersDialogActivity.this, null);
+			}
+			
+			@Override
+			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+				// TODO Auto-generated method stub
+				animal.pet_iconPath=StringUtil.compressEmotion(InviteOthersDialogActivity.this, loadedImage);
+			}
+			
+			@Override
+			public void onLoadingCancelled(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				animal.pet_iconPath=StringUtil.compressEmotion(InviteOthersDialogActivity.this, null);
+			}
+		});
 		switch (mode) {
 		case 1:
 			llayout1.setVisibility(View.VISIBLE);
@@ -177,7 +205,7 @@ public class InviteOthersDialogActivity extends Activity {
 										animal=a;
 										Constants.user.coinCount+=300;
 										if(UserCenterFragment.userCenterFragment!=null){
-									    	UserCenterFragment.userCenterFragment.updatateInfo();;
+									    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 										}
 										initView3();
 									}else{
@@ -224,7 +252,7 @@ new Thread(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				final User u=HttpUtil.info(InviteOthersDialogActivity.this,handler, Constants.user.inviter);
+				final MyUser u=HttpUtil.info(InviteOthersDialogActivity.this,handler, Constants.user.inviter);
 				runOnUiThread(new Runnable() {
 					
 					@Override
@@ -262,37 +290,17 @@ new Thread(new Runnable() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/*if(Constants.api==null){
-					boolean flag=WeixinShare.regToWeiXin(InviteOthersDialogActivity.this);
-					if(!flag){
-						Toast.makeText(InviteOthersDialogActivity.this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
-
-						return;
-					}
-				}*/
+				
 				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
 				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
 				FileOutputStream fos=null;
 				try {
 					fos = new FileOutputStream(path);
-					bmp.compress(CompressFormat.PNG, 100, fos);
+//					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
 					weixinShare(data);
-				/*	if(Constants.api==null){
-						boolean flag=WeixinShare.regToWeiXin(InviteOthersDialogActivity.this);
-						if(!flag){
-							Toast.makeText(InviteOthersDialogActivity.this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
-							
-							return;
-						}
-					}
-					if(WeixinShare.shareBitmap(data, 1)){
-//						Toast.makeText(this,"成功分享到微信。", Toast.LENGTH_LONG).show();
-						MobclickAgent.onEvent(InviteOthersDialogActivity.this, "invite_share");
-					}else{
-						Toast.makeText(InviteOthersDialogActivity.this,"分享失败。", Toast.LENGTH_LONG).show();
-					}*/
+				
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -314,29 +322,17 @@ new Thread(new Runnable() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-			/*	if(Constants.api==null){
-					boolean flag=WeixinShare.regToWeiXin(InviteOthersDialogActivity.this);
-					if(!flag){
-						Toast.makeText(InviteOthersDialogActivity.this,"目前您的微信版本过低或未安装微信，安装微信才能使用。", Toast.LENGTH_LONG).show();
-						
-						return;
-					}
-				}*/
+			
 				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
 				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
 				FileOutputStream fos=null;
 				try {
 					fos = new FileOutputStream(path);
-					bmp.compress(CompressFormat.PNG, 100, fos);
+//					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
 					friendShare(data);
-					/*if(WeixinShare.shareBitmap(data, 2)){
-						MobclickAgent.onEvent(InviteOthersDialogActivity.this, "invite_share");
-//						Toast.makeText(InviteOthersDialogActivity.this,"成功分享到微信。", Toast.LENGTH_LONG).show();
-					}else{
-						Toast.makeText(InviteOthersDialogActivity.this,"分享到微信失败。", Toast.LENGTH_LONG).show();
-					}*/
+					
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -358,24 +354,18 @@ new Thread(new Runnable() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/*if(!UserStatusUtil.hasXinlangAuth(InviteOthersDialogActivity.this)){
-					return;
-				}*/
+				
 				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
 				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
 				FileOutputStream fos=null;
 				try {
 					fos = new FileOutputStream(path);
-					bmp.compress(CompressFormat.PNG, 100, fos);
+//					bmp.compress(CompressFormat.PNG, 100, fos);
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
 					data.des="我家萌星最闪亮！小伙伴们快来助力~~邀请码："+animal.invite_code+"，http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
 					xinlangShare(data);
-					/*if(UserStatusUtil.hasXinlangAuth(InviteOthersDialogActivity.this)){
-						
-						XinlangShare.sharePicture(data,InviteOthersDialogActivity.this);
-						MobclickAgent.onEvent(InviteOthersDialogActivity.this, "invite_share");
-					}*/
+					
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -408,12 +398,13 @@ new Thread(new Runnable() {
 	      
 	      public void weixinShare(UserImagesJson.Data data){
 		   	   WeiXinShareContent weixinContent = new WeiXinShareContent();
-		   	 //设置分享文字
-		   /*	 weixinContent.setShareContent("");
-		   	 //设置title
-		   	 weixinContent.setTitle("");*/
-		   	 //设置分享图片
-		   	 UMImage umImage=new UMImage(this,data.path );
+		   	//设置分享文字
+			   	 weixinContent.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
+			   	 //设置title
+			   	 weixinContent.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+			   	 //设置分享内容跳转URL
+			   	 weixinContent.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
+		   	 UMImage umImage=new UMImage(this,animal.pet_iconPath);
 		   	 weixinContent.setShareImage(umImage);
 		   	 mController.setShareMedia(weixinContent);
 //		   	 mController.openShare(this, true);
@@ -443,7 +434,13 @@ new Thread(new Runnable() {
 		      }
 		 public void friendShare(UserImagesJson.Data data){
 			   CircleShareContent circleMedia = new CircleShareContent();
-			   UMImage umImage=new UMImage(this, data.path);
+			   //设置分享文字
+			   	circleMedia.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
+				   	 //设置title
+			   	circleMedia.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+				   	 //设置分享内容跳转URL
+			   	circleMedia.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
+			   UMImage umImage=new UMImage(this, animal.pet_iconPath);
 			   circleMedia.setShareImage(umImage);
 			  /* circleMedia.setShareContent("努力卖萌，只为给自己代粮！快把你每天的免费粮食赏给我~");
 			   circleMedia.setTitle("轻轻一点，免费赏粮！我家"+pp.animal.pet_nickName+"的口粮就靠你啦~");
@@ -477,8 +474,8 @@ new Thread(new Runnable() {
 			
 		   	   SinaShareContent content=new SinaShareContent();
 		   	   content.setShareContent(data.des);
-		   	   UMImage umImage=new UMImage(this, data.path);
-		   	  
+		   	   UMImage umImage=new UMImage(this, animal.pet_iconPath);
+		   	 content.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~"+"http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id+"（分享自@宠物星球社交应用）");
 		   	   content.setShareImage(umImage);
 		   	   mController.setShareMedia(content);
 		   	   mController.postShare(this, SHARE_MEDIA.SINA,new SnsPostListener() {

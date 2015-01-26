@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -46,7 +47,12 @@ public class TakePictureBackground extends Activity {
 					TakePictureBackground.this.startActivity(intent3);
 				}
 				
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(TakePictureBackground.this)){
+					PetApplication.petApp.activityList.remove(TakePictureBackground.this);
+				}
 				TakePictureBackground.this.finish();
+				System.gc();
 			}else{
 				handler.sendMessageAtTime(msg, 50);
 			}
@@ -65,7 +71,12 @@ public class TakePictureBackground extends Activity {
 		isBeg=getIntent().getBooleanExtra("isBeg",false);
 		switch (mode) {
 		case -1:
+			
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			this.finish();
+			System.gc();
 			break;
 		}
 		Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

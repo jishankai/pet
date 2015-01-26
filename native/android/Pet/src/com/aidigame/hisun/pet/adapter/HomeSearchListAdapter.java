@@ -26,15 +26,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.http.json.UserImagesJson.Data;
-import com.aidigame.hisun.pet.ui.ChatActivity;
 import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
 import com.aidigame.hisun.pet.ui.UserCardActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -57,11 +57,11 @@ public class HomeSearchListAdapter extends BaseAdapter {
     ImageLoader imageLoader;
 	Activity context;
 	ArrayList<Animal> animalList;
-	ArrayList<User> userList;
+	ArrayList<MyUser> userList;
 	Handler handler;
     int mode;//1,萌星列表；2，用户列表
 	HandleHttpConnectionException handleHttpConnectionException;
-	public HomeSearchListAdapter(Activity context,ArrayList<Animal> list,ArrayList<User> userList,Handler handler,int mode){
+	public HomeSearchListAdapter(Activity context,ArrayList<Animal> list,ArrayList<MyUser> userList,Handler handler,int mode){
 		this.context=context;
 		
 		this.handler=handler;
@@ -99,7 +99,7 @@ public class HomeSearchListAdapter extends BaseAdapter {
                 .build();
 	}
 	public void updateList(
-			ArrayList<Animal> temp,ArrayList<User> userList,int mode) {
+			ArrayList<Animal> temp,ArrayList<MyUser> userList,int mode) {
 		// TODO Auto-generated method stub
 		this.mode=mode;
 		if(mode==1){
@@ -181,7 +181,7 @@ public class HomeSearchListAdapter extends BaseAdapter {
 			holder.raceTv.setText(""+data.race);
 			holder.ageTv.setText(data.a_age_str);
 		}else{
-			User data=userList.get(position);
+			MyUser data=userList.get(position);
 			loadIcon(holder.icon, data);
 			if(data.u_gender==1){
 				holder.gender.setImageResource(R.drawable.male1);
@@ -215,14 +215,19 @@ public class HomeSearchListAdapter extends BaseAdapter {
 							NewPetKingdomActivity.petKingdomActivity.loadedImage1=null;
 						}
 						NewPetKingdomActivity.petKingdomActivity.finish();
+						NewPetKingdomActivity.petKingdomActivity=null;
 					}
 					Intent intent=new Intent(context,NewPetKingdomActivity.class);
 					intent.putExtra("animal", animalList.get(position));
 					context.startActivity(intent);
 				}else{
 					if(UserCardActivity.userCardActivity!=null){
-						
+						if(PetApplication.petApp.activityList.contains(UserCardActivity.userCardActivity)){
+							PetApplication.petApp.activityList.remove(UserCardActivity.userCardActivity);
+						}
 						UserCardActivity.userCardActivity.finish();
+						UserCardActivity.userCardActivity=null;
+						System.gc();
 					}
 					Intent intent=new Intent(context,UserCardActivity.class);
 					intent.putExtra("user", userList.get(position));
@@ -241,7 +246,7 @@ public class HomeSearchListAdapter extends BaseAdapter {
 		imageLoader=ImageLoader.getInstance();
 		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+data.pet_iconUrl, icon, displayImageOptions);
 	}
-public void loadIcon(RoundImageView icon,final User data){
+public void loadIcon(RoundImageView icon,final MyUser data){
 		
 		imageLoader=ImageLoader.getInstance();
 		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+data.u_iconUrl, icon, displayImageOptions2);

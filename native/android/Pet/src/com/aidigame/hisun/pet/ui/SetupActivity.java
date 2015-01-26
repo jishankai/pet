@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -292,7 +293,13 @@ public class SetupActivity extends Activity implements OnClickListener{
 					this.startActivity(intent);
 				}
 			}
+			setupActivity=null;
+			
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			finish();
+			System.gc();
 			break;
 		/*case R.id.account_visibility_relativelayout:
 			Intent intent=new Intent(homeActivity,AcountVisibilty.class);

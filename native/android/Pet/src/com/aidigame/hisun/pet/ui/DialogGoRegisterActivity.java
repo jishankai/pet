@@ -4,8 +4,9 @@ import java.io.File;
 import java.util.Map;
 import java.util.Set;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
@@ -102,6 +103,7 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 			// TODO Auto-generated method stub
 			switch (v.getId()) {
 			case R.id.close:
+				dialogGoRegisterActivity=null;
 				finish();
 				break;
 			case R.id.register_tv:
@@ -129,7 +131,12 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 			case R.id.register_layout:
 				Intent intent=new Intent(this,RegisterNoteDialog.class);
 				this.startActivity(intent);
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+					PetApplication.petApp.activityList.remove(this);
+				}
 				finish();
+				System.gc();
 				break;
 
 			default:
@@ -201,7 +208,7 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 			                StringBuilder sb = new StringBuilder();
 			                Set<String> keys = info.keySet();
 			               
-			                User user=new User();
+			                MyUser user=new MyUser();
 			                if("1".equals(""+(Integer)info.get("sex"))){
 			                	user.u_gender=1;
 			                }else{
@@ -210,7 +217,7 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 			                user.u_nick=(String)info.get("nickname");
 			                user.weixin_id=(String)info.get("openid");
 			                user.u_iconPath=(String)info.get("headimgurl");
-			                
+			                user.wechat_union=(String)info.get("unionid");
 			              
 			                
 			                
@@ -303,7 +310,7 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 						                StringBuilder sb = new StringBuilder();
 						                Set<String> keys = info.keySet();
 						                
-						                User user=new User();
+						                MyUser user=new MyUser();
 						                if("1".equals(""+(Integer)info.get("gender"))){
 						                	user.u_gender=1;
 						                }else{
@@ -361,14 +368,14 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 		 * 微信或新浪绑定登陆
 		 * @param user
 		 */
-		public void bindLogin(final User user,boolean isWeixin){
+		public void bindLogin(final MyUser user,boolean isWeixin){
 //			 if(showProgress!=null)showProgress.progressCancel();
 
 			boolean flag=false;
 			if(isWeixin){
-				flag= HttpUtil.isBind(handler, user.weixin_id, isWeixin, DialogGoRegisterActivity.this);
+				flag= HttpUtil.isBind(handler, user.weixin_id, isWeixin, DialogGoRegisterActivity.this,user.wechat_union);
 			}else{
-				flag= HttpUtil.isBind(handler, user.xinlang_id, isWeixin, DialogGoRegisterActivity.this);
+				flag= HttpUtil.isBind(handler, user.xinlang_id, isWeixin, DialogGoRegisterActivity.this,null);
 			}
 			 final boolean isBinded=flag;
 			
@@ -382,6 +389,7 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 						}else{
 							if(ChoseAcountTypeActivity.choseAcountTypeActivity!=null){
 								ChoseAcountTypeActivity.choseAcountTypeActivity.finish();
+								ChoseAcountTypeActivity.choseAcountTypeActivity=null;
 							}
 							Intent intent=new Intent(DialogGoRegisterActivity.this,ChoseAcountTypeActivity.class);
 							intent.putExtra("user", user);
@@ -424,7 +432,7 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 							// TODO Auto-generated method stub
 							if(HomeActivity.homeActivity!=null){
 								if(HomeActivity.homeActivity.userCenterFragment!=null){
-									HomeActivity.homeActivity.userCenterFragment.updatateInfo();;
+									HomeActivity.homeActivity.userCenterFragment.updatateInfo(true);;
 								}
 								if(HomeActivity.homeActivity.myPetFragment!=null){
 									HomeActivity.homeActivity.myPetFragment.homeMyPet.refresh();

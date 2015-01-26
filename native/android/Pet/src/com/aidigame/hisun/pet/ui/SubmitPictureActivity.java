@@ -3,6 +3,7 @@ package com.aidigame.hisun.pet.ui;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -36,11 +37,12 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.bean.Topic;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
@@ -356,9 +358,13 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.button1:
 			
+			submitPictureActivity=null;
 			
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
 			this.finish();
-			
+			System.gc();
 			break;
 		case R.id.button2:
 			
@@ -407,7 +413,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 					info = info.replaceAll("\\s+", " ");
 					info.trim();
 					Bitmap bitmap=null;
-					if(new File(finalPath).length()>1024*1024*1){
+					/*if(new File(finalPath).length()>1024*1024*1){
 						BitmapFactory.Options options=new BitmapFactory.Options();
 						options.inSampleSize=2;
 						bitmap=BitmapFactory.decodeFile(finalPath,options);
@@ -415,7 +421,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 						BitmapFactory.Options options=new BitmapFactory.Options();
 						options.inSampleSize=2;
 						bitmap=BitmapFactory.decodeFile(finalPath,options);
-					}
+					}*/
 					
 				  
 					
@@ -423,39 +429,89 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 					FileOutputStream fos1=null;
 					try {
 						String path2=null;
-						boolean canCompress=true;
-						if(bitmap==null){
-							canCompress=false;
+						boolean canCompress=false;
+//						if(bitmap==null){
+							
 							BitmapFactory.Options options=new BitmapFactory.Options();
-							if(new File(finalPath).length()>1024*1024*1){
-								options.inSampleSize=2;
+							if(new File(finalPath).length()>1024*300*1){
+								if(new File(finalPath).length()>1024*1024*9){
+									options.inSampleSize=4;
+								}else{
+									options.inSampleSize=2;
+								}
+								
+								canCompress=true;
 							}else{
 								options.inSampleSize=2;
 							}
 							
 							bitmap=BitmapFactory.decodeFile(finalPath,options);
-						}
+							try {
+								Thread.sleep(60);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							if(bitmap.getWidth()>2000||bitmap.getHeight()>2000){
+								float scale=1.0f;
+								float scale1=2000f/(bitmap.getWidth()*1f);
+								float scale2=2000f/(bitmap.getHeight()*1f);
+								if(scale1>scale2){
+									scale=scale2;
+								}else{
+									scale=scale1;
+								}
+								Matrix m=new Matrix();
+								m.postScale(scale, scale);
+								bitmap=Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
+							}
+//						}
 						if(bitmap!=null){
 							if(canCompress){
 								String path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
 								fos = new FileOutputStream(new File(path));
 								
-//									if(new File(finalPath).length()>1024*1024*1){
 										bitmap.compress(CompressFormat.JPEG, 90, fos);
-//									}else{
-//										bitmap.compress(CompressFormat.JPEG, 90, fos);
-//									}
 									try {
 										Thread.sleep(100);
 									} catch (InterruptedException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
+									path=compressPictureSize(path);
+									/*if(new File(path).length()>1024*512*1){
+										options.inSampleSize=2;
+										
+										
+										bitmap=BitmapFactory.decodeFile(path,options);
+										path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
+										fos1 = new FileOutputStream(new File(path));
+										
+										bitmap.compress(CompressFormat.JPEG, 90, fos1);
+									try {
+										Thread.sleep(100);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									}*/
+									
 								File file=new File(path);
 								path2=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"@"+file.length()+"@_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
 								file.renameTo(new File(path2));
 							}else{
-								File file=new File(finalPath);
+								
+								String path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
+								fos = new FileOutputStream(new File(path));
+								
+										bitmap.compress(CompressFormat.JPEG, 100, fos);
+									try {
+										Thread.sleep(100);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									File file=new File(path);
 								path2=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"@"+file.length()+"@_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
 								file.renameTo(new File(path2));
 							}
@@ -470,8 +526,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 					
 					
 					PetPicture petPicture=new PetPicture();
-					petPicture.animal=new Animal();
-					petPicture.animal.a_id=animal.a_id;
+					petPicture.animal=animal;
 					petPicture.cmt=info;
 					if(path2==null){
 						path2=finalPath;
@@ -497,7 +552,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 //						HttpUtil.imageInfo(petPicture2, handler, SubmitPictureActivity.this);
 						handler.sendEmptyMessage(DISMISS_PROGRESS);
 						
-						petPicture2.animal=Constants.user.currentAnimal;
+						petPicture2.animal=animal;
 						
 						SubmitPictureActivity.this.petPicture=petPicture2;
 						UserImagesJson.Data  data=new UserImagesJson.Data();
@@ -596,7 +651,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			if(uri!=null){
 				LogUtil.i("me", "删除uri="+uri);
 				try{
-					getContentResolver().delete(uri, null, null);
+//					getContentResolver().delete(uri, null, null);
 				}catch(Exception e){
 					e.printStackTrace();
 				}
@@ -682,7 +737,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-             final User user=HttpUtil.imageShareNumsApi(SubmitPictureActivity.this,petPicture.img_id, handleHttpConnectionException.getHandler(SubmitPictureActivity.this));
+             final MyUser user=HttpUtil.imageShareNumsApi(SubmitPictureActivity.this,petPicture.img_id, handleHttpConnectionException.getHandler(SubmitPictureActivity.this));
             
 						if(over){
 							new Thread(new Runnable() {
@@ -712,13 +767,26 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 				// TODO Auto-generated method stub
 				Constants.shareMode=-1;
 				Constants.whereShare=-1;
-				if(NewShowTopicActivity.newShowTopicActivity!=null){
-					NewShowTopicActivity.newShowTopicActivity.recyle();
+				
+				Intent intent=null;
+				if(isBeg){
+					intent=new Intent(SubmitPictureActivity.this,Dialog6Activity.class);
+					petPicture.animal=animal;
+					intent.putExtra("picture", petPicture);
+				}else{
+					if(NewShowTopicActivity.newShowTopicActivity!=null){
+						NewShowTopicActivity.newShowTopicActivity.recyle();
+					}
+					intent=new Intent(SubmitPictureActivity.this,NewShowTopicActivity.class);
+					intent.putExtra("PetPicture", petPicture);
 				}
-				Intent intent=new Intent(SubmitPictureActivity.this,NewShowTopicActivity.class);
-				intent.putExtra("PetPicture", petPicture);
+				
 				SubmitPictureActivity.this.startActivity(intent);
-				SubmitPictureActivity.this.finish();
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(SubmitPictureActivity.this)){
+					PetApplication.petApp.activityList.remove(SubmitPictureActivity.this);
+				}
+				this.finish();
+				System.gc();
 				LogUtil.i("me", "SubmitPicture关闭掉===================5");
 			/*}
 		});*/
@@ -759,7 +827,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 		                  	addShares(false);
 		                    Toast.makeText(SubmitPictureActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
 		                   } else {
-		                	   over();
+//		                	   over();
 		                        String eMsg = "";
 		                        if (eCode == -101){
 		                            eMsg = "没有授权";
@@ -809,6 +877,35 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 	                   
 	            }
 	   });
+	      }
+	      public String compressPictureSize(String path) {
+	    	  if(new File(path).length()>1024*300*1){
+	    		  BitmapFactory.Options options=new BitmapFactory.Options();
+	    		  FileOutputStream fos1=null;
+					options.inSampleSize=2;
+					
+					
+					Bitmap bitmap=BitmapFactory.decodeFile(path,options);
+					path=Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+System.currentTimeMillis()+"_"+bitmap.getWidth()+"&"+bitmap.getHeight()+".jpg";
+					try {
+						fos1 = new FileOutputStream(new File(path));
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					bitmap.compress(CompressFormat.JPEG, 90, fos1);
+					
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return compressPictureSize(path);
+				}else{
+					return path;
+				}
 	      }
 
 }

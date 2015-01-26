@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.ui;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.util.UiUtil;
 
@@ -28,8 +29,13 @@ public class ChargeActivity extends Activity implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.back_iv:
-			finish();
+			
 			chargeActivity=null;
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
+			finish();
+			System.gc();
 			break;
 
 		default:

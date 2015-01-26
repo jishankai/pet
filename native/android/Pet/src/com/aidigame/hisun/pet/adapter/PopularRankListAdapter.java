@@ -248,6 +248,7 @@ public class PopularRankListAdapter extends BaseAdapter {
 											NewPetKingdomActivity.petKingdomActivity.linearLayout2.setBackgroundDrawable(null);
 										}
 										NewPetKingdomActivity.petKingdomActivity.finish();
+										NewPetKingdomActivity.petKingdomActivity=null;
 									}
 									context.startActivity(intent);
 								}

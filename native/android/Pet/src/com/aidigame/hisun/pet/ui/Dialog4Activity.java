@@ -1,5 +1,8 @@
 package com.aidigame.hisun.pet.ui;
 
+import u.aly.bu;
+
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -22,7 +25,7 @@ import android.widget.TextView;
  */
 public class Dialog4Activity extends Activity implements OnClickListener{
 	ImageView closeIv;
-	int mode=1;//1,注册还是绑定弹窗提示；2，打赏提示;3,充值提示;4,兑换提示
+	int mode=1;//1,注册还是绑定弹窗提示；2，打赏提示;3,充值提示;4,兑换提示;5,网络异常，提示框;6,环信账号在其他手机登陆提示
 	TextView note1Tv,note2Tv,button1,button2;
 	LinearLayout regLayout,giveLayout;
 	public static Dialog3ActivityListener listener;
@@ -59,6 +62,10 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 			initview3();
 		}else if(mode==4){
 			initView4();
+		}else if(mode==5){
+			initView5();
+		}else if(mode==6){
+			initView6();
 		}
 		
 		
@@ -66,6 +73,27 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 		button1.setOnClickListener(this);
 		button2.setOnClickListener(this);
 		
+	}
+	/**
+	 * 环信在其他手机登陆，账号被挤掉
+	 */
+	private void initView6() {
+		// TODO Auto-generated method stub
+		button1.setText("返回");
+		button2.setText("一键登录");
+		note1Tv.setText("发消息要先登录哦~");
+		note2Tv.setVisibility(View.GONE);
+	}
+	/**
+	 * 网络异常提示
+	 */
+	private void initView5() {
+		// TODO Auto-generated method stub
+		note1Tv.setText("网络异常，请重试~");
+		note2Tv.setVisibility(View.GONE);
+		button1.setText("离开");
+		button2.setText("重试");
+		button1.setBackgroundResource(R.drawable.dialog_red_button);
 	}
 	/**
 	 * 兑换提示
@@ -161,6 +189,12 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 			 
 			 button1.setText("再想想");
 			 button2.setText("去充值");
+			 
+			 button1.setText("好吧~");
+			 button2.setVisibility(View.GONE);
+			 
+			 
+			 
 			regLayout.setVisibility(View.GONE);
 			giveLayout.setVisibility(View.VISIBLE);
 			TextView tv1=(TextView)findViewById(R.id.give_tv1);
@@ -169,7 +203,8 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 			TextView tv4=(TextView)findViewById(R.id.note3);
 			tv1.setText("本次打赏"+num+"份口粮");
 			tv3.setText(""+(goldNum));
-			tv4.setText("先去充值吧~");
+//			tv4.setText("先去充值吧~");
+			tv4.setText("先去应用挣钱吧~");
 			iv2.setVisibility(View.GONE);
 			iv2.setOnClickListener(new OnClickListener() {
 				
@@ -196,13 +231,15 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 	   	super.onPause();
 	   	StringUtil.umengOnPause(this);
 	   }
+	public static boolean canClose=true;
 	 @Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		if(listener!=null){
+		if(listener!=null&&canClose){
 			listener.onClose();
 		}
+		canClose=true;
 	}
 	      @Override
 	   protected void onResume() {
@@ -219,7 +256,6 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 				if(listener!=null){
 					listener.onClose();
 				}
-				
 				break;
 			case R.id.button2:
 				if(listener!=null){
@@ -236,6 +272,10 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 				break;
 				
 			}
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){
+				PetApplication.petApp.activityList.remove(this);
+			}
+			System.gc();
 			
 		}
 		public static void setDialog3ActivityListener(Dialog3ActivityListener listener){

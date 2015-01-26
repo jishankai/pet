@@ -26,13 +26,12 @@ import android.widget.Toast;
 
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
-import com.aidigame.hisun.pet.bean.User;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.http.json.UserJson;
 import com.aidigame.hisun.pet.http.json.UserImagesJson.Data;
-import com.aidigame.hisun.pet.ui.ChatActivity;
 import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;

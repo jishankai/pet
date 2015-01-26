@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
@@ -79,7 +80,12 @@ public class AdviceActivity extends Activity {
 						AdviceActivity.this.startActivity(intent);
 					}
 				}
+				
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(AdviceActivity.this)){
+					PetApplication.petApp.activityList.remove(AdviceActivity.this);
+				}
 				AdviceActivity.this.finish();
+				System.gc();
 			}
 		});
 		adviceET.addTextChangedListener(new TextWatcher() {

@@ -70,7 +70,7 @@ public class Animal implements Serializable{
 	public int img_id=-1;
 	
 	public int news_count;
-	public User user;
+	public MyUser user;
 	
 	public int change;//0不变，1上升，-1下降
 	public boolean showArrow=false;

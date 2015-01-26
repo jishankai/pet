@@ -16,6 +16,7 @@ import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.LogUtil;
@@ -125,7 +126,13 @@ mImageFetcher=new ImageFetcher(this, Constants.screen_width, Constants.screen_he
 		public boolean onSingleTapUp(MotionEvent e) {
 			// TODO Auto-generated method stub
 			imageView.setImageBitmap(null);
+			
+			showPictureActivity=null;
+			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(ShowPictureActivity.this)){
+				PetApplication.petApp.activityList.remove(ShowPictureActivity.this);
+			}
 			ShowPictureActivity.this.finish();
+			System.gc();
 			return true;
 		}
 		
