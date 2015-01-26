@@ -223,12 +223,99 @@ $signPackage = $jssdk->GetSignPackage();
 <script type="text/javascript" src="js/alert.js"></script>
 <script type="text/javascript">
 /*倒计时*/
-	window.onload=function(){
-     FreshTime();
-     if (<?php echo $alert_flag?>) {
-        cc();
-     };
+$(window).on('load',function(){
+    FreshTime();
+    if (<?php echo $alert_flag?>) {
+      cc();
+    };
+   
+    var dataInt={'name':[{'name':'123'},{'name':'456'},{'name':'789'}],
+    'head':[{'src':'pet1.jpg'},{'src':'pet2.jpg'},{'src':'pet3.jpg'}],
+    'name1':[{'name':'223'},{'name':'333'},{'name':'444'}],
+    'head1':[{'src':'pet4.jpg'},{'src':'pet5.jpg'},{'src':'pet6.jpg'}],
+    'name2':[{'name':'333'},{'name':'444'},{'name':'555'}],
+    'head2':[{'src':'pet1.jpg'},{'src':'pet3.jpg'},{'src':'pet5.jpg'}],
+    'name3':[{'name':'456'},{'name':'555'},{'name':'789'}],
+    'head3':[{'src':'pet1.jpg'},{'src':'pet2.jpg'},{'src':'pet4.jpg'}],
+    'data':[{'data':'123456'},{'data':'4567899'},{'data':'0987654'}],
+    'time1':[{'time':'刚刚'},{'time':'刚刚'},{'time':'刚刚'}]
+    };
+    
+    
+    for(var i=0;i<dataInt.name.length;i++){
+
+        var oLi_like=$('<li>').appendTo($('#like_list'));
+        var oSpan_like=$('<span>').addClass('left').appendTo($(oLi_like));
+        var oImg_like=$('<img>').attr('src','css/images/'+$(dataInt.head[i]).attr('src')).appendTo($(oSpan_like));
+        var oH3_like=$('<h3>').addClass('left').html($(dataInt.name[i]).attr('name')).appendTo($(oLi_like));
     }
+    for(var i=0;i<dataInt.name1.length;i++){
+        var oLi_gift=$('<li>').appendTo($('#gift_list'));
+        var oSpan_gift=$('<span>').addClass('left').appendTo($(oLi_gift));
+        var oImg_gift=$('<img>').attr('src','css/images/'+$(dataInt.head1[i]).attr('src')).appendTo($(oSpan_gift));
+        var oH3_gift=$('<h3>').addClass('left').html($(dataInt.name1[i]).attr('name')).appendTo($(oLi_gift));
+    }
+    for(var i=0;i<dataInt.name2.length;i++){
+        var oLi_comment=$('<li>').appendTo($('#comment_list'));
+        var oSpan_comment=$('<span>').addClass('left').appendTo($(oLi_comment));
+        var oImg_comment=$('<img>').attr('src','css/images/'+$(dataInt.head2[i]).attr('src')).appendTo($(oSpan_comment));
+        var oH3_comment=$('<h3>').addClass('left').html($(dataInt.name2[i]).attr('name')).appendTo($(oLi_comment));
+    }
+
+    for(var i=0;i<dataInt.name3.length;i++){
+        var oLi_share=$('<li>').appendTo($('#share_list'));
+        var oSpan_share=$('<span>').addClass('left').appendTo($(oLi_share));
+        var oImg_share=$('<img>').attr('src','css/images/'+$(dataInt.head3[i]).attr('src')).appendTo($(oSpan_share));
+        var oDiv_share=$('<div>').addClass('left').appendTo($(oLi_share));
+        var oP_share=$('<p>').appendTo($(oDiv_share));
+        var oB_share=$('<b>').html($(dataInt.name3[i]).attr('name')).appendTo($(oP_share));
+        var oSpanTime_share=$('<span>').addClass('time').addClass('right').html($(dataInt.time1[i]).attr('time')).appendTo($(oP_share));
+        var oP2_share=$('<p>').html($(dataInt.data[i]).attr('data')).appendTo($(oDiv_share));
+    }
+
+    /*$get("http://www.baidu.com",function(dataInt){
+         for(var i=0;i<dataInt.name.length;i++){
+
+        var oLi_like=$('<li>').appendTo($('#like_list'));
+        var oSpan_like=$('<span>').addClass('left').appendTo($(oLi_like));
+        var oImg_like=$('<img>').attr('src','css/images/'+$(dataInt.head[i]).attr('src')).appendTo($(oSpan_like));
+        var oH3_like=$('<h3>').addClass('left').html($(dataInt.name[i]).attr('name')).appendTo($(oLi_like));
+    }
+    for(var i=0;i<dataInt.name1.length;i++){
+        var oLi_gift=$('<li>').appendTo($('#gift_list'));
+        var oSpan_gift=$('<span>').addClass('left').appendTo($(oLi_gift));
+        var oImg_gift=$('<img>').attr('src','css/images/'+$(dataInt.head1[i]).attr('src')).appendTo($(oSpan_gift));
+        var oH3_gift=$('<h3>').addClass('left').html($(dataInt.name1[i]).attr('name')).appendTo($(oLi_gift));
+    }
+    for(var i=0;i<dataInt.name2.length;i++){
+        var oLi_comment=$('<li>').appendTo($('#comment_list'));
+        var oSpan_comment=$('<span>').addClass('left').appendTo($(oLi_comment));
+        var oImg_comment=$('<img>').attr('src','css/images/'+$(dataInt.head2[i]).attr('src')).appendTo($(oSpan_comment));
+        var oH3_comment=$('<h3>').addClass('left').html($(dataInt.name2[i]).attr('name')).appendTo($(oLi_comment));
+    }
+
+    for(var i=0;i<dataInt.name3.length;i++){
+        var oLi_share=$('<li>').appendTo($('#share_list'));
+        var oSpan_share=$('<span>').addClass('left').appendTo($(oLi_share));
+        var oImg_share=$('<img>').attr('src','css/images/'+$(dataInt.head3[i]).attr('src')).appendTo($(oSpan_share));
+        var oDiv_share=$('<div>').addClass('left').appendTo($(oLi_share));
+        var oP_share=$('<p>').appendTo($(oDiv_share));
+        var oB_share=$('<b>').html($(dataInt.name3[i]).attr('name')).appendTo($(oP_share));
+        var oSpanTime_share=$('<span>').addClass('time').addClass('right').html($(dataInt.time1[i]).attr('time')).appendTo($(oP_share));
+        var oP2_share=$('<p>').html($(dataInt.data[i]).attr('data')).appendTo($(oDiv_share));
+    }
+
+    },"json");*/
+        
+    $(window).on('scroll',function(){
+        if(checkScrollSlide()){
+            
+                loadData();
+                
+            }    
+    })
+})
+
 function FreshTime()
 {
         var endtime = <?php echo $r['create_time']?>+60*60*24;//结束时间
