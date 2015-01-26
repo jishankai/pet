@@ -272,14 +272,13 @@ class Easemob
             $postData = json_encode($params);
         }
         $curl = Yii::app()->curl;
-        $curl->setUserAgent('skji/Easemob SDK; Shankai Ji<jishankai@qq.com>');
-        $curl->setOpt(CURLOPT_SSL_VERIFYPEER, false);
-        $curl->setOpt(CURLOPT_SSL_VERIFYHOST, false);
-        $curl->setHeader('Content-Type', 'application/json');
+        $curl->setOption(CURLOPT_SSL_VERIFYPEER, false);
+        $curl->setOption(CURLOPT_SSL_VERIFYHOST, false);
+        $curl->addHeader(array('Content-Type'=>'application/json'));
         $token = "";
         if ($url !== $this->url . '/token') {
             $token = $this->getToken();
-            $curl->setHeader('Authorization', 'Bearer ' . $token);
+            $curl->addHeader(array('Authorization'=>'Bearer ' . $token));
         }
         switch ($type) {
             case 'POST': {

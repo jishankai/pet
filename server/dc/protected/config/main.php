@@ -222,6 +222,7 @@ return array(
         ),
         'curl'=> array(
             'class' => 'ext.curl.Curl',
+            'options' => array(/* additional curl options */),
         ),
     ),
 
