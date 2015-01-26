@@ -43,6 +43,11 @@ class Curl
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
         $this->headers = new CaseInsensitiveArray();
     }
+    public function init()
+    {
+        return ;
+    }
+
     public function get($url_mixed, $data = array())
     {
         if (is_array($url_mixed)) {
