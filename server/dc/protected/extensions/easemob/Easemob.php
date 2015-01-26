@@ -4,10 +4,10 @@ class Easemob
 {
     const URL = 'https://a1.easemob.com';
 
-    private $client_id;
-    private $client_secret;
-    private $org_name;
-    private $app_name;
+    public $client_id;
+    public $client_secret;
+    public $org_name;
+    public $app_name;
     private $url;
     private $debug;
     private $storageAdapter;
