@@ -4,10 +4,10 @@ class Easemob
 {
     const URL = 'https://a1.easemob.com';
 
-    public $client_id;
-    public $client_secret;
-    public $org_name;
-    public $app_name;
+    private $client_id;
+    private $client_secret;
+    private $org_name;
+    private $app_name;
     private $url;
     private $debug;
     private $storageAdapter;
@@ -21,10 +21,14 @@ class Easemob
      * @param $options ['org_name']
      * @param $options ['app_name']
      */
-    public function __construct($debug = false)
+    public function __construct($client_id, $client_secret, $org_name='', $app_name='', $debug = false)
     {
         $this->debug = $debug;
-        
+        $this->client_id = $client_id;
+        $this->client_secret = $client_secret;
+        $this->org_name = $org_name;
+        $this->app_name = $app_name;
+
         $this->url = self::URL . '/' . $this->org_name . '/' . $this->app_name;
     }
 

@@ -94,14 +94,26 @@ $(window).on('load',function(){
 	{'src':'pet3.jpg'},{'src':'pet3.jpg'},{'src':'pet6.jpg'}]};
 	var a = $('#imgBox img');
 	
-	for(var i=0;i<dataInt.data.length;i++){
+	$get("http://www.baidu.com",function(data){
+		for(var i=0;i<data.length;i++){
 
-		var oLi=$('<li>').appendTo($('#imgBox'));
-		var oImg=$('<img>').attr('src','css/images/'+$(dataInt.data[i]).attr('src')).appendTo($(oLi));
-		var h=$('#imgBox li').width();
-		$('#imgBox li').height(h);
+			var oLi=$('<li>').appendTo($('#imgBox'));
+			var oImg=$('<img>').attr('src','css/images/'+$(data[i]).attr('src')).appendTo($(oLi));
+			
+			var h=$('#imgBox li').width();
+			$('#imgBox li').height(h);
+
+		}
+
+	},"json");
+	// for(var i=0;i<dataInt.data.length;i++){
+
+	// 	var oLi=$('<li>').appendTo($('#imgBox'));
+	// 	var oImg=$('<img>').attr('src','css/images/'+$(dataInt.data[i]).attr('src')).appendTo($(oLi));
+	// 	var h=$('#imgBox li').width();
+	// 	$('#imgBox li').height(h);
 		
-	}
+	// }
 	$(window).on('scroll',function(){
 		if(checkScrollSlide()){
 			
@@ -127,15 +139,27 @@ function loadImg(){
 	,{'src':'pet3.jpg'},{'src':'pet4.jpg'},{'src':'pet4.jpg'},{'src':'pet3.jpg'},
 	{'src':'pet3.jpg'},{'src':'pet3.jpg'},{'src':'pet6.jpg'}]};
 
-	for(var i=0;i<dataInt.data.length;i++){
+	$get("http://www.baidu.com",function(data){
+		for(var i=0;i<data.length;i++){
 
-				var oLi=$('<li>').appendTo($('#imgBox'));
-				var oImg=$('<img>').attr('src','css/images/'+$(dataInt.data[i]).attr('src')).appendTo($(oLi));
+			var oLi=$('<li>').appendTo($('#imgBox'));
+			var oImg=$('<img>').attr('src','css/images/'+$(data[i]).attr('src')).appendTo($(oLi));
+
+			var h=$('#imgBox li').width();
+			$('#imgBox li').height(h);
+
+		}
+
+	},"json");
+	// for(var i=0;i<dataInt.data.length;i++){
+
+	// 			var oLi=$('<li>').appendTo($('#imgBox'));
+	// 			var oImg=$('<img>').attr('src','css/images/'+$(dataInt.data[i]).attr('src')).appendTo($(oLi));
 				
-				var h=$('#imgBox li').width();
-				$('#imgBox li').height(h);
+	// 			var h=$('#imgBox li').width();
+	// 			$('#imgBox li').height(h);
 
-			}
+	// 		}
 
 
 
