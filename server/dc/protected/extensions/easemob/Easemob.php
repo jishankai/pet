@@ -21,22 +21,10 @@ class Easemob
      * @param $options ['org_name']
      * @param $options ['app_name']
      */
-    public function __construct($options, $debug = false)
+    public function __construct($debug = false)
     {
         $this->debug = $debug;
-        $paramsMap = array(
-            'client_id',
-            'client_secret',
-            'org_name',
-            'app_name'
-        );
-        foreach ($paramsMap as $paramsName) {
-            if (!isset($options[$paramsName])) {
-                throw new \InvalidArgumentException("初始化未设置[{$paramsName}]");
-            } else {
-                $this->$paramsName = $options[$paramsName];
-            }
-        }
+        
         $this->url = self::URL . '/' . $this->org_name . '/' . $this->app_name;
     }
 
