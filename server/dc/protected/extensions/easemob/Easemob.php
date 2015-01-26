@@ -294,7 +294,6 @@ class Easemob
                 break;
             }
         }
-        $curl->close();
         if ($this->debug) {
             echo "URL: {$url}\n Header: {$token} \nBody: \"{$postData}\"\n";
         }
