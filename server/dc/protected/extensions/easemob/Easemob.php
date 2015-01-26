@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 class Easemob
 {
@@ -23,6 +23,11 @@ class Easemob
      */
     public function __construct($client_id=NULL, $client_secret=NULL, $org_name='', $app_name='', $debug = false)
     {
+        return ;
+    }
+ 
+    public function init($client_id=NULL, $client_secret=NULL, $org_name='', $app_name='', $debug = false)
+    {
         $this->debug = $debug;
         if ($client_id!=NULL&&$client_secret!=NULL) {
             $this->client_id = $client_id;
@@ -32,11 +37,6 @@ class Easemob
         }
 
         $this->url = self::URL . '/' . $this->org_name . '/' . $this->app_name;
-    }
- 
-    public function init($client_id=NULL, $client_secret=NULL, $org_name='', $app_name='', $debug = false)
-    {
-        return ;
     } 
 
     /**
