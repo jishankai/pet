@@ -64,8 +64,107 @@ $signPackage = $jssdk->GetSignPackage();
         	<div class="come_from">
             <h3><?php echo $r['cmt']?></h3>
         	</div>
-        	<div class="hr_100"></div>
-	
+          <div class="tab_wraper">      
+            <div id="tabs">
+              <ul class="tab_tit clearfix">
+                <li class="on"><img src="css/images/show_topic_like_red.png">&nbsp;<span>123</span></li>
+                <li><img src="css/images/show_topic_gift_red.png">&nbsp;<span>23</span></li>
+                <li><img src="css/images/show_topic_share_red.png">&nbsp;<span>2</span></li>
+                <li id="a1"><img src="css/images/show_topic_comment_red.png">&nbsp;<span>6</span></li>
+              </ul>
+              <div id="like">
+               <ul class="tab_con clearfix" id="like_list">
+                <li>
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <h3 class="left">西西西瓜</h3>
+                </li>
+                <li>
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <h3 class="left">西西西瓜</h3>
+                </li>
+                <li>
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <h3 class="left">西西西瓜</h3>
+                </li>
+              </ul>    
+            </div>
+            <div class="hide" id="gift">
+              <ul class="tab_con clearfix" id="gift_list">
+                <li>
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <h3 class="left">西西西瓜</h3>
+                </li>
+                <li>
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <h3 class="left">西西西瓜</h3>
+                </li>
+                <li>
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <h3 class="left">西西西瓜</h3>
+                </li>
+              </ul>        
+            </div>
+            <div class="hide" id="comment">
+              <ul class="tab_con clearfix" id="comment_list">
+                <li>
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <h3 class="left">西西西瓜</h3>
+                </li>
+                <li>
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <h3 class="left">西西西瓜</h3>
+                </li>
+                <li>
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <h3 class="left">西西西瓜</h3>
+                </li>
+              </ul> 
+            </div>
+            <div class="hide" id="share">
+
+              <ul class="tab_con comment" id="share_list">
+                <li class="clearfix">
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <div class="left">
+                    <p><b>西西西瓜</b><span class="time right">刚刚</span></p>
+                    <p>一起玩呀呆呆</p>
+                  </div>
+                </li>
+                <li class="clearfix">
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <div class="left">
+                    <p><b>西西西瓜</b><span class="time right">刚刚</span></p>
+                    <p>一起玩呀呆呆</p>
+                  </div>
+                </li>
+                <li class="clearfix">
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <div class="left">
+                    <p><b>西西西瓜</b><span class="time right">刚刚</span></p>
+                    <p>一起玩呀呆呆</p>
+                  </div>
+                </li>
+                <li class="clearfix">
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <div class="left">
+                    <p><b>西西西瓜</b><span class="time right">刚刚</span></p>
+                    <p>一起玩呀呆呆</p>
+                  </div>
+                </li>
+                <li class="clearfix">
+                  <span class="left"><img src="css/images/a1.jpg"></span>
+                  <div class="left">
+                    <p><b>西西西瓜</b><span class="time right">刚刚</span></p>
+                    <p>一起玩呀呆呆</p>
+                  </div>
+                </li>
+              </ul>
+              
+            </div> 
+            
+          </div>
+
+        </div>
 	</div>
   <div class="hr"></div>
 	<div class="float">

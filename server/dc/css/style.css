@@ -1,15 +1,16 @@
 body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd,input{margin:0;padding:0;}
 
-body{background-color: #EEEEEE;}
+body{background-color: #ffffff;}
 .clearfix:after{content:"";display:block;clear:both;}
 .clearfix{zoom:1;}
 .comWidth{width:100%;height:100%;margin:auto auto;}
+.hr{height: 100px;width:100%;}
 .pay_title{margin-top:66px;margin-bottom:58px;}
 .pay_title h3{
 	line-height:100%;
 	text-align:center;
 	font-size:36px;
-	background:url(images/h_left_icon.jpg)24px 4px no-repeat;
+	background:url(../css/images/h_left_icon.jpg)24px 4px no-repeat;
 
 }
 .gold{
@@ -26,7 +27,7 @@ body{background-color: #EEEEEE;}
 .money_list .num{
 	width:50%;height:100%;
 	float:left;
-	background:url(images/gold.png)22.67% center no-repeat;
+	background:url(../css/images/gold.png)22.67% center no-repeat;
 	line-height:98px;
 	text-indent:23%;
 }
@@ -60,19 +61,19 @@ body{background-color: #EEEEEE;}
 .share .weixin{
 	width:50%;height: 100%;
 	float: left;
-	background:url("images/weixin.png")center center no-repeat;
+	background:url("../css/images/weixin.png")center center no-repeat;
 }
 .share .z_f_b{
 	width: 50%;height: 100%;
 	background-color: green;
 	float: right;
-	background:url("images/pay.jpg")center center no-repeat;
+	background:url("../css/images/pay.jpg")center center no-repeat;
 }
 
 .foot{
 	width: 100%;height: 109px;
 	background-color: black;
-	background:url("images/to_pay.png")center center no-repeat;
+	background:url("../css/images/to_pay.png")center center no-repeat;
 	margin-bottom: 116px;
 }
 
@@ -82,7 +83,7 @@ body{background-color: #EEEEEE;}
 .pay_title h3{
 
 	font-size:18px;
-	background:url(images/h_left_icon.jpg)12px 2px no-repeat;
+	background:url(../css/images/h_left_icon.jpg)12px 2px no-repeat;
 	background-size: 9px 15.5px;
 
 }
@@ -136,6 +137,69 @@ body{background-color: #EEEEEE;}
 
 /*food*/
 
+
+/*评论选项卡*/
+
+
+
+
+.left{float: left;}
+.right{float:right;}
+ul{list-style: none;}
+.tab_wraper{
+    width: 94%;height: auto;margin: 10px auto;
+    border:2px solid #c6c6c6;
+    padding-bottom: 10px;
+}
+#tabs {width:94%;height:auto;margin: 0 auto;}
+.tab_tit{list-style:none;display: block;height:38px;line-height:28px;}
+.tab_tit li{
+    background:#ffffff;cursor:pointer;
+    float:left;list-style:none;
+    height:48px;
+    border-bottom:none;
+    display:inline-block;width:25%;
+    text-align: center;
+}
+.tab_tit li img{width: 28px; height: 28px;margin-top: 5px;}
+.tab_tit li span{font-size: 18px;display: inline-block;}
+.tab_tit li.on{background:url("../css/images/target_h.png")center bottom no-repeat;background-color: #ffffff;}
+#like, #gift, #comment, #share{
+    width: 90%;
+    border-top:none;padding:5%;
+    background-color:#eaeaea;
+}
+#tabs div ul{width: 100%;}
+.hide{display: none;}
+
+.tab_con li{width: 100%;height: 50px;margin-bottom: 20px;}
+.tab_con span{dispaly:inline-block;width: 20%;}
+.tab_con img{width: 40px;border-radius: 50%;margin-top: 5px;}
+.tab_con h3{
+    height: 50px;width:80%;line-height: 50px;
+    text-indent: 5%;
+    border-bottom: 2px solid #dddddd;
+    color:#f17841;
+}
+.comment span{font-size: 14px;}
+.comment div{
+    height: 50px;width:80%;line-height: 25px;
+    text-indent: 5%;
+    border-bottom: 2px solid #dddddd;
+}
+.comment .time{
+    text-align: right;
+}
+.comment b{
+     color:#f17841;
+}
+.ph_m, .ph_s{border-radius: 50%;}
+
+
+
+
+
+
 .food_title{
 	height: 42px;
 	width: 45%;
@@ -157,11 +221,14 @@ body{background-color: #EEEEEE;}
 	background-size: 93.75% 100%;
 	/*margin-bottom: 30%;*/
 }
-.hr{height: 25%;width:100%;}
+
+
 @media only screen and (min-width: 450px) and (max-width: 600px){
+
+
 .food_body{
 	height: auto;width:100%;
-	background:url(images/base.png)center top no-repeat;
+	background:url(../css/images/base.png)center top no-repeat;
 	background-size: 93.75% 100%;
 	/*margin-bottom: 40%;*/
 	}
@@ -269,11 +336,11 @@ body{background-color: #EEEEEE;}
 .about_food li{float: left;width:36%;color: #FC7B51;}
 .received{width: 20%!important;font-size:30px!important;margin-left: 4%;}
 .food_num{
-	background:url("images/food.jpg")left top no-repeat;
+	background:url("../css/images/food.jpg")left top no-repeat;
 	text-indent: 30%;
 }
 .time_img{
-	background:url("images/time.jpg")left top no-repeat;
+	background:url("../css/images/time.jpg")left top no-repeat;
 	text-indent: 30%;
 	margin-left: 10%;
 }
@@ -297,7 +364,7 @@ body{background-color: #EEEEEE;}
 	height: 112px;
 	width: 100%;
 
-	background:url("images/btn_23.png")center center no-repeat;
+	background:url("../css/images/btn_23.png")center center no-repeat;
 }
 .give_left{
 	width: 40%;height: 100%;
@@ -336,7 +403,7 @@ body{background-color: #EEEEEE;}
 }
 .select_money ul li:hover{background-color: #FB7B51;}
 .target{
-	background:url("images/target.png")center top no-repeat;
+	background:url("../css/images/target.png")center top no-repeat;
 	height: 10px;
 	width: 35%;
 	margin-left: 12%;
@@ -369,7 +436,15 @@ body{background-color: #EEEEEE;}
 
 /*iphone,s4,note3适配*/
 @media only screen and (min-width: 320px) and (max-width: 480px){
+/*评论选项卡*/
+.tab_tit li img{width: 22px; height: 22px;margin-top: 10px;}
+.tab_tit li span{font-size: 14px;}
+.tab_con h3{font-size: 16px;}
+.comment{font-size: 14px;}
+.comment span{font-size: 12px;}
 
+
+.hr{height: 50px;width:100%;}
 .food_title{
 	height: 21px;width: 65%;
 	margin-top: 30.5px;
@@ -460,7 +535,7 @@ body{background-color: #EEEEEE;}
 	height: 66px;
 	width: 100%;
 
-	background:url("images/btn_23.png")center center no-repeat;
+	background:url("../css/images/btn_23.png")center center no-repeat;
 	background-size: 90% 100%;
 }
 .give_left{
@@ -569,7 +644,6 @@ body{background-color: #EEEEEE;}
 }
 
 @media only screen and (min-width: 600px) and (max-width: 700px){
-.hr{width: 100%;height: 10px;}
 .logo{
 	width:20%;
 	position:absolute;top:50px;left:70%;
@@ -633,7 +707,7 @@ body{background-color: #EEEEEE;}
 
 /*适配电脑*/
 @media only screen and (min-width: 700px){
-.hr{width: 100%;height: 10px;}
+
 .comWidth{
 	width:640px;margin:0 auto;
 	position: relative;
