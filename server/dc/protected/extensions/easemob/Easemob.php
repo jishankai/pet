@@ -36,15 +36,7 @@ class Easemob
  
     public function init($client_id=NULL, $client_secret=NULL, $org_name='', $app_name='', $debug = false)
     {
-        $this->debug = $debug;
-        if ($client_id!=NULL&&$client_secret!=NULL) {
-            $this->client_id = $client_id;
-            $this->client_secret = $client_secret;
-            $this->org_name = $org_name;
-            $this->app_name = $app_name;
-        }
-
-        $this->url = self::URL . '/' . $this->org_name . '/' . $this->app_name;
+        return ;
     } 
 
     /**
@@ -282,15 +274,15 @@ class Easemob
         }
         switch ($type) {
             case 'POST': {
-                $curl->post($url, $postData);
+                $output = $curl->post($url, $postData);
                 break;
             }
             case 'GET': {
-                $curl->get($url);
+                $output = $curl->get($url);
                 break;
             }
             case 'DELETE': {
-                $curl->delete($url);
+                $output = $curl->delete($url);
                 break;
             }
         }
@@ -298,7 +290,7 @@ class Easemob
             echo "URL: {$url}\n Header: {$token} \nBody: \"{$postData}\"\n";
         }
         
-        return json_decode($curl->raw_response, true);
+        return json_decode($output, true);
     }
 
 
