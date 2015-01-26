@@ -33,7 +33,20 @@ class Easemob
 
         $this->url = self::URL . '/' . $this->org_name . '/' . $this->app_name;
     }
+ 
+    public function init($client_id=NULL, $client_secret=NULL, $org_name='', $app_name='', $debug = false)
+    {
+        $this->debug = $debug;
+        if ($client_id!=NULL&&$client_secret!=NULL) {
+            $this->client_id = $client_id;
+            $this->client_secret = $client_secret;
+            $this->org_name = $org_name;
+            $this->app_name = $app_name;
+        }
 
+        $this->url = self::URL . '/' . $this->org_name . '/' . $this->app_name;
+    } 
+    
     /**
      * 创建新用户[授权模式]
      * @param $username
