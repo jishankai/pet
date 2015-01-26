@@ -297,12 +297,7 @@ class Easemob
         if ($this->debug) {
             echo "URL: {$url}\n Header: {$token} \nBody: \"{$postData}\"\n";
         }
-        if ($curl->error) {
-            throw new \ErrorException('CURL Error: ' . $curl->error_message, $curl->error_code);
-        }
-        if ($this->debug) {
-//            echo "return: {$curl->raw_response} \n";
-        }
+        
         return json_decode($curl->raw_response, true);
     }
 
