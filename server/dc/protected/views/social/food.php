@@ -64,6 +64,7 @@ $signPackage = $jssdk->GetSignPackage();
         	<div class="come_from">
             <h3><?php echo $r['cmt']?></h3>
         	</div>
+      </div>
           <div class="tab_wraper">      
             <div id="tabs">
               <ul class="tab_tit clearfix">
@@ -161,11 +162,11 @@ $signPackage = $jssdk->GetSignPackage();
               </ul>
               
             </div> 
-            
+
           </div>
 
         </div>
-	</div>
+
   <div class="hr"></div>
 	<div class="float">
 		<!-- <div class="select_money_t" id="gold">
