@@ -35,7 +35,7 @@ $signPackage = $jssdk->GetSignPackage();
   </div>
 	<div class="food_body">
 		<div class="info">
-        <img src="http://pet4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" alt="" class="ph_m"/>
+        <img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" alt="" class="ph_m"/>
 			<img src="css/images/photo-m-t1.png" alt="" class="ph_m"/>
 			<div class="info_tit">
             <h3><?php echo $r['name']?></h3>
@@ -46,11 +46,11 @@ $signPackage = $jssdk->GetSignPackage();
             <h3 class="info_con2"><?php echo $r['u_name']?></h3>
 			</div>
 		</div>
-        <img src="http://pet4tx.oss-cn-beijing.aliyuncs.com/tx_usr/<?php echo $r['u_tx']?>" alt="" class="ph_s"/>
+        <img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_usr/<?php echo $r['u_tx']?>" alt="" class="ph_s"/>
 			<img src="css/images/photo-s-t.png" alt="" class="ph_s"/>
 			<div class="info_photo">
 	        	<ul class="imgBox">
-                <li><a href="#"><img src="http://pet4upload.oss-cn-beijing.aliyuncs.com/<?php echo $r['url']?>" alt="banner" class="active"/></a></li>
+                <li><a href="#"><img src="http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $r['url']?>" alt="banner" class="active"/></a></li>
                     <li><a href="#"><img src="css/images/photo_d.jpg" alt="banner" /></a></li>   
                 </ul>
 			</div>
@@ -418,7 +418,7 @@ $("#reward").click(function(){
         title: "轻轻一点，免费赏粮！<?php echo $r['name']?>的口粮就靠你啦~",
         desc: "努力卖萌，只为自己代粮！快把你每天的免费粮食赏给我~",
         link: "http://"+window.location.host+"/index.php?r=social/foodShareApi&img_id=<?php echo $img_id?>", 
-        imgUrl: "http://pet4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>"
+        imgUrl: "http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>"
     };
     wx.onMenuShareAppMessage(shareData);
     wx.onMenuShareTimeline(shareData);
