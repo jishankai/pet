@@ -15,13 +15,17 @@ for(var i= 0,len = oLis.length;i<len;i++){
        oDivs[this.index].className = "";
    }
 }
-function checkScrollSlide(){
-    var tabTop=$('#tabs').height();
-    var scrollTop=$(window).scrollTop();
-    var documentH=$(window).height();
-    return (tabTop < scrollTop)?true:false;
-}
+$(window).on('scroll',function(){
 
+        var h1=$(document).height();
+        var wh=$(window).height();    
+        if($(window).scrollTop()>=h1-wh-200){
+            loadData();  
+        }
+    })
+
+
+var page=0;
 function loadData(){
 
      var dataInt={'name':[{'name':'123'},{'name':'456'},{'name':'789'}],
@@ -33,73 +37,53 @@ function loadData(){
     'name3':[{'name':'456'},{'name':'555'},{'name':'789'}],
     'head3':[{'src':'pet1.jpg'},{'src':'pet2.jpg'},{'src':'pet4.jpg'}],
     'data':[{'data':'123456'},{'data':'4567899'},{'data':'0987654'}],
-    'time1':[{'time':'刚刚'},{'time':'刚刚'},{'time':'刚刚'}]
-    };
+    'time1':[{'time':'刚刚'},{'time':'刚刚'},{'time':'刚刚'}]};
+    
+    
+    page=page+1;
+    if(page>2){dataInt=null;}
+/*$.getJSON("http://www.baidu.com",function(dataInt){*/
+    if(dataInt!=null){
+        if(dataInt.name!=null){
+            for(var i=0;i<dataInt.name.length;i++){
 
-    for(var i=0;i<dataInt.name.length;i++){
+                var oLi_like=$('<li>').appendTo($('#like_list'));
+                var oSpan_like=$('<span>').addClass('left').appendTo($(oLi_like));
+                var oImg_like=$('<img>').attr('src','css/images/'+$(dataInt.head[i]).attr('src')).appendTo($(oSpan_like));
+                var oH3_like=$('<h3>').addClass('left').html($(dataInt.name[i]).attr('name')).appendTo($(oLi_like));
+            }
+        }
+        if(dataInt.name1!=null){
+            for(var i=0;i<dataInt.name1.length;i++){
+                var oLi_gift=$('<li>').appendTo($('#gift_list'));
+                var oSpan_gift=$('<span>').addClass('left').appendTo($(oLi_gift));
+                var oImg_gift=$('<img>').attr('src','css/images/'+$(dataInt.head1[i]).attr('src')).appendTo($(oSpan_gift));
+                var oH3_gift=$('<h3>').addClass('left').html($(dataInt.name1[i]).attr('name')).appendTo($(oLi_gift));
+            }
+        }
+        if(dataInt.name2!=null){
+            for(var i=0;i<dataInt.name2.length;i++){
+                var oLi_comment=$('<li>').appendTo($('#comment_list'));
+                var oSpan_comment=$('<span>').addClass('left').appendTo($(oLi_comment));
+                var oImg_comment=$('<img>').attr('src','css/images/'+$(dataInt.head2[i]).attr('src')).appendTo($(oSpan_comment));
+                var oH3_comment=$('<h3>').addClass('left').html($(dataInt.name2[i]).attr('name')).appendTo($(oLi_comment));
+            }
+        }
+        if(dataInt.name3!=null){
+            for(var i=0;i<dataInt.name3.length;i++){
+                var oLi_share=$('<li>').appendTo($('#share_list'));
+                var oSpan_share=$('<span>').addClass('left').appendTo($(oLi_share));
+                var oImg_share=$('<img>').attr('src','css/images/'+$(dataInt.head3[i]).attr('src')).appendTo($(oSpan_share));
+                var oDiv_share=$('<div>').addClass('left').appendTo($(oLi_share));
+                var oP_share=$('<p>').appendTo($(oDiv_share));
+                var oB_share=$('<b>').html($(dataInt.name3[i]).attr('name')).appendTo($(oP_share));
+                var oSpanTime_share=$('<span>').addClass('time').addClass('right').html($(dataInt.time1[i]).attr('time')).appendTo($(oP_share));
+                var oP2_share=$('<p>').html($(dataInt.data[i]).attr('data')).appendTo($(oDiv_share));
+            }
+        }
+    
 
-        var oLi_like=$('<li>').appendTo($('#like_list'));
-        var oSpan_like=$('<span>').addClass('left').appendTo($(oLi_like));
-        var oImg_like=$('<img>').attr('src','css/images/'+$(dataInt.head[i]).attr('src')).appendTo($(oSpan_like));
-        var oH3_like=$('<h3>').addClass('left').html($(dataInt.name[i]).attr('name')).appendTo($(oLi_like));
     }
-    for(var i=0;i<dataInt.name1.length;i++){
-        var oLi_gift=$('<li>').appendTo($('#gift_list'));
-        var oSpan_gift=$('<span>').addClass('left').appendTo($(oLi_gift));
-        var oImg_gift=$('<img>').attr('src','css/images/'+$(dataInt.head1[i]).attr('src')).appendTo($(oSpan_gift));
-        var oH3_gift=$('<h3>').addClass('left').html($(dataInt.name1[i]).attr('name')).appendTo($(oLi_gift));
-    }
-    for(var i=0;i<dataInt.name2.length;i++){
-        var oLi_comment=$('<li>').appendTo($('#comment_list'));
-        var oSpan_comment=$('<span>').addClass('left').appendTo($(oLi_comment));
-        var oImg_comment=$('<img>').attr('src','css/images/'+$(dataInt.head2[i]).attr('src')).appendTo($(oSpan_comment));
-        var oH3_comment=$('<h3>').addClass('left').html($(dataInt.name2[i]).attr('name')).appendTo($(oLi_comment));
-    }
-
-    for(var i=0;i<dataInt.name3.length;i++){
-        var oLi_share=$('<li>').appendTo($('#share_list'));
-        var oSpan_share=$('<span>').addClass('left').appendTo($(oLi_share));
-        var oImg_share=$('<img>').attr('src','css/images/'+$(dataInt.head3[i]).attr('src')).appendTo($(oSpan_share));
-        var oDiv_share=$('<div>').addClass('left').appendTo($(oLi_share));
-        var oP_share=$('<p>').appendTo($(oDiv_share));
-        var oB_share=$('<b>').html($(dataInt.name3[i]).attr('name')).appendTo($(oP_share));
-        var oSpanTime_share=$('<span>').addClass('time').addClass('right').html($(dataInt.time1[i]).attr('time')).appendTo($(oP_share));
-        var oP2_share=$('<p>').html($(dataInt.data[i]).attr('data')).appendTo($(oDiv_share));
-    }
-
-    /*$get("http://www.baidu.com",function(dataInt){
-         for(var i=0;i<dataInt.name.length;i++){
-
-        var oLi_like=$('<li>').appendTo($('#like_list'));
-        var oSpan_like=$('<span>').addClass('left').appendTo($(oLi_like));
-        var oImg_like=$('<img>').attr('src','css/images/'+$(dataInt.head[i]).attr('src')).appendTo($(oSpan_like));
-        var oH3_like=$('<h3>').addClass('left').html($(dataInt.name[i]).attr('name')).appendTo($(oLi_like));
-    }
-    for(var i=0;i<dataInt.name1.length;i++){
-        var oLi_gift=$('<li>').appendTo($('#gift_list'));
-        var oSpan_gift=$('<span>').addClass('left').appendTo($(oLi_gift));
-        var oImg_gift=$('<img>').attr('src','css/images/'+$(dataInt.head1[i]).attr('src')).appendTo($(oSpan_gift));
-        var oH3_gift=$('<h3>').addClass('left').html($(dataInt.name1[i]).attr('name')).appendTo($(oLi_gift));
-    }
-    for(var i=0;i<dataInt.name2.length;i++){
-        var oLi_comment=$('<li>').appendTo($('#comment_list'));
-        var oSpan_comment=$('<span>').addClass('left').appendTo($(oLi_comment));
-        var oImg_comment=$('<img>').attr('src','css/images/'+$(dataInt.head2[i]).attr('src')).appendTo($(oSpan_comment));
-        var oH3_comment=$('<h3>').addClass('left').html($(dataInt.name2[i]).attr('name')).appendTo($(oLi_comment));
-    }
-
-    for(var i=0;i<dataInt.name3.length;i++){
-        var oLi_share=$('<li>').appendTo($('#share_list'));
-        var oSpan_share=$('<span>').addClass('left').appendTo($(oLi_share));
-        var oImg_share=$('<img>').attr('src','css/images/'+$(dataInt.head3[i]).attr('src')).appendTo($(oSpan_share));
-        var oDiv_share=$('<div>').addClass('left').appendTo($(oLi_share));
-        var oP_share=$('<p>').appendTo($(oDiv_share));
-        var oB_share=$('<b>').html($(dataInt.name3[i]).attr('name')).appendTo($(oP_share));
-        var oSpanTime_share=$('<span>').addClass('time').addClass('right').html($(dataInt.time1[i]).attr('time')).appendTo($(oP_share));
-        var oP2_share=$('<p>').html($(dataInt.data[i]).attr('data')).appendTo($(oDiv_share));
-    }
-
-    },"json");*/
 
 }
 /*选金币效果*/
