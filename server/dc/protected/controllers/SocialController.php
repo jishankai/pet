@@ -32,15 +32,15 @@ class SocialController extends Controller
         }        
         
         if (isset($r['likers'])&&$r['likers']!='') {
-            $liker_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN ($r['likers'])")->queryColumn();
+            $liker_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN (:likers)")->bindValue(':likers', $r['likers'])->queryColumn();
         }
         
         if (isset($r['senders'])&&$r['senders']!='') {
-            $sender_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN ($r['senders'])")->queryColumn();
+            $sender_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN (:senders)")->bindValue(':senders', $r['senders'])->queryColumn();
         }
 
         if (isset($r['sharers'])&&$r['sharers']!='') {
-            $sharer_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN ($r['sharers'])")->queryColumn();
+            $sharer_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN (:sharers)")->bindValue(':sharers', $r['sharers'])->queryColumn();
         }
 
         if (isset($r['comments'])&&$r['comments']!='') {
