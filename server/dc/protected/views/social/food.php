@@ -107,7 +107,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<div class="target"></div>
 		</div> -->
 		<div class="give_sc" id="give_sc">
-			<h3>打赏成功～萌星<span>xxxx</span>感谢您的关爱</h3>
+            <h3>打赏成功～萌星<span><?php echo $r['name']?></span>感谢您的关爱</h3>
 		</div>
 		<div class="give_btn">
 			<div class="give_btn_bottom">
@@ -154,7 +154,7 @@ $(window).on('load',function(){
     if (<?php echo $alert_flag?>) {
       cc();
     };
-    
+    /* 
     if(dataInt!=null){
       if(dataInt.name!=null){
         for(var i=0;i<dataInt.name.length;i++){
@@ -193,7 +193,7 @@ $(window).on('load',function(){
           var oP2_share=$('<p>').html($(dataInt.data[i]).attr('data')).appendTo($(oDiv_share));
         }
       }
-    }
+}*/
 })
 
 function FreshTime()
