@@ -20,7 +20,7 @@ $(window).on('scroll',function(){
         var h1=$(document).height();
         var wh=$(window).height();    
         if($(window).scrollTop()>=h1-wh-200){
-            loadData();  
+            // loadData();  
         }
     })
 
