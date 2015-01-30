@@ -850,6 +850,6 @@ class AnimalController extends Controller
 
     public function actionInfoShare($aid, $SID='')
     {
-        echo 1;
+        $this->renderPartial('info');
     }
 }

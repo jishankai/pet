@@ -31,7 +31,7 @@ $signPackage = $jssdk->GetSignPackage();
   </div>
   <div class="logo">
     <!-- <img src="css/images/r_logo.png" alt=""/> -->
-    <img src="css/images/load.jpg" alt=""/>
+    <a href="http://home4pet.aidigame.com"><img src="css/images/load.jpg" alt=""/></a>
   </div>
 	<div class="food_body">
 		<div class="info">
@@ -65,97 +65,26 @@ $signPackage = $jssdk->GetSignPackage();
           <div class="tab_wraper">      
             <div id="tabs">
               <ul class="tab_tit clearfix">
-                <li class="on"><img src="css/images/show_topic_like_red.png">&nbsp;<span>123</span></li>
-                <li><img src="css/images/show_topic_gift_red.png">&nbsp;<span>23</span></li>
-                <li><img src="css/images/show_topic_share_red.png">&nbsp;<span>2</span></li>
-                <li id="a1"><img src="css/images/show_topic_comment_red.png">&nbsp;<span>6</span></li>
+                <li class="on"><img src="css/images/show_topic_like_red.png">&nbsp;<span><?php echo $r['likes']?></span></li>
+                <li><img src="css/images/show_topic_gift_red.png">&nbsp;<span><?php echo $r['gifts']?></span></li>
+                <li><img src="css/images/show_topic_share_red.png">&nbsp;<span><?php echo $r['shares']?></span></li>
+                <li id="a1"><img src="css/images/show_topic_comment_red.png">&nbsp;<span><?php echo $comment_count?></span></li>
               </ul>
               <div id="like">
                <ul class="tab_con clearfix" id="like_list">
-                <li>
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <h3 class="left">西西西瓜</h3>
-                </li>
-                <li>
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <h3 class="left">西西西瓜</h3>
-                </li>
-                <li>
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <h3 class="left">西西西瓜</h3>
-                </li>
               </ul>    
             </div>
             <div class="hide" id="gift">
               <ul class="tab_con clearfix" id="gift_list">
-                <li>
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <h3 class="left">西西西瓜</h3>
-                </li>
-                <li>
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <h3 class="left">西西西瓜</h3>
-                </li>
-                <li>
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <h3 class="left">西西西瓜</h3>
-                </li>
               </ul>        
             </div>
             <div class="hide" id="comment">
               <ul class="tab_con clearfix" id="comment_list">
-                <li>
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <h3 class="left">西西西瓜</h3>
-                </li>
-                <li>
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <h3 class="left">西西西瓜</h3>
-                </li>
-                <li>
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <h3 class="left">西西西瓜</h3>
-                </li>
               </ul> 
             </div>
             <div class="hide" id="share">
 
               <ul class="tab_con comment" id="share_list">
-                <li class="clearfix">
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <div class="left">
-                    <p><b>西西西瓜</b><span class="time right">刚刚</span></p>
-                    <p>一起玩呀呆呆</p>
-                  </div>
-                </li>
-                <li class="clearfix">
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <div class="left">
-                    <p><b>西西西瓜</b><span class="time right">刚刚</span></p>
-                    <p>一起玩呀呆呆</p>
-                  </div>
-                </li>
-                <li class="clearfix">
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <div class="left">
-                    <p><b>西西西瓜</b><span class="time right">刚刚</span></p>
-                    <p>一起玩呀呆呆</p>
-                  </div>
-                </li>
-                <li class="clearfix">
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <div class="left">
-                    <p><b>西西西瓜</b><span class="time right">刚刚</span></p>
-                    <p>一起玩呀呆呆</p>
-                  </div>
-                </li>
-                <li class="clearfix">
-                  <span class="left"><img src="css/images/a1.jpg"></span>
-                  <div class="left">
-                    <p><b>西西西瓜</b><span class="time right">刚刚</span></p>
-                    <p>一起玩呀呆呆</p>
-                  </div>
-                </li>
               </ul>
               
             </div> 
@@ -225,62 +154,46 @@ $(window).on('load',function(){
     if (<?php echo $alert_flag?>) {
       cc();
     };
-   
- var dataInt={'name':[{'name':'123'},{'name':'456'},{'name':'789'}],
-    'head':[{'src':'pet1.jpg'},{'src':'pet2.jpg'},{'src':'pet3.jpg'}],
-    'name1':[{'name':'223'},{'name':'333'},{'name':'444'}],
-    'head1':[{'src':'pet4.jpg'},{'src':'pet5.jpg'},{'src':'pet6.jpg'}],
-    'name2':[{'name':'333'},{'name':'444'},{'name':'555'}],
-    'head2':[{'src':'pet1.jpg'},{'src':'pet3.jpg'},{'src':'pet5.jpg'}],
-    'name3':[{'name':'456'},{'name':'555'},{'name':'789'}],
-    'head3':[{'src':'pet1.jpg'},{'src':'pet2.jpg'},{'src':'pet4.jpg'}],
-    'data':[{'data':'123456'},{'data':'4567899'},{'data':'0987654'}],
-    'time1':[{'time':'刚刚'},{'time':'刚刚'},{'time':'刚刚'}]
-    };
     
-    /*$.getJSON("http://www.baidu.com",function(dataInt){*/
+    if(dataInt!=null){
+      if(dataInt.name!=null){
+        for(var i=0;i<dataInt.name.length;i++){
 
-        if(dataInt!=null){
-            if(dataInt.name!=null){
-                for(var i=0;i<dataInt.name.length;i++){
-
-                    var oLi_like=$('<li>').appendTo($('#like_list'));
-                    var oSpan_like=$('<span>').addClass('left').appendTo($(oLi_like));
-                    var oImg_like=$('<img>').attr('src','css/images/'+$(dataInt.head[i]).attr('src')).appendTo($(oSpan_like));
-                    var oH3_like=$('<h3>').addClass('left').html($(dataInt.name[i]).attr('name')).appendTo($(oLi_like));
-                }
-            }
-            if(dataInt.name1!=null){
-                for(var i=0;i<dataInt.name1.length;i++){
-                    var oLi_gift=$('<li>').appendTo($('#gift_list'));
-                    var oSpan_gift=$('<span>').addClass('left').appendTo($(oLi_gift));
-                    var oImg_gift=$('<img>').attr('src','css/images/'+$(dataInt.head1[i]).attr('src')).appendTo($(oSpan_gift));
-                    var oH3_gift=$('<h3>').addClass('left').html($(dataInt.name1[i]).attr('name')).appendTo($(oLi_gift));
-                }
-            }
-            if(dataInt.name2!=null){
-                for(var i=0;i<dataInt.name2.length;i++){
-                    var oLi_comment=$('<li>').appendTo($('#comment_list'));
-                    var oSpan_comment=$('<span>').addClass('left').appendTo($(oLi_comment));
-                    var oImg_comment=$('<img>').attr('src','css/images/'+$(dataInt.head2[i]).attr('src')).appendTo($(oSpan_comment));
-                    var oH3_comment=$('<h3>').addClass('left').html($(dataInt.name2[i]).attr('name')).appendTo($(oLi_comment));
-                }
-            }
-            if(dataInt.name3!=null){
-                for(var i=0;i<dataInt.name3.length;i++){
-                    var oLi_share=$('<li>').appendTo($('#share_list'));
-                    var oSpan_share=$('<span>').addClass('left').appendTo($(oLi_share));
-                    var oImg_share=$('<img>').attr('src','css/images/'+$(dataInt.head3[i]).attr('src')).appendTo($(oSpan_share));
-                    var oDiv_share=$('<div>').addClass('left').appendTo($(oLi_share));
-                    var oP_share=$('<p>').appendTo($(oDiv_share));
-                    var oB_share=$('<b>').html($(dataInt.name3[i]).attr('name')).appendTo($(oP_share));
-                    var oSpanTime_share=$('<span>').addClass('time').addClass('right').html($(dataInt.time1[i]).attr('time')).appendTo($(oP_share));
-                    var oP2_share=$('<p>').html($(dataInt.data[i]).attr('data')).appendTo($(oDiv_share));
-                }
-            }
-        
-
+          var oLi_like=$('<li>').appendTo($('#like_list'));
+          var oSpan_like=$('<span>').addClass('left').appendTo($(oLi_like));
+          var oImg_like=$('<img>').attr('src','css/images/'+$(dataInt.head[i]).attr('src')).appendTo($(oSpan_like));
+          var oH3_like=$('<h3>').addClass('left').html($(dataInt.name[i]).attr('name')).appendTo($(oLi_like));
         }
+      }
+      if(dataInt.name1!=null){
+        for(var i=0;i<dataInt.name1.length;i++){
+          var oLi_gift=$('<li>').appendTo($('#gift_list'));
+          var oSpan_gift=$('<span>').addClass('left').appendTo($(oLi_gift));
+          var oImg_gift=$('<img>').attr('src','css/images/'+$(dataInt.head1[i]).attr('src')).appendTo($(oSpan_gift));
+          var oH3_gift=$('<h3>').addClass('left').html($(dataInt.name1[i]).attr('name')).appendTo($(oLi_gift));
+        }
+      }
+      if(dataInt.name2!=null){
+        for(var i=0;i<dataInt.name2.length;i++){
+          var oLi_comment=$('<li>').appendTo($('#comment_list'));
+          var oSpan_comment=$('<span>').addClass('left').appendTo($(oLi_comment));
+          var oImg_comment=$('<img>').attr('src','css/images/'+$(dataInt.head2[i]).attr('src')).appendTo($(oSpan_comment));
+          var oH3_comment=$('<h3>').addClass('left').html($(dataInt.name2[i]).attr('name')).appendTo($(oLi_comment));
+        }
+      }
+      if(dataInt.name3!=null){
+        for(var i=0;i<dataInt.name3.length;i++){
+          var oLi_share=$('<li>').appendTo($('#share_list'));
+          var oSpan_share=$('<span>').addClass('left').appendTo($(oLi_share));
+          var oImg_share=$('<img>').attr('src','css/images/'+$(dataInt.head3[i]).attr('src')).appendTo($(oSpan_share));
+          var oDiv_share=$('<div>').addClass('left').appendTo($(oLi_share));
+          var oP_share=$('<p>').appendTo($(oDiv_share));
+          var oB_share=$('<b>').html($(dataInt.name3[i]).attr('name')).appendTo($(oP_share));
+          var oSpanTime_share=$('<span>').addClass('time').addClass('right').html($(dataInt.time1[i]).attr('time')).appendTo($(oP_share));
+          var oP2_share=$('<p>').html($(dataInt.data[i]).attr('data')).appendTo($(oDiv_share));
+        }
+      }
+    }
 })
 
 function FreshTime()

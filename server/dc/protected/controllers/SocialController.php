@@ -10,7 +10,7 @@ class SocialController extends Controller
 
     public function actionFoodShareApi($img_id, $alert_flag=0, $to='', $SID='')
     {
-        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.food, i.is_food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $img_id)->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.likes, i.likers, i.gifts, i.senders, i.shares, i.sharers, i.comments, i.food, i.is_food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $img_id)->queryRow();
         
         $pet_type = Util::loadConfig('pet_type');
         $n = floor($r['type']/100);
@@ -30,16 +30,40 @@ class SocialController extends Controller
                     break;
             }
         }        
-
-        if ($r['is_food']) {
-            $this->renderPartial('food', array('r'=>$r, 'a_type'=>$a_type, 'img_id'=>$img_id, 'alert_flag'=>$alert_flag, 'aid'=>$r['aid'], 'to'=>$to, 'sid'=>$SID));
-        } else {
-            $this->renderPartial('image', array('r'=>$r, 'a_type'=>$a_type, 'img_id'=>$img_id, 'alert_flag'=>$alert_flag, 'aid'=>$r['aid'], 'to'=>$to, 'sid'=>$SID));
+        
+        if (isset($r['likers'])&&$r['likers']!='') {
+            $liker_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN ($r['likers'])")->queryColumn();
         }
+        
+        if (isset($r['senders'])&&$r['senders']!='') {
+            $sender_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN ($r['senders'])")->queryColumn();
+        }
+
+        if (isset($r['sharers'])&&$r['sharers']!='') {
+            $sharer_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN ($r['sharers'])")->queryColumn();
+        }
+
+        if (isset($r['comments'])&&$r['comments']!='') {
+            $c = explode(';', $r['comments']);
+            $coment_count = count($c); 
+            foreach ($c as $k1=>$c1) {
+                $c2 = explode(',', $c1);
+                foreach ($c2 as $c3) {
+                    $c4 = explode(':', $c3);
+                    $comments[$k1][$c4[0]]=$c4[1];
+                }
+            }
+            $r['comments'] = $comments;
+        }
+
+        $this->renderPartial('food', array('r'=>$r, 'comment_count'=>$comment_count, 'comments'=>'liker_tx'=>$liker_tx, 'sender_tx'=>$sender_tx, 'sharer_tx'=>$sharer_tx, 'a_type'=>$a_type, 'img_id'=>$img_id, 'alert_flag'=>$alert_flag, 'aid'=>$r['aid'], 'to'=>$to, 'sid'=>$SID));
+
+
     }
 
     public function actionNewYearEvent($SID='')
     {
+
         $users = Yii::app()->db->createCommand('SELECT COUNT(usr_id) FROM dc_user')->queryScalar();
        
         $this->renderPartial('activity_index', array('users'=>$users, 'sid'=>$SID));
