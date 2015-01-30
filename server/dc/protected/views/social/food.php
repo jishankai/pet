@@ -68,7 +68,7 @@ $signPackage = $jssdk->GetSignPackage();
                 <li class="on"><img src="css/images/show_topic_like_red.png">&nbsp;<span><?php echo $r['likes']?></span></li>
                 <li><img src="css/images/show_topic_gift_red.png">&nbsp;<span><?php echo $r['gifts']?></span></li>
                 <li><img src="css/images/show_topic_share_red.png">&nbsp;<span><?php echo $r['shares']?></span></li>
-                <li id="a1"><img src="css/images/show_topic_comment_red.png">&nbsp;<span><?php echo $comment_count?></span></li>
+                <li id="a1"><img src="css/images/show_topic_comment_red.png">&nbsp;<span><?php echo 0?></span></li>
               </ul>
               <div id="like">
                <ul class="tab_con clearfix" id="like_list">
