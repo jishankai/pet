@@ -219,6 +219,8 @@ class UserController extends Controller
                     $isBinded = TRUE;
                 } else {
                     $this->response->setExpired();
+                    $this->response->render();
+                    exit;
                 }
             } 
             $transaction->commit();
