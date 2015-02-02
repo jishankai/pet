@@ -26,7 +26,7 @@
 				<div id="vertical">|</div>
 				<div id="age"><?php echo $r['age']?>月</div>
 			</div>
-			<h3 id="signature"><?php echo $r['cmt']?></h3>
+			<h3 id="signature"><?php echo $r['msg']?></h3>
 
 			<ul class="tab clearfix">
 				<li>
