@@ -7,7 +7,7 @@ class AnimalController extends Controller
         return array(
             'checkUpdate',
             'checkSig - infoShare',
-            'getUserId - infoApi,recommendApi,popularApi,cardApi,searchApi, newsApi, txApi, imagesApi, fansApi, itemsApi, infoShare',
+            'getUserId - infoApi,recommendApi,popularApi,cardApi,searchApi,newsApi,txApi,imagesApi,fansApi,itemsApi,infoShare,joinMobileApi',
             /*
             array(
                 'COutputCache + welcomeApi',
@@ -297,6 +297,117 @@ class AnimalController extends Controller
         }
 
         $this->echoJsonData(array('aid'=>$animal->aid));
+    }
+
+    public function actionJoinMobileApi($aid)
+    {
+        if ($SID!='') {
+            $session = Yii::app()->session;
+            $this->usr_id = $session['usr_id'];
+        } 
+
+        if (!isset($this->usr_id)) {
+            if ($to=='') {
+                if (isset($_SERVER['HTTP_USER_AGENT'])&&strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")) {
+                    $to = 'wechat';
+                } else {
+                    $to = 'weibo';
+                }
+            }
+            switch ($to) {
+            case 'wechat':
+                $oauth2 = Yii::app()->wechat;
+                $key = 'wechatoauth2_'.$oauth2->APPID;
+                if (isset($_COOKIE[$key])&&$cookie=$_COOKIE[$key]) {
+                    parse_str($cookie);
+                    $this->usr_id = $usr_id;
+                } else {
+                    $oauth2->get_code_by_authorize($img_id.'_'.$aid);
+                    exit;
+                }
+                break;
+            case 'weibo':
+                Yii::import('ext.sinaWeibo.SinaWeibo',true);
+                $oauth2 = new SinaWeibo(WB_AKEY, WB_SKEY);
+                $key = 'weibooauth2_'.$oauth2->client_id;
+                if (isset($_COOKIE[$key])&&$cookie=$_COOKIE[$key]) {
+                    parse_str($cookie);
+                    $this->usr_id = $usr_id;
+                } else {
+                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id, 'aid'=>$aid)), 'mobile'));
+                    exit;
+                }
+                break;
+            default:
+                # code...
+                break;
+            }
+        }
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $n = $this->countCircle($this->usr_id);
+            $user = User::model()->findByPk($this->usr_id);
+            if ($n>10) {
+                if ($n<=20) {
+                    $g = $n*5;
+                } else {
+                    $g = 100;
+                }
+                if ($user->gold<$n) {
+                    throw new PException('亲，您的金币不足');
+                }
+                $user->gold-=$g;
+                $user->saveAttributes(array('gold'));
+            }
+            $circle = new Circle();
+            $circle->aid = $aid;
+            $circle->usr_id = $this->usr_id;
+            $circle->save();
+
+            $f = Follow::model()->findByPk(array(
+                'usr_id' => $this->usr_id,
+                'aid' => $aid,
+            ));
+            if (!isset($f)) {
+                $f = new Follow;
+                $f->usr_id = $this->usr_id;
+                $f->aid = $aid;
+                $f->create_time = time();
+                $f->save();
+            }
+            $news = new News;
+            $news->aid = $aid;
+            $news->type = 2;
+            $news->create_time = time();
+            $news->content = serialize(array(
+                'usr_id'=>$user->usr_id,
+                'u_name'=>$user->name,
+            ));
+            $news->save();
+
+            $max_users = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal')->queryScalar();
+            $t_rq = Yii::app()->db->createCommand('SELECT t_rq FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
+            $rank = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal WHERE t_rq<=:t_rq')->bindValue(':t_rq', $t_rq)->queryScalar();
+            $percent = floor($rank*100/$max_users);
+
+            $a = Animal::model()->findByPk($aid);
+            Talk::model()->sendMsg(NPC_SYSTEM_USRID, $a->master_id, "路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～");
+            $easemob = Yii::app()->easemob;
+            $easemob->sendToUsers($a->master_id, NPC_SYSTEM_USRID, array(
+                'mixed'=>TRUE,
+                'msg'=>"路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～",
+                'ext'=>array(
+                    'nickname'=>'事务官',
+                ),
+            ));
+
+            $transaction->commit();
+
+            $this->echoJsonData(array('isSuccess'=>TRUE));
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
     }
 
     public function actionJoinApi($aid)

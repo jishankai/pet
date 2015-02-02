@@ -46,9 +46,9 @@
 
 		<div class="pi_body">
 			<ul class="imgBox clearfix" id="imgBox">
-				<?php foreach ($images as $key=>$image) {
-					echo "<li><a href='".$this->createUrl('social/foodShareApi', array('img_id'=>$image['img_id'])."'><img src='http://".OSS_PREFIX."4upload.oss-cn-beijing.aliyuncs.com/".$image['url'])."' alt='$key'></li>";
-				}?>
+				<?php /*foreach ($images as $key=>$image) {
+					echo "<li><a href='".$this->createUrl('social/foodShareApi', array('img_id'=>$image['img_id']))."'><img src='http://".OSS_PREFIX."4upload.oss-cn-beijing.aliyuncs.com/".$image['url']."' alt='$key'></a></li>";
+				}*/?>
 				<!-- <li><img src="css/images/pet1.jpg" alt="1"></li>
 				<li><img src="css/images/pet2.jpg" alt="2"></li>
 				<li><img src="css/images/pet3.jpg" alt="3"></li>
@@ -84,117 +84,65 @@
 	</div>
 </body>
 <script type="text/javascript">
+function waterfall(parent,box){
+	var oParent=document.getElementById("imgBox");
+	var oBoxs=getByClass(oParent,box);
+	var oBoxW=oBoxs[0].offsetHeight;
+	var cols=Math.floor(oParent.offsetHeight/oBoxW);
+	
+	var hArr=[];
+	for(var i=0;i<oBoxs.length;i++){
+		if(i<cols+1){
+			hArr.push(oBoxs[i].offsetHeight);
+		}else{
+			var minH=Math.min.apply(null,hArr);
+
+			var index=getminHIndex(hArr,minH);
+		
+			oBoxs[i].style.position='absolute';
+			oBoxs[i].style.top=minH+'px';
+			//oBoxs[i].style.left=oBoxW*index+'px';
+			oBoxs[i].style.left=oBoxs[index].offsetLeft+'px';
+			hArr[index]+=oBoxs[i].offsetHeight;
+		}
+	}	
+}
+
+function getByClass(parent,clsName){
+	var boxArr=new Array(),
+		oElements=parent.getElementsByTagName('*');
+	for(var i=0;i<oElements.length;i++){
+		if(oElements[i].className==clsName){
+			boxArr.push(oElements[i]);
+		}
+	}
+	return boxArr;
+}
+
+function getminHIndex(arr,minH){
+    for(var i in arr){
+        if(arr[i]==minH){
+            return i;
+        }
+    }
+}
 
 $(window).on('load',function(){
-	var h=$('#imgBox li').width();
-	console.log(h);
-	$('#imgBox li').height(h);
-	var dataInt={'data':[{'src':'pet1.jpg'},{'src':'pet2.jpg'},{'src':'pet3.jpg'},
-	{'src':'pet4.jpg'},{'src':'pet3.jpg'},{'src':'pet3.jpg'},{'src':'pet3.jpg'},
-	{'src':'pet3.jpg'},{'src':'pet0.jpg'},{'src':'pet8.jpg'},{'src':'pet3.jpg'},
-	{'src':'pet3.jpg'},{'src':'pet3.jpg'},{'src':'pet3.jpg'},{'src':'pet3.jpg'}
-	,{'src':'pet3.jpg'},{'src':'pet4.jpg'},{'src':'pet4.jpg'},{'src':'pet3.jpg'},
-	{'src':'pet3.jpg'},{'src':'pet3.jpg'},{'src':'pet6.jpg'}]};
-	var a = $('#imgBox img');
 	
-	$get("http://www.baidu.com",function(data){
-		for(var i=0;i<data.length;i++){
+	var oParent=document.getElementById('imgBox');
+	<?php foreach ($images as $key => $image) { ?>
+		var oLi=document.createElement('li');
+			oLi.className='box';
+			oParent.appendChild(oLi);
+		var oA=document.createElement('a');
+			oA.setAttribute('href',"'"+<?php echo $this->createUrl('social/foodShareApi', array('img_id'=>$image['img_id']))?>+"'");
+			oLi.appendChild(oA);
+		var oImg=document.createElement('img');
+			oImg.src="'"+<?php echo "http://".OSS_PREFIX."4upload.oss-cn-beijing.aliyuncs.com/".$image['url']?>+"'";
+			oA.appendChild(oImg);
+	<?php }?>
 
-			var oLi=$('<li>').appendTo($('#imgBox'));
-			var oImg=$('<img>').attr('src','css/images/'+$(data[i]).attr('src')).appendTo($(oLi));
-			
-			var h=$('#imgBox li').width();
-			$('#imgBox li').height(h);
-
-		}
-
-	},"json");
-	// for(var i=0;i<dataInt.data.length;i++){
-
-	// 	var oLi=$('<li>').appendTo($('#imgBox'));
-	// 	var oImg=$('<img>').attr('src','css/images/'+$(dataInt.data[i]).attr('src')).appendTo($(oLi));
-	// 	var h=$('#imgBox li').width();
-	// 	$('#imgBox li').height(h);
-		
-	// }
-	$(window).on('scroll',function(){
-		if(checkScrollSlide()){
-			
-				loadImg();
-		
-			}			
-	})
+	waterfall('imgBox','box');
 })
-
-function checkScrollSlide(){
-	var $lastBox=$('#imgBox>li').last();
-	var lastBoxLis = $lastBox.get(0).offsetTop + Math.floor($lastBox.height()/2);
-	var scrollTop=$(window).scrollTop();
-	var documentH=$(window).height();
-	return (lastBoxLis < scrollTop + documentH )?true:false;
-}
-function loadImg(){
-
-	var dataInt={'data':[{'src':'pet1.jpg'},{'src':'pet2.jpg'},{'src':'pet3.jpg'},
-	{'src':'pet4.jpg'},{'src':'pet3.jpg'},{'src':'pet3.jpg'},{'src':'pet3.jpg'},
-	{'src':'pet3.jpg'},{'src':'pet0.jpg'},{'src':'pet8.jpg'},{'src':'pet3.jpg'},
-	{'src':'pet3.jpg'},{'src':'pet3.jpg'},{'src':'pet3.jpg'},{'src':'pet3.jpg'}
-	,{'src':'pet3.jpg'},{'src':'pet4.jpg'},{'src':'pet4.jpg'},{'src':'pet3.jpg'},
-	{'src':'pet3.jpg'},{'src':'pet3.jpg'},{'src':'pet6.jpg'}]};
-
-	$get("http://www.baidu.com",function(data){
-		for(var i=0;i<data.length;i++){
-
-			var oLi=$('<li>').appendTo($('#imgBox'));
-			var oImg=$('<img>').attr('src','css/images/'+$(data[i]).attr('src')).appendTo($(oLi));
-
-			var h=$('#imgBox li').width();
-			$('#imgBox li').height(h);
-
-		}
-
-	},"json");
-	// for(var i=0;i<dataInt.data.length;i++){
-
-	// 			var oLi=$('<li>').appendTo($('#imgBox'));
-	// 			var oImg=$('<img>').attr('src','css/images/'+$(dataInt.data[i]).attr('src')).appendTo($(oLi));
-				
-	// 			var h=$('#imgBox li').width();
-	// 			$('#imgBox li').height(h);
-
-	// 		}
-
-
-
-	 // ajax请求数据  
-    /*jQuery.ajax({  
-        type:"POST",  
-        url: "/show/getPins/",  
-        data:data,  
-        dataType: "json",  
-        beforeSend: function(XMLHttpRequest){  
-          $("#loading").css('display','');  
-        },  
-        success:function(response) {  
-          if(response.data){  
-            for(var i=0, length = response.data.length; i<length; i++){  
-                var html = response.data[i];  
-                var test = $(html);  
-                target.append(test);  
-                var img = test.find('img');  
-                X.util.flowPin(img[0],188);  
-            }  
-              
-                target.attr('index',parseInt(current_page)+1);  
-               
-                $("#loading").css('display','none');  
-          }  
-    },  
-    error:function(){  
-          alert("加载失败");  
-    }  
-    });  */
-
-}
 </script>
 </html>
