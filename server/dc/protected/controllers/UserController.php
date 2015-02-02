@@ -218,7 +218,7 @@ class UserController extends Controller
                     $session['usr_id'] = $user->usr_id;
                     $isBinded = TRUE;
                 } else {
-                    throw new PException('绑定失败');
+                    $this->response->setExpired();
                 }
             } 
             $transaction->commit();
