@@ -14,31 +14,31 @@
 			<div class="header clearfix">
 				<img src="css/images/bg_headimg.png" class="pi_head_wrap">
 				<img src="css/images/bt_follow.png" id="bt_fllow">
-				<img src="css/images/a4.jpg" id="pi_head">
-				<img src="css/images/base_head1.jpg" id="owner_head">
+				<img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" id="pi_head">
+				<img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_usr/<?php echo $r['u_tx']?>" id="owner_head">
 				<div class="owner">经纪人</div>
 			</div>
 		 
-			<div class="pi_name"><span id="name">毛毛和花花 </span><img src="css/images/female1.png" id="pi_sex"></div>
+			<div class="pi_name"><span id="name"><?php echo $r['name']?> </span><img src="css/images/female1.png" id="pi_sex"></div>
 
 			<div class="pet_info clearfix">
-				<div id="breed">中华田园猫</div>
+				<div id="breed"><?php echo $a_type?></div>
 				<div id="vertical">|</div>
-				<div id="age">3岁1个月</div>
+				<div id="age"><?php echo $r['age']?>月</div>
 			</div>
-			<h3 id="signature">我们的目标是，没有蛀牙！</h3>
+			<h3 id="signature"><?php echo $r['cmt']?></h3>
 
 			<ul class="tab clearfix">
 				<li>
-					<h3 id="dynamic_num">115</h3>
+					<h3 id="dynamic_num"><?php echo $r['news']?></h3>
 					<p id="dynamic">动态</p>
 				</li>
 				<li class="middle">
-					<h3 id="fans_num">115</h3>
+					<h3 id="fans_num"><?php echo $r['fans']?></h3>
 					<p id="fans">粉丝</p>
 				</li>
 				<li>
-					<h3 id="photo_num">115</h3>
+					<h3 id="photo_num"><?php echo $r['images']?></h3>
 					<p id="photo">照片</p>
 				</li>
 			</ul>
@@ -46,6 +46,9 @@
 
 		<div class="pi_body">
 			<ul class="imgBox clearfix" id="imgBox">
+				<?php foreach ($images as $key=>$image) {
+					echo "<li><a href='".$this->createUrl('social/foodShareApi', array('img_id'=>$image['img_id'])."'><img src='http://".OSS_PREFIX."4upload.oss-cn-beijing.aliyuncs.com/".$image['url'])."' alt='$key'></li>";
+				}?>
 				<!-- <li><img src="css/images/pet1.jpg" alt="1"></li>
 				<li><img src="css/images/pet2.jpg" alt="2"></li>
 				<li><img src="css/images/pet3.jpg" alt="3"></li>
