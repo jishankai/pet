@@ -150,7 +150,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 	background: url("../css/images/dialog_red_ball.png")center center no-repeat;
 	background-size:100% 100%;margin: 0 auto;margin-bottom: 10px;}
 .headerBox img{width: 80%;border-radius: 50%;margin-top:10%;}
-.follow2 h4{font-size: 14px;color:#fc7b51; line-height: 30px;}
+.follow2 h4{font-size: 14px;color:#fc7b51; line-height: 30px;height:80%;}
 .follow2 h4 span{font-size: 16px;}
 .follow2 p{font-size: 12px;line-height: 32px;}
 .follow2 p span{color:#fc7b51;}
