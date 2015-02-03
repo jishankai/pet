@@ -9,7 +9,7 @@ $signPackage = $jssdk->GetSignPackage();
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>我为自己代粮</title>
-<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
 <link type="text/css" rel="stylesheet" href="css/alert.css"/>
 <script>
@@ -154,7 +154,9 @@ $signPackage = $jssdk->GetSignPackage();
 <script type="text/javascript">
 /*倒计时*/
 $(window).on('load',function(){
-    FreshTime();
+    if (<?php echo $r['is_food']?>) {
+      FreshTime();
+    }
     if (<?php echo $alert_flag?>) {
       cc();
     };
