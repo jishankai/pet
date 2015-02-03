@@ -234,10 +234,17 @@ class AnimalController extends Controller
     {
         if ($page!=0) {
             $t_contri = Yii::app()->db->createCommand('SELECT t_contri FROM dc_circle WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(':aid'=>$aid, ':usr_id'=>$usr_id))->queryScalar();
-            $r = Yii::app()->db->createCommand('SELECT c.usr_id as usr_id, rank, t_contri, u.tx, name, gender, city FROM dc_circle c INNER JOIN dc_user u ON c.usr_id=u.usr_id WHERE c.aid=:aid AND t_contri<:t_contri ORDER BY t_contri DESC LIMIT 30')->bindValues(array(
-                ':aid'=>$aid,
-                ':t_contri'=>$t_contri,
-            ))->queryAll();
+            if ($t_contri) {
+                $r = Yii::app()->db->createCommand('SELECT c.usr_id as usr_id, rank, t_contri, u.tx, name, gender, city FROM dc_circle c INNER JOIN dc_user u ON c.usr_id=u.usr_id WHERE c.aid=:aid AND t_contri<:t_contri ORDER BY t_contri DESC LIMIT 30')->bindValues(array(
+                    ':aid'=>$aid,
+                    ':t_contri'=>$t_contri,
+                ))->queryAll();
+            } else {
+                $r = Yii::app()->db->createCommand('SELECT c.usr_id as usr_id, rank, t_contri, u.tx, name, gender, city FROM dc_circle c INNER JOIN dc_user u ON c.usr_id=u.usr_id WHERE c.aid=:aid ORDER BY t_contri DESC LIMIT 30')->bindValues(array(
+                    ':aid'=>$aid,
+                ))->queryAll();
+            }
+            
         } else {
             $r = Yii::app()->db->createCommand('SELECT c.usr_id as usr_id, rank, t_contri, u.tx, name, gender, city FROM dc_circle c INNER JOIN dc_user u ON c.usr_id=u.usr_id WHERE c.aid=:aid ORDER BY t_contri DESC, c.usr_id DESC LIMIT :m,30')->bindValues(array(
                 ':aid'=>$aid,
