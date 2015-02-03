@@ -146,7 +146,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 #f1_no_problem,#f2Btn{text-decoration: none;width: 140px;height: 40px;
 	background-color: #fc7b51;color: #fff;display: block;
 	margin: 0 auto;line-height: 40px;border-radius: 15px;}
-#follow_imgBox{width: 50px;height: 100px;z-index: 1001;position: absolute;left: 0;top:0;}
+#follow_imgBox{width: 50px;height: 100px;z-index: 1001;position: fixed;left: 0;top:0;}
 #follow_img{width: 100%;height: 100%;}
 
 
