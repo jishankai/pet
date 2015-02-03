@@ -35,6 +35,15 @@ function openFollow(){
 		fMask.style.width = sWidth + "px";
 		document.body.appendChild(fMask);
 
+	var follow_imgBox=document.createElement('div');
+		follow_imgBox.id="follow_imgBox";
+		document.body.appendChild(follow_imgBox);
+
+	var follow_img = document.createElement('img');
+		follow_img.id="follow_img";
+		follow_img.src="css/images/follow.gif";
+		follow_imgBox.appendChild(follow_img);
+
 	var follow = document.createElement("div");
 		follow.id = "follow";
 		follow.className = "follow";
@@ -54,17 +63,23 @@ function openFollow(){
 		follow.style.left=(sWidth-fWidth)/2 + "px";
 		follow.style.top=(wHeight-fHeight)/2+"px";
 		
+	var fImg_w=follow_img.offsetWidth;
+
+		follow_imgBox.style.left=(sWidth-fImg_w)/2 + "px";
+		follow_imgBox.style.top=(wHeight-fHeight)/2-90+"px";
 
 	var fClose = document.getElementById("fclose");
 		fMask.onclick=fClose.onclick=function(){
 
 						document.body.removeChild(fMask);
-						document.body.removeChild(follow);					    
+						document.body.removeChild(follow);	
+						document.body.removeChild(follow_imgBox);				    
 		}
 
 	var noProblem = document.getElementById("f1_no_problem");
 		noProblem.onclick = function(){
 			document.body.removeChild(follow);	
+			document.body.removeChild(follow_imgBox);
 			follow2Open();
 		}
 }
