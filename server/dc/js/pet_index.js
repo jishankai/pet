@@ -4,7 +4,7 @@ window.onload=function(){
 	var followBtn=document.getElementById("bt_follow");
 
 	/*alert(followBtn.src);*/
-	if(followBtn.src=="http://192.168.10.151:8001/css/images/bt_follow.png"){
+	if(followBtn.src=="http://"+window.location.host.+"/css/images/bt_follow.png"){
 		followBtn.onclick = function(){
 			openFollow();
 			/*follow3Open();*/
