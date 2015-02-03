@@ -12,15 +12,15 @@ $signPackage = $jssdk->GetSignPackage();
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
 <link type="text/css" rel="stylesheet" href="css/alert.css"/>
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-  })();
-</script>
+// <script>
+//     var _hmt = _hmt || [];
+//     (function() {
+//       var hm = document.createElement("script");
+//       hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
+//       var s = document.getElementsByTagName("script")[0]; 
+//       s.parentNode.insertBefore(hm, s);
+//   })();
+// </script>
 
 </head>
 <body>
