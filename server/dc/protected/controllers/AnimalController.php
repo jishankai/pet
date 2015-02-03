@@ -345,20 +345,6 @@ class AnimalController extends Controller
         }
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $n = $this->countCircle($this->usr_id);
-            $user = User::model()->findByPk($this->usr_id);
-            if ($n>10) {
-                if ($n<=20) {
-                    $g = $n*5;
-                } else {
-                    $g = 100;
-                }
-                if ($user->gold<$n) {
-                    throw new PException('亲，您的金币不足');
-                }
-                $user->gold-=$g;
-                $user->saveAttributes(array('gold'));
-            }
             $circle = new Circle();
             $circle->aid = $aid;
             $circle->usr_id = $this->usr_id;
@@ -384,11 +370,6 @@ class AnimalController extends Controller
                 'u_name'=>$user->name,
             ));
             $news->save();
-
-            $max_users = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal')->queryScalar();
-            $t_rq = Yii::app()->db->createCommand('SELECT t_rq FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
-            $rank = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal WHERE t_rq<=:t_rq')->bindValue(':t_rq', $t_rq)->queryScalar();
-            $percent = floor($rank*100/$max_users);
 
             $a = Animal::model()->findByPk($aid);
             Talk::model()->sendMsg(NPC_SYSTEM_USRID, $a->master_id, "路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～");
