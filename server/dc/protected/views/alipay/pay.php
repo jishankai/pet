@@ -6,6 +6,12 @@
 <title>我的口粮你做主</title>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
 <script src="js/jquery-1.11.1.js" type="text/javascript"></script>
+<style type="text/css">
+    li{width:100px;height:20px;}
+    li.color{color:red;background:#eee;}
+    .P1,.P11,.P2,.P22,.P3,.P33,.P4,.P44{display: none;}
+   
+</style>
 </head>
 <script>
     var _hmt = _hmt || [];
