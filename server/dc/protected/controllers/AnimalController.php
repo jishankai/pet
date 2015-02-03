@@ -6,7 +6,7 @@ class AnimalController extends Controller
     {
         return array(
             'checkUpdate',
-            'checkSig - infoShare',
+            'checkSig - infoShare,joinMobileApi',
             'getUserId - infoApi,recommendApi,popularApi,cardApi,searchApi,newsApi,txApi,imagesApi,fansApi,itemsApi,infoShare,joinMobileApi',
             /*
             array(
@@ -234,7 +234,7 @@ class AnimalController extends Controller
     {
         if ($page==0) {
             if ($usr_id!=0) {
-                $t_contri = Yii::app()->db->createCommand('SELECT t_contri FROM dc_circle WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(':aid'=>$aid, ':usr_id'=>$usr_id))->queryScalar();
+                    $t_contri = Yii::app()->db->createCommand('SELECT t_contri FROM dc_circle WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(':aid'=>$aid, ':usr_id'=>$usr_id))->queryScalar();
                 $r = Yii::app()->db->createCommand('SELECT c.usr_id as usr_id, rank, t_contri, u.tx, name, gender, city FROM dc_circle c INNER JOIN dc_user u ON c.usr_id=u.usr_id WHERE c.aid=:aid AND t_contri<:t_contri ORDER BY t_contri DESC LIMIT 30')->bindValues(array(
                     ':aid'=>$aid,
                     ':t_contri'=>$t_contri,
@@ -313,7 +313,7 @@ class AnimalController extends Controller
         $this->echoJsonData(array('aid'=>$animal->aid));
     }
 
-    public function actionJoinMobileApi($aid)
+    public function actionJoinMobileApi($aid, $SID='')
     {
         if ($SID!='') {
             $session = Yii::app()->session;
@@ -336,7 +336,7 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $oauth2->get_code_by_authorize($img_id.'_'.$aid);
+                    $oauth2->get_code_by_authorize(serialize(array('aid'=>$aid)));
                     exit;
                 }
                 break;
@@ -348,7 +348,7 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id, 'aid'=>$aid)), 'mobile'));
+                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('aid'=>$aid)), 'mobile'));
                     exit;
                 }
                 break;
@@ -853,7 +853,7 @@ class AnimalController extends Controller
     public function actionAddressApi($aid)
     {
         $animal = Animal::model()->findByPk($aid);
-        if (isset($_POST['name'])) {
+        if (isset($_POST['name'])&&$animal->master_id==$this->usr_id) {
             $transaction = Yii::app()->db->beginTransaction();
             try {
                 $address = array(
@@ -870,9 +870,13 @@ class AnimalController extends Controller
                 $transaction->rollback();
                 throw $e;
             }
-        }
 
-        $this->echoJsonData(array(unserialize($animal->address)));
+            $this->echoJsonData(array(unserialize($animal->address)));
+        } else if (isset($_POST['name'])) {
+            throw new PException('您没有创建宠物，无权修改此信息');
+        }  else {
+            $this->echoJsonData(array(''));
+        }
     }
 
     public function actionModifyInfoApi($aid, $name, $gender, $age, $type)

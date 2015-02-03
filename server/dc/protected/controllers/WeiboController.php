@@ -56,11 +56,13 @@ class WeiboController extends Controller
         	Yii::import('ext.sinaWeibo.SinaWeibo',true);
             $oauth2 = new SinaWeibo(WB_AKEY, WB_SKEY);
         	setcookie('weibooauth2_'.$oauth2->client_id, http_build_query(array('usr_id'=>$j->data->usr_id)) );
-        	if ($img_id==0) {
-            	$this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$j->data->SID));
-        	} else {
-            	$this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$j->data->SID));
-        	}
+        	if (!isset($img_id)) {
+                $this->redirect(array('animal/infoShare', 'aid'=>$aid, 'SID'=>$j->data->SID));
+            } else if ($img_id==0) {
+                $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$j->data->SID));
+            } else if (isset($img_id)) {
+                $this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$j->data->SID));
+            } 
 		} else {
 		    echo '认证失败';
 		}
