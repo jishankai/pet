@@ -233,8 +233,8 @@ class AnimalController extends Controller
     public function actionFansApi($aid, $rank=999999999, $usr_id=0, $page=0)
     {
         if ($page==0) {
-            $t_contri = Yii::app()->db->createCommand('SELECT t_contri FROM dc_circle WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(':aid'=>$aid, ':usr_id'=>$usr_id))->queryScalar();
-            if ($t_contri) {
+            if ($usr_id!=0) {
+                $t_contri = Yii::app()->db->createCommand('SELECT t_contri FROM dc_circle WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(':aid'=>$aid, ':usr_id'=>$usr_id))->queryScalar();
                 $r = Yii::app()->db->createCommand('SELECT c.usr_id as usr_id, rank, t_contri, u.tx, name, gender, city FROM dc_circle c INNER JOIN dc_user u ON c.usr_id=u.usr_id WHERE c.aid=:aid AND t_contri<:t_contri ORDER BY t_contri DESC LIMIT 30')->bindValues(array(
                     ':aid'=>$aid,
                     ':t_contri'=>$t_contri,
@@ -975,6 +975,15 @@ class AnimalController extends Controller
 
     public function actionInfoShare($aid, $SID='')
     {
+        if ($SID!='') {
+            $session = Yii::app()->session;
+            $this->usr_id = $session['usr_id'];
+        } 
+        if (isset($this->usr_id)) {
+            $is_circle = Yii::app()->db->createCommand('SELECT aid FROM dc_circle WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(':aid'=>$aid, ':usr_id'=>$this->usr_id))->queryScalar();
+        } else {
+            $is_circle = 0;
+        }
         $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.master_id, a.t_rq, a.msg, u.name AS u_name, u.tx AS u_tx, c.rank AS u_rank, (SELECT COUNT(nid) FROM dc_news n WHERE n.aid=a.aid) AS news, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans, (SELECT COUNT(i.img_id) FROM dc_image i WHERE i.aid=a.aid) AS images, a.total_food, (SELECT COUNT(*) FROM dc_follow f WHERE f.aid=a.aid) AS followers FROM dc_animal a JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN dc_circle c ON a.aid=c.aid AND a.master_id=c.usr_id WHERE a.aid=:aid')->bindValue(':aid', $aid)->queryRow();
         $images = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid')->bindValue(':aid', $aid)->queryAll();
         $pet_type = Util::loadConfig('pet_type');
@@ -995,6 +1004,6 @@ class AnimalController extends Controller
                     break;
             }
         }
-        $this->renderPartial('info', array('r'=>$r, 'a_type'=>$a_type, 'images'=>$images));
+        $this->renderPartial('info', array('r'=>$r, 'is_circle'=>$is_circle, 'a_type'=>$a_type, 'images'=>$images));
     }
 }
