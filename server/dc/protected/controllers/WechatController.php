@@ -415,9 +415,9 @@ class WechatController extends Controller
         if (!isset($code)) {
             Yii::app()->wechat->get_code_by_authorize($state);
         }
-        $tmp_arr = explode('_', $state);
-        $img_id = $tmp_arr[0];
-        $aid = $tmp_arr[1];
+        $tmp_arr = unserialize($state);
+        $img_id = $tmp_arr['img_id'];
+        $aid = $tmp_arr['aid'];
         $u = Yii::app()->wechat->get_userinfo_by_authorize($code);
         $params = array(
             'uid'=>$u['openid'],
@@ -451,7 +451,7 @@ class WechatController extends Controller
         setcookie('wechatauth2_'.$oauth2->APPID, http_build_query(array('usr_id'=>$j->data->usr_id)));
         if ($img_id==0) {
             $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$j->data->SID));
-        } else {
+        } else if(isset($img_id)){
             $this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$j->data->SID));
         }
     }

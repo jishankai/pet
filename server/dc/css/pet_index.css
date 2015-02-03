@@ -4,7 +4,7 @@ body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd,input{
 ul{list-style: none;}
 body{font-family: "Microsoft YaHei";}
 h1,h2,h3,h4,h5,h6{font-weight: normal;}
-.hr_125{width:100%;height: 125px;}
+.hr_125{width:100%;height: 80px;}
 
 .comWidth{width:640px;height:100%;margin:0 auto;}
 .pi_top{
@@ -191,7 +191,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 
 }
 @media only screen and (min-width: 300px) and (max-width: 370px){
-	.hr_125{width:100%;height: 62.5px;}
+	.hr_125{width:100%;height: 30px;}
 	.pi_top{height: 295px;}
 	.header{width: 225px;height: 104px;}
 	.pi_head_wrap{
@@ -230,7 +230,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 	.tab p{font-size: 14px;}
 }
 @media only screen and (min-width: 371px) and (max-width: 530px){
-	.hr_125{width:100%;height: 81.25px;}
+	.hr_125{width:100%;height: 40px;}
 	.pi_top{height: 383.5px;}
 	.header{width: 292.5px;height: 135.2px;}
 	.pi_head_wrap{
