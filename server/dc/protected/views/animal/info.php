@@ -143,7 +143,7 @@ $(window).on('load',function(){
 			oA.appendChild(oImg);
 	<?php }?>
 
-	waterfall('imgBox','box');
+	// waterfall('imgBox','box');
 })
 </script>
 </html>

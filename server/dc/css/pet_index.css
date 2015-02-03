@@ -90,15 +90,22 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 .tab h3{font-size: 38px;margin-top: 8px;}
 .tab p{font-size: 28px;}
 .imgBox{
-	width: 100%;height: auto;
-	position: relative;
+	width: 98%;height: auto;
+	/*position: relative;*/
 	/*background-color: orange;*/
+	padding:1%;
+
+	-webkit-column-width:102px;
+    -moz-column-width:102px; 
+	-webkit-column-gap:2px;
+	-moz-column-gap:2px;
 }
 .imgBox li{
 	float: left;
-	width: 32%;
-	padding-left:1%;
-	padding-top:1%;
+	width: 102px;
+	padding-left:2px;
+	padding-right: 2px;
+	padding-top:4px;
 }
 .imgBox li img{width: 100%;}
 
@@ -149,8 +156,8 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 .follow2 .headerBox{width: 80px;height: 80px;border-radius: 50%;
 	background: url("../css/images/dialog_red_ball.png")center center no-repeat;
 	background-size:100% 100%;margin: 0 auto;margin-bottom: 10px;}
-.headerBox img{width: 80%;border-radius: 50%;margin-top:10%;}
-.follow2 h4{font-size: 14px;color:#fc7b51; line-height: 30px;height:80%;}
+.headerBox img{width: 80%;height:80%;border-radius: 50%;margin-top:10%;}
+.follow2 h4{font-size: 14px;color:#fc7b51; line-height: 30px;}
 .follow2 h4 span{font-size: 16px;}
 .follow2 p{font-size: 12px;line-height: 32px;}
 .follow2 p span{color:#fc7b51;}
@@ -255,9 +262,61 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 	}
 	.tab h3{font-size: 24.7px;margin-top: 5.2px;}
 	.tab p{font-size: 18.2px;}
+
 }
 @media only screen and (min-width: 531px){
 	
+}
+@media only screen and (min-width: 371px) and (max-width: 400px){
+
+	.imgBox{
+	-webkit-column-width:118px;
+    -moz-column-width:118px; 
+	-webkit-column-gap:2px;
+	-moz-column-gap:2px;
+	}
+	.imgBox li{
+		float: left;
+		width: 118px;
+		padding-left:2px;
+		padding-right: 2px;
+		padding-top:4px;
+	}
+
+}
+@media only screen and (min-width: 401px) and (max-width: 450px){
+	
+.imgBox{
+	-webkit-column-width:126px;
+    -moz-column-width:126px; 
+	-webkit-column-gap:2px;
+	-moz-column-gap:2px;
+	}
+.imgBox li{
+	float: left;
+	width: 126px;
+	padding-left:2px;
+	padding-right: 2px;
+	padding-top:4px;
+	}
+
+}
+
+@media only screen and (min-width: 451px){
+	.imgBox{
+		padding:1%;
+		-webkit-column-width:140px;
+	    -moz-column-width:140px; 
+		-webkit-column-gap:4px;
+		-moz-column-gap:4px;
+}
+.imgBox li{
+	float: left;
+	width: 140px;
+	padding-left:4px;
+	padding-right: 4px;
+	padding-top:4px;
+}
 }
 
 
