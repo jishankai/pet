@@ -51,23 +51,11 @@ body{background-color: #ffffff;}
 	width:93.75%;
 	margin:0 auto;
 	border-radius:0 0 20px 20px;
+	text-align: center;
 }
-.share ul{list-style: none;}
-.share li{
-	height:228px;width:100%;
-	font-size: 31px;
-	margin-bottom: 61px;
-}
-.share .weixin{
-	width:50%;height: 100%;
-	float: left;
-	background:url("../css/images/weixin.png")center center no-repeat;
-}
-.share .z_f_b{
-	width: 50%;height: 100%;
-	background-color: green;
-	float: right;
-	background:url("../css/images/pay.jpg")center center no-repeat;
+
+#z_f_b{
+	margin-top: 20px;
 }
 
 .foot{
@@ -75,6 +63,7 @@ body{background-color: #ffffff;}
 	background-color: black;
 	background:url("../css/images/to_pay.png")center center no-repeat;
 	margin-bottom: 116px;
+	margin-top: 30px;
 }
 
 
@@ -100,7 +89,6 @@ body{background-color: #ffffff;}
 .money_list .money{
 	line-height:49px;
 	text-indent:20%;
-
 }
 
 .hr_3{height:1.5px;}
@@ -115,20 +103,14 @@ body{background-color: #ffffff;}
 	border-radius:0 0 10px 10px;
 }
 
-.share li{
-	height:114px;
-	margin-bottom: 30.5px;
-}
-.share .weixin{
-	background-size: 121px 48.5px;
-}
-.share .z_f_b{
-	background-size: 128px 30.5px;
+#z_f_b{
+	margin-top: 15px;
+	width: 130px;height: 32px;
 }
 
 .foot{
 	height: 54.5px;
-	margin-bottom: 58px;
+	margin-bottom: 40px;
 	background-size: 301.5px 54.5px;
 }
 
