@@ -230,13 +230,20 @@ class AnimalController extends Controller
         }
     }
 
-    public function actionFansApi($aid, $rank=999999999, $usr_id=0)
+    public function actionFansApi($aid, $rank=999999999, $usr_id=0, $page=0)
     {
-        $r = Yii::app()->db->createCommand('SELECT c.usr_id as usr_id, rank, t_contri, u.tx, name, gender, city FROM dc_circle c INNER JOIN dc_user u ON c.usr_id=u.usr_id WHERE c.aid=:aid AND rank<:rank AND c.usr_id>:usr_id  ORDER BY t_contri DESC, c.usr_id DESC LIMIT 30')->bindValues(array(
-            ':aid'=>$aid,
-            ':rank'=>$rank,
-            ':usr_id'=>$usr_id,
-        ))->queryAll();
+        if ($page!=0) {
+            $r = Yii::app()->db->createCommand('SELECT c.usr_id as usr_id, rank, t_contri, u.tx, name, gender, city FROM dc_circle c INNER JOIN dc_user u ON c.usr_id=u.usr_id WHERE c.aid=:aid AND rank<=:rank AND c.usr_id>:usr_id  ORDER BY t_contri DESC, c.usr_id DESC LIMIT 30')->bindValues(array(
+                ':aid'=>$aid,
+                ':rank'=>$rank,
+                ':usr_id'=>$usr_id,
+            ))->queryAll();
+        } else {
+            $r = Yii::app()->db->createCommand('SELECT c.usr_id as usr_id, rank, t_contri, u.tx, name, gender, city FROM dc_circle c INNER JOIN dc_user u ON c.usr_id=u.usr_id WHERE c.aid=:aid ORDER BY t_contri DESC, c.usr_id DESC LIMIT :m,30')->bindValues(array(
+                ':aid'=>$aid,
+                ':m'=>$page*30,
+            ))->queryAll();
+        }
 
         $this->echoJsonData(array($r));
     }
@@ -345,6 +352,20 @@ class AnimalController extends Controller
         }
         $transaction = Yii::app()->db->beginTransaction();
         try {
+            $n = $this->countCircle($this->usr_id);
+            $user = User::model()->findByPk($this->usr_id);
+            if ($n>10) {
+                if ($n<=20) {
+                    $g = $n*5;
+                } else {
+                    $g = 100;
+                }
+                if ($user->gold<$n) {
+                    throw new PException('亲，您的金币不足');
+                }
+                $user->gold-=$g;
+                $user->saveAttributes(array('gold'));
+            }
             $circle = new Circle();
             $circle->aid = $aid;
             $circle->usr_id = $this->usr_id;
@@ -371,6 +392,11 @@ class AnimalController extends Controller
             ));
             $news->save();
 
+            $max_users = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal')->queryScalar();
+            $t_rq = Yii::app()->db->createCommand('SELECT t_rq FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
+            $rank = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal WHERE t_rq<=:t_rq')->bindValue(':t_rq', $t_rq)->queryScalar();
+            $percent = floor($rank*100/$max_users);
+
             $a = Animal::model()->findByPk($aid);
             Talk::model()->sendMsg(NPC_SYSTEM_USRID, $a->master_id, "路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～");
             $easemob = Yii::app()->easemob;
@@ -384,7 +410,7 @@ class AnimalController extends Controller
 
             $transaction->commit();
 
-            $this->echoJsonData(array('isSuccess'=>TRUE));
+            $this->echoJsonData(array('isSuccess'=>TRUE, 'percent'=>$percent));
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
