@@ -49,7 +49,7 @@ $signPackage = $jssdk->GetSignPackage();
       <div class="info_photo">
           <img src="http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $r['url']?>" alt="banner" class="active"/>
       </div>
-      <?php if($r['is_food']) {echo "<!--";?>
+      <?php if(!$r['is_food']) {echo "<!--";?>
 			<div class="details clearfix">
 	        	<ul class="about_food">
 	            	<li  class="received"><div>已收到</div></li>
@@ -111,7 +111,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="give_sc" id="give_sc">
             <h3>打赏成功～萌星<span><?php echo $r['name']?></span>感谢您的关爱</h3>
 		</div>
-    <?php if($r['is_food']) {echo "<!--";?>
+    <?php if(!$r['is_food']) {echo "<!--";?>
 		<div class="give_btn">
 			<div class="give_btn_bottom">
 				<div class="give_btn_con">
