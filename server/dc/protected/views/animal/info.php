@@ -6,6 +6,7 @@
 	<title>宠物主页</title>
 	<link rel="stylesheet" type="text/css" href="css/pet_index.css">
 	<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="js/pet_index.js"></script>
 </head>
 <body>
 	<div class="wraper comWidth">
@@ -13,7 +14,7 @@
 			<div class="hr_125"></div>
 			<div class="header clearfix">
 				<img src="css/images/bg_headimg.png" class="pi_head_wrap">
-				<img src="css/images/bt_follow.png" id="bt_fllow">
+				<img src="css/images/bt_follow.png" id="bt_follow"><!-- pet_raise_2.png -->
 				<img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" id="pi_head">
 				<img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_usr/<?php echo $r['u_tx']?>" id="owner_head">
 				<div class="owner">经纪人</div>
