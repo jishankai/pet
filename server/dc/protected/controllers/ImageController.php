@@ -373,7 +373,7 @@ class ImageController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $oauth2->get_code_by_authorize(serialize(array('img_id'=>$img_id, 'aid'=>$aid));
+                    $oauth2->get_code_by_authorize(serialize(array('img_id'=>$img_id, 'aid'=>$aid)));
                     exit;
                 }
                 break;
