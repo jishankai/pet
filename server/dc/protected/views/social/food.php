@@ -12,7 +12,7 @@ $signPackage = $jssdk->GetSignPackage();
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
 <link type="text/css" rel="stylesheet" href="css/alert.css"/>
-// <script>
+<script>
 //     var _hmt = _hmt || [];
 //     (function() {
 //       var hm = document.createElement("script");
@@ -20,7 +20,7 @@ $signPackage = $jssdk->GetSignPackage();
 //       var s = document.getElementsByTagName("script")[0]; 
 //       s.parentNode.insertBefore(hm, s);
 //   })();
-// </script>
+</script>
 
 </head>
 <body>

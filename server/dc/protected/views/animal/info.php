@@ -12,7 +12,7 @@ $signPackage = $jssdk->GetSignPackage();
 	<link rel="stylesheet" type="text/css" href="css/pet_index.css">
 	<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 	<script type="text/javascript" src="js/pet_index.js"></script>
-	// <script>
+	<script>
  //    var _hmt = _hmt || [];
  //    (function() {
  //      var hm = document.createElement("script");
@@ -20,7 +20,7 @@ $signPackage = $jssdk->GetSignPackage();
  //      var s = document.getElementsByTagName("script")[0]; 
  //      s.parentNode.insertBefore(hm, s);
  //  	})();
-	// </script>
+	</script>
 </head>
 <body>
 	<div class="wraper comWidth">
