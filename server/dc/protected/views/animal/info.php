@@ -156,7 +156,7 @@ $(window).on('load',function(){
 			oImg.src="<?php echo "http://".OSS_PREFIX."4upload.oss-cn-beijing.aliyuncs.com/".$image['url']?>";
 			oA.appendChild(oImg);
 	<?php }?>
-	if(<?php echo $percent!=-1?>) {
+	if(<?php echo $percent?>) {
 		follow2Open('<?php echo $r['name']?>', <?php echo $percent?>);
 	}
 
