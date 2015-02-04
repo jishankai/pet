@@ -321,13 +321,12 @@ class AnimalController extends Controller
         } 
 
         if (!isset($this->usr_id)) {
-            if ($to=='') {
-                if (isset($_SERVER['HTTP_USER_AGENT'])&&strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")) {
-                    $to = 'wechat';
-                } else {
-                    $to = 'weibo';
-                }
+            if (isset($_SERVER['HTTP_USER_AGENT'])&&strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")) {
+                $to = 'wechat';
+            } else {
+                $to = 'weibo';
             }
+
             switch ($to) {
             case 'wechat':
                 $oauth2 = Yii::app()->wechat;

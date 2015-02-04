@@ -8,7 +8,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 
 .comWidth{width:640px;height:100%;margin:0 auto;}
 .pi_top{
-	width: 100%;height: 590px;
+	width: 100%;height: 550px;
 	/*background-color: pink;*/
 	background:url(../css/images/pi_top.jpg)left top no-repeat;
 	background-size: 100% 100%;
@@ -146,7 +146,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 #f1_no_problem,#f2Btn{text-decoration: none;width: 140px;height: 40px;
 	background-color: #fc7b51;color: #fff;display: block;
 	margin: 0 auto;line-height: 40px;border-radius: 15px;}
-#follow_imgBox{width: 50px;height: 100px;z-index: 1001;position: fixed;left: 0;top:0;}
+#follow_imgBox{width: 50px;height: 90px;z-index: 10020;position: fixed;left: 0;top:0;}
 #follow_img{width: 100%;height: 100%;}
 
 
@@ -192,7 +192,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 }
 @media only screen and (min-width: 300px) and (max-width: 370px){
 	.hr_125{width:100%;height: 30px;}
-	.pi_top{height: 295px;}
+	.pi_top{height: 265px;}
 	.header{width: 225px;height: 104px;}
 	.pi_head_wrap{
 		width: 104px;height: 104px;
@@ -231,7 +231,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 }
 @media only screen and (min-width: 371px) and (max-width: 530px){
 	.hr_125{width:100%;height: 40px;}
-	.pi_top{height: 383.5px;}
+	.pi_top{height: 350px;}
 	.header{width: 292.5px;height: 135.2px;}
 	.pi_head_wrap{
 		width: 135.2px;height: 135.2px;
