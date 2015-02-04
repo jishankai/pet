@@ -965,7 +965,7 @@ class AnimalController extends Controller
         $this->echoJsonData(array($r));
     }
 
-    public function actionInfoShare($aid, $SID='', $percent=-1)
+    public function actionInfoShare($aid, $SID='', $percent=0)
     {
         if ($SID!='') {
             $session = Yii::app()->session;
