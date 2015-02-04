@@ -39,7 +39,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<div class="pet_info clearfix">
 				<div id="breed"><?php echo $a_type?></div>
 				<div id="vertical">|</div>
-				<div id="age"><?php echo $r['age']?>月</div>
+				<div id="age"><?php echo $r['age']?>个月</div>
 			</div>
 			<h3 id="signature"><?php echo $r['msg']?></h3>
 
