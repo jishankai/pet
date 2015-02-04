@@ -358,51 +358,56 @@ class AnimalController extends Controller
         }
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $user = User::model()->findByPk($this->usr_id);
-            
-            $circle = new Circle();
-            $circle->aid = $aid;
-            $circle->usr_id = $this->usr_id;
-            $circle->save();
+            $in_circle = Yii::app()->db->createCommand('SELECT aid FROM dc_circle WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(':aid'=>$aid, ':usr_id'=>$this->usr_id))->queryScalar();
+            if ($in_circle) {
+                $percent = 1;
+            } else {
+                $user = User::model()->findByPk($this->usr_id);
+                
+                $circle = new Circle();
+                $circle->aid = $aid;
+                $circle->usr_id = $this->usr_id;
+                $circle->save();
 
-            $f = Follow::model()->findByPk(array(
-                'usr_id' => $this->usr_id,
-                'aid' => $aid,
-            ));
-            if (!isset($f)) {
-                $f = new Follow;
-                $f->usr_id = $this->usr_id;
-                $f->aid = $aid;
-                $f->create_time = time();
-                $f->save();
+                $f = Follow::model()->findByPk(array(
+                    'usr_id' => $this->usr_id,
+                    'aid' => $aid,
+                    ));
+                if (!isset($f)) {
+                    $f = new Follow;
+                    $f->usr_id = $this->usr_id;
+                    $f->aid = $aid;
+                    $f->create_time = time();
+                    $f->save();
+                }
+                $news = new News;
+                $news->aid = $aid;
+                $news->type = 2;
+                $news->create_time = time();
+                $news->content = serialize(array(
+                    'usr_id'=>$user->usr_id,
+                    'u_name'=>$user->name,
+                    ));
+                $news->save();
+
+                $max_users = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal')->queryScalar();
+                $t_rq = Yii::app()->db->createCommand('SELECT t_rq FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
+                $rank = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal WHERE t_rq<=:t_rq')->bindValue(':t_rq', $t_rq)->queryScalar();
+                $percent = floor($rank*100/$max_users);
+
+                $a = Animal::model()->findByPk($aid);
+                Talk::model()->sendMsg(NPC_SYSTEM_USRID, $a->master_id, "路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～");
+                $easemob = Yii::app()->easemob;
+                $easemob->sendToUsers($a->master_id, NPC_SYSTEM_USRID, array(
+                    'mixed'=>TRUE,
+                    'msg'=>"路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～",
+                    'ext'=>array(
+                        'nickname'=>'事务官',
+                        ),
+                    ));
+
+                $transaction->commit();
             }
-            $news = new News;
-            $news->aid = $aid;
-            $news->type = 2;
-            $news->create_time = time();
-            $news->content = serialize(array(
-                'usr_id'=>$user->usr_id,
-                'u_name'=>$user->name,
-            ));
-            $news->save();
-
-            $max_users = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal')->queryScalar();
-            $t_rq = Yii::app()->db->createCommand('SELECT t_rq FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
-            $rank = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal WHERE t_rq<=:t_rq')->bindValue(':t_rq', $t_rq)->queryScalar();
-            $percent = floor($rank*100/$max_users);
-
-            $a = Animal::model()->findByPk($aid);
-            Talk::model()->sendMsg(NPC_SYSTEM_USRID, $a->master_id, "路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～");
-            $easemob = Yii::app()->easemob;
-            $easemob->sendToUsers($a->master_id, NPC_SYSTEM_USRID, array(
-                'mixed'=>TRUE,
-                'msg'=>"路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～",
-                'ext'=>array(
-                    'nickname'=>'事务官',
-                ),
-            ));
-
-            $transaction->commit();
 
             $this->redirect(array('animal/infoShare', 'aid'=>$aid, 'SID'=>$SID, 'percent'=>$percent));
         } catch (Exception $e) {

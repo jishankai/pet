@@ -348,7 +348,8 @@ ul{list-style: none;}
 .black{height: 2px;background-color:#DCDCDC;width: 90%;margin: 4px auto;}
 .come_from h3{
 	color: #909090;
-	height: 90px;
+	height: 90px;width:88%;
+	margin: 0 auto;
 	font-size: 26px;
 	margin-top:12px;
 	text-align: center;
@@ -500,7 +501,7 @@ ul{list-style: none;}
 }
 .black{height: 1px;margin: 2px auto;}
 .come_from h3{
-	height: 45px;
+	height: 45px;width: 88%;
 	font-size: 13px;
 	margin-top:6px;
 }
@@ -597,7 +598,7 @@ ul{list-style: none;}
 
 .come_from h3{
 
-	height: 72px;
+	height: 72px;width: 88%;
 	font-size: 20px;
 	margin-top:9px;
 }
