@@ -391,7 +391,7 @@ class AnimalController extends Controller
                 $max_users = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal')->queryScalar();
                 $t_rq = Yii::app()->db->createCommand('SELECT t_rq FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
                 $rank = Yii::app()->db->createCommand('SELECT COUNT(aid) FROM dc_animal WHERE t_rq<=:t_rq')->bindValue(':t_rq', $t_rq)->queryScalar();
-                $percent = floor($rank*100/$max_users);
+                $percent = ceil($rank*100/$max_users);
 
                 $a = Animal::model()->findByPk($aid);
                 Talk::model()->sendMsg(NPC_SYSTEM_USRID, $a->master_id, "路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～");
