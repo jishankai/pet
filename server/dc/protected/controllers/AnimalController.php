@@ -406,7 +406,7 @@ class AnimalController extends Controller
 
                 $transaction->commit();
             } else {
-                $percent = 0
+                $percent = 0;
             }
 
             $this->redirect(array('animal/infoShare', 'aid'=>$aid, 'SID'=>$SID, 'percent'=>$percent));
