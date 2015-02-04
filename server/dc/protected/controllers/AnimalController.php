@@ -359,11 +359,9 @@ class AnimalController extends Controller
         $transaction = Yii::app()->db->beginTransaction();
         try {
             $in_circle = Yii::app()->db->createCommand('SELECT aid FROM dc_circle WHERE aid=:aid AND usr_id=:usr_id')->bindValues(array(':aid'=>$aid, ':usr_id'=>$this->usr_id))->queryScalar();
-            if ($in_circle) {
-                $percent = 1;
-            } else {
+            if (!$in_circle) {
                 $user = User::model()->findByPk($this->usr_id);
-                
+
                 $circle = new Circle();
                 $circle->aid = $aid;
                 $circle->usr_id = $this->usr_id;

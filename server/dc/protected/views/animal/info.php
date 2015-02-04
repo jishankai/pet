@@ -28,7 +28,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<div class="hr_125"></div>
 			<div class="header clearfix">
 				<img src="css/images/bg_headimg.png" class="pi_head_wrap">
-				<img src="css/images/<?php echo $is_circle?"pet_raise_2.png":"bt_follow.png"?>" id="bt_follow"><!-- pet_raise_2.png -->
+				<img src="css/images/<?php echo $in_circle?"pet_raise_2.png":"bt_follow.png"?>" id="bt_follow"><!-- pet_raise_2.png -->
 				<img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" id="pi_head">
 				<img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_usr/<?php echo $r['u_tx']?>" id="owner_head">
 				<div class="owner">经纪人</div>
