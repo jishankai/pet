@@ -49,15 +49,15 @@ $signPackage = $jssdk->GetSignPackage();
       <div class="info_photo">
           <img src="http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $r['url']?>" alt="banner" class="active"/>
       </div>
-      <?php if($r['is_food']==0) {echo "<!--";?>
-			<div class="details clearfix">
-	        	<ul class="about_food">
-	            	<li  class="received"><div>已收到</div></li>
-                    <li ><div class="food_num" id="food_num"><?php echo $r['food']?></div></li>
-	                <li ><div class="time_img" id="time_img"></div></li>
-	            </ul>
-        	</div>
-          <?php echo "-->";}?>
+      <?php if($r['is_food']) {
+			echo '<div class="details clearfix">';
+	        	echo '<ul class="about_food">';
+	            	echo '<li  class="received"><div>已收到</div></li>';
+                    echo '<li ><div class="food_num" id="food_num">'.$r['food'].'</div></li>';
+	                echo '<li ><div class="time_img" id="time_img"></div></li>';
+	            echo '</ul>';
+        	echo '</div>';
+          }?>
         	<div class="black">
         	</div>
         	<div class="come_from">
@@ -111,21 +111,21 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="give_sc" id="give_sc">
             <h3>打赏成功～萌星<span><?php echo $r['name']?></span>感谢您的关爱</h3>
 		</div>
-    <?php if($r['is_food']==0) {echo "<!--";?>
-		<div class="give_btn">
-			<div class="give_btn_bottom">
-				<div class="give_btn_con">
-					<div class="give_left" >
-						<h3 id="g_num">1</h3>
-					</div>
-					<div class="give_m"></div>
-					<div class="give_right">
-						<img src="css/images/reword_btn.gif" id="reward"/>
-					</div>
-				</div>
-			</div>
-		</div>
-    <?php echo "-->";}?>
+    <?php if($r['is_food']) {
+		echo '<div class="give_btn">';
+			echo '<div class="give_btn_bottom">';
+				echo '<div class="give_btn_con">';
+					echo '<div class="give_left" >';
+						echo '<h3 id="g_num">1</h3>';
+					echo '</div>';
+					echo '<div class="give_m"></div>';
+					echo '<div class="give_right">';
+						echo '<img src="css/images/reword_btn.gif" id="reward"/>';
+					echo '</div>';
+				echo '</div>';
+			echo '</div>';
+		echo '</div>';
+    }?>
 		<!-- <div class="load">
 			
 			<div class="load_left">
