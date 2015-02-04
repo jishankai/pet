@@ -976,7 +976,7 @@ class AnimalController extends Controller
             $is_circle = 0;
         }
         $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.master_id, a.t_rq, a.msg, u.name AS u_name, u.tx AS u_tx, c.rank AS u_rank, (SELECT COUNT(nid) FROM dc_news n WHERE n.aid=a.aid) AS news, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans, (SELECT COUNT(i.img_id) FROM dc_image i WHERE i.aid=a.aid) AS images, a.total_food, (SELECT COUNT(*) FROM dc_follow f WHERE f.aid=a.aid) AS followers FROM dc_animal a JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN dc_circle c ON a.aid=c.aid AND a.master_id=c.usr_id WHERE a.aid=:aid')->bindValue(':aid', $aid)->queryRow();
-        $images = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid')->bindValue(':aid', $aid)->queryAll();
+        $images = Yii::app()->db->createCommand('SELECT img_id, url FROM dc_image WHERE aid=:aid ORDER BY create_time DESC')->bindValue(':aid', $aid)->queryAll();
         $pet_type = Util::loadConfig('pet_type');
         $n = floor($r['type']/100);
         if (isset($pet_type[$n][$r['type']])) {
