@@ -430,8 +430,8 @@ class ImageController extends Controller
                         $circle->saveAttributes(array('t_contri','m_contri','w_contri','d_contri'));
                     }
                 } else {
-                    $animal->food+=$n*rand(1,20);
-                    $animal->total_food+=$n*rand(1,20);
+                    $animal->food+=$n;
+                    $animal->total_food+=$n;
                 }
                 $animal->saveAttributes(array('food','total_food'));
 

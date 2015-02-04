@@ -359,20 +359,8 @@ class AnimalController extends Controller
         }
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $n = $this->countCircle($this->usr_id);
             $user = User::model()->findByPk($this->usr_id);
-            if ($n>10) {
-                if ($n<=20) {
-                    $g = $n*5;
-                } else {
-                    $g = 100;
-                }
-                if ($user->gold<$n) {
-                    throw new PException('亲，您的金币不足');
-                }
-                $user->gold-=$g;
-                $user->saveAttributes(array('gold'));
-            }
+            
             $circle = new Circle();
             $circle->aid = $aid;
             $circle->usr_id = $this->usr_id;
@@ -417,7 +405,7 @@ class AnimalController extends Controller
 
             $transaction->commit();
 
-            $this->echoJsonData(array('isSuccess'=>TRUE, 'percent'=>$percent));
+            $this->redirect(array('animal/infoShare', 'aid'=>$aid, 'SID'=>$SID, 'percent'=>$percent));
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
@@ -977,7 +965,7 @@ class AnimalController extends Controller
         $this->echoJsonData(array($r));
     }
 
-    public function actionInfoShare($aid, $SID='')
+    public function actionInfoShare($aid, $SID='', $percent=-1)
     {
         if ($SID!='') {
             $session = Yii::app()->session;
@@ -1008,6 +996,6 @@ class AnimalController extends Controller
                     break;
             }
         }
-        $this->renderPartial('info', array('r'=>$r, 'is_circle'=>$is_circle, 'a_type'=>$a_type, 'images'=>$images));
+        $this->renderPartial('info', array('r'=>$r, 'is_circle'=>$is_circle, 'a_type'=>$a_type, 'images'=>$images, 'percent'=>$percent, 'SID'=>$SID));
     }
 }
