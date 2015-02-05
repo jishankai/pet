@@ -24,9 +24,9 @@
 </script>
 <body>
 <div class="comWidth">
-    <div class="pay_title">
+    <!-- <div class="pay_title">
         <h3>充值</h3>
-    </div>
+    </div> -->
     <div class="gold">
         <ul class="money_list" id="money_list">
             <li id="1"><div class="num">100</div><div class="money">￥1</div></li>   
