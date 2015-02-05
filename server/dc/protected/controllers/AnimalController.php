@@ -84,7 +84,7 @@ class AnimalController extends Controller
 
     public function actionInfoApi($aid)
     {
-        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.master_id, a.t_rq, a.msg, u.name AS u_name, u.tx AS u_tx, c.rank AS u_rank, t.tb_url, t.tb_version, (SELECT COUNT(nid) FROM dc_news n WHERE n.aid=a.aid) AS news, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans, (SELECT COUNT(i.img_id) FROM dc_image i WHERE i.aid=a.aid) AS images, a.total_food, (SELECT COUNT(*) FROM dc_follow f WHERE f.aid=a.aid) AS followers FROM dc_animal a JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN dc_circle c ON a.aid=c.aid AND a.master_id=c.usr_id LEFT JOIN tb_res t ON t.aid=a.aid WHERE a.aid=:aid')->bindValue(':aid', $aid)->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.gender, a.from, a.type, a.age, a.master_id, a.t_rq, a.msg, u.name AS u_name, u.tx AS u_tx, c.rank AS u_rank, t.tb_url, t.tb_version=1 AS tb_version, (SELECT COUNT(nid) FROM dc_news n WHERE n.aid=a.aid) AS news, (SELECT COUNT(*) FROM dc_circle c WHERE c.aid=a.aid) AS fans, (SELECT COUNT(i.img_id) FROM dc_image i WHERE i.aid=a.aid) AS images, a.total_food, (SELECT COUNT(*) FROM dc_follow f WHERE f.aid=a.aid) AS followers FROM dc_animal a JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN dc_circle c ON a.aid=c.aid AND a.master_id=c.usr_id LEFT JOIN tb_res t ON t.aid=a.aid WHERE a.aid=:aid')->bindValue(':aid', $aid)->queryRow();
 
         if ($r['tb_url']==NULL) {
             $r['tb_url'] = '';
@@ -916,7 +916,7 @@ class AnimalController extends Controller
 
     public function actionMineApi()
     {
-        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.msg, a.t_rq, a.master_id, u.name AS u_name, u.tx AS u_tx, c.rank, c.t_contri, t.tb_url, t.tb_version FROM dc_circle c INNER JOIN dc_animal a ON c.aid=a.aid INNER JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN tb_res t ON a.aid=t.aid WHERE c.usr_id=:usr_id ORDER BY c.t_contri DESC')->bindValue(':usr_id', $this->usr_id)->queryAll();
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, a.msg, a.t_rq, a.master_id, u.name AS u_name, u.tx AS u_tx, c.rank, c.t_contri, t.tb_url, t.tb_version=1 AS tb_version FROM dc_circle c INNER JOIN dc_animal a ON c.aid=a.aid INNER JOIN dc_user u ON a.master_id=u.usr_id LEFT JOIN tb_res t ON a.aid=t.aid WHERE c.usr_id=:usr_id ORDER BY c.t_contri DESC')->bindValue(':usr_id', $this->usr_id)->queryAll();
         $code = Yii::app()->db->createCommand('SELECT code FROM dc_user WHERE usr_id=:usr_id')->bindValue(':usr_id', $this->usr_id)->queryScalar();
 
         $session = Yii::app()->session;
