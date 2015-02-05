@@ -32,13 +32,12 @@
             <li id="1"><div class="num">100</div><div class="money">￥1</div></li>   
             <li id="5"><div class="num">500</div><div class="money">￥5</div></li>
             <li id="10"><div class="num">1050</div><div class="money">￥10</div></li>
-             <div class="hr_3"></div>
             <li id="100"><div class="num">11000</div><div class="money">￥100</div></li>
         </ul>
     </div>
-    <div class="pay_select">
+    <!-- <div class="pay_select">
         <h3>选择支付方式</h3>
-    </div>
+    </div> -->
     
     <div class="share">
         <img src="css/images/pay.jpg" id="z_f_b">
@@ -90,7 +89,8 @@
     <script>
 
         $(function(){
-
+            $("#rmb").val("1");
+            $("#1").addClass("color").siblings().removeClass();
             $("#money_list li").click(function(){
                 $(this).addClass("color").siblings().removeClass();
                  $("#rmb").val($(this).attr("id"));

@@ -10,7 +10,7 @@ body{background-color: #ffffff;}
 	line-height:100%;
 	text-align:center;
 	font-size:36px;
-	background:url(../css/images/h_left_icon.jpg)24px 4px no-repeat;
+	/*background:url(../css/images/h_left_icon.jpg)24px 4px no-repeat;*/
 
 }
 .gold{
@@ -81,8 +81,8 @@ body{background-color: #ffffff;}
 .pay_title h3{
 
 	font-size:18px;
-	background:url(../css/images/h_left_icon.jpg)12px 2px no-repeat;
-	background-size: 9px 15.5px;
+	/*background:url(../css/images/h_left_icon.jpg)12px 2px no-repeat;
+	background-size: 9px 15.5px;*/
 
 }
 .gold{
@@ -120,7 +120,6 @@ body{background-color: #ffffff;}
 .new-btn-login{
 	height: 54.5px;
 	margin-bottom: 20px;
-	background-size: 301.5px 54.5px;
 }
 
 }
