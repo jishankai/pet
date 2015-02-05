@@ -239,6 +239,9 @@ $("#reward").click(function(){
     var aid =<?php echo $aid ?>;
     var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
     location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
+  } else {
+     var btn=$(".give_btn");
+         btn.attr("display","none");
   }
         	/*alert(data);*/
         //     var b=parseInt($(".food_num").html());
@@ -300,9 +303,9 @@ $("#reward").click(function(){
     // 在这里调用 API
     var shareData = {
         title: "轻轻一点，免费赏粮！<?php echo $r['name']?>的口粮就靠你啦~",
-        desc: "努力卖萌，只为自己代粮！快把你每天的免费粮食赏给我~",
+        desc: '<?php echo $r["cmt"]!=""?$r["cmt"]:"努力卖萌，只为自己代粮！快把你每天的免费粮食赏给我~"?>',
         link: "http://"+window.location.host+"/index.php?r=social/foodShareApi&img_id=<?php echo $img_id?>", 
-        imgUrl: "http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>"
+        imgUrl: "http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $r['url']?>"
     };
     wx.onMenuShareAppMessage(shareData);
     wx.onMenuShareTimeline(shareData);
