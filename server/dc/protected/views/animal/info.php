@@ -45,16 +45,16 @@ $signPackage = $jssdk->GetSignPackage();
 
 			<ul class="tab clearfix">
 				<li>
-					<h3 id="dynamic_num"><?php echo $r['news']?></h3>
-					<p id="dynamic">动态</p>
-				</li>
-				<li class="middle">
-					<h3 id="fans_num"><?php echo $r['fans']?></h3>
-					<p id="fans">粉丝</p>
+					<img src="css/images/pet_icon1.png">
 				</li>
 				<li>
-					<h3 id="photo_num"><?php echo $r['images']?></h3>
-					<p id="photo">照片</p>
+					<img src="css/images/pet_icon2.png">
+				</li>
+				<li>
+					<img src="css/images/pet_icon3.png">
+				</li>
+				<li>
+					<img src="css/images/pet_icon4.png">
 				</li>
 			</ul>
 		</div>
