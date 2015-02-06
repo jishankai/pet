@@ -77,5 +77,10 @@ class SocialController extends Controller
         $this->renderPartial('activity_view_'.$aid, array('aid'=>$aid, 'users'=>$users, 'alert_flag'=>$alert_flag, 'food'=>$food, 'sid'=>$SID));
     }
 
+    public function actionRation($aid, $SID='')
+    {
+        $this->renderPartial('ration');
+    }
+
 }
 
