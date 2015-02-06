@@ -42,7 +42,7 @@ $(window).on('load',function(){
        <?php }?>
  /*$.getJSON('http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json&jsoncallback=?', function(data){*/
 	   <?php foreach ($r as $k => $v) { ?>
-       if(<?php echo (time()-$v['create_time'])<3600*24?>){
+       if(<?php echo !$k?>){
          	$("#head1").attr('src','<?php echo "http://".OSS_PREFIX."4upload.oss-cn-beijing.aliyuncs.com/".$v['url']?>');
          	$("#food1").html('<?php echo $v['food']?>');
          	$("#con1").html('<?php echo $v['cmt']?>');
