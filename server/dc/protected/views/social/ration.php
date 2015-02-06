@@ -55,7 +55,7 @@ $(window).on('load',function(){
            	var conBox=$('<div>').addClass('conBox').appendTo($(box));
            	var tit=$('<h3>').addClass('tit').appendTo($(conBox));
            	var span1=$('<span>').html("已挣得口粮： ").appendTo($(tit));
-           	var span2=$('<span>').html('<?php echo $v['food']?>').attr('food')).appendTo($(tit));
+           	var span2=$('<span>').html('<?php echo $v['food']?>').attr('food').appendTo($(tit));
            	var span2=$('<span>').html(" 份").appendTo($(tit));
            	var con=$('<p>').addClass('con').html('<?php echo $v['cmt']?>').appendTo($(conBox));
            	var time=$('<p>').addClass('time').html('<?php echo $v['create_time']?>').appendTo($(conBox));
