@@ -79,7 +79,11 @@ class SocialController extends Controller
 
     public function actionRation($aid, $SID='')
     {
-        $this->renderPartial('ration');
+        $r = Yii::app()->db->createCommand('SELECT img_id, url, cmt, food, create_time FROM dc_image WHERE aid=:aid AND is_food=1 ORDER BY create_time DESC')->bindValues(array(
+            ':aid'=>$aid,
+        ))->queryAll();
+
+        $this->renderPartial('ration', array('r'=>$r, 'SID'=>$SID));
     }
 
 }
