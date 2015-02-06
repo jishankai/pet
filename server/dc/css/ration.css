@@ -1,0 +1,118 @@
+*{margin: 0;padding:0;}
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+ul{list-style: none;}
+body{font-family: "Microsoft YaHei";}
+h1,h2,h3,h4,h5,h6{font-weight: normal;}
+.comWidth{width: 640px;height:100%;margin: 0 auto;}
+body{background-color: #ffffff;}
+.hr{width: 100%;height: 20px;}
+
+/*按钮*/
+.give_btn_bottom{
+	height: 112px;
+	width: 100%;
+
+	background:url("images/btn_23.png")center center no-repeat;
+}
+.give_left{
+	width: 40%;height: 100%;
+	float: left;
+}
+.give_left h3{
+	text-align:left;text-indent:55%;
+	font-size: 33px;
+	color: #fff;
+	margin-top: 34px;
+}
+.give_right{
+	width: 132px;
+	float: right;
+	padding-right: 60px;
+	text-align: center;
+}
+.give_right img{
+	height: 115px;
+}
+
+.box1{
+	width: 90%;height:auto;
+	/*border-top: 2px solid #cccccc;*/
+	padding:5% 5% 3% 5%;
+}
+.box{
+	width: 90%;height:auto;
+	border-top: 2px solid #cccccc;
+	padding:3%  5%;
+}
+.imgBox{float: left;width: 30%;margin-top: 8px;}
+.imgBox img{width: 100%;}
+.conBox{float: left;width: 65%;padding-left: 5%;}
+.tit{color: #ff9270;font-size: 24px;line-height: 40px;}
+	/*-webkit-text-stroke:1px #f00;text-stroke:1px #f00;}*/
+.con{font-size: 18px;color: #68676c;line-height: 31px;height: 100px;overflow: hidden;}
+.time{font-size: 16px;color: #68676c;text-align: right;
+	padding-top: 5%;padding-right: 5%;}
+
+@media only screen and (min-width: 300px) and (max-width: 650px){
+	.comWidth{width: 100%;height:100%;margin: 0 auto;}
+	.hr{width: 100%;height: 10px;}
+	
+	/*画按钮*/
+	.give_btn_bottom{
+		height: 60px;
+		width: 100%;
+
+		background:url("images/btn_23.png")center center no-repeat;
+		background-size: 90% 100%;
+	}
+	.give_left{
+		width: 40%;height: 100%;
+		float: left;
+	}
+	.give_left h3{
+		text-align:left;text-indent:55%;
+		font-size: 18px;
+		color: #fff;
+		margin-top: 18px;
+	}
+	.give_right{
+		width: 76px;height: 65px;
+		float: right;
+		padding-right: 5%;
+		text-align: center;
+	}
+	.give_right img{width: 100%;height: 100%;}
+
+	.conBox{float: left;width: 65%;padding-left: 5%;}
+	.tit{color: #ff9270;font-size: 18px;line-height: 30px;}
+	.con{font-size: 12px;color: #68676c;line-height: 18px;height: 50px;}
+	.time{font-size: 10px;color: #68676c;text-align: right;
+		padding-top: 3%;padding-right: 5%;}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
