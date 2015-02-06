@@ -45,7 +45,7 @@ $signPackage = $jssdk->GetSignPackage();
 
 			<ul class="tab clearfix">
 				<li>
-					<img src="css/images/pet_icon1.png">
+					<a href='<?php echo $this->createUrl('social/ration',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon1.png"></a>
 				</li>
 				<li>
 					<img src="css/images/pet_icon2.png">
