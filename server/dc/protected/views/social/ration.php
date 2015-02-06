@@ -61,7 +61,6 @@ $(window).on('load',function(){
            	var time=$('<p>').addClass('time').html('<?php echo $v['create_time']?>').appendTo($(conBox));
 
           	}
-        }
        <?php }?>
      /*})*/
  })
