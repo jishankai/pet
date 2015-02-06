@@ -8,7 +8,7 @@
 	</head>
 <body>
 
-<div class="comWidth">
+<div class="comWidth" id="comWidth">
 	<div class="box1 clearfix">
 		<div class="imgBox"><img src="" id="head1"></div>
 		<div class="conBox">
@@ -37,9 +37,10 @@
 <script type="text/javascript">
 
 $(window).on('load',function(){
-
+       <?php if (count($r)!=0) {?>
+           $('#comWidth').attr('display', 'none');
+       <?php }?>
  /*$.getJSON('http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json&jsoncallback=?', function(data){*/
-	for(var i=0;i<dataInt.head.length;i++){
 	   <?php foreach ($r as $k => $v) { ?>
        if(<?php echo (time()-$v['create_time'])<3600*24?>){
          	$("#head1").attr('src','<?php echo "http://".OSS_PREFIX."4upload.oss-cn-beijing.aliyuncs.com/".$v['url']?>');
