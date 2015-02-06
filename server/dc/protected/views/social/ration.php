@@ -37,7 +37,7 @@
 <script type="text/javascript">
 
 $(window).on('load',function(){
-       <?php if (count($r)!=0) {?>
+       <?php if (count($r)==0) {?>
            $('#comWidth').attr('display', 'none');
        <?php }?>
  /*$.getJSON('http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json&jsoncallback=?', function(data){*/
