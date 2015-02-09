@@ -55,7 +55,7 @@ $(window).on('load',function(){
                 var c=parseInt($("#g_num").html());
                 var n=c;
                 var img_id = <?php echo $v['img_id'] ?>;
-                var aid =<?php echo $v['aid'] ?>;
+                var aid =<?php echo $aid ?>;
                 var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
                 location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
                 } else {
