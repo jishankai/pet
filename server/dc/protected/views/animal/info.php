@@ -54,7 +54,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<img src="css/images/pet_icon3.png">
 				</li>
 				<li>
-					<img src="css/images/pet_icon4.png">
+					<a href='<?php echo $this->createUrl('social/touch',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon4.png"></a>
 				</li>
 			</ul>
 		</div>
