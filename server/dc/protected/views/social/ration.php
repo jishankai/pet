@@ -5,6 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>口粮页</title>
         <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+        <script type="text/javascript" src="js/jquery.md5.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/ration.css">
 	</head>
 <body>
@@ -47,6 +48,21 @@ $(window).on('load',function(){
          	$("#food1").html('<?php echo $v['food']?>');
          	$("#con1").html('<?php echo $v['cmt']?>');
          	$("#time1").html('<?php echo $v['create_time']?>');
+
+            $("#reward").click(function(){
+              if ($("#time")[0].innerHTML!="已结束") {
+                var b=parseInt($(".food_num").html());
+                var c=parseInt($("#g_num").html());
+                var n=c;
+                var img_id = <?php echo $v['img_id'] ?>;
+                var aid =<?php echo $v['aid'] ?>;
+                var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
+                location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
+                } else {
+                var btn=$(".give_btn");
+                btn.attr("display","none");
+                }
+            });
          }  else{ 
 
             var box=$('<div>').addClass('box').addClass('clearfix').appendTo($('.comWidth'));
@@ -65,20 +81,5 @@ $(window).on('load',function(){
      /*})*/
  })
 
-$("#reward").click(function(){
-  if ($("#time")[0].innerHTML!="已结束") {
-    var b=parseInt($(".food_num").html());
-    var c=parseInt($("#g_num").html());
-    var n=c;
-    var img_id = <?php echo $img_id ?>;
-    var to = <?php echo "'".$to."'" ?>;
-    var aid =<?php echo $aid ?>;
-    var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
-    location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
-  } else {
-     var btn=$(".give_btn");
-         btn.attr("display","none");
-  }
-});
 </script>
 </html>

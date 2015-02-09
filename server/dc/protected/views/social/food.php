@@ -25,13 +25,14 @@ $signPackage = $jssdk->GetSignPackage();
 </head>
 <body>
 <div class="comWidth">
-	<div class="food_title">
-    <!-- <h3>宠物星球<i>-我为自己代粮</i></h3> -->
-    <h3>请在浏览器中打开</h3>
-  </div>
-  <div class="logo">
-    <!-- <img src="css/images/r_logo.png" alt=""/> -->
-    <a href="http://home4pet.aidigame.com"><img src="css/images/load.jpg" alt=""/></a>
+	<div class="titBox clearfix">
+    <div class="food_title left">
+      <h3>宠物星球免费下载</h3>
+    </div>
+    <div class="logo left">
+      <a href='https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?'><img src="css/images/apple.png" alt=""/></a>
+      <a href='http://fusion.qq.com/cgi-bin/qzapps/unified_jump?appid=11322209&from=singlemessage&isTimeline=false&actionFlag=0&params=pname%3Dcom.aidigame.hisun.pet%26versioncode%3D27%26channelid%3D%26actionflag%3D0&isappinstalled=1'><img src="css/images/android.png" alt=""/></a>
+    </div>
   </div>
 	<div class="food_body">
 		<div class="info">
