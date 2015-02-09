@@ -57,7 +57,7 @@ $(window).on('load',function(){
                 var img_id = <?php echo $v['img_id'] ?>;
                 var aid =<?php echo $aid ?>;
                 var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
-                location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
+                location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;
                 } else {
                 var btn=$(".give_btn");
                 btn.attr("display","none");
