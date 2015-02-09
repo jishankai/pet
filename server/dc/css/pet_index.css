@@ -281,7 +281,7 @@ h1,h2,h3,h4,h5,h6{font-weight: normal;}
 
 /*捧弹框1*/
 .mask{background:#000;
-		opacity:0.75;filter:alpha(opacity=75);
+		opacity:0.85;filter:alpha(opacity=85);
 		position:absolute;left:0;top:0;
 		z-index:1000;}
 .close{

@@ -8,7 +8,7 @@
 <script src="js/jquery-1.11.1.js" type="text/javascript"></script>
 <style type="text/css">
     li{width:100px;height:20px;}
-    li.color{color:red;background:#eee;}
+    li.color{background-color: #F97954;color: #FFFFFF;}
     .P1,.P11,.P2,.P22,.P3,.P33,.P4,.P44{display: none;}
    
 </style>
