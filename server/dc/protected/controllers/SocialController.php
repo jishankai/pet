@@ -86,5 +86,10 @@ class SocialController extends Controller
         $this->renderPartial('ration', array('r'=>$r, 'SID'=>$SID));
     }
 
+    public function actionTouch($aid, $SID='')
+    {
+        $this->renderPartial('touch');
+    }
+
 }
 

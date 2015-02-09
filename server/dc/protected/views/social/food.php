@@ -35,7 +35,7 @@ $signPackage = $jssdk->GetSignPackage();
   </div>
 	<div class="food_body">
 		<div class="info">
-        <a href="<?php echo $this->createUrl('animal/infoShare', array('aid'=>$r['aid'], 'SID'=>$sid))?>"><img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" alt="" class="ph_m"/>
+        <a href="<?php echo $this->createUrl('animal/infoShare', array('aid'=>$r['aid'], 'SID'=>$sid))?>"><img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" alt="" class="ph_m"/></a>
 			<div class="info_tit">
             <h3><?php echo $r['name']?></h3>
 				<img src="css/images/man_icon.jpg">

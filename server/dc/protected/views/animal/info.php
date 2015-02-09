@@ -235,6 +235,13 @@ function follow2Open(a,b){
 	//可视区域的高度
 	var wHeight=document.documentElement.clientHeight;
 
+	var fMask2 = document.createElement("div");
+		fMask2.id="fMask2";
+		fMask2.className="mask";
+		fMask2.style.height = sHeight + "px";
+		fMask2.style.width = sWidth + "px";
+		document.body.appendChild(fMask2);
+
 	var follow2 = document.createElement("div");
 		follow2.id = "follow2";
 		follow2.className = "follow2";
@@ -275,7 +282,7 @@ function follow2Open(a,b){
 		f2Close.onclick=function(){
 
 						document.body.removeChild(follow2);					    
-						document.body.removeChild(fMask);
+						document.body.removeChild(fMask2);
 					}
 }
 

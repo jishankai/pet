@@ -1,0 +1,156 @@
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+*{
+	  /*-webkit-touch-callout: none; 
+	  -webkit-text-size-adjust: none;
+	  -webkit-tap-highlight-color: rgba(0,0,0,0);
+	  -webkit-user-select: none; */
+	  margin: 0;padding:0;
+}
+ul{list-style: none;}
+.comWidth{width: 640px;height: 100%;margin: 0 auto;color:#768290;}
+.wraper{background: url(../css/images/shake_background.jpg)left top no-repeat;
+	background-size: 100% 100%;}
+.head{width: 100%;height: 50px;
+	padding: 20px 0;/*background: pink;*/}
+.head .img{width: 50px;height: 50px;
+	border-radius: 50%;float: left;
+	margin-left: 15%;border: 5px #fc7b51 solid;}
+.img img{width: 100%;height: 100%;border-radius: 50%;} 
+.head div{height: 50px;line-height: 50px;width: 100px;
+	float: left;margin-left:10px;}
+.head span{color:#fc7b51;}
+.box{width: 100%;height: 450px;
+	}
+.container{height:300px;max-width: 70%;
+	position: relative;text-align: center;margin: 0 auto;
+	border:5px solid #fca283;border-radius: 4px;}
+.no_choice{height: 100%;display: none;}
+
+#robot {
+	width: 100%;height: 100%;
+	position: absolute;
+	top:0px;left: 0px;
+	z-index: 1;	
+
+}
+
+.container #redux {
+	width:100%;height: 100%;
+	position: absolute;
+	top:0px;left: 0px;
+	
+	z-index: 2;
+	/*毛玻璃效果*/
+	filter: url(blur.svg#blur);
+
+    -webkit-filter: blur(5px); 
+       -moz-filter: blur(5px);
+        -ms-filter: blur(5px);    
+            filter: blur(5px);    
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=5, MakeShadow=false); 
+}
+
+.text{text-align: center;padding-bottom: 50px;font-size: 20px;}
+.happy{text-align: center;font-size: 20px;
+	margin-top: -120px;margin-bottom: 20px;
+	display: none;}
+.happy span{color:#fc7b51;font-size: 26px;}
+.popularity{text-align: center;font-size: 20px;
+	display: none;padding-bottom: 50px;}
+.e_btn{margin: 0 auto;width: 200px;height: 60px;
+	text-align: center;margin-bottom: 200px;}
+#e_btn{display: block;
+	background: url(../css/images/e_btn.png)left top no-repeat;
+	width: 100%;height: 100%;line-height: 54px;
+	background-size: 100% 100%;
+	font-size: 20px;color: white;
+	text-decoration: none;
+	}
+.shareList{width: 80%;height: auto;margin: 0 auto;
+	padding-bottom: 20px;color: #000;display: none;}
+.shareList li{float: left;width: 33.3333%;text-align: center;}
+.shareList img{margin: 0 auto;}
+.prompt{width: 100%;height: 65px;text-align: center;line-height: 65px;
+	background-color: #d1b0b7;color: #fff;font-size: 20px;
+	display: none;}
+
+/*下载*/
+
+.load{
+	height: 98px;width: 640px;margin: 0 auto;
+	background-color: #ffffff;	
+}
+.load .load_left{float: left; width: 50%; height: 100%;}
+.logo_icon{
+	float: left;width: 40%;margin-top: 10px;
+	text-indent: 10%;
+}
+.load_info{float: right; width: 60%; margin-top: 4px;}
+.load_left h3{line-height:49px; font-size: 25px;}
+.load_left p{height:49px; font-size:25px; color: #777676;}
+.load .load_right{float: left; width: 50%; height: 100%; text-align: right;}
+.float{position: fixed;bottom: 0;left:center; width: 640px;}
+
+@media only screen and (min-width: 300px) and (max-width: 650px){
+
+	.comWidth{width:100%;height:100%;margin:0 auto;}
+
+	/*下载*/
+	.load{height: 59px;width: 100%;}
+	.logo_icon{margin-top: 6px;}
+	.logo_icon img{width: 46px;height: 46px;}
+	.load_info{ margin-top: 3px;}
+	.load_left h3{line-height:28px; font-size: 14px;}
+	.load_left p{height:28px; font-size:14px;}
+	.load_right img{width: 122px;height: 58px;}
+	.float{width: 100%;}
+
+	
+	.head{height: 40px;padding: 30px 0 20px 0;font-size: 14px;}
+	.head .img{width: 40px;height: 40px;
+		margin-left: 12%;border: 3px #fc7b51 solid;}
+	.head div{height: 40px;line-height: 40px;width: 100px;
+		margin-left:8px;}
+	.box{height: 250px;}
+	.container{height:180px;max-width: 76%;}
+
+
+	.text{padding-bottom: 25px;font-size: 16px;}
+	.happy{font-size: 16px;
+		margin-top: -45px;margin-bottom: 10px;
+		display: none;}
+	.happy span{font-size: 20px;}
+	.popularity{font-size: 16px;
+		display: none;padding-bottom: 25px;}
+	.e_btn{
+		width: 130px;height: 50px;margin-bottom: 100px;
+	}
+	#e_btn{
+		width: 100%;height: 100%;line-height: 45px;
+		font-size: 16px;color: white;
+	}
+	.shareList{padding-bottom: 10px;font-size: 12px;}
+	.shareList img{margin: 0 auto;width: 80%;}
+	.prompt{height: 40px;line-height: 40px;
+		font-size: 14px;display: none;}
+
+
+}
+/*@media only screen and (min-width: 370px) and (max-width: 649px){
+	.box{height: 350px!important;}
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
