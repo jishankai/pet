@@ -50,7 +50,7 @@ $(window).on('load',function(){
          	$("#time1").html('<?php echo $v['create_time']?>');
 
             $("#reward").click(function(){
-              if ($("#time")[0].innerHTML!="已结束") {
+              if (<?php echo (time()-$v['create_time'])>86400?0:1?>) {
                 var b=parseInt($(".food_num").html());
                 var c=parseInt($("#g_num").html());
                 var n=c;
