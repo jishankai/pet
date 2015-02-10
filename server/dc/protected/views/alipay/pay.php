@@ -56,13 +56,13 @@
                     <dt class="p2">商户订单号：</dt>
                     <dd class="p22">
                         <span class="null-star">*</span>
-                        <input size="30" name="WIDout_trade_no" value="cwxq000001" />
+                        <input size="30" name="WIDout_trade_no" id＝"order_No" />
                         <span></span>
                     </dd>
                     <dt class="p3">订单名称：</dt>
                     <dd class="p33">
                         <span class="null-star">*</span>
-                        <input size="30" name="WIDsubject" id="dname"/>
+                        <input size="30" name="WIDsubject" id="dname" value="1元100个金币"/>
                         <span></span>
                     </dd>
                     <dt class="p4">付款金额：</dt>
@@ -110,6 +110,8 @@
                  }
                  
                  $("#dname").val(rmb+"元"+gold+"个金币");
+                 var timestamp=(new Date().valueOf()); 
+                 $("#order_No").val("cwxq"+timestamp);
             });
         });
 
