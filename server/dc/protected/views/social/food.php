@@ -39,7 +39,7 @@ $signPackage = $jssdk->GetSignPackage();
         <a href="<?php echo $this->createUrl('animal/infoShare', array('aid'=>$r['aid'], 'SID'=>$sid))?>"><img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" alt="" class="ph_m"/></a>
 			<div class="info_tit">
             <h3><?php echo $r['name']?></h3>
-				<img src="css/images/man_icon.jpg">
+				<img src="css/images/<?php echo $r['gender']==1?"male1.png":"female1.png"?>">
 			</div>
 			<div class="info_con">
             <h3 class="info_con1"><?php echo $a_type?></h3>
