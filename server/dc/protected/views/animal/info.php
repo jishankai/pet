@@ -150,7 +150,7 @@ $(window).on('load',function(){
 			oLi.className='box';
 			oParent.appendChild(oLi);
 		var oA=document.createElement('a');
-			oA.setAttribute('href',"<?php echo $this->createUrl('social/foodShareApi', array('img_id'=>$image['img_id']))?>");
+			oA.setAttribute('href',"<?php echo $this->createUrl('social/foodShareApi', array('img_id'=>$image['img_id'], 'SID'=>$SID))?>");
 			oLi.appendChild(oA);
 		var oImg=document.createElement('img');
 			oImg.src="<?php echo "http://".OSS_PREFIX."4upload.oss-cn-beijing.aliyuncs.com/".$image['url']?>";
