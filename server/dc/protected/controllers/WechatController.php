@@ -426,7 +426,7 @@ class WechatController extends Controller
         $json = file_get_contents($this->createAbsoluteUrl('user/loginApi', $params));
         $j = json_decode($json);
         if (!$j->data->isSuccess) {
-            $r = Yii::app()->db->createCommand('SELECT a.aid,a.name,a.gender,a.age,a.type FROM dc_animal a WHERE aid=:aid')->bindValue('aid', $aid)->queryRow();
+            $r = Yii::app()->db->createCommand('SELECT a.aid,a.name,a.gender,a.age,a.type FROM dc_animal a WHERE aid=:aid')->bindValue(':aid', $aid)->queryRow();
             $params = array(
                 'aid'=>$r['aid'],
                 'name'=>$r['name'],

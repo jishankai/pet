@@ -57,6 +57,15 @@ class DeviceBehavior extends CActiveRecordBehavior
             $circle->usr_id = $user->usr_id;
             $circle->save();
         }
+        $a = Animal::model()->findByPk($aid);
+        $easemob = Yii::app()->easemob;
+        $easemob->sendToUsers($a->master_id, NPC_SYSTEM_USRID, array(
+            'mixed'=>TRUE,
+            'msg'=>"路人".$user->name."被".$a->name."的魅力折服，成为了TA的粉丝哟～",
+            'ext'=>array(
+                'nickname'=>'事务官',
+                ),
+            ));
         $f = new Follow;
         $f->usr_id = $user->usr_id;
         $f->aid = $aid;
