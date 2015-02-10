@@ -88,11 +88,13 @@
 </body>
     <script>
 
-        $(function(){
+  $(function(){
+  
             $("#rmb").val("1");
+            $("#1").addClass("color").siblings().removeClass();
             var timestamp=(new Date().valueOf()); 
                 $("#order_No").val("cwxq"+timestamp);
-            $("#1").addClass("color").siblings().removeClass();
+      
             $("#money_list li").click(function(){
                 $(this).addClass("color").siblings().removeClass();
                  $("#rmb").val($(this).attr("id"));
@@ -112,11 +114,13 @@
                  }
                  
                  $("#dname").val(rmb+"元"+gold+"个金币");
-                 var timestamp=(new Date().valueOf()); 
-                 $("#order_No").val("cwxq"+timestamp);
-            });
-        });
 
+                 var timestamp=(new Date().valueOf()); 
+                $("#order_No").val("cwxq"+timestamp);
+               /* alert(timestamp);*/
+            });
+
+    })
 
     </script>
 
