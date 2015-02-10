@@ -90,6 +90,8 @@
 
         $(function(){
             $("#rmb").val("1");
+            var timestamp=(new Date().valueOf()); 
+                $("#order_No").val("cwxq"+timestamp);
             $("#1").addClass("color").siblings().removeClass();
             $("#money_list li").click(function(){
                 $(this).addClass("color").siblings().removeClass();
