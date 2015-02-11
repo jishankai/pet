@@ -56,7 +56,7 @@
                     <dt class="p2">商户订单号：</dt>
                     <dd class="p22">
                         <span class="null-star">*</span>
-                        <input size="30" name="WIDout_trade_no" id＝"orderno" />
+                        <input size="30" name="WIDout_trade_no" id="orderno" />
                         <span></span>
                     </dd>
                     <dt class="p3">订单名称：</dt>
