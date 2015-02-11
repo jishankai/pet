@@ -93,7 +93,7 @@
             $("#rmb").val("1");
             $("#1").addClass("color").siblings().removeClass();
             var timestamp=(new Date().valueOf()); 
-                $("#order_No").val("cwxq"+timestamp);
+                $("#orderno").val("cwxq"+timestamp);
       
             $("#money_list li").click(function(){
                 $(this).addClass("color").siblings().removeClass();
@@ -116,7 +116,7 @@
                  $("#dname").val(rmb+"元"+gold+"个金币");
 
                  var timestamp=(new Date().valueOf()); 
-                $("#order_No").val("cwxq"+timestamp);
+                $("#orderno").val("cwxq"+timestamp);
                /* alert(timestamp);*/
             });
 
