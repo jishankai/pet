@@ -44,6 +44,42 @@ if($verify_result) {//验证成功
 	//判断该笔订单是否在商户网站中已经做过处理
 		//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 		//如果有做过处理，不执行商户的业务程序
+    $order = Alipay::model()->findByPk($out_trade_no);
+    if (isset($order)) {
+        if ($order->status==0) {
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $user = User::model()->findByPk($order->usr_id);
+                switch ($order->fee) {
+                    case 1:
+                    $user->gold+=100;
+                    break;
+                    case 5:
+                    $user->gold+=500;
+                    break;
+                    case 10:
+                    $user->gold+=1050;
+                    break;
+                    case 100:
+                    $user->gold+=11000;
+                    default:
+                            # code...
+                    break;
+                }
+                $user->saveAttributes(array('gold'));
+                $order->status = 1;
+                $order->saveAttributes(array('status'));
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollback();
+                echo 'fail';
+                return ;
+            }
+        }
+    } else {
+        echo 'fail';
+        return ;
+    }
 		
 	echo "验证成功<br />";
 

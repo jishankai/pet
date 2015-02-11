@@ -44,7 +44,7 @@
     <div>
 
     <!-- 表单 -->
-     <form name=alipayment action=<?php echo $this->createUrl('alipay/alipayapi')?> method=post target="_blank">
+     <form name=alipayment action=<?php echo $this->createUrl('alipay/alipayapi', array('SID'=>$SID))?> method=post target="_blank">
             <div id="body" style="clear:left">
                 <dl class="content">
                     <dt class="p1">卖家支付宝帐户：</dt>
@@ -93,7 +93,7 @@
             $("#rmb").val("1");
             $("#1").addClass("color").siblings().removeClass();
             var timestamp=(new Date().valueOf()); 
-                $("#orderno").val("cwxq"+timestamp);
+                $("#orderno").val("cwxq_<?php echo $usr_id?>_"+timestamp);
       
             $("#money_list li").click(function(){
                 $(this).addClass("color").siblings().removeClass();
@@ -116,7 +116,7 @@
                  $("#dname").val(rmb+"元"+gold+"个金币");
 
                  var timestamp=(new Date().valueOf()); 
-                $("#orderno").val("cwxq"+timestamp);
+                $("#orderno").val("cwxq_<?php echo $usr_id?>_"+timestamp);
                /* alert(timestamp);*/
             });
 

@@ -2,12 +2,19 @@
 
 class AlipayController extends Controller
 {
-	public function actionPay()
+	public function filters() 
+    {
+        return array(
+        	'getUserId - notify, return',
+        );
+    }
+
+	public function actionPay($SID='')
 	{
 		$this->renderPartial('pay');
 	}
 
-	public function actionAlipayapi()
+	public function actionAlipayapi($SID='')
 	{
 
 		require_once("alipay.config.php");
@@ -46,15 +53,15 @@ class AlipayController extends Controller
 		//**req_data详细信息**
 
 		//服务器异步通知页面路径
-		$notify_url = "http://商户网关地址/WS_WAP_PAYWAP-PHP-UTF-8/notify_url.php";
+		$notify_url = $this->createAboUrl('alipay/notify');
 		//需http://格式的完整路径，不允许加?id=123这类自定义参数
 
 		//页面跳转同步通知页面路径
-		$call_back_url = "http://127.0.0.1:8800/WS_WAP_PAYWAP-PHP-UTF-8/call_back_url.php";
+		$call_back_url = $this->createUrl('alipay/return');
 		//需http://格式的完整路径，不允许加?id=123这类自定义参数
 
 		//操作中断返回地址
-		$merchant_url = "http://127.0.0.1:8800/WS_WAP_PAYWAP-PHP-UTF-8/xxxx.php";
+		$merchant_url = $this->createurl('alipay/pay');
 		//用户付款中途退出返回商户的地址。需http://格式的完整路径，不允许加?id=123这类自定义参数
 
 		//卖家支付宝帐户
@@ -77,6 +84,13 @@ class AlipayController extends Controller
 		$req_data = '<direct_trade_create_req><notify_url>' . $notify_url . '</notify_url><call_back_url>' . $call_back_url . '</call_back_url><seller_account_name>' . $seller_email . '</seller_account_name><out_trade_no>' . $out_trade_no . '</out_trade_no><subject>' . $subject . '</subject><total_fee>' . $total_fee . '</total_fee><merchant_url>' . $merchant_url . '</merchant_url></direct_trade_create_req>';
 		//必填
 
+		//构造订单
+		$order = new Alipay();
+		$order->orderid = $out_trade_no;
+		$order->usr_id = $this->usr_id;
+		$order->fee = $total_fee;
+		$order->create_time = time();
+		$order->save();
 		/************************************************************/
 
 		//构造要请求的参数数组，无需改动
@@ -131,7 +145,7 @@ class AlipayController extends Controller
 	}
 
 	// Server side notification
-	public function actionfy() 
+	public function actionNotify() 
 	{
 		$this->renderPartial('notify_url');
 	}
