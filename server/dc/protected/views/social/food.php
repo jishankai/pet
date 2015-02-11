@@ -161,6 +161,14 @@ $(window).on('load',function(){
     if (<?php echo $alert_flag?>) {
       cc();
     };
+    //调整主图片位置
+    var a=$(".info_photo").height();
+    var b=$(".active").height();
+    var c=0;
+    if(a>b){
+        c=Math.floor((a-b)/2);
+    }
+    $(".active").css("margin-top",c+"px");
     /* 
     if(dataInt!=null){
       if(dataInt.name!=null){

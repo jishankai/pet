@@ -155,14 +155,6 @@ function getminHIndex(arr,minH){
 }
 
 $(window).on('load',function(){
-	//调整主图片位置
-    var a=$(".info_photo").height();
-    var b=$(".active").height();
-    var c=0;
-    if(a>b){
-        c=Math.floor((a-b)/2);
-    }
-    $(".active").css("margin-top",c+"px");
 	var oParent=document.getElementById('imgBox');
 	<?php foreach ($images as $key => $image) { ?>
 		var oLi=document.createElement('li');
