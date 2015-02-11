@@ -5,7 +5,7 @@
 	<title>支付宝即时到账交易接口接口</title>
 </head>
 <?php
-//echo $body;
+echo $body;
 ?>
 </body>
 </html>
