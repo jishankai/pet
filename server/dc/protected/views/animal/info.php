@@ -44,8 +44,20 @@ $signPackage = $jssdk->GetSignPackage();
 			<h3 id="signature"><?php echo $r['msg']?></h3>
 
 			<ul class="tab clearfix">
+				<li class="one">
+					<h3 id="dynamic_num"><?php echo $r['news']?></h3>
+					<p id="dynamic">动态</p>
+				</li>
 				<li>
-					<a href='<?php echo $this->createUrl('social/ration',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon1.png"></a>
+					<h3 id="fans_num"><?php echo $r['fans']?></h3>
+					<p id="fans">粉丝</p>
+				</li>
+				<li>
+					<h3 id="photo_num"><?php echo $r['images']?></h3>
+					<p id="photo">照片</p>
+				</li>
+				<!-- <li>
+					<a href='<?php //echo $this->createUrl('social/ration',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon1.png"></a>
 				</li>
 				<li>
 					<img src="css/images/pet_icon2.png">
@@ -54,8 +66,8 @@ $signPackage = $jssdk->GetSignPackage();
 					<img src="css/images/pet_icon3.png">
 				</li>
 				<li>
-					<a href='<?php echo $this->createUrl('social/touch',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon4.png"></a>
-				</li>
+					<a href='<?php //echo $this->createUrl('social/touch',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon4.png"></a>
+				</li> -->
 			</ul>
 		</div>
 
@@ -143,7 +155,14 @@ function getminHIndex(arr,minH){
 }
 
 $(window).on('load',function(){
-	
+	//调整主图片位置
+    var a=$(".info_photo").height();
+    var b=$(".active").height();
+    var c=0;
+    if(a>b){
+        c=Math.floor((a-b)/2);
+    }
+    $(".active").css("margin-top",c+"px");
 	var oParent=document.getElementById('imgBox');
 	<?php foreach ($images as $key => $image) { ?>
 		var oLi=document.createElement('li');
