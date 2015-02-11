@@ -14,13 +14,13 @@
 </style>
 </head>
 <script>
-  //   var _hmt = _hmt || [];
-  //   (function() {
-  //     var hm = document.createElement("script");
-  //     hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
-  //     var s = document.getElementsByTagName("script")[0]; 
-  //     s.parentNode.insertBefore(hm, s);
-  // })();
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+  })();
 </script>
 <body>
 <div class="comWidth">
@@ -56,7 +56,7 @@
                     <dt class="p2">商户订单号：</dt>
                     <dd class="p22">
                         <span class="null-star">*</span>
-                        <input size="30" name="WIDout_trade_no" id＝"order_No" />
+                        <input size="30" name="WIDout_trade_no" id＝"orderno" />
                         <span></span>
                     </dd>
                     <dt class="p3">订单名称：</dt>
