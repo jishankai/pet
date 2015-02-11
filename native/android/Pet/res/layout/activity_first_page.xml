@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:visibility="visible"
         android:src="@drawable/start_image"
-        />
+        /><!--  -->
     <ImageView 
         android:id="@+id/imageView11"
         android:layout_width="250dp"

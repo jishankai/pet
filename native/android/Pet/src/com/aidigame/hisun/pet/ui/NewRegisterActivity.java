@@ -171,6 +171,12 @@ public class NewRegisterActivity extends Activity {
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_new_register);
+		
+		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		frameLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
+		
 		mode=getIntent().getIntExtra("mode", 3);
 		from=getIntent().getIntExtra("from", 0);
 		isBind=getIntent().getBooleanExtra("isBind", false);
@@ -287,14 +293,14 @@ public class NewRegisterActivity extends Activity {
 		/*
 		 * 判断用户是否登录成功，登录成功，则将用户信息填入注册表格
 		 */
-		if(Constants.isSuccess){
+		if(PetApplication.isSuccess){
 			//1.填写用户信息
 			
 			//2.用户信息编辑栏不可编辑
 			
 		}
 		if(from==1){
-			setUserInfo(Constants.user);
+			setUserInfo(PetApplication.myUser);
 			userCity.setEnabled(false);
 			userIcon.setEnabled(false);
 			userName.setEnabled(false);
@@ -309,16 +315,16 @@ public class NewRegisterActivity extends Activity {
         	
 		}else if(mode==5){
 			//修改用户资料
-			setPetInfo(Constants.user.currentAnimal);
-			animal=Constants.user.currentAnimal;
-			setUserInfo(Constants.user);
+			setPetInfo(PetApplication.myUser.currentAnimal);
+			animal=PetApplication.myUser.currentAnimal;
+			setUserInfo(PetApplication.myUser);
 			complete.setClickable(true);
 			complete.setBackgroundResource(R.drawable.button);
-			userSexStr=""+Constants.user.u_gender;
-			userCityCode=""+Constants.user.locationCode;
-			userNameStr=Constants.user.u_nick;
-			userCityStr=Constants.user.province+"|"+Constants.user.city;
-			if(animal.master_id==Constants.user.userId){
+			userSexStr=""+PetApplication.myUser.u_gender;
+			userCityCode=""+PetApplication.myUser.locationCode;
+			userNameStr=PetApplication.myUser.u_nick;
+			userCityStr=PetApplication.myUser.province+"|"+PetApplication.myUser.city;
+			if(animal.master_id==PetApplication.myUser.userId){
 				petAgeStr=""+animal.a_age;
 				petSexStr=""+animal.a_gender;
 				petRaceCode=""+animal.type;
@@ -358,7 +364,7 @@ public class NewRegisterActivity extends Activity {
     	petAge.setText(""+animal.a_age_str);
     	ImageLoader imageLoader=ImageLoader.getInstance();
     	imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl, petIcon, displayImageOptions);
-    	if(mode==1||mode==2||(mode==5&&Constants.user.userId!=Constants.user.currentAnimal.master_id)){
+    	if(mode==1||mode==2||(mode==5&&PetApplication.myUser.userId!=PetApplication.myUser.currentAnimal.master_id)){
     		petMale.setClickable(false);
         	petFemale.setClickable(false);
         	petName.setEnabled(false);
@@ -482,7 +488,7 @@ public class NewRegisterActivity extends Activity {
 					return;
 				}
 				isLogining=true;
-				if(mode==3||mode==4||(mode==5&&animal.master_id==Constants.user.userId)){
+				if(mode==3||mode==4||(mode==5&&animal.master_id==PetApplication.myUser.userId)){
 					if(StringUtil.isEmpty(petSexStr)){
 						Toast.makeText(NewRegisterActivity.this, "请选择宠物性别", 5000).show();
 						isLogining=false;
@@ -507,11 +513,11 @@ public class NewRegisterActivity extends Activity {
 						isLogining=false;
 						return;
 					}
-					if(!judgeStringLength(petNameStr, 30)){
+					/*if(!judgeStringLength(petNameStr, 30)){
 						Toast.makeText(NewRegisterActivity.this, "宠物昵称长度超过20个字符", 5000).show();
 						isLogining=false;
 						return;
-					}
+					}*/
 				}
 				
 				if(StringUtil.isEmpty(userSexStr)){
@@ -534,11 +540,11 @@ public class NewRegisterActivity extends Activity {
 					return;
 				}
 				
-                if(!judgeStringLength(userNameStr, 30)){
+                /*if(!judgeStringLength(userNameStr, 30)){
                 	Toast.makeText(NewRegisterActivity.this, "用户昵称长度超过20个字符", 5000).show();
                 	isLogining=false;
 					return;
-				}
+				}*/
 //				userCityStr=new String(userCityStr.getBytes(Charset.forName("UTF-8")), Charset.forName("UTF-8"));
 //				userNameStr=new String(userNameStr.getBytes(Charset.forName("UTF-8")), Charset.forName("UTF-8"));
 //				petNameStr=new String(petNameStr.getBytes(Charset.forName("UTF-8")), Charset.forName("UTF-8"));
@@ -618,9 +624,9 @@ public class NewRegisterActivity extends Activity {
 								user=HttpUtil.info(NewRegisterActivity.this,handleHttpConnectionException.getHandler(NewRegisterActivity.this),Constants.user.userId);
 								 LogUtil.i("me", "获取用户信息方法执行完毕++++++++++" );
 							}*/
-							user.userId=Constants.user.userId;
-							user.currentAnimal=Constants.user.currentAnimal;
-							Constants.user=user;
+							user.userId=PetApplication.myUser.userId;
+							user.currentAnimal=PetApplication.myUser.currentAnimal;
+							PetApplication.myUser=user;
 							if(user!=null){
 								/*
 								 * 上传用户头像和宠物头像
@@ -637,7 +643,7 @@ public class NewRegisterActivity extends Activity {
 									LogUtil.i("me", "上传用户头像++++++++++" );
 									String path1=HttpUtil.uploadUserIcon(userIconPath,NewRegisterActivity.this,-1);
 									if(path1!=null){
-										Constants.user.u_iconUrl=path1;
+										PetApplication.myUser.u_iconUrl=path1;
 									}
 									LogUtil.i("me", "上传用户头像完毕++++++++++" );
 								}
@@ -645,7 +651,7 @@ public class NewRegisterActivity extends Activity {
 									LogUtil.i("me", "上传宠物头像++++++++++" );
 									String path=HttpUtil.uploadUserIcon(petIconPath,NewRegisterActivity.this,user.currentAnimal.a_id);
 									if(path!=null){
-										Constants.user.currentAnimal.pet_iconUrl=path;
+										PetApplication.myUser.currentAnimal.pet_iconUrl=path;
 									}
 									LogUtil.i("me", "上传宠物头像完毕++++++++++" );
 								}
@@ -653,7 +659,7 @@ public class NewRegisterActivity extends Activity {
 								SharedPreferences sPreferences=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
 								Editor editor=sPreferences.edit();
 								editor.putBoolean("isRegister", true);
-								Constants.isSuccess=true;
+								PetApplication.isSuccess=true;
 								editor.commit();
 								
 								MyUser user=null;
@@ -664,15 +670,15 @@ public class NewRegisterActivity extends Activity {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
-									user=HttpUtil.info(NewRegisterActivity.this,handleHttpConnectionException.getHandler(NewRegisterActivity.this),Constants.user.userId);
+									user=HttpUtil.info(NewRegisterActivity.this,handleHttpConnectionException.getHandler(NewRegisterActivity.this),PetApplication.myUser.userId);
 								} 
 								LogUtil.i("me", "获取用户信息方法执行完毕++++++++++" );
-								 Constants.user=user;
+								PetApplication.myUser=user;
 								 
-								user.currentAnimal=HttpUtil.animalInfo(NewRegisterActivity.this, Constants.user.currentAnimal, handleHttpConnectionException.getHandler(NewRegisterActivity.this));
+								user.currentAnimal=HttpUtil.animalInfo(NewRegisterActivity.this, PetApplication.myUser.currentAnimal, handleHttpConnectionException.getHandler(NewRegisterActivity.this));
 								
-								Constants.user.aniList=new ArrayList<Animal>();
-								Constants.user.aniList.add(Constants.user.currentAnimal);
+								PetApplication.myUser.aniList=new ArrayList<Animal>();
+								PetApplication.myUser.aniList.add(PetApplication.myUser.currentAnimal);
 								if(ChoseKingActivity.choseKingActivity!=null){
 									ChoseKingActivity.choseKingActivity.finish();
 									ChoseKingActivity.choseKingActivity=null;
@@ -691,13 +697,13 @@ public class NewRegisterActivity extends Activity {
 										Toast.makeText(NewRegisterActivity.this,"注册成功" , Toast.LENGTH_LONG).show();
 										NewRegisterActivity.this.finish();
 										
-										if(!StringUtil.isEmpty(Constants.CON_VERSION)&&"1.0".equals(Constants.CON_VERSION)){
+										/*if(!StringUtil.isEmpty(Constants.CON_VERSION)&&"1.0".equals(Constants.CON_VERSION)){
 											
-										}else{
+										}else{*/
 											Intent intent13=new Intent(NewRegisterActivity.this,InviteOthersDialogActivity.class);
 											intent13.putExtra("mode", 2);
 											NewRegisterActivity.this.startActivity(intent13);
-										}
+										/*}*/
 										
 										
 										if(UserCenterFragment.userCenterFragment!=null){
@@ -723,7 +729,7 @@ public class NewRegisterActivity extends Activity {
 				}else{
 					String code="";
 					final MyUser user=new MyUser();
-					if(animal.master_id!=Constants.user.userId){
+					if(animal.master_id!=PetApplication.myUser.userId){
 						//被认养的宠物
 						user.pet_nickName=animal.pet_nickName;
 						user.u_nick=userNameStr;
@@ -760,8 +766,8 @@ public class NewRegisterActivity extends Activity {
 							// TODO Auto-generated method stub
 							boolean flag=HttpUtil.modifyUserInfo(handleHttpConnectionException.getHandler(NewRegisterActivity.this),user,NewRegisterActivity.this);
 							if(flag){
-								MyUser user=HttpUtil.info(NewRegisterActivity.this,handleHttpConnectionException.getHandler(NewRegisterActivity.this),Constants.user.userId);
-								Constants.user=user;
+								MyUser user=HttpUtil.info(NewRegisterActivity.this,handleHttpConnectionException.getHandler(NewRegisterActivity.this),PetApplication.myUser.userId);
+								PetApplication.myUser=user;
 								
 									
 								if(user!=null){
@@ -772,13 +778,13 @@ public class NewRegisterActivity extends Activity {
 									if(petIconPath!=null){
 										String path=HttpUtil.uploadUserIcon(petIconPath,NewRegisterActivity.this,user.currentAnimal.a_id);
 										if(path!=null){
-											Constants.user.currentAnimal.pet_iconUrl=path;
+											PetApplication.myUser.currentAnimal.pet_iconUrl=path;
 										}
 									}
 									if(userIconPath!=null){
 										String path1=HttpUtil.uploadUserIcon(userIconPath,NewRegisterActivity.this,-1);
 										if(path1!=null){
-											Constants.user.u_iconUrl=path1;
+											PetApplication.myUser.u_iconUrl=path1;
 										}
 									}
 									runOnUiThread(new Runnable() {
@@ -1282,22 +1288,22 @@ public class NewRegisterActivity extends Activity {
 							animal.job="经纪人";
 							animal.u_rank="经纪人";
 							animal.u_rankCode=0;
-							animal.master_id=Constants.user.userId;
-							animal.u_name=Constants.user.u_nick;
-							animal.u_tx=Constants.user.u_iconUrl;
-							Constants.user.rank="经纪人";
-							Constants.user.rankCode=0;
-							Constants.user.currentAnimal=animal;
-							Constants.user.aniList.add(0,animal);
+							animal.master_id=PetApplication.myUser.userId;
+							animal.u_name=PetApplication.myUser.u_nick;
+							animal.u_tx=PetApplication.myUser.u_iconUrl;
+							PetApplication.myUser.rank="经纪人";
+							PetApplication.myUser.rankCode=0;
+							PetApplication.myUser.currentAnimal=animal;
+							PetApplication.myUser.aniList.add(0,animal);
 							Toast.makeText(NewRegisterActivity.this, "创建萌星成功", Toast.LENGTH_LONG).show();
-							if(Constants.user.aniList.size()>10){
+							if(PetApplication.myUser.aniList.size()>10){
 								int num=0;
-								if(Constants.user.aniList.size()<=20){
-									num=Constants.user.aniList.size()*5;
+								if(PetApplication.myUser.aniList.size()<=20){
+									num=PetApplication.myUser.aniList.size()*5;
 								}else{
 									num=100;
 								}
-								Constants.user.coinCount-=num;
+								PetApplication.myUser.coinCount-=num;
 							}
 							if(ChoseAcountTypeActivity.choseAcountTypeActivity!=null){
 								ChoseAcountTypeActivity.choseAcountTypeActivity.finish();

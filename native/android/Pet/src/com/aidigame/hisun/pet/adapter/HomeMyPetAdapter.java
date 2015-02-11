@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,12 +26,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.bean.PetPicture;
+import com.aidigame.hisun.pet.blur.Blur;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
+import com.aidigame.hisun.pet.ui.Dialog4Activity;
+import com.aidigame.hisun.pet.ui.Dialog4Activity.Dialog3ActivityListener;
+import com.aidigame.hisun.pet.ui.ChargeActivity;
 import com.aidigame.hisun.pet.ui.Dialog6Activity;
 import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1;
 import com.aidigame.hisun.pet.ui.HomeActivity;
@@ -41,6 +48,7 @@ import com.aidigame.hisun.pet.ui.PlayGameActivity;
 import com.aidigame.hisun.pet.ui.ShakeActivity;
 import com.aidigame.hisun.pet.ui.TouchActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
+import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
@@ -50,7 +58,9 @@ import com.example.android.bitmapfun.util.ImageFetcher;
 import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 public class HomeMyPetAdapter extends BaseAdapter {
 	Activity context;
@@ -143,9 +153,11 @@ public class HomeMyPetAdapter extends BaseAdapter {
 			holder.iv2=(ImageView)convertView.findViewById(R.id.image_iv2);
 			holder.iv3=(ImageView)convertView.findViewById(R.id.image_iv3);
 			holder.iv4=(ImageView)convertView.findViewById(R.id.image_iv4);
+			holder.giftIv=(ImageView)convertView.findViewById(R.id.gift_iv);
 			holder.inviteTv=(TextView)convertView.findViewById(R.id.invite_tv);
 			holder.imageRLayout=(RelativeLayout)convertView.findViewById(R.id.background_image_rlayout);
 			holder.searchLayout=(LinearLayout)convertView.findViewById(R.id.search_layout);
+			holder.giveHeartTv=(TextView)convertView.findViewById(R.id.give_heart_tv);
 			convertView.setTag(holder);
 		}else{
 			holder=(Holder)convertView.getTag();
@@ -153,10 +165,49 @@ public class HomeMyPetAdapter extends BaseAdapter {
 		final Animal animal=animals.get(position);
 		holder.modifyTv.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 		ImageLoader imageLoader=ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl, holder.pet_icon,displayImageOptions);
+		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl, holder.pet_icon,displayImageOptions,new ImageLoadingListener() {
+			
+			@Override
+			public void onLoadingStarted(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLoadingFailed(String imageUri, View view,
+					FailReason failReason) {
+				// TODO Auto-generated method stub
+				animal.pet_iconPath=StringUtil.compressEmotion(context, null);
+			}
+			
+			public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
+				// TODO Auto-generated method stub
+				
+				
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						/*添加毛玻璃效果
+						 *首先要将Bitmap的Config转化为Config.ARGB_8888类型的 
+						 */
+						animal.pet_iconPath=StringUtil.compressEmotion(context, loadedImage);
+//						
+					}
+				}).start();
+				
+			}
+			
+			@Override
+			public void onLoadingCancelled(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				animal.pet_iconPath=StringUtil.compressEmotion(context, null);
+			}
+		});
 		holder.petNameTv.setText(animal.pet_nickName);
         if("点击创建独一无二的萌宣言吧~".equals(animal.announceStr)){
-        	if(Constants.user!=null&&Constants.user.userId==animal.master_id){
+        	if(PetApplication.myUser!=null&&PetApplication.myUser.userId==animal.master_id){
         		holder.modifyEt.setText(animal.announceStr);
         	}else{
         		holder.modifyEt.setText(animal.pet_nickName+"暂时沉默中~");
@@ -170,12 +221,23 @@ public class HomeMyPetAdapter extends BaseAdapter {
 		holder.shakeNumTv.setText("还剩"+animal.shake_count+"次");
 		holder.giftNumtTv.setText("送了"+animal.send_gift_count+"个");
 		
+		if(animal.tb_version==0){
+			holder.giveHeartTv.setText("献爱心");
+			holder.giftIv.setImageResource(R.drawable.claw_gift1);
+		}else{
+			holder.giftIv.setImageResource(R.drawable.buy_around);
+			holder.giveHeartTv.setText("买周边");
+			holder.giftNumtTv.setText("快来买");
+		}
 		
-		if(Constants.user!=null&&Constants.user.userId==animal.master_id){
+		
+		if(PetApplication.myUser!=null&&PetApplication.myUser.userId==animal.master_id){
+			holder.modifyTv.setText("");
 			holder.modifyTv.setVisibility(View.VISIBLE);;
 			holder.modifyTv.setBackgroundResource(R.drawable.modify);
 		}else{
 //			holder.modifyTv.setVisibility(View.GONE);;
+			holder.modifyTv.setText("");
 			holder.modifyTv.setBackgroundResource(R.drawable.private_message);
 		}
 		holder.iv1.setVisibility(View.INVISIBLE);
@@ -218,9 +280,9 @@ public class HomeMyPetAdapter extends BaseAdapter {
 		}
 		holder.contriTv.setText("贡献度 "+animal.t_contri);
 		holder.contriTv.setTag(animal);
-		if(Constants.user!=null&&Constants.user.aniList!=null){
-			if(Constants.user.aniList.contains(animal)){
-				if(Constants.user.userId==animal.master_id){
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+			if(PetApplication.myUser.aniList.contains(animal)){
+				if(PetApplication.myUser.userId==animal.master_id){
 					holder.biteIv.setImageResource(R.drawable.claw_touch1);
 					holder.biteTv.setText("萌印象");
 					if(animal.isVoiced==0){
@@ -248,11 +310,11 @@ public class HomeMyPetAdapter extends BaseAdapter {
 			}
 		}
 		
-		if(!StringUtil.isEmpty(Constants.CON_VERSION)&&"1.0".equals(Constants.CON_VERSION)){
+		/*if(!StringUtil.isEmpty(Constants.CON_VERSION)&&"1.0".equals(Constants.CON_VERSION)){
 			holder.inviteTv.setVisibility(View.INVISIBLE);
-		}else{
+		}else{*/
 			holder.inviteTv.setVisibility(View.VISIBLE);
-		}
+		/*}*/
 		
 		
 		holder.hotNumTv.setText(""+animal.t_rq);
@@ -351,9 +413,9 @@ public class HomeMyPetAdapter extends BaseAdapter {
 	}
 	class Holder{
 		RoundImageView pet_icon;
-		ImageView iv1,iv2,iv3,iv4,shakeIv,biteIv;
+		ImageView iv1,iv2,iv3,iv4,shakeIv,biteIv,giftIv;
 		TextView jobTv,contriTv,petNameTv,modifyTv,hotNumTv,hotPercentTv,shakeTv,shakeNumTv,
-		         giftNumtTv,biteTv,biteNumTv,playNumTv,inviteTv;
+		         giftNumtTv,biteTv,biteNumTv,playNumTv,inviteTv,giveHeartTv;
 		EditText modifyEt;
 		LinearLayout rankLayout,shakeLayout,giftLayout,biteLayout,playLayout,searchLayout;
 		RelativeLayout imageRLayout;
@@ -403,7 +465,7 @@ public class HomeMyPetAdapter extends BaseAdapter {
 				context.startActivity(intent);
 				break;
 			case R.id.modify_announce_tv:
-				if(Constants.user!=null&&Constants.user.userId==animal.master_id){
+				if(PetApplication.myUser!=null&&PetApplication.myUser.userId==animal.master_id){
 				if(!canOver){
 					holder.modifyEt.setFocusable(true);
 					holder.modifyEt.setFocusableInTouchMode(true);
@@ -484,8 +546,8 @@ public class HomeMyPetAdapter extends BaseAdapter {
 
 				break;
 			case R.id.shake_layout:
-				if(Constants.user!=null&&Constants.user.aniList!=null){
-					if(Constants.user.aniList.contains(animal)){
+				if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+					if(PetApplication.myUser.aniList.contains(animal)){
 						Intent intent1=new Intent(context,ShakeActivity.class);
 						intent1.putExtra("animal",animal);
 						context.startActivity(intent1);
@@ -500,60 +562,58 @@ public class HomeMyPetAdapter extends BaseAdapter {
 				
 				break;
 			case R.id.gift_layout:
-				Intent intent2=new Intent(context,DialogGiveSbGiftActivity1.class);
-				intent2.putExtra("animal",animal);
-				context.startActivity(intent2);
-				tv=holder.giftNumtTv;
-				contriTV=holder.contriTv;
+				
+				if(/*StringUtil.isEmpty(animal.tburl)||*/animal.tb_version==0){
+					sendGift(animal);
+					return;
+				}
+				
+				if(animal.tb_version==1&&!StringUtil.isEmpty(animal.tburl)){
+					//买周边
+					Intent it=new Intent(context,ChargeActivity.class);
+					it.putExtra("animal", animal);
+					it.putExtra("mode", 2);
+					context.startActivity(it);
+					return ;
+				}
 				
 				
-				DialogGiveSbGiftActivity1 dgb=DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity;
-				DialogGiveSbGiftActivity1.dialogGoListener=new DialogGiveSbGiftActivity1.DialogGoListener() {
+				Intent it=new Intent(context,Dialog4Activity.class);
+				it.putExtra("mode", 7);
+				it.putExtra("animal", animal);
+				
+				Dialog4Activity.listener=new Dialog3ActivityListener() {
 					
 					@Override
-					public void toDo() {
-						// TODO Auto-generated method stub
-						
-						Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,MarketActivity.class);
-						
-						
-						DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.startActivity(intent);
-						
-					}
-
-					@Override
-					public void closeDialog() {
-						// TODO Auto-generated method stub
-						if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null){
-							DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
-							DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity=null;
-						}
-						
-					}
-					@Override
-					public void lastResult(boolean isSuccess) {
+					public void onClose() {
 						// TODO Auto-generated method stub
 						
 					}
-
+					
 					@Override
-					public void unRegister() {
+					public void onButtonTwo() {
 						// TODO Auto-generated method stub
-//						dialog.dismiss();
-						if(!UserStatusUtil.isLoginSuccess(context, HomeActivity.homeActivity.myPetFragment.popupParent, HomeActivity.homeActivity.myPetFragment.black_layout)){
-			        		
-			        	};
+						sendGift(animal);
+					}
+					
+					@Override
+					public void onButtonOne() {
+						// TODO Auto-generated method stub
+						HomeActivity ha=(HomeActivity)context;
+						ha.showMore(animal);
 					}
 				};
+				context.startActivity(it);
+				
 				
 				
 				
 				
 				break;
 			case R.id.bite_layout:
-				if(Constants.user!=null&&Constants.user.aniList!=null){
-					if(Constants.user.aniList.contains(animal)){
-						if(Constants.user.userId==animal.master_id){
+				if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+					if(PetApplication.myUser.aniList.contains(animal)){
+						if(PetApplication.myUser.userId==animal.master_id){
 							/*Intent intent3=new Intent(context,BiteActivity.class);
 							intent3.putExtra("animal",animal);
 							context.startActivity(intent3);*/
@@ -573,8 +633,8 @@ public class HomeMyPetAdapter extends BaseAdapter {
 			case R.id.play_layout:
 				
 				
-				if(Constants.user!=null&&Constants.user.aniList!=null){
-					if(Constants.user.aniList.contains(animal)){
+				if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+					if(PetApplication.myUser.aniList.contains(animal)){
 						new Thread(new Runnable() {
 							
 							@Override
@@ -587,9 +647,9 @@ public class HomeMyPetAdapter extends BaseAdapter {
 									public void run() {
 										// TODO Auto-generated method stub
 										if(pp==null){
-											if(Constants.user.userId==animal.master_id){
-												if(MyPetFragment.myPetFragment!=null){
-													MyPetFragment.myPetFragment.showCameraAlbum(animal,true);
+											if(PetApplication.myUser.userId==animal.master_id){
+												if(HomeActivity.homeActivity.myPetFragment!=null){
+													HomeActivity.homeActivity.myPetFragment.showCameraAlbum(animal,true);
 												}
 											}else{
 												Toast.makeText(context, "萌星 "+animal.pet_nickName+"，今天还没挣口粮呢~", Toast.LENGTH_LONG).show();
@@ -744,6 +804,57 @@ public class HomeMyPetAdapter extends BaseAdapter {
 				holder.modifyTv.setText("取消");
 				holder.modifyTv.setBackgroundDrawable(null);;
 			}
+		}
+		public void sendGift(final Animal animal){
+
+			
+			
+			
+			Intent intent2=new Intent(context,DialogGiveSbGiftActivity1.class);
+			intent2.putExtra("animal",animal);
+			context.startActivity(intent2);
+			tv=holder.giftNumtTv;
+			contriTV=holder.contriTv;
+			
+			
+			DialogGiveSbGiftActivity1 dgb=DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity;
+			DialogGiveSbGiftActivity1.dialogGoListener=new DialogGiveSbGiftActivity1.DialogGoListener() {
+				
+				@Override
+				public void toDo() {
+					// TODO Auto-generated method stub
+					
+					Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,MarketActivity.class);
+					
+					
+					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.startActivity(intent);
+					
+				}
+
+				@Override
+				public void closeDialog() {
+					// TODO Auto-generated method stub
+					if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null){
+						DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+						DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity=null;
+					}
+					
+				}
+				@Override
+				public void lastResult(boolean isSuccess) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void unRegister() {
+					// TODO Auto-generated method stub
+//					dialog.dismiss();
+					if(!UserStatusUtil.isLoginSuccess(context, HomeActivity.homeActivity.myPetFragment.popupParent, HomeActivity.homeActivity.myPetFragment.black_layout)){
+		        		
+		        	};
+				}
+			};
 		}
 
 		

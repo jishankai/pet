@@ -38,6 +38,14 @@ public class PetApplication extends Application{
     private final static float TARGET_HEAP_UTILIZATION = 0.75f;
     public LinkedList<Activity> activityList;
     public Bitmap blurBmp;
+    
+    
+  //登陆是否成功
+  	public static boolean isSuccess=false;
+	public static String SID;
+    
+    public static MyUser myUser;
+    
 //    public static final String ERROR_MESSAGE="COM.AIDIGAME.HISUN.PET.ERROR_MESSAGE";
 	
     @Override
@@ -228,7 +236,7 @@ public class PetApplication extends Application{
 	/**
 	 * 设置用户名
 	 *
-	 * @param user
+	 * @param myUser
 	 */
 	public static void setUserName(String username) {
 	    hxSDKHelper.setHXId(username);

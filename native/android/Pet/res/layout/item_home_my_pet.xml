@@ -78,7 +78,7 @@
             android:layout_marginRight="5dp"
             android:background="@drawable/invite_bt"
             android:layout_alignParentRight="true"
-            android:text="邀请"
+            android:text="拉粉丝"
             android:id="@+id/invite_tv"
             android:textColor="@color/white"/>
         <TextView 
@@ -264,6 +264,7 @@
              android:text="献爱心"
              android:layout_marginTop="5dp"
              android:textColor="@color/orange_red1"
+             android:id="@+id/give_heart_tv"
              />
           <TextView android:layout_width="wrap_content"
              android:layout_height="wrap_content"

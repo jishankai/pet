@@ -37,17 +37,16 @@ import com.aidigame.hisun.pet.util.UiUtil;
  *
  */
 public class AnimalsListActivity extends Activity {
-	FrameLayout frameLayout;
-	View viewTopWhite;
+	private View viewTopWhite;
 	
 	
-	AnimalsListAdapter adapter;
-	ArrayList<Animal> list;
-	ListView  listView;
-	String aids;
-	ImageView back;
-	TextView title;
-	HandleHttpConnectionException handleHttpConnectionException;
+	private AnimalsListAdapter adapter;
+	private ArrayList<Animal> list;
+	private ListView  listView;
+	private String aids;
+	private ImageView back;
+	private TextView title;
+	private HandleHttpConnectionException handleHttpConnectionException;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			
@@ -142,7 +141,6 @@ public class AnimalsListActivity extends Activity {
 
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
-		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
        
 		 listView.setOnScrollListener(new OnScrollListener() {

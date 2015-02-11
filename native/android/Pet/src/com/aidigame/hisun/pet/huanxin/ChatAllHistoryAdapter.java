@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -159,14 +160,15 @@ public void upadte(List<EMConversation> objects){
 			String tx="";
 			String userid="";
 			try {
-				userid=lastMessage.getStringAttribute("id");
+				
 				nick = lastMessage.getStringAttribute("nickname");
 				tx = lastMessage.getStringAttribute("tx");
+				userid=lastMessage.getStringAttribute("id");
 			} catch (EaseMobException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if((""+Constants.user.userId).equals(userid)){
+			if((""+PetApplication.myUser.userId).equals(userid)){
 				try {
 					nick=lastMessage.getStringAttribute("other_nickname");
 					tx=lastMessage.getStringAttribute("other_tx");
@@ -178,9 +180,9 @@ public void upadte(List<EMConversation> objects){
 			holder.name.setText(nick);
 			
 			if("1".equals(username)){
-				holder.avatar.setImageResource(R.drawable.wangwang);
-			}else if("2".equals(username)){
 				holder.avatar.setImageResource(R.drawable.miaomiao);
+			}else if("2".equals(username)){
+				holder.avatar.setImageResource(R.drawable.wangwang);
 			}else if("3".equals(username)){
 				holder.avatar.setImageResource(R.drawable.xiaoge);
 			}else{
@@ -326,7 +328,7 @@ public void upadte(List<EMConversation> objects){
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							if(Constants.user.u_nick.equals(nick)){
+							if(PetApplication.myUser.u_nick.equals(nick)){
 								try {
 									nick=lastMessage.getStringAttribute("other_nickname");
 								} catch (EaseMobException e) {

@@ -170,13 +170,13 @@ public class DialogGiveSbGiftActivity1 extends Activity{
 		}else{
 			this.giftList=new ArrayList<Gift>();
 		}
-		if(Constants.user!=null){
+		if(PetApplication.myUser!=null){
 			 new Thread(new Runnable() {
 					
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						final ArrayList<Gift> temp1=HttpUtil.userItems(DialogGiveSbGiftActivity1.this,Constants.user, -1, handleHttpConnectionException.getHandler(context));
+						final ArrayList<Gift> temp1=HttpUtil.userItems(DialogGiveSbGiftActivity1.this,PetApplication.myUser, -1, handleHttpConnectionException.getHandler(context));
 		                handleHttpConnectionException.getHandler(context).post(new Runnable() {
 							@Override
 							public void run() {

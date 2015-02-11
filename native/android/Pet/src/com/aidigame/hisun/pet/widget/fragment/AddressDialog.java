@@ -60,6 +60,7 @@ public class AddressDialog {
 				
 				
 				city=AddressData.CITIES[newVal][0];
+				cityValue=0;
 				provinceTV.setText(province);
 			}
 		});
@@ -84,6 +85,7 @@ public class AddressDialog {
 		return view;
 	}
 	public String getAddress(){
+		
 		return province=AddressData.PROVINCES[provinceValue]+"|"+AddressData.CITIES[provinceValue][cityValue];
 		
 	}

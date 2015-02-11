@@ -220,7 +220,7 @@ public class DetailActivity extends Activity {
 				if(!UserStatusUtil.isLoginSuccess(DetailActivity.this, popupParent, black_layout)){
 					return;
 				}
-				if(Constants.user!=null&&Constants.user.currentAnimal!=null&&Constants.user.userId==Constants.user.currentAnimal.master_id){
+				if(PetApplication.myUser!=null&&PetApplication.myUser.currentAnimal!=null&&PetApplication.myUser.userId==PetApplication.myUser.currentAnimal.master_id){
 					Intent intent=new Intent(DetailActivity.this,TakePictureBackground.class);
 					intent.putExtra("activity", data.topic);
 					intent.putExtra("mode",TakePictureBackground.MODE_ACTIVITY);

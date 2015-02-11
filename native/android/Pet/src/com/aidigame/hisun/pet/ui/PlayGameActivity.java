@@ -10,7 +10,9 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +21,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +54,7 @@ public class PlayGameActivity extends Activity {
 	ImageView back;
 	TextView shareTv;
 	UMSocialService mController;
+	RelativeLayout rooLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -64,6 +68,14 @@ public class PlayGameActivity extends Activity {
 		back=(ImageView)findViewById(R.id.button1);
 		shareTv=(TextView)findViewById(R.id.three_point_iv);
 		mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+		
+		
+		
+		rooLayout=(RelativeLayout)findViewById(R.id.root_layout);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		rooLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
+		
 		
 		// 支持微信朋友圈
 		UMWXHandler wxCircleHandler = new UMWXHandler(this,Constants.Weixin_APP_KEY,Constants.Weixin_APP_SECRET);
@@ -102,7 +114,7 @@ public class PlayGameActivity extends Activity {
 
 		});
 		String sig=HttpUtil.getMD5Value("aid="+animal.a_id);
-		url=url+sig+"&SID="+Constants.SID+"&aid="+animal.a_id;
+		url=url+sig+"&SID="+PetApplication.SID+"&aid="+animal.a_id;
 		LogUtil.i("me", "逗一逗url="+url);
 		webView.loadUrl(url);
 		

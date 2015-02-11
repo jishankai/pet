@@ -58,13 +58,12 @@ public class HomeSearchListAdapter extends BaseAdapter {
 	Activity context;
 	ArrayList<Animal> animalList;
 	ArrayList<MyUser> userList;
-	Handler handler;
     int mode;//1,萌星列表；2，用户列表
 	HandleHttpConnectionException handleHttpConnectionException;
-	public HomeSearchListAdapter(Activity context,ArrayList<Animal> list,ArrayList<MyUser> userList,Handler handler,int mode){
+	public HomeSearchListAdapter(Activity context,ArrayList<Animal> list,ArrayList<MyUser> userList,int mode){
 		this.context=context;
 		
-		this.handler=handler;
+
 		this.mode=mode;
 		if(mode==1){
 			this.animalList=list;

@@ -69,24 +69,23 @@ import com.umeng.socialize.weixin.media.WeiXinShareContent;
  *
  */
 public class TouchActivity extends Activity {
-     DisplayImageOptions displayImageOptions;//显示图片的格式
+	private  DisplayImageOptions displayImageOptions;//显示图片的格式
 	
-     AudioRecordAndPlayer andPlayer;
-	ViewPager viewPager;
-	View view1,view2,view3,view4;
-	HomeViewPagerAdapter adapter;
-	ArrayList<View> viewList;
-	Animal animal;
-	RelativeLayout shareBitmapLayout;
-	HandleHttpConnectionException handleHttpConnectionException;
-	String voicePath;
-	EraserView_user_drawPath eraserView;
-	RelativeLayout layout;
-	String imagePath;
-	boolean isTouched;
-	ShowProgress showProgress;
-	LinearLayout progressLayout;
-  	UMSocialService mController;
+	private  AudioRecordAndPlayer andPlayer;
+	private ViewPager viewPager;
+	private View view1,view2,view3,view4;
+	private HomeViewPagerAdapter adapter;
+	private ArrayList<View> viewList;
+	private Animal animal;
+	private HandleHttpConnectionException handleHttpConnectionException;
+	private String voicePath;
+	private EraserView_user_drawPath eraserView;
+	private RelativeLayout layout;
+	private String imagePath;
+	private boolean isTouched;
+	private ShowProgress showProgress;
+	private LinearLayout progressLayout;
+	private UMSocialService mController;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -109,7 +108,6 @@ public class TouchActivity extends Activity {
 		
 		animal=(Animal)getIntent().getSerializableExtra("animal");
 		MobclickAgent.onEvent(this, "touch_button");
-		shareBitmapLayout=(RelativeLayout)findViewById(R.id.share_bitmap_layout);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		progressLayout=(LinearLayout)findViewById(R.id.progresslayout);
 		if(showProgress==null){
@@ -206,7 +204,47 @@ public class TouchActivity extends Activity {
 		// TODO Auto-generated method stub
 		ImageLoader imageLoader=ImageLoader.getInstance();
 		ImageView icon=(ImageView)findViewById(R.id.roundImageView1);
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl,icon , displayImageOptions);
+		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl,icon , displayImageOptions,new ImageLoadingListener() {
+			
+			@Override
+			public void onLoadingStarted(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLoadingFailed(String imageUri, View view,
+					FailReason failReason) {
+				// TODO Auto-generated method stub
+				animal.pet_iconPath=StringUtil.compressEmotion(TouchActivity.this, null);
+			}
+			
+			public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
+				// TODO Auto-generated method stub
+				
+				
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						/*添加毛玻璃效果
+						 *首先要将Bitmap的Config转化为Config.ARGB_8888类型的 
+						 */
+						animal.pet_iconPath=StringUtil.compressEmotion(TouchActivity.this, loadedImage);
+//						
+							
+					}
+				}).start();
+				
+			}
+			
+			@Override
+			public void onLoadingCancelled(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				animal.pet_iconPath=StringUtil.compressEmotion(TouchActivity.this, null);
+			}
+		});
 		TextView nameTv=(TextView)findViewById(R.id.textView4);
 		findViewById(R.id.close_view).setOnClickListener(new OnClickListener() {
 			
@@ -361,7 +399,7 @@ public class TouchActivity extends Activity {
 		});
 	    
 	}
-	public void loadBitmap(String url){
+	private  void loadBitmap(String url){
 		BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
 		options.inSampleSize=StringUtil.getScaleByDPI(TouchActivity.this,url);
@@ -554,7 +592,7 @@ public class TouchActivity extends Activity {
 				+"</body></html>";
 		nameTv.setText(Html.fromHtml(htmlStr));
 	}
-	public void share(View view){
+	private  void share(View view){
 		ImageView weixinIV=(ImageView)view.findViewById(R.id.imageView3);
 		ImageView friendIV=(ImageView)view.findViewById(R.id.imageView4);
 		ImageView xinlangIV=(ImageView)view.findViewById(R.id.imageView5);
@@ -563,28 +601,7 @@ public class TouchActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
-				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
-				FileOutputStream fos=null;
-				try {
-					fos = new FileOutputStream(path);
-					bmp.compress(CompressFormat.PNG, 100, fos);
-					UserImagesJson.Data data=new UserImagesJson.Data();
-					data.path=path;
-					weixinShare(path);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally{
-					if(fos!=null){
-						try {
-							fos.close();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
+				weixinShare(animal.pet_iconPath);
 				
 			}
 		});
@@ -593,29 +610,7 @@ public class TouchActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
-				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
-				FileOutputStream fos=null;
-				try {
-					fos = new FileOutputStream(path);
-					bmp.compress(CompressFormat.PNG, 100, fos);
-					UserImagesJson.Data data=new UserImagesJson.Data();
-					data.path=path;
-					friendShare(path);
-
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally{
-					if(fos!=null){
-						try {
-							fos.close();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
+				friendShare(animal.pet_iconPath);
 				
 			}
 		});
@@ -624,8 +619,8 @@ public class TouchActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
-				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
+				xinlangShare();
+				/*Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
 				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
 				FileOutputStream fos=null;
 				try {
@@ -634,11 +629,11 @@ public class TouchActivity extends Activity {
 					UserImagesJson.Data data=new UserImagesJson.Data();
 					data.path=path;
 					data.des="我在宠物星球里面摸了萌星"+animal.pet_nickName+"，“"+animal.pet_nickName+"”乖巧地冲我叫了一声，真可爱~http://home4pet.aidigame.com/(分享自@宠物星球社交应用）";
-					xinlangShare(data);
-					/*if(UserStatusUtil.hasXinlangAuth(TouchActivity.this)){
+					
+					if(UserStatusUtil.hasXinlangAuth(TouchActivity.this)){
 						
 						XinlangShare.sharePicture(data,TouchActivity.this);
-					}*/
+					}
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -651,7 +646,7 @@ public class TouchActivity extends Activity {
 							e.printStackTrace();
 						}
 					}
-				}
+				}*/
 				
 			}
 		});
@@ -679,14 +674,14 @@ public class TouchActivity extends Activity {
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	   }
-	      public void weixinShare(String path){
+	      private  void weixinShare(String path){
 		   	   WeiXinShareContent weixinContent = new WeiXinShareContent();
 		   	 //设置分享文字
-//		   	 weixinContent.setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能，微信");
-		   	 //设置title
-//		   	 weixinContent.setTitle("友盟社会化分享组件-微信");
-		   	 //设置分享内容跳转URL
-//		   	 weixinContent.setTargetUrl("你的URL链接");
+			   	 weixinContent.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
+			   	 //设置title
+			   	 weixinContent.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+			   	 //设置分享内容跳转URL
+			   	 weixinContent.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
 		   	 //设置分享图片
 		   	 UMImage umImage=new UMImage(this,path );
 		   	 weixinContent.setShareImage(umImage);
@@ -715,11 +710,16 @@ public class TouchActivity extends Activity {
 		   	   
 		   		
 		      }
-		      public void friendShare(String path){
+	      private  void friendShare(String path){
 		   	   CircleShareContent circleMedia = new CircleShareContent();
 		   	   UMImage umImage=new UMImage(this, path);
 		   	   circleMedia.setShareImage(umImage);
-//		   	   circleMedia.setTargetUrl("你的URL链接");
+		   	 //设置分享文字
+			   	circleMedia.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
+				   	 //设置title
+			   	circleMedia.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+				   	 //设置分享内容跳转URL
+			   	circleMedia.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
 		   	   mController.setShareMedia(circleMedia);
 		   	   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,
 		   			   new SnsPostListener() {
@@ -743,11 +743,16 @@ public class TouchActivity extends Activity {
 		   });
 		   		
 		      }
-		      public void xinlangShare(UserImagesJson.Data data){
+	      private  void xinlangShare(){
+		    	  UserImagesJson.Data data=new UserImagesJson.Data();
+			   		data.path=animal.pet_iconPath;
+			   			
+			   			
+			   	
 				   	   SinaShareContent content=new SinaShareContent();
 				   	   content.setShareContent(data.des);
 				   	   UMImage umImage=new UMImage(this, data.path);
-				   	  
+				   	 content.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~"+"http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id+"（分享自@宠物星球社交应用）");
 				   	   content.setShareImage(umImage);
 				   	   mController.setShareMedia(content);
 				   	   mController.postShare(this, SHARE_MEDIA.SINA,new SnsPostListener() {

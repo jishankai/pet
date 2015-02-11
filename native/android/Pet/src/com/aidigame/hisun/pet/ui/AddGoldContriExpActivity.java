@@ -16,8 +16,8 @@ import android.widget.TextView;
  *
  */
 public class AddGoldContriExpActivity extends Activity {
-	ImageView imageView;
-	TextView textView;
+	private  ImageView imageView;
+	private TextView textView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

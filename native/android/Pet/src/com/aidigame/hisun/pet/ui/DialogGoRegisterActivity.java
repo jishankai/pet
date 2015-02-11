@@ -416,7 +416,7 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 					String SID=HttpUtil.getSID(DialogGoRegisterActivity.this,handler);
 					SharedPreferences sPreferences=getSharedPreferences("setup", Context.MODE_WORLD_WRITEABLE);
 					if(!StringUtil.isEmpty(SID)){
-						Constants.SID=SID;
+						PetApplication.SID=SID;
 					}else{
 						boolean flag=HttpUtil.login(DialogGoRegisterActivity.this,handler);
 						if(flag){
@@ -437,7 +437,8 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 								if(HomeActivity.homeActivity.myPetFragment!=null){
 									HomeActivity.homeActivity.myPetFragment.homeMyPet.refresh();
 								}
-								
+								com.aidigame.hisun.pet.PetApplication.logout(null);
+								HomeActivity.homeActivity.initEMChatLogin();
 								ActivityManager am=(ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
 								am.moveTaskToFront(HomeActivity.homeActivity.getTaskId(), 0);
 							}else{

@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -35,6 +37,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetPicture;
@@ -43,6 +46,7 @@ import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.ui.ChargeActivity;
 import com.aidigame.hisun.pet.ui.Dialog4Activity;
+import com.aidigame.hisun.pet.ui.DialogNoteActivity;
 import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.ui.NewPetKingdomActivity;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
@@ -61,38 +65,35 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 public class BegFoodFragment extends Fragment implements OnClickListener{
-	HomeActivity homeActivity ;
-	View view;
-	LinearLayout progressLayout;
-	ShowProgress showProgress;
-	View popupParent;
-	RelativeLayout black_layout;
+	private View view;
+	private LinearLayout progressLayout;
+	private View popupParent;
+	private RelativeLayout black_layout;
 	
 	
 	
 	/*
 	 * 信息栏
 	 */
-	ImageView genderIv,moreGive,giveHeartIv;
-    TextView petNameTv,petRaceTv,userNameTv,/*foodNum,timeTv,desTv,*/giveNum;
-    RoundImageView petIcon,userIcon;
-    RelativeLayout showMoreNumLayout;
-    PopupWindow moreNumWindow;
-//    RelativeLayout imageRelativeLayout;
-    View moreNumView;
+	private ImageView genderIv,giveHeartIv;
+	private  TextView petNameTv,petRaceTv,userNameTv,/*foodNum,timeTv,desTv,*/giveNum;
+	private  RoundImageView petIcon,userIcon;
+	private RelativeLayout showMoreNumLayout;
+	private  PopupWindow moreNumWindow;
     
     
-    Handler handler;
-	ArrayList<PetPicture> list;
-	ViewPager viewPager;
-	PagerAdapter pagerAdapter;
-	BitmapFactory.Options options;
+    
+	private  Handler handler;
+	private ArrayList<PetPicture> list;
+	private ViewPager viewPager;
+	private PagerAdapter pagerAdapter;
+	private BitmapFactory.Options options;
 //	ArrayList<TextView> timeTvs=new ArrayList<TextView>();
 //	ArrayList<TextView> foodNumTvs=new ArrayList<TextView>();
-	int current_give_num=1;
-	int current_page=0;
-	Animation heartAnim;
-	AnimationListener animationListener;
+	private int current_give_num=1;
+	private int current_page=0;
+	private Animation heartAnim;
+	private AnimationListener animationListener;
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -106,15 +107,16 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		view=inflater.inflate(R.layout.fragment_beg_food, null);
-		homeActivity=HomeActivity.homeActivity;
-		handler=HandleHttpConnectionException.getInstance().getHandler(homeActivity);
+		handler=HandleHttpConnectionException.getInstance().getHandler(getActivity());
 		options=new BitmapFactory.Options();
-		options.inSampleSize=StringUtil.getScaleByDPI(homeActivity);
-		LogUtil.i("me", "图片像素压缩比例="+StringUtil.getScaleByDPI(homeActivity));
+		options.inSampleSize=StringUtil.getScaleByDPI(getActivity());
+		LogUtil.i("me", "图片像素压缩比例="+StringUtil.getScaleByDPI(getActivity()));
 		options.inPreferredConfig=Bitmap.Config.RGB_565;
 		options.inPurgeable=true;
 		options.inInputShareable=true;
 		current_view=null;
+		Context context;
+		
 		initView();
 		return view;
 	}
@@ -135,10 +137,9 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 		
 
 		giveNum=(TextView)view.findViewById(R.id.give_num);
-		moreGive=(ImageView)view.findViewById(R.id.more_give_iv);
 		giveHeartIv=(ImageView)view.findViewById(R.id.give_food_tv);
 		showMoreNumLayout=(RelativeLayout)view.findViewById(R.id.reward_layout2);
-		heartAnim=AnimationUtils.loadAnimation(homeActivity, R.anim.anim_scale_heart);
+		heartAnim=AnimationUtils.loadAnimation(PetApplication.petApp.getApplicationContext(), R.anim.anim_scale_heart);
 		heartAnim.setInterpolator(new LinearInterpolator());
 		giveHeartIv.setAnimation(heartAnim);
 		
@@ -177,7 +178,7 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 			public void run() {
 				// TODO Auto-generated method stub
 				current_page=0;
-				final ArrayList<PetPicture> pps=HttpUtil.begFoodList(handler, current_page, homeActivity);
+				final ArrayList<PetPicture> pps=HttpUtil.begFoodList(handler, current_page, getActivity());
 				
 	          	if(pps!=null){
 	          		for(int i=0;i<pps.size();i++){
@@ -186,8 +187,8 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 	          				i--;
 	          			}
 	          		}
-	          		
-	          		homeActivity.runOnUiThread(new Runnable() {
+	          		if(getActivity()==null)return;
+	          		getActivity().runOnUiThread(new Runnable() {
 						
 						@Override
 						public void run() {
@@ -224,45 +225,56 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 					Toast.makeText(homeActivity, "亲，正在打赏", 1000).show();
 					return ;
 				}*/
-				 if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
+				 if(!UserStatusUtil.isLoginSuccess(getActivity(),popupParent,black_layout)){
 					 return ;
 				 }
-				 if(Constants.user!=null){
-					 if(Constants.user.coinCount+Constants.user.food<current_give_num){
-						 Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
-								
-								@Override
-								public void onClose() {
-									// TODO Auto-generated method stub
-									isGiving=false;
-								}
-								
-								@Override
-								public void onButtonTwo() {
-									// TODO Auto-generated method stub
-									isGiving=false;
-									Intent intent=new Intent(homeActivity,ChargeActivity.class);
-									homeActivity.startActivity(intent);
-								}
-								
-								@Override
-								public void onButtonOne() {
-									// TODO Auto-generated method stub
-									isGiving=false;
-								}
-							};
-							 Intent intent=new Intent(homeActivity,Dialog4Activity.class);
-							 intent.putExtra("mode", 3);
-							 intent.putExtra("num", current_give_num);
-							 homeActivity.startActivity(intent);
+				 if(PetApplication.myUser!=null){
+					 if(PetApplication.myUser.coinCount+PetApplication.myUser.food<current_give_num){
+						 
+						 if(Constants.CON_VERSION.equals(StringUtil.getAPKVersionName(getActivity()))){
+							 Intent intent=new Intent(HomeActivity.homeActivity,DialogNoteActivity.class);
+								intent.putExtra("mode", 10);
+								intent.putExtra("info", "金币不足");
+								HomeActivity.homeActivity.startActivity(intent);
+							
+						 }else{
+							 Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
+									
+									@Override
+									public void onClose() {
+										// TODO Auto-generated method stub
+										isGiving=false;
+									}
+									
+									@Override
+									public void onButtonTwo() {
+										// TODO Auto-generated method stub
+										isGiving=false;
+										Intent intent=new Intent(getActivity(),ChargeActivity.class);
+										getActivity().startActivity(intent);
+									}
+									
+									@Override
+									public void onButtonOne() {
+										// TODO Auto-generated method stub
+										isGiving=false;
+									}
+								};
+								 Intent intent=new Intent(getActivity(),Dialog4Activity.class);
+								 intent.putExtra("mode", 3);
+								 intent.putExtra("num", current_give_num);
+								 getActivity().startActivity(intent);
+						 }
+						 
+						 
 							 return ;
 					 }
 					 isGiving=true;
-					 if(Constants.user!=null&&Constants.user.food>0){
+					 if(PetApplication.myUser!=null&&PetApplication.myUser.food>0){
 						 giveFood(); 
 						 return ;
 					 }
-					 SharedPreferences sp=homeActivity.getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+					 SharedPreferences sp=getActivity().getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
 					 boolean flag=sp.getBoolean(Constants.GIVE_FOOD_NOTE_SHOW, false);
 					 
 					 if(!flag){
@@ -286,10 +298,10 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 								isGiving=false;
 							}
 						};
-						 Intent intent=new Intent(homeActivity,Dialog4Activity.class);
+						 Intent intent=new Intent(getActivity(),Dialog4Activity.class);
 						 intent.putExtra("mode", 2);
 						 intent.putExtra("num", current_give_num);
-						 homeActivity.startActivity(intent);
+						 getActivity().startActivity(intent);
 					 }else{
 						 giveFood(); 
 					 }
@@ -301,7 +313,7 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 		petIcon.setOnClickListener(this);
 		userIcon.setOnClickListener(this);
 	}
-    boolean loadingMore=false;
+	private boolean loadingMore=false;
 //    ArrayList<View> viewList=new ArrayList<View>();
     
 	private void initViewPager() {
@@ -335,15 +347,21 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 			public Object instantiateItem(ViewGroup container,final int position) {
 				// TODO Auto-generated method stub
 				
-                    View view=LayoutInflater.from(homeActivity).inflate(R.layout.item_imageview1, null);;
+                    View view=LayoutInflater.from(getActivity()).inflate(R.layout.item_imageview1, null);;
                     if(position==0&&current_view==null){
                     	current_view=view;
                     }
                     view.setId(position);
                 	ImageView imageView=(ImageView)view.findViewById(R.id.imageview);
                     
-                ImageFetcher imageFetcher=new ImageFetcher(homeActivity, 0);
-                imageFetcher.setImageCache(new ImageCache(homeActivity, list.get(position).url));
+                	ImageView animIV=(ImageView)view.findViewById(R.id.beg_anim_iv);
+                	AnimationDrawable ad=(AnimationDrawable)animIV.getDrawable();
+                	ad.start();
+                	
+                	
+                	
+                ImageFetcher imageFetcher=new ImageFetcher(getActivity(), 0);
+                imageFetcher.setImageCache(new ImageCache(getActivity(), list.get(position).url));
                 imageFetcher.loadImage(list.get(position).url, imageView, options);
 				
 				TextView foodNum=(TextView)view.findViewById(R.id.food_num_tv);
@@ -356,7 +374,7 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 			    	   desTv.setText("");
 			    }
 				foodNum.setText(""+pp.animal.foodNum);
-				imageView.setOnClickListener(new OnClickListener() {
+				view.setOnClickListener(new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {
@@ -365,10 +383,10 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 						if(NewShowTopicActivity.newShowTopicActivity!=null){
 							NewShowTopicActivity.newShowTopicActivity.recyle();
 						}
-						Intent intent=new Intent(homeActivity,NewShowTopicActivity.class);
+						Intent intent=new Intent(getActivity(),NewShowTopicActivity.class);
 //						Intent intent=new Intent(homeActivity,PictureBegActivity .class);
 						intent.putExtra("PetPicture", p);
-						homeActivity.startActivity(intent);
+						getActivity().startActivity(intent);
 					}
 				});
 				container.addView(view);
@@ -419,9 +437,9 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 	 * 更新界面信息  
 	 * @param position
 	 */
-	int current_position=0;
-	View current_view;
-	public void updateInfo(int position){
+	private int current_position=0;
+	private View current_view;
+	private  void updateInfo(int position){
 		current_position=position;
 		PetPicture pp=list.get(position);
 	       if(pp.animal.a_gender==1){
@@ -485,18 +503,18 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 	/**
 	 * 选择打赏的数目
 	 */
-	TextView tv4,tv3,tv2,tv1;
+	private TextView tv4,tv3,tv2,tv1;
 	private void initMoreNum() {
 		// TODO Auto-generated method stub
 		showMoreNumLayout.setOnClickListener(this);
-		View view=LayoutInflater.from(homeActivity).inflate(R.layout.item_more_num, null);
+		View view=LayoutInflater.from(getActivity()).inflate(R.layout.item_more_num, null);
 		tv4=(TextView)view.findViewById(R.id.tv4);
 		tv3=(TextView)view.findViewById(R.id.tv3);
 		tv2=(TextView)view.findViewById(R.id.tv2);
 		tv1=(TextView)view.findViewById(R.id.tv1);
 	
 		
-		moreNumWindow=new PopupWindow(view,homeActivity.getResources().getDimensionPixelSize(R.dimen.one_dip)*120,LayoutParams.WRAP_CONTENT);
+		moreNumWindow=new PopupWindow(view,getActivity().getResources().getDimensionPixelSize(R.dimen.one_dip)*120,LayoutParams.WRAP_CONTENT);
 		moreNumWindow.setFocusable(true);
 		moreNumWindow.setOutsideTouchable(true);
 		moreNumWindow.setBackgroundDrawable(new BitmapDrawable());
@@ -566,8 +584,8 @@ tv4.setOnClickListener(new OnClickListener() {
 	/**
       倒计时
     */
-    MyTimerTask myTimerTask;
-	class MyTimerTask extends TimerTask{
+	private  MyTimerTask myTimerTask;
+	private class MyTimerTask extends TimerTask{
 		long time;
         public MyTimerTask(long time){
         	this.time=time;
@@ -575,10 +593,11 @@ tv4.setOnClickListener(new OnClickListener() {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
+			if(timeHandler==null)return;
 			timeHandler.sendEmptyMessage(1);
 		}
 	}
-    Handler timeHandler=new Handler(){
+   public Handler timeHandler=new Handler(){
     	public void handleMessage(android.os.Message msg) {
     		if(msg.what==1){
     			
@@ -619,6 +638,12 @@ tv4.setOnClickListener(new OnClickListener() {
     			}
     			
     		}
+    		} else if(msg.what==10){
+    			if(myTimerTask!=null){
+    				myTimerTask.cancel();
+    				myTimerTask=null;
+    				timeHandler=null;
+    			}
     		}else{
     			giveHeartIv.clearAnimation();
     			giveHeartIv.setAnimation(heartAnim);
@@ -627,7 +652,7 @@ tv4.setOnClickListener(new OnClickListener() {
     		
     	};
     };
-    boolean isGiving=false;//是否是正在赏
+    private  boolean isGiving=false;//是否是正在赏
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -649,7 +674,7 @@ tv4.setOnClickListener(new OnClickListener() {
 			user.userId=list.get(current_position).animal.master_id;
 			intent1.putExtra("user", user);
 			this.startActivity(intent1);*/
-			Intent intent1=new Intent(homeActivity,UserCardActivity.class);
+			Intent intent1=new Intent(getActivity(),UserCardActivity.class);
 			MyUser user=new MyUser();
 			user.userId=list.get(current_position).animal.master_id;
 			intent1.putExtra("user", user);
@@ -668,7 +693,7 @@ tv4.setOnClickListener(new OnClickListener() {
 				NewPetKingdomActivity.petKingdomActivity.finish();
 				System.gc();
 			}
-			Intent intent2=new Intent(homeActivity,NewPetKingdomActivity.class);
+			Intent intent2=new Intent(getActivity(),NewPetKingdomActivity.class);
 			intent2.putExtra("animal", list.get(current_position).animal);
 			this.startActivity(intent2);
 			break;
@@ -677,7 +702,7 @@ tv4.setOnClickListener(new OnClickListener() {
 			break;
 		case R.id.reward_layout2:
 			if(moreNumWindow!=null){
-				moreNumWindow.showAsDropDown(viewPager, homeActivity.getResources().getDimensionPixelSize(R.dimen.one_dip)*75, -homeActivity.getResources().getDimensionPixelSize(R.dimen.one_dip)*108);
+				moreNumWindow.showAsDropDown(viewPager, getActivity().getResources().getDimensionPixelSize(R.dimen.one_dip)*75, -getActivity().getResources().getDimensionPixelSize(R.dimen.one_dip)*108);
 			}
 			break;
 
@@ -689,14 +714,14 @@ tv4.setOnClickListener(new OnClickListener() {
 	 * 加载更多
 	 * @param last_id
 	 */
-	public void loadMore(final int last_id){
+	private  void loadMore(final int last_id){
         new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				current_page++;
-                final ArrayList<PetPicture> pps=HttpUtil.begFoodList(handler, current_page, homeActivity);
+                final ArrayList<PetPicture> pps=HttpUtil.begFoodList(handler, current_page, getActivity());
 				
 	          	if(pps!=null){
 	          		for(int i=0;i<pps.size();i++){
@@ -706,7 +731,7 @@ tv4.setOnClickListener(new OnClickListener() {
 	          			}
 	          		}
 	          		
-	          		homeActivity.runOnUiThread(new Runnable() {
+	          		getActivity().runOnUiThread(new Runnable() {
 						
 						@Override
 						public void run() {
@@ -714,6 +739,7 @@ tv4.setOnClickListener(new OnClickListener() {
 							for(int i=0;i<pps.size();i++){
 								list.add(pps.get(i));
 							}
+							if(pagerAdapter!=null)
 							pagerAdapter.notifyDataSetChanged();
 							loadingMore=false;
 						}
@@ -724,8 +750,10 @@ tv4.setOnClickListener(new OnClickListener() {
 			}
 		}).start();
 	}
-	
+	private boolean isRefresh=false;
 	public void refreshList(){
+		if(isRefresh)return;
+		isRefresh=true;
        new Thread(new Runnable() {
 			
 			@Override
@@ -734,7 +762,7 @@ tv4.setOnClickListener(new OnClickListener() {
 				current_page=0;
 				current_position=0;
 				current_view=null;
-				final ArrayList<PetPicture> pps=HttpUtil.begFoodList(handler, current_page, homeActivity);
+				final ArrayList<PetPicture> pps=HttpUtil.begFoodList(handler, current_page, getActivity());
 				
 	          	if(pps!=null){
 	          		for(int i=0;i<pps.size();i++){
@@ -743,8 +771,8 @@ tv4.setOnClickListener(new OnClickListener() {
 	          				i--;
 	          			}
 	          		}
-	          		
-	          		homeActivity.runOnUiThread(new Runnable() {
+	          		if(getActivity()==null)return;
+	          		getActivity().runOnUiThread(new Runnable() {
 						
 						@Override
 						public void run() {
@@ -759,8 +787,11 @@ tv4.setOnClickListener(new OnClickListener() {
 								viewPager.setCurrentItem(0);
 								updateInfo(0);
 							}
+							isRefresh=false;
 						}
 					});
+	          	}else {
+	          		isRefresh=false;
 	          	}
 			}
 		}).start();
@@ -768,33 +799,33 @@ tv4.setOnClickListener(new OnClickListener() {
 	/**
 	 * 打赏
 	 */
-	public void giveFood(){
+	private  void giveFood(){
 		new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				if(current_position>list.size())return;
-				final boolean flag=HttpUtil.awardApi(handler, list.get(current_position), current_give_num, homeActivity);
-				homeActivity.runOnUiThread(new Runnable() {
+				final boolean flag=HttpUtil.awardApi(handler, list.get(current_position), current_give_num, getActivity());
+				getActivity().runOnUiThread(new Runnable() {
 					
 					@Override
 					public void run() {
 						// TODO Auto-generated method stub
-						Constants.user.food=Constants.user.food-current_give_num;
-						if(Constants.user.food<0)Constants.user.food=0;
+						PetApplication.myUser.food=PetApplication.myUser.food-current_give_num;
+						if(PetApplication.myUser.food<0)PetApplication.myUser.food=0;
 						
 						if(flag){
 							Animal animal=list.get(current_position).animal;
-							if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.contains(animal)){
-								int index=Constants.user.aniList.indexOf(animal);
-								Constants.user.aniList.get(index).foodNum+=current_give_num;
+							if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null&&PetApplication.myUser.aniList.contains(animal)){
+								int index=PetApplication.myUser.aniList.indexOf(animal);
+								PetApplication.myUser.aniList.get(index).foodNum+=current_give_num;
 							}
 							TextView foodNumTv=(TextView)current_view.findViewById(R.id.food_num_tv);
 							foodNumTv.setText(""+list.get(current_position).animal.foodNum);
 							giveFoodAnimation();
 						}else{
-							 Toast.makeText(homeActivity, "亲，数据错误导致打赏失败", 1000).show();
+							 Toast.makeText(getActivity(), "亲，数据错误导致打赏失败", 1000).show();
 						}
 						isGiving=false;
 					}
@@ -802,17 +833,17 @@ tv4.setOnClickListener(new OnClickListener() {
 			}
 		}).start();
 	}
-	public void giveFoodAnimation(){
+	private  void giveFoodAnimation(){
 		View view=current_view;
 	
 		final RelativeLayout layout=(RelativeLayout)view.findViewById(R.id.anim_layout);
-		final View animView=LayoutInflater.from(homeActivity).inflate(R.layout.item_food_anim_view, null);
+		final View animView=LayoutInflater.from(getActivity()).inflate(R.layout.item_food_anim_view, null);
 		
 		TextView numTv=(TextView)animView.findViewById(R.id.anim_num_tv);
 		numTv.setText("+"+current_give_num);
 		layout.setVisibility(View.VISIBLE);
 		layout.addView(animView);
-		Animation anim=AnimationUtils.loadAnimation(homeActivity, R.anim.anim_set);
+		Animation anim=AnimationUtils.loadAnimation(getActivity(), R.anim.anim_set);
 		animView.clearAnimation();
 		animView.setAnimation(anim);
 		anim.setAnimationListener(new AnimationListener() {
@@ -879,5 +910,12 @@ tv4.setOnClickListener(new OnClickListener() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		giveNum.setText(""+current_give_num);
+	}
+	
+	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		LogUtil.i("run", "xiaohuiqiukouliang  fRagment");
 	}
 }

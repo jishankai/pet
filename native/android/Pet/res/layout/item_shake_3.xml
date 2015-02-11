@@ -76,7 +76,7 @@
              android:layout_below="@+id/textView10"
              android:layout_marginTop="5dp"
              android:layout_marginLeft="-0dp"
-             android:src="@drawable/shake_weixin" />
+             android:src="@drawable/dialog_go_register_weixin" />
          <TextView
              android:id="@+id/textView11"
              android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
              android:layout_alignTop="@+id/imageView3"
              android:layout_centerHorizontal="true"
              android:layout_marginTop="0dp"
-             android:src="@drawable/shake_friend" />
+             android:src="@drawable/dialog_go_register_friend" />
           <TextView
              android:id="@+id/textView12"
              android:layout_width="wrap_content"
@@ -111,7 +111,7 @@
              android:layout_marginTop="0dp"
              android:layout_marginLeft="-5dp"
              android:layout_toRightOf="@+id/textView9"
-             android:src="@drawable/shake_xinlang" />
+             android:src="@drawable/dialog_go_register_xinlang" />
          <TextView
              android:id="@+id/textView13"
              android:layout_width="wrap_content"

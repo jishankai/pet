@@ -18,7 +18,11 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,6 +43,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -50,7 +55,9 @@ import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.ui.Dialog4Activity;
 import com.aidigame.hisun.pet.ui.Dialog6Activity;
+import com.aidigame.hisun.pet.ui.DialogNoteActivity;
 import com.aidigame.hisun.pet.ui.HomeActivity;
+import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.easemob.EMCallBack;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMContact;
@@ -78,7 +85,7 @@ public class ChatAllHistoryFragment extends Fragment {
 	private List<EMGroup> groups;
 	private List<EMConversation> conversationList;
 	ArrayList<User> users;
-
+    LinearLayout rooLayout;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.fragment_conversation_history, container, false);
@@ -95,6 +102,12 @@ public class ChatAllHistoryFragment extends Fragment {
 		
 		conversationList = loadConversationsWithRecentChat();
 		loadUsersInfo();
+		
+		rooLayout=(LinearLayout)getView().findViewById(R.id.root_layout);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		rooLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
+		
 		
 		listView = (ListView) getView().findViewById(R.id.list);
 		adapter = new ChatAllHistoryAdapter(getActivity(), 1, conversationList);
@@ -132,7 +145,7 @@ public class ChatAllHistoryFragment extends Fragment {
 					e.printStackTrace();
 				}
 				
-				if(Constants.user.u_nick.equals(nick)){
+				if(PetApplication.myUser.u_nick.equals(nick)){
 					try {
 						nick=conversation.getLastMessage().getStringAttribute("other_nickname");
 					} catch (EaseMobException e) {
@@ -230,13 +243,13 @@ public class ChatAllHistoryFragment extends Fragment {
 				@Override
 				public void onButtonTwo() {
 					// TODO Auto-generated method stub
-					EMChatManager.getInstance().login(""+Constants.user.userId, Constants.user.code, new EMCallBack() {
+					EMChatManager.getInstance().login(""+PetApplication.myUser.userId, PetApplication.myUser.code, new EMCallBack() {
 						
 						@Override
 						public void onSuccess() {
 							// TODO Auto-generated method stub
-							PetApplication.setUserName(""+Constants.user.userId);
-	 						PetApplication.setPassword(Constants.user.code);
+							PetApplication.setUserName(""+PetApplication.myUser.userId);
+	 						PetApplication.setPassword(PetApplication.myUser.code);
 	 						Activity a=getActivity();
 	 						if(a!=null)
 	 						a.runOnUiThread(new Runnable() {
@@ -448,6 +461,10 @@ public class ChatAllHistoryFragment extends Fragment {
 			EMConversation tobeDeleteCons = adapter.getItem(((AdapterContextMenuInfo) item.getMenuInfo()).position);
 			try {
 				EMContactManager.getInstance().addUserToBlackList(tobeDeleteCons.getUserName(),true);
+				Intent intent=new Intent(getActivity(),DialogNoteActivity.class);
+				intent.putExtra("mode", 10);
+				intent.putExtra("info", "拉黑成功");
+				getActivity().startActivity(intent);
 			} catch (EaseMobException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

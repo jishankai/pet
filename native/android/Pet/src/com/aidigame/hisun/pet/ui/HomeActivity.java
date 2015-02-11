@@ -8,6 +8,7 @@ import java.util.Map;
 import com.aidigame.hisun.pet.FirstPageActivity;
 import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.huanxin.ChatActivity;
@@ -22,6 +23,7 @@ import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
+import com.aidigame.hisun.pet.widget.ShowMore;
 import com.aidigame.hisun.pet.widget.fragment.BegFoodFragment;
 import com.aidigame.hisun.pet.widget.fragment.DiscoveryFragment;
 import com.aidigame.hisun.pet.widget.fragment.MyPetFragment;
@@ -52,6 +54,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
@@ -64,9 +68,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,26 +83,27 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 	public static int HOME_DISCORY=3;
 	public static int HOME_USER_CENTER=4;
 	public MyPetFragment myPetFragment;
-	BegFoodFragment begFoodFragment;
+	private BegFoodFragment begFoodFragment;
 	public DiscoveryFragment discoveryFragment;
 	UserCenterFragment userCenterFragment;
-	FrameLayout begFrameLayout,frameLayout;
-	ImageView petIV,begIV,discoveryIV,otherIV,guideIv2,guideIv3;
-	int current_show=HOME_BEG_FOOD;
+	private ImageView petIV,begIV,discoveryIV,otherIV,guideIv2,guideIv3;
+	private int current_show=HOME_BEG_FOOD;
 	public static HomeActivity homeActivity;
-	View popupParent;
-	RelativeLayout black_layout;
-	public RelativeLayout rootLayout;
-	TextView messageNumTv;
+	private View popupParent;
+	private RelativeLayout black_layout,moreParentLayout;
+	private  RelativeLayout rootLayout;
+	private TextView messageNumTv;
 	Handler handler;
 	 protected NotificationManager notificationManager;
 	 private static final int notifiId = 11;
+	 private  LinearLayout moreLayout,bottomLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
+		
 		handler=HandleHttpConnectionException.getInstance().getHandler(this);
 		homeActivity=this;
 		final boolean getinfo=getIntent().getBooleanExtra("getinfo", false);
@@ -110,36 +117,46 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 				}
 			}).start();
 		}
+		
 		setContentView(R.layout.activity_home_activity);
-		  notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		moreParentLayout=(RelativeLayout)findViewById(R.id.more_parent_latyout);
+		moreLayout=(LinearLayout)findViewById(R.id.more_layout);
+		bottomLayout=(LinearLayout)findViewById(R.id.bottom_tabs_layout);
+		
+		notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		guideIv2=(ImageView)findViewById(R.id.guide2);
 		guideIv3=(ImageView)findViewById(R.id.guide3);
 		SharedPreferences sp=getSharedPreferences(Constants.BASEIC_SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
 		Editor e=sp.edit();
 		boolean guide2=sp.getBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE2, true);
 		if(guide2){
+			guideIv2.setImageResource(R.drawable.guide2);
 			guideIv2.setVisibility(View.VISIBLE);
 			e.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE2, false);
 			e.commit();
 		}else{
 			guideIv2.setVisibility(View.GONE);
+			
 		}
 		guideIv2.setOnClickListener(this);
 		guideIv3.setOnClickListener(this);
 		
 		rootLayout=(RelativeLayout)findViewById(R.id.root_layout);
+//		bottomLayout.setAnimationCacheEnabled(false);
+//		rootLayout.setAnimationCacheEnabled(false);
 		messageNumTv=(TextView)findViewById(R.id.message_tv);
-		
-		
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		rootLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
 		
 		
 		popupParent=findViewById(R.id.popup_parent);
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
 		
-		begFrameLayout=(FrameLayout)findViewById(R.id.fragment_framelayout_beg);
-		frameLayout=(FrameLayout)findViewById(R.id.fragment_framelayout);
+
 		
 		showBegFoodFragment();
+//		showDiscoveryPetFragment();
 		initBottomTab();
 		if(msgReceiver!=null){
 			unregisterReceiver(msgReceiver);
@@ -158,10 +175,9 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 			 .getOfflineMessageBroadcastAction());
 			 registerReceiver(offlineMessageReceiver, offlineMessageIntentFilter);*/
 			
-		if(Constants.isSuccess){
-//			getNewsNum();
+		if(PetApplication.isSuccess){
 			
-			if(Constants.user!=null&&!DemoHXSDKHelper.getInstance().isLogined()){
+			if(PetApplication.myUser!=null&&!DemoHXSDKHelper.getInstance().isLogined()){
 				initEMChatLogin();
 			}else{
 				int count=EMChatManager.getInstance().getUnreadMsgsCount();
@@ -185,6 +201,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		Editor e=sp.edit();
 		boolean guide3=sp.getBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE3, true);
 		if(guide3){
+			guideIv3.setImageResource(R.drawable.guide3);
 			guideIv3.setVisibility(View.VISIBLE);
 			e.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE3, false);
 			e.commit();
@@ -193,31 +210,34 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		}
 		
 		
-		begFrameLayout.setVisibility(View.GONE);
-		frameLayout.setVisibility(View.VISIBLE);
 		if(myPetFragment==null){
 			myPetFragment=new MyPetFragment();
 		}
 		FragmentManager  fm=getSupportFragmentManager();
 		FragmentTransaction ft=fm.beginTransaction();
-		ft.replace(R.id.fragment_framelayout, myPetFragment, "HOME_MY_PET");
+		ft.replace(R.id.fragment_framelayout_beg, myPetFragment, "HOME_MY_PET");
 		 if(discoveryFragment!=null){
+			 
 	        	ft.remove(discoveryFragment);
 	        	
 	        	discoveryFragment=null;
 	        	
 			}
 	        if(begFoodFragment!=null){
+	        	if(begFoodFragment.timeHandler!=null)
+	        	begFoodFragment.timeHandler.sendEmptyMessage(10);
 	        	ft.remove(begFoodFragment);
 	        	begFoodFragment=null;
+	        }
+	        if(userCenterFragment!=null){
+	        	ft.remove(userCenterFragment);
+	        	userCenterFragment=null;
 	        }
 		ft.commit();
 	    System.gc();
 		current_show=HOME_MY_PET;
 	}
 	private void showBegFoodFragment(){
-		frameLayout.setVisibility(View.GONE);
-		begFrameLayout.setVisibility(View.VISIBLE);
 		if(begFoodFragment==null){
 			begFoodFragment=new BegFoodFragment();
 		}
@@ -235,14 +255,15 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
         	ft.remove(myPetFragment);
         	myPetFragment=null;
         }
-		
+        if(userCenterFragment!=null){
+        	ft.remove(userCenterFragment);
+        	userCenterFragment=null;
+        }
 		ft.commit();
 		System.gc();
 		current_show=HOME_BEG_FOOD;
 	}
 	private void showUserCenterFragment(){
-		frameLayout.setVisibility(View.GONE);
-		begFrameLayout.setVisibility(View.VISIBLE);
 		
 		SharedPreferences sp=getSharedPreferences(Constants.BASEIC_SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
 		Editor e=sp.edit();
@@ -265,6 +286,24 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		FragmentManager fm=getSupportFragmentManager();
 		FragmentTransaction ft=fm.beginTransaction();
 		ft.replace(R.id.fragment_framelayout_beg, userCenterFragment, "HOME_USER_CENTER");
+		
+		if(discoveryFragment!=null){
+        	ft.remove(discoveryFragment);
+        	
+        	discoveryFragment=null;
+        	
+		}
+        if(begFoodFragment!=null){
+        	if(begFoodFragment.timeHandler!=null)
+	        	begFoodFragment.timeHandler.sendEmptyMessage(10);
+        	ft.remove(begFoodFragment);
+        	begFoodFragment=null;
+        }
+        if(myPetFragment!=null){
+        	ft.remove(myPetFragment);
+        	myPetFragment=null;
+        }
+		
 		ft.commit();
 		System.gc();
 		current_show=HOME_USER_CENTER;
@@ -274,8 +313,6 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 	 */
 	private void showDiscoveryPetFragment() {
 		// TODO Auto-generated method stub
-		begFrameLayout.setVisibility(View.GONE);
-		frameLayout.setVisibility(View.VISIBLE);
 		
 		SharedPreferences sp=getSharedPreferences(Constants.BASEIC_SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
 		Editor e=sp.edit();
@@ -295,7 +332,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		}
 		FragmentManager  fm=getSupportFragmentManager();
 		FragmentTransaction ft=fm.beginTransaction();
-		ft.replace(R.id.fragment_framelayout, discoveryFragment, "HOME_DISCORY");
+		ft.replace(R.id.fragment_framelayout_beg, discoveryFragment, "HOME_DISCORY");
 		 if(myPetFragment!=null){
 	        	ft.remove(myPetFragment);
 	        	
@@ -303,8 +340,14 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 	        	
 			}
 	        if(begFoodFragment!=null){
+	        	if(begFoodFragment.timeHandler!=null)
+		        	begFoodFragment.timeHandler.sendEmptyMessage(10);
 	        	ft.remove(begFoodFragment);
 	        	begFoodFragment=null;
+	        }
+	        if(userCenterFragment!=null){
+	        	ft.remove(userCenterFragment);
+	        	userCenterFragment=null;
 	        }
 		ft.commit();
 		System.gc();
@@ -331,9 +374,11 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 			break;
 		case R.id.guide2:
 			guideIv2.setVisibility(View.GONE);
+			guideIv2.setImageDrawable(new BitmapDrawable());
 			break;
 		case R.id.guide3:
 			guideIv3.setVisibility(View.GONE);
+			guideIv3.setImageDrawable(new BitmapDrawable());
 			break;
 
 		default:
@@ -359,11 +404,15 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 	 * 点击底部Tab
 	 * @param id
 	 */
-	public void clickTab(final int id){
+	private  void clickTab(final int id){
 		/*
 		 * 开始播放动画
 		 */
 		Animation anim=AnimationUtils.loadAnimation(this, R.anim.anim_joggling);
+		/*Animation anim2=AnimationUtils.loadAnimation(this, R.anim.anim_joggling);
+		AnimationSet anim=new AnimationSet(true);
+		anim.addAnimation(anim1);
+		anim.addAnimation(anim2);*/
 		/*if(Constants.isSuccess){
 			getNewsNum();
 		}*/
@@ -394,7 +443,8 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		case R.id.bottom_iv_my_pet:
 			if(current_show==HOME_MY_PET){
 				if(myPetFragment!=null&&myPetFragment.homeMyPet!=null){
-					myPetFragment.homeMyPet.refresh();
+//					myPetFragment.homeMyPet.refresh();
+					myPetFragment.homeMyPet.pullRefresh();
 				}
 				return;
 			}
@@ -418,35 +468,14 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 			break;
 		}
 		
-		petIV.setImageResource(R.drawable.bottom_my_pet_normal);
-		begIV.setImageResource(R.drawable.bottom_beg_food_normal);
-		discoveryIV.setImageResource(R.drawable.bottom_discovery_normal);
-		otherIV.setImageResource(R.drawable.bottom_other_normal);
 		
 		
 		
 		
 		
 		
-		switch (id) {
-		case R.id.bottom_iv_my_pet:
-			
-			showHomeMyPetFragment();
-			petIV.setImageResource(R.drawable.bottom_my_pet_chose);
-			break;
-		case R.id.bottom_iv_beg_food:
-			showBegFoodFragment();
-			begIV.setImageResource(R.drawable.bottom_beg_food_chose);
-			break;
-		case R.id.bottom_iv_discovery:
-			showDiscoveryPetFragment();
-			discoveryIV.setImageResource(R.drawable.bottom_discovery_chose);
-			break;
-		case R.id.bottom_iv_other:
-			showUserCenterFragment();
-			otherIV.setImageResource(R.drawable.bottom_other_chose);
-			break;
-		}
+		
+		
 		anim.setAnimationListener(new AnimationListener() {
 			
 			@Override
@@ -465,6 +494,32 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 			public void onAnimationEnd(Animation animation) {
 				// TODO Auto-generated method stub
 				
+				petIV.setImageResource(R.drawable.bottom_my_pet_normal);
+				begIV.setImageResource(R.drawable.bottom_beg_food_normal);
+				discoveryIV.setImageResource(R.drawable.bottom_discovery_normal);
+				otherIV.setImageResource(R.drawable.bottom_other_normal);
+				
+				
+				
+				switch (id) {
+				case R.id.bottom_iv_my_pet:
+					
+					showHomeMyPetFragment();
+					petIV.setImageResource(R.drawable.bottom_my_pet_chose);
+					break;
+				case R.id.bottom_iv_beg_food:
+					showBegFoodFragment();
+					begIV.setImageResource(R.drawable.bottom_beg_food_chose);
+					break;
+				case R.id.bottom_iv_discovery:
+					showDiscoveryPetFragment();
+					discoveryIV.setImageResource(R.drawable.bottom_discovery_chose);
+					break;
+				case R.id.bottom_iv_other:
+					showUserCenterFragment();
+					otherIV.setImageResource(R.drawable.bottom_other_chose);
+					break;
+				}
 				
 			}
 		});
@@ -476,7 +531,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 	}
 	
 	
-	public void getSIDAndUserID(){
+	private  void getSIDAndUserID(){
 		String SID=HttpUtil.getSID(this,handler);
 		if("repate".equals(SID)){
 			Intent intent=new Intent(this,Dialog4Activity.class);
@@ -516,7 +571,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		}
 		
 		if(!StringUtil.isEmpty(SID)){
-			Constants.SID=SID;
+			PetApplication.SID=SID;
 			
 		}else{
 			boolean flag=HttpUtil.login(this,handler);
@@ -552,10 +607,10 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 	   	// TODO Auto-generated method stub
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
-	   	if(Constants.isSuccess){
+	   	if(PetApplication.isSuccess){
 //			getNewsNum();
 			
-			if(Constants.user!=null&&!DemoHXSDKHelper.getInstance().isLogined()){
+			if(PetApplication.myUser!=null&&!DemoHXSDKHelper.getInstance().isLogined()){
 //				initEMChatLogin();
 			}else if(DemoHXSDKHelper.getInstance().isLogined()){
 				int count=EMChatManager.getInstance().getUnreadMsgsCount();
@@ -594,32 +649,32 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		        		}
 		        		SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
 		        		Editor editor=sp.edit();
-		        		editor.putBoolean("isRegister", Constants.isSuccess);
-		        		editor.putString("SID", Constants.SID);
+		        		editor.putBoolean("isRegister", PetApplication.isSuccess);
+		        		editor.putString("SID", PetApplication.SID);
 		        		editor.putString("real_version", Constants.realVersion);
-		        		if(Constants.user!=null){
+		        		if(PetApplication.myUser!=null){
 		        			
-			        		editor.putInt("gold", Constants.user.coinCount);
-			        		editor.putInt("exp", Constants.user.exp);
-			        		editor.putInt("usr_id", Constants.user.userId);
-			        		editor.putInt("lv", Constants.user.lv);
-			        		editor.putString("name", Constants.user.u_nick);
-			        		editor.putString("url", Constants.user.u_iconUrl);
-			        		editor.putString("city", Constants.user.city);
-			        		editor.putString("province", Constants.user.province);
-			        		editor.putInt("usr_gender", Constants.user.u_gender);
-			        		editor.putInt("locationCode", Constants.user.locationCode);
-			        		if(Constants.user.currentAnimal!=null){
-			        			editor.putString("job", Constants.user.rank);
-			        			editor.putInt("rankCode", Constants.user.rankCode);
-			        			editor.putLong("a_id", Constants.user.currentAnimal.a_id);
-				        		editor.putString("a_nick", Constants.user.currentAnimal.pet_nickName);
-				        		editor.putString("a_race", Constants.user.currentAnimal.race);
-				        		editor.putString("a_age_str", Constants.user.currentAnimal.a_age_str);
-				        		editor.putString("a_url", Constants.user.currentAnimal.pet_iconUrl);
-				        		editor.putInt("a_age",  Constants.user.currentAnimal.a_age);
-				        		editor.putInt("a_type", Constants.user.currentAnimal.type);
-				        		editor.putInt("master_id", Constants.user.currentAnimal.master_id);
+			        		editor.putInt("gold", PetApplication.myUser.coinCount);
+			        		editor.putInt("exp", PetApplication.myUser.exp);
+			        		editor.putInt("usr_id", PetApplication.myUser.userId);
+			        		editor.putInt("lv", PetApplication.myUser.lv);
+			        		editor.putString("name", PetApplication.myUser.u_nick);
+			        		editor.putString("url", PetApplication.myUser.u_iconUrl);
+			        		editor.putString("city", PetApplication.myUser.city);
+			        		editor.putString("province", PetApplication.myUser.province);
+			        		editor.putInt("usr_gender", PetApplication.myUser.u_gender);
+			        		editor.putInt("locationCode", PetApplication.myUser.locationCode);
+			        		if(PetApplication.myUser.currentAnimal!=null){
+			        			editor.putString("job", PetApplication.myUser.rank);
+			        			editor.putInt("rankCode", PetApplication.myUser.rankCode);
+			        			editor.putLong("a_id", PetApplication.myUser.currentAnimal.a_id);
+				        		editor.putString("a_nick", PetApplication.myUser.currentAnimal.pet_nickName);
+				        		editor.putString("a_race", PetApplication.myUser.currentAnimal.race);
+				        		editor.putString("a_age_str", PetApplication.myUser.currentAnimal.a_age_str);
+				        		editor.putString("a_url", PetApplication.myUser.currentAnimal.pet_iconUrl);
+				        		editor.putInt("a_age",  PetApplication.myUser.currentAnimal.a_age);
+				        		editor.putInt("a_type", PetApplication.myUser.currentAnimal.type);
+				        		editor.putInt("master_id", PetApplication.myUser.currentAnimal.master_id);
 			        		}
 			        		
 			        		
@@ -691,7 +746,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		 			// 注册一个接收消息的BroadcastReceiver
 		 				
 		 				
-		 				EMChatManager.getInstance().login(""+Constants.user.userId, Constants.user.code, new EMCallBack() {
+		 				EMChatManager.getInstance().login(""+PetApplication.myUser.userId, PetApplication.myUser.code, new EMCallBack() {
 
 		 					@Override
 		 					public void onSuccess() {
@@ -702,8 +757,8 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		 							return;
 		 						}*/
 		 						// 登陆成功，保存用户名密码
-		 						PetApplication.setUserName(""+Constants.user.userId);
-		 						PetApplication.setPassword(Constants.user.code);
+		 						PetApplication.setUserName(""+PetApplication.myUser.userId);
+		 						PetApplication.setPassword(PetApplication.myUser.code);
 		 						/*runOnUiThread(new Runnable() {
 		 							public void run() {
 		 								pd.setMessage("正在获取好友和群聊列表...");
@@ -752,7 +807,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		 							e.printStackTrace();
 		 						}
 		 						//更新当前用户的nickname 此方法的作用是在ios离线推送时能够显示用户nick
-		 						boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(Constants.user.u_nick);
+		 						boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(PetApplication.myUser.u_nick);
 		 						if (/*!updatenick*/true) {
 		 							EMLog.e("LoginActivity", "update current user nick fail"+updatenick);
 		 						}
@@ -943,6 +998,14 @@ public class HomeActivity extends FragmentActivity implements OnClickListener{
 		 			 }
 		 			 }
 		 			 };
-	
+					@Override
+					protected void onDestroy() {
+						// TODO Auto-generated method stub
+						super.onDestroy();
+						LogUtil.i("run", "主页销毁");
+					}
+	public void showMore(Animal animal){
+		new ShowMore(moreLayout, this,animal.pet_iconPath,moreParentLayout).kindomShowMore(animal);
+	}
 	      
 }

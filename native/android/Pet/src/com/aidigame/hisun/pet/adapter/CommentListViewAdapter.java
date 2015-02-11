@@ -119,7 +119,7 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 		}else{
 			holder.warning_iv.setVisibility(View.GONE);
 		}
-		
+		holder.body.setVisibility(View.VISIBLE);
 		if(comments.isReply){
 			
 			String[] str=comments.reply_name.split("@");
@@ -134,22 +134,23 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 			}
 			if(str.length>1){
 				holder.byLayout.setVisibility(View.VISIBLE);
-				holder.huifuTv.setVisibility(View.VISIBLE);
-				holder.nameTextView.setText(str[1]);
-				holder.byTv.setText(comments.name);
-				/*String html="<html><body>"
-//						+ "<font color=\"#fb6137\">"
-						+""+(comments.name==null?"":comments.name)
-//						+ "</font>"
+				holder.huifuTv.setVisibility(View.GONE);
+				holder.nameTextView.setText(comments.name);
+				
+				holder.body.setVisibility(View.GONE);
+				String html="<html><body>"
 						+ "<font color=\"#3d3d3d\">"
-						+"回复"
+                        +"回复  "
 						+ "</font>"
-//						+ "<font color=\"#fb6137\">"
-						+""+(str[1]==null?"":str[1])
-//						+ "</font>"
-						+""
+						
+						+str[1]
+								+ "<font color=\"#3d3d3d\">"
+                        +":"+(comments.body==null?"":comments.body)
+                        + "</font>"
 						+ "</body></html>";
-				holder.nameTextView.setText(Html.fromHtml(html));*/
+//				holder.byTv.setText(str[1]+":"+(comments.body==null?"":comments.body));
+				holder.byTv.setText(Html.fromHtml(html));
+//				holder.nameTextView.setText(Html.fromHtml(html));
 			}else{
 				holder.byLayout.setVisibility(View.GONE);
 				holder.huifuTv.setVisibility(View.GONE);

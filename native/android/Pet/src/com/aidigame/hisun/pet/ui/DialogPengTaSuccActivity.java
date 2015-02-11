@@ -3,6 +3,7 @@ package com.aidigame.hisun.pet.ui;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -82,7 +84,7 @@ public class DialogPengTaSuccActivity extends Activity{
 		    TextView tv=(TextView)findViewById(R.id.textView1);
 		    iv.setImageResource(R.drawable.gold1);
 		    tv.setText("+ "+num);
-		    Constants.user.coinCount+=num;
+		    PetApplication.myUser.coinCount+=num;
 		    startShowAnimation(view);
 		    if(UserCenterFragment.userCenterFragment!=null){
 		    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
@@ -93,6 +95,12 @@ public class DialogPengTaSuccActivity extends Activity{
 			 * 捧TA成功
 			 */
 			setContentView(R.layout.dialog_user_peng_ta_success);
+			
+			
+			ImageView iv=(ImageView)findViewById(R.id.heart_anim);;
+			AnimationDrawable ad=(AnimationDrawable)iv.getDrawable();
+			ad.start();
+			
 			BitmapFactory.Options options=new BitmapFactory.Options();
 			options.inJustDecodeBounds=false;
 			options.inSampleSize=4;
@@ -141,7 +149,7 @@ public class DialogPengTaSuccActivity extends Activity{
 			}*/
 			numTv.setText("+"+num);
 			
-			tv5.setText("您已经连续来了1天，明日将受到"+Constants.user.next_gold);
+			tv5.setText("您已经连续来了1天，明日将受到"+PetApplication.myUser.next_gold);
 		}else if(mode==2){
 			/*
 			 * 经验升级
@@ -149,12 +157,12 @@ public class DialogPengTaSuccActivity extends Activity{
 			setContentView(R.layout.dialog_user_experience_upgrade);
 			TextView numTv=(TextView)findViewById(R.id.textView2);
 			TextView tv5=(TextView)findViewById(R.id.textView5);
-			Constants.user.lv++;
-            numTv.setText(""+Constants.user.lv);
+			PetApplication.myUser.lv++;
+            numTv.setText(""+PetApplication.myUser.lv);
 			
 		
 			tv5.setText("+"+num);
-			Constants.user.coinCount=Constants.user.coinCount+num;
+			PetApplication.myUser.coinCount=PetApplication.myUser.coinCount+num;
 		}else if(mode==3){
 			/*
 			 * 升值
@@ -169,7 +177,7 @@ public class DialogPengTaSuccActivity extends Activity{
 			}else{
 				numTv.setText(str[1]);
 			}
-			Constants.user.coinCount=Constants.user.coinCount+num;
+			PetApplication.myUser.coinCount=PetApplication.myUser.coinCount+num;
 			BitmapFactory.Options options=new BitmapFactory.Options();
 			options.inJustDecodeBounds=false;
 			options.inSampleSize=4;
@@ -187,7 +195,7 @@ public class DialogPengTaSuccActivity extends Activity{
 	                .build();
 			RoundImageView view=(RoundImageView)findViewById(R.id.icon_circleView);
 			ImageLoader imageLoader=ImageLoader.getInstance();
-			imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+Constants.user.u_iconUrl, view,displayImageOptions,new ImageLoadingListener() {
+			imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+PetApplication.myUser.u_iconUrl, view,displayImageOptions,new ImageLoadingListener() {
 				
 				@Override
 				public void onLoadingStarted(String imageUri, View view) {

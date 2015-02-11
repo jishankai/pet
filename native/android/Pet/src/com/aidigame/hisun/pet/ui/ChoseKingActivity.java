@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -68,39 +69,39 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 	public View popupParent;//PopupWindwo位置相关parent
 	public RelativeLayout black_layout;
 	public static ChoseKingActivity choseKingActivity;
-	PullToRefreshAndMoreView pullToRefreshAndMoreView;
-	LinearLayout progressLayout;
-	ListView listView;
-	String race,style;
-	ImageView back,search,search3,cleanIV;
-	TextView raceTV,choseStyleSpinner;
-	PopupWindow raceWindow;
-	ShowProgress showProgress;
-	ArrayList<Animal> list;
-	ChoseKingListViewAdapter choseKingListViewAdapter;
-	LinearLayout functionLayout;
-	LinearLayout searchLayout;
-	ImageView search2;
-	TextView cancel;
-	EditText inputET;
-	int from;//默认值为0，进行注册；1，已经注册过
-	HandleHttpConnectionException handleHttpConnectionException;
+	private PullToRefreshAndMoreView pullToRefreshAndMoreView;
+	private LinearLayout progressLayout;
+	private ListView listView;
+//	String race,style;
+	private ImageView back,search,search3,cleanIV;
+	private TextView raceTV,choseStyleSpinner;
+	private PopupWindow raceWindow;
+	private ShowProgress showProgress;
+	private ArrayList<Animal> list;
+	private ChoseKingListViewAdapter choseKingListViewAdapter;
+	private LinearLayout functionLayout;
+	private LinearLayout searchLayout;
+	private ImageView search2;
+	private TextView cancel;
+	private EditText inputET;
+	private int from;//默认值为0，进行注册；1，已经注册过
+	private HandleHttpConnectionException handleHttpConnectionException;
 	
 	
 	
-	RelativeLayout titleLayout;
-	View view1;
+	private RelativeLayout titleLayout;
+	private View view1;
 	
 	
 	
-	LinearLayout noteLinearLayout;
-	int mode;
-	int currentType=0;//-1为所有种族
-	int currentStyle=1;//1,推荐；2,人气
-	int currentFrom;
-	long last_aid=0;
-	boolean isBind=false;
-	MyUser user;
+	private LinearLayout noteLinearLayout;
+	private int mode;
+	private int currentType=0;//-1为所有种族
+	private int currentStyle=1;//1,推荐；2,人气
+	private int currentFrom;
+	private long last_aid=0;
+	private boolean isBind=false;
+	private MyUser user;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -231,7 +232,9 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
-		
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		frameLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
        
 		 listView.setOnScrollListener(new OnScrollListener() {
 				
@@ -256,7 +259,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 				}
 			});
 	}
-	boolean isSearching=false;
+	private boolean isSearching=false;
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
@@ -320,7 +323,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 			break;
 		}
 	}
-	public void showStyleWindow(){
+	private  void showStyleWindow(){
 		View view=LayoutInflater.from(this).inflate(R.layout.popup_popular_2, null);
 	    TextView tv1=(TextView)view.findViewById(R.id.textView1);
 	    ListView listView=(ListView)view.findViewById(R.id.listview);
@@ -672,7 +675,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 			}
 		});
 	}
-	public void searchPet(final String name){
+	private  void searchPet(final String name){
 	    	showProgress.showProgress();
 			new Thread(new Runnable() {
 				

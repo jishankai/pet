@@ -17,14 +17,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.KingdomCard;
 import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
+import com.aidigame.hisun.pet.ui.ChargeActivity;
 import com.aidigame.hisun.pet.ui.ChoseAcountTypeActivity;
 import com.aidigame.hisun.pet.ui.ChoseKingActivity;
+import com.aidigame.hisun.pet.ui.Dialog4Activity;
 import com.aidigame.hisun.pet.ui.DialogNoteActivity;
 import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.ui.NewRegisterActivity;
@@ -176,7 +179,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 					
 					int num=0;
 					int count=0;
-					for(int i=0;i<Constants.user.aniList.size();i++){
+					for(int i=0;i<PetApplication.myUser.aniList.size();i++){
 //						if(Constants.user.aniList.get(i).master_id!=Constants.user.userId)
 							count++;
 					}
@@ -188,12 +191,38 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 						num=100;
 					}
 					
-					if(Constants.user.coinCount<num){
+					if(PetApplication.myUser.coinCount<num){
 //						DialogNote dialog=new DialogNote(context.popupParent, context, context.black_layout, 1);
-						Intent intent=new Intent(context,DialogNoteActivity.class);
+						/*Intent intent=new Intent(context,DialogNoteActivity.class);
 						intent.putExtra("mode", 10);
 						intent.putExtra("info", "钱包君告急！挣够金币再来捧萌星吧");
-						context.startActivity(intent);
+						context.startActivity(intent);*/
+						
+						Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
+							
+							@Override
+							public void onClose() {
+								// TODO Auto-generated method stub
+							}
+							
+							@Override
+							public void onButtonTwo() {
+								// TODO Auto-generated method stub
+								Intent intent=new Intent(context,ChargeActivity.class);
+								context.startActivity(intent);
+							}
+							
+							@Override
+							public void onButtonOne() {
+								// TODO Auto-generated method stub
+							}
+						};
+						 Intent intent=new Intent(context,Dialog4Activity.class);
+						 intent.putExtra("mode", 8);
+						 intent.putExtra("num", num);
+						 context.startActivity(intent);
+					return;
+						
 					}else{
 					
 					
@@ -226,7 +255,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 				context.startActivity(intent);
 			}
 		});
-		if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.contains(data)){
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null&&PetApplication.myUser.aniList.contains(data)){
 			holder.join.setBackgroundResource(R.drawable.support_gray);
 			holder.join.setClickable(false);
 		}

@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.view.View;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -31,15 +32,15 @@ public class UserStatusUtil {
 	 */
 	public static boolean isLoginSuccess(final Activity context,View view,View blackView){
 		boolean flag=false;
-		LogUtil.i("me", "判断是否登录成功="+Constants.isSuccess);
-		if(Constants.isSuccess/*false*/){
+		LogUtil.i("me", "判断是否登录成功="+PetApplication.isSuccess);
+		if(PetApplication.isSuccess/*false*/){
 			flag=true;
-			if(Constants.user==null){
+			if(PetApplication.myUser==null){
 				downLoadUserInfo(context);
 			}
 			
 		}else{
-			if(Constants.SID==null){
+			if(PetApplication.SID==null){
 				new Thread(new Runnable() {
 					
 					@Override
@@ -64,19 +65,19 @@ public class UserStatusUtil {
 	 */
 	public static void downLoadUserInfo(final Activity context){
 		final Handler handler=HandleHttpConnectionException.getInstance().getHandler(context);
-		if(Constants.isSuccess&&Constants.user!=null){
+		if(PetApplication.isSuccess&&PetApplication.myUser!=null){
 			new Thread(new Runnable() {
 				 
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
 					//加载用户信息
-					MyUser user=HttpUtil.info(context,handler,Constants.user.userId);
+					MyUser user=HttpUtil.info(context,handler,PetApplication.myUser.userId);
 					
 					if(user!=null){
-						Constants.user=user;
-						final ArrayList<Animal> temp=HttpUtil.usersKingdom(context,Constants.user, 1, handler);
-						Constants.user.aniList=temp;
+						PetApplication.myUser=user;
+						final ArrayList<Animal> temp=HttpUtil.usersKingdom(context,PetApplication.myUser, 1, handler);
+						PetApplication.myUser.aniList=temp;
 						context.runOnUiThread(new Runnable() {
 							
 							@Override

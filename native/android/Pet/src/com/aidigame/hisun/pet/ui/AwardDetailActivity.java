@@ -32,9 +32,8 @@ import com.aidigame.hisun.pet.util.UiUtil;
  *
  */
 public class AwardDetailActivity extends Activity {
-	LinearLayout frameLayout;
-	HandleHttpConnectionException handleHttpConnectionException;
-	ActivityJson.Data data;
+	private HandleHttpConnectionException handleHttpConnectionException;
+	private ActivityJson.Data data;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -98,7 +97,7 @@ public class AwardDetailActivity extends Activity {
 			}
 		});
 	}
-	public void  setView(){
+	private  void  setView(){
 		
 		TextView tv1=null,tv2=null,tv3=null,tv4=null;
 		tv1=(TextView)findViewById(R.id.textView3);
@@ -144,7 +143,7 @@ public class AwardDetailActivity extends Activity {
 		tv4.setText(data.des);
 		
 	}
-	public void setImage(){
+	private  void setImage(){
 		ImageView image1=null,image2=null,image3=null;
 		image1=(ImageView)findViewById(R.id.imageView2);
 		image2=(ImageView)findViewById(R.id.imageView3);

@@ -23,7 +23,8 @@
             android:layout_below="@+id/textView23"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="-40dp"
-            android:background="@drawable/shake_gift_background1" >
+            android:background="@drawable/shake_gift_background1"
+             ><!--  -->
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="120dp"

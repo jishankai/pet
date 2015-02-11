@@ -83,7 +83,9 @@ public class HandleHttpConnectionException {
 				Toast.makeText(PetApplication.petApp, "数据异常", Toast.LENGTH_LONG).show();
 				break;
 			case CONNECT_OUT_TIME:
+				 LogUtil.i("mi", "handler网络连接超时");
               if(HomeActivity.homeActivity!=null){
+            	  LogUtil.i("mi", "网络连接超时");
             	  Intent intent2=new Intent(HomeActivity.homeActivity,DialogNoteActivity.class);
   				intent2.putExtra("mode", 9);
   				HomeActivity.homeActivity.startActivity(intent2);

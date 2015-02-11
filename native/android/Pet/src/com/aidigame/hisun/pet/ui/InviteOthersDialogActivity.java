@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.MyUser;
@@ -149,7 +150,7 @@ public class InviteOthersDialogActivity extends Activity {
 			initView1();
 			break;
 		case 2:
-			if(Constants.user!=null&&Constants.user.inviter==0){
+			if(PetApplication.myUser!=null&&PetApplication.myUser.inviter==0){
 				llayout2.setVisibility(View.VISIBLE);
 				initView2();
 			}else{
@@ -203,7 +204,7 @@ public class InviteOthersDialogActivity extends Activity {
 								public void run() {
 									if(a!=null){
 										animal=a;
-										Constants.user.coinCount+=300;
+										PetApplication.myUser.coinCount+=300;
 										if(UserCenterFragment.userCenterFragment!=null){
 									    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 										}
@@ -252,7 +253,7 @@ new Thread(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				final MyUser u=HttpUtil.info(InviteOthersDialogActivity.this,handler, Constants.user.inviter);
+				final MyUser u=HttpUtil.info(InviteOthersDialogActivity.this,handler, PetApplication.myUser.inviter);
 				runOnUiThread(new Runnable() {
 					
 					@Override

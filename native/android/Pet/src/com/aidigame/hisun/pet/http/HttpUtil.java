@@ -142,7 +142,7 @@ public class HttpUtil {
 				param = "&age=" + user.a_age +"&aid="+user.currentAnimal.a_id+ "&code="/* +1 */+ "&gender="
 						+ user.a_gender + "&name=" + pet_nickName + "&type=" + user.race
 						+"&u_city="+user.city+"&u_gender="+user.u_gender+"&u_name="+u_nick
-						+ "&sig=" + SIG + "&SID=" + Constants.SID
+						+ "&sig=" + SIG + "&SID=" + PetApplication.SID
 						+"&wechat="+user.wechat_union+"&weibo="+user.xinlang_id;
 			}else{
 				value = "age=" + user.a_age+"&aid="+user.currentAnimal.a_id + "&code="/* +1 */+ "&gender="
@@ -153,7 +153,7 @@ public class HttpUtil {
 				param = "&age=" + user.a_age +"&aid="+user.currentAnimal.a_id+ "&code="/* +1 */+ "&gender="
 						+ user.a_gender + "&name=" + pet_nickName + "&type=" + user.race
 						+"&u_city="+user.city+"&u_gender="+user.u_gender+"&u_name="+u_nick
-						+ "&sig=" + SIG + "&SID=" + Constants.SID;
+						+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 			}
 			
 			
@@ -168,7 +168,7 @@ public class HttpUtil {
     			param = "&age=" + user.a_age + "&code="/* +1 */+ "&gender="
     					+ user.a_gender + "&name=" + pet_nickName + "&type=" + user.race
     					+"&u_city="+user.city+"&u_gender="+user.u_gender+"&u_name="+u_nick
-    					+ "&sig=" + SIG + "&SID=" + Constants.SID+"&aid=0"
+    					+ "&sig=" + SIG + "&SID=" + PetApplication.SID+"&aid=0"
     					+"&wechat="+user.wechat_union+"&weibo="+user.xinlang_id;;
 			}else{
 				value = "age=" + user.a_age+"&aid="+"0"  + "&code="/* +1 */+ "&gender="
@@ -179,7 +179,7 @@ public class HttpUtil {
 				param = "&age=" + user.a_age + "&code="/* +1 */+ "&gender="
 						+ user.a_gender + "&name=" + pet_nickName + "&type=" + user.race
 						+"&u_city="+user.city+"&u_gender="+user.u_gender+"&u_name="+u_nick
-						+ "&sig=" + SIG + "&SID=" + Constants.SID+"&aid=0";
+						+ "&sig=" + SIG + "&SID=" + PetApplication.SID+"&aid=0";
 			}
 			
 		
@@ -205,11 +205,11 @@ public class HttpUtil {
 							JSONObject j1=jo.getJSONObject("data");
 							int usr_id=j1.getInt("usr_id");
 							if(usr_id>0){
-								Constants.user=new MyUser();
-								Constants.user.userId=usr_id;
-								Constants.user.currentAnimal=new Animal();
-								Constants.user.currentAnimal.a_id=j1.getInt("aid");
-								Constants.isSuccess=true;
+								PetApplication.myUser=new MyUser();
+								PetApplication.myUser.userId=usr_id;
+								PetApplication.myUser.currentAnimal=new Animal();
+								PetApplication.myUser.currentAnimal.a_id=j1.getInt("aid");
+								PetApplication.isSuccess=true;
 								return true;
 							}
 						}
@@ -254,7 +254,7 @@ public class HttpUtil {
 			SIG = getMD5Value(value);
 			param =  "&code="/* +1 */
 					+"&u_city="+user.city+"&u_gender="+user.u_gender+"&u_name="+u_nick
-					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -288,7 +288,7 @@ public class HttpUtil {
 			
 			SIG = getMD5Value(value);
 			param = ""+ animal.a_id
-					+ "&sig=" + SIG + "&SID=" + Constants.SID+"&page="+page;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID+"&page="+page;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -366,7 +366,7 @@ public class HttpUtil {
 	/**
 	 * 要口粮列表api
 	 * @param handler
-	 * @param user
+	 * @param myUser
 	 * @param activity
 	 * @return
 	 */
@@ -381,7 +381,7 @@ public class HttpUtil {
 			
 			SIG = getMD5Value(value);
 			param = ""+ page
-					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -479,7 +479,7 @@ public class HttpUtil {
 			
 			SIG = getMD5Value(value);
 			param = img_id
-					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -536,7 +536,7 @@ public class HttpUtil {
 			value = "";
 			
 			SIG = getMD5Value(value);
-			param = "&sig=" + SIG + "&SID=" + Constants.SID;
+			param = "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -619,7 +619,7 @@ public class HttpUtil {
 			
 			SIG = getMD5Value(value);
 			param = pwd
-					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -684,7 +684,7 @@ public class HttpUtil {
 			
 			SIG = getMD5Value(value);
 			param = u_nick+"&pwd="+pwd
-					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -708,11 +708,11 @@ public class HttpUtil {
 						
 						  boolean isBinded=jo.getJSONObject("data").getBoolean("isBinded");
 						    if(isBinded){
-						    	Constants.user=new MyUser();
-						        Constants.user.currentAnimal=new Animal();
-						    	Constants.isSuccess=true;
-						    	Constants.user.userId=jo.getJSONObject("data").getInt("usr_id");
-						    	Constants.user.currentAnimal.a_id=jo.getJSONObject("data").getLong("aid");
+						    	PetApplication.myUser=new MyUser();
+						    	PetApplication.myUser.currentAnimal=new Animal();
+						    	PetApplication.isSuccess=true;
+						    	PetApplication.myUser.userId=jo.getJSONObject("data").getInt("usr_id");
+						    	PetApplication.myUser.currentAnimal.a_id=jo.getJSONObject("data").getLong("aid");
 						    }
 							return isBinded;
 						
@@ -755,10 +755,10 @@ public class HttpUtil {
 			SIG = getMD5Value(value);
 			if(isWeixin){
 				param = "&wechat="+id
-						+ "&sig=" + SIG + "&SID=" + Constants.SID+"&wechat_union="+wechat_union;
+						+ "&sig=" + SIG + "&SID=" + PetApplication.SID+"&wechat_union="+wechat_union;
 			}else{
 				param = "&weibo="+id
-						+ "&sig=" + SIG + "&SID=" + Constants.SID;
+						+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 			}
 			
 		LogUtil.i("me", "value" + value);
@@ -784,11 +784,11 @@ public class HttpUtil {
 					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
 						    boolean isBinded=jo.getJSONObject("data").getBoolean("isBinded");
 						    if(isBinded){
-						    	Constants.user=new MyUser();
-						        Constants.user.currentAnimal=new Animal();
-						    	Constants.isSuccess=true;
-						    	Constants.user.userId=jo.getJSONObject("data").getInt("usr_id");
-						    	Constants.user.currentAnimal.a_id=jo.getJSONObject("data").getLong("aid");
+						    	PetApplication.myUser=new MyUser();
+						    	PetApplication.myUser.currentAnimal=new Animal();
+						    	PetApplication.isSuccess=true;
+						    	PetApplication.myUser.userId=jo.getJSONObject("data").getInt("usr_id");
+						    	PetApplication.myUser.currentAnimal.a_id=jo.getJSONObject("data").getLong("aid");
 						    }
 							return isBinded;
 						
@@ -828,7 +828,7 @@ public class HttpUtil {
 			SIG = getMD5Value(value);
 		
 				param = animal.a_id
-						+ "&sig=" + SIG + "&SID=" + Constants.SID;
+						+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 			
 		LogUtil.i("me", "value" + value);
 		
@@ -902,11 +902,11 @@ public class HttpUtil {
            value = "code="+code;
 			SIG = getMD5Value(value);
 			param = "&code="+code
-						+ "&sig=" + SIG + "&SID=" + Constants.SID;
+						+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		}else{
 			value = "";
 			SIG = getMD5Value(value);
-			param =  "&sig=" + SIG + "&SID=" + Constants.SID;
+			param =  "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		}
 		
 			
@@ -988,7 +988,7 @@ public class HttpUtil {
            value = "aid="+gift.animal.a_id+"&item_id="+gift.no;
 			SIG = getMD5Value(value);
 			param = "aid="+gift.animal.a_id+"&item_id="+gift.no
-						+ "&sig=" + SIG + "&SID=" + Constants.SID;
+						+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		
 			
 		LogUtil.i("me", "value" + value);
@@ -1053,7 +1053,7 @@ public class HttpUtil {
            value = "item_id="+gift.no;
 			SIG = getMD5Value(value);
 			param = ""+gift.no
-						+ "&sig=" + SIG + "&SID=" + Constants.SID;
+						+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		
 			
 		LogUtil.i("me", "value" + value);
@@ -1128,10 +1128,10 @@ public class HttpUtil {
 			SIG = getMD5Value(value);
 			if(isWeixin){
 				param = "&wechat="+id
-						+ "&sig=" + SIG + "&SID=" + Constants.SID;
+						+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 			}else{
 				param = "&weibo="+id
-						+ "&sig=" + SIG + "&SID=" + Constants.SID;
+						+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 			}
 			
 		LogUtil.i("me", "value" + value);
@@ -1199,7 +1199,7 @@ public class HttpUtil {
 			
 			SIG = getMD5Value(value);
 			param = petPicture.img_id
-					+ "&sig=" + SIG + "&SID=" + Constants.SID+"&n="+num;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID+"&n="+num;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -1220,7 +1220,7 @@ public class HttpUtil {
 					  String dataStr=jo.getString("data");
 					  if(!StringUtil.isEmpty(dataStr)&&!"false".equals(dataStr)&&!"null".equals(dataStr)){
 						  petPicture.animal.foodNum=jo.getJSONObject("data").getLong("food");
-						  Constants.user.coinCount=jo.getJSONObject("data").getInt("gold");
+						  PetApplication.myUser.coinCount=jo.getJSONObject("data").getInt("gold");
 						  /*Intent intent=new Intent(activity,DialogNoteActivity.class);
 						  intent.putExtra("mode", 8);
 					    	intent.putExtra("name", petPicture.animal.pet_nickName);
@@ -1252,7 +1252,7 @@ public class HttpUtil {
 			
 			SIG = getMD5Value(value);
 			param = usr_id
-					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -1303,7 +1303,7 @@ public class HttpUtil {
 			
 			SIG = getMD5Value(value);
 			param = talk_id
-					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -1360,7 +1360,7 @@ public class HttpUtil {
 			
 			SIG = getMD5Value(value);
 			param = usr_id
-					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -1418,7 +1418,7 @@ public class HttpUtil {
 			
 			SIG = getMD5Value(value);
 			param = v
-					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -1475,7 +1475,7 @@ public class HttpUtil {
 			
 			SIG = getMD5Value(value);
 			param = code
-					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -1501,7 +1501,7 @@ public class HttpUtil {
 						animal.a_id=jo1.getLong("aid");
 						animal.pet_iconUrl=jo1.getString("tx");
 						if(dataStr.contains("inviter")){
-							Constants.user.inviter=jo1.getInt("inviter");
+							PetApplication.myUser.inviter=jo1.getInt("inviter");
 						}
 							return animal;
 						
@@ -1525,7 +1525,7 @@ public class HttpUtil {
 	/**
 	 * 修改宠物宣言 或 今天的状态
 	 * @param handler
-	 * @param user
+	 * @param myUser
 	 * @param activity
 	 * @return
 	 */
@@ -1540,7 +1540,7 @@ public class HttpUtil {
 			
 			SIG = getMD5Value(value);
 			param = animal.a_id
-					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		ArrayList<NameValuePair> pairs=new ArrayList<NameValuePair>();
@@ -1591,7 +1591,7 @@ public class HttpUtil {
 	/**
 	 * 我的萌星
 	 * @param handler
-	 * @param user
+	 * @param myUser
 	 * @param activity
 	 * @return
 	 */
@@ -1606,7 +1606,7 @@ public class HttpUtil {
 			value = "";
 			
 			SIG = getMD5Value(value);
-			param = "&sig=" + SIG + "&SID=" + Constants.SID;
+			param = "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		/*
 		 *  shake  次数 null  
@@ -1657,6 +1657,13 @@ public class HttpUtil {
 										  animal.u_name=jo.getString("u_name");
 										  animal.u_tx=jo.getString("u_tx");
 										  animal.invite_code=jo.getString("invite_code");
+										  try {
+											  animal.tburl=jo.getString("tb_url");
+											  animal.tb_version=jo.getInt("tb_version");
+										} catch (Exception e) {
+											// TODO: handle exception
+										}
+										  
 										  if(StringUtil.isEmpty(animal.announceStr)){
 											  animal.announceStr="点击创建独一无二的萌宣言吧~";
 										  }
@@ -1746,7 +1753,7 @@ public class HttpUtil {
 	/**
 	 * 我的萌星  若注册传递 usr_id 参数
 	 * @param handler
-	 * @param user
+	 * @param myUser
 	 * @param activity
 	 * @return
 	 */
@@ -1761,7 +1768,7 @@ public class HttpUtil {
 			value = "page="+page+"&usr_id="+usr_id;
 			
 			SIG = getMD5Value(value);
-			param = "&sig=" + SIG + "&SID=" + Constants.SID+"&page="+page+"&usr_id="+usr_id;
+			param = "&sig=" + SIG + "&SID=" + PetApplication.SID+"&page="+page+"&usr_id="+usr_id;
 		LogUtil.i("me", "value" + value);
 		
 
@@ -1878,7 +1885,7 @@ public class HttpUtil {
 			SIG = getMD5Value(value);
 			param = "&age=" + user.a_age +"&aid="+user.currentAnimal.a_id+ "&code="/* +1 */+ "&gender="
 					+ user.a_gender + "&name=" + pet_nickName + "&type=" + user.race
-					+ "&sig=" + SIG + "&SID=" + Constants.SID;
+					+ "&sig=" + SIG + "&SID=" + PetApplication.SID;
 		LogUtil.i("me", "value" + value);
 		
 		
@@ -1907,7 +1914,7 @@ public class HttpUtil {
 	/**
 	 * 登陆
 	 * @param planet 星球 1.猫；2.狗
-	 * @param user
+	 * @param myUser
 	 */
 	public static boolean  login(Context context,Handler handler) {
 		String uid =null;
@@ -1936,12 +1943,12 @@ public class HttpUtil {
 			  if(status==0){
 				  LoginJson loginJson = parseJson(result);
 					if(loginJson!=null){
-						Constants.isSuccess = loginJson.data.isSuccess;
-						Constants.SID = loginJson.data.SID;
+						PetApplication.isSuccess = loginJson.data.isSuccess;
+						PetApplication.SID = loginJson.data.SID;
 						SharedPreferences sPreferences=PetApplication.petApp.getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
 						Editor editor=sPreferences.edit();
-						editor.putString("SID", Constants.SID);
-						editor.putBoolean("isRegister", Constants.isSuccess);
+						editor.putString("SID", PetApplication.SID);
+						editor.putBoolean("isRegister", PetApplication.isSuccess);
 						editor.commit();
 						return true;
 					}
@@ -1994,20 +2001,20 @@ public class HttpUtil {
 						  if(!StringUtil.isEmpty(usr_id)&&!"null".equals(SID)&&!"false".equals(SID)){
 							  int id=Integer.parseInt(usr_id);
 							  if(id!=0&&id>0){
-								  Constants.user=new MyUser();
-								  Constants.user.userId=id;
-								  Constants.isSuccess=true; 
-								  Constants.SID=SID;
-								  Constants.user=info((Activity)context, handler, id);
-								  if(Constants.user!=null){
-									  Constants.user.currentAnimal=animalInfo(context, Constants.user.currentAnimal, handler);
+								  PetApplication.myUser=new MyUser();
+								  PetApplication.myUser.userId=id;
+								  PetApplication.isSuccess=true; 
+								  PetApplication.SID=SID;
+								  PetApplication.myUser=info((Activity)context, handler, id);
+								  if(PetApplication.myUser!=null){
+									  PetApplication.myUser.currentAnimal=animalInfo(context, PetApplication.myUser.currentAnimal, handler);
 								  }
 								  
-								  final ArrayList<Animal> temp=HttpUtil.usersKingdom(context,Constants.user, 1, handler);
-									if(Constants.user!=null)
-								  Constants.user.aniList=temp;
+								  final ArrayList<Animal> temp=HttpUtil.usersKingdom(context,PetApplication.myUser, 1, handler);
+									if(PetApplication.myUser!=null)
+										PetApplication.myUser.aniList=temp;
 							  }else{
-								  Constants.isSuccess=false;
+								  PetApplication.isSuccess=false;
 							  }
 							  
 						  }
@@ -2040,7 +2047,7 @@ public class HttpUtil {
 		DefaultHttpClient client = new DefaultHttpClient();
 		String value = "planet="+planet;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&planet="+planet+ "&SID=" + Constants.SID;
+		String param = SIG +"&planet="+planet+ "&SID=" + PetApplication.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		MyUser user=null;
@@ -2089,7 +2096,7 @@ public class HttpUtil {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String param = SIG +"&age="+animal.a_age+"&gender="+animal.a_gender+"&type="+animal.race+"&name="+temp+ "&SID=" + Constants.SID;
+		String param = SIG +"&age="+animal.a_age+"&gender="+animal.a_gender+"&type="+animal.race+"&name="+temp+ "&SID=" + PetApplication.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		MyUser user=null;
@@ -2142,9 +2149,11 @@ public class HttpUtil {
 		DefaultHttpClient client = new DefaultHttpClient();
 		String value = "aid="+animal.a_id;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+animal.a_id+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+animal.a_id+ "&SID=" + PetApplication.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
+		
+		 animal.touchedPath=animal.pet_iconUrl;
 		MyUser user=null;
 		boolean flag=false;
 		String path=null;
@@ -2199,13 +2208,13 @@ public class HttpUtil {
 				handler.sendEmptyMessage(HandleHttpConnectionException.Json_Data_Parse_Exception);
 			e.printStackTrace();
 		}
-		return null;
+		return animal;
 	}
 
 	/**
 	 * 获取用户相关信息 info
 	 * 
-	 * @param user
+	 * @param myUser
 	 */
 	public static MyUser info(Activity activity,Handler handler,int usr_id) {
 		String url = "http://" + Constants.IP + Constants.INFO_PATH;
@@ -2214,11 +2223,11 @@ public class HttpUtil {
 		boolean flag=false;
 		String value = "usr_id=";
 		String SIG = getMD5Value(value);
-		String param = SIG +"&usr_id="+ "&SID=" + Constants.SID;
+		String param = SIG +"&usr_id="+ "&SID=" + PetApplication.SID;
 		if(usr_id!=-1){
 			value = "usr_id="+usr_id;
 			SIG = getMD5Value(value);
-			param = SIG +"&usr_id="+usr_id+ "&SID=" + Constants.SID;
+			param = SIG +"&usr_id="+usr_id+ "&SID=" + PetApplication.SID;
 		}
 		url = url + param;
 		HttpGet get = new HttpGet(url);
@@ -2265,7 +2274,7 @@ public class HttpUtil {
 		boolean flag=false;
 		String value = "aid="+animal.a_id;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+animal.a_id+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+animal.a_id+ "&SID=" + PetApplication.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		try {
@@ -2301,6 +2310,13 @@ public class HttpUtil {
 //							  animal.giftsNum=object.getLong("gifts");
 							  animal.newsNum=object.getLong("news");
 							  String aidStr=""+animal.a_id;
+							  try {
+								  animal.tburl=object.getString("tb_url");
+								  animal.tb_version=object.getInt("tb_version");
+							} catch (Exception e) {
+								// TODO: handle exception
+							}
+							  
 							  animal.from=Integer.parseInt(aidStr.substring(0, 1));
 							  animal.type=object.getInt("type");
 							  animal.a_age=object.getInt("age");
@@ -2369,7 +2385,7 @@ public class HttpUtil {
 		}*/
 		String value = "category="+category;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&SID=" + Constants.SID+"&category="+category;
+		String param = SIG +"&SID=" + PetApplication.SID+"&category="+category;
 		/*if(category==0){
 			value="";
 			SIG = getMD5Value(value);
@@ -2407,7 +2423,7 @@ public class HttpUtil {
 							  Animal temp2=null;
 							  Animal temp3=null;
 							  JSONObject j2=null;
-							  if(Constants.user!=null&&Constants.user.aniList!=null){
+							  if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
 								  mAnimalList=new ArrayList<Animal>();
 							  }
 							  /*
@@ -2443,9 +2459,9 @@ public class HttpUtil {
 									}
 								  animal.change=j2.getInt("vary");
 								  animal.ranking=i+1;
-								  if(Constants.user!=null&&Constants.user.aniList!=null){
-									  for(int j=0;j<Constants.user.aniList.size();j++){
-										  temp=Constants.user.aniList.get(j);
+								  if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+									  for(int j=0;j<PetApplication.myUser.aniList.size();j++){
+										  temp=PetApplication.myUser.aniList.get(j);
 										  if(temp.a_id==animal.a_id){
 											  animal.hasJoinOrCreate=true;
 //											  animal.isScale=true;
@@ -2510,11 +2526,11 @@ public class HttpUtil {
 		boolean flag=false;
 		String value = "aid="+aid+"&category="+category;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+aid+ "&SID=" + Constants.SID+"&category="+category;
+		String param = SIG +"&aid="+aid+ "&SID=" + PetApplication.SID+"&category="+category;
 		if(category==0){
 			value="aid="+aid;
 			SIG = getMD5Value(value);
-			param = SIG +"&aid="+aid+ "&SID=" + Constants.SID;
+			param = SIG +"&aid="+aid+ "&SID=" + PetApplication.SID;
 		}
 		url = url + param;
 		HttpGet get = new HttpGet(url);
@@ -2605,11 +2621,11 @@ public class HttpUtil {
 		boolean flag=false;
 		String value = "aid="+aid;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+aid+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+aid+ "&SID=" + PetApplication.SID;
 		if(nid!=-1){
 			value="aid="+aid+"&nid="+nid;
 			SIG = getMD5Value(value);
-			param = SIG +"&aid="+aid+ "&SID=" + Constants.SID+"&nid="+nid;
+			param = SIG +"&aid="+aid+ "&SID=" + PetApplication.SID+"&nid="+nid;
 		}
 		
 		
@@ -2793,20 +2809,14 @@ public class HttpUtil {
 	 * @param handler
 	 * @return
 	 */
-	public static ArrayList<MyUser> kingdomPeoples(Context context,int usr_id,Animal animal,Handler handler) {
+	public static ArrayList<MyUser> kingdomPeoples(Context context,int page,Animal animal,Handler handler) {
 		String url = "http://" + Constants.IP + Constants.KINGDOM_PEOPLES;
 		DefaultHttpClient client = new DefaultHttpClient();
 		boolean flag=false;
 		ArrayList<MyUser> userList=null;
-		String value = "aid="+animal.a_id;
+		String value = "aid="+animal.a_id+"&page="+page;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+animal.a_id+ "&SID=" + Constants.SID;
-		if(usr_id!=-1){
-			value="aid="+animal.a_id+"&usr_id="+usr_id;
-			SIG = getMD5Value(value);
-			param = SIG +"&aid="+animal.a_id+ "&SID=" + Constants.SID+"&usr_id="+usr_id;
-		}
-		
+		String param = SIG +"&aid="+animal.a_id+ "&SID=" + PetApplication.SID+"&page="+page;
 		
 		url = url + param;
 		HttpGet get = new HttpGet(url);
@@ -2874,7 +2884,7 @@ public class HttpUtil {
 				  }else if(status==1){
 				  }else if(status==2){
 					  
-					  return kingdomPeoples(context,usr_id, animal, handler);
+					  return kingdomPeoples(context,page, animal, handler);
 				  }
 				
 				
@@ -2903,7 +2913,7 @@ public class HttpUtil {
 		boolean flag=false;
 		String value = "aid="+animal.a_id;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+animal.a_id+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+animal.a_id+ "&SID=" + PetApplication.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		MyUser user=null;
@@ -2926,8 +2936,8 @@ public class HttpUtil {
 					  animal.percent=j2.getInt("percent");
 					  if(flag){
 						 
-						  if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()>0){
-							flag=setDefaultKingdom(context,Constants.user.aniList.get(0), handler); 
+						  if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null&&PetApplication.myUser.aniList.size()>0){
+							flag=setDefaultKingdom(context,PetApplication.myUser.aniList.get(0), handler); 
 						  }
 						  return animal;
 						 
@@ -2960,7 +2970,7 @@ public class HttpUtil {
 		DefaultHttpClient client = new DefaultHttpClient();
 		String value = "img_id="+img_id;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&img_id="+img_id+ "&SID=" + Constants.SID;
+		String param = SIG +"&img_id="+img_id+ "&SID=" + PetApplication.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		MyUser user=null;
@@ -3033,7 +3043,7 @@ public class HttpUtil {
 		int gold=0;
 		String value = "";
 		String SIG = getMD5Value(value);
-		String param = SIG + "&SID=" + Constants.SID;
+		String param = SIG + "&SID=" + PetApplication.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		MyUser user=null;
@@ -3081,7 +3091,7 @@ public class HttpUtil {
 		boolean flag=false;
 		String value = "aid="+animal.a_id;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+animal.a_id+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+animal.a_id+ "&SID=" + PetApplication.SID;
 		
 		url = url + param;
 		HttpGet get = new HttpGet(url);
@@ -3145,7 +3155,7 @@ public class HttpUtil {
 		ArrayList<Gift> temp=null;
 		String value = "aid="+animal.a_id;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+animal.a_id+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+animal.a_id+ "&SID=" + PetApplication.SID;
 		
 		url = url + param;
 		HttpGet get = new HttpGet(url);
@@ -3233,11 +3243,11 @@ public class HttpUtil {
 		boolean flag=false;
 		String value = "usr_id="+user.userId;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&usr_id="+user.userId+ "&SID=" + Constants.SID;
+		String param = SIG +"&usr_id="+user.userId+ "&SID=" + PetApplication.SID;
 		if(aid==1){
 			value="is_simple=1"+"&usr_id="+user.userId;
 			SIG = getMD5Value(value);
-			param = SIG +"&usr_id="+user.userId+ "&SID=" + Constants.SID+"&is_simple=1";
+			param = SIG +"&usr_id="+user.userId+ "&SID=" + PetApplication.SID+"&is_simple=1";
 		}
 		ArrayList<Animal> animalList=null;
 		
@@ -3315,7 +3325,7 @@ public class HttpUtil {
 									  animal.a_age_str=getAge(animal.a_age);
 									  animal.a_gender=j2.getInt("gender");
 								  }
-								  if(Constants.user!=null&&Constants.user.currentAnimal!=null&&Constants.user.currentAnimal.a_id==animal.a_id){
+								  if(PetApplication.myUser!=null&&PetApplication.myUser.currentAnimal!=null&&PetApplication.myUser.currentAnimal.a_id==animal.a_id){
 									  animalList.add(0,animal);
 								  }else{
 									  animalList.add(animal);
@@ -3344,7 +3354,7 @@ public class HttpUtil {
 		boolean flag=false;
 		String value = "aid="+animal.a_id;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+animal.a_id+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+animal.a_id+ "&SID=" + PetApplication.SID;
 		
 		url = url + param;
 		HttpGet get = new HttpGet(url);
@@ -3399,7 +3409,7 @@ public class HttpUtil {
 		ArrayList<Gift> temp=null;
 		String value = "usr_id="+user.userId;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&usr_id="+user.userId+ "&SID=" + Constants.SID;
+		String param = SIG +"&usr_id="+user.userId+ "&SID=" + PetApplication.SID;
 		/*if(nid!=-1){
 			value="aid="+aid+"&nid="+nid;
 			SIG = getMD5Value(value);
@@ -3492,7 +3502,7 @@ public class HttpUtil {
 		boolean flag=false;
 		String value = "usr_id="+user.userId;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&usr_id="+user.userId+ "&SID=" + Constants.SID;
+		String param = SIG +"&usr_id="+user.userId+ "&SID=" + PetApplication.SID;
 		/*if(nid!=-1){
 			value="aid="+aid+"&nid="+nid;
 			SIG = getMD5Value(value);
@@ -3563,7 +3573,7 @@ public class HttpUtil {
 		boolean flag=false;
 		String value = "aid="+userAddress.aid;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+userAddress.aid+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+userAddress.aid+ "&SID=" + PetApplication.SID;
 		url = url + param;
 		HttpPost get = new HttpPost(url);
 		
@@ -3669,11 +3679,11 @@ public class HttpUtil {
 		boolean flag=false;
 		String value =""+ "code=";
 		String SIG = getMD5Value(value);
-		String param = SIG + "&SID=" + Constants.SID+"&code=";
+		String param = SIG + "&SID=" + PetApplication.SID+"&code=";
 		if(last_id!=-1){
 			value="code="+last_id;
 			SIG = getMD5Value(value);
-			param = SIG +"&code="+last_id+ "&SID=" + Constants.SID;
+			param = SIG +"&code="+last_id+ "&SID=" + PetApplication.SID;
 		}
 		
 		url = url + param;
@@ -3776,7 +3786,7 @@ public class HttpUtil {
 		value="from="+from+"&page="+aid;
 		SIG=getMD5Value(value);
 		
-		param=SIG + "&SID=" + Constants.SID+"&from="+from+"&page="+aid;
+		param=SIG + "&SID=" + PetApplication.SID+"&from="+from+"&page="+aid;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		ArrayList<Animal> animalList=null;
@@ -3888,7 +3898,7 @@ public class HttpUtil {
 		boolean flag=false;
 		String value = "aid="+aid;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+aid+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+aid+ "&SID=" + PetApplication.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		KingdomCard card=null;
@@ -4013,7 +4023,7 @@ public class HttpUtil {
 		boolean flag=false;
 		String value = "aid="+animal.a_id;
 		String SIG = getMD5Value(value);
-		String param = SIG + "&SID=" + Constants.SID+"&aid="+animal.a_id;;
+		String param = SIG + "&SID=" + PetApplication.SID+"&aid="+animal.a_id;;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		MyUser user=null;
@@ -4066,7 +4076,7 @@ public class HttpUtil {
 		String value = "aid="+petPicture.animal.a_id/*+"&relates="+"&topic_name="*/;//+"&topic_id="
 		String SIG = getMD5Value(value);
 		String url = "http://" +Constants.IP+ Constants.UPLOAD_IMAGE_PATH + SIG + "&SID="
-				+ Constants.SID+"&aid="+petPicture.animal.a_id/*+"&relates="+"&topic_name="*/;
+				+ PetApplication.SID+"&aid="+petPicture.animal.a_id/*+"&relates="+"&topic_name="*/;
     	Map<String, String> params=new HashMap<String, String>();
     	/*try {
 			info=URLEncoder.encode(info, "UTF-8");
@@ -4079,7 +4089,7 @@ public class HttpUtil {
     		TAG="voice";
     		files.put("voice", new File(petPicture.voicePath));
     		url = "http://" +Constants.IP+ Constants.UPLOAD_VOICE_PATH + SIG + "&SID="
-    				+ Constants.SID+"&aid="+petPicture.animal.a_id/*+"&relates="+"&topic_name="*/;
+    				+ PetApplication.SID+"&aid="+petPicture.animal.a_id/*+"&relates="+"&topic_name="*/;
     	}else{
     		params.put("comment", petPicture.cmt);
     		if(petPicture.isBeg){
@@ -4299,12 +4309,12 @@ public class HttpUtil {
     		String value = "";
     		String SIG = getMD5Value("");
     		String RequestURL =  Constants.USER_UPDATE_TX + SIG + "&SID="
-    				+ Constants.SID;
+    				+ PetApplication.SID;
     		if(aid!=-1){
     			value="aid="+aid;
     			SIG=getMD5Value(value);
     			RequestURL =  Constants.Animal_UPDATE_TX + SIG + "&SID="
-        				+ Constants.SID+"&aid="+aid;
+        				+ PetApplication.SID+"&aid="+aid;
     			TAG="tx";
     		}
     	String result = null;
@@ -4440,19 +4450,19 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		if(mode==0&&last_id==-1){
 			String value ="aid="+aid;
 			SIG = getMD5Value(value);
-			param = "sig="+SIG+"&SID="+Constants.SID+"&aid="+aid;
+			param = "sig="+SIG+"&SID="+PetApplication.SID+"&aid="+aid;
 		}else if(mode==0&&last_id!=-1){
 			String value ="aid="+aid+"&img_id="+last_id;
 			SIG = getMD5Value(value);
-			param ="img_id="+last_id+"&sig="+SIG+"&SID="+Constants.SID+"&aid="+aid;;
+			param ="img_id="+last_id+"&sig="+SIG+"&SID="+PetApplication.SID+"&aid="+aid;;
 		}else if(last_id==-1){
 			String value ="";
 			SIG = getMD5Value(value);
-			param = "sig="+SIG+"&SID="+Constants.SID;
+			param = "sig="+SIG+"&SID="+PetApplication.SID;
 		}else{
 			String value ="img_id="+last_id;
 			SIG = getMD5Value(value);
-			param ="img_id="+last_id+"&sig="+SIG+"&SID="+Constants.SID;
+			param ="img_id="+last_id+"&sig="+SIG+"&SID="+PetApplication.SID;
 		}
 		
 		switch (mode) {
@@ -4508,11 +4518,11 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		if(last_id==-1){
 			String value ="usr_id="+data.usr_id+"dog&cat";
 			SIG = getMD5(value);
-			param = "usr_id="+data.usr_id+"&sig="+SIG+"&SID="+Constants.SID;
+			param = "usr_id="+data.usr_id+"&sig="+SIG+"&SID="+PetApplication.SID;
 		}else{
 			String value ="img_id="+last_id+"&usr_id="+data.usr_id+"dog&cat";
 			SIG = getMD5(value);
-			param ="img_id="+last_id+"&usr_id="+data.usr_id+"&sig="+SIG+"&SID="+Constants.SID;
+			param ="img_id="+last_id+"&usr_id="+data.usr_id+"&sig="+SIG+"&SID="+PetApplication.SID;
 		}
 		url=Constants.USER_IMAGES+param;
 		DefaultHttpClient client = new DefaultHttpClient();
@@ -4555,7 +4565,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		String value = "img_id=" + petPicture.img_id + "dog&cat";
 		String SIG = getMD5(value);
 		String param = "&img_id=" + petPicture.img_id + "&sig=" + SIG + "&SID="
-				+Constants.SID ;
+				+PetApplication.SID ;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 			String result = connect(client, handler, get);
@@ -4588,20 +4598,20 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 							
 								if(StringUtil.isEmpty(petPicture.likers)){
 									
-									petPicture.likers=""+Constants.user.userId;
+									petPicture.likers=""+PetApplication.myUser.userId;
 									petPicture.likeUsersList=new ArrayList<MyUser>();
-									petPicture.likeUsersList.add(Constants.user);
+									petPicture.likeUsersList.add(PetApplication.myUser);
 								}else{
 									if(petPicture.likeUsersList==null)petPicture.likeUsersList=new ArrayList<MyUser>();
-									petPicture.likeUsersList.add(Constants.user);
-									petPicture.likers+=","+Constants.user.userId;
+									petPicture.likeUsersList.add(PetApplication.myUser);
+									petPicture.likers+=","+PetApplication.myUser.userId;
 								}
-								if(petPicture.like_txUrlList!=null&&Constants.user.u_iconUrl!=null){
-									petPicture.like_txUrlList.add(Constants.user.u_iconUrl);
+								if(petPicture.like_txUrlList!=null&&PetApplication.myUser.u_iconUrl!=null){
+									petPicture.like_txUrlList.add(PetApplication.myUser.u_iconUrl);
 									
-								}else if(Constants.user.u_iconUrl!=null){
+								}else if(PetApplication.myUser.u_iconUrl!=null){
 									petPicture.like_txUrlList=new ArrayList<String>();
-									petPicture.like_txUrlList.add(Constants.user.u_iconUrl);
+									petPicture.like_txUrlList.add(PetApplication.myUser.u_iconUrl);
 								}
 								if(handler!=null){
 									handler.post(new Runnable() {
@@ -4651,12 +4661,12 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		String value = "img_id=" + petPicture.img_id +"&usr_id=";
 		String SIG = getMD5Value(value);
 		String param = "img_id=" + petPicture.img_id + "&sig=" + SIG + "&SID="
-				+Constants.SID+"&usr_id=" ;
-		if(Constants.isSuccess&&Constants.user!=null){
-			value = "img_id=" + petPicture.img_id + "&usr_id="+Constants.user.userId;
+				+PetApplication.SID+"&usr_id=" ;
+		if(PetApplication.isSuccess&&PetApplication.myUser!=null){
+			value = "img_id=" + petPicture.img_id + "&usr_id="+PetApplication.myUser.userId;
 			 SIG = getMD5Value(value);
 			 param = "img_id=" + petPicture.img_id + "&sig=" + SIG + "&SID="
-						+Constants.SID+"&usr_id="+Constants.user.userId ;
+						+PetApplication.SID+"&usr_id="+PetApplication.myUser.userId ;
 		}
 		
 		
@@ -4855,7 +4865,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		String value = "aid=" + animal.a_id + "dog&cat";
 		String SIG = getMD5(value);
 		String param = "aid=" + animal.a_id + "&sig=" + SIG + "&SID="
-				+Constants.SID ;
+				+PetApplication.SID ;
 		url = url + param;
 		boolean flag=false;
 		HttpGet get = new HttpGet(url);
@@ -4901,7 +4911,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		ArrayList<Animal> animalList=null;
 		String value ="aids="+aids;
 		SIG = getMD5Value(value);
-		param = "sig="+SIG+"&SID="+Constants.SID+"&aids="+aids;
+		param = "sig="+SIG+"&SID="+PetApplication.SID+"&aids="+aids;
 		/*if(last_id==-1){
 			String value ="usr_id="+usr_id;
 			SIG = getMD5Value(value);
@@ -5004,7 +5014,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		String value = "aid=" + animal.a_id + "dog&cat";
 		String SIG = getMD5(value);
 		String param = "aid=" + animal.a_id + "&sig=" + SIG + "&SID="
-				+Constants.SID ;
+				+PetApplication.SID ;
 		url = url + param;
 		boolean flag=false;
 		HttpGet get = new HttpGet(url);
@@ -5056,7 +5066,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		ArrayList<Animal> animalList=null;
 		String value ="usr_id="+usr_id;
 		SIG = getMD5Value(value);
-		param = "sig="+SIG+"&SID="+Constants.SID+"&usr_id="+usr_id;
+		param = "sig="+SIG+"&SID="+PetApplication.SID+"&usr_id="+usr_id;
 		/*if(last_id==-1){
 			String value ="usr_id="+usr_id;
 			SIG = getMD5Value(value);
@@ -5154,7 +5164,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		String value = "usr_ids=" + likers + "dog&cat";
 		String SIG = getMD5(value);
 		String param = "usr_ids=" + likers + "&sig=" + SIG + "&SID="
-				+Constants.SID ;
+				+PetApplication.SID ;
 		url = url + param;
 		boolean flag=false;
 		ArrayList<MyUser> animalList=null;
@@ -5238,7 +5248,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		String value = "";
 		String SIG = getMD5Value(value);
 		String param ="sig=" + SIG + "&SID="
-				+Constants.SID ;
+				+PetApplication.SID ;
 		url = url + param;
 		boolean flag=false;
 		ArrayList<MyUser> animalList=null;
@@ -5305,7 +5315,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		String value = "usr_id=" + data.usr_id + "dog&cat";
 		String SIG = getMD5(value);
 		String param = "usr_id=" + data.usr_id + "&sig=" + SIG + "&SID="
-				+Constants.SID ;
+				+PetApplication.SID ;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		try {
@@ -5457,7 +5467,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 	}
 	/**
 	 * 
-	 * @param user
+	 * @param myUser
 	 * @param aid
 	 * @param handler
 	 * @return
@@ -5468,7 +5478,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		String path=null;
 		String value = "aid="+aid;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+aid+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+aid+ "&SID=" + PetApplication.SID;
 		
 		
 		url = url + param;
@@ -5615,7 +5625,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		String path=null;
 		String value = "";
 		String SIG = getMD5Value(value);
-		String param = SIG + "&SID=" + Constants.SID;
+		String param = SIG + "&SID=" + PetApplication.SID;
 		
 		ArrayList<Topic> topicList=null;
 		url = url + param;
@@ -5871,7 +5881,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
     		url=url+"&topic_id="+id;
     	}
     	
-    	url=url+"&sig="+param+"&SID="+Constants.SID;
+    	url=url+"&sig="+param+"&SID="+PetApplication.SID;
     	DefaultHttpClient client=new DefaultHttpClient();
     	HttpGet get=new HttpGet(url);
     		String result=connect(client, handler, get);
@@ -5898,11 +5908,11 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		if(last_id==-1){
 			String value ="topic_id="+d.topic_id+"dog&cat";
 			SIG = getMD5(value);
-			param ="topic_id="+d.topic_id+ "&sig="+SIG+"&SID="+Constants.SID;
+			param ="topic_id="+d.topic_id+ "&sig="+SIG+"&SID="+PetApplication.SID;
 		}else{
 			String value ="img_id="+last_id+"&topic_id="+d.topic_id+"dog&cat";
 			SIG = getMD5(value);
-			param ="img_id="+last_id+"&topic_id="+d.topic_id+"&sig="+SIG+"&SID="+Constants.SID;
+			param ="img_id="+last_id+"&topic_id="+d.topic_id+"&sig="+SIG+"&SID="+PetApplication.SID;
 		}
 		
 		switch (mode) {
@@ -5938,7 +5948,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 	}
     public static boolean loadActivityInfo(ActivityJson.Data data,Handler handler,Context context){
     	String value="topic_id="+data.topic_id+"dog&cat";
-    	String url=Constants.ACTIVITY_INFO+"&topic_id="+data.topic_id+"&sig="+getMD5(value)+"&SID="+Constants.SID;
+    	String url=Constants.ACTIVITY_INFO+"&topic_id="+data.topic_id+"&sig="+getMD5(value)+"&SID="+PetApplication.SID;
     	DefaultHttpClient client=new DefaultHttpClient();
     	HttpGet get=new HttpGet(url);
     	try {
@@ -5993,7 +6003,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
      */
     public static boolean loadRewardInfo(ActivityJson.Data data,Handler handler,Context context){
     	String value="topic_id="+data.topic_id+"dog&cat";
-    	String url=Constants.ACTIVITY_REWARD_INFO+"&topic_id="+data.topic_id+"&sig="+getMD5(value)+"&SID="+Constants.SID;
+    	String url=Constants.ACTIVITY_REWARD_INFO+"&topic_id="+data.topic_id+"&sig="+getMD5(value)+"&SID="+PetApplication.SID;
     	DefaultHttpClient client=new DefaultHttpClient();
     	HttpGet get=new HttpGet(url);
     	try {
@@ -6066,7 +6076,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
     	boolean flag=false;
     	String param="dog&cat";
     	String value=getMD5(param);
-    	String url=Constants.MAIL_ACTIVITY_NEW_NUM+"&sig="+value+"&SID="+Constants.SID;
+    	String url=Constants.MAIL_ACTIVITY_NEW_NUM+"&sig="+value+"&SID="+PetApplication.SID;
     	DefaultHttpClient client=new DefaultHttpClient();
     	HttpGet get=new HttpGet(url);
     	try {
@@ -6118,7 +6128,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
      */
     public static MyUser sendComment(Context context,String comment,int id,int reply_id,String reply_name,Handler handler){
     	String params="dog&cat";
-    	String url=Constants.ADD_A_COMMENT+"&sig="+getMD5(params)+"&SID="+Constants.SID;
+    	String url=Constants.ADD_A_COMMENT+"&sig="+getMD5(params)+"&SID="+PetApplication.SID;
     	DefaultHttpClient client=new DefaultHttpClient();
     	HttpPost post=new HttpPost(url);
     	ArrayList<NameValuePair> pairs=new ArrayList<NameValuePair>();
@@ -6129,7 +6139,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 	    if(reply_id!=-1){
 	    	pair=new BasicNameValuePair("reply_id",""+reply_id);
 	    	pairs.add(pair);
-	    	pair=new BasicNameValuePair("reply_name",Constants.user.u_nick+"@"+reply_name);
+	    	pair=new BasicNameValuePair("reply_name",PetApplication.myUser.u_nick+"@"+reply_name);
 	    	pairs.add(pair);
 	    }
     	
@@ -6195,7 +6205,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
     		param+="&mail_id="+mail_id;
     	}
     	param+="dog&cat";
-    	String url=Constants.MAIL_LIST+"&sig="+getMD5(param)+"&SID="+Constants.SID+"&is_system="+(is_system?1:0);
+    	String url=Constants.MAIL_LIST+"&sig="+getMD5(param)+"&SID="+PetApplication.SID+"&is_system="+(is_system?1:0);
     	if(mail_id!=-1){
     		url+="&mail_id="+mail_id;
     	}
@@ -6228,7 +6238,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
     	boolean flag=false;
     	if(dataSystem==null)return false;
     	String param="talk_id="+dataSystem.position;
-    	String url=Constants.MAIL_DELETE+"&talk_id="+dataSystem.position+"&sig="+getMD5Value(param)+"&SID="+Constants.SID;
+    	String url=Constants.MAIL_DELETE+"&talk_id="+dataSystem.position+"&sig="+getMD5Value(param)+"&SID="+PetApplication.SID;
     	DefaultHttpClient client=new DefaultHttpClient();
     	HttpGet get=new HttpGet(url);
     	try {
@@ -6270,7 +6280,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
      */
     public static boolean  sendMail(int to_id,String body){
     	String params="usr_id="+to_id;
-    	String url=Constants.MAIL_CREATE+"&sig="+getMD5Value(params)+"&SID="+Constants.SID+"&usr_id="+to_id;
+    	String url=Constants.MAIL_CREATE+"&sig="+getMD5Value(params)+"&SID="+PetApplication.SID+"&usr_id="+to_id;
     	DefaultHttpClient client=new DefaultHttpClient();
     	HttpPost post=new HttpPost(url);
     	ArrayList<NameValuePair> pairs=new ArrayList<NameValuePair>();
@@ -6325,7 +6335,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		int talk_id=-1;
 		String value = "usr_id="+usr_id;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&usr_id="+usr_id+ "&SID=" + Constants.SID;
+		String param = SIG +"&usr_id="+usr_id+ "&SID=" + PetApplication.SID;
 		
 		
 		
@@ -6376,11 +6386,11 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		boolean flag=false;
 		String value = "";
 		String SIG = getMD5Value(value);
-		String param = SIG + "&SID=" + Constants.SID;
+		String param = SIG + "&SID=" + PetApplication.SID;
 		if(talk_id!=-1){
 			value="talk_id="+talk_id;
 			SIG=getMD5Value(value);
-			param= SIG + "&SID=" + Constants.SID+"&talk_id="+talk_id;
+			param= SIG + "&SID=" + PetApplication.SID+"&talk_id="+talk_id;
 		}
 		 LogUtil.i("mi", "===获取消息");
 		url = url + param;
@@ -6508,7 +6518,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   		DefaultHttpClient client = new DefaultHttpClient();
   		String value = "aid="+gift.aid;
   		String SIG = "";
-  		String param ="&aid="+gift.aid+ "&SID=" + Constants.SID;
+  		String param ="&aid="+gift.aid+ "&SID=" + PetApplication.SID;
   		if(gift.img_id!=-1){
   			value+="&img_id="+gift.img_id;
   	  		param+="&img_id="+gift.img_id;
@@ -6564,7 +6574,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   		DefaultHttpClient client = new DefaultHttpClient();
   		String value = "item_id="+gift.no/*1102*/+"&num="+gift.buyingNum;
   		String SIG = "";
-  		String param ="&SID=" + Constants.SID+"&item_id="+gift.no/*1102*/+"&num="+gift.buyingNum;;
+  		String param ="&SID=" + PetApplication.SID+"&item_id="+gift.no/*1102*/+"&num="+gift.buyingNum;;
   		SIG = getMD5Value(value);
   		url = url +SIG+ param;
   		HttpGet get = new HttpGet(url);
@@ -6618,11 +6628,11 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		int count=-1;
 		String value = "aid="+aid;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+aid+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+aid+ "&SID=" + PetApplication.SID;
 		if(is_shake==1){
 			value = "aid="+aid+"&is_shake="+is_shake;
 			SIG = getMD5Value(value);
-			param = SIG +"&aid="+aid+ "&SID=" + Constants.SID+"&is_shake="+is_shake;
+			param = SIG +"&aid="+aid+ "&SID=" + PetApplication.SID+"&is_shake="+is_shake;
 		}
 		url = url + param;
 		HttpGet get = new HttpGet(url);
@@ -6664,7 +6674,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		int count=-1;
 		String value = "aid="+aid;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+aid+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+aid+ "&SID=" + PetApplication.SID;
 		url = url + param;
 		HttpGet get = new HttpGet(url);
 		MyUser user=null;
@@ -6711,7 +6721,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		boolean flag=false;
 		String value = "aid="+aid;
 		String SIG = getMD5Value(value);
-		String param = SIG +"&aid="+aid+ "&SID=" + Constants.SID;
+		String param = SIG +"&aid="+aid+ "&SID=" + PetApplication.SID;
 		
 		url = url + param;
 		HttpGet get = new HttpGet(url);
@@ -6778,11 +6788,11 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 			e1.printStackTrace();
 		}
 		String SIG = getMD5Value(value);
-		String param = SIG + "&SID=" + Constants.SID+"&name="+name;
+		String param = SIG + "&SID=" + PetApplication.SID+"&name="+name;
 		if(aid!=-1){
 			value="aid="+aid;
 			SIG=getMD5Value(value);
-			param= SIG + "&SID=" + Constants.SID+"&aid="+aid+"&name="+name;
+			param= SIG + "&SID=" + PetApplication.SID+"&aid="+aid+"&name="+name;
 		}
 		url = url + param;
 		HttpGet get = new HttpGet(url);
@@ -6881,7 +6891,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
   		String param = "";
   			value="page="+page;
   			SIG=getMD5Value(value);
-  			param= SIG + "&SID=" + Constants.SID+"&page="+page+"&name="+name;
+  			param= SIG + "&SID=" + PetApplication.SID+"&page="+page+"&name="+name;
   		url = url + param;
   		HttpGet get = new HttpGet(url);
   		ArrayList<MyUser> users=null;
@@ -6957,11 +6967,11 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		boolean flag=false;
 		String value = "";
 		String SIG = getMD5Value(value);
-		String param = SIG + "&SID=" + Constants.SID;
+		String param = SIG + "&SID=" + PetApplication.SID;
 		if(talk_id!=-1){
 			value="talk_id="+talk_id;
 			SIG=getMD5Value(value);
-			param= SIG + "&SID=" + Constants.SID+"&talk_id="+talk_id;
+			param= SIG + "&SID=" + PetApplication.SID+"&talk_id="+talk_id;
 		}
 		url = url + param;
 		HttpGet get = new HttpGet(url);
@@ -7654,7 +7664,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		String result=null;
 		try {
 			HttpResponse response=null;
-			setConnectionTime(client, 30000);
+			setConnectionTime(client, 30000);//30000
 			response = client.execute(get);
 			int resultCode = response.getStatusLine().getStatusCode();
 			result = EntityUtils.toString(response.getEntity());
@@ -7668,11 +7678,43 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		}catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 			if(handler!=null)
 			handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			if(handler!=null)
+			handler.sendEmptyMessage(HandleHttpConnectionException.Network_Status_Error);
+		}
+		return result;
+	}
+	public static String connect1(DefaultHttpClient client,Handler  handler,HttpGet get){
+		String result=null;
+		try {
+			HttpResponse response=null;
+			setConnectionTime(client, 10);//30000
+			response = client.execute(get);
+			int resultCode = response.getStatusLine().getStatusCode();
+			result = EntityUtils.toString(response.getEntity());
+			if (resultCode == HttpStatus.SC_OK) {  
+			}else{
+				judgeHttpStatus(resultCode,handler);
+			}
+		}catch(ConnectTimeoutException e){
+			LogUtil.i("mi", "handler网络连接超时ConnectTimeoutException");
+			if(handler!=null)
+				handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+		}catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LogUtil.i("mi", "handler网络连接超时ClientProtocolException");
+			if(handler!=null)
+			handler.sendEmptyMessage(HandleHttpConnectionException.CONNECT_OUT_TIME);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LogUtil.i("mi", "handler网络连接超时IOException");
 			if(handler!=null)
 			handler.sendEmptyMessage(HandleHttpConnectionException.Network_Status_Error);
 		}

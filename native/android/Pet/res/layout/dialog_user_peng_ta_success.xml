@@ -2,6 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:gravity="center_horizontal"><!-- dialog_background -->
+    
+     <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/heart_anim"
+        android:src="@drawable/anim_heart_frame"/>
+    
+    
+    
+<LinearLayout 
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/dialog_bg_white"
     android:orientation="vertical" 
     android:gravity="center_horizontal"><!-- dialog_background -->
@@ -145,4 +159,11 @@
         android:layout_marginTop="20dp"/>
     
 
+</LinearLayout>
+ <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/heart_anim"
+        android:visibility="invisible"
+        android:src="@drawable/anim_heart_frame"/>
 </LinearLayout>

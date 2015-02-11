@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,16 +33,16 @@ import com.aidigame.hisun.pet.util.UiUtil;
  *
  */
 public class ChoseAcountTypeActivity extends Activity {
-	ImageView noPetIV,hasPetIV,backIV,agreeIV;
-	TextView agreeTV;
-	LinearLayout agreeLayout;
-	HandleHttpConnectionException handleHttpConnectionException;
+	private  ImageView noPetIV,hasPetIV,backIV,agreeIV;
+	private TextView agreeTV;
+	private LinearLayout agreeLayout;
 	public static ChoseAcountTypeActivity choseAcountTypeActivity;
-	boolean isAgree=false;//是否同意用户协议
-	int mode;
-	int from;//默认值为0，进行注册；1，已经注册过
-	boolean isBind=false;//是否绑定新浪微博或微信账号
-	MyUser user;
+	private boolean isAgree=false;//是否同意用户协议
+	private int mode;
+	private int from;//默认值为0，进行注册；1，已经注册过
+	private boolean isBind=false;//是否绑定新浪微博或微信账号
+	private MyUser user;
+	private RelativeLayout rooLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -47,9 +50,16 @@ public class ChoseAcountTypeActivity extends Activity {
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_chose_acount_type);
-		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		choseAcountTypeActivity=this;
 		isBind=getIntent().getBooleanExtra("isBind", false);
+		
+		
+		rooLayout=(RelativeLayout)findViewById(R.id.parent);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		rooLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
+		
+		
 		if(isBind)user=(MyUser)getIntent().getSerializableExtra("user");
 		initView();
 	}

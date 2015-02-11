@@ -172,6 +172,10 @@ public class ModifyPetInfoActivity extends Activity {
 		}
 		camera_album=(LinearLayout)findViewById(R.id.album_camera_register);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
+		
+		
+		
+		
 		//显示没有图片
 		BitmapFactory.Options opts=new BitmapFactory.Options();
 		opts.inJustDecodeBounds=false;
@@ -281,13 +285,13 @@ public class ModifyPetInfoActivity extends Activity {
 			radioGroup=(RadioGroup)view2.findViewById(R.id.user_sex);
 			complete=(Button)view2.findViewById(R.id.button1);
 			initUserListener();
-			setUserInfo(Constants.user);
+			setUserInfo(PetApplication.myUser);
 			complete.setClickable(true);
 			complete.setBackgroundResource(R.drawable.button);
-			userSexStr=""+Constants.user.u_gender;
-			userCityCode=""+Constants.user.locationCode;
-			userNameStr=Constants.user.u_nick;
-			userCityStr=Constants.user.province+"|"+Constants.user.city;
+			userSexStr=""+PetApplication.myUser.u_gender;
+			userCityCode=""+PetApplication.myUser.locationCode;
+			userNameStr=PetApplication.myUser.u_nick;
+			userCityStr=PetApplication.myUser.province+"|"+PetApplication.myUser.city;
 			
 		}
 		
@@ -331,16 +335,16 @@ public class ModifyPetInfoActivity extends Activity {
 //    	imageLoader.displayImage(uri, petIcon, displayImageOptions);
     	RadioButton rb1=(RadioButton)view2.findViewById(R.id.radiobutton1);
     	RadioButton rb2=(RadioButton)view2.findViewById(R.id.radiobutton2);
-    	if(Constants.user.u_gender==1){
+    	if(PetApplication.myUser.u_gender==1){
     		rb2.setChecked(true);
     	}else{
     		rb1.setChecked(true);
     	}
     	
-    	userName.setText(Constants.user.u_nick);
-    	userCity.setText(Constants.user.province+"|"+Constants.user.city);
+    	userName.setText(PetApplication.myUser.u_nick);
+    	userCity.setText(PetApplication.myUser.province+"|"+PetApplication.myUser.city);
     	ImageLoader imageLoader=ImageLoader.getInstance();
-    	imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+Constants.user.u_iconUrl, userIcon, displayImageOptions);
+    	imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+PetApplication.myUser.u_iconUrl, userIcon, displayImageOptions);
 
 	}
 	/**
@@ -350,6 +354,9 @@ public class ModifyPetInfoActivity extends Activity {
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		frameLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
 		
 	}
 	private void initUserListener() {
@@ -423,11 +430,11 @@ public class ModifyPetInfoActivity extends Activity {
 					return;
 				}
 				
-                if(!judgeStringLength(userNameStr, 30)){
+               /* if(!judgeStringLength(userNameStr, 30)){
                 	Toast.makeText(ModifyPetInfoActivity.this, "用户昵称长度超过20个字符", 5000).show();
                 	isLogining=false;
 					return;
-				}
+				}*/
 				
 				
                 handler.sendEmptyMessage(SHOW_PROGRESS);
@@ -446,10 +453,10 @@ public class ModifyPetInfoActivity extends Activity {
 							// TODO Auto-generated method stub
 							boolean flag=HttpUtil.modifyUserInfo(handleHttpConnectionException.getHandler(ModifyPetInfoActivity.this),user,ModifyPetInfoActivity.this);
 							if(flag){
-								MyUser user=HttpUtil.info(ModifyPetInfoActivity.this,handleHttpConnectionException.getHandler(ModifyPetInfoActivity.this),Constants.user.userId);
-								user.currentAnimal=Constants.user.currentAnimal;
-								user.aniList=Constants.user.aniList;
-								Constants.user=user;
+								MyUser user=HttpUtil.info(ModifyPetInfoActivity.this,handleHttpConnectionException.getHandler(ModifyPetInfoActivity.this),PetApplication.myUser.userId);
+								user.currentAnimal=PetApplication.myUser.currentAnimal;
+								user.aniList=PetApplication.myUser.aniList;
+								PetApplication.myUser=user;
 								if(user!=null){
 									/*
 									 * 上传用户头像和宠物头像
@@ -458,7 +465,7 @@ public class ModifyPetInfoActivity extends Activity {
 									if(userIconPath!=null){
 										String path1=HttpUtil.uploadUserIcon(userIconPath,ModifyPetInfoActivity.this,-1);
 										if(path1!=null){
-											Constants.user.u_iconUrl=path1;
+											PetApplication.myUser.u_iconUrl=path1;
 										}
 									}
 									runOnUiThread(new Runnable() {
@@ -473,7 +480,7 @@ public class ModifyPetInfoActivity extends Activity {
 										    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 											}
 											if(UserCardActivity.userCardActivity!=null){
-												UserCardActivity.userCardActivity.setUserInfo(Constants.user);
+												UserCardActivity.userCardActivity.setUserInfo(PetApplication.myUser);
 											}
 										}
 									});
@@ -658,11 +665,11 @@ public class ModifyPetInfoActivity extends Activity {
 					isLogining=false;
 					return;
 				}
-				if(!judgeStringLength(petNameStr, 30)){
+				/*if(!judgeStringLength(petNameStr, 30)){
 					Toast.makeText(ModifyPetInfoActivity.this, "宠物昵称长度超过20个字符", 5000).show();
 					isLogining=false;
 					return;
-				}
+				}*/
 				 handler.sendEmptyMessage(SHOW_PROGRESS);
 				 String code="";
 					final MyUser user=new MyUser();
@@ -705,16 +712,16 @@ public class ModifyPetInfoActivity extends Activity {
 											Toast.makeText(ModifyPetInfoActivity.this,"修改资料成功" , Toast.LENGTH_LONG).show();
 											
 											ModifyPetInfoActivity.this.finish();
-											if(Constants.user.aniList!=null){
-												int index=Constants.user.aniList.indexOf(animal);
+											if(PetApplication.myUser.aniList!=null){
+												int index=PetApplication.myUser.aniList.indexOf(animal);
 												if(index>=0){
-														Constants.user.aniList.remove(index);
-														Constants.user.aniList.add(animal);
+													PetApplication.myUser.aniList.remove(index);
+													PetApplication.myUser.aniList.add(animal);
 												}
 												
 											}
-											if(Constants.user.currentAnimal!=null&&Constants.user.currentAnimal.a_id==animal.a_id){
-												Constants.user.currentAnimal=animal;
+											if(PetApplication.myUser.currentAnimal!=null&&PetApplication.myUser.currentAnimal.a_id==animal.a_id){
+												PetApplication.myUser.currentAnimal=animal;
 												
 											}
 											if(UserCenterFragment.userCenterFragment!=null){

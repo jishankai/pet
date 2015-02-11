@@ -260,7 +260,7 @@ public class SetupActivity extends Activity implements OnClickListener{
 	private void initListener() {
 		// TODO Auto-generated method stub
 		back.setOnClickListener(this);
-		if(Constants.isSuccess){
+		if(PetApplication.isSuccess){
 			iv3.setAlpha(1.0f);
 		}else{
 			iv3.setAlpha(0.3f);

@@ -24,14 +24,14 @@ import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 
 public class AlbumPictureBackground extends Activity {
-	public static final int MODE_REGISTER=30;//注册
-	public static final int MODE_CHANGE_ICON=31;//更改头像
-	public static final int MODE_TOPIC=32;//发表图片
-	int mode=-1;
-	String filename;
-	String path;
-	Animal animal;
-	boolean isBeg;
+	private  static final int MODE_REGISTER=30;//注册
+	private  static final int MODE_CHANGE_ICON=31;//更改头像
+	private  static final int MODE_TOPIC=32;//发表图片
+	private int mode=-1;
+	private String filename;
+	private String path;
+	private Animal animal;
+	private boolean isBeg;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			if(msg.obj!=null){
@@ -172,7 +172,7 @@ public class AlbumPictureBackground extends Activity {
 		
 
 	}
-	public void loadBitmap(Uri uri){
+	private  void loadBitmap(Uri uri){
 		Cursor cursor=getContentResolver().query(uri, null, null, null, null);
 		if(cursor!=null){
 			cursor.moveToFirst();

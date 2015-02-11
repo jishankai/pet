@@ -40,17 +40,17 @@ import com.umeng.fb.model.UserInfo;
  *
  */
 public class AdviceActivity extends Activity {
-	LinearLayout frameLayout;
+
 	
 	
-	Button submit;
-	EditText adviceET;
-	EditText contactET;
-	String advice,contact;
-	boolean isClickable=false,contactFlag=false;
-	LinearLayout progressLayout;
+	private  Button submit;
+	private EditText adviceET;
+	private EditText contactET;
+	private String advice,contact;
+	private boolean isClickable=false,contactFlag=false;
+	private LinearLayout progressLayout;
 	ShowProgress showProgress;
-	boolean isSendingMail=false;
+	private boolean isSendingMail=false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

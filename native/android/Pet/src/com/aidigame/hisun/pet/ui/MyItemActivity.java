@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -34,6 +35,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
@@ -65,6 +67,11 @@ public class MyItemActivity extends Activity implements OnClickListener{
 	}
 	private void initView() {
 		// TODO Auto-generated method stub
+		
+		
+		
+		
+		
 		giftList=new ArrayList<Gift>();
 		back=(ImageView)findViewById(R.id.back);
 		gridView=(GridView)findViewById(R.id.market_gridview);
@@ -77,8 +84,8 @@ public class MyItemActivity extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				if(Constants.user!=null){
-					final ArrayList<Gift> temp=HttpUtil.userItems(MyItemActivity.this,Constants.user, -1, handleHttpConnectionException.getHandler(MyItemActivity.this));
+				if(PetApplication.myUser!=null){
+					final ArrayList<Gift> temp=HttpUtil.userItems(MyItemActivity.this,PetApplication.myUser, -1, handleHttpConnectionException.getHandler(MyItemActivity.this));
 	                handleHttpConnectionException.getHandler(MyItemActivity.this).post(new Runnable() {
 						
 						@Override
@@ -116,6 +123,13 @@ public class MyItemActivity extends Activity implements OnClickListener{
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
 		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
+		
+		
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		frameLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
+		
+		
 		viewTopWhite=(View)findViewById(R.id.top_white_view);
        
        

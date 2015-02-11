@@ -17,6 +17,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -72,35 +73,36 @@ import com.umeng.socialize.weixin.media.CircleShareContent;
  *
  */
 public class SubmitPictureActivity extends Activity implements OnClickListener{
-	Button submitBt,closeBt;
-	boolean sendPicture=false;
-	ImageView imageView,backBt,weixin,xinlang,box1,box2;
-	boolean sendToXinlang=false,sendToWeixin=false;
-	EditText editText;
-	TextView textView,topicTV,atTV,sendToTv,titleTv;
+	private Button submitBt,closeBt;
+	private boolean sendPicture=false;
+	private ImageView imageView,backBt,weixin,xinlang,box1,box2;
+	private boolean sendToXinlang=false,sendToWeixin=false;
+	private EditText editText;
+	private TextView textView,topicTV,atTV,sendToTv,titleTv;
 	LinearLayout progressLayout;
-	ShowProgress showProgress;
-	LinearLayout weixinLayout,xinlangLayout;
+	private ShowProgress showProgress;
+	private LinearLayout weixinLayout,xinlangLayout;
 	public static final int DISMISS_PROGRESS=202;
 	public static final int SHOW_PROGRESS=203;
 	public static SubmitPictureActivity submitPictureActivity;
-	Uri uri;
+	private Uri uri;
 	String path,finalPath;//path为原始图片，未进行照片编辑
 	public static final int UPLOAD_IMAGE_SUCCESS=0;
 	public static final int UPLOAD_IMAGE_FAILS=1;
-	String info="";
-	String lastInfo="";
-	String activityName;
-	PetPicture petPicture;
+	private String info="";
+	private String lastInfo="";
+	private String activityName;
+	private PetPicture petPicture;
 	public String topic_name;//话题名称
 	public int topic_id=-1;//官方 话题id，若为-1，则没有过选中话题id
 	public String relatesId;//关联的id;
 	public String relateString;
 	Animal animal;
-	boolean isBeg;
-	UMSocialService mController;
-	HandleHttpConnectionException handleHttpConnectionException;
-	Handler handler=new Handler(){
+	private boolean isBeg;
+	private UMSocialService mController;
+	private 	HandleHttpConnectionException handleHttpConnectionException;
+	private RelativeLayout rootLayout;
+	private 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case UPLOAD_IMAGE_SUCCESS:
@@ -161,6 +163,12 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 		textView=(TextView)findViewById(R.id.textView2);
 		topicTV=(TextView)findViewById(R.id.textView5);
 		titleTv=(TextView)findViewById(R.id.textView1);
+		
+		rootLayout=(RelativeLayout)findViewById(R.id.root_layout);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		rootLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.submit_background,options)));
+		
 		if(isBeg){
 			titleTv.setText("挣口粮");
 			topicTV.setText("挣口粮");
@@ -187,7 +195,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			}
 		});
 	}
-	boolean isShow=false;
+	private boolean isShow=false;
 	private void initListener() {
 		// TODO Auto-generated method stub
 		backBt.setOnClickListener(this);
@@ -562,10 +570,10 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 						 
 						 
 						 if(sendToXinlang){
-							 xinlangShare(data);
+							 xinlangShare(petPicture);
 						 }else
 						 if(sendToWeixin){
-							 friendShare(data);
+							 friendShare(petPicture);
 						 }else{
 							 over();
 							 return;
@@ -665,7 +673,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			break;
 		}
 	}
-	public void loadBitmap(Uri uri){
+	private  void loadBitmap(Uri uri){
 		LogUtil.i("me", "uri="+uri.toString()+",path="+path);
 		if(uri==null)return;
 		Cursor cursor=getContentResolver().query(uri, null, null, null, null);
@@ -729,7 +737,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			}
 		}
 	}
-	public void addShares(boolean over1){
+	private  void addShares(boolean over1){
 		final boolean over=over1;
 		petPicture.shares++;
 		new Thread(new Runnable() {
@@ -738,7 +746,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			public void run() {
 				// TODO Auto-generated method stub
              final MyUser user=HttpUtil.imageShareNumsApi(SubmitPictureActivity.this,petPicture.img_id, handleHttpConnectionException.getHandler(SubmitPictureActivity.this));
-            
+            LogUtil.i("miii", "over==="+over);
 						if(over){
 							new Thread(new Runnable() {
 								
@@ -759,7 +767,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			}
 		}).start();
 	}
-	public void over(){
+	private  void over(){
 		/*runOnUiThread(new Runnable() {
 			
 			@Override
@@ -805,78 +813,161 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	   }
-	      private void xinlangShare(final Data data) {
+	      private void xinlangShare(final PetPicture petPicture) {
 				// TODO Auto-generated method stub
+	    	  
+	    	  runOnUiThread(new Runnable() {
+				boolean canContinue=false;
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					 SinaShareContent sinaShareContent = new SinaShareContent();
+				   	   UMImage umImage=new UMImage(SubmitPictureActivity.this, petPicture.petPicture_path);
+				   	sinaShareContent.setShareImage(umImage);
+//				   	   circleMedia.setTargetUrl("");
+				   	sinaShareContent.setShareContent(petPicture.cmt);
+				   	   
+				   	
+				   	if(StringUtil.isEmpty(petPicture.cmt)){
+				   		sinaShareContent.setShareContent((StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"这是我最新的美照哦~~打滚儿求表扬~~"+"http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id="+petPicture.img_id+"分享照片（分享自@宠物星球社交应用）");
+					}else{
+						sinaShareContent.setShareContent(petPicture.cmt+(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id="+petPicture.img_id+"（分享自@宠物星球社交应用）");
+					}
+				   	
+				    if(petPicture.isBeg){
+				    	sinaShareContent.setShareContent((StringUtil.isEmpty(petPicture.cmt)?"看在我这么努力卖萌的份上快来宠宠我！免费送我点口粮好不好？":petPicture.cmt)+"http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id="+petPicture.img_id/*+"&to=webo"*/+"（分享自@宠物星球社交应用）");
+					   }
+				   	
+				   	
+				   	   mController.setShareMedia(sinaShareContent);
+				   	   mController.postShare(SubmitPictureActivity.this,SHARE_MEDIA.SINA,
+				   			   new SnsPostListener() {
+				              @Override
+				              public void onStart() {
+//				                  Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+				              }
+				              @Override
+				              public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
+				                   if (eCode == 200) {
+				                  	addShares(false);
+				                    Toast.makeText(SubmitPictureActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+				                   } else {
+//				                	   over();
+				                        String eMsg = "";
+				                        if (eCode == -101){
+				                            eMsg = "没有授权";
+				                        }
+				                        Toast.makeText(SubmitPictureActivity.this, "分享失败[" + eCode + "] " + 
+				                                           eMsg,Toast.LENGTH_SHORT).show();
+				                   }
+				                   canContinue=true;
+				                   LogUtil.i("miii", "新浪分享完毕，sendToWeixin="+sendToWeixin);
+				                   if(sendToWeixin){
+				                	   
+//				                	   friendShare(petPicture);
+				                   }else{
+				                	   over();
+				                   }
+				                   
+				                   
+				            }
+				   });
+				   	   if(sendToWeixin){
+				   		   new Thread(new Runnable() {
+							
+							@Override
+							public void run() {
+								// TODO Auto-generated method stub
+								while(!canContinue){
+									
+									try {
+										Thread.sleep(100);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								}
+								friendShare(petPicture);
+							}
+						}).start();
+				   	   }
+				      
+				}
+			});
 
-		   	   SinaShareContent sinaShareContent = new SinaShareContent();
-		   	   UMImage umImage=new UMImage(this, data.path);
-		   	sinaShareContent.setShareImage(umImage);
-//		   	   circleMedia.setTargetUrl("");
-		   	sinaShareContent.setShareContent(data.des);
-		   	   
-		   	   mController.setShareMedia(sinaShareContent);
-		   	   mController.postShare(this,SHARE_MEDIA.SINA,
-		   			   new SnsPostListener() {
-		              @Override
-		              public void onStart() {
-//		                  Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
-		              }
-		              @Override
-		              public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
-		                   if (eCode == 200) {
-		                  	addShares(false);
-		                    Toast.makeText(SubmitPictureActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
-		                   } else {
-//		                	   over();
-		                        String eMsg = "";
-		                        if (eCode == -101){
-		                            eMsg = "没有授权";
-		                        }
-		                        Toast.makeText(SubmitPictureActivity.this, "分享失败[" + eCode + "] " + 
-		                                           eMsg,Toast.LENGTH_SHORT).show();
-		                   }
-		                   if(sendToWeixin){
-		                	   friendShare(data);
-		                   }else{
-		                	   over();
-		                   }
-		                   
-		                   
-		            }
-		   });
-		      
+		   	  
 			}
-	      public void friendShare(UserImagesJson.Data data){
-	   	   CircleShareContent circleMedia = new CircleShareContent();
-	   	   UMImage umImage=new UMImage(this, data.path);
-	   	   circleMedia.setShareImage(umImage);
-//	   	   circleMedia.setTargetUrl("");
-//	   	circleMedia.setShareContent(animal.pet_nickName);
+	      private  void friendShare(final PetPicture petPicture){
+	    	  runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					CircleShareContent circleMedia = new CircleShareContent();
+				   	   UMImage umImage=new UMImage(SubmitPictureActivity.this, petPicture.petPicture_path);
+				   	   circleMedia.setShareImage(umImage);
+//				   	   circleMedia.setTargetUrl("");
+//				   	circleMedia.setShareContent(animal.pet_nickName);
+				   	   
+				   	   
+				   	   
+				   	  circleMedia.setShareImage(umImage);
+					   if(petPicture.isBeg){
+							 //设置分享文字
+						   circleMedia.setShareContent("看在我这么努力卖萌的份上快来宠宠我！免费送我点口粮好不好？");
+							 //设置title
+						   circleMedia.setTitle(StringUtil.isEmpty(petPicture.cmt)?"轻轻一点，免费赏粮！我的口粮全靠你啦~":petPicture.cmt);
+							
+					  }else{
+						//设置分享文字
+						  if(StringUtil.isEmpty(petPicture.cmt)){
+							  circleMedia.setShareContent((StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"没有照片描述：这是我最新的美照哦~~打滚儿求表扬~~");
+						  }else{
+							  circleMedia.setShareContent(petPicture.cmt);
+						  }
+							
+							 //设置title
+						  circleMedia.setTitle(StringUtil.isEmpty(petPicture.cmt)?"我是"+petPicture.animal.pet_nickName+"，你有没有爱上我？":petPicture.cmt);
+					  }
+					   //设置分享内容跳转URL
+					   circleMedia.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id="+petPicture.img_id/*+"&to=wechat"*/);
+				   	   
+				   	   
+				   	   
+				   	   
+				   	   mController.setShareMedia(circleMedia);
+				   	 LogUtil.i("miii", "微信分享完毕，mController="+mController);
+				   	   mController.postShare(SubmitPictureActivity.this,SHARE_MEDIA.WEIXIN_CIRCLE,
+				   			   new SnsPostListener() {
+				              @Override
+				              public void onStart() {
+				            	  LogUtil.i("miii", "微信kaishi分享，mController="+mController);
+//				                  Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
+				              }
+				              @Override
+				              public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
+				                   
+				            	  
+				            	  LogUtil.i("miii", "微信分享完毕，eCode="+eCode);
+				            	  if (eCode == 200) {
+				            		  LogUtil.i("miii", "微信分享成功，执行addShares方法   sendToWeixin="+sendToWeixin);
+				                  	addShares(true);
+				                    Toast.makeText(SubmitPictureActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
+				                   } else {
+				                	   over();
+				                        String eMsg = "";
+				                        if (eCode == -101){
+				                            eMsg = "没有授权";
+				                        }
+				                        Toast.makeText(SubmitPictureActivity.this, "分享失败[" + eCode + "] " + 
+				                                           eMsg,Toast.LENGTH_SHORT).show();
+				                   }
+				                   
+				            }
+				   });
+				}
+			});
 	   	   
-	   	   mController.setShareMedia(circleMedia);
-	   	   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,
-	   			   new SnsPostListener() {
-	              @Override
-	              public void onStart() {
-//	                  Toast.makeText(NewShowTopicActivity.this, "开始分享.", Toast.LENGTH_SHORT).show();
-	              }
-	              @Override
-	              public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
-	                   if (eCode == 200) {
-	                  	addShares(true);
-	                    Toast.makeText(SubmitPictureActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
-	                   } else {
-	                	   over();
-	                        String eMsg = "";
-	                        if (eCode == -101){
-	                            eMsg = "没有授权";
-	                        }
-	                        Toast.makeText(SubmitPictureActivity.this, "分享失败[" + eCode + "] " + 
-	                                           eMsg,Toast.LENGTH_SHORT).show();
-	                   }
-	                   
-	            }
-	   });
 	      }
 	      public String compressPictureSize(String path) {
 	    	  if(new File(path).length()>1024*300*1){

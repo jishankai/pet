@@ -27,17 +27,16 @@ import android.widget.Toast;
  *
  */
 public class WarningDialogActivity extends Activity {
-	int mode=1;
-	int img_id;
-	int usr_id;
-	int talk_id;
-	ImageView agreeIV;
-	TextView agreeTV;
-	Handler handler;
-	LinearLayout layout1,agreeLayout,agreeBottomLayout;
-	ReportResultListener reportResultListener;
-	WebView webView;
-	String url="http://"+Constants.IP+Constants.URL_ROOT+"r=site/agreement";
+	private int mode=1;
+	private int img_id;
+	private int usr_id;
+	private int talk_id;
+	private ImageView agreeIV;
+	private TextView agreeTV;
+	private Handler handler;
+	private LinearLayout layout1,agreeLayout,agreeBottomLayout;
+	private WebView webView;
+	private String url="http://"+Constants.IP+Constants.URL_ROOT+"r=site/agreement";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -229,7 +228,7 @@ public class WarningDialogActivity extends Activity {
 	/**
 	 * 举报图片,或平乱
 	 */
-	public void reportImage(){
+	private  void reportImage(){
 		if(img_id==-1){
 			finish();
 		}else{
@@ -262,7 +261,7 @@ public class WarningDialogActivity extends Activity {
 	/**
 	 * 举报用户
 	 */
-	public void reportUser(){
+	private  void reportUser(){
 		if(img_id==-1){
 			finish();
 		}else{
@@ -294,7 +293,7 @@ public class WarningDialogActivity extends Activity {
 	/**
 	 * 拉黑用户
 	 */
-	public void blockOther(){
+	private  void blockOther(){
 		if(img_id==-1){
 			finish();
 		}else{
@@ -323,9 +322,7 @@ public class WarningDialogActivity extends Activity {
 			}).start();
 		}
 	}
-	public void setReportListener(ReportResultListener reportResultListener){
-		this.reportResultListener=reportResultListener;
-	}
+	
 	public static interface ReportResultListener{
 		void reportListener();
 	}

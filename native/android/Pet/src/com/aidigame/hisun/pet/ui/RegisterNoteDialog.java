@@ -533,7 +533,7 @@ public class RegisterNoteDialog extends Activity implements OnClickListener{
 					if(isBinded){
 						getSIDAndUserID();
 					}else{
-						if(Constants.isSuccess){
+						if(PetApplication.isSuccess){
 							
 						
 						Intent intent=new Intent(RegisterNoteDialog.this,Dialog3Activity.class);
@@ -652,7 +652,7 @@ public class RegisterNoteDialog extends Activity implements OnClickListener{
 				String SID=HttpUtil.getSID(RegisterNoteDialog.this,handler);
 				SharedPreferences sPreferences=getSharedPreferences("setup", Context.MODE_WORLD_WRITEABLE);
 				if(!StringUtil.isEmpty(SID)){
-					Constants.SID=SID;
+					PetApplication.SID=SID;
 				}else{
 					boolean flag=HttpUtil.login(RegisterNoteDialog.this,handler);
 					if(flag){

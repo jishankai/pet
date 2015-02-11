@@ -55,6 +55,7 @@ import com.aidigame.hisun.pet.blur.TopCenterImageView;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
+import com.aidigame.hisun.pet.ui.Dialog4Activity.Dialog3ActivityListener;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.ImageUtil;
 import com.aidigame.hisun.pet.util.LogUtil;
@@ -71,6 +72,7 @@ import com.aidigame.hisun.pet.widget.fragment.DialogNote;
 import com.aidigame.hisun.pet.widget.fragment.DialogQuitKingdom;
 import com.aidigame.hisun.pet.widget.fragment.MyPetFragment;
 import com.aidigame.hisun.pet.widget.fragment.DialogJoinKingdom.ResultListener;
+import com.easemob.chat.core.HeartBeatReceiver;
 import com.miloisbadboy.view.PullToRefreshView;
 import com.miloisbadboy.view.PullToRefreshView.OnFooterRefreshListener;
 import com.miloisbadboy.view.PullToRefreshView.OnHeaderRefreshListener;
@@ -89,33 +91,32 @@ import com.umeng.socialize.sso.UMSsoHandler;
  *
  */
 public class NewPetKingdomActivity extends Activity implements OnClickListener{
-	ImageView backIV,petSexIV,moreIv,supportIv;
-	TextView petNameTV,petRaceTV,modifyIv,
+	private  ImageView backIV,petSexIV,moreIv,supportIv,giftIv;
+	private  TextView petNameTV,petRaceTV,modifyIv,giveHeartTv,
 	         petAgeTV,userJobTV,petSignTv,trendsNumTv,fansNumTv,pictureNumTv,foodNumTv,likeNumTv,giftNumTv;
-	EditText modifyEt;
+	private  EditText modifyEt;
 	public View popupParent;
 	public RelativeLayout black_layout;
-	RoundImageView petIcon,userIcon;
+	private  RoundImageView petIcon,userIcon;
 	public static NewPetKingdomActivity petKingdomActivity;
-	HandleHttpConnectionException handleHttpConnectionException;
-	ShowProgress showProgress;
-	LinearLayout bottomLinearLayout2,moreLayout,progresslayout,foodLayout,rqLayout,giftLayout
+	private  ShowProgress showProgress;
+	private  LinearLayout bottomLinearLayout2,moreLayout,progresslayout,foodLayout,rqLayout,giftLayout
     ,begLayout,shakeLayout,sendGiftLayout,touchLayout;
-	public LinearLayout linearLayout2,blurLayout;
+	public   LinearLayout linearLayout2,blurLayout;
 	
-	LinearLayout camera_album;//显示获取照片界面
-	public boolean isShowInfoLayout=true;
+	private  LinearLayout camera_album;//显示获取照片界面
+
 	
-	FrameLayout frameLayout;
+	private  FrameLayout frameLayout;
 	public Bitmap   loadedImage1,loadedImage2;
-	RelativeLayout moreParentLayout,trendsNumLayout,fansNumLayout,pictureNumLayout;
+	private  RelativeLayout moreParentLayout,trendsNumLayout,fansNumLayout,pictureNumLayout;
 	/*
 	 * 一张图片的所有信息，
 	 * 根据用户id，判断是否为本人创建或加入的王国，还是其他人的王国，
 	 * 两种情况下界面显示不同
 	 */
-	Animal data;
-	DisplayImageOptions displayImageOptions;//显示图片的格式
+	private  Animal data;
+	private  DisplayImageOptions displayImageOptions;//显示图片的格式
 	
 	
 	
@@ -140,7 +141,6 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_new_petdossier);
-		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		petKingdomActivity=this;
 		data=(Animal)getIntent().getSerializableExtra("animal");
 		MobclickAgent.onEvent(this, "pet_homenpage");
@@ -156,7 +156,7 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
     boolean canOver;
 	private void initModifySign() {
 		// TODO Auto-generated method stub
-		if(Constants.user!=null&&Constants.user.userId==data.master_id){
+		if(PetApplication.myUser!=null&&PetApplication.myUser.userId==data.master_id){
 			modifyIv.setVisibility(View.VISIBLE);
 		}else{
 			modifyIv.setBackgroundResource(R.drawable.private_message);
@@ -166,7 +166,7 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(Constants.user!=null&&Constants.user.userId==data.master_id){
+				if(PetApplication.myUser!=null&&PetApplication.myUser.userId==data.master_id){
 				if(!canOver){
 					modifyEt.setFocusable(true);
 					modifyEt.setFocusableInTouchMode(true);
@@ -287,8 +287,8 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 		
 		camera_album=(LinearLayout)findViewById(R.id.camera_album);
 		
-		
-		
+		giveHeartTv=(TextView)findViewById(R.id.give_heart_iv);
+		giftIv=(ImageView)findViewById(R.id.gift_iv);
 		moreParentLayout=(RelativeLayout)findViewById(R.id.more_parent_latyout);
 		
 		
@@ -372,16 +372,24 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 		petNameTV.setText(data.pet_nickName);
 		userIcon.setVisibility(View.VISIBLE);
 		petSexIV.setVisibility(View.VISIBLE);
-		if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.contains(data)){
+		if(data.tb_version==0){
+			giveHeartTv.setText("献爱心");
+			giftIv.setImageResource(R.drawable.claw_gift1);
+		}else{
+			giveHeartTv.setText("买周边");
+			giftIv.setImageResource(R.drawable.buy_around);
+		}
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null&&PetApplication.myUser.aniList.contains(data)){
 			supportIv.setImageResource(R.drawable.pet_raise_2);
 		}else{
 			supportIv.setImageResource(R.drawable.pet_raise_1);
 		}
-		if(Constants.user!=null&&data.master_id==Constants.user.userId){
+		if(PetApplication.myUser!=null&&data.master_id==PetApplication.myUser.userId){
 		SharedPreferences sp=getSharedPreferences(Constants.BASEIC_SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
 		Editor e=sp.edit();
 		boolean guide7=sp.getBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE7, true);
 		if(guide7){
+			guideIv2.setImageResource(R.drawable.guide7);
 			guideIv2.setVisibility(View.VISIBLE);
 			e.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE7, false);
 			e.commit();
@@ -806,7 +814,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 			
 			break;
 		case R.id.imageView3:
-			if(Constants.user!=null&&Constants.user.userId==data.master_id){
+			if(PetApplication.myUser!=null&&PetApplication.myUser.userId==data.master_id){
 				Intent intent6=new Intent(this,ModifyPetInfoActivity.class);
 				intent6.putExtra("animal", data);
 				intent6.putExtra("mode", 1);
@@ -826,7 +834,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 			if(!UserStatusUtil.isLoginSuccess(this,popupParent,black_layout)){
 				return;
 		    }
-			if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.contains(data)){
+			if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null&&PetApplication.myUser.aniList.contains(data)){
 //				Toast.makeText(this, "您已经捧TA", Toast.LENGTH_LONG).show();
 				
 				
@@ -840,6 +848,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 			pengTA();
 			break;
 		case R.id.guide2:
+			guideIv2.setImageDrawable(new BitmapDrawable());
 			guideIv2.setVisibility(View.GONE);
 			break;
 			
@@ -847,7 +856,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 	}
 	private void cancelPengTA() {
 		// TODO Auto-generated method stub
-		if(Constants.user!=null&&Constants.user.userId==data.master_id){
+		if(PetApplication.myUser!=null&&PetApplication.myUser.userId==data.master_id){
 //			Toast.makeText(this, "不要抛弃自己家的萌星呀~", Toast.LENGTH_LONG).show();
 			Intent intent=new Intent(this,DialogNoteActivity.class);
 			intent.putExtra("mode", 10);
@@ -855,7 +864,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 			startActivity(intent);
 			return;
 		}
-		if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()==1){
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null&&PetApplication.myUser.aniList.size()==1){
 //			Toast.makeText(this, "不能不捧萌星，现在只剩一个啦", Toast.LENGTH_LONG).show();
 			Intent intent=new Intent(this,DialogNoteActivity.class);
 			intent.putExtra("mode", 10);
@@ -889,7 +898,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		isPenging=true;
 		int num=0;
 		int count=0;
-		for(int i=0;i<Constants.user.aniList.size();i++){
+		for(int i=0;i<PetApplication.myUser.aniList.size();i++){
 //			if(Constants.user.aniList.get(i).master_id!=Constants.user.userId)
 				count++;
 		}
@@ -901,13 +910,43 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 			num=100;
 		}
 		
-		if(Constants.user.coinCount<num){
+		if(PetApplication.myUser.coinCount<num){
 //			DialogNote dialog=new DialogNote(popupParent, this, black_layout, 1);
-			Intent intent=new Intent(this,DialogNoteActivity.class);
+			/*Intent intent=new Intent(this,DialogNoteActivity.class);
 			intent.putExtra("mode", 10);
 			intent.putExtra("info", "钱包君告急！挣够金币再来捧萌星吧");
-			startActivity(intent);
-			return;
+			startActivity(intent);*/
+			
+			
+			
+			 Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
+					
+					@Override
+					public void onClose() {
+						// TODO Auto-generated method stub
+						isPenging=false;
+					}
+					
+					@Override
+					public void onButtonTwo() {
+						// TODO Auto-generated method stub
+						Intent intent=new Intent(NewPetKingdomActivity.this,ChargeActivity.class);
+						startActivity(intent);
+						isPenging=false;
+					}
+					
+					@Override
+					public void onButtonOne() {
+						// TODO Auto-generated method stub
+						isPenging=false;
+					}
+				};
+				 Intent intent=new Intent(this,Dialog4Activity.class);
+				 intent.putExtra("mode", 8);
+				 intent.putExtra("num", num);
+				 startActivity(intent);
+				 isPenging=false;
+				 return ;
 	}
 	
 	
@@ -917,7 +956,10 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		@Override
 		public void getResult(boolean isSuccess) {
 			// TODO Auto-generated method stub
-			supportIv.setImageResource(R.drawable.pet_raise_2);
+			if(isSuccess){
+				supportIv.setImageResource(R.drawable.pet_raise_2);
+			}
+			
 			data.hasJoinOrCreate=isSuccess;
 			isPenging=false;
 		}
@@ -1190,7 +1232,7 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 							
 						}*/
 						if(new File(path).exists()){
-							Constants.user.pet_iconPath=path;
+							PetApplication.myUser.pet_iconPath=path;
 							
 						}
 					}
@@ -1225,54 +1267,109 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 //		    setBlurImageBackground();
 			return ;
 		}
-		if(Constants.user!=null&&Constants.user.aniList!=null){
-			/*DialogGiveSbGift dgb=new DialogGiveSbGift(this,data);
-			final AlertDialog dialog=new AlertDialog.Builder(this).setView(dgb.getView())
-					.show();*/
-			if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
-			Intent intent=new Intent(this,DialogGiveSbGiftActivity1.class);
-			intent.putExtra("animal", data);
-			this.startActivity(intent);
-			DialogGiveSbGiftActivity1 dgb=DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity;
-			DialogGiveSbGiftActivity1.dialogGoListener=new DialogGiveSbGiftActivity1.DialogGoListener() {
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+			
+			
+			if(data.tb_version==0/*||StringUtil.isEmpty(data.tburl)*/){
+				sendGift();
+				return;
+			}
+			if(data.tb_version==1&&!StringUtil.isEmpty(data.tburl)){
+				//买周边
+				Intent it=new Intent(this,ChargeActivity.class);
+				it.putExtra("animal", data);
+				it.putExtra("mode", 2);
+				startActivity(it);
+				return;
+			}
+			
+			
+			Intent it=new Intent(this,Dialog4Activity.class);
+			it.putExtra("animal", data);
+			it.putExtra("mode", 7);
+			Dialog4Activity.listener=new Dialog3ActivityListener() {
 				
 				@Override
-				public void toDo() {
+				public void onClose() {
 					// TODO Auto-generated method stub
-Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,MarketActivity.class);
 					
-					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.startActivity(intent);
 				}
 				
 				@Override
-				public void closeDialog() {
+				public void onButtonTwo() {
 					// TODO Auto-generated method stub
-					if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)
-					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
-					
+					sendGift();
 				}
+				
 				@Override
-				public void lastResult(boolean isSuccess) {
+				public void onButtonOne() {
 					// TODO Auto-generated method stub
-					
-				}
-				@Override
-				public void unRegister() {
-					// TODO Auto-generated method stub
-					
+					new ShowMore(moreLayout, NewPetKingdomActivity.this,sharePath,moreParentLayout).kindomShowMore(data);
 				}
 			};
+			this.startActivity(it);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		}
 		
 	}
+	public void sendGift(){
+		/*DialogGiveSbGift dgb=new DialogGiveSbGift(this,data);
+		final AlertDialog dialog=new AlertDialog.Builder(this).setView(dgb.getView())
+				.show();*/
+		if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+		Intent intent=new Intent(this,DialogGiveSbGiftActivity1.class);
+		intent.putExtra("animal", data);
+		this.startActivity(intent);
+		DialogGiveSbGiftActivity1 dgb=DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity;
+		DialogGiveSbGiftActivity1.dialogGoListener=new DialogGiveSbGiftActivity1.DialogGoListener() {
+			
+			@Override
+			public void toDo() {
+				// TODO Auto-generated method stub
+            Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,MarketActivity.class);
+				
+				DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.startActivity(intent);
+			}
+			
+			@Override
+			public void closeDialog() {
+				// TODO Auto-generated method stub
+				if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)
+				DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
+				
+			}
+			@Override
+			public void lastResult(boolean isSuccess) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void unRegister() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+	}
+	
+	
+	
 	public void clickItem3() {
 		// TODO Auto-generated method stub
 		if(!UserStatusUtil.isLoginSuccess(NewPetKingdomActivity.this,popupParent,black_layout)){
 //		    setBlurImageBackground();
 			return ;
 		}
-		if(Constants.user!=null&&Constants.user.aniList!=null){
-			if(Constants.user.aniList.contains(data)){
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+			if(PetApplication.myUser.aniList.contains(data)){
 				/*if(data.master_id==Constants.user.userId){
 				}else{*/
 					Intent intent=new Intent(this,TouchActivity.class);
@@ -1293,7 +1390,7 @@ Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivi
 //		    setBlurImageBackground();
 			return ;
 		}
-		if(Constants.user!=null&&Constants.user.aniList!=null){
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
 //			if(Constants.user.aniList.contains(data)){
 				new Thread(new Runnable() {
 					
@@ -1307,7 +1404,7 @@ Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivi
 							public void run() {
 								// TODO Auto-generated method stub
 								if(pp==null){
-									if(Constants.user.userId==data.master_id){
+									if(PetApplication.myUser.userId==data.master_id){
 											showCameraAlbum(data,true);
 									}else{
 										Toast.makeText(NewPetKingdomActivity.this, "萌星 "+data.pet_nickName+"，今天还没挣口粮呢~", Toast.LENGTH_LONG).show();
@@ -1363,7 +1460,7 @@ Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivi
 					intent2.putExtra("animal", animal);
 					intent2.putExtra("isBeg", isBeg);
 				}else{
-					intent2.putExtra("animal", Constants.user.currentAnimal);
+					intent2.putExtra("animal", PetApplication.myUser.currentAnimal);
 					intent2.putExtra("isBeg", isBeg);
 				}
 				
@@ -1386,7 +1483,7 @@ Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivi
 					intent2.putExtra("animal", animal);
 					intent2.putExtra("isBeg", isBeg);
 				}else{
-					intent2.putExtra("animal", Constants.user.currentAnimal);
+					intent2.putExtra("animal", PetApplication.myUser.currentAnimal);
 					intent2.putExtra("isBeg", isBeg);
 				}
 				startActivity(intent2);
@@ -1426,14 +1523,7 @@ Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivi
 	 * 分享 王国资料截图
 	 */
 	String sharePath;
-	public void getSharePetKingdomPicture(){
-		Bitmap bmp=ImageUtil.getImageFromView(frameLayout);
-		String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis();
-		path=ImageUtil.compressImage(bmp, 100, path);
-		if(!StringUtil.isEmpty(path)){
-			sharePath=path;
-		}
-	}
+
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
        

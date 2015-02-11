@@ -29,6 +29,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
@@ -165,6 +166,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 
 	private GroupListener groupListener;
 
+	
+	RelativeLayout rooLayout;
+	
+	
 	private ImageView iv_emoticons_normal;
 	private ImageView iv_emoticons_checked;
 	private RelativeLayout edittext_layout;
@@ -190,6 +195,12 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 		setContentView(R.layout.activity_chat_huanxin);
 		other=(MyUser)getIntent().getSerializableExtra("user");
 		
+		rooLayout=(RelativeLayout)findViewById(R.id.root_layout);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		rooLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
+		
+		
 		if(other==null){
 			toChatUsername = getIntent().getStringExtra("userId");
 			conversation = EMChatManager.getInstance().getConversation(toChatUsername);
@@ -206,7 +217,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if((""+Constants.user.userId).equals(userid)){
+				if((""+PetApplication.myUser.userId).equals(userid)){
 					try {
 						nick=lastMessage.getStringAttribute("other_nickname");
 						tx=lastMessage.getStringAttribute("other_tx");
@@ -239,13 +250,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 				@Override
 				public void onButtonTwo() {
 					// TODO Auto-generated method stub
-					EMChatManager.getInstance().login(""+Constants.user.userId, Constants.user.code, new EMCallBack() {
+					EMChatManager.getInstance().login(""+PetApplication.myUser.userId, PetApplication.myUser.code, new EMCallBack() {
 						
 						@Override
 						public void onSuccess() {
 							// TODO Auto-generated method stub
-							PetApplication.setUserName(""+Constants.user.userId);
-	 						PetApplication.setPassword(Constants.user.code);
+							PetApplication.setUserName(""+PetApplication.myUser.userId);
+	 						PetApplication.setPassword(PetApplication.myUser.code);
 	 						runOnUiThread(new Runnable() {
 								
 								@Override
@@ -724,12 +735,12 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 			message.addBody(txtBody);
 			// 设置要发给谁,用户username或者群聊groupid
 			message.setReceipt(toChatUsername);
-			message.setAttribute("tx", Constants.user.u_iconUrl);
-			message.setAttribute("nickname", Constants.user.u_nick);
+			message.setAttribute("tx", PetApplication.myUser.u_iconUrl);
+			message.setAttribute("nickname", PetApplication.myUser.u_nick);
 			message.setAttribute("other_tx", other.u_iconUrl);
 			message.setAttribute("other_nickname",other.u_nick);
 			
-			message.setAttribute("id",""+ Constants.user.userId);
+			message.setAttribute("id",""+ PetApplication.myUser.userId);
 			
 			
 			
@@ -763,13 +774,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 			if (chatType == CHATTYPE_GROUP)
 				message.setChatType(ChatType.GroupChat);
 			message.setReceipt(toChatUsername);
-			message.setAttribute("tx", Constants.user.u_iconUrl);
-			message.setAttribute("nickname", Constants.user.u_nick);
+			message.setAttribute("tx", PetApplication.myUser.u_iconUrl);
+			message.setAttribute("nickname", PetApplication.myUser.u_nick);
 			message.setAttribute("other_tx", other.u_iconUrl);
 			message.setAttribute("other_nickname",other.u_nick);
 			
 			
-			message.setAttribute("id",""+ Constants.user.userId);
+			message.setAttribute("id",""+ PetApplication.myUser.userId);
 			
 			
 			int len = Integer.parseInt(length);
@@ -801,12 +812,12 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 			message.setChatType(ChatType.GroupChat);
 
 		message.setReceipt(to);
-		message.setAttribute("tx", Constants.user.u_iconUrl);
-		message.setAttribute("nickname", Constants.user.u_nick);
+		message.setAttribute("tx", PetApplication.myUser.u_iconUrl);
+		message.setAttribute("nickname", PetApplication.myUser.u_nick);
 		message.setAttribute("other_tx", other.u_iconUrl);
 		message.setAttribute("other_nickname",other.u_nick);
 		
-		message.setAttribute("id", ""+Constants.user.userId);
+		message.setAttribute("id", ""+PetApplication.myUser.userId);
 		
 		
 		ImageMessageBody body = new ImageMessageBody(new File(filePath));
@@ -837,12 +848,12 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 				message.setChatType(ChatType.GroupChat);
 			String to = toChatUsername;
 			message.setReceipt(to);
-			message.setAttribute("tx", Constants.user.u_iconUrl);
-			message.setAttribute("nickname", Constants.user.u_nick);
+			message.setAttribute("tx", PetApplication.myUser.u_iconUrl);
+			message.setAttribute("nickname", PetApplication.myUser.u_nick);
 			message.setAttribute("other_tx", other.u_iconUrl);
 			message.setAttribute("other_nickname",other.u_nick);
 			
-			message.setAttribute("id",""+ Constants.user.userId);
+			message.setAttribute("id",""+ PetApplication.myUser.userId);
 			
 			
 			VideoMessageBody body = new VideoMessageBody(videoFile, thumbPath, length, videoFile.length());

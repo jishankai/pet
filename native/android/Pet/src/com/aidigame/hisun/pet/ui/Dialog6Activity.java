@@ -331,7 +331,7 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 			   		circleMedia.setShareContent(pp.cmt); 
 			   	   }
 			   
-			   circleMedia.setTitle("轻轻一点，免费赏粮！我的口粮就靠你啦~");
+			   circleMedia.setTitle(StringUtil.isEmpty(pp.cmt)?"轻轻一点，免费赏粮！我的口粮就靠你啦~":pp.cmt);
 			   circleMedia.setTargetUrl(shareUrl+pp.img_id/*+"&to=wechat"*/);
 			   mController.setShareMedia(circleMedia);
 			   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,

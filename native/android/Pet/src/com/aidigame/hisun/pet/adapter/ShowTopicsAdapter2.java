@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -118,7 +119,7 @@ public class ShowTopicsAdapter2 extends BaseAdapter  {
 	    }
 	    PetPicture data=petPictures.get(position);
 	    //TODO  
-	    if(Constants.user!=null&&data.likers!=null&&data.likers.contains(""+Constants.user.userId)){
+	    if(PetApplication.myUser!=null&&data.likers!=null&&data.likers.contains(""+PetApplication.myUser.userId)){
 	    	holder.heart.setImageResource(R.drawable.bone_red);
 	    	 holder.tv5.setTextColor(context.getResources().getColor(R.color.orange_red));
 		}else{

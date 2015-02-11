@@ -32,17 +32,17 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 	private OnScrollListener mScrollListener; // user's scroll listener
 
 	// the interface to trigger refresh and load more.
-	private IXListViewListener mListViewListener;
+	public IXListViewListener mListViewListener;
 
 	// -- header view
-	private XListViewHeader mHeaderView;
+	public XListViewHeader mHeaderView;
 	// header view content, use it to calculate the Header's height. And hide it
 	// when disable pull refresh.
 	private RelativeLayout mHeaderViewContent;
 	private TextView mHeaderTimeView;
-	private int mHeaderViewHeight; // header view's height
-	private boolean mEnablePullRefresh = true;
-	private boolean mPullRefreshing = false; // is refreashing.
+	public int mHeaderViewHeight; // header view's height
+	public boolean mEnablePullRefresh = true;
+	public boolean mPullRefreshing = false; // is refreashing.
 
 	// -- footer view
 	private XListViewFooter mFooterView;
@@ -208,7 +208,7 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 		}
 	}
 
-	private void updateHeaderHeight(float delta) {
+	public void updateHeaderHeight(float delta) {
 		mHeaderView.setVisiableHeight((int) delta + mHeaderView.getVisiableHeight());
 		if (mEnablePullRefresh && !mPullRefreshing) { // 未处于刷新状态，更新箭头
 			if (mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
@@ -223,7 +223,7 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 	/**
 	 * reset header view's height.
 	 */
-	private void resetHeaderHeight() {
+	public void resetHeaderHeight() {
 		int height = mHeaderView.getVisiableHeight();
 		if (height == 0) // not visible.
 			return;

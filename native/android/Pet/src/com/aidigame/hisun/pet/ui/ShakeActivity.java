@@ -13,8 +13,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -48,6 +50,7 @@ import com.aidigame.hisun.pet.adapter.HomeViewPagerAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.Gift;
 import com.aidigame.hisun.pet.bean.MyUser;
+import com.aidigame.hisun.pet.blur.Blur;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
@@ -108,7 +111,7 @@ public class ShakeActivity extends Activity {
       LinearLayout nameTvLayout,noteLayout;
       public static ShakeActivity shakeActivity;
       
-      View shine_view;
+      ImageView shine_view;
       Handler handleHttpConnectionException;
       boolean isSending=false;
       ArrayList<Gift> giftList;
@@ -150,7 +153,11 @@ public class ShakeActivity extends Activity {
     	MobclickAgent.onEvent(this, "shake_button");
     	handleHttpConnectionException=HandleHttpConnectionException.getInstance().getHandler(this);
     	shareBitmapLayout=(RelativeLayout)findViewById(R.id.share_bitmap_layout);
-    	shine_view=findViewById(R.id.shine_view);
+    	BitmapFactory.Options options1=new BitmapFactory.Options();
+    	options1.inSampleSize=2;
+    	
+    	shine_view=(ImageView)findViewById(R.id.shine_view);
+    	shine_view.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shake_shine, options1));
     	BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
 		options.inSampleSize=8;
@@ -175,7 +182,47 @@ public class ShakeActivity extends Activity {
 		viewPager=(ViewPager)findViewById(R.id.viewpager);
 		ImageLoader imageLoader=ImageLoader.getInstance();
 		ImageView icon=(ImageView)findViewById(R.id.roundImageView1);
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl,icon , displayImageOptions);
+		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl,icon , displayImageOptions,new ImageLoadingListener() {
+			
+			@Override
+			public void onLoadingStarted(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLoadingFailed(String imageUri, View view,
+					FailReason failReason) {
+				// TODO Auto-generated method stub
+				animal.pet_iconPath=StringUtil.compressEmotion(ShakeActivity.this, null);
+			}
+			
+			public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
+				// TODO Auto-generated method stub
+				
+				
+				new Thread(new Runnable() {
+					
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						/*添加毛玻璃效果
+						 *首先要将Bitmap的Config转化为Config.ARGB_8888类型的 
+						 */
+						animal.pet_iconPath=StringUtil.compressEmotion(ShakeActivity.this, loadedImage);
+//						
+							
+					}
+				}).start();
+				
+			}
+			
+			@Override
+			public void onLoadingCancelled(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				animal.pet_iconPath=StringUtil.compressEmotion(ShakeActivity.this, null);
+			}
+		});
 		nameTv=(TextView)findViewById(R.id.help_animalname);
 		titleTv=(TextView)findViewById(R.id.textView5);
 		hasChancTv=(TextView)findViewById(R.id.has_chance_tv);
@@ -389,13 +436,18 @@ public class ShakeActivity extends Activity {
 		nameTvLayout.setVisibility(View.GONE);
 		noteLayout.setVisibility(View.VISIBLE);
 		hasChancTv.setText("还剩"+optortunity+"次机会");
-		shareBitmapLayout.setBackgroundResource(R.drawable.shake_ground_get);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=2;
+		shareBitmapLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.shake_ground_get, options)));
+//		shareBitmapLayout.setBackgroundResource(R.drawable.shake_ground_get);
 		TextView awardNameTv=(TextView)view22.findViewById(R.id.textView23);
 		ImageView awardIv=(ImageView)view22.findViewById(R.id.imageView2);
 		TextView addHotTV=(TextView)view22.findViewById(R.id.textView9);
 		addHotTV.setText("人气+"+gift.add_rq);
 		TextView sureTv=(TextView)view22.findViewById(R.id.sure_shake);
 		TextView cancelTv=(TextView)view22.findViewById(R.id.cancel_shake);
+		/*RelativeLayout layout=(RelativeLayout)view22.findViewById(R.id.imageView1);
+		layout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.shake_gift_background1, options)));*/
 		gift.is_shake=true;
 		gift.aid=animal.a_id;
 		awardNameTv.setText(gift.name+" X 1");
@@ -538,27 +590,8 @@ public class ShakeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				weixinShare(animal.pet_iconPath);
 				
-				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
-				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
-				FileOutputStream fos=null;
-				try {
-					fos = new FileOutputStream(path);
-					bmp.compress(CompressFormat.PNG, 100, fos);
-					weixinShare(path);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally{
-					if(fos!=null){
-						try {
-							fos.close();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
 				
 			}
 		});
@@ -567,28 +600,7 @@ public class ShakeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
-				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
-				FileOutputStream fos=null;
-				try {
-					Constants.shareMode=1;
-					Constants.whereShare=4;
-					fos = new FileOutputStream(path);
-					bmp.compress(CompressFormat.PNG, 100, fos);
-					friendShare(path);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally{
-					if(fos!=null){
-						try {
-							fos.close();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
+				friendShare(animal.pet_iconPath);
 				
 			}
 		});
@@ -597,38 +609,9 @@ public class ShakeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/*if(!UserStatusUtil.hasXinlangAuth(ShakeActivity.this)){
-					return;
-				}*/
-				Bitmap bmp=ImageUtil.getImageFromView(shareBitmapLayout);
-				String path=Constants.Picture_Root_Path+File.separator+System.currentTimeMillis()+".png";
-				FileOutputStream fos=null;
-				try {
-					fos = new FileOutputStream(path);
-					bmp.compress(CompressFormat.PNG, 100, fos);
-					UserImagesJson.Data data=new UserImagesJson.Data();
-					data.path=path;
-					Constants.whereShare=4;
-					if(gift!=null){
-						data.des="随便一摇就摇出了一个"+gift.name+"，好惊喜，你也想试试吗？http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
-					}else{
-						data.des="随便一摇就摇会有"+"惊喜，快来试试吧？http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
-					}
-					
-					xinlangShare(data);
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}finally{
-					if(fos!=null){
-						try {
-							fos.close();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
+				
+				xinlangShare();
+				
 				
 			}
 		});
@@ -659,12 +642,12 @@ public class ShakeActivity extends Activity {
 	   }
 	      public void weixinShare(String path){
 	   	   WeiXinShareContent weixinContent = new WeiXinShareContent();
-	   	 //设置分享文字
-//	   	 weixinContent.setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能，微信");
-	   	 //设置title
-//	   	 weixinContent.setTitle("友盟社会化分享组件-微信");
-	   	 //设置分享内容跳转URL
-//	   	 weixinContent.setTargetUrl("你的URL链接");
+	  	 //设置分享文字
+		   	 weixinContent.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
+		   	 //设置title
+		   	 weixinContent.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+		   	 //设置分享内容跳转URL
+		   	 weixinContent.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
 	   	 //设置分享图片
 	   	 UMImage umImage=new UMImage(this,path );
 	   	 weixinContent.setShareImage(umImage);
@@ -698,7 +681,15 @@ public class ShakeActivity extends Activity {
 	   	   CircleShareContent circleMedia = new CircleShareContent();
 	   	   UMImage umImage=new UMImage(this, path);
 	   	   circleMedia.setShareImage(umImage);
-//	   	   circleMedia.setTargetUrl("你的URL链接");
+	   	   
+	  	 //设置分享文字
+		   	circleMedia.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
+			   	 //设置title
+		   	circleMedia.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+			   	 //设置分享内容跳转URL
+		   	circleMedia.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
+	   	   
+
 	   	   mController.setShareMedia(circleMedia);
 	   	   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,
 	   			   new SnsPostListener() {
@@ -894,10 +885,22 @@ public class ShakeActivity extends Activity {
 				}
 			}).start();
 	    }
-	    public void xinlangShare(UserImagesJson.Data data){
+	    public void xinlangShare(){
 				
+	    	 UserImagesJson.Data data=new UserImagesJson.Data();
+		   		data.path=animal.pet_iconPath;
+		   			
+		   			if(animal!=null){
+						Constants.whereShare=2;
+						data.des="雷达报告发现一只萌宠，火速围观！http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+					}else if(user!=null){
+						Constants.whereShare=3;
+						data.des="我发现了一枚萌萌哒新伙伴"+user.u_nick+"，可以一起愉快的玩耍啦！http://home4pet.aidigame.com/（分享自@宠物星球社交应用）";
+					}
+		   	
 		   	   SinaShareContent content=new SinaShareContent();
-		   	   content.setShareContent(data.des);
+		   	   content.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~"+"http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id+"（分享自@宠物星球社交应用）");
+	    	
 		   	   UMImage umImage=new UMImage(this, data.path);
 		   	  
 		   	   content.setShareImage(umImage);

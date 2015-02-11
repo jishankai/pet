@@ -59,7 +59,7 @@ public class SetPassActivity extends Activity implements OnClickListener{
 		originPassLayout=(RelativeLayout)findViewById(R.id.origin_pass_layout);
 		wrongNote1=(TextView)findViewById(R.id.wrong_note1);
 		wrongNote2=(TextView)findViewById(R.id.wrong_note2);
-		if(Constants.user!=null&&!StringUtil.isEmpty(Constants.user.password)){
+		if(PetApplication.myUser!=null&&!StringUtil.isEmpty(PetApplication.myUser.password)){
 			titleTv.setText(""+"更改密码");
 			input_note_tv.setText("新密码");
 			originPassLayout.setVisibility(View.VISIBLE);
@@ -97,8 +97,8 @@ public class SetPassActivity extends Activity implements OnClickListener{
 					wrongNote1.setText("密码不能为空");
 					wrongNote1.setVisibility(View.VISIBLE);
 				}else{
-					if(Constants.user!=null){
-						if(!originPassStr.equals(Constants.user.password)){
+					if(PetApplication.myUser!=null){
+						if(!originPassStr.equals(PetApplication.myUser.password)){
 							wrongNote1.setText("密码不正确");
 							wrongNote1.setVisibility(View.VISIBLE);
 						}else{
@@ -151,8 +151,8 @@ public class SetPassActivity extends Activity implements OnClickListener{
 						}
 						wrongNote2.setVisibility(View.INVISIBLE);
 						originPassStr=originEt.getText().toString();
-						if(isModify&&(!StringUtil.isEmpty(originPassStr))&&!originPassStr.equals(Constants.user.password)){
-							if(!originPassStr.equals(Constants.user.password)){
+						if(isModify&&(!StringUtil.isEmpty(originPassStr))&&!originPassStr.equals(PetApplication.myUser.password)){
+							if(!originPassStr.equals(PetApplication.myUser.password)){
 								wrongNote1.setText("密码不正确");
 								wrongNote1.setVisibility(View.VISIBLE);
 							}else{
@@ -197,8 +197,8 @@ public class SetPassActivity extends Activity implements OnClickListener{
 						}
 						
 						originPassStr=originEt.getText().toString();
-						if(isModify&&(!StringUtil.isEmpty(originPassStr))&&!originPassStr.equals(Constants.user.password)){
-							if(!originPassStr.equals(Constants.user.password)){
+						if(isModify&&(!StringUtil.isEmpty(originPassStr))&&!originPassStr.equals(PetApplication.myUser.password)){
+							if(!originPassStr.equals(PetApplication.myUser.password)){
 								wrongNote1.setText("密码不正确");
 								wrongNote1.setVisibility(View.VISIBLE);
 							}else{
@@ -285,7 +285,7 @@ public class SetPassActivity extends Activity implements OnClickListener{
 									Toast.makeText(SetPassActivity.this, "修改密码成功", Toast.LENGTH_LONG).show();
 								}
 								
-								Constants.user.password=passStr;
+								PetApplication.myUser.password=passStr;
 								finish();
 							}else{
 								if(!isModify){

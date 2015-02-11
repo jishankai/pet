@@ -3,6 +3,7 @@ package com.aidigame.hisun.pet.ui;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.PetPicture;
@@ -181,8 +182,8 @@ public class PictureBegActivity extends Activity implements OnClickListener{
 				 /*if(!UserStatusUtil.isLoginSuccess(PictureBegActivity.this,popupParent,black_layout)){
 					 return ;
 				 }*/
-				 if(Constants.user!=null){
-					 if(Constants.user.coinCount+Constants.user.food<current_give_num){
+				 if(PetApplication.myUser!=null){
+					 if(PetApplication.myUser.coinCount+PetApplication.myUser.food<current_give_num){
 						 Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
 								
 								@Override
@@ -212,7 +213,7 @@ public class PictureBegActivity extends Activity implements OnClickListener{
 							 return ;
 					 }
 					 isGiving=true;
-					 if(Constants.user!=null&&Constants.user.food>0){
+					 if(PetApplication.myUser!=null&&PetApplication.myUser.food>0){
 						 giveFood(); 
 						 return ;
 					 }
@@ -340,14 +341,14 @@ public void giveFood(){
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					Constants.user.food=Constants.user.food-current_give_num;
-					if(Constants.user.food<0)Constants.user.food=0;
+					PetApplication.myUser.food=PetApplication.myUser.food-current_give_num;
+					if(PetApplication.myUser.food<0)PetApplication.myUser.food=0;
 					
 					if(flag){
 						Animal animal=pp.animal;
-						if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.contains(animal)){
-							int index=Constants.user.aniList.indexOf(animal);
-							Constants.user.aniList.get(index).foodNum+=current_give_num;
+						if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null&&PetApplication.myUser.aniList.contains(animal)){
+							int index=PetApplication.myUser.aniList.indexOf(animal);
+							PetApplication.myUser.aniList.get(index).foodNum+=current_give_num;
 						}
 						
 						foodNum.setText(""+pp.animal.foodNum);

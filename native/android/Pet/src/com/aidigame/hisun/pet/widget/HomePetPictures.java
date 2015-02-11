@@ -3,8 +3,10 @@ package com.aidigame.hisun.pet.widget;
 import java.util.ArrayList;
 
 import me.maxwin.view.XListView;
+import me.maxwin.view.XListViewHeader;
 import me.maxwin.view.XListView.IXListViewListener;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HomePetPictureAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
@@ -14,6 +16,7 @@ import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.http.json.UserImagesJson;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
+import com.aidigame.hisun.pet.widget.fragment.DiscoveryFragment;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,14 +28,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 public class HomePetPictures implements IXListViewListener{
-	Activity context;
-	View view;
-	XListView listView;
-	HomePetPictureAdapter adapter;
-	ArrayList<Animal> list;
-	Handler handler;
-	int last_id=-1;
-	int page=0;
+	private  Activity context;
+	private  View view;
+	private  XListView listView;
+	private  HomePetPictureAdapter adapter;
+	private  ArrayList<Animal> list;
+	private  Handler handler;
+
+	private  int page=0;
 	public HomePetPictures(Activity context){
 		this.context=context;
 		handler=HandleHttpConnectionException.getInstance().getHandler(context);
@@ -47,14 +50,24 @@ public class HomePetPictures implements IXListViewListener{
 		list=new ArrayList<Animal>();
 		adapter=new HomePetPictureAdapter(context, list);
 		listView.setAdapter(adapter);
+		
+		handler.postAtTime(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				pullRefresh();
+			}
+		}, 1000);
+		
 		new Thread(new Runnable() {
         	ArrayList<PetPicture> temp=new ArrayList<PetPicture>();
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				int usr_id=0;
-				if(Constants.isSuccess&&Constants.user!=null){
-					usr_id=Constants.user.userId;
+				if(PetApplication.isSuccess&&PetApplication.myUser!=null){
+					usr_id=PetApplication.myUser.userId;
 				}
 				final ArrayList<Animal> animals=HttpUtil.petRecommend(handler, context, 0,usr_id);
 				
@@ -65,6 +78,9 @@ public class HomePetPictures implements IXListViewListener{
 								// TODO Auto-generated method stub
 								if(animals!=null){
 									list=animals;
+									for(int i=list.size()-1;i>=6;i--){
+										list.remove(i);
+									}
 									adapter.updateTopics(list);
 									adapter.notifyDataSetChanged();
 								}
@@ -75,7 +91,7 @@ public class HomePetPictures implements IXListViewListener{
 							}
 						});
 			}
-		}).start();
+		})/*.start()*/;
 	}
 	public View getView(){
 		ViewGroup.LayoutParams params=new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
@@ -100,8 +116,8 @@ public class HomePetPictures implements IXListViewListener{
 			public void run() {
 				// TODO Auto-generated method stub
 				int usr_id=0;
-				if(Constants.isSuccess&&Constants.user!=null){
-					usr_id=Constants.user.userId;
+				if(PetApplication.isSuccess&&PetApplication.myUser!=null){
+					usr_id=PetApplication.myUser.userId;
 				}
 				final ArrayList<Animal> animals=HttpUtil.petRecommend(handler, context, 0,usr_id);
 				
@@ -112,14 +128,33 @@ public class HomePetPictures implements IXListViewListener{
 								// TODO Auto-generated method stub
 								if(animals!=null){
 									list=animals;
+									for(int i=list.size()-1;i>=6;i--){
+										list.remove(i);
+									}
 									adapter.updateTopics(list);
 									adapter.notifyDataSetChanged();
 								}
+								 DiscoveryFragment.isRefresh=false;
 							}
 						});
 			}
 		}).start();
 	}
+	
+	  public void pullRefresh(){
+		  page=0;
+			adapter.updateTopics(new ArrayList<Animal>());
+			adapter.notifyDataSetChanged();
+	    	listView.updateHeaderHeight(listView.mHeaderViewHeight);
+	    	listView.mHeaderView.setVisibility(View.VISIBLE);
+	    	listView.mPullRefreshing = true;
+	    	listView.mEnablePullRefresh=true;
+	    	listView.mHeaderView.setState(XListViewHeader.STATE_REFRESHING);
+				if (listView.mListViewListener != null) {
+					listView.mListViewListener.onRefresh();
+				}
+				listView.resetHeaderHeight();
+	    }
 	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
@@ -130,8 +165,8 @@ public class HomePetPictures implements IXListViewListener{
 				// TODO Auto-generated method stub
 				int usr_id=0;
 				page=0;
-				if(Constants.isSuccess&&Constants.user!=null){
-					usr_id=Constants.user.userId;
+				if(PetApplication.isSuccess&&PetApplication.myUser!=null){
+					usr_id=PetApplication.myUser.userId;
 				}
 				final ArrayList<Animal> animals=HttpUtil.petRecommend(handler, context, 0,usr_id);
 				
@@ -142,10 +177,14 @@ public class HomePetPictures implements IXListViewListener{
 								// TODO Auto-generated method stub
 								if(animals!=null){
 									list=animals;
+									for(int i=list.size()-1;i>=6;i--){
+										list.remove(i);
+									}
 									adapter.updateTopics(list);
 									adapter.notifyDataSetChanged();
 								}
 								listView.stopRefresh();
+								 DiscoveryFragment.isRefresh=false;
 							}
 						});
 			}
@@ -161,12 +200,15 @@ public class HomePetPictures implements IXListViewListener{
 				// TODO Auto-generated method stub
 				page++;
 				int usr_id=0;
-				if(Constants.isSuccess&&Constants.user!=null){
-					usr_id=Constants.user.userId;
+				if(PetApplication.isSuccess&&PetApplication.myUser!=null){
+					usr_id=PetApplication.myUser.userId;
 				}
 				final ArrayList<Animal> animals=HttpUtil.petRecommend(handler, context, page,usr_id);
 				if(animals!=null){
 					if(list!=null){
+						for(int i=animals.size()-1;i>=6;i--){
+							animals.remove(i);
+						}
 						for(int i=0;i<list.size();i++){
 							animals.add(i, list.get(i));
 						}

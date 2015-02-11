@@ -68,6 +68,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -107,64 +108,62 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	public static final int SHOW_COMMENT_LIST=3;
 	public static final int SHOW_SHARE_LIST=4;
 	
-	ScrollView scrollView,scrollview2;
-	MyScrollView myScrollView;
+	private  ScrollView scrollView,scrollview2;
+	private  MyScrollView myScrollView;
 	
 	
-	public int current_show=SHOW_LIKE_LIST;
-	public int current_page=1;//1,正面；-1，反面
+	private   int current_show=SHOW_LIKE_LIST;
+	private   int current_page=1;//1,正面；-1，反面
 	/*
 	 * 一直存在的控件
 	 */
-	ImageView bottomLikeIv,bottomGiftIv,bottomCommentIv,bottomMoreIv,guideIv1;
-	ViewGroup mContainer;
-	View popupParent;
-	RelativeLayout black_layout;
-	PetPicture petPicture;
-	LinearLayout progressLayout;
-	RelativeLayout touchLayout;
-	FrameLayout parent_framelayout;
+	private  	ImageView bottomLikeIv,bottomGiftIv,bottomCommentIv,bottomMoreIv,guideIv1;
+	private  ViewGroup mContainer;
+	private  View popupParent;
+	private  RelativeLayout black_layout;
+	private  PetPicture petPicture;
+	private  LinearLayout progressLayout;
+	private  FrameLayout parent_framelayout;
 	//评论相关
-	EditText commentET;
-	TextView send_comment_tv;
-	LinearLayout addcommentLayout;
+	private  EditText commentET;
+	private  TextView send_comment_tv;
+	private  LinearLayout addcommentLayout;
 	
 	public static NewShowTopicActivity newShowTopicActivity;
-	Handler handler;
-	ImageFetcher mImageFetcher;
+	private  Handler handler;
+	private  ImageFetcher mImageFetcher;
 	
-	public Bitmap bmp;
-	String bmpPath;
-	int mode;
-	int from_w;
-	ShowProgress showProgress;
+//	public Bitmap bmp;
+	private  String bmpPath;
+	private  int mode;
+	private  ShowProgress showProgress;
 	
 	/*
 	 *正面显示的控件
 	 */
-	RelativeLayout oneLayout;
-	public ImageView closeIv1,imageView;
-	TextView desTv,topicTv,timeTv;
-	View paddingView;//卡片长度超过或接近屏幕底部时显示，以防内容显示不全
+	private  RelativeLayout oneLayout;
+	private   ImageView closeIv1,imageView;
+	private  TextView desTv,topicTv,timeTv;
+	private  View paddingView;//卡片长度超过或接近屏幕底部时显示，以防内容显示不全
 	
 	
 	/*
 	 * 反面显示控件
 	 */
-	RelativeLayout twoLayout;
-	RoundImageView petIcon,userIcon;
-	ImageView genderIv,middleTabLikeIv,middleTabGiftIv,middleTabCommentIv,middleTabShareIv,
+	private  RelativeLayout twoLayout;
+	private  RoundImageView petIcon,userIcon;
+	private  ImageView genderIv,middleTabLikeIv,middleTabGiftIv,middleTabCommentIv,middleTabShareIv,
 	          triangleIv1, triangleIv2, triangleIv3, triangleIv4,
 	          closeIv2;
-	TextView likeNumTv1,giftTv1,commentTv1,shareTv1,
+	private  TextView likeNumTv1,giftTv1,commentTv1,shareTv1,
 	         triangleTv1,triangleTv2,triangleTv3,triangleTv4,
 	         petNameTv,petRaceTv,userNameTv;
-	LinearLayoutForListView listView;
-	CommentListViewAdapter commentListViewAdapter;
-	TopicUsersListAdapter topicUsersListAdapter;
-	FrameLayout infoFrameLayout;
-	boolean urlIsEmpty=false;
-	UMSocialService mController;
+	private  LinearLayoutForListView listView;
+	private  CommentListViewAdapter commentListViewAdapter;
+	private  TopicUsersListAdapter topicUsersListAdapter;
+	private  FrameLayout infoFrameLayout;
+	private  boolean urlIsEmpty=false;
+	private  UMSocialService mController;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -179,6 +178,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		SharedPreferences.Editor e=sp.edit();
 		boolean guide1=sp.getBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE1, true);
 		if(guide1){
+			guideIv1.setImageResource(R.drawable.guide1);
 			guideIv1.setVisibility(View.VISIBLE);
 			e.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE1, false);
 			e.commit();
@@ -202,12 +202,11 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		sinaSsoHandler.addToSocialSDK();
 		
 		//获取用户相关信息
-				if(Constants.isSuccess&&Constants.user==null){
+				if(PetApplication.isSuccess&&PetApplication.myUser==null){
 					downLoadUserInfo();
 				}
 				 mImageFetcher = new ImageFetcher(this, Constants.screen_width);
 				mode=getIntent().getIntExtra("mode", 0);
-				from_w=getIntent().getIntExtra("from_w", 1);
 		
 		initAlwaysStayView();
 //		showProgress=new ShowProgress(this, progressLayout);
@@ -267,7 +266,6 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		progressLayout=(LinearLayout)findViewById(R.id.progress_layout);
 		popupParent=findViewById(R.id.popup_parent);
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
-		touchLayout=(RelativeLayout)findViewById(R.id.touch_layout);
 		scrollView=(ScrollView)findViewById(R.id.scrollview);
 		myScrollView=(MyScrollView)findViewById(R.id.my_scrollview);
 		parent_framelayout=(FrameLayout)findViewById(R.id.parent_framelayout);
@@ -414,7 +412,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		TextView reportTv=(TextView)findViewById(R.id.reporttv);
 //		TextView cancelTv=(TextView)findViewById(R.id.canceltv);
 		final TextView pengta_tv=(TextView)findViewById(R.id.pengta_tv);
-		if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.contains(petPicture.animal) ){
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null&&PetApplication.myUser.aniList.contains(petPicture.animal) ){
 //			pengta_tv.setVisibility(View.GONE);
 		}
 		pengta_tv.setOnClickListener(new OnClickListener() {
@@ -426,7 +424,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					shareLayout.setVisibility(View.INVISIBLE);
 					return;
 				}
-				if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.contains(petPicture.animal) ){
+				if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null&&PetApplication.myUser.aniList.contains(petPicture.animal) ){
 //					pengta_tv.setVisibility(View.GONE);
 					Intent intent=new Intent(NewShowTopicActivity.this,DialogNoteActivity.class);
 					intent.putExtra("mode", 10);
@@ -437,7 +435,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				}
 				int num=0;
 				int count=0;
-				for(int i=0;i<Constants.user.aniList.size();i++){
+				for(int i=0;i<PetApplication.myUser.aniList.size();i++){
 //					if(Constants.user.aniList.get(i).master_id!=Constants.user.userId)
 						count++;
 				}
@@ -449,13 +447,36 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					num=100;
 				}
 				
-				if(Constants.user.coinCount<num){
+				if(PetApplication.myUser.coinCount<num){
 //					DialogNote dialog=new DialogNote(popupParent, NewShowTopicActivity.this, black_layout, 1);
-					Intent intent=new Intent(NewShowTopicActivity.this,DialogNoteActivity.class);
+					/*Intent intent=new Intent(NewShowTopicActivity.this,DialogNoteActivity.class);
 					intent.putExtra("mode", 10);
 					intent.putExtra("info", "钱包君告急！挣够金币再来捧萌星吧");
-					startActivity(intent);
-					shareLayout.setVisibility(View.INVISIBLE);
+					startActivity(intent);*/
+					 Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
+							
+							@Override
+							public void onClose() {
+								// TODO Auto-generated method stub
+							}
+							
+							@Override
+							public void onButtonTwo() {
+								// TODO Auto-generated method stub
+								Intent intent=new Intent(NewShowTopicActivity.this,ChargeActivity.class);
+								startActivity(intent);
+							}
+							
+							@Override
+							public void onButtonOne() {
+								// TODO Auto-generated method stub
+							}
+						};
+						 Intent intent=new Intent(NewShowTopicActivity.this,Dialog4Activity.class);
+						 intent.putExtra("mode", 8);
+						 intent.putExtra("num", num);
+						 startActivity(intent);
+						 shareLayout.setVisibility(View.INVISIBLE);
 					return;
 			}
 			
@@ -525,7 +546,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	/**
 	 * 分享 按钮
 	 */
-	RelativeLayout shareLayout;
+	private  RelativeLayout shareLayout;
 	private void initShareView() {
 		// TODO Auto-generated method stub
 		shareLayout=(RelativeLayout)findViewById(R.id.sharelayout);
@@ -605,7 +626,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
        }
        
        
-       if(Constants.user!=null&&petPicture.likers!=null&&petPicture.likers.contains(""+Constants.user.userId)){
+       if(PetApplication.myUser!=null&&petPicture.likers!=null&&petPicture.likers.contains(""+PetApplication.myUser.userId)){
     	   bottomLikeIv.setImageResource(R.drawable.show_topic_like_press);
 		}else{
 			bottomLikeIv.setImageResource(R.drawable.show_topic_like);
@@ -727,7 +748,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	   }
-		int current_Middle_tab_position=3;
+	      private  	int current_Middle_tab_position=3;
 	      @Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
@@ -883,9 +904,21 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				shareLayout.setVisibility(View.INVISIBLE);
 				break;
 			case R.id.guide1:
+				guideIv1.setImageDrawable(new BitmapDrawable());
 				guideIv1.setVisibility(View.GONE);
 				
-				Animation anim1=AnimationUtils.loadAnimation(NewShowTopicActivity.this, R.anim.anim_scale_small);
+				showReverseSide();
+				
+				
+				break;
+				
+			}
+		}
+	      /**
+	       * 显示反面
+	       */
+	      private    void showReverseSide(){
+	    	  Animation anim1=AnimationUtils.loadAnimation(NewShowTopicActivity.this, R.anim.anim_scale_small);
 				final Animation anim2=AnimationUtils.loadAnimation(NewShowTopicActivity.this, R.anim.anim_scale_big);
 				
 				anim1.setAnimationListener(new AnimationListener() {
@@ -913,7 +946,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 						
 					}
 				});
-                anim2.setAnimationListener(new AnimationListener() {
+              anim2.setAnimationListener(new AnimationListener() {
 					
 					@Override
 					public void onAnimationStart(Animation animation) {
@@ -947,6 +980,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 									@Override
 									public void onClick(View v) {
 										// TODO Auto-generated method stub
+										guideIv1.setImageDrawable(new BitmapDrawable());
 										guideIv1.setVisibility(View.GONE);
 									}
 								});
@@ -957,26 +991,20 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					}
 				});
 				mContainer.startAnimation(anim1);
-				
-					positive=false;
-				
-				
-				break;
-				
-			}
-		}
-		public void close(){
+				positive=false;
+	      }
+	      private   void close(){
 
 			if(isTaskRoot()){
 				if(HomeActivity.homeActivity!=null){
 					Intent intent=HomeActivity.homeActivity.getIntent();
 					if(intent!=null){
 						this.startActivity(intent);
-						if(bmp!=null){
+						/*if(bmp!=null){
 							if(!bmp.isRecycled())
 							bmp.recycle();
 							bmp=null;
-						}
+						}*/
 						imageView.setImageDrawable(null);
 						newShowTopicActivity=null;
 						
@@ -996,11 +1024,11 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					this.startActivity(intent);
 				}
 			}
-			if(bmp!=null){
+			/*if(bmp!=null){
 				if(!bmp.isRecycled())
 				bmp.recycle();
 				bmp=null;
-			}
+			}*/
 			imageView.setImageDrawable(null);
 			newShowTopicActivity=null;
 			
@@ -1014,8 +1042,8 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		/**
 		 * 下载用户信息
 		 */
-		public void downLoadUserInfo(){
-			if(Constants.isSuccess){
+	      private   void downLoadUserInfo(){
+			if(PetApplication.isSuccess){
 				new Thread(new Runnable() {
 					
 					@Override
@@ -1058,7 +1086,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					
 					
 					if(bitmap!=null){
-						bmp=bitmap;
+//						bmp=bitmap;
 						bmpPath=mImageFetcher.getFilePath(NewShowTopicActivity.this,petPicture.url);
 					}
 					LinearLayout.LayoutParams param2=(LinearLayout.LayoutParams)imageView.getLayoutParams();
@@ -1176,7 +1204,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		 * 下载用户列表信息
 		 * @param mode 1，点赞人列表；2送礼物人列表；4，分享人列表
 		 */
-		public void downLoadUserInfo(final int mode){
+		private   void downLoadUserInfo(final int mode){
 			if(showProgress==null){
 				showProgress=new ShowProgress(this, progressLayout);
 			}else{
@@ -1250,7 +1278,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		/**
 		 * 显示点赞用户列表
 		 */
-		public void showLikeUsersList(){
+		private   void showLikeUsersList(){
 			current_Middle_tab_position=1;
 			if(current_show!=SHOW_LIKE_LIST){
 				listView.removeAllViews();
@@ -1304,7 +1332,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		/**
 		 * 显示送礼物用户列表
 		 */
-		public void showGiftUsersList(){
+		private   void showGiftUsersList(){
 			current_Middle_tab_position=2;
 			if(current_show!=SHOW_GIFT_LIST){
 				listView.removeAllViews();
@@ -1355,7 +1383,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		/**
 		 * 显示分享用户列表
 		 */
-		public void showShareUsersList(){
+		private   void showShareUsersList(){
 			current_Middle_tab_position=4;
 			/*
 			 * 分享用户数据列表
@@ -1409,8 +1437,8 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		/**
 		 * 显示评论用户列表
 		 */
-		boolean loadIcon=false;
-		public void showCommentsUsersList(){
+		private  	boolean loadIcon=false;
+		private   void showCommentsUsersList(){
 			current_Middle_tab_position=3;
 			/*
 			 * 分享用户数据列表
@@ -1478,13 +1506,13 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					}
 				});
 		}
-		public void triangleIvInvisible(){
+		private   void triangleIvInvisible(){
 			triangleIv1.setVisibility(View.INVISIBLE);
 			triangleIv2.setVisibility(View.INVISIBLE);
 			triangleIv3.setVisibility(View.INVISIBLE);
 			triangleIv4.setVisibility(View.INVISIBLE);
 		}
-		public void actionLike(){
+		private   void actionLike(){
 			
 			if(UserStatusUtil.isLoginSuccess(this,popupParent,black_layout)){
 				if(showProgress!=null){
@@ -1578,23 +1606,23 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					
 					if(StringUtil.isEmpty(petPicture.senders)){
 						
-						petPicture.senders=""+Constants.user.userId;
+						petPicture.senders=""+PetApplication.myUser.userId;
 						petPicture.giftUsersList=new ArrayList<MyUser>();
-						petPicture.giftUsersList.add(Constants.user);
+						petPicture.giftUsersList.add(PetApplication.myUser);
 					}else{
-						petPicture.senders+=","+Constants.user.userId;
+						petPicture.senders+=","+PetApplication.myUser.userId;
 						if(petPicture.giftUsersList==null){
 							petPicture.giftUsersList=new ArrayList<MyUser>();
 						}
-						if(!petPicture.giftUsersList.contains(Constants.user))
-						petPicture.giftUsersList.add(Constants.user);
+						if(!petPicture.giftUsersList.contains(PetApplication.myUser))
+						petPicture.giftUsersList.add(PetApplication.myUser);
 					}
-					if(petPicture.gift_txUrlList!=null&&Constants.user.u_iconUrl!=null){
-						if(!petPicture.gift_txUrlList.contains(Constants.user.u_iconUrl))
-						petPicture.gift_txUrlList.add(Constants.user.u_iconUrl);
-					}else if(Constants.user.u_iconUrl!=null){
+					if(petPicture.gift_txUrlList!=null&&PetApplication.myUser.u_iconUrl!=null){
+						if(!petPicture.gift_txUrlList.contains(PetApplication.myUser.u_iconUrl))
+						petPicture.gift_txUrlList.add(PetApplication.myUser.u_iconUrl);
+					}else if(PetApplication.myUser.u_iconUrl!=null){
 						petPicture.gift_txUrlList=new ArrayList<String>();
-						petPicture.gift_txUrlList.add(Constants.user.u_iconUrl);
+						petPicture.gift_txUrlList.add(PetApplication.myUser.u_iconUrl);
 					}
 					runOnUiThread(new Runnable() {
 						
@@ -1633,9 +1661,9 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		/**
 		 * 显示评论编辑框
 		 */
-		boolean replySb=false;
-		boolean show_add_comment=false;
-		public void showCommentEditor(){
+		private  boolean replySb=false;
+		private  boolean show_add_comment=false;
+		private   void showCommentEditor(){
              
         	if(!UserStatusUtil.isLoginSuccess(this, popupParent,black_layout)){
         		return;
@@ -1671,9 +1699,9 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		/**
 		 * 发送评论
 		 */
-		boolean canSend=false;
-		boolean sendingComment=false;
-		public void sendComment(){
+		private  	boolean canSend=false;
+		private  boolean sendingComment=false;
+		private   void sendComment(){
 			if(!canSend){
         		InputMethodManager m = (InputMethodManager)   
 						commentET.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);   
@@ -1714,6 +1742,11 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 //        	commentET.setEnabled(false);
         	
         	sendingComment=true;
+        	
+        	InputMethodManager im=(InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        	im.hideSoftInputFromWindow(commentET.getWindowToken(), 0);
+        	
+        	
         	//测试 发表评论api
         	new Thread(new Runnable() {
 				
@@ -1732,16 +1765,16 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 							if(user!=null){
 								if(user.exp!=-1){
 									PetPicture.Comments comments=new PetPicture.Comments();
-									comments.usr_id=Constants.user.userId;
+									comments.usr_id=PetApplication.myUser.userId;
 									comments.create_time=System.currentTimeMillis()/1000;
 									comments.body=comment;
-									comments.usr_tx=Constants.user.u_iconUrl;
+									comments.usr_tx=PetApplication.myUser.u_iconUrl;
 									if(replySb){
 										comments.isReply=true;
 										comments.reply_id=cmt.usr_id;
-										comments.reply_name=Constants.user.u_nick+"@"+cmt.name;
+										comments.reply_name=PetApplication.myUser.u_nick+"@"+cmt.name;
 									}
-									comments.name=Constants.user.u_nick;
+									comments.name=PetApplication.myUser.u_nick;
 									if(petPicture.commentsList==null){
 										petPicture.commentsList=new ArrayList<PetPicture.Comments>();
 										petPicture.commentsList.add(comments);
@@ -1750,7 +1783,15 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 									}
 									
 									commentTv1.setText(""+petPicture.commentsList.size());
-									if(current_show==SHOW_COMMENT_LIST){
+									
+									if(current_page==1){
+										showReverseSide();
+									}
+									
+									showCommentsUsersList();
+									
+									
+									/*if(current_show==SHOW_COMMENT_LIST){
 									commentListViewAdapter=new CommentListViewAdapter(NewShowTopicActivity.this, petPicture.commentsList);
 									
 									commentListViewAdapter.setClickUserName(new ClickUserName() {
@@ -1779,12 +1820,10 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 									});
 									listView.removeAllViews();
 									listView.setAdapter(commentListViewAdapter);
-									if(petPicture.commentsList.size()>0){
-//										listView.update(petPicture.commentsList.size()-1);
-									}else if(petPicture.commentsList.size()==0){
-//										listView.update(0);
-									}
-									}
+									
+									}else {
+										showCommentsUsersList();
+									}*/
 									MobclickAgent.onEvent(NewShowTopicActivity.this, "comment");
 //									Toast.makeText(ShowTopicActivity.this, "发表评论成功。", Toast.LENGTH_SHORT).show();
 									/*InputMethodManager m = (InputMethodManager) commentET.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -1812,9 +1851,9 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 			}).start();
         	
 		}
-		PetPicture.Comments cmt;
-		public void replyComment(PetPicture.Comments cmt){
-			if(Constants.user!=null&&Constants.user.userId==cmt.usr_id){
+		private  	PetPicture.Comments cmt;
+		private   void replyComment(PetPicture.Comments cmt){
+			if(PetApplication.myUser!=null&&PetApplication.myUser.userId==cmt.usr_id){
 				Toast.makeText(this, "请不要回复自己发的评论", Toast.LENGTH_LONG).show();;
 				return;
 			}
@@ -1848,9 +1887,9 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 			}
 
 		}
-		public Bitmap getBitmap(){
+		/*public Bitmap getBitmap(){
 			return bmp;
-		}
+		}*/
 		
 		
 		
@@ -1865,8 +1904,8 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		* @param start the start angle at which the rotation must begin 
 		* @param end the end angle of the rotation 
 		*/ 
-		boolean hasRecord=false;
-		float centerY;
+	
+	
 		/*public void applyRotation(int position, float start, float end) { 
 		// 计算中心点 
 		final float centerX = mContainer.getWidth() / 2.0f; 
@@ -1943,8 +1982,17 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					return gestureDetector.onTouchEvent(event);
 				}
 			});
-		
+          mContainer.setOnTouchListener(new OnTouchListener() {
+				
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					// TODO Auto-generated method stub
+				
+					return gestureDetector.onTouchEvent(event);
+				}
+			});
 		}	
+		
 		/*private void clickIV2() {
 			// TODO Auto-generated method stub
 			twoLayout.setFocusable(true);
@@ -2033,13 +2081,75 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		mContainer.startAnimation(rotation); 
 		} 
 		} */
+		
+		public MyOnTouchListener myOnTouchListener=new MyOnTouchListener();
+		public class MyOnTouchListener implements OnTouchListener{
+            float startX,endX;
+            float startY,endY;
+            boolean record=false;
+            
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					startX=event.getX();
+					startY=event.getY();
+					record=true;
+					endX=0;
+					endY=0;
+					
+					break;
+				case MotionEvent.ACTION_MOVE:
+					if(!record){
+						startX=event.getX();
+						startY=event.getY();
+						endX=0;
+						endY=0;
+						record=true;
+					}else{
+						endX=event.getX();
+						endY=event.getY();
+					}
+					
+					break;
+				case MotionEvent.ACTION_UP:
+					if(endX!=0||endY!=0){
+						onTouchScroll(event, event, endX-startX, endY-startY);
+						startX=0;
+						startY=0;
+						record=false;
+						endX=0;
+						endY=0;
+					}
+					
+					break;
+
+				default:
+					break;
+				}
+				
+				
+				
+				
+				
+				return true;
+			}
+			
+		}
+		
+		
+		
+		
 		public boolean  positive=true;
 		boolean hasStart=false;
 		int touchSlop;
+		
+		
 		public class MyGestureDector implements OnGestureListener{
 		    	int mode;//1,照片详情页面；2，分享，送礼，点赞列表；3，评论列表,4查看大图
-		    	
-		    
+		    	float startY,startX;
+		        float endY,endX;
 		    	public MyGestureDector(int mode){
 		    		this.mode=mode;
 		    		touchSlop=ViewConfiguration.getTouchSlop();
@@ -2073,7 +2183,21 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				public boolean onScroll(MotionEvent arg0, MotionEvent arg1, float arg2,
 						float arg3) {
 					// TODO Auto-generated method stub
-					LogUtil.i("mi", "arg2==="+arg2+",arg3="+arg3+",hasStart="+hasStart);
+					if(startY==0&&arg0!=null){
+						startY=arg0.getY();
+					}
+					if(startX==0&&arg0!=null){
+						startX=arg0.getX();
+					}
+					if(arg1!=null){
+						endY=arg1.getY();
+						endX=arg1.getX();
+					}
+					
+					
+					
+					LogUtil.i("mi", "arg2==="+arg2+",arg3="+arg3+",hasStart="+hasStart+";endy-startY="+(endY-startY)+";touchSlop="+touchSlop+";endX-startX="+(endX-startX));
+					if((Math.abs(endY-startY)<10*touchSlop)&&(Math.abs(endX-startX)>6*touchSlop))
 					onTouchScroll(arg0, arg1, arg2, arg3);
 					return false;
 					
@@ -2092,7 +2216,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 					if(arg0==null||arg1==null)return false;
 					float detX=arg0.getX()-arg1.getX();
 					float detY=arg0.getY()-arg1.getY();
-					if(!hasStart&&Math.abs(detX)>Math.abs(detY)/*&&Math.abs(arg2)>touchSlop*/){
+					if(!hasStart&&Math.abs(detX)>Math.abs(detY)&&Math.abs(arg3)<touchSlop){
 						LogUtil.i("mi", "滚动触摸onFling");
 						if(current_page==1){
 							Animation anim1=AnimationUtils.loadAnimation(NewShowTopicActivity.this, R.anim.anim_scale_small);
@@ -2221,10 +2345,16 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 				@Override
 				public boolean onDown(MotionEvent arg0) {
 					// TODO Auto-generated method stub
+					startY=arg0.getY();
+					startX=arg0.getX();
+					LogUtil.i("mi","手势落下onDown"+":startY="+startY+"；startX="+startX);
+					
+					
 					hasStart=false;
 					if(mode==4)return true;
 					return false;
 				}
+				
 			}
 
    public void weixinShare(){
@@ -2304,9 +2434,9 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 	   long time=petPicture.create_time+24*3600-System.currentTimeMillis()/1000;
 	   if("1".equals(petPicture.is_food)&&time>0){
 			 //设置分享文字
-		   circleMedia.setShareContent(StringUtil.isEmpty(petPicture.cmt)?"看在我这么努力卖萌的份上快来宠宠我！免费送我点口粮好不好？":petPicture.cmt);
+		   circleMedia.setShareContent("看在我这么努力卖萌的份上快来宠宠我！免费送我点口粮好不好？");
 			 //设置title
-		   circleMedia.setTitle("轻轻一点，免费赏粮！我的口粮全靠你啦~");
+		   circleMedia.setTitle(StringUtil.isEmpty(petPicture.cmt)?"轻轻一点，免费赏粮！我的口粮全靠你啦~":petPicture.cmt);
 			
 	  }else{
 		//设置分享文字
@@ -2317,7 +2447,7 @@ public class NewShowTopicActivity extends Activity implements OnClickListener{
 		  }
 			
 			 //设置title
-		  circleMedia.setTitle("我是"+petPicture.animal.pet_nickName+"，你有没有爱上我？");
+		  circleMedia.setTitle(StringUtil.isEmpty(petPicture.cmt)?"我是"+petPicture.animal.pet_nickName+"，你有没有爱上我？":petPicture.cmt);
 	  }
 	   //设置分享内容跳转URL
 	   circleMedia.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id="+petPicture.img_id/*+"&to=wechat"*/);
@@ -2434,25 +2564,25 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 				// TODO Auto-generated method stub
 				
 				final MyUser user=HttpUtil.imageShareNumsApi(NewShowTopicActivity.this,petPicture.img_id, handler);
-				if(user!=null&&Constants.user!=null){
+				if(user!=null&&PetApplication.myUser!=null){
 					runOnUiThread(new Runnable() {
 						
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-							if(petPicture.shareUsersList!=null&&petPicture.shareUsersList.size()>0&&petPicture.shareUsersList.contains(Constants.user)){
+							if(petPicture.shareUsersList!=null&&petPicture.shareUsersList.size()>0&&petPicture.shareUsersList.contains(PetApplication.myUser)){
 								
 							}else{
 								
 								if(StringUtil.isEmpty(petPicture.share_ids)){
-									petPicture.share_ids=""+Constants.user.userId;
+									petPicture.share_ids=""+PetApplication.myUser.userId;
 								}else{
-									petPicture.share_ids+=","+Constants.user.userId;
+									petPicture.share_ids+=","+PetApplication.myUser.userId;
 								}
 								if(petPicture.shareUsersList==null){
 									petPicture.shareUsersList=new ArrayList<MyUser>();
 								}
-								petPicture.shareUsersList.add(Constants.user);
+								petPicture.shareUsersList.add(PetApplication.myUser);
 								if(current_show==SHOW_SHARE_LIST){
 									showShareUsersList();
 								}
@@ -2471,10 +2601,10 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	public void recyle(){
 		if(NewShowTopicActivity.newShowTopicActivity!=null){
 			NewShowTopicActivity.newShowTopicActivity.imageView.setImageDrawable(null);
-			if(NewShowTopicActivity.newShowTopicActivity.bmp!=null&&!NewShowTopicActivity.newShowTopicActivity.bmp.isRecycled()){
+			/*if(NewShowTopicActivity.newShowTopicActivity.bmp!=null&&!NewShowTopicActivity.newShowTopicActivity.bmp.isRecycled()){
 				NewShowTopicActivity.newShowTopicActivity.bmp.recycle();
 			}
-			NewShowTopicActivity.newShowTopicActivity.bmp=null;
+			NewShowTopicActivity.newShowTopicActivity.bmp=null;*/
 			NewShowTopicActivity.newShowTopicActivity=null;
 			finish();
 		}
@@ -2482,10 +2612,10 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	public void onTouchScroll(MotionEvent arg0, MotionEvent arg1, float arg2,
 			float arg3) {
 		// TODO Auto-generated method stub
-		LogUtil.i("mi", "arg2==="+arg2+",arg3="+arg3+",hasStart="+hasStart);
+		LogUtil.i("mi", "arg2===onTouchScroll==="+arg2+",arg3="+arg3+",hasStart="+hasStart);
 		final float centerX = mContainer.getWidth() / 2.0f; 
 		final float centerY = mContainer.getHeight() / 2.0f; 
-		if(!hasStart&&Math.abs(arg2)>Math.abs(arg3)&&Math.abs(arg2)>touchSlop){
+		if(!hasStart&&Math.abs(arg2)>Math.abs(arg3)&&Math.abs(arg3)<touchSlop){
 			LogUtil.i("mi", "滚动触摸");
 			if(current_page==1){
 				Animation anim1=AnimationUtils.loadAnimation(NewShowTopicActivity.this, R.anim.anim_scale_small);
@@ -2550,6 +2680,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 									@Override
 									public void onClick(View v) {
 										// TODO Auto-generated method stub
+										guideIv1.setImageDrawable(new BitmapDrawable());
 										guideIv1.setVisibility(View.GONE);
 									}
 								});

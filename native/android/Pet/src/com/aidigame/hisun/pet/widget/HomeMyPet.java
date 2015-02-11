@@ -3,6 +3,7 @@ package com.aidigame.hisun.pet.widget;
 import java.util.ArrayList;
 
 import me.maxwin.view.XListView;
+import me.maxwin.view.XListViewHeader;
 import me.maxwin.view.XListView.IXListViewListener;
 import android.app.Activity;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HomeMyPetAdapter;
 import com.aidigame.hisun.pet.bean.Animal;
@@ -22,13 +24,13 @@ import com.huewu.pla.lib.internal.PLA_AdapterView;
 import com.huewu.pla.lib.internal.PLA_AdapterView.OnItemClickListener;
 
 public class HomeMyPet implements IXListViewListener{
-	Activity activity;
-	View view;
-	XListView listview;
+	private  Activity activity;
+	private  View view;
+	private  XListView listview;
 	public HomeMyPetAdapter adapter;
-	ArrayList<Animal> animals;
-	Handler handler;
-	int last_id=-1;
+	private  ArrayList<Animal> animals;
+	private  Handler handler;
+
 	public HomeMyPet(Activity context){
 		this.activity=context;
 		init();
@@ -44,14 +46,27 @@ public class HomeMyPet implements IXListViewListener{
 		listview.setAdapter(adapter);
 	
 		handler=HandleHttpConnectionException.getInstance().getHandler(activity);
-		refresh();
+//		refresh();
+		handler.postAtTime(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				pullRefresh();
+			}
+		}, 1000);
+		
 	}
 	public View getView(){
 		return view;
 	}
+	private  boolean isRefresh=false;
 	public void refresh(){
+		if(isRefresh)return;
+		isRefresh=true;
 		adapter.update(new ArrayList<Animal>());
 		adapter.notifyDataSetChanged();
+		
 		new Thread(new Runnable() {
 			
 			@Override
@@ -67,7 +82,7 @@ public class HomeMyPet implements IXListViewListener{
 						if(temp!=null&&temp.size()>0){
 							animals=new ArrayList<Animal>();
 							for(int i=0;i<temp.size();i++){
-								if(temp.get(i).master_id==Constants.user.userId){
+								if(temp.get(i).master_id==PetApplication.myUser.userId){
 									animals.add(temp.get(i));
 								}
 							}
@@ -84,15 +99,33 @@ public class HomeMyPet implements IXListViewListener{
 							
 							
 						}
-						
-						
+						isRefresh=false;
 						
 					}
+					
+					
 				});
 			}
 		}).start();
 		
 	}
+	
+	
+	 public void pullRefresh(){
+		 isRefresh=true;
+			adapter.update(new ArrayList<Animal>());
+			adapter.notifyDataSetChanged();
+	    	listview.updateHeaderHeight(listview.mHeaderViewHeight);
+	    	listview.mHeaderView.setVisibility(View.VISIBLE);
+	    	listview.mPullRefreshing = true;
+	    	listview.mEnablePullRefresh=true;
+	    	listview.mHeaderView.setState(XListViewHeader.STATE_REFRESHING);
+				if (listview.mListViewListener != null) {
+					listview.mListViewListener.onRefresh();
+				}
+				listview.resetHeaderHeight();
+	    }
+	
 	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
@@ -101,6 +134,7 @@ public class HomeMyPet implements IXListViewListener{
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
+				if(PetApplication.myUser==null)return;
 				final ArrayList<Animal> temp=HttpUtil.myPetCard(handler,activity);
 			
 				activity.runOnUiThread(new Runnable() {
@@ -111,7 +145,7 @@ public class HomeMyPet implements IXListViewListener{
 						if(temp!=null&&temp.size()>0){
 							animals=new ArrayList<Animal>();
 							for(int i=0;i<temp.size();i++){
-								if(temp.get(i).master_id==Constants.user.userId){
+								if(temp.get(i).master_id==PetApplication.myUser.userId){
 									animals.add(temp.get(i));
 								}
 							}
@@ -151,7 +185,7 @@ public class HomeMyPet implements IXListViewListener{
 						if(temp!=null&&temp.size()>0){
 							animals=new ArrayList<Animal>();
 							for(int i=0;i<temp.size();i++){
-								if(temp.get(i).master_id==Constants.user.userId){
+								if(temp.get(i).master_id==PetApplication.myUser.userId){
 									animals.add(temp.get(i));
 								}
 							}

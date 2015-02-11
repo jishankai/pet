@@ -3,6 +3,7 @@ package com.aidigame.hisun.pet.widget.fragment;
 
 import java.util.ArrayList;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.MyUser;
@@ -52,26 +53,25 @@ import android.widget.TextView;
  *
  */
 public class UserCenterFragment extends Fragment implements OnClickListener{
-	HomeActivity homeActivity;
-	Handler handler;
-	View view;
-	ImageView setupIv,genderIv,modifyIv;
-	RoundImageView userIcon;
-	TextView userNameTv,userCityTv,loginTv;
-	public TextView goldNumTv,messageNumTv;
-	RelativeLayout chargeLayout,goldLayout;
-	LinearLayout messageLayout,marketLayout,exchangeLayout,giveLayout,giftLayout,accountLayout;
 	
-	View popupParent;
-	RelativeLayout black_layout;
+	private  Handler handler;
+	private  View view;
+	private  ImageView setupIv,genderIv,modifyIv;
+	private  RoundImageView userIcon;
+	private  TextView userNameTv,userCityTv,loginTv;
+	public TextView goldNumTv,messageNumTv;
+	private  RelativeLayout chargeLayout,goldLayout;
+	private  LinearLayout messageLayout,marketLayout,exchangeLayout,giveLayout,giftLayout,accountLayout;
+	
+	private  View popupParent;
+	private  RelativeLayout black_layout;
 	
 	public static UserCenterFragment userCenterFragment;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		homeActivity=HomeActivity.homeActivity;
-		handler=HandleHttpConnectionException.getInstance().getHandler(homeActivity);
+		handler=HandleHttpConnectionException.getInstance().getHandler(getActivity());
 		view=inflater.inflate(R.layout.fragment_user_center, null);
 		userCenterFragment=this;
 		initView();
@@ -105,8 +105,16 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 		goldLayout=(RelativeLayout)view.findViewById(R.id.gold_layout);
 		loginTv=(TextView)view.findViewById(R.id.user_center_login);
 		modifyIv=(ImageView)view.findViewById(R.id.modify_iv);
+		
+		if(Constants.CON_VERSION.equals(StringUtil.getAPKVersionName(getActivity()))){
+			
+		}else{
+			chargeLayout.setVisibility(View.VISIBLE);
+		}
+		
+		
 		initListener();
-		if(Constants.user!=null){
+		if(PetApplication.myUser!=null){
 			updatateInfo(true);
 		}else{
 			goldLayout.setVisibility(View.GONE);
@@ -118,9 +126,9 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
     public void onResume() {
     	// TODO Auto-generated method stub
     	super.onResume();
-     	if(Constants.isSuccess){
+     	if(PetApplication.isSuccess){
 			
-			if(Constants.user!=null&&!DemoHXSDKHelper.getInstance().isLogined()){
+			if(PetApplication.myUser!=null&&!DemoHXSDKHelper.getInstance().isLogined()){
 				
 			}else{
 				int count=EMChatManager.getInstance().getUnreadMsgsCount();
@@ -131,6 +139,11 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 					messageNumTv.setText(""+count);
 				}
 			}
+			
+			if(PetApplication.myUser!=null){
+				updatateInfo(true);
+			}
+			
 		}
     }
 
@@ -156,7 +169,7 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 		case R.id.user_center_login:
 			/*Intent intentLogin=new Intent(homeActivity,ChoseAcountTypeActivity.class);
 			homeActivity.startActivity(intentLogin);*/
-			 if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
+			 if(!UserStatusUtil.isLoginSuccess(getActivity(),popupParent,black_layout)){
 					
 					return;
 				}
@@ -170,7 +183,7 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 			homeActivity.startActivity(intent1);
 			messageNumTv.setVisibility(View.INVISIBLE);*/
 			
-			startActivity(new Intent(homeActivity, com.aidigame.hisun.pet.huanxin.MainActivity.class));
+			startActivity(new Intent(getActivity(), com.aidigame.hisun.pet.huanxin.MainActivity.class));
 			
 			break;
 		case R.id.market_layout:
@@ -179,18 +192,18 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 				MarketActivity.marketActivity.finish();
 				MarketActivity.marketActivity=null;
 			}
-			Intent intent2=new Intent(homeActivity,MarketActivity.class);
+			Intent intent2=new Intent(getActivity(),MarketActivity.class);
 			this.startActivity(intent2);
 			break;
 		case R.id.give_layout:
-            if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
+            if(!UserStatusUtil.isLoginSuccess(getActivity(),popupParent,black_layout)){
 				
 				return;
 			}
-			if(Constants.user!=null&&Constants.user.currentAnimal!=null){
-				Intent intent=new Intent(homeActivity,PlayGameActivity.class);
-				intent.putExtra("animal", Constants.user.currentAnimal);
-				homeActivity.startActivity(intent);
+			if(PetApplication.myUser!=null&&PetApplication.myUser.currentAnimal!=null){
+				Intent intent=new Intent(getActivity(),PlayGameActivity.class);
+				intent.putExtra("animal", PetApplication.myUser.currentAnimal);
+				getActivity().startActivity(intent);
 			}
 			break;
 		case R.id.gift_layout:
@@ -198,11 +211,11 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 				MyItemActivity.myItemActivity.finish();
 				MyItemActivity.myItemActivity=null;
 			}
-			Intent intent3=new Intent(homeActivity,MyItemActivity.class);
-			homeActivity.startActivity(intent3);
+			Intent intent3=new Intent(getActivity(),MyItemActivity.class);
+			getActivity().startActivity(intent3);
 			break;
 		case R.id.exchange_layout:
-			 if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
+			 if(!UserStatusUtil.isLoginSuccess(getActivity(),popupParent,black_layout)){
 					
 					return;
 				}
@@ -210,11 +223,11 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 				 ExchangeActivity.exchangeActivity.finish();
 				 ExchangeActivity.exchangeActivity=null;
 			 }
-			 Intent intent4=new Intent(homeActivity,ExchangeActivity.class);
-			 homeActivity.startActivity(intent4);
+			 Intent intent4=new Intent(getActivity(),ExchangeActivity.class);
+			 getActivity().startActivity(intent4);
 			break;
 		case R.id.account_layout:
-            if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
+            if(!UserStatusUtil.isLoginSuccess(getActivity(),popupParent,black_layout)){
 				
 				return;
 			}
@@ -222,13 +235,13 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 				AccountActivity.accountActivity.finish();
 				AccountActivity.accountActivity=null;
 			}
-			Intent intent7=new Intent(homeActivity,AccountActivity.class);
-			homeActivity.startActivity(intent7);
+			Intent intent7=new Intent(getActivity(),AccountActivity.class);
+			getActivity().startActivity(intent7);
 			break;
 		case R.id.charge_layout:
 			
 
-			 if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
+			 if(!UserStatusUtil.isLoginSuccess(getActivity(),popupParent,black_layout)){
 					
 					return;
 				}
@@ -236,11 +249,11 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 				 ChargeActivity.chargeActivity.finish();
 				 ChargeActivity.chargeActivity=null;
 			 }
-			 Intent intent6=new Intent(homeActivity,ChargeActivity.class);
-			 homeActivity.startActivity(intent6);
+			 Intent intent6=new Intent(getActivity(),ChargeActivity.class);
+			 getActivity().startActivity(intent6);
 			break;
 		case R.id.show_topic_usericon:
-			 if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
+			 if(!UserStatusUtil.isLoginSuccess(getActivity(),popupParent,black_layout)){
 					
 					return;
 				}
@@ -254,24 +267,24 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 			Intent intent=new Intent(homeActivity,UserDossierActivity.class);
 			intent.putExtra("user",Constants.user);
 			homeActivity.startActivity(intent);*/
-			 Intent intent=new Intent(homeActivity,UserCardActivity.class);
-				intent.putExtra("user",Constants.user);
-				homeActivity.startActivity(intent);
+			 Intent intent=new Intent(getActivity(),UserCardActivity.class);
+				intent.putExtra("user",PetApplication.myUser);
+				getActivity().startActivity(intent);
 			break;
 		case R.id.setup_iv:
 			if(SetupActivity.setupActivity!=null){
 				SetupActivity.setupActivity.finish();
 				SetupActivity.setupActivity=null;
 			}
-			Intent intent5=new Intent(homeActivity,SetupActivity.class);
-			homeActivity.startActivity(intent5);
+			Intent intent5=new Intent(getActivity(),SetupActivity.class);
+			getActivity().startActivity(intent5);
 			break;
 		case R.id.modify_iv:
-			 if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
+			 if(!UserStatusUtil.isLoginSuccess(getActivity(),popupParent,black_layout)){
 					
 					return;
 				}
-			 Intent intent8=new Intent(homeActivity,ModifyPetInfoActivity.class);
+			 Intent intent8=new Intent(getActivity(),ModifyPetInfoActivity.class);
 				intent8.putExtra("mode", 2);
 				this.startActivity(intent8);
 			break;
@@ -283,31 +296,32 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 	public void updatateInfo(boolean loadUserInfo) {
 		// TODO Auto-generated method stub
 		
-		if(Constants.user!=null){
+		if(PetApplication.myUser!=null){
+			if(goldLayout==null)return;
 			goldLayout.setVisibility(View.VISIBLE);
 			loginTv.setVisibility(View.GONE);
 			loadIcon();
-			if(!StringUtil.isEmpty(Constants.user.u_nick)){
-				userNameTv.setText(Constants.user.u_nick);
+			if(!StringUtil.isEmpty(PetApplication.myUser.u_nick)){
+				userNameTv.setText(PetApplication.myUser.u_nick);
 			}
-			if(!StringUtil.isEmpty(Constants.user.city)){
-				userCityTv.setText(""+Constants.user.province+" | "+Constants.user.city);
+			if(!StringUtil.isEmpty(PetApplication.myUser.city)){
+				userCityTv.setText(""+PetApplication.myUser.province+" | "+PetApplication.myUser.city);
 			}
 			genderIv.setVisibility(View.VISIBLE);
-			if(Constants.user.u_gender==1){
+			if(PetApplication.myUser.u_gender==1){
 				genderIv.setImageResource(R.drawable.male1);
 			}else{
 				genderIv.setImageResource(R.drawable.female1);
 			}
-			if(Constants.user.coinCount>=0){
-				goldNumTv.setText(""+Constants.user.coinCount);
+			if(PetApplication.myUser.coinCount>=0){
+				goldNumTv.setText(""+PetApplication.myUser.coinCount);
 			}else{
 				goldNumTv.setText("0");
 			}
 			getNewsNum(loadUserInfo);
-			if(Constants.isSuccess){
+			if(PetApplication.isSuccess){
 				
-				if(Constants.user!=null&&!DemoHXSDKHelper.getInstance().isLogined()){
+				if(PetApplication.myUser!=null&&!DemoHXSDKHelper.getInstance().isLogined()){
 					
 				}else{
 					int count=EMChatManager.getInstance().getUnreadMsgsCount();
@@ -325,7 +339,7 @@ public class UserCenterFragment extends Fragment implements OnClickListener{
 		}
 		
 	}
-	public void loadIcon(){
+	private   void loadIcon(){
 BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
 		options.inSampleSize=8;
@@ -343,9 +357,9 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 		        .decodingOptions(options)
                 .build();
 		ImageLoader imageLoader2=ImageLoader.getInstance();
-		imageLoader2.displayImage(Constants.USER_DOWNLOAD_TX+Constants.user.u_iconUrl, userIcon, displayImageOptions2);
+		imageLoader2.displayImage(Constants.USER_DOWNLOAD_TX+PetApplication.myUser.u_iconUrl, userIcon, displayImageOptions2);
 	}
-	public void getNewsNum(final boolean loadUserInfo){
+	private   void getNewsNum(final boolean loadUserInfo){
 		//获取消息和活动数目
 		new Thread(new Runnable() {
 					
@@ -354,9 +368,21 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 						// TODO Auto-generated method stub
 						LogUtil.i("mi","用户个人中心获取用户信息");
 //						final int mail_count=StringUtil.getNewMessageNum(homeActivity,handler);
-						  final ArrayList<Animal> temp=HttpUtil.usersKingdom(homeActivity,Constants.user, 1, handler);
-						  final MyUser u=HttpUtil.info(homeActivity, handler, Constants.user.userId);
-						homeActivity.runOnUiThread(new Runnable() {
+						  final ArrayList<Animal> temp=HttpUtil.usersKingdom(getActivity(),PetApplication.myUser, 1, handler);
+						  final MyUser u=HttpUtil.info(getActivity(), handler, PetApplication.myUser.userId);
+						 LogUtil.i("mii", "getActivity()是否为空："+(getActivity()==null));
+						 if(u!=null){
+							 PetApplication.myUser.coinCount=u.coinCount;
+								PetApplication.myUser.u_gender=u.u_gender;
+								PetApplication.myUser.u_nick=u.u_nick;
+								PetApplication.myUser.u_iconUrl=u.u_iconUrl;
+								PetApplication.myUser.u_age=u.u_age;
+						 }
+						
+						 
+						 
+						  if(getActivity()==null)return;
+						  getActivity().runOnUiThread(new Runnable() {
 							
 							@Override
 							public void run() {
@@ -369,11 +395,11 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 								}else{
 									messageNumTv.setVisibility(View.INVISIBLE);
 								}*/
-								u.currentAnimal=Constants.user.currentAnimal;
-								u.aniList=Constants.user.aniList;
-								Constants.user=u;
+								u.currentAnimal=PetApplication.myUser.currentAnimal;
+								u.aniList=PetApplication.myUser.aniList;
+								PetApplication.myUser=u;
 								if(temp!=null){
-									Constants.user.aniList=temp;
+									PetApplication.myUser.aniList=temp;
 								}
 								if(loadUserInfo){
 									updatateInfo(false);

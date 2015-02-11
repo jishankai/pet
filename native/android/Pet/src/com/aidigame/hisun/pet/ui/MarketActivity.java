@@ -27,6 +27,7 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -79,6 +80,10 @@ public class MarketActivity extends Activity implements OnClickListener{
 			super.onCreate(savedInstanceState);
 			UiUtil.setScreenInfo(this);
 			setContentView(R.layout.fragment_market);
+			
+			
+			
+			
 			marketActivity=this;
 			handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 			initView();
@@ -108,8 +113,8 @@ public class MarketActivity extends Activity implements OnClickListener{
 		    spinnerTV2=(TextView)findViewById(R.id.spinner_tv2);
 		    spinnerTV3=(TextView)findViewById(R.id.spinner_tv3);
 		    coinNumTV=(TextView)findViewById(R.id.coin_num);
-		    if(Constants.user!=null){
-		    	coinNumTV.setText(""+Constants.user.coinCount);
+		    if(PetApplication.myUser!=null){
+		    	coinNumTV.setText(""+PetApplication.myUser.coinCount);
 		    }
 		    moreCoinTV=(TextView)findViewById(R.id.more_coin);
 		    spinnerTV1.setOnClickListener(this);
@@ -131,12 +136,39 @@ public class MarketActivity extends Activity implements OnClickListener{
 					Toast.makeText(MarketActivity.this, "正在购买礼物", Toast.LENGTH_LONG).show();
 					return;
 				}
-				if(Constants.user.coinCount-gift.price<0){
+				if(PetApplication.myUser.coinCount-gift.price<0){
 //					Toast.makeText(MarketActivity.this, "Sorry~余额不足(⊙o⊙)哦~", Toast.LENGTH_LONG).show();
-					Intent intent=new Intent(MarketActivity.this,DialogNoteActivity.class);
-					intent.putExtra("mode", 10);
-					intent.putExtra("info", "Sorry~余额不足(⊙o⊙)哦~");
-					startActivity(intent);
+					if(Constants.CON_VERSION.equals(StringUtil.getAPKVersionName(MarketActivity.this))){
+						Intent intent=new Intent(MarketActivity.this,DialogNoteActivity.class);
+						intent.putExtra("mode", 10);
+						intent.putExtra("info", "Sorry~余额不足(⊙o⊙)哦~");
+						startActivity(intent);
+					}else {
+                           Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
+							
+							@Override
+							public void onClose() {
+								// TODO Auto-generated method stub
+							}
+							
+							@Override
+							public void onButtonTwo() {
+								// TODO Auto-generated method stub
+								Intent intent=new Intent(MarketActivity.this,ChargeActivity.class);
+								MarketActivity.this.startActivity(intent);
+							}
+							
+							@Override
+							public void onButtonOne() {
+								// TODO Auto-generated method stub
+							}
+						};
+						 Intent intent=new Intent(MarketActivity.this,Dialog4Activity.class);
+						 intent.putExtra("mode", 10);
+						 intent.putExtra("num", gift.price);
+						 MarketActivity.this.startActivity(intent);
+					}
+					
 					return;
 				}
 				isBuying=true;
@@ -161,7 +193,7 @@ public class MarketActivity extends Activity implements OnClickListener{
 									MobclickAgent.onEvent(MarketActivity.this, "buy_gift",map);
 									Toast.makeText(MarketActivity.this, "大人，您购买的"+gift.name+"，小的已经给您送到储物箱了", Toast.LENGTH_LONG).show();
 									coinNumTV.setText(""+user.coinCount);
-									Constants.user.coinCount=user.coinCount;
+									PetApplication.myUser.coinCount=user.coinCount;
 									if(UserCenterFragment.userCenterFragment!=null){
 								    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
 									}
@@ -204,6 +236,11 @@ public class MarketActivity extends Activity implements OnClickListener{
 		private void setBlurImageBackground() {
 			// TODO Auto-generated method stub
 			frameLayout=(FrameLayout)findViewById(R.id.framelayout);
+			
+			
+			BitmapFactory.Options options=new BitmapFactory.Options();
+			options.inSampleSize=4;
+			frameLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
 			viewTopWhite=(View)findViewById(R.id.top_white_view);
 			
 	        gridView.setOnScrollListener(new OnScrollListener() {

@@ -58,13 +58,13 @@ import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 public class ActivityWebActivity extends Activity {
-	WebView webView;
+	private WebView webView;
 //	String url="http://"+Constants.IP+Constants.URL_ROOT+"r=game/2048&sig=";
 //	String shareUrl="http://"+Constants.IP+Constants.URL_ROOT+"r=game/dcz&aid=";
-	Banner banner;
-	ImageView back;
-	TextView shareTv;
-	UMSocialService mController;
+	private Banner banner;
+	private ImageView back;
+	private TextView shareTv;
+	private UMSocialService mController;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -121,7 +121,7 @@ public class ActivityWebActivity extends Activity {
 
 		});
 //		LogUtil.i("me", "逗一逗url="+url);
-		webView.loadUrl(banner.url+"&SID="+Constants.SID);
+		webView.loadUrl(banner.url+"&SID="+PetApplication.SID);
 		
 		webView.setWebViewClient(new WebViewClient(){
 			@Override
@@ -183,7 +183,7 @@ public class ActivityWebActivity extends Activity {
 		/**
 		 * 分享 按钮
 		 */
-		RelativeLayout shareLayout;
+		private RelativeLayout shareLayout;
 		private void initShareView() {
 			// TODO Auto-generated method stub
 			shareLayout=(RelativeLayout)findViewById(R.id.sharelayout);
@@ -230,7 +230,7 @@ public class ActivityWebActivity extends Activity {
 				}
 			});
 		}
-		 public void weixinShare(){
+		private  void weixinShare(){
 			   WeiXinShareContent weixinContent = new WeiXinShareContent();
 			 //设置分享文字
 //			 weixinContent.setShareContent("来自友盟社会化组件（SDK）让移动应用快速整合社交分享功能，微信");
@@ -301,7 +301,7 @@ public class ActivityWebActivity extends Activity {
 						shareLayout.setVisibility(View.INVISIBLE);
 				
 		   }
-		   public void xinlangShare(){
+		   private  void xinlangShare(){
 			   
 			  /* if(UserStatusUtil.hasXinlangAuth(this)){
 					shareLayout.setVisibility(View.INVISIBLE);

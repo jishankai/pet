@@ -20,12 +20,12 @@
             android:id="@+id/shine_view"
             android:layout_width="500dp"
             android:layout_height="500dp"
-            android:src="@drawable/shake_shine"
+            
             android:scaleType="fitXY"
             android:visibility="gone"
             android:layout_marginTop="-67dp"
             android:layout_marginLeft="-95dp"
-            />
+            /><!-- android:src="@drawable/shake_shine" -->
         </LinearLayout>
 
         <TextView

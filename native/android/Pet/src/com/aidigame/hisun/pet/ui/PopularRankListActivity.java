@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -73,6 +74,7 @@ public class PopularRankListActivity extends Activity {
 	 int currentType=0;
 	HandleHttpConnectionException handleHttpConnectionException;
 	public static PopularRankListActivity popularRankListActivity;
+	FrameLayout rooLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -82,6 +84,12 @@ public class PopularRankListActivity extends Activity {
 		setContentView(R.layout.activity_popular_rank);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		popularRankListActivity=this;
+		
+		
+		rooLayout=(FrameLayout)findViewById(R.id.framelayout);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		rooLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
 		
 		
 		 SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
@@ -141,7 +149,7 @@ public class PopularRankListActivity extends Activity {
 			public void run() {
 				// TODO Auto-generated method stub
 				long animal_id=-1;
-				if(Constants.user!=null){
+				if(PetApplication.myUser!=null){
 //					animal_id=Constants.user.currentAnimal.a_id;
 				}else{
 					animal_id=-1;
@@ -167,7 +175,7 @@ public class PopularRankListActivity extends Activity {
 									adapter.updateData(map.get("total"));
 									adapter.notifyDataSetChanged();
 									isAllData=true;
-									if(Constants.isSuccess&&myList!=null&&myList.size()>0){
+									if(PetApplication.isSuccess&&myList!=null&&myList.size()>0){
 										myListIndex=0;
 									}else{
 										myListIndex=-1;
@@ -509,8 +517,8 @@ public class PopularRankListActivity extends Activity {
 					  
 					  animal.change=j2.getInt("vary");
 					  animal.ranking=i+1;
-					  for(int j=0;j<Constants.user.aniList.size();j++){
-						  if(animal.a_id==Constants.user.aniList.get(j).a_id){
+					  for(int j=0;j<PetApplication.myUser.aniList.size();j++){
+						  if(animal.a_id==PetApplication.myUser.aniList.get(j).a_id){
 							  animal.hasJoinOrCreate=true;
 							  temp2.add(animal);
 						  }

@@ -82,20 +82,18 @@ mImageFetcher=new ImageFetcher(this, Constants.screen_width, Constants.screen_he
 				LogUtil.i("me", "照片手势缩放界面url="+Constants.UPLOAD_IMAGE_RETURN_URL+url);
 //				mImageFetcher.setWidth(Constants.screen_width);
 				mImageFetcher.setImageCache(new ImageCache(this, new ImageCacheParams(url)));
-				mImageFetcher.setLoadCompleteListener(new ImageWorker.LoadCompleteListener(){
+				/*mImageFetcher.setLoadCompleteListener(new ImageWorker.LoadCompleteListener(){
 					@Override
 					public void  onComplete(Bitmap bitmap) {
 						// TODO Auto-generated method stub
-//						imageView.setImageBitmap(bitmap);
 						LogUtil.i("me", "照片手势缩放界面w="+imageView.getWidth()+",h="+imageView.getHeight()+",bitmap=null:"+(bitmap==null));
 					}
 					@Override
 					public void getPath(String path) {
 						// TODO Auto-generated method stub
 						LogUtil.i("me", "照片手势缩放界面path="+path);
-//						imageView.setImageBitmap(BitmapFactory.decodeFile(path));
 					}
-				});
+				});*/
 				
 				
 				mImageFetcher.loadImage(url, imageView,options);

@@ -90,18 +90,18 @@
              android:id="@+id/weixin_iv"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:src="@drawable/more_weixin"/>
+             android:src="@drawable/dialog_go_register_weixin"/>
          <ImageView 
              android:id="@+id/friend_iv"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:src="@drawable/more_friend"
+             android:src="@drawable/dialog_go_register_friend"
              android:layout_marginLeft="30dp"/>
          <ImageView 
              android:id="@+id/xinlang_iv"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:src="@drawable/more_xinlang"
+             android:src="@drawable/dialog_go_register_xinlang"
              android:layout_marginLeft="30dp"/>
          </LinearLayout>
     </LinearLayout>

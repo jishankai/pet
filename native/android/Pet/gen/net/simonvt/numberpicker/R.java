@@ -24,25 +24,25 @@ public final class R {
 		public static final int transparent = 0x7f090000;
 	}
 	public static final class drawable {
-		public static final int item_background_holo_dark = 0x7f0201d0;
-		public static final int item_background_holo_light = 0x7f0201d1;
-		public static final int list_focused_holo = 0x7f0201d8;
-		public static final int list_longpressed_holo = 0x7f0201d9;
-		public static final int list_pressed_holo_dark = 0x7f0201da;
-		public static final int list_pressed_holo_light = 0x7f0201db;
-		public static final int list_selector_background_transition_holo_dark = 0x7f0201dc;
-		public static final int list_selector_background_transition_holo_light = 0x7f0201dd;
-		public static final int list_selector_disabled_holo_dark = 0x7f0201de;
-		public static final int list_selector_disabled_holo_light = 0x7f0201df;
-		public static final int np_numberpicker_selection_divider = 0x7f020208;
+		public static final int item_background_holo_dark = 0x7f0201df;
+		public static final int item_background_holo_light = 0x7f0201e0;
+		public static final int list_focused_holo = 0x7f0201e7;
+		public static final int list_longpressed_holo = 0x7f0201e8;
+		public static final int list_pressed_holo_dark = 0x7f0201e9;
+		public static final int list_pressed_holo_light = 0x7f0201ea;
+		public static final int list_selector_background_transition_holo_dark = 0x7f0201eb;
+		public static final int list_selector_background_transition_holo_light = 0x7f0201ec;
+		public static final int list_selector_disabled_holo_dark = 0x7f0201ed;
+		public static final int list_selector_disabled_holo_light = 0x7f0201ee;
+		public static final int np_numberpicker_selection_divider = 0x7f020214;
 	}
 	public static final class id {
 		public static final int np__decrement = 0x7f060031;
 		public static final int np__increment = 0x7f060030;
-		public static final int np__numberpicker_input = 0x7f06032e;
+		public static final int np__numberpicker_input = 0x7f060330;
 	}
 	public static final class layout {
-		public static final int number_picker_with_selector_wheel = 0x7f0300d6;
+		public static final int number_picker_with_selector_wheel = 0x7f0300d4;
 	}
 	public static final class style {
 		public static final int NPWidget = 0x7f070008;

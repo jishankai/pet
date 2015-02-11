@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.MyUser;
@@ -143,12 +144,12 @@ public class ShowMore implements OnClickListener{
 		/*
 		 * 自己的王国
 		 */
-		if(Constants.user==null){
+		if(PetApplication.myUser==null){
 			twoLayout.setVisibility(View.GONE);
 			oneLayout.setVisibility(View.GONE);
 			twoLayout2.setVisibility(View.GONE);
 		}else
-		if(animal.master_id==Constants.user.userId){
+		if(animal.master_id==PetApplication.myUser.userId){
 //			pictureOrMailTv.setText("拍照");
 			twoLayout.setVisibility(View.GONE);
 			oneLayout.setVisibility(View.GONE);
@@ -194,12 +195,12 @@ public class ShowMore implements OnClickListener{
 		 */
 		
 		this.user=user;
-		if(Constants.user==null){
+		if(PetApplication.myUser==null){
 			oneLayout.setVisibility(View.GONE);
 			twoLayout.setVisibility(View.GONE);
 			twoLayout2.setVisibility(View.GONE);
 		}else
-		if(Constants.user.userId==user.userId){
+		if(PetApplication.myUser.userId==user.userId){
 			oneLayout.setVisibility(View.VISIBLE);
 			twoLayout.setVisibility(View.GONE);
 			twoLayout2.setVisibility(View.GONE);
@@ -413,15 +414,15 @@ public class ShowMore implements OnClickListener{
 				/*
 				 * 退出王国
 				 */
-			if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()>=10&&NewPetKingdomActivity.petKingdomActivity!=null){
+			if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null&&PetApplication.myUser.aniList.size()>=10&&NewPetKingdomActivity.petKingdomActivity!=null){
 				int num=0;
-				if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
-					num=(Constants.user.aniList.size()+1)*5;
-				}else if(Constants.user.aniList.size()>20){
+				if(PetApplication.myUser.aniList.size()>=10&&PetApplication.myUser.aniList.size()<=20){
+					num=(PetApplication.myUser.aniList.size()+1)*5;
+				}else if(PetApplication.myUser.aniList.size()>20){
 					num=100;
 				}
 				
-				if(Constants.user.coinCount<num){
+				if(PetApplication.myUser.coinCount<num){
 					DialogNote dialog=new DialogNote(NewPetKingdomActivity.petKingdomActivity.popupParent, NewPetKingdomActivity.petKingdomActivity, NewPetKingdomActivity.petKingdomActivity.black_layout, 1);
 					return;
 				}
@@ -442,7 +443,7 @@ public class ShowMore implements OnClickListener{
 				}
 			});
 			}else{
-				if(Constants.user!=null&&Constants.user.aniList!=null&&Constants.user.aniList.size()==1){
+				if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null&&PetApplication.myUser.aniList.size()==1){
 					Toast.makeText(activity, "不能退出最爱萌星，现在只剩一个啦", Toast.LENGTH_LONG).show();
 					parent.setVisibility(View.INVISIBLE);
 					rootParent.setBackgroundDrawable(null);

@@ -20,15 +20,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Gift;
 import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
+import com.aidigame.hisun.pet.ui.ChargeActivity;
+import com.aidigame.hisun.pet.ui.Dialog4Activity;
 import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1;
 import com.aidigame.hisun.pet.ui.DialogGiveSbGiftResultActivity;
 import com.aidigame.hisun.pet.ui.DialogNoteActivity;
 import com.aidigame.hisun.pet.ui.HomeActivity;
+import com.aidigame.hisun.pet.ui.MarketActivity;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
@@ -294,7 +298,7 @@ public class FourGiftBox {
 		@Override
 		public void onClick(final View v) {
 			// TODO Auto-generated method stub
-			if(!Constants.isSuccess){
+			if(!PetApplication.isSuccess){
 				if(listener!=null){
 					listener.unRegister();
 				}
@@ -309,7 +313,7 @@ public class FourGiftBox {
 					public void run() {
 						// TODO Auto-generated method stub
 						if(gift.boughtNum==0){
-							if(Constants.user.coinCount-gift.price<0){
+							if(PetApplication.myUser.coinCount-gift.price<0){
 								//金币不够，跳充值界面
 								handleHttpConnectionException.getHandler(context).post(new Runnable() {
 									
@@ -317,10 +321,45 @@ public class FourGiftBox {
 									public void run() {
 										// TODO Auto-generated method stub
 //										Toast.makeText(context, "Sorry~余额不足(⊙o⊙)哦~", Toast.LENGTH_LONG).show();
-										Intent intent=new Intent(context,DialogNoteActivity.class);
-										intent.putExtra("mode", 10);
-										intent.putExtra("info", "Sorry~余额不足(⊙o⊙)哦~");
-										context.startActivity(intent);
+										
+										
+										
+										if(Constants.CON_VERSION.equals(StringUtil.getAPKVersionName(context))){
+											Intent intent=new Intent(context,DialogNoteActivity.class);
+											intent.putExtra("mode", 10);
+											intent.putExtra("info", "Sorry~余额不足(⊙o⊙)哦~");
+											context.startActivity(intent);
+										}else {
+					                           Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
+												
+												@Override
+												public void onClose() {
+													// TODO Auto-generated method stub
+												}
+												
+												@Override
+												public void onButtonTwo() {
+													// TODO Auto-generated method stub
+													Intent intent=new Intent(context,ChargeActivity.class);
+													context.startActivity(intent);
+												}
+												
+												@Override
+												public void onButtonOne() {
+													// TODO Auto-generated method stub
+												}
+											};
+											 Intent intent=new Intent(context,Dialog4Activity.class);
+											 intent.putExtra("mode", 10);
+											 intent.putExtra("num", gift.price);
+											 context.startActivity(intent);
+										}
+										
+										
+										
+										
+										
+										
 										if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null)DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.showProgress.progressCancel();;
 									}
 								});
@@ -333,15 +372,15 @@ public class FourGiftBox {
 									map.put("name", ""+gift.name);
 									map.put("id", ""+gift.no);
 									MobclickAgent.onEvent(context, "buy_gift",map);
-									if(Constants.user.coinCount>user.coinCount){
-										Constants.user.coinCount=user.coinCount;
+									if(PetApplication.myUser.coinCount>user.coinCount){
+										PetApplication.myUser.coinCount=user.coinCount;
 										handleHttpConnectionException.getHandler(context).post(new Runnable() {
 											
 											@Override
 											public void run() {
 												// TODO Auto-generated method stub
 												if(UserCenterFragment.userCenterFragment!=null){
-													UserCenterFragment.userCenterFragment.goldNumTv.setText(""+Constants.user.coinCount);
+													UserCenterFragment.userCenterFragment.goldNumTv.setText(""+PetApplication.myUser.coinCount);
 												}
 //												Toast.makeText(context, "购买了一个"+gift.name, Toast.LENGTH_LONG).show();
 											}

@@ -58,6 +58,7 @@ public class FirstPageActivity extends Activity{
 	HandleHttpConnectionException handleHttpConnectionException;
 	RelativeLayout begLayout1,begLayout;
 	TextView foodNum,petNum;
+	
 	public static FirstPageActivity firstPageActivity;
 	ScrollView scrollview;
 	Handler handler=new Handler(){
@@ -166,6 +167,9 @@ public class FirstPageActivity extends Activity{
 		setContentView(R.layout.activity_first_page);
 		welcomeImage=(ImageView)findViewById(R.id.imageView1);
 		imageView=(ImageView)findViewById(R.id.imageView1);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=1;
+//		imageView.setImageDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.start_image,options)));
 		imageView11=(ImageView)findViewById(R.id.imageView11);
 		begLayout1=(RelativeLayout)findViewById(R.id.beg_layout1);
 		begLayout=(RelativeLayout)findViewById(R.id.beg_layout);
@@ -193,23 +197,7 @@ public class FirstPageActivity extends Activity{
 		
 		loadWelcomePage(true);
 		
-		String url=getIntent().getStringExtra("url");
-						BitmapFactory.Options options=new BitmapFactory.Options();
-						options.inJustDecodeBounds=false;
-						options.inSampleSize=1;
-						options.inPreferredConfig=Bitmap.Config.RGB_565;
-						options.inPurgeable=true;
-						options.inInputShareable=true;
-						DisplayImageOptions displayImageOptions=new DisplayImageOptions
-					            .Builder()
-					            .showImageOnLoading(R.drawable.blur)
-						        .cacheInMemory(true)
-						        .cacheOnDisc(true)
-						        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
-						        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-						        .decodingOptions(options)
-				                .build();
-						ImageLoader imageLoader=ImageLoader.getInstance();
+		
 			
 			
 	}
@@ -221,12 +209,7 @@ public class FirstPageActivity extends Activity{
 			public void run() {
 				// TODO Auto-generated method stub
 				final String url=HttpUtil.downloadWelcomeImage(null,FirstPageActivity.this);
-				/*try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}*/
+				
 				runOnUiThread(new Runnable() {
 					
 					@Override
@@ -278,6 +261,14 @@ public class FirstPageActivity extends Activity{
 							@Override
 							public void onLoadingComplete(String imageUri, View view, final Bitmap loadedImage) {
 								// TODO Auto-generated method stub
+								handler.postDelayed(new Runnable() {
+									
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										imageView.setImageBitmap(loadedImage);
+									}
+								}, 2000);
 								
                                     handler.postDelayed(new Runnable() {
 									
@@ -386,39 +377,39 @@ public class FirstPageActivity extends Activity{
 					getSIDAndUserID();
 					
 				}else{
-					Constants.SID=SID;
-					Constants.isSuccess=sPreferences.getBoolean("isRegister", false);
+					PetApplication.SID=SID;
+					PetApplication.isSuccess=sPreferences.getBoolean("isRegister", false);
 					if(StringUtil.isEmpty(Constants.realVersion)){
 						Constants.realVersion=sPreferences.getString("real_version", "");
 					}
-					if(Constants.isSuccess){
-						Constants.user=new MyUser();
-						Constants.user.userId=sPreferences.getInt("usr_id", 0);
-						Constants.user.u_nick=sPreferences.getString("name", "游荡的两脚兽");
-						Constants.user.coinCount=sPreferences.getInt("gold", 500);
-						Constants.user.lv=sPreferences.getInt("lv", 0);
-						Constants.user.u_iconUrl=sPreferences.getString("url", "");
-						Constants.user.city=sPreferences.getString("city", "");
-						Constants.user.province=sPreferences.getString("province", "");
-						Constants.user.locationCode=sPreferences.getInt("locationCode", 1000);
-						Constants.user.u_gender=sPreferences.getInt("usr_gender", 1);
-						Constants.user.currentAnimal=new Animal();
-						Constants.user.rank=sPreferences.getString("job", "陌生人");
-						Constants.user.rankCode=sPreferences.getInt("rankCode", -1);
-						Constants.user.currentAnimal.a_id=sPreferences.getLong("a_id", 0);
-						Constants.user.currentAnimal.race=sPreferences.getString("a_race", "");
-						Constants.user.currentAnimal.a_age_str=sPreferences.getString("a_age_str", "");
-						Constants.user.currentAnimal.pet_iconUrl=sPreferences.getString("a_url", "");
-						Constants.user.currentAnimal.a_age=sPreferences.getInt("a_age", 0);
-						Constants.user.currentAnimal.type=sPreferences.getInt("a_type", 101);
-						Constants.user.currentAnimal.pet_nickName=sPreferences.getString("a_nick", "");
-						Constants.user.currentAnimal.master_id=sPreferences.getInt("master_id", 0);
+					if(PetApplication.isSuccess){
+						PetApplication.myUser=new MyUser();
+						PetApplication.myUser.userId=sPreferences.getInt("usr_id", 0);
+						PetApplication.myUser.u_nick=sPreferences.getString("name", "游荡的两脚兽");
+						PetApplication.myUser.coinCount=sPreferences.getInt("gold", 500);
+						PetApplication.myUser.lv=sPreferences.getInt("lv", 0);
+						PetApplication.myUser.u_iconUrl=sPreferences.getString("url", "");
+						PetApplication.myUser.city=sPreferences.getString("city", "");
+						PetApplication.myUser.province=sPreferences.getString("province", "");
+						PetApplication.myUser.locationCode=sPreferences.getInt("locationCode", 1000);
+						PetApplication.myUser.u_gender=sPreferences.getInt("usr_gender", 1);
+						PetApplication.myUser.currentAnimal=new Animal();
+						PetApplication.myUser.rank=sPreferences.getString("job", "陌生人");
+						PetApplication.myUser.rankCode=sPreferences.getInt("rankCode", -1);
+						PetApplication.myUser.currentAnimal.a_id=sPreferences.getLong("a_id", 0);
+						PetApplication.myUser.currentAnimal.race=sPreferences.getString("a_race", "");
+						PetApplication.myUser.currentAnimal.a_age_str=sPreferences.getString("a_age_str", "");
+						PetApplication.myUser.currentAnimal.pet_iconUrl=sPreferences.getString("a_url", "");
+						PetApplication.myUser.currentAnimal.a_age=sPreferences.getInt("a_age", 0);
+						PetApplication.myUser.currentAnimal.type=sPreferences.getInt("a_type", 101);
+						PetApplication.myUser.currentAnimal.pet_nickName=sPreferences.getString("a_nick", "");
+						PetApplication.myUser.currentAnimal.master_id=sPreferences.getInt("master_id", 0);
 						
 					}
-					if(Constants.user==null||Constants.user.userId<=0||Constants.user.currentAnimal==null||Constants.user.currentAnimal.a_id<=0||Constants.user.coinCount<0||Constants.user.rankCode<0||Constants.user.lv<0||Constants.user.currentAnimal.master_id<=0){
+					if(PetApplication.myUser==null||PetApplication.myUser.userId<=0||PetApplication.myUser.currentAnimal==null||PetApplication.myUser.currentAnimal.a_id<=0||PetApplication.myUser.coinCount<0||PetApplication.myUser.rankCode<0||PetApplication.myUser.lv<0||PetApplication.myUser.currentAnimal.master_id<=0){
 						getSIDAndUserID();
 					}else{
-						if("-1".equals(Constants.user.rank)){
+						if("-1".equals(PetApplication.myUser.rank)){
 							getSIDAndUserID();
 						}else{
 							update();
@@ -478,7 +469,7 @@ public class FirstPageActivity extends Activity{
 		}
 		SharedPreferences sPreferences=FirstPageActivity.this.getSharedPreferences("setup", Context.MODE_WORLD_WRITEABLE);
 		if(!StringUtil.isEmpty(SID)){
-			Constants.SID=SID;
+			PetApplication.SID=SID;
 			update();
 			
 		}else{

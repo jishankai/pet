@@ -172,7 +172,7 @@ public class SimpleUsersListAdapter extends BaseAdapter {
 					EMContactManager.getInstance().deleteUserFromBlackList(""+data.userId);
 					list.remove(data);
 					notifyDataSetChanged();
-					Toast.makeText(context, "取消拉黑成功", Toast.LENGTH_LONG).show();
+//					Toast.makeText(context, "取消拉黑成功", Toast.LENGTH_LONG).show();
 				} catch (EaseMobException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

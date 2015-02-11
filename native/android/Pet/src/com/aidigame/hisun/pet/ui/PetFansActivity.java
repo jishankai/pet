@@ -23,6 +23,8 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -42,10 +44,12 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 	   Handler handler;
 	   public ArrayList<MyUser> datas;
 	   int last_id=-1;
+	  int page=0;
 	   Animal animal;
 		public View popupParent;
 		public RelativeLayout black_layout;
 	   public static PetFansActivity petFansActivity;
+	   RelativeLayout rooLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -60,6 +64,12 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 		xListView=(XListView)findViewById(R.id.listview);
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
 		popupParent=(View)findViewById(R.id.popup_parent);
+		
+		rooLayout=(RelativeLayout)findViewById(R.id.root_layout);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		rooLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
+		
 		
 		backIv.setOnClickListener(new OnClickListener() {
 			
@@ -98,13 +108,13 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 		loadData();
 	}
 	public void loadData(){
-		last_id=-1;
+		page=0;
 		new Thread(new Runnable() {
 			ArrayList<MyUser> temp=new ArrayList<MyUser>();
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				ArrayList<MyUser> userList=HttpUtil.kingdomPeoples(PetFansActivity.this,last_id, animal, handler);
+				ArrayList<MyUser> userList=HttpUtil.kingdomPeoples(PetFansActivity.this,page, animal, handler);
 				
 				if(userList!=null){
 					if(userList.size()>0){
@@ -133,13 +143,13 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
-		last_id=-1;
+		page=0;
 		new Thread(new Runnable() {
 			ArrayList<MyUser> temp=new ArrayList<MyUser>();
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				ArrayList<MyUser> userList=HttpUtil.kingdomPeoples(PetFansActivity.this,last_id, animal, handler);
+				ArrayList<MyUser> userList=HttpUtil.kingdomPeoples(PetFansActivity.this,page, animal, handler);
 				
 				if(userList!=null){
 					if(userList.size()>0){
@@ -172,7 +182,7 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 	public void onLoadMore() {
 		// TODO Auto-generated method stub
 		if(datas.size()>0){
-			last_id=datas.get(datas.size()-1).userId;
+			page++;
 		}
 		
 		new Thread(new Runnable() {
@@ -180,7 +190,7 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				ArrayList<MyUser> userList=HttpUtil.kingdomPeoples(PetFansActivity.this,last_id, animal, handler);
+				ArrayList<MyUser> userList=HttpUtil.kingdomPeoples(PetFansActivity.this,page, animal, handler);
 				
 				if(userList!=null){
 					if(userList.size()>0){
@@ -236,7 +246,7 @@ public class PetFansActivity extends Activity implements IXListViewListener{
 //	  		    setBlurImageBackground();
 	  			return ;
 	  		}
-	  		if(Constants.user!=null&&Constants.user.aniList!=null){
+	  		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
 	  			/*DialogGiveSbGift dgb=new DialogGiveSbGift(this,data);
 	  			final AlertDialog dialog=new AlertDialog.Builder(this).setView(dgb.getView())
 	  					.show();*/

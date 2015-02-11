@@ -46,19 +46,20 @@ import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 public class AccountActivity extends Activity implements OnClickListener{
-	LinearLayout setPssLayout,exchangeAccountLayout,bindWeixin,bindXinlang;
-	RelativeLayout shareWeixinLayout,shareXinlangLayout;
+	private LinearLayout setPssLayout,exchangeAccountLayout,bindWeixin,bindXinlang;
+	private RelativeLayout shareWeixinLayout,shareXinlangLayout;
 	public static AccountActivity accountActivity;
-	UMSocialService mController;
-	ImageView back,bindWeixinIV,bindXinlangIV,shareWeixinIV,shareXinlangIV;
-	LinearLayout progressLayout,linearLayout2,linearlayout12,linearlayout13,messageLayout;
-	View lineInvite;
-	ShowProgress showProgress;
-	int acount=-1;//1同步发送到新浪微博，2 绑定新浪微博；-1 Activity启动时进入onResume方法，啥也不做。
-	Handler handler;
-	TextView weixinTv,xinlangTv;
-	public View popupParent;
-	public RelativeLayout black_layout;
+	private UMSocialService mController;
+	private ImageView back,bindWeixinIV,bindXinlangIV,shareWeixinIV,shareXinlangIV;
+	private LinearLayout progressLayout,linearLayout2,linearlayout12,linearlayout13,messageLayout;
+	private View lineInvite,lineAddress;
+	private ShowProgress showProgress;
+	private int acount=-1;//1同步发送到新浪微博，2 绑定新浪微博；-1 Activity启动时进入onResume方法，啥也不做。
+	private Handler handler;
+	private TextView weixinTv,xinlangTv;
+	private View popupParent;
+	private RelativeLayout black_layout;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -109,19 +110,35 @@ public class AccountActivity extends Activity implements OnClickListener{
 		
 		
 		linearLayout2=(LinearLayout)findViewById(R.id.linearlayout2);
+		lineAddress=findViewById(R.id.address_line);
+		
+		linearLayout2.setVisibility(View.GONE);
+		lineAddress.setVisibility(View.GONE);
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+			for(int i=0;i<PetApplication.myUser.aniList.size();i++){
+				if(PetApplication.myUser.aniList.get(i).master_id==PetApplication.myUser.userId){
+					linearLayout2.setVisibility(View.VISIBLE);
+					lineAddress.setVisibility(View.VISIBLE);
+					break;
+				}
+			}
+		}
+		
+		
+		
 		linearlayout12=(LinearLayout)findViewById(R.id.linearlayout12);
 		lineInvite=findViewById(R.id.lineInvite);
 		linearlayout13=(LinearLayout)findViewById(R.id.linearlayout13);
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
 		popupParent=(View)findViewById(R.id.popup_parent);
-		if(!StringUtil.isEmpty(Constants.CON_VERSION)&&"1.0".equals(Constants.CON_VERSION))
+		/*if(!StringUtil.isEmpty(Constants.CON_VERSION)&&"1.0".equals(Constants.CON_VERSION))
 		{
 			linearlayout12.setVisibility(View.GONE);
 			lineInvite.setVisibility(View.GONE);
-		}else{
+		}else{*/
 			linearlayout12.setVisibility(View.VISIBLE);
 			lineInvite.setVisibility(View.VISIBLE);
-		}
+		/*}*/
 		
 		linearlayout12.setOnClickListener(this);
 		linearLayout2.setOnClickListener(this);
@@ -168,12 +185,12 @@ public class AccountActivity extends Activity implements OnClickListener{
 			this.startActivity(intent22);
 			break;
 			case R.id.linearlayout12:
-				if(Constants.user!=null&&Constants.user.inviter!=0){
+				if(PetApplication.myUser!=null&&PetApplication.myUser.inviter!=0){
 					Intent intent13=new Intent(this,InviteOthersDialogActivity.class);
 					intent13.putExtra("mode", 2);
 					this.startActivity(intent13);
 				}else
-				if(Constants.user!=null&&Constants.user.aniList!=null){
+				if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
 					if(/*Constants.user.aniList.size()>=10*/false){
 						DialogNote dialog=new DialogNote(popupParent, this,black_layout, 3);
 					}else{
@@ -240,7 +257,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 
 		case R.id.bind_layout_weixin:
 			
-			if(!StringUtil.isEmpty(Constants.user.weixin_id)){
+			if(!StringUtil.isEmpty(PetApplication.myUser.weixin_id)){
 	    		return;
 	    	}
            
@@ -280,7 +297,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 			break;
 
 		case R.id.bind_layout_xinlang:
-			 if(!StringUtil.isEmpty(Constants.user.xinlang_id)){
+			 if(!StringUtil.isEmpty(PetApplication.myUser.xinlang_id)){
 	            	return;
 		    	}
 			if(!sp.getBoolean(Constants.LOCK_TO_XINLANG, false)){
@@ -442,45 +459,7 @@ public class AccountActivity extends Activity implements OnClickListener{
 		}
 		editor.commit();
 	}
-	public void getXinlangToken(boolean getXinlangAuth){
-		LogUtil.i("exception", "onResume启动");
-		SharedPreferences sp=this.getSharedPreferences("setup", Context.MODE_WORLD_READABLE);
-		Editor editor=sp.edit();
-		if(getXinlangAuth){
-			if(acount==2){
-//				bindXinlangIV.setImageResource(R.drawable.checked);
-				acount=-1;
-				editor.putBoolean(Constants.LOCK_TO_XINLANG,true);
-			}else if(acount==1){
-				shareXinlangIV.setImageResource(R.drawable.checked);
-				editor.putBoolean(Constants.PICTURE_SEND_TO_XINLANG,true);
-			}
-			
-			
-		}else{
-			if(acount!=-1){
-				shareXinlangIV.setImageResource(R.drawable.unchecked);
-//				bindXinlangIV.setImageResource(R.drawable.unchecked);
-				editor.putBoolean(Constants.PICTURE_SEND_TO_XINLANG,false);
-				editor.putBoolean(Constants.LOCK_TO_XINLANG, false);
-				acount=-1;
-			}
-			
-		}
-		editor.commit();
-	};
-	
-	
-	
-	
-	
-	
-	public void showProgress(){
-		if(showProgress!=null)showProgress.showProgress();;
-	}
-	public void hideProgress(){
-		if(showProgress!=null)showProgress.progressCancel();;
-	}
+
 	   @Override
 	   protected void onPause() {
 	   	// TODO Auto-generated method stub
@@ -493,13 +472,13 @@ public class AccountActivity extends Activity implements OnClickListener{
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	    if(showProgress!=null)showProgress.progressCancel();
-	    if(Constants.user!=null){
-	    	if(!StringUtil.isEmpty(Constants.user.weixin_id)){
+	    if(PetApplication.myUser!=null){
+	    	if(!StringUtil.isEmpty(PetApplication.myUser.weixin_id)){
 	    		bindXinlangIV.setVisibility(View.GONE);;
 				weixinTv.setVisibility(View.VISIBLE);
 				weixinTv.setText("已绑定");
 	    	}
-            if(!StringUtil.isEmpty(Constants.user.xinlang_id)){
+            if(!StringUtil.isEmpty(PetApplication.myUser.xinlang_id)){
             	bindXinlangIV.setVisibility(View.GONE);;
 				xinlangTv.setVisibility(View.VISIBLE);
 				xinlangTv.setText("已绑定");

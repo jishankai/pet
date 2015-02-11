@@ -15,6 +15,7 @@ import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.bean.MyUser;
@@ -81,16 +82,16 @@ public class DialogQuitKingdom {
 						 * 退出王国
 						 */
 						
-						if(Constants.user!=null&&Constants.user.currentAnimal!=null&&animal.a_id==Constants.user.currentAnimal.a_id){
+						if(PetApplication.myUser!=null&&PetApplication.myUser.currentAnimal!=null&&animal.a_id==PetApplication.myUser.currentAnimal.a_id){
 							
 							getContriTop();
-							Animal temp=Constants.user.aniList.get(0);
+							Animal temp=PetApplication.myUser.aniList.get(0);
 							if(temp.equals(animal)){
-								temp=Constants.user.aniList.get(1);
+								temp=PetApplication.myUser.aniList.get(1);
 							}
 							final boolean flag=HttpUtil.setDefaultKingdom(context,temp, handleHttpConnectionException);
 							if(flag){
-								Constants.user.currentAnimal=temp;
+								PetApplication.myUser.currentAnimal=temp;
 								final Animal  an=HttpUtil.joinOrQuitKingdom(context,animal, handleHttpConnectionException, 1);
 							    
 						    	handleHttpConnectionException.post(new Runnable() {
@@ -102,10 +103,10 @@ public class DialogQuitKingdom {
 										if(an!=null){
 									    	animal.is_join=false;
 									    	animal.fans--;
-										if(Constants.user!=null&&Constants.user.aniList!=null){
-											Constants.user.aniList.remove(animal);
+										if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+											PetApplication.myUser.aniList.remove(animal);
 										}else{
-											Constants.user.aniList=new ArrayList<Animal>();
+											PetApplication.myUser.aniList=new ArrayList<Animal>();
 										
 										}
 										}else{
@@ -157,10 +158,10 @@ handleHttpConnectionException.post(new Runnable() {
 									if(an!=null){
 								    	animal.is_join=false;
 								    	animal.fans--;
-									if(Constants.user!=null&&Constants.user.aniList!=null){
-										Constants.user.aniList.remove(animal);
+									if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+										PetApplication.myUser.aniList.remove(animal);
 									}else{
-										Constants.user.aniList=new ArrayList<Animal>();
+										PetApplication.myUser.aniList=new ArrayList<Animal>();
 									
 									}
 									}else{
@@ -212,9 +213,9 @@ public static interface ResultListener{
 	void getResult(boolean isSuccess);
 }
 public void getContriTop(){
-	Animal[] animals=new Animal[Constants.user.aniList.size()];
+	Animal[] animals=new Animal[PetApplication.myUser.aniList.size()];
 	for(int i=0;i<animals.length;i++){
-		animals[i]=Constants.user.aniList.get(i);
+		animals[i]=PetApplication.myUser.aniList.get(i);
 	}
 	Animal temp=null;
 	for(int i=0;i<animals.length-1;i++){
@@ -226,9 +227,9 @@ public void getContriTop(){
 			}
 		}
 	}
-	Constants.user.aniList=new ArrayList<Animal>();
+	PetApplication.myUser.aniList=new ArrayList<Animal>();
 	for(int i=0;i<animals.length;i++){
-		Constants.user.aniList.add(animals[i]);
+		PetApplication.myUser.aniList.add(animals[i]);
 	}
 }
 }

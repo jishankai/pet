@@ -94,50 +94,48 @@ import com.umeng.analytics.MobclickAgent;
 public class DiscoveryFragment extends Fragment implements OnClickListener{
 	
 	public View menuView,popupParent;//主界面,弹出框所在位置相关父控件
-    HomeActivity homeActivity;
-    public static DiscoveryFragment homeFragment;
-    HandleHttpConnectionException handleHttpConnectionException;
+//    public static DiscoveryFragment homeFragment;
+	private  HandleHttpConnectionException handleHttpConnectionException;
     
-    TextView randomTv,favoriteTv,squareTv;//推荐，关注，广场
-	public ViewPager viewPager;//列表界面，三个图片列表
-	public ArrayList<View> viewList;//viewPager中加载的所有view
-	HomeViewPagerAdapter homeViewPagerAdapter;//viewPager的适配器
+	private  TextView randomTv,favoriteTv;//推荐，关注，广场
+	private  ViewPager viewPager;//列表界面，三个图片列表
+	private   ArrayList<View> viewList;//viewPager中加载的所有view
+	private  HomeViewPagerAdapter homeViewPagerAdapter;//viewPager的适配器
 	RelativeLayout waterFullParent;
 	PullToRefreshAndMoreView focusListView;//显示关注列表，应该将其提取出来，单独处理
-	LinearLayout camera_album;//显示获取照片界面
-	public LinearLayout progressLayout;//显示加载进度条界面
-	public ShowProgress showProgress;
-   public static String head_last_str,foot_last_str;
-   RelativeLayout relativeLayout1,relativeLayout2,relativeLayout_control1;
+	private   LinearLayout progressLayout;//显示加载进度条界面
+	private   ShowProgress showProgress;
+//   public static String head_last_str,foot_last_str;
+	private   RelativeLayout relativeLayout1;
   public RelativeLayout black_layout;
-   public static RelativeLayout homeRelativeLayout;
-   public static int currentPosition=0;/*//0 我的萌星；1 最新萌照；2梦醒推荐,3搜索界面
-*/   LinearLayout blur_view;
+   public RelativeLayout homeRelativeLayout;
+   private   static int currentPosition=0;/*//0 我的萌星；1 最新萌照；2梦醒推荐,3搜索界面
+*/   
    
-   public PLAWaterfull plaWaterfull2;
+   RelativeLayout touchLayout;
+   
+   private   PLAWaterfull plaWaterfull2;
   
    
-   TextView spinnerTv,searchOrCancelTv;
-   EditText searchInputEt;
-   ImageView searchIv,rqRankIv;
-   LinearLayout searchLayout,tabLayout;
-   XListView searchListview;
-   HomeSearchListAdapter homeSearchListAdapter;
-   ArrayList<Animal>  searchAnimals;
-   ArrayList<MyUser> searchUsers;
-   PopupWindow popupWindow;
-	int searchMode=1;//1,搜索萌星；2，搜索用户
+   private  TextView spinnerTv,searchOrCancelTv;
+   private   EditText searchInputEt;
+   private  ImageView searchIv,rqRankIv;
+   private   LinearLayout searchLayout,tabLayout;
+   private   XListView searchListview;
+   private   HomeSearchListAdapter homeSearchListAdapter;
+   private  ArrayList<Animal>  searchAnimals;
+   private   ArrayList<MyUser> searchUsers;
+   private  PopupWindow popupWindow;
+   private  int searchMode=1;//1,搜索萌星；2，搜索用户
    
    
-  public static  boolean showFooter=false,showHeader=false;
-    boolean createShowFocusTopics=false;
-	public boolean isOnRefresh=false;
+  
+    
 	
-	public static int COMPLETE=0;
+	
 	
 
-	public ArrayList<PetPicture> petPictures;
-	public ArrayList<Animal> animals=new ArrayList<Animal>();
+  
 	//下载完一张图片
 	public  static final int MESSAGE_DOWNLOAD_IMAGE=2;
 	//更新瀑布流
@@ -151,69 +149,20 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 	public static final int SHOW_BACKGROUND_CONTROL=208;
 	public static final int HIDE_BACKGROUND_CONTROL=209;
 	
-	public LinearLayout view3;
+	private   LinearLayout view3;
 	//相册例子
-	 View view2;
-	 HomePetPictures homePetPictures;
-	public ListView listView;
-	public int last_id=-1;
-	public Handler handler=new Handler(){
-		public void handleMessage(android.os.Message msg) {
-			if(msg.what==COMPLETE){
-				homeActivity.finish();
-			}
-			switch (msg.what) {
-			case Constants.MESSAGE_DOWNLOAD_IMAGES_LIST:
-				break;
-			case MESSAGE_DOWNLOAD_IMAGE:
-				break;
-			case UPDATE_WATERFULL:
-				break;
-			case DISMISS_PROGRESS:
-				if(showProgress!=null)
-				showProgress.progressCancel();
-				if(blur_view!=null)blur_view.setVisibility(View.INVISIBLE);
-				break;
-			case SHOW_PROGRESS:
-				if(showProgress==null){
-					showProgress=new ShowProgress(homeActivity,  progressLayout);
-				}else{
-					showProgress.showProgress();
-				}
-				break;
-			case SHOW_HEADER:
-				showHeader=true;
-				handler.sendEmptyMessage(SHOW_BACKGROUND_CONTROL);
-				break;
-			case SHOW_FOOTER:
-				showFooter=true;
-				break;
-			case HIDE_HEADER:
-				showHeader=false;
-				
-				 
-			        
-				break;
-			case HIDE_FOOTER:
-				showFooter=false;
-				break;
-			case SHOW_BACKGROUND_CONTROL:
-				relativeLayout_control1.setVisibility(View.VISIBLE);
-				break;
-            case HIDE_BACKGROUND_CONTROL:
-            	relativeLayout_control1.setVisibility(View.GONE);
-				break;
-				
-			}
-		};
-	};
+	private   View view2;
+	private   HomePetPictures homePetPictures;
+
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		menuView=inflater.inflate(R.layout.fragment_discovery, null);
-		homeFragment=this;
-		homeActivity=HomeActivity.homeActivity;
+		isRefresh=false;
+//		homeFragment=this;
 		LogUtil.i("mi", "homefragment====="+"onCreateView()");
 		return menuView;
 	}
@@ -226,33 +175,22 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 		LogUtil.i("mi", "homefragment====="+"onViewCreated()");
 		//TODO
 //		UserStatusUtil.downLoadUserInfo(homeActivity);
-		homeActivity=HomeActivity.homeActivity;
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		LogUtil.i("exception", "创建HomeActivity");
-		long time=System.currentTimeMillis();
-		blur_view=(LinearLayout)menuView.findViewById(R.id.blur_view);
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		head_last_str=sdf.format(new Date(time));
-        foot_last_str=head_last_str;
+		
 		LogUtil.i("exception", "创建HomeActivity");
-		petPictures=new ArrayList<PetPicture>();
 		
 		initView();
-		LogUtil.i("me", "Constants.isSuccess="+Constants.isSuccess);
+		LogUtil.i("me", "Constants.isSuccess="+PetApplication.isSuccess);
 	}
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		blur_view.setVisibility(View.INVISIBLE);
 	}
-	public void setBlureViewInvisible(){
-		blur_view.setVisibility(View.INVISIBLE);
-	}
-	public void setNewWaterFull(){
-		
-	}
-	boolean isFirstClaw=true;
+
+
+
 	private void initView() {
 		LogUtil.i("mi", "homefragment====="+"initView()");
 		// TODO Auto-generated method stub
@@ -261,10 +199,9 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
         popupParent=menuView.findViewById(R.id.popup_parent);
 		randomTv=(TextView)menuView.findViewById(R.id.button1);
 		favoriteTv=(TextView)menuView.findViewById(R.id.button2);
-		squareTv=(TextView)menuView.findViewById(R.id.button3);
 		black_layout=(RelativeLayout)menuView.findViewById(R.id.black_layout);
 		rqRankIv=(ImageView)menuView.findViewById(R.id.rq_rank_iv);
-		
+		touchLayout=(RelativeLayout)menuView.findViewById(R.id.touch_layout);
 		
 		
 		  
@@ -276,20 +213,16 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 		   
 		   
 //		focusListView=(PullToRefreshAndMoreView)menuView.findViewById(R.id.focus_picture_parent);
-		camera_album=(LinearLayout)menuView.findViewById(R.id.camera_album);
+		
 		progressLayout=(LinearLayout)menuView.findViewById(R.id.progress_parent);
-		showProgress=new ShowProgress(homeActivity, progressLayout);
+		showProgress=new ShowProgress(getActivity(), progressLayout);
 		showProgress.progressCancel();
-//		claw1=(ImageView)menuView.findViewById(R.id.imageView3);
-//		claw2=(ImageView)menuView.findViewById(R.id.imageView4);
-        relativeLayout2=(RelativeLayout)menuView.findViewById(R.id.relativelaout2);
-        relativeLayout_control1=(RelativeLayout)menuView.findViewById(R.id.relativelayout_control1);
         viewPager=(ViewPager)menuView.findViewById(R.id.viewpager);
        
        
-        view3=(LinearLayout)LayoutInflater.from(homeActivity).inflate(R.layout.widget_linearlayout,null);
-        homePetPictures=new HomePetPictures(homeActivity);
-       plaWaterfull2= new PLAWaterfull(homeActivity, view3,3);
+        view3=(LinearLayout)LayoutInflater.from(getActivity()).inflate(R.layout.widget_linearlayout,null);
+        homePetPictures=new HomePetPictures(getActivity());
+       plaWaterfull2= new PLAWaterfull(getActivity(), view3,3);
        
       
        view2=homePetPictures.getView();
@@ -301,8 +234,8 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 		//标题
 		randomTv.setOnClickListener(this);
 		favoriteTv.setOnClickListener(this);
-		squareTv.setOnClickListener(this);
 		rqRankIv.setOnClickListener(this);
+		touchLayout.setOnClickListener(this);
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 			
 			@Override
@@ -356,11 +289,11 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 	/**
 	 * 搜索相关View的初始化，并设定事件监听器
 	 */
-	boolean canSearch=false;
-	boolean isSearching=false;
-    long aid=-1;
-    int page=0;
-    String name;
+	private  boolean canSearch=false;
+	private  boolean isSearching=false;
+	private    long aid=-1;
+	private   int page=0;
+	private   String name;
 	private void initSearchViews() {
 		// TODO Auto-generated method stub
 		 spinnerTv=(TextView)menuView.findViewById(R.id.spinnerTv);
@@ -378,13 +311,13 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 				
 				@Override
 				public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-					// TODO Auto-generated method stub
+					// getActivity()
 						InputMethodManager m = (InputMethodManager)   
-								homeActivity.getSystemService(Context.INPUT_METHOD_SERVICE);   
+								getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);   
 								m.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS); 
 								
 									if(isSearching){
-										Toast.makeText(homeActivity, "正在搜索，请稍后", Toast.LENGTH_LONG).show();
+										Toast.makeText(getActivity(), "正在搜索，请稍后", Toast.LENGTH_LONG).show();
 										return true;
 									}
 									searchPetOrUser(false);
@@ -439,9 +372,9 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 						UserCardActivity.userCardActivity=null;
 						System.gc();
 					}
-					Intent intent=new Intent(homeActivity,UserCardActivity.class);
+					Intent intent=new Intent(getActivity(),UserCardActivity.class);
 					intent.putExtra("user", u);
-					homeActivity.startActivity(intent);
+					getActivity().startActivity(intent);
 				}else{
 					Animal a=(Animal)o;
 					if(NewPetKingdomActivity.petKingdomActivity!=null){
@@ -452,9 +385,9 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 						NewPetKingdomActivity.petKingdomActivity.finish();
 						NewPetKingdomActivity.petKingdomActivity=null;
 					}
-					Intent intent=new Intent(homeActivity,NewPetKingdomActivity.class);
+					Intent intent=new Intent(getActivity(),NewPetKingdomActivity.class);
 					intent.putExtra("animal", a);
-					homeActivity.startActivity(intent);
+					getActivity().startActivity(intent);
 				}
 			}
 		});
@@ -491,23 +424,25 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 			}
 		});
 	}
-	boolean creatingBlurImage=false;
-	boolean showSearch=false;
+	
+	private  boolean showSearch=false;
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.button1:
 			if(plaWaterfull2!=null){
-				plaWaterfull2.loadData();
+//				plaWaterfull2.loadData();
+				plaWaterfull2.pullRefresh();
 			}else{
-				plaWaterfull2=new PLAWaterfull(homeActivity, view3, 3);
+				plaWaterfull2=new PLAWaterfull(getActivity(), view3, 3);
 			}
 			viewPager.setCurrentItem(0);
 			break;
 		case R.id.button2:
 			if(homePetPictures!=null){
-				homePetPictures.refresh();
+//				homePetPictures.refresh();
+				homePetPictures.pullRefresh();
 			}
 			/*new Thread(new Runnable() {
 				
@@ -523,7 +458,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 			if(plaWaterfull2!=null){
 				plaWaterfull2.loadData();
 			}else{
-				plaWaterfull2=new PLAWaterfull(homeActivity, view3, 3);
+				plaWaterfull2=new PLAWaterfull(getActivity(), view3, 3);
 			}
 			viewPager.setCurrentItem(1);
 //			changeColors(R.id.button3);
@@ -542,7 +477,11 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 				searchInputEt.setFocusableInTouchMode(true);
 				searchInputEt.requestFocus(EditText.FOCUS_FORWARD);
 				searchInputEt.setSelection(0);
-				InputMethodManager im=(InputMethodManager)homeActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+				
+				touchLayout.setVisibility(View.VISIBLE);
+				rqRankIv.setVisibility(View.INVISIBLE);
+				
+				InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 				im.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 				
 			}/*else{
@@ -561,7 +500,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 			
 			if(canSearch){
 				if(isSearching){
-					Toast.makeText(homeActivity, "正在搜索，请稍后", Toast.LENGTH_LONG).show();
+					Toast.makeText(getActivity(), "正在搜索，请稍后", Toast.LENGTH_LONG).show();
 					return;
 				}
 				
@@ -573,11 +512,11 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 				 homeActivity.getWindow().getAttributes().softInputMode=WindowManager.LayoutParams.SOFT_INPUT_STATE_UNSPECIFIED;
 					
 				 }*/
-				InputMethodManager im=(InputMethodManager)homeActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+				InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 				boolean flag=im.isActive();
 //				im.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 				im.hideSoftInputFromWindow(searchInputEt.getWindowToken(), 0);
-			    
+				
 			
 				searchPetOrUser(false);
 				aid=-1;
@@ -588,10 +527,14 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 				searchIv.setVisibility(View.VISIBLE);
 				viewPager.setVisibility(View.VISIBLE);
 				searchListview.setVisibility(View.INVISIBLE);
-				InputMethodManager im=(InputMethodManager)homeActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+				InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 				boolean flag=im.isActive();
 //				im.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 				im.hideSoftInputFromWindow(searchInputEt.getWindowToken(), 0);
+				
+				touchLayout.setVisibility(View.GONE);
+				rqRankIv.setVisibility(View.VISIBLE);
+				
 			}
 			break;
 		case R.id.title_tv:
@@ -606,7 +549,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 				searchInputEt.requestFocus(EditText.FOCUS_FORWARD);
 				searchInputEt.setSelection(0);
 				
-				InputMethodManager im1=(InputMethodManager)homeActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+				InputMethodManager im1=(InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 				
 					im1.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 				
@@ -616,7 +559,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 				searchLayout.setVisibility(View.INVISIBLE);
 				searchIv.setVisibility(View.VISIBLE);
 				
-				InputMethodManager im=(InputMethodManager)homeActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+				InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 				if(im.isActive())
 				im.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 				
@@ -629,10 +572,25 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 				PopularRankListActivity.popularRankListActivity.finish();
 				PopularRankListActivity.popularRankListActivity=null;
 			}
-			Intent intent=new Intent(homeActivity,PopularRankListActivity.class);
-			homeActivity.startActivity(intent);
+			Intent intent=new Intent(getActivity(),PopularRankListActivity.class);
+			getActivity().startActivity(intent);
 			break;
-		
+		case R.id.touch_layout:
+			tabLayout.setVisibility(View.VISIBLE);
+			searchLayout.setVisibility(View.INVISIBLE);
+			searchIv.setVisibility(View.VISIBLE);
+			viewPager.setVisibility(View.VISIBLE);
+			searchListview.setVisibility(View.INVISIBLE);
+			InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+			boolean flag=im.isActive();
+//			im.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+			im.hideSoftInputFromWindow(searchInputEt.getWindowToken(), 0);
+			touchLayout.setVisibility(View.GONE);
+			if(popupWindow!=null){
+				popupWindow.dismiss();
+			}
+			rqRankIv.setVisibility(View.VISIBLE);
+			break;
 		
 		}
 	}
@@ -643,15 +601,24 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 		super.onStart();
 		LogUtil.i("mi", "homefragment====="+"onStart");
 	}
-	
+	public static boolean isRefresh=false;
 	public void refresh(){
+		LogUtil.i("mi", "isRefresh="+isRefresh);
+		if(isRefresh)return;
+		isRefresh=true;
 		if(currentPosition==0){
 			if(plaWaterfull2!=null){
-				plaWaterfull2.onRefresh();
+//				plaWaterfull2.onRefresh();
+				plaWaterfull2.pullRefresh();
+			}else{
+				isRefresh=false;
 			}
 		}else{
 			if(homePetPictures!=null){
-				homePetPictures.refresh();
+//				homePetPictures.refresh();
+				homePetPictures.pullRefresh();
+			}else{
+				isRefresh=false;
 			}
 		}
 	}
@@ -666,18 +633,18 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 	    	name=searchInputEt.getEditableText().toString();
 			if(StringUtil.isEmpty(name)){
 				if(searchMode==1){
-					Toast.makeText(homeActivity, "萌星名称不能为空", Toast.LENGTH_LONG).show();
+					Toast.makeText(getActivity(), "萌星名称不能为空", Toast.LENGTH_LONG).show();
 				}else{
-					Toast.makeText(homeActivity, "经纪人名称不能为空", Toast.LENGTH_LONG).show();
+					Toast.makeText(getActivity(), "经纪人名称不能为空", Toast.LENGTH_LONG).show();
 				}
 				
 			}
 	    }else{
 	    	if(StringUtil.isEmpty(name)){
 				if(searchMode==1){
-					Toast.makeText(homeActivity, "萌星名称不能为空", Toast.LENGTH_LONG).show();
+					Toast.makeText(getActivity(), "萌星名称不能为空", Toast.LENGTH_LONG).show();
 				}else{
-					Toast.makeText(homeActivity, "经纪人名称不能为空", Toast.LENGTH_LONG).show();
+					Toast.makeText(getActivity(), "经纪人名称不能为空", Toast.LENGTH_LONG).show();
 				}
 				return;
 			}
@@ -687,24 +654,30 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 	    if(showProgress!=null){
 			showProgress.showProgress();
 		}else{
-			showProgress=new ShowProgress(homeActivity, progressLayout);
+			showProgress=new ShowProgress(getActivity(), progressLayout);
 		}
-	    MobclickAgent.onEvent(homeActivity, "search");
+	    MobclickAgent.onEvent(getActivity(), "search");
 		isSearching=true;
         new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
+				// getActivity()
 				if(searchMode==1){
-					final ArrayList<Animal> animals=HttpUtil.searchUserOrPet(homeActivity,name, aid, handleHttpConnectionException.getHandler(homeActivity));
-					homeActivity.runOnUiThread(new Runnable() {
+					final ArrayList<Animal> animals=HttpUtil.searchUserOrPet(getActivity(),name, aid, handleHttpConnectionException.getHandler(getActivity()));
+					getActivity().runOnUiThread(new Runnable() {
 						
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
 							showProgress.progressCancel();
+							
+							
 							if(animals!=null){
+								
+								if(animals.size()>0)touchLayout.setVisibility(View.GONE);
+								
+								
 								searchListview.setVisibility(View.VISIBLE);
 								viewPager.setVisibility(View.INVISIBLE);
 								if(aid!=-1){
@@ -716,7 +689,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 								}
 								
 								if(homeSearchListAdapter==null){
-									homeSearchListAdapter=new HomeSearchListAdapter(homeActivity, animals, null, handler, searchMode);
+									homeSearchListAdapter=new HomeSearchListAdapter(getActivity(), animals, null,  searchMode);
 									searchListview.setAdapter(homeSearchListAdapter);
 								}else{
 									
@@ -726,7 +699,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 								
 							}else{
 								if(aid==-1)
-								Toast.makeText(homeActivity, "没有搜索到名字为 "+name+" 的宠物", Toast.LENGTH_LONG).show();
+								Toast.makeText(getActivity(), "没有搜索到名字为 "+name+" 的宠物", Toast.LENGTH_LONG).show();
 							}
 							searchListview.stopLoadMore();
 							searchInputEt.setText("");
@@ -735,8 +708,8 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 						}
 					});
 				}else{
-					final ArrayList<MyUser> users=HttpUtil.searchUser(homeActivity,name, page, handleHttpConnectionException.getHandler(homeActivity));
-					homeActivity.runOnUiThread(new Runnable() {
+					final ArrayList<MyUser> users=HttpUtil.searchUser(getActivity(),name, page, handleHttpConnectionException.getHandler(getActivity()));
+					getActivity().runOnUiThread(new Runnable() {
 						
 						@Override
 						public void run() {
@@ -754,7 +727,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 								}
 								
 								if(homeSearchListAdapter==null){
-									homeSearchListAdapter=new HomeSearchListAdapter(homeActivity, null, users, handler, searchMode);
+									homeSearchListAdapter=new HomeSearchListAdapter(getActivity(), null, users, searchMode);
 									searchListview.setAdapter(homeSearchListAdapter);
 								}else{
 									
@@ -764,7 +737,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 								
 							}else{
 								if(page==0)
-								Toast.makeText(homeActivity, "没有搜索到名字为 "+name+" 的经纪人", Toast.LENGTH_LONG).show();
+								Toast.makeText(getActivity(), "没有搜索到名字为 "+name+" 的经纪人", Toast.LENGTH_LONG).show();
 							}
 							searchListview.stopLoadMore();
 							searchInputEt.setText("");
@@ -777,17 +750,13 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 			}
 		}).start();
 	}
-	public void changeColors(int id){
-		handler.sendEmptyMessage(HIDE_FOOTER);
-		handler.sendEmptyMessage(HIDE_HEADER);
+	private   void changeColors(int id){
 		switch (id) {
 		case 0:
 			randomTv.setBackgroundResource(R.drawable.tab_home_left_red);
 			randomTv.setTextColor(getResources().getColor(R.color.white));
 			favoriteTv.setBackgroundResource(R.drawable.tab_home_right_white);
 			favoriteTv.setTextColor(getResources().getColor(R.color.orange_red));
-			squareTv.setTextColor(getResources().getColor(R.color.orange_red));
-			squareTv.setBackgroundResource(R.drawable.tab_home_middle_white);
 			
 			break;
 		case 1:
@@ -801,8 +770,6 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 			randomTv.setTextColor(getResources().getColor(R.color.orange_red));
 			favoriteTv.setBackgroundResource(R.drawable.tab_home_right_red);
 			favoriteTv.setTextColor(getResources().getColor(R.color.white));
-			squareTv.setTextColor(getResources().getColor(R.color.orange_red));
-			squareTv.setBackgroundResource(R.drawable.tab_home_middle_white);
 			
 			break;
 		case 2:
@@ -810,8 +777,6 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 			randomTv.setTextColor(getResources().getColor(R.color.orange_red));
 			favoriteTv.setBackgroundResource(R.drawable.tab_home_right_red);
 			favoriteTv.setTextColor(getResources().getColor(R.color.white));
-			squareTv.setTextColor(getResources().getColor(R.color.orange_red));
-			squareTv.setBackgroundResource(R.drawable.tab_home_middle_white);
 			break;
 		}
 	}
@@ -820,34 +785,41 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 
 	private void showPopupWindow1() {
 		// TODO Auto-generated method stub
-		View view=LayoutInflater.from(homeActivity).inflate(R.layout.home_search_popup, null);
+		View view=LayoutInflater.from(getActivity()).inflate(R.layout.home_search_popup, null);
 	    TextView tv1=(TextView)view.findViewById(R.id.textView1);
 	    TextView tv2=(TextView)view.findViewById(R.id.textView2);
-		popupWindow=new PopupWindow(view,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-		popupWindow.setFocusable(true);
-		popupWindow.setBackgroundDrawable(new BitmapDrawable());
-		popupWindow.setOutsideTouchable(true);
-		popupWindow.showAsDropDown(searchLayout, 0, 5);
-		tv1.setOnClickListener(new OnClickListener() {
+	    if(popupWindow==null){
+	    	popupWindow=new PopupWindow(view,LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+//			popupWindow.setFocusable(true);
+			popupWindow.setBackgroundDrawable(new BitmapDrawable());
+//			popupWindow.setOutsideTouchable(true);
 			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				searchMode=1;
-				popupWindow.dismiss();
-				spinnerTv.setText("萌星");
-			}
-		});
-        tv2.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				searchMode=2;
-				popupWindow.dismiss();
-				spinnerTv.setText("经纪人");
-			}
-		});
+			popupWindow.setOutsideTouchable(false);
+			tv1.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					searchMode=1;
+					popupWindow.dismiss();
+					spinnerTv.setText("萌星");
+//					InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+//					im.showSoftInput(searchInputEt,InputMethodManager.SHOW_FORCED);  
+				}
+			});
+	        tv2.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					searchMode=2;
+					popupWindow.dismiss();
+					spinnerTv.setText("经纪人");
+				}
+			});
+	    }
+	    popupWindow.showAsDropDown(searchLayout, 0, 5);
+		
 	}
     @Override
     public void onDestroy() {

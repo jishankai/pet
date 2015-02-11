@@ -338,7 +338,7 @@
             android:background="@drawable/user_center_button_red"
             android:layout_centerVertical="true"
             android:layout_marginRight="25dp"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:layout_alignParentRight="true">
             <TextView
                 android:layout_width="wrap_content"

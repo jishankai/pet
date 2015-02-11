@@ -13,9 +13,8 @@ public class Constants {
 	
 	
 	//与web服务端进行数据交互 必须有的 一个value值   ，在登陆的时候获得
-	public static String SID;
-	//登陆是否成功
-	public static boolean isSuccess=false;
+
+	
 	public static String VERSION;//强制更新
 	public static String realVersion;//版本更新
 	public static String android_url;
@@ -39,7 +38,7 @@ public class Constants {
 	public static int planet=1;//1.猫；2.狗
 	//aviary第三方类库的key值
 	public static String EXTRA_IN_API_KEY_SECRET="f6d0dd319088fd5a";
-	public static MyUser user;
+	
 	public static boolean netStatus;//网络状态，是否联网
 	//注册成功
 	public static final int REGISTER_SUCCESS=1;

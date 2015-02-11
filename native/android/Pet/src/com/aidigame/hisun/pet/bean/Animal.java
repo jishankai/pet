@@ -59,6 +59,10 @@ public class Animal implements Serializable{
 	public long newsNum;
 	
 	
+	public String tburl;
+	public int tb_version;
+	
+	
 	public ArrayList<PetPicture> picturs;
 	
 	

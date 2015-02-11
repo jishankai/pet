@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
      
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" > -->
      <RelativeLayout 
+         xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
     android:id="@+id/homeactivity_right_relativelayout"
+    android:background="@drawable/blur"
    android:visibility="visible">
     
     
-         <LinearLayout
+         <!-- <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -21,7 +23,7 @@
         android:paddingRight="0dp"
        >
       
-    </LinearLayout>
+    </LinearLayout> -->
         <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,7 +32,7 @@
         android:paddingRight="0dp"
         android:orientation="vertical"
        >
-       <RelativeLayout
+      <!--  <RelativeLayout
         android:id="@+id/relativelayout_control1"
         android:layout_width="match_parent"
         android:layout_height="0dp" 
@@ -38,7 +40,7 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         >    
-       </RelativeLayout>
+       </RelativeLayout> -->
          <LinearLayout 
     android:id="@+id/linelaout1"
     android:layout_width="match_parent"
@@ -65,7 +67,7 @@
            android:layout_below="@+id/linelaout1"
           android:id="@+id/listview"
           android:layout_marginTop="54dp"
-          android:visibility="invisible"
+          android:visibility="gone"
         android:scrollbars="vertical"
          android:fastScrollEnabled="true"
         android:layout_width="match_parent"
@@ -115,21 +117,6 @@
                 />
 
             
-            <TextView
-                android:id="@+id/button3"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="30.1dp"
-                android:text="@string/homefragment_note3"
-                android:textSize="16sp"
-                android:textColor="#FF6F44"
-                android:paddingLeft="15dp"
-                android:gravity="center"
-                android:paddingRight="15dp"
-                android:visibility="gone"
-                android:background="@drawable/tab_home_middle_white"
-                android:paddingTop="@dimen/home_activity_menu_padding"
-                android:paddingBottom="@dimen/home_activity_menu_padding"/>
 
       
             
@@ -156,14 +143,16 @@
              android:layout_height="wrap_content"
              android:src="@drawable/search"
              android:layout_alignParentRight="true"
-             android:layout_marginRight="15dp"
+             android:layout_marginRight="5dp"
              android:layout_centerVertical="true"
+             android:padding="10dp"
              android:id="@+id/search_iv"/>
         <ImageView android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:src="@drawable/discovery_rq_rank"
              android:layout_alignParentLeft="true"
-             android:layout_marginLeft="15dp"
+             android:layout_marginLeft="5dp"
+             android:padding="10dp"
              android:layout_centerVertical="true"
              android:id="@+id/rq_rank_iv"/>
         
@@ -188,10 +177,11 @@
             android:gravity="center_vertical"
             android:layout_weight="1"
             android:background="@drawable/home_search_frame">
-            <TextView android:layout_width="55dp"
+            <TextView android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:text="萌星"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="0dp"
+                android:paddingLeft="15dp"
                 android:singleLine="true"
                 android:gravity="center"
                 android:textColor="#565656"
@@ -256,17 +246,6 @@
     android:orientation="horizontal">
     </LinearLayout>
 </RelativeLayout>
-     <RelativeLayout
-        android:id="@+id/claw_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="0dp"
-        android:orientation="vertical"
-        android:paddingRight="0dp"
-       android:visibility="visible"
-       android:gravity="bottom">
-        
-    </RelativeLayout> 
            
              <LinearLayout
         android:id="@+id/progress_parent"
@@ -281,23 +260,6 @@
         android:paddingRight="0dp"
        >
              </LinearLayout>
-              <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:id="@+id/blur_view"
-          android:orientation="horizontal"
-          android:visibility="invisible"/>
-
-      <LinearLayout
-          android:id="@+id/camera_album"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent" 
-          android:orientation="horizontal"
-          android:layout_alignParentBottom="true"
-          android:background="#80000000"
-          android:visibility="invisible"
-          android:gravity="center">
-      </LinearLayout>
       <RelativeLayout 
           android:id="@+id/black_layout"
           android:layout_width="match_parent"
@@ -310,7 +272,17 @@
       </RelativeLayout>
 
    
-
+<RelativeLayout 
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/touch_layout"
+          android:visibility="gone"
+          android:layout_marginTop="54dp"
+          android:background="@color/window_black_bagd"
+          android:gravity="center"
+          >
+          
+      </RelativeLayout>
 </RelativeLayout>
 
-</LinearLayout>
+<!-- </LinearLayout> -->

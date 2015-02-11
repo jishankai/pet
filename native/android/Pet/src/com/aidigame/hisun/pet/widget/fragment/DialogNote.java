@@ -14,6 +14,7 @@ import android.widget.Toast;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -126,8 +127,8 @@ public class DialogNote {
 	private void joinKingdomNote(){
 		tv1.setText("本次成功捧星或创建萌星");
 		int num=0;
-		if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
-			num=(Constants.user.aniList.size()+1)*5;
+		if(PetApplication.myUser.aniList.size()>=10&&PetApplication.myUser.aniList.size()<=20){
+			num=(PetApplication.myUser.aniList.size()+1)*5;
 		}else{
 			num=100;
 		}
@@ -138,8 +139,8 @@ public class DialogNote {
 	private void joinKingdomNote3(){
 		tv1.setText("本次成功捧星或创建萌星");
 		int num=0;
-		if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
-			num=(Constants.user.aniList.size()+1)*5;
+		if(PetApplication.myUser.aniList.size()>=10&&PetApplication.myUser.aniList.size()<=20){
+			num=(PetApplication.myUser.aniList.size()+1)*5;
 		}else{
 			num=100;
 		}

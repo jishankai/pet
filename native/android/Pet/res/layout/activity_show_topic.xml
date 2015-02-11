@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/waterfull_frame"
-        android:layout_marginTop="-15dp"
+        android:layout_marginTop="-30dp"
         android:layout_marginRight="10dp"
         android:paddingBottom="20dp"
        >
@@ -56,12 +56,17 @@
                android:layout_height="wrap_content"
                android:scaleType="fitXY"/>
            <TextView 
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:focusable="true"
+               android:focusableInTouchMode="true"
+               android:text=""/>
+           <TextView 
                android:id="@+id/show_topic_comment_tv"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_marginTop="10dp"
-               android:focusable="false"
-               android:focusableInTouchMode="false"
+               android:textColor="@color/black"
                android:text=""/>
            <TextView 
                android:id="@+id/show_topic_topic_tv"
@@ -97,6 +102,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/show_topic_close"
+             android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_alignParentRight="true"
             />
     </RelativeLayout>
@@ -140,7 +148,7 @@
         
         android:background="@drawable/waterfull_frame"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="-15dp"
+        android:layout_marginTop="-30dp"
          android:paddingBottom="15dp"
        >
        <LinearLayout 
@@ -444,7 +452,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:divider="@null"
-                    android:paddingBottom="130dp"
+                    android:paddingBottom="150dp"
                     ></com.aidigame.hisun.pet.view.LinearLayoutForListView>
                 </ScrollView>
             </FrameLayout>
@@ -460,8 +468,12 @@
             android:id="@+id/show_topic_close_iv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:src="@drawable/show_topic_close"
             android:layout_alignParentRight="true"
+            
             />
     </RelativeLayout>
      </LinearLayout>
@@ -1051,5 +1063,5 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         android:visibility="gone"
-        android:src="@drawable/guide1"/> 
+        /> <!--android:src="@drawable/guide1"  -->
 </FrameLayout>

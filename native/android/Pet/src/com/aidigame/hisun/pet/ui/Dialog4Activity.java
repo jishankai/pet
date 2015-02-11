@@ -4,6 +4,7 @@ import u.aly.bu;
 
 import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
@@ -13,6 +14,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -25,7 +27,8 @@ import android.widget.TextView;
  */
 public class Dialog4Activity extends Activity implements OnClickListener{
 	ImageView closeIv;
-	int mode=1;//1,注册还是绑定弹窗提示；2，打赏提示;3,充值提示;4,兑换提示;5,网络异常，提示框;6,环信账号在其他手机登陆提示
+	int mode=1;//1,注册还是绑定弹窗提示；2，打赏提示;3,充值提示;4,兑换提示;5,网络异常，提示框;6,环信账号在其他手机登陆提示;7买周边弹窗提示;8,认养宠物，充值提示
+	           //10,购买礼物金币不足提示
 	TextView note1Tv,note2Tv,button1,button2;
 	LinearLayout regLayout,giveLayout;
 	public static Dialog3ActivityListener listener;
@@ -66,6 +69,12 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 			initView5();
 		}else if(mode==6){
 			initView6();
+		}else if(mode==7){
+			initView7();
+		}else if(mode==8){
+			initView8();
+		}else if(mode==10){
+			initview9();
 		}
 		
 		
@@ -73,6 +82,110 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 		button1.setOnClickListener(this);
 		button2.setOnClickListener(this);
 		
+	}
+	private void initview9() {
+		// TODO Auto-generated method stub
+		int num=getIntent().getIntExtra("num", 1);
+		 int goldNum=num;
+		 if(goldNum<0)goldNum=0;
+		 
+		 
+		 button1.setText("再想想");
+		 button2.setText("去充值");
+//		 button2.setVisibility(View.GONE);
+		 
+		 
+		 
+		regLayout.setVisibility(View.GONE);
+		giveLayout.setVisibility(View.VISIBLE);
+		TextView tv1=(TextView)findViewById(R.id.give_tv1);
+		TextView tv2=(TextView)findViewById(R.id.give_tv2);
+		tv2.setVisibility(View.GONE);
+		final ImageView iv2=(ImageView)findViewById(R.id.give_iv1);
+		TextView tv3=(TextView)findViewById(R.id.give_tv3);
+		TextView tv4=(TextView)findViewById(R.id.note3);
+		tv1.setText("本次购物需要花费您：");
+		tv3.setText(""+(goldNum));
+		tv4.setText("先去充值吧~");
+//		tv4.setText("先去应用挣钱吧~");
+		iv2.setVisibility(View.GONE);
+		iv2.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+				boolean flag=sp.getBoolean(Constants.GIVE_FOOD_NOTE_SHOW, false);
+				Editor e=sp.edit();
+				if(!flag){
+					e.putBoolean(Constants.GIVE_FOOD_NOTE_SHOW, true);
+					iv2.setImageResource(R.drawable.atuser_list_checked);
+				}else{
+					iv2.setImageResource(R.drawable.atuser_list_unchecked);
+					e.putBoolean(Constants.GIVE_FOOD_NOTE_SHOW, false);
+				}
+				e.commit();
+			}
+		});
+	}
+	private void initView8() {
+		// TODO Auto-generated method stub
+		 int num=getIntent().getIntExtra("num", 1);
+		 int goldNum=num;
+		 if(goldNum<0)goldNum=0;
+		 
+		 
+		 button1.setText("再想想");
+		 button2.setText("去充值");
+//		 button2.setVisibility(View.GONE);
+		 
+		 
+		 
+		regLayout.setVisibility(View.GONE);
+		giveLayout.setVisibility(View.VISIBLE);
+		TextView tv1=(TextView)findViewById(R.id.give_tv1);
+		TextView tv2=(TextView)findViewById(R.id.give_tv2);
+		tv2.setVisibility(View.GONE);
+		final ImageView iv2=(ImageView)findViewById(R.id.give_iv1);
+		TextView tv3=(TextView)findViewById(R.id.give_tv3);
+		TextView tv4=(TextView)findViewById(R.id.note3);
+		tv1.setText("本次捧星需要花费您：");
+		tv3.setText(""+(goldNum));
+		tv4.setText("先去充值吧~");
+//		tv4.setText("先去应用挣钱吧~");
+		iv2.setVisibility(View.GONE);
+		iv2.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+				boolean flag=sp.getBoolean(Constants.GIVE_FOOD_NOTE_SHOW, false);
+				Editor e=sp.edit();
+				if(!flag){
+					e.putBoolean(Constants.GIVE_FOOD_NOTE_SHOW, true);
+					iv2.setImageResource(R.drawable.atuser_list_checked);
+				}else{
+					iv2.setImageResource(R.drawable.atuser_list_unchecked);
+					e.putBoolean(Constants.GIVE_FOOD_NOTE_SHOW, false);
+				}
+				e.commit();
+			}
+		});
+	}
+	/**
+	 * 买周边弹窗提示
+	 */
+	private void initView7() {
+		// TODO Auto-generated method stub
+		Animal animal=(Animal)getIntent().getSerializableExtra("animal");
+		note1Tv.setText("别着急~"+animal.pet_nickName+"还没有周边呢。");
+//		note2Tv.setVisibility(View.GONE);
+		note2Tv.setText("不如先......");
+		note2Tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+		button1.setText("助TA集粉");
+		button2.setText("给TA送礼");
+		button1.setBackgroundResource(R.drawable.dialog_red_button);
 	}
 	/**
 	 * 环信在其他手机登陆，账号被挤掉
@@ -93,7 +206,7 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 		note2Tv.setVisibility(View.GONE);
 		button1.setText("离开");
 		button2.setText("重试");
-		button1.setBackgroundResource(R.drawable.dialog_red_button);
+//		button1.setBackgroundResource(R.drawable.dialog_red_button);
 	}
 	/**
 	 * 兑换提示
@@ -145,7 +258,7 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 	 private void initview2() {
 		// TODO Auto-generated method stub
 		 int num=getIntent().getIntExtra("num", 1);
-		 int goldNum=num-Constants.user.food;
+		 int goldNum=num-PetApplication.myUser.food;
 		 if(goldNum<0)goldNum=0;
 		 
 		 
@@ -183,15 +296,13 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 		 private void initview3() {
 			// TODO Auto-generated method stub
 			 int num=getIntent().getIntExtra("num", 1);
-			 int goldNum=num-Constants.user.food;
+			 int goldNum=num-PetApplication.myUser.food;
 			 if(goldNum<0)goldNum=0;
 			 
 			 
 			 button1.setText("再想想");
 			 button2.setText("去充值");
-			 
-			 button1.setText("好吧~");
-			 button2.setVisibility(View.GONE);
+//			 button2.setVisibility(View.GONE);
 			 
 			 
 			 
@@ -203,8 +314,8 @@ public class Dialog4Activity extends Activity implements OnClickListener{
 			TextView tv4=(TextView)findViewById(R.id.note3);
 			tv1.setText("本次打赏"+num+"份口粮");
 			tv3.setText(""+(goldNum));
-//			tv4.setText("先去充值吧~");
-			tv4.setText("先去应用挣钱吧~");
+			tv4.setText("先去充值吧~");
+//			tv4.setText("先去应用挣钱吧~");
 			iv2.setVisibility(View.GONE);
 			iv2.setOnClickListener(new OnClickListener() {
 				

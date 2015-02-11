@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.AddressData;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.http.HttpUtil;
@@ -54,6 +55,7 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 	String name,phone,postCode,provinceCity,address;
 	UserAddress userAddress;
 	HandleHttpConnectionException handleHttpConnectionException;
+	Animal animal;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -61,6 +63,22 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_receiver_address);
+		
+		
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+			for(int i=0;i<PetApplication.myUser.aniList.size();i++){
+				if(PetApplication.myUser.aniList.get(i).master_id==PetApplication.myUser.userId){
+					animal=PetApplication.myUser.aniList.get(i);
+					break;
+				}
+			}
+			if(animal==null)finish();
+		}else{
+			finish();
+		}
+		
+		
+		
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
 		initView();
 		
@@ -68,8 +86,7 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 	private void initView() {
 		// TODO Auto-generated method stub
 		userAddress=new UserAddress();
-		if(Constants.user!=null){
-			userAddress.aid=Constants.user.currentAnimal.a_id;
+			userAddress.aid=animal.a_id;
 			new Thread(new Runnable() {
 				
 				@Override
@@ -92,7 +109,6 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 					}
 				}
 			}).start();
-		}
 		
 		provicePicker=(NumberPicker)findViewById(R.id.numberpicker1);
 		cityPicker=(NumberPicker)findViewById(R.id.numberpicker2);
@@ -113,7 +129,7 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 		
 		
 		
-		provinceCityET.setText(Constants.user.province+" "+Constants.user.city);
+		provinceCityET.setText(PetApplication.myUser.province+" "+PetApplication.myUser.city);
 		
 		
 		provinceCityET.setOnFocusChangeListener(new OnFocusChangeListener() {
@@ -294,7 +310,7 @@ public class ReceiverAddressActivity extends Activity implements OnClickListener
 		userAddress.region=provinceCity;
 		userAddress.telephone=phone;
 		userAddress.zipcode=postCode;
-		if(Constants.user!=null){
+		if(PetApplication.myUser!=null){
 			new Thread(new Runnable() {
 				
 				@Override

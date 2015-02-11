@@ -70,8 +70,9 @@
         
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="By"
+        android:text="回复"
         android:textSize="14sp" 
+        android:visibility="gone"
         android:layout_marginLeft="5dp"
        android:textColor="#3d3d3d"
         

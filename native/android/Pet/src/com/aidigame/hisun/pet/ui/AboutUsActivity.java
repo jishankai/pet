@@ -23,9 +23,9 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.TextView;
 
 public class AboutUsActivity extends Activity implements OnClickListener{
-	FrameLayout frameLayout;
-	View viewTopWhite;
-	TextView agreementTV;
+//	FrameLayout frameLayout;
+//	View viewTopWhite;
+	private TextView agreementTV;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -48,8 +48,8 @@ public class AboutUsActivity extends Activity implements OnClickListener{
 	}
 	private void setBlurImageBackground() {
 		// TODO Auto-generated method stub
-		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
-		viewTopWhite=(View)findViewById(R.id.top_white_view);
+//		frameLayout=(FrameLayout)findViewById(R.id.framelayout);
+//		viewTopWhite=(View)findViewById(R.id.top_white_view);
 	}
 	@Override
 	public void onClick(View arg0) {

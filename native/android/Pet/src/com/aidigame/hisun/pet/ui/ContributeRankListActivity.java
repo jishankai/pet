@@ -369,7 +369,7 @@ public class ContributeRankListActivity extends Activity {
     boolean isFindMeScroll=false;
 	private void showListArrow() {
 		// TODO Auto-generated method stub
-		int index=peopleList.indexOf(Constants.user);
+		int index=peopleList.indexOf(PetApplication.myUser);
 		if(index>=0&&index<peopleList.size()){
 //			viewTopWhite.setVisibility(View.VISIBLE);
 //			listView.setSelection(index);

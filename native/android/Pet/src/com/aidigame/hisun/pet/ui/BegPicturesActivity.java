@@ -29,6 +29,8 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -42,16 +44,17 @@ import android.widget.RelativeLayout;
  */
 public class BegPicturesActivity extends Activity implements IXListViewListener{
 	
-	ImageView backIv;
-	XListView xListView;
-	BegPicturesAdapter adapter;
-	   Handler handler;
-	   public ArrayList<PetPicture> datas;
-	   int last_id=0;
-	   Animal animal;
-		public View popupParent;
-		public RelativeLayout black_layout;
+	private ImageView backIv;
+	private XListView xListView;
+	private BegPicturesAdapter adapter;
+	private   Handler handler;
+	private  ArrayList<PetPicture> datas;
+	private int last_id=0;
+	private  Animal animal;
+	private  View popupParent;
+	private  RelativeLayout black_layout;
 	   public static BegPicturesActivity begPicturesActivity;
+	   private  RelativeLayout rooLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -67,6 +70,12 @@ public class BegPicturesActivity extends Activity implements IXListViewListener{
 		xListView.setSelector(R.color.orange_red1);
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
 		popupParent=(View)findViewById(R.id.popup_parent);
+		
+		rooLayout=(RelativeLayout)findViewById(R.id.root_layout);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		rooLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
+		
 		
 		backIv.setOnClickListener(new OnClickListener() {
 			
@@ -104,7 +113,7 @@ public class BegPicturesActivity extends Activity implements IXListViewListener{
 		xListView.setAdapter(adapter);
 		loadData();
 	}
-	public void loadData(){
+	private  void loadData(){
 		last_id=0;
 new Thread(new Runnable() {
 			
@@ -217,58 +226,5 @@ final ArrayList<PetPicture> pps=HttpUtil.petBegPicturesList(handler,animal, last
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	   }
-	      public void clickItem2() {
-	  		// TODO Auto-generated method stub
-	  		if(!UserStatusUtil.isLoginSuccess(BegPicturesActivity.this,popupParent,black_layout)){
-//	  		    setBlurImageBackground();
-	  			return ;
-	  		}
-	  		if(Constants.user!=null&&Constants.user.aniList!=null){
-	  			/*DialogGiveSbGift dgb=new DialogGiveSbGift(this,data);
-	  			final AlertDialog dialog=new AlertDialog.Builder(this).setView(dgb.getView())
-	  					.show();*/
-	  			if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null){
-	  				DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
-	  				DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity=null;
-	  			}
-	  			Intent intent=new Intent(this,DialogGiveSbGiftActivity1.class);
-	  			intent.putExtra("animal", animal);
-	  			this.startActivity(intent);
-	  			DialogGiveSbGiftActivity1 dgb=DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity;
-	  			DialogGiveSbGiftActivity1.dialogGoListener=new DialogGiveSbGiftActivity1.DialogGoListener() {
-	  				
-	  				@Override
-	  				public void toDo() {
-	  					// TODO Auto-generated method stub
-	  Intent intent=intent=new Intent(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity,MarketActivity.class);
-	  					
-	  					DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.startActivity(intent);
-	  				}
-	  				
-	  				@Override
-	  				public void closeDialog() {
-	  					// TODO Auto-generated method stub
-	  					if(DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity!=null){
-	  						DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity.finish();
-	  						DialogGiveSbGiftActivity1.dialogGiveSbGiftActivity=null;
-	  					}
-	  					
-	  					
-	  				}
-	  				@Override
-	  				public void lastResult(boolean isSuccess) {
-	  					// TODO Auto-generated method stub
-	  					if(isSuccess){
-	  						onRefresh();
-	  					}
-	  				}
-	  				@Override
-	  				public void unRegister() {
-	  					// TODO Auto-generated method stub
-	  					
-	  				}
-	  			};
-	  		}
-	  		
-	  	}
+	     
 }

@@ -48,6 +48,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aidigame.hisun.pet.FirstPageActivity;
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.adapter.HomePetPictureAdapter;
 import com.aidigame.hisun.pet.adapter.HomeSearchListAdapter;
@@ -88,27 +89,26 @@ import com.huewu.pla.lib.internal.PLA_AdapterView;
 import com.umeng.analytics.MobclickAgent;
 
 public class MyPetFragment extends Fragment implements OnClickListener{
-	public static MyPetFragment myPetFragment;
+	
 	public View menuView,popupParent;//主界面,弹出框所在位置相关父控件
-    HomeActivity homeActivity;
-    public static MyPetFragment homeFragment;
+  
     public ImageView cameraBt;
-    TextView titleTv;
-    HandleHttpConnectionException handleHttpConnectionException;
-	public ViewPager viewPager;//列表界面，三个图片列表
-	public ArrayList<View> viewList;//viewPager中加载的所有view
-	HomeViewPagerAdapter homeViewPagerAdapter;//viewPager的适配器
-	Button hostBt;//打开左侧抽屉按钮
-	LinearLayout camera_album;//显示获取照片界面
-	public LinearLayout progressLayout;//显示加载进度条界面
-	public ShowProgress showProgress;
+    private  TextView titleTv;
+ 
+    private   ViewPager viewPager;//列表界面，三个图片列表
+    private   ArrayList<View> viewList;//viewPager中加载的所有view
+    private  HomeViewPagerAdapter homeViewPagerAdapter;//viewPager的适配器
+    private  Button hostBt;//打开左侧抽屉按钮
+    private  LinearLayout camera_album;//显示获取照片界面
+    private   LinearLayout progressLayout;//显示加载进度条界面
+    private   ShowProgress showProgress;
     public RelativeLayout black_layout;
     public HomeMyPet homeMyPet;
-	public static int COMPLETE=0;
+    private   static int COMPLETE=0;
 	
 
-	public ArrayList<PetPicture> petPictures;
-	public ArrayList<Animal> animals=new ArrayList<Animal>();
+
+
 	//下载完一张图片
 	public  static final int MESSAGE_DOWNLOAD_IMAGE=2;
 	//更新瀑布流
@@ -122,14 +122,14 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 	public static final int SHOW_BACKGROUND_CONTROL=208;
 	public static final int HIDE_BACKGROUND_CONTROL=209;
 	
-	View view1;
-	 HomePetPictures homePetPictures;
-	public ListView listView;
-	public int last_id=-1;
+	private  View view1;
+
+
+
 	public Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			if(msg.what==COMPLETE){
-				homeActivity.finish();
+				getActivity().finish();
 			}
 			switch (msg.what) {
 			case Constants.MESSAGE_DOWNLOAD_IMAGES_LIST:
@@ -144,7 +144,7 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 				break;
 			case SHOW_PROGRESS:
 				if(showProgress==null){
-					showProgress=new ShowProgress(homeActivity,  progressLayout);
+					showProgress=new ShowProgress(getActivity(),  progressLayout);
 				}else{
 					showProgress.showProgress();
 				}
@@ -174,9 +174,7 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		menuView=inflater.inflate(R.layout.fragment_my_pet, null);
-		homeFragment=this;
-		homeActivity=HomeActivity.homeActivity;
-		myPetFragment=this;
+		
 		LogUtil.i("mi", "homefragment====="+"onCreateView()");
 		return menuView;
 	}
@@ -187,17 +185,13 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 		super.onViewCreated(view, savedInstanceState);
 		//登陆成功
 		LogUtil.i("mi", "homefragment====="+"onViewCreated()");
-		//TODO
-//		UserStatusUtil.downLoadUserInfo(homeActivity);
-		homeActivity=HomeActivity.homeActivity;
-		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
+		
 		LogUtil.i("exception", "创建HomeActivity");
 		long time=System.currentTimeMillis();
 		LogUtil.i("exception", "创建HomeActivity");
-		petPictures=new ArrayList<PetPicture>();
 		
 		initView();
-		LogUtil.i("me", "Constants.isSuccess="+Constants.isSuccess);
+		LogUtil.i("me", "Constants.isSuccess="+PetApplication.isSuccess);
 	}
 	@Override
 	public void onResume() {
@@ -218,12 +212,12 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 		
 		
 		
-		if(Constants.user!=null&&Constants.user.aniList!=null){
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
 			
 			  ArrayList<Animal> animals=new ArrayList<Animal>();
-		  		for(int i=0;i<Constants.user.aniList.size();i++){
-		  			if(Constants.user.userId==Constants.user.aniList.get(i).master_id){
-		  				animals.add(Constants.user.aniList.get(i));
+		  		for(int i=0;i<PetApplication.myUser.aniList.size();i++){
+		  			if(PetApplication.myUser.userId==PetApplication.myUser.aniList.get(i).master_id){
+		  				animals.add(PetApplication.myUser.aniList.get(i));
 		  			}
 		  		}
 		  		if(animals.size()>0){
@@ -241,11 +235,11 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 		   
 		camera_album=(LinearLayout)menuView.findViewById(R.id.camera_album);
 		progressLayout=(LinearLayout)menuView.findViewById(R.id.progress_parent);
-		showProgress=new ShowProgress(homeActivity, progressLayout);
+		showProgress=new ShowProgress(getActivity(), progressLayout);
 		showProgress.progressCancel();
         viewPager=(ViewPager)menuView.findViewById(R.id.viewpager);
        
-       homeMyPet=new HomeMyPet(homeActivity);
+       homeMyPet=new HomeMyPet(getActivity());
        view1=homeMyPet.getView();
        
       
@@ -265,7 +259,7 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 				LogUtil.i("scroll", "viewpager=====onPageSelected");
 				switch (arg0) {
 				case 0:
-					if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
+					if(!UserStatusUtil.isLoginSuccess(getActivity(),popupParent,black_layout)){
 						
 					}
 					break;
@@ -315,12 +309,12 @@ public class MyPetFragment extends Fragment implements OnClickListener{
            joinKingdom();
 			break;
 		case R.id.imageView2:
-          if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
+          if(!UserStatusUtil.isLoginSuccess(getActivity(),popupParent,black_layout)){
 				
 				return;
 			}
        
-			if(Constants.user!=null&&Constants.user.aniList!=null){
+			if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
 				/*if(Constants.user.userId==Constants.user.currentAnimal.master_id){
 					cameraBt.setVisibility(View.VISIBLE);
 				}else{
@@ -328,9 +322,9 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 					return;
 				}*/
 				  ArrayList<Animal> animals=new ArrayList<Animal>();
-			  		for(int i=0;i<Constants.user.aniList.size();i++){
-			  			if(Constants.user.userId==Constants.user.aniList.get(i).master_id){
-			  				animals.add(Constants.user.aniList.get(i));
+			  		for(int i=0;i<PetApplication.myUser.aniList.size();i++){
+			  			if(PetApplication.myUser.userId==PetApplication.myUser.aniList.get(i).master_id){
+			  				animals.add(PetApplication.myUser.aniList.get(i));
 			  			}
 			  		}
 			  		if(animals.size()>0){
@@ -338,7 +332,7 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 					showCameraAlbum(animals.get(0),false);
 			  		}
 			}else{
-				Toast.makeText(homeActivity, "只有宠物主人才可以上传照片,目前您还没有创建的萌星", Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(), "只有宠物主人才可以上传照片,目前您还没有创建的萌星", Toast.LENGTH_LONG).show();
 			}
 			
 			
@@ -348,26 +342,26 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 			break;
 		}
 	}
-	public void joinKingdom(){
-		 if(!UserStatusUtil.isLoginSuccess(homeActivity,popupParent,black_layout)){
+	private   void joinKingdom(){
+		 if(!UserStatusUtil.isLoginSuccess(getActivity(),popupParent,black_layout)){
 				return;
 		}
-		if(Constants.user!=null&&Constants.user.aniList!=null){
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
 			int num=0;
-			if(Constants.user.aniList.size()>=10&&Constants.user.aniList.size()<=20){
-				num=(Constants.user.aniList.size()+1)*5;
-			}else  if(Constants.user.aniList.size()>20){
+			if(PetApplication.myUser.aniList.size()>=10&&PetApplication.myUser.aniList.size()<=20){
+				num=(PetApplication.myUser.aniList.size()+1)*5;
+			}else  if(PetApplication.myUser.aniList.size()>20){
 				num=100;
 			}
 			
 			if(/*Constants.user.coinCount>=num*/true){
-				Intent intent=new Intent(homeActivity,ChoseAcountTypeActivity.class);
+				Intent intent=new Intent(getActivity(),ChoseAcountTypeActivity.class);
 				intent.putExtra("from", 1);
-				homeActivity.startActivity(intent);
+				getActivity().startActivity(intent);
 //				DialogGoRegister dialog=new DialogGoRegister(popup_parent, homeActivity, black_layout, 4);
 			}else{
 				
-				DialogNote dialog=new DialogNote(popupParent, homeActivity, black_layout, 1);
+				DialogNote dialog=new DialogNote(popupParent, getActivity(), black_layout, 1);
 			}
 			
 		}
@@ -379,7 +373,7 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 		super.onStart();
 		LogUtil.i("mi", "homefragment====="+"onStart");
 	}
-	boolean isFirst=true;
+
 	
 	boolean isShowingCameraAlbum=false;
 	public void showCameraAlbum(final Animal animal,final boolean isBeg) {
@@ -387,8 +381,8 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 		isShowingCameraAlbum=true;
 		long l1=System.currentTimeMillis();
 		LogUtil.i("scroll",""+( System.currentTimeMillis()-l1));
-		final View view=LayoutInflater.from(homeActivity).inflate(R.layout.popup_user_homepage, null);
-		Animation animation=AnimationUtils.loadAnimation(homeActivity, R.anim.anim_translate_showtopic_addcommentlayout_in);
+		final View view=LayoutInflater.from(getActivity()).inflate(R.layout.popup_user_homepage, null);
+		Animation animation=AnimationUtils.loadAnimation(getActivity(), R.anim.anim_translate_showtopic_addcommentlayout_in);
 		view.clearAnimation();
 		view.setAnimation(animation);
 		animation.start();
@@ -405,17 +399,17 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent2=new Intent(homeActivity,TakePictureBackground.class);
+				Intent intent2=new Intent(getActivity(),TakePictureBackground.class);
 				intent2.putExtra("mode", TakePictureBackground.MODE_TOPIC);
 				if(animal!=null){
 					intent2.putExtra("animal", animal);
 					intent2.putExtra("isBeg", isBeg);
 				}else{
-					intent2.putExtra("animal", Constants.user.currentAnimal);
+					intent2.putExtra("animal", PetApplication.myUser.currentAnimal);
 					intent2.putExtra("isBeg", isBeg);
 				}
 				
-				homeActivity.startActivity(intent2);
+				getActivity().startActivity(intent2);
 						camera_album.setVisibility(View.INVISIBLE);
 						camera_album.setClickable(false);
 						isShowingCameraAlbum=false;
@@ -427,17 +421,17 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent2=new Intent(homeActivity,AlbumPictureBackground.class);
+				Intent intent2=new Intent(getActivity(),AlbumPictureBackground.class);
 				intent2.putExtra("mode", TakePictureBackground.MODE_TOPIC);
 				
 				if(animal!=null){
 					intent2.putExtra("animal", animal);
 					intent2.putExtra("isBeg", isBeg);
 				}else{
-					intent2.putExtra("animal", Constants.user.currentAnimal);
+					intent2.putExtra("animal", PetApplication.myUser.currentAnimal);
 					intent2.putExtra("isBeg", isBeg);
 				}
-				homeActivity.startActivity(intent2);
+				getActivity().startActivity(intent2);
 				
 						camera_album.setVisibility(View.INVISIBLE);
 						camera_album.setClickable(false);
@@ -450,7 +444,7 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Animation animation=AnimationUtils.loadAnimation(homeActivity, R.anim.anim_translate_showtopic_addcommentlayout_out);
+				Animation animation=AnimationUtils.loadAnimation(getActivity(), R.anim.anim_translate_showtopic_addcommentlayout_out);
 				view.clearAnimation();
 				view.setAnimation(animation);
 				animation.start();
@@ -474,41 +468,6 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 
 
 	
-	/**
-	 * 判断用户是创建王国还是认养宠物
-	 */
-	public void judgeAcountType(){
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				if(Constants.isSuccess){
-					while(Constants.user==null||Constants.user.currentAnimal==null){
-						try {
-							Thread.sleep(50);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-					homeActivity.runOnUiThread(new Runnable() {
-						
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							if(Constants.user.userId==Constants.user.currentAnimal.master_id){
-								cameraBt.setVisibility(View.VISIBLE);
-							}else{
-								cameraBt.setVisibility(View.INVISIBLE);
-							}
-						}
-					});
-					
-				}
-			}
-		}).start();
-	}
 	
 	
 

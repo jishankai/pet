@@ -2,18 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+     android:orientation="vertical" 
     android:id="@+id/parent_layout" >
-   <!--  <com.aidigame.hisun.pet.view.MyScrollView 
-        android:id="@+id/scrollview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"> --><!-- com.aidigame.hisun.pet.view.MyScrollV -->
-    <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" 
-        android:orientation="vertical" >
         <RelativeLayout 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:id="@+id/banner_layout">
             <com.aidigame.hisun.pet.view.MyViewPager
             android:id="@+id/viewpager"
@@ -94,7 +88,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
         />
-    </LinearLayout>
-<!-- </com.aidigame.hisun.pet.view.MyScrollView> -->
 
 </LinearLayout>

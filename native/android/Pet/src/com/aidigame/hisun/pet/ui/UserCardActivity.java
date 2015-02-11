@@ -42,21 +42,20 @@ import android.widget.TextView;
  *
  */
 public class UserCardActivity extends Activity implements OnClickListener{
-	ImageView closeIv,iconIv,leftIv,rifhtIv,sexIv;
-	TextView nameTv,addressTv,goldNumTv,mailOrModiryTv;
-	HorizontalListView2 listView2;
-	ShowProgress showProgress;
-	LinearLayout progresslayout;
-	Handler handler;
-	View popupParent;
-	RelativeLayout black_layout;
-	MyUser user;
+	private ImageView closeIv,iconIv,leftIv,rifhtIv,sexIv;
+	private TextView nameTv,addressTv,goldNumTv,mailOrModiryTv;
+	private HorizontalListView2 listView2;
+	private ShowProgress showProgress;
+	private LinearLayout progresslayout;
+	private Handler handler;
+	private View popupParent;
+	private RelativeLayout black_layout;
+	private MyUser user;
 	public static UserCardActivity userCardActivity;
-	UserPetsAdapter userPetsAdapter;
-	ArrayList<Animal> animals;
-	int current_position=0;
-	LinearLayout listLayout;
-	int from;//1,照片详情
+	private UserPetsAdapter userPetsAdapter;
+	private ArrayList<Animal> animals;
+	private int current_position=0;
+	private int from;//1,照片详情
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -99,7 +98,6 @@ public class UserCardActivity extends Activity implements OnClickListener{
 	    goldNumTv=(TextView)findViewById(R.id.gold_tv);
 	    mailOrModiryTv=(TextView)findViewById(R.id.button_tv);
 	    progresslayout=(LinearLayout)findViewById(R.id.progress_layout);
-	    listLayout=(LinearLayout)findViewById(R.id.list_layout);
 	    listView2=(HorizontalListView2)findViewById(R.id.listview);
 	    animals=new ArrayList<Animal>();
 	    userPetsAdapter=new UserPetsAdapter(this, animals, user);
@@ -177,7 +175,7 @@ public class UserCardActivity extends Activity implements OnClickListener{
 	}
 	private void loadIcons() {
 		// TODO Auto-generated method stub
-new Thread(new Runnable() {
+        new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
@@ -225,7 +223,7 @@ new Thread(new Runnable() {
 		}else{
 			
 		}
-		if(Constants.user!=null&&Constants.user.userId==user.userId){
+		if(PetApplication.myUser!=null&&PetApplication.myUser.userId==user.userId){
 			mailOrModiryTv.setText("修改资料");
 		}else{
 			mailOrModiryTv.setText("私信");
@@ -280,7 +278,7 @@ new Thread(new Runnable() {
 			System.gc();
 			break;
 		case R.id.user_icon:
-			if(Constants.user!=null&&Constants.user.userId==user.userId){
+			if(PetApplication.myUser!=null&&PetApplication.myUser.userId==user.userId){
 				Intent intent6=new Intent(this,ModifyPetInfoActivity.class);
 				intent6.putExtra("mode", 2);
 				this.startActivity(intent6);
@@ -343,7 +341,7 @@ new Thread(new Runnable() {
 			if(!UserStatusUtil.isLoginSuccess(this,popupParent,black_layout)){
 				return;
 			}
-			if(Constants.user!=null&&Constants.user.userId==user.userId){
+			if(PetApplication.myUser!=null&&PetApplication.myUser.userId==user.userId){
 				Intent intent=new Intent(this,ModifyPetInfoActivity.class);
 				intent.putExtra("mode", 2);
 				startActivity(intent);

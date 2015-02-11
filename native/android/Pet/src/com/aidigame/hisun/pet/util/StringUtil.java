@@ -582,6 +582,10 @@ public class StringUtil {
 		}*/
 		return jobs;
 	}
+	
+	
+	
+	
 	/**
 	 * 根据手机的dpi不同，设定不同的缩放比例
 	 */
@@ -591,6 +595,9 @@ public class StringUtil {
 	    int desityDpi=displayMetrics.densityDpi;
 	    float desity=displayMetrics.density;
 	    LogUtil.i("mi", "desity="+desityDpi);
+		LogUtil.i("runtime","Runtime.getRuntime().freeMemory()=="+Runtime.getRuntime().freeMemory()/1024 );
+		LogUtil.i("runtime","Runtime.getRuntime().totalMemory()=="+Runtime.getRuntime().totalMemory()/1024 );
+		LogUtil.i("runtime","Runtime.getRuntime().maxMemory()=="+Runtime.getRuntime().maxMemory()/1024 );
 	    if(desityDpi<=320){
 	    	if(path.contains("@")){
             	int a=path.indexOf("@");

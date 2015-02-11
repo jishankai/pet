@@ -43,22 +43,22 @@ import com.easemob.chat.EMContactManager;
  *
  */
 public class UsersListActivity extends Activity {
-	FrameLayout frameLayout;
-	View viewTopWhite;
+	private FrameLayout frameLayout;
+	private View viewTopWhite;
 	public View popup_parent;
 	public RelativeLayout black_layout;
-	UsersListAdapter adapter;
-	SimpleUsersListAdapter adapter2;
-	ArrayList<MyUser> list;
-	ListView  listView;
-	String likerString;
-	String senderString;
-	ImageView back;
-	TextView title,noteTv;
-	int mode=0;//0, 围观群众；1，设置黑名单
-	String block_list_str;
-	HandleHttpConnectionException handleHttpConnectionException;
-	Handler handler=new Handler(){
+	private UsersListAdapter adapter;
+	private SimpleUsersListAdapter adapter2;
+	private ArrayList<MyUser> list;
+	private ListView  listView;
+	private String likerString;
+	private String senderString;
+	private ImageView back;
+	private TextView title,noteTv;
+	private int mode=0;//0, 围观群众；1，设置黑名单
+	private String block_list_str;
+	private HandleHttpConnectionException handleHttpConnectionException;
+	private Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			
 		};
@@ -100,7 +100,14 @@ public class UsersListActivity extends Activity {
 						}
 					}
 				}
+				if(list.size()==0){
+					listView.setVisibility(View.GONE);
+					noteTv.setVisibility(View.VISIBLE);
+				}
 				
+			}else{
+				listView.setVisibility(View.GONE);
+				noteTv.setVisibility(View.VISIBLE);
 			}
 			
 		}else if(mode==0){
@@ -166,7 +173,7 @@ public class UsersListActivity extends Activity {
 	/**
 	 * 围观群众界面
 	 */
-	public void loadData1(){
+	private  void loadData1(){
 		new Thread(new Runnable() {
 			ArrayList<MyUser> temp,temp1;
 			@Override
@@ -208,7 +215,7 @@ public class UsersListActivity extends Activity {
 	}
 	
 	
-	public void loadData2(){
+	private  void loadData2(){
 		new Thread(new Runnable() {
 			ArrayList<MyUser> temp;
 			@Override

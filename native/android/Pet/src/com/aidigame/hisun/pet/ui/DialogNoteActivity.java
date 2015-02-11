@@ -14,6 +14,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -85,8 +86,8 @@ public class DialogNoteActivity extends Activity{
 		    note2.setVisibility(View.VISIBLE);
 		    iv.setImageResource(R.drawable.gold1);
 		    tv.setText("+ "+num);
-		    if(Constants.user!=null)
-		    Constants.user.coinCount+=num;
+		    if(PetApplication.myUser!=null)
+		    	PetApplication.myUser.coinCount+=num;
 		    startShowAnimation(view);
 		    if(UserCenterFragment.userCenterFragment!=null){
 		    	UserCenterFragment.userCenterFragment.updatateInfo(true);;
@@ -186,7 +187,7 @@ public class DialogNoteActivity extends Activity{
 			}*/
 			numTv.setText("+"+num);
 			
-			tv5.setText("您已经连续来了1天，明日将受到"+Constants.user.next_gold);
+			tv5.setText("您已经连续来了1天，明日将受到"+PetApplication.myUser.next_gold);
 		}else if(mode==2){
 			/*
 			 * 经验升级
@@ -194,12 +195,12 @@ public class DialogNoteActivity extends Activity{
 			setContentView(R.layout.dialog_user_experience_upgrade);
 			TextView numTv=(TextView)findViewById(R.id.textView2);
 			TextView tv5=(TextView)findViewById(R.id.textView5);
-			Constants.user.lv++;
-            numTv.setText(""+Constants.user.lv);
+			PetApplication.myUser.lv++;
+            numTv.setText(""+PetApplication.myUser.lv);
 			
 		
 			tv5.setText("+"+num);
-			Constants.user.coinCount=Constants.user.coinCount+num;
+			PetApplication.myUser.coinCount=PetApplication.myUser.coinCount+num;
 		}else if(mode==3){
 			/*
 			 * 升值
@@ -214,7 +215,7 @@ public class DialogNoteActivity extends Activity{
 			}else{
 				numTv.setText(str[1]);
 			}
-			Constants.user.coinCount=Constants.user.coinCount+num;
+			PetApplication.myUser.coinCount=PetApplication.myUser.coinCount+num;
 			BitmapFactory.Options options=new BitmapFactory.Options();
 			options.inJustDecodeBounds=false;
 			options.inSampleSize=4;
@@ -232,7 +233,7 @@ public class DialogNoteActivity extends Activity{
 	                .build();
 			RoundImageView view=(RoundImageView)findViewById(R.id.icon_circleView);
 			ImageLoader imageLoader=ImageLoader.getInstance();
-			imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+Constants.user.u_iconUrl, view,displayImageOptions,new ImageLoadingListener() {
+			imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+PetApplication.myUser.u_iconUrl, view,displayImageOptions,new ImageLoadingListener() {
 				
 				@Override
 				public void onLoadingStarted(String imageUri, View view) {

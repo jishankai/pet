@@ -28,6 +28,8 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -49,7 +51,7 @@ public class PetPicturesActivity extends Activity implements IXListViewListener{
 	   int last_id=-1;
 	   Animal animal;
 		public View popupParent;
-		public RelativeLayout black_layout;
+		public RelativeLayout black_layout,root_layout;
 	   public static PetPicturesActivity petPictureActivity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,11 @@ public class PetPicturesActivity extends Activity implements IXListViewListener{
 		xListView=(XListView)findViewById(R.id.listview);
 		black_layout=(RelativeLayout)findViewById(R.id.black_layout);
 		popupParent=(View)findViewById(R.id.popup_parent);
+		
+		root_layout=(RelativeLayout)findViewById(R.id.root_layout);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		root_layout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
 		
 		backIv.setOnClickListener(new OnClickListener() {
 			
@@ -291,7 +298,7 @@ new Thread(new Runnable() {
 //	  		    setBlurImageBackground();
 	  			return ;
 	  		}
-	  		if(Constants.user!=null&&Constants.user.aniList!=null){
+	  		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
 	  			/*DialogGiveSbGift dgb=new DialogGiveSbGift(this,data);
 	  			final AlertDialog dialog=new AlertDialog.Builder(this).setView(dgb.getView())
 	  					.show();*/

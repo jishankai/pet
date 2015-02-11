@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:background="@drawable/blur">
+    android:id="@+id/root_layout"
+    ><!--  android:background="@drawable/blur"-->
     <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="54dp"
@@ -18,15 +19,25 @@
         <TextView 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="支付"
+            android:text="充值"
+            android:id="@+id/title"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
+    <WebView 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webview"
+        android:visibility="visible"/>
+    
+    
+    
     <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:visibility="gone"
     android:gravity="center_horizontal" >
     <LinearLayout 
         android:layout_width="match_parent"

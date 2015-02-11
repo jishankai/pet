@@ -416,6 +416,15 @@ public class MessageAdapter extends BaseAdapter{
 
 				}
 			});
+			
+			imageLoader=ImageLoader.getInstance();
+			try {
+				imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+message.getStringAttribute("tx"), holder.head_iv, displayImageOptions);
+			} catch (EaseMobException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 
 		} else {
 			// 长按头像，移入黑名单
@@ -432,48 +441,106 @@ public class MessageAdapter extends BaseAdapter{
 					return true;
 				}
 			});
-		}
-
-		TextView timestamp = (TextView) convertView.findViewById(R.id.timestamp);
-
-		if (position == 0) {
-			timestamp.setText(DateUtils.getTimestampString(new Date(message.getMsgTime())));
-			timestamp.setVisibility(View.VISIBLE);
-		} else {
-			// 两条消息时间离得如果稍长，显示时间
-			if (DateUtils.isCloseEnough(message.getMsgTime(), conversation.getMessage(position - 1).getMsgTime())) {
-				timestamp.setVisibility(View.GONE);
-			} else {
-				timestamp.setText(DateUtils.getTimestampString(new Date(message.getMsgTime())));
-				timestamp.setVisibility(View.VISIBLE);
-			}
-		}
-		
-		
-		if("1".equals(username)){
-			holder.head_iv.setImageResource(R.drawable.miaomiao);
-			String type="";
-			try {
-				type = message.getStringAttribute("type");
-			} catch (EaseMobException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if("3".equals(type)){
-			holder.redRight_iv.setVisibility(View.VISIBLE);
-			holder.redRight_iv.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					
-						
-						Intent intent=new Intent(context,ReceiverAddressActivity.class);
-						context.startActivity(intent);
+			
+			
+			if("1".equals(username)){
+				holder.head_iv.setImageResource(R.drawable.miaomiao);
+				String type="";
+				try {
+					type = message.getStringAttribute("type");
+				} catch (EaseMobException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			});
-			}
-			else if("2".equals(type)){
+				if("3".equals(type)){
+				holder.redRight_iv.setVisibility(View.VISIBLE);
+				holder.redRight_iv.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						
+							
+							Intent intent=new Intent(context,ReceiverAddressActivity.class);
+							context.startActivity(intent);
+					}
+				});
+				}
+				else if("2".equals(type)){
+					holder.redRight_iv.setVisibility(View.VISIBLE);
+					holder.redRight_iv.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							//赏口粮跳转
+							PetPicture petPicture=new PetPicture();
+							String img_id="";
+							try {
+								img_id = message.getStringAttribute("img_id");
+							} catch (EaseMobException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							if(StringUtil.isEmpty(img_id))return;
+							petPicture.img_id=(int)Integer.parseInt(img_id);
+							Intent intent=new Intent(context,PictureBegActivity.class);
+							intent.putExtra("PetPicture", petPicture);
+							context.startActivity(intent);
+						}
+					});
+					}
+				else if("1".equals(type)){
+						holder.redRight_iv.setVisibility(View.VISIBLE);
+						holder.redRight_iv.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								//发布图片跳转
+								PetPicture petPicture=new PetPicture();
+								String img_id="";
+								try {
+									img_id = message.getStringAttribute("img_id");
+								} catch (EaseMobException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								if(StringUtil.isEmpty(img_id))return;
+								petPicture.img_id=(int)Integer.parseInt(img_id);
+								if(NewShowTopicActivity.newShowTopicActivity!=null){
+									NewShowTopicActivity.newShowTopicActivity.recyle();
+								}
+								Intent intent=new Intent(context,NewShowTopicActivity.class);
+								intent.putExtra("PetPicture", petPicture);
+								context.startActivity(intent);
+							}
+						});
+						}else{
+							holder.redRight_iv.setVisibility(View.GONE);
+						}
+			}else if("2".equals(username)){
+				holder.head_iv.setImageResource(R.drawable.wangwang);
+				String type="";
+				try {
+					type = message.getStringAttribute("type");
+				} catch (EaseMobException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if("3".equals(type)){
+				holder.redRight_iv.setVisibility(View.VISIBLE);
+				holder.redRight_iv.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+							Intent intent=new Intent(context,ReceiverAddressActivity.class);
+							context.startActivity(intent);
+					}
+				});
+				}
+				else if("2".equals(type)){
 				holder.redRight_iv.setVisibility(View.VISIBLE);
 				holder.redRight_iv.setOnClickListener(new OnClickListener() {
 					
@@ -497,7 +564,7 @@ public class MessageAdapter extends BaseAdapter{
 					}
 				});
 				}
-			else if("1".equals(type)){
+				else if("1".equals(type)){
 					holder.redRight_iv.setVisibility(View.VISIBLE);
 					holder.redRight_iv.setOnClickListener(new OnClickListener() {
 						
@@ -526,59 +593,35 @@ public class MessageAdapter extends BaseAdapter{
 					}else{
 						holder.redRight_iv.setVisibility(View.GONE);
 					}
-		}else if("2".equals(username)){
-			holder.head_iv.setImageResource(R.drawable.wangwang);
-			String type="";
-			try {
-				type = message.getStringAttribute("type");
-			} catch (EaseMobException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if("3".equals(type)){
-			holder.redRight_iv.setVisibility(View.VISIBLE);
-			holder.redRight_iv.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-						Intent intent=new Intent(context,ReceiverAddressActivity.class);
-						context.startActivity(intent);
+			}else if("3".equals(username)){//3
+				holder.head_iv.setImageResource(R.drawable.xiaoge);
+				String type="";
+				try {
+					type = message.getStringAttribute("type");
+				} catch (EaseMobException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			});
-			}
-			else if("2".equals(type)){
-			holder.redRight_iv.setVisibility(View.VISIBLE);
-			holder.redRight_iv.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					//赏口粮跳转
-					PetPicture petPicture=new PetPicture();
-					String img_id="";
-					try {
-						img_id = message.getStringAttribute("img_id");
-					} catch (EaseMobException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					if(StringUtil.isEmpty(img_id))return;
-					petPicture.img_id=(int)Integer.parseInt(img_id);
-					Intent intent=new Intent(context,PictureBegActivity.class);
-					intent.putExtra("PetPicture", petPicture);
-					context.startActivity(intent);
-				}
-			});
-			}
-			else if("1".equals(type)){
+				if("3".equals(type)){
 				holder.redRight_iv.setVisibility(View.VISIBLE);
 				holder.redRight_iv.setOnClickListener(new OnClickListener() {
 					
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						//发布图片跳转
+							Intent intent=new Intent(context,ReceiverAddressActivity.class);
+							context.startActivity(intent);
+					}
+				});
+				}
+				else if("2".equals(type)){
+				holder.redRight_iv.setVisibility(View.VISIBLE);
+				holder.redRight_iv.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						//赏口粮跳转
 						PetPicture petPicture=new PetPicture();
 						String img_id="";
 						try {
@@ -589,100 +632,73 @@ public class MessageAdapter extends BaseAdapter{
 						}
 						if(StringUtil.isEmpty(img_id))return;
 						petPicture.img_id=(int)Integer.parseInt(img_id);
-						if(NewShowTopicActivity.newShowTopicActivity!=null){
-							NewShowTopicActivity.newShowTopicActivity.recyle();
-						}
-						Intent intent=new Intent(context,NewShowTopicActivity.class);
+						Intent intent=new Intent(context,PictureBegActivity.class);
 						intent.putExtra("PetPicture", petPicture);
 						context.startActivity(intent);
 					}
 				});
-				}else{
-					holder.redRight_iv.setVisibility(View.GONE);
 				}
-		}else if("3".equals(username)){//3
-			holder.head_iv.setImageResource(R.drawable.xiaoge);
-			String type="";
-			try {
-				type = message.getStringAttribute("type");
-			} catch (EaseMobException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if("3".equals(type)){
-			holder.redRight_iv.setVisibility(View.VISIBLE);
-			holder.redRight_iv.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-						Intent intent=new Intent(context,ReceiverAddressActivity.class);
-						context.startActivity(intent);
-				}
-			});
-			}
-			else if("2".equals(type)){
-			holder.redRight_iv.setVisibility(View.VISIBLE);
-			holder.redRight_iv.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					//赏口粮跳转
-					PetPicture petPicture=new PetPicture();
-					String img_id="";
-					try {
-						img_id = message.getStringAttribute("img_id");
-					} catch (EaseMobException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					if(StringUtil.isEmpty(img_id))return;
-					petPicture.img_id=(int)Integer.parseInt(img_id);
-					Intent intent=new Intent(context,PictureBegActivity.class);
-					intent.putExtra("PetPicture", petPicture);
-					context.startActivity(intent);
-				}
-			});
-			}
-			else if("1".equals(type)){
-				holder.redRight_iv.setVisibility(View.VISIBLE);
-				holder.redRight_iv.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						//发布图片跳转
-						PetPicture petPicture=new PetPicture();
-						String img_id="";
-						try {
-							img_id = message.getStringAttribute("img_id");
-						} catch (EaseMobException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+				else if("1".equals(type)){
+					holder.redRight_iv.setVisibility(View.VISIBLE);
+					holder.redRight_iv.setOnClickListener(new OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							// TODO Auto-generated method stub
+							//发布图片跳转
+							PetPicture petPicture=new PetPicture();
+							String img_id="";
+							try {
+								img_id = message.getStringAttribute("img_id");
+							} catch (EaseMobException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							if(StringUtil.isEmpty(img_id))return;
+							petPicture.img_id=(int)Integer.parseInt(img_id);
+							if(NewShowTopicActivity.newShowTopicActivity!=null){
+								NewShowTopicActivity.newShowTopicActivity.recyle();
+							}
+							Intent intent=new Intent(context,NewShowTopicActivity.class);
+							intent.putExtra("PetPicture", petPicture);
+							context.startActivity(intent);
 						}
-						if(StringUtil.isEmpty(img_id))return;
-						petPicture.img_id=(int)Integer.parseInt(img_id);
-						if(NewShowTopicActivity.newShowTopicActivity!=null){
-							NewShowTopicActivity.newShowTopicActivity.recyle();
-						}
-						Intent intent=new Intent(context,NewShowTopicActivity.class);
-						intent.putExtra("PetPicture", petPicture);
-						context.startActivity(intent);
+					});
+					}else{
+						holder.redRight_iv.setVisibility(View.GONE);
 					}
-				});
-				}else{
-					holder.redRight_iv.setVisibility(View.GONE);
+			}else{
+				imageLoader=ImageLoader.getInstance();
+				try {
+					imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+message.getStringAttribute("tx"), holder.head_iv, displayImageOptions);
+				} catch (EaseMobException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-		}else{
-			imageLoader=ImageLoader.getInstance();
-			try {
-				imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+message.getStringAttribute("tx"), holder.head_iv, displayImageOptions);
-			} catch (EaseMobException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			}
+			
+			
+			
+			
+		}
+
+		TextView timestamp = (TextView) convertView.findViewById(R.id.timestamp);
+
+		if (position == 0) {
+			timestamp.setText(DateUtils.getTimestampString(new Date(message.getMsgTime())));
+			timestamp.setVisibility(View.VISIBLE);
+		} else {
+			// 两条消息时间离得如果稍长，显示时间
+			if (DateUtils.isCloseEnough(message.getMsgTime(), conversation.getMessage(position - 1).getMsgTime())) {
+				timestamp.setVisibility(View.GONE);
+			} else {
+				timestamp.setText(DateUtils.getTimestampString(new Date(message.getMsgTime())));
+				timestamp.setVisibility(View.VISIBLE);
 			}
 		}
+		
+		
+		
 		
 		
 		

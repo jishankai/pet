@@ -5,6 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/reward_layout"
+        android:clickable="true"
        >
  <RelativeLayout 
                 android:id="@+id/image_layout"
@@ -70,6 +71,18 @@
                    android:layout_height="wrap_content"
                    android:textColor="@color/orange_red1"/>
                  </LinearLayout> -->
+                 
+                 <ImageView 
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_above="@+id/beg_info_layout"
+                     android:layout_alignParentRight="true"
+                     android:src="@drawable/anim_beg_frame"
+                     android:id="@+id/beg_anim_iv"
+                     android:layout_marginBottom="-12dp"
+                     android:layout_marginRight="10dp"/>
+                 
+                 
            <RelativeLayout 
                android:id="@+id/beg_info_layout"
                android:layout_width="match_parent"

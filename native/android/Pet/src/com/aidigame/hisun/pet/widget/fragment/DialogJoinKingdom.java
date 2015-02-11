@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -13,9 +15,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.bean.Animal;
 import com.aidigame.hisun.pet.constant.Constants;
@@ -36,9 +40,11 @@ public class DialogJoinKingdom {
 	PopupWindow popupWindow;
 	View blackView;
 	Animal animal;
+	
 	TextView noteTv;
 	HandleHttpConnectionException handleHttpConnectionException;
 	ResultListener listener;
+	
 	public DialogJoinKingdom(View parent,Context context,View blackView,Animal animal){
 		this.parent=parent;
 		this.context=context;
@@ -54,10 +60,8 @@ public class DialogJoinKingdom {
 		noteTv=(TextView)view.findViewById(R.id.note_tv);
 		
 		
-		
-		
 		int count=0;
-		for(int i=0;i<Constants.user.aniList.size();i++){
+		for(int i=0;i<PetApplication.myUser.aniList.size();i++){
 //			if(Constants.user.aniList.get(i).master_id!=Constants.user.userId)
 				count++;
 		}
@@ -93,13 +97,15 @@ public class DialogJoinKingdom {
 		int[] location=new int[2];
 		parent.getLocationInWindow(location);
 		blackView.setBackgroundResource(R.color.window_black_bagd);
-		popupWindow.showAsDropDown(parent, (location[0]+parent.getWidth()/2-view.getMeasuredWidth()/2)/2, -view.getMeasuredHeight()/2);
+		popupWindow.showAtLocation(blackView, Gravity.CENTER, 0, 0);
+//		popupWindow.showAsDropDown(parent, (location[0]+parent.getWidth()/2-view.getMeasuredWidth()/2)/2, -view.getMeasuredHeight()/2);
 		view.findViewById(R.id.imageView1).setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				popupWindow.dismiss();
+				if(listener!=null)listener.getResult(false);
 				blackView.setBackgroundDrawable(null);
 			}
 		});
@@ -109,7 +115,6 @@ public class DialogJoinKingdom {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
 				new Thread(new Runnable() {
 					
 					@Override
@@ -133,14 +138,14 @@ public class DialogJoinKingdom {
 							    	animal.u_rank=jobs[0];
 							    	animal.job=jobs[0];
 							    	animal.u_rankCode=1;
-							    	Constants.user.coinCount-=num;
+							    	PetApplication.myUser.coinCount-=num;
 //									Toast.makeText(context, "捧TA成功", 1000).show();
-									if(Constants.user!=null&&Constants.user.aniList!=null){
-										if(!Constants.user.aniList.contains(animal))
-										Constants.user.aniList.add(animal);
+									if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+										if(!PetApplication.myUser.aniList.contains(animal))
+											PetApplication.myUser.aniList.add(animal);
 									}else{
-										Constants.user.aniList=new ArrayList<Animal>();
-										Constants.user.aniList.add(animal);
+										PetApplication.myUser.aniList=new ArrayList<Animal>();
+										PetApplication.myUser.aniList.add(animal);
 									}
 									Intent intent=new Intent(context,DialogPengTaSuccActivity.class);
 									intent.putExtra("animal", an);
@@ -173,6 +178,7 @@ public class DialogJoinKingdom {
 			public void onDismiss() {
 				// TODO Auto-generated method stub
 				blackView.setBackgroundDrawable(null);
+				if(listener!=null)listener.getResult(false);
 			}
 		});
 		

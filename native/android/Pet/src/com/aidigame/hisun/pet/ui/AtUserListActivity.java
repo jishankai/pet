@@ -44,21 +44,21 @@ import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView.PullToRefreshAndMore
  *
  */
 public class AtUserListActivity extends Activity implements PullToRefreshAndMoreListener{
-	FrameLayout frameLayout;
-	View viewTopWhite;
+	private FrameLayout frameLayout;
+	private View viewTopWhite;
 	
 	
-	ImageView back;
-	TextView sureTV,searchTV,titleTv;
-	EditText inputET;
-	PullToRefreshAndMoreView pullToRefreshAndMoreView;
-	ListView listView;
-	ArrayList<MyUser> topicList;
-	ArrayList<Animal> animals;
-	AtUserListAdapter adapter;
-	String userIdString;
-	int mode;//1,@小伙伴；2，发布到某个宠物
-	RelativeLayout searchLayout;
+	private ImageView back;
+	private TextView sureTV,titleTv;
+	private EditText inputET;
+	private PullToRefreshAndMoreView pullToRefreshAndMoreView;
+	private ListView listView;
+	private ArrayList<MyUser> topicList;
+	private ArrayList<Animal> animals;
+	private AtUserListAdapter adapter;
+	private String userIdString;
+	private int mode;//1,@小伙伴；2，发布到某个宠物
+	private RelativeLayout searchLayout;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			
@@ -79,7 +79,6 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 		back=(ImageView)findViewById(R.id.back);
 		sureTV=(TextView)findViewById(R.id.sure_tv);
 		inputET=(EditText)findViewById(R.id.input_topic_et);
-		searchTV=(TextView)findViewById(R.id.textView2);
 		titleTv=(TextView)findViewById(R.id.textView1);
 		searchLayout=(RelativeLayout)findViewById(R.id.relativeLayout1);
 		pullToRefreshAndMoreView=(PullToRefreshAndMoreView)findViewById(R.id.activity_listview);
@@ -110,7 +109,7 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 	/**
 	 * @用户界面的列表
 	 */
-	public void atUserInfo(){
+	private  void atUserInfo(){
 		topicList=new ArrayList<MyUser>();
 		
 		loadData();
@@ -237,13 +236,13 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 	}
 	
 	
-	public void chosePetInfo(){
+	private  void chosePetInfo(){
 		titleTv.setText("发布到");
 		searchLayout.setVisibility(View.GONE);
 		animals=new ArrayList<Animal>();
-		for(int i=0;i<Constants.user.aniList.size();i++){
-			if(Constants.user.userId==Constants.user.aniList.get(i).master_id){
-				animals.add(Constants.user.aniList.get(i));
+		for(int i=0;i<PetApplication.myUser.aniList.size();i++){
+			if(PetApplication.myUser.userId==PetApplication.myUser.aniList.get(i).master_id){
+				animals.add(PetApplication.myUser.aniList.get(i));
 			}
 		}
 		adapter=new AtUserListAdapter(this, null,animals);
@@ -254,9 +253,9 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Animal animal=null;
-				for(int i=0;i<Constants.user.aniList.size();i++){
-					if(Constants.user.aniList.get(i).isSelected){
-						animal=Constants.user.aniList.get(i);
+				for(int i=0;i<PetApplication.myUser.aniList.size();i++){
+					if(PetApplication.myUser.aniList.get(i).isSelected){
+						animal=PetApplication.myUser.aniList.get(i);
 						break;
 					}
 				}

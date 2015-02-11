@@ -78,7 +78,7 @@ public class ExchangeActivity extends Activity implements OnClickListener{
 	HorizontalListView2  linearLayoutForListView;
 	LinearLayout iconsLayout;
 	ImageView leftIv,rightIv;
-	RelativeLayout bottomLayout;
+	RelativeLayout bottomLayout,rooLayout;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -86,6 +86,12 @@ public class ExchangeActivity extends Activity implements OnClickListener{
 		UiUtil.setScreenInfo(this);
 		UiUtil.setWidthAndHeight(this);
 		setContentView(R.layout.activity_exchange);
+		
+		rooLayout=(RelativeLayout)findViewById(R.id.root_layout);
+		BitmapFactory.Options options=new BitmapFactory.Options();
+		options.inSampleSize=4;
+		rooLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
+		
 		exchangeActivity=this;
 		handler=HandleHttpConnectionException.getInstance().getHandler(this);
 		margin=-getResources().getDimensionPixelSize(R.dimen.one_dip)*46;
@@ -96,10 +102,10 @@ public class ExchangeActivity extends Activity implements OnClickListener{
 	private void loadData() {
 		// TODO Auto-generated method stub
 		animals=new ArrayList<Animal>();
-		if(Constants.user!=null&&Constants.user.aniList!=null){
-			for(int i=0;i<Constants.user.aniList.size();i++){
-				if(Constants.user.userId==Constants.user.aniList.get(i).master_id){
-					animals.add(Constants.user.aniList.get(i));
+		if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+			for(int i=0;i<PetApplication.myUser.aniList.size();i++){
+				if(PetApplication.myUser.userId==PetApplication.myUser.aniList.get(i).master_id){
+					animals.add(PetApplication.myUser.aniList.get(i));
 				}
 			}
 		}
@@ -201,19 +207,19 @@ public class ExchangeActivity extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				final ArrayList<Animal> anim=HttpUtil.usersKingdom(ExchangeActivity.this,Constants.user, 1, handler);
+				final ArrayList<Animal> anim=HttpUtil.usersKingdom(ExchangeActivity.this,PetApplication.myUser, 1, handler);
 				if(anim!=null&&anim.size()>0){
 					handler.post(new Runnable() {
 						
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
-							Constants.user.aniList=anim;
+							PetApplication.myUser.aniList=anim;
 							animals=new ArrayList<Animal>();
-							if(Constants.user!=null&&Constants.user.aniList!=null){
-								for(int i=0;i<Constants.user.aniList.size();i++){
-									if(Constants.user.userId==Constants.user.aniList.get(i).master_id){
-										animals.add(Constants.user.aniList.get(i));
+							if(PetApplication.myUser!=null&&PetApplication.myUser.aniList!=null){
+								for(int i=0;i<PetApplication.myUser.aniList.size();i++){
+									if(PetApplication.myUser.userId==PetApplication.myUser.aniList.get(i).master_id){
+										animals.add(PetApplication.myUser.aniList.get(i));
 									}
 								}
 							}
