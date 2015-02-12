@@ -874,7 +874,7 @@ class AnimalController extends Controller
         } else if (isset($_POST['name'])) {
             throw new PException('您没有创建宠物，无权修改此信息');
         }  else {
-            $this->echoJsonData(array(''));
+            $this->echoJsonData(array(unserialize($animal->address)));
         }
     }
 
