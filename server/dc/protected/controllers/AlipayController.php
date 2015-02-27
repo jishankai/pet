@@ -53,15 +53,15 @@ class AlipayController extends Controller
 		//**req_data详细信息**
 
 		//服务器异步通知页面路径
-		$notify_url = $this->createUrl('alipay/notify');
+		$notify_url = $this->createAbsoluteUrl('alipay/notify');
 		//需http://格式的完整路径，不允许加?id=123这类自定义参数
 
 		//页面跳转同步通知页面路径
-		$call_back_url = $this->createUrl('alipay/return');
+		$call_back_url = $this->createAbsoluteUrl('alipay/return');
 		//需http://格式的完整路径，不允许加?id=123这类自定义参数
 
 		//操作中断返回地址
-		$merchant_url = $this->createurl('alipay/pay');
+		$merchant_url = $this->createAbsoluteurl('alipay/pay');
 		//用户付款中途退出返回商户的地址。需http://格式的完整路径，不允许加?id=123这类自定义参数
 
 		//卖家支付宝帐户
