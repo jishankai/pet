@@ -11,7 +11,7 @@ class AlipayController extends Controller
 
 	public function actionPay($SID='')
 	{
-		$this->renderPartial('pay', array('SID'=>$SID));
+		$this->renderPartial('pay', array('SID'=>$SID, 'usr_id'=>$this->usr_id));
 	}
 
 	public function actionAlipayapi($SID='')
