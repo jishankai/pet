@@ -53,7 +53,7 @@ class AlipayController extends Controller
 		//**req_data详细信息**
 
 		//服务器异步通知页面路径
-		$notify_url = $this->createAboUrl('alipay/notify');
+		$notify_url = $this->createUrl('alipay/notify');
 		//需http://格式的完整路径，不允许加?id=123这类自定义参数
 
 		//页面跳转同步通知页面路径
