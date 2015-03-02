@@ -6,7 +6,7 @@
 		<!--<meta name='viewport' content='initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' />-->
 		<meta name='viewport' content='user-scalable=0' />
 		<meta name="viewport" content="width=device-width" />
-        <title>jQuery.eraser, a plugin that makes an image erasable (touch & mouse)</title>
+        <title>摸一摸</title>
 	<link rel="stylesheet" type="text/css" href="css/eraser.css">
 </head>
 <body>
@@ -27,6 +27,7 @@
 		<p class="happy"><span>猫君</span>很开心</p>
 		<p class="popularity">人气＋10 </p>
 		<p class="text">每天摸一摸，人气涨的高～</p>
+		<p class="none">今天的次数用完啦，记得明天还来哦～</p>
 		<ul class="shareList clearfix">
 			<li>
 				<img src="css/images/dialog_go_register_weixin.png">
@@ -115,14 +116,16 @@
 				$(".popularity").fadeIn("500");
 				$(".shareList").show();
 				$(".prompt").show();
-				/*$(".shareList").slideDown("1000");
-				$(".prompt").slideDown("1000");*/
+			
 
-
+				/*今天的次数用完*/
 				/*$("#robot").hide();
 				$("#redux").hide();
+				$(".happy").hide();
+				$(".popularity").hide();
 				$(".container").attr("style","border:none");
-				$(".no_choice").show();*/
+				$(".no_choice").show();
+				$(".none").fadeIn("500");*/
 			}
 		})
 
