@@ -1,8 +1,8 @@
 <?php
-class NotifyUsersCommand extends CConsoleCommand {
+class NotifyEaserMobUsersCommand extends CConsoleCommand {
 	
 	private function usage() {
-		echo "Usage: NotifyUsers start\n";
+		echo "Usage: NotifyEaserMobUsers start\n";
 	}
 	
     public function start() {
