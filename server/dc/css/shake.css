@@ -1,0 +1,202 @@
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+*{margin: 0;padding:0;}
+ul{list-style: none;}
+.comWidth{width: 640px;height: 100%;margin: 0 auto;color:#768290;}
+.wraper{background: url(../css/images/shake_background.jpg)left top no-repeat;
+	background-size: 100% 100%;}
+.head{width: 100%;height: 50px;
+	padding: 20px 0;/*background: pink;*/}
+.head .img{width: 50px;height: 50px;
+	border-radius: 50%;float: left;
+	margin-left: 15%;border: 5px #fc7b51 solid;}
+.img img{width: 100%;height: 100%;border-radius: 50%;} 
+.head div{height: 50px;line-height: 50px;width: 130px;
+	float: left;margin-left:10px;}
+.head span{color:#fc7b51;}
+.box{width: 100%;height: 450px;
+	}
+.container{width: 350px;height: auto;
+	position: relative;text-align: center;margin: 0 auto;}
+.container img{width: 100%;}
+
+.container1, .container2{width: 70%;height: 420px;
+	position: relative;margin: 0 auto;
+	display: none;}
+.gift_con{width: 50%;height: auto;margin: 0 auto;}
+#pet_name{font-size: 24px;text-align: center;
+	color: #fff;font-weight: bold;margin-bottom: 5px;
+	margin-top: 5px;
+
+	text-shadow:#fc7b51 1px 0 0,#fc7b51 0 1px 0,#fc7b51 -1px 0 0,#fc7b51 0 -1px 0;
+	-webkit-text-shadow:#fc7b51 1px 0 0,#fc7b51 0 1px 0,#fc7b51 -1px 0 0,#fc7b51 0 -1px 0;
+	-moz-text-shadow:#fc7b51 1px 0 0,#fc7b51 0 1px 0,#fc7b51 -1px 0 0,#fc7b51 0 -1px 0;
+	*filter: Glow(color=#000, strength=1);
+	/*-webkit-text-fill-color: white;
+    -webkit-text-stroke: 1px black;*/
+    }
+#effect{text-align: center;font-size: 18px;line-height: 24px;}
+.gift_Box{
+	width: 100%;height: 97%;
+	background: url(../css/images/shake_ground_get.jpg)left top no-repeat;
+	background-size:100% 100%;
+	padding-top: 3%;border-radius: 20px;
+}
+.gift_tit{width: 350px;height: 80px;line-height: 95px;
+	background: url(../css/images/shake_giftname_background.png)left top no-repeat;
+	background-size: 100% 100%;
+	color: #fff;font-size: 22px;text-indent: 20%;}
+.gift_bottom{
+	width: 360px;height: 280px;margin:30px auto;
+	text-align: center;
+	background: url(../css/images/shake_gift_background.png)left top no-repeat;
+	background-size:100% 100%;
+}
+.gift_img{margin-top: 26px;width: 160px;height: 140px;}
+.gift_bottom p{margin-top: 18px;font-size: 24px;color:#e4e19a;}
+
+
+.no_choice{height: 100%;display: none;}
+
+.text{text-align: center;padding-bottom: 50px;font-size: 20px;cursor:pointer; }
+.none{text-align: center;padding-bottom: 20px;font-size: 20px;
+	display: none;}
+
+.s_btn{margin: 0 auto;width: 200px;height: 60px;
+	text-align: center;margin-bottom: 200px;}
+#s_btn{display: block;
+	background: url(../css/images/e_btn.png)left top no-repeat;
+	width: 200px;height: 60px;line-height: 54px;
+	background-size: 100% 100%;
+	font-size: 20px;color: white;
+	text-decoration: none;
+	}
+.s_btn1{width: 70%;height: 60px;
+	margin: -260px auto 5px;display: none;
+	}
+#send, #again{
+	background: url(../css/images/e_btn.png)left top no-repeat;
+	background-size: 100% 100%;display: inline-block;
+	width: 180px;height: 60px;line-height: 55px;
+	text-decoration: none;color: #fff;text-align: center;	
+}
+#again{margin-right: 20px;float: right;}
+#send{margin-left: 20px;float: left;}
+#chance{text-align: right;margin:0 auto;margin-top: 5px;
+	margin-bottom: 150px;width: 52%;padding-right: 6.5%;
+	display: none;}
+.shareList{width: 80%;height: auto;margin: 0 auto;
+	padding-bottom: 20px;color: #000;display: none;
+	}
+.shareList li{float: left;width: 33.3333%;text-align: center;}
+.shareList img{margin: 0 auto;}
+.prompt{width: 100%;height: 65px;text-align: center;line-height: 65px;
+	background-color: #d1b0b7;color: #fff;font-size: 20px;
+	display: none;}
+
+
+/*下载*/
+
+.load{
+	height: 98px;width: 640px;margin: 0 auto;
+	background-color: #ffffff;	
+}
+.load .load_left{float: left; width: 50%; height: 100%;}
+.logo_icon{
+	float: left;width: 40%;margin-top: 10px;
+	text-indent: 10%;
+}
+.load_info{float: right; width: 60%; margin-top: 4px;}
+.load_left h3{line-height:49px; font-size: 25px;}
+.load_left p{height:49px; font-size:25px; color: #777676;}
+.load .load_right{float: left; width: 50%; height: 100%; text-align: right;}
+.float{position: fixed;bottom: 0;left:center; width: 640px;}
+
+@media only screen and (min-width: 300px) and (max-width: 650px){
+
+	.comWidth{width:100%;height:100%;margin:0 auto;}
+
+	/*下载*/
+	.load{height: 59px;width: 100%;}
+	.logo_icon{margin-top: 6px;}
+	.logo_icon img{width: 46px;height: 46px;}
+	.load_info{ margin-top: 3px;}
+	.load_left h3{line-height:28px; font-size: 14px;}
+	.load_left p{height:28px; font-size:14px;}
+	.load_right img{width: 122px;height: 58px;}
+	.float{width: 100%;}
+
+	
+	.head{height: 40px;padding: 30px 0 20px 0;font-size: 14px;}
+	.head .img{width: 40px;height: 40px;
+		margin-left: 12%;border: 3px #fc7b51 solid;}
+	.head div{height: 40px;line-height: 40px;width: 100px;
+		margin-left:8px;}
+	.box{height: 250px;}
+	.container{width: 200px;height: auto;}
+	.container img{width: 100%;}
+
+
+	.text{padding-bottom: 25px;font-size: 16px;}
+	.none{text-align: center;padding-bottom: 5px;font-size: 16px;
+		margin-top: -20px;}
+	
+	.s_btn{
+		width: 130px;height: 50px;margin-bottom: 100px;
+	}
+	#s_btn{
+		width: 100%;height: 100%;line-height: 45px;
+		font-size: 16px;color: white;
+	}
+
+	.s_btn1{width: 80%;height: 40px;margin: -130px auto 0px;}
+	#send, #again{width: 90px;height: 40px;line-height: 35px;
+		font-size: 14px;}
+	#again{margin-right: 5%;}
+	#send{margin-left: 5%;}
+	#chance{text-align: right;width: 71%;padding-right: 9%;
+		font-size: 14px;margin-bottom: 100px;}
+
+
+	.shareList{padding-bottom: 10px;font-size: 12px;
+		margin-top: 25px;}
+	.shareList img{margin: 0 auto;width: 70%;}
+	.prompt{height: 40px;line-height: 40px;
+		font-size: 14px;display: none;}
+
+
+
+	.container1, .container2{width: 80%;height: 260px;}
+
+	#pet_name{font-size: 18px;font-weight: bold;
+		margin-bottom: 3px;margin-top: 3px;}
+	#effect{font-size: 12px;line-height: 16px;}
+
+	.gift_Box{
+		padding-top: 3%;
+	}
+	.gift_tit{width: 70%;height: 50px;line-height:60px;
+		font-size: 14px;text-indent: 20%;}
+	.gift_bottom{
+		width: 210px;height: 180px;
+		margin-top: 10px;
+	}
+	.gift_img{margin-top: 28px;width: 100px;height: 80px;}
+	.gift_bottom p{margin-top: 8px;font-size: 16px;color:#e4e19a;}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
