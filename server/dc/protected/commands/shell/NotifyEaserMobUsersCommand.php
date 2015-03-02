@@ -6,9 +6,9 @@ class NotifyEaserMobUsersCommand extends CConsoleCommand {
 	}
 	
     public function start() {
-        $easemob = Yii::app()->easemob;
         $users = User::model()->findAll();
         foreach ($users as $user) {
+            $easemob = Yii::app()->easemob;
             $easemob->sendToUsers($user->usr_id, NPC_SYSTEM_USRID, array(
                 'mixed'=>TRUE,
                 'msg'=>"hi地球银，\n
