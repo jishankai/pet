@@ -61,6 +61,14 @@ return array(
             'endpoint'=>OSS_ENDPOINT,
         ),
 
+        'easemob'=>array(
+            'class'=>'ext.easemob.Easemob',
+            'client_id' => EASEMOB_ID,
+            'client_secret' => EASEMOB_SECRET,
+            'org_name' => EASEMOB_ORG,
+            'app_name' => EASEMOB_APP
+        ),
+
         'file'=>array(
             'class'=>'application.extensions.file.CFile',
         ),
