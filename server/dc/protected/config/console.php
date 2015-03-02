@@ -195,6 +195,10 @@ return array(
                  */
             ),
         ),
+        'curl'=> array(
+            'class' => 'ext.curl.Curl',
+            'options' => array(/* additional curl options */),
+        ),
     ),
 
     // application-level parameters that can be accessed
