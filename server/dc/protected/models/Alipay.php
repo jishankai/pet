@@ -29,7 +29,6 @@ class Alipay extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('orderid, usr_id, fee, create_time, update_time', 'required'),
 			array('fee, status, create_time', 'numerical', 'integerOnly'=>true),
 			array('orderid', 'length', 'max'=>255),
 			array('usr_id', 'length', 'max'=>10),
