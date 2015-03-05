@@ -38,7 +38,7 @@
     define('RANK_REWARD_E', 1);
     define('SYSTEM_USERID', 0);
 
-    define('NPC_SYSTEM_USRID', '1');
-    define('NPC_IMAGE_USRID', '2');
+    define('NPC_SYSTEM_USRID', '25029');
+    define('NPC_IMAGE_USRID', '25030');
     define('NPC_DELIVER_USRID', '3');
 ?>
