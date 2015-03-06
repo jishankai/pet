@@ -657,21 +657,7 @@ class ImageController extends Controller
 
     public function actionIsMenuApi($aid, $is_food)
     {
-        $r = 0;
-        $session = Yii::app()->session;
-        if ($is_food==1) {
-            if (isset($session[$aid.'_is_food'])) {
-                throw new PException('您今天已经求过口粮啦');
-            } else {
-                $r = 1;
-            }
-        } else {
-            if (isset($session[$aid.'_is_food_'.$is_food])) {
-                throw new PException('您今天已经做过啦');
-            } else {
-                $r = 1;
-            }
-        }
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.food, i.cmt, i.create_time FROM dc_image i WHERE i.aid=:aid AND is_food=:is_food AND i.create_time>=:create_time')->bindValues(array(':aid'=>$aid, ':is_food'=>$is_food, ':create_time'=> time()-(60*60*24)))->queryRow();
 
         $this->echoJsonData(array('r'=>$r));
     }
