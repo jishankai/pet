@@ -655,7 +655,7 @@ class ImageController extends Controller
         $this->echoJsonData(array($r));
     }
 
-    public function actionIsMenuApi($is_food)
+    public function actionIsMenuApi($aid, $is_food)
     {
         $r = 0;
         $session = Yii::app()->session;
