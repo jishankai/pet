@@ -54,10 +54,18 @@ class ImageController extends Controller
 
         if (isset($is_food)&&$is_food) {
             $session = Yii::app()->session;
-            if (isset($session[$aid.'_is_food'])) {
-                throw new PException('您今天已经求过口粮啦');
+            if ($is_food==1) {
+                if (isset($session[$aid.'_is_food'])) {
+                    throw new PException('您今天已经求过口粮啦');
+                } else {
+                    $session[$aid.'_is_food'] = 1;
+                }
             } else {
-                $session[$aid.'_is_food'] = 1;
+                if (isset($session[$aid.'_is_food_'.$is_food])) {
+                    throw new PException('您今天已经做过啦');
+                } else {
+                    $session[$aid.'_is_food_'.$is_food] = 1;
+                }
             }
         } 
         
@@ -638,5 +646,33 @@ class ImageController extends Controller
         $r = Yii::app()->db->createCommand('SELECT img_url, url, icon, title, description FROM banner WHERE start_time<=:time AND end_time>:time')->bindValue(':time', time())->queryAll();
 
         $this->echoJsonData(array($r));        
+    }
+
+    public function actionMenuApi()
+    {
+        $r = Yii::app()->db->createCommand('SELECT mid, icon, subject, txt, animate1, animate2, pic, label FROM menu WHERE start_time<=:time AND end_time>:time')->bindValue(':time', time())->queryAll();
+        
+        $this->echoJsonData(array($r));
+    }
+
+    public function actionIsMenuApi($is_food)
+    {
+        $r = 0;
+        $session = Yii::app()->session;
+        if ($is_food==1) {
+            if (isset($session[$aid.'_is_food'])) {
+                throw new PException('您今天已经求过口粮啦');
+            } else {
+                $r = 1;
+            }
+        } else {
+            if (isset($session[$aid.'_is_food_'.$is_food])) {
+                throw new PException('您今天已经做过啦');
+            } else {
+                $r = 1;
+            }
+        }
+
+        $this->echoJsonData(array('r'=>$r));
     }
 }
