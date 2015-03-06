@@ -102,11 +102,13 @@ class UserBehavior extends CActiveRecordBehavior
 
             Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, "宠物星球感谢祭~~这是今天的礼金".$rewardGold."金币，小主们请收好~拿了钱任性去吧！");
             $easemob = Yii::app()->easemob;
+            User::model()->findByPk(NPC_SYSTEM_USRID);
             $easemob->sendToUsers($this->owner->usr_id, NPC_SYSTEM_USRID, array(
                 'mixed'=>TRUE,
                 'msg'=>"宠物星球感谢祭~~这是今天的礼金".$rewardGold."金币，小主们请收好~拿了钱任性去吧！",
                 'ext'=>array(
-                    'nickname'=>'事务官',
+                    'nickname'=>$user->name,
+                    'tx'=>$user->tx,
                 ),
             ));
         }
@@ -136,13 +138,15 @@ class UserBehavior extends CActiveRecordBehavior
     public function inviter($invited_name, $aid)
     {
         $a_name = Yii::app()->db->createCommand('SELECT name FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
-        Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, $invited_name.'成功填写您分享的邀请码，成为'.$a_name.'的粉丝！这是您的300金币，不客气~');
+        Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, $invited_name.'成功填写您分享的邀请码，成为'.$a_name.'的粉丝！这是您的100金币，不客气~');
         $easemob = Yii::app()->easemob;
+        $user = User::model()->findByPk(NPC_SYSTEM_USRID);
         $easemob->sendToUsers($this->owner->usr_id, NPC_SYSTEM_USRID, array(
             'mixed'=>TRUE,
-            'msg'=>$invited_name.'成功填写您分享的邀请码，成为'.$a_name.'的粉丝！这是您的300金币，不客气~',
+            'msg'=>$invited_name.'成功填写您分享的邀请码，成为'.$a_name.'的粉丝！这是您的100金币，不客气~',
             'ext'=>array(
-                'nickname'=>'事务官',
+                'nickname'=>$user->name,
+                'tx'=>$user->tx,
             ),
         ));
         $this->onInviter = array($this, 'addGold');
@@ -273,6 +277,7 @@ class UserBehavior extends CActiveRecordBehavior
     {
         switch ($event->params['on']) {
             case 'login':
+                /*
                 if ($this->owner->con_login==1) {
                     $this->owner->exp+=LOGIN_X1;
                     $gold = LOGIN_X1;
@@ -283,13 +288,16 @@ class UserBehavior extends CActiveRecordBehavior
                     $this->owner->exp+=LOGIN_X3;
                     $gold = LOGIN_X3;
                 }
-                Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, "Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利".$gold."金币已经入账咯～");
+                 */
+                Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, "Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利1金币已经入账咯～");
                 $easemob = Yii::app()->easemob;
+                $user = User::model()->findByPk(NPC_SYSTEM_USRID);
                 $easemob->sendToUsers($this->owner->usr_id, NPC_SYSTEM_USRID, array(
                     'mixed'=>TRUE,
-                    'msg'=>"Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利".$gold."金币已经入账咯～",
+                    'msg'=>"Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利1金币已经入账咯～",
                     'ext'=>array(
-                        'nickname'=>'事务官',
+                        'nickname'=>$user->name,
+                        'tx'=>$user->tx,
                     ),
                 ));
                 break;
@@ -334,6 +342,7 @@ class UserBehavior extends CActiveRecordBehavior
     {
         switch ($event->params['on']) {
             case 'login':
+                /*
                 if ($this->owner->con_login==1) {
                     $this->owner->gold+=LOGIN_X1;
                 } else if ($this->owner->con_login<=6) {
@@ -341,15 +350,17 @@ class UserBehavior extends CActiveRecordBehavior
                 } else {
                     $this->owner->gold+=LOGIN_X3;
                 }
-                break;
+                 */
+                 $this->owner->gold+=1;
+                 break;
              case 'touch':
-                 $this->owner->gold+=rand(5,10);
+                 //$this->owner->gold+=rand(5,10);
                  break;
              case 'share':
-                 $this->owner->gold+=SHARE_X1;
+                 //$this->owner->gold+=SHARE_X1;
                  break;
              case 'like':
-                 $this->owner->gold+=1;    
+                 //$this->owner->gold+=1;    
                  break;
              case 'levelUp':
                  $this->owner->gold+=($this->owner->lv/5+1)*LEVELUP_A;
@@ -358,15 +369,16 @@ class UserBehavior extends CActiveRecordBehavior
                  $this->owner->gold+=$event->params['rank']*RANKUP_A;
                  break;
              case 'invite':
-                 $this->owner->gold+=300;//300;
+                 $this->owner->gold+=100;//300;
                  break;
              case 'inviter':
-                 $this->owner->gold+=300;//300;
+                 $this->owner->gold+=100;//300;
                  break;
              case 'upload':
-                 $this->owner->gold+=PHOTO_GOLD;
+                 //$this->owner->gold+=PHOTO_GOLD;
                  break;
              case 'comment':
+                 /*
                  $r = rand(1,10);
                  if ($r<=4) {
                      $g = 1;
@@ -378,6 +390,7 @@ class UserBehavior extends CActiveRecordBehavior
                      $g = 4;
                  }
                  $this->owner->gold+=$g;
+                  */
                  break;
             default:
                 // code...

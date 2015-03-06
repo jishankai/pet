@@ -65,12 +65,14 @@ class ItemController extends Controller
                     $animal->saveAttributes(array('food'));
                     Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->usr_id, "[address]您已经成功兑换".$item->name."，我们会尽快处理寄到您手上～即将为您备货，快去确认收货地址吧～");
                     $easemob = Yii::app()->easemob;
+                    $user = User::model()->findByPk(NPC_SYSTEM_USRID);
                     $easemob->sendToUsers($this->usr_id, NPC_SYSTEM_USRID, array(
                         'mixed'=>TRUE,
                         'msg'=>"您已经成功兑换".$item->name."，我们会尽快处理寄到您手上～即将为您备货，快去确认收货地址吧～",
                         'ext'=>array(
                             'type'=>'3',
-                            'nickname'=>'事务官',
+                            'nickname'=>$user->name,
+                            'tx'=>$user->tx,
                         ),
                     ));
                     Yii::app()->db->createCommand('INSERT INTO item_order(item_id,aid,usr_id,create_time) VALUES(:item_id,:aid,:usr_id,:create_time)')->bindValues(array(':item_id'=>$item_id,':aid'=>$aid,':usr_id'=>$this->usr_id,':create_time'=>time()))->execute();
