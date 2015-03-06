@@ -102,13 +102,13 @@ class UserBehavior extends CActiveRecordBehavior
 
             Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, "宠物星球感谢祭~~这是今天的礼金".$rewardGold."金币，小主们请收好~拿了钱任性去吧！");
             $easemob = Yii::app()->easemob;
-            User::model()->findByPk(NPC_SYSTEM_USRID);
+            $npc = User::model()->findByPk(NPC_SYSTEM_USRID);
             $easemob->sendToUsers($this->owner->usr_id, NPC_SYSTEM_USRID, array(
                 'mixed'=>TRUE,
                 'msg'=>"宠物星球感谢祭~~这是今天的礼金".$rewardGold."金币，小主们请收好~拿了钱任性去吧！",
                 'ext'=>array(
-                    'nickname'=>$user->name,
-                    'tx'=>$user->tx,
+                    'nickname'=>$npc->name,
+                    'tx'=>$npc->tx,
                 ),
             ));
         }
@@ -140,13 +140,13 @@ class UserBehavior extends CActiveRecordBehavior
         $a_name = Yii::app()->db->createCommand('SELECT name FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $aid)->queryScalar();
         Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, $invited_name.'成功填写您分享的邀请码，成为'.$a_name.'的粉丝！这是您的100金币，不客气~');
         $easemob = Yii::app()->easemob;
-        $user = User::model()->findByPk(NPC_SYSTEM_USRID);
+        $npc = User::model()->findByPk(NPC_SYSTEM_USRID);
         $easemob->sendToUsers($this->owner->usr_id, NPC_SYSTEM_USRID, array(
             'mixed'=>TRUE,
             'msg'=>$invited_name.'成功填写您分享的邀请码，成为'.$a_name.'的粉丝！这是您的100金币，不客气~',
             'ext'=>array(
-                'nickname'=>$user->name,
-                'tx'=>$user->tx,
+                'nickname'=>$npc->name,
+                'tx'=>$npc->tx,
             ),
         ));
         $this->onInviter = array($this, 'addGold');
@@ -291,13 +291,13 @@ class UserBehavior extends CActiveRecordBehavior
                  */
                 Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, "Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利1金币已经入账咯～");
                 $easemob = Yii::app()->easemob;
-                $user = User::model()->findByPk(NPC_SYSTEM_USRID);
+                $npc = User::model()->findByPk(NPC_SYSTEM_USRID);
                 $easemob->sendToUsers($this->owner->usr_id, NPC_SYSTEM_USRID, array(
                     'mixed'=>TRUE,
                     'msg'=>"Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利1金币已经入账咯～",
                     'ext'=>array(
-                        'nickname'=>$user->name,
-                        'tx'=>$user->tx,
+                        'nickname'=>$npc->name,
+                        'tx'=>$npc->tx,
                     ),
                 ));
                 break;
