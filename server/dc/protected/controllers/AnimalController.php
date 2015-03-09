@@ -978,7 +978,7 @@ class AnimalController extends Controller
 
     public function actionFoodListApi($aid, $page=0)
     {
-        $r = Yii::app()->db->createCommand('SELECT img_id, url, cmt, food, create_time FROM dc_image WHERE aid=:aid AND is_food=1 ORDER BY create_time DESC LIMIT :m, 30')->bindValues(array(
+        $r = Yii::app()->db->createCommand('SELECT img_id, url, cmt, food, is_food, create_time FROM dc_image WHERE aid=:aid AND is_food!=0 ORDER BY create_time DESC LIMIT :m, 30')->bindValues(array(
             ':aid'=>$aid,
             ':m'=>30*$page,
         ))->queryAll();
