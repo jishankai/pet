@@ -102,7 +102,9 @@ class SocialController extends Controller
 
     public function actionGift($aid, $SID='')
     {
-        $this->renderPartial('gift');
+        $r = Yii::app()->db->createCommand('SELECT aid, name FROM dc_animal WHERE aid=:aid')->bindValue(":aid", $aid)->queryRow();
+        
+        $this->renderPartial('gift', array('r'=>$r, 'SID'=>$SID));
     }
 }
 
