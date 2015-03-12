@@ -13,18 +13,18 @@
 <div class="comWidth">
 	<div class="wraper">
 		<div class="head clearfix">
-			<div class="img"><img src="css/images/a1.jpg" id="head"></div>
-			<div>摸一摸 <span>猫君</span></div>
+			<div class="img"><img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_usr/<?php echo $r['u_tx']?>" id="head"></div>
+			<div>摸一摸 <span><?php echo $r['name']?></span></div>
 		</div>
 		<div class="box">
 			<div class="container">
 				<img src="css/images/no_choice.png" class="no_choice"/>
-				<img id="robot" src="css/images/a1.jpg" />
+				<img id="robot" src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_usr/<?php echo $img_url?>" />
 				<img id="redux" src="css/images/eraser.png" />
 			</div>
 		</div>
 		
-		<p class="happy"><span>猫君</span>很开心</p>
+		<p class="happy"><span><?php echo $r['name']?></span>很开心</p>
 		<p class="popularity">人气＋10 </p>
 		<p class="text">每天摸一摸，人气涨的高～</p>
 		<p class="none">今天的次数用完啦，记得明天还来哦～</p>

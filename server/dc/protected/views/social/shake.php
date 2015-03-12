@@ -13,8 +13,8 @@
 <div class="comWidth">
 	<div class="wraper">
 		<div class="head clearfix">
-			<div class="img"><img src="css/images/a1.jpg" id="head"></div>
-			<div>帮 <span>猫君</span> 摇一摇</div>
+			<div class="img"><img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_usr/<?php echo $r['u_tx']?>" id="head"></div>
+			<div>帮 <span><?php echo $r['name']?></span> 摇一摇</div>
 		</div>
 		<div class="box">
 			<div class="container">
