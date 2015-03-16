@@ -417,6 +417,7 @@ class WechatController extends Controller
         }
         $tmp_arr = unserialize($state);
         $img_id = isset($tmp_arr['img_id'])?$tmp_arr['img_id']:NULL;
+        $aid = $tmp_arr['aid'];
         $img_url = $img_id = isset($tmp_arr['img_url'])?$tmp_arr['img_url']:NULL;
         $u = Yii::app()->wechat->get_userinfo_by_authorize($code);
         $params = array(
