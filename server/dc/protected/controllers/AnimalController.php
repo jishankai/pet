@@ -687,7 +687,9 @@ class AnimalController extends Controller
                 $transaction->rollback();
                 throw $e;
             }
+        }
     }
+
 
     public function actionShakeApi($aid, $is_shake=0)
     {
