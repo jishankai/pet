@@ -19,7 +19,7 @@
 		<div class="box">
 			<div class="container">
 				<img src="css/images/no_choice.png" class="no_choice"/>
-				<img id="robot" src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_usr/<?php echo $img_url?>" />
+				<img id="robot" src="http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $img_url?>" />
 				<img id="redux" src="css/images/eraser.png" />
 			</div>
 		</div>
