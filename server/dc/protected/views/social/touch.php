@@ -78,7 +78,7 @@
 	$(window).on('load',function(){
 		
 		$("#e_btn").click(function(){
-			if (<?php echo isset($SID)&&$SID!=''?>) {
+			if (<?php echo isset($SID)&&$SID!=''?1:0?>) {
 				$("#e_btn").hide();
 				function init( event ) {
 					$("#redux").eraser();
@@ -129,19 +129,13 @@
 			}
 			} else{
 				var img_id = <?php echo $img_id ?>;
-    			var aid =<?php echo $aid ?>;
+    			var aid =<?php echo $r['aid'] ?>;
     			location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&SID='+<?php echo "'".$SID."'" ?>;
 			
 			}
-
-			
 		})
 
 	})
-	
-
-		
-
 	</script>
 
 
