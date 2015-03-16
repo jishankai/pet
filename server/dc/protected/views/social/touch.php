@@ -130,7 +130,7 @@
 			} else{
 				var img_id = <?php echo $img_id ?>;
     			var aid =<?php echo $r['aid'] ?>;
-    			location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&SID='+<?php echo "'".$SID."'" ?>;
+    			location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&SID='+<?php echo "'".$SID."'" ?>;
 			
 			}
 		})
