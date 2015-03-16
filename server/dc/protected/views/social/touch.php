@@ -78,13 +78,13 @@
 	$(window).on('load',function(){
 		
 		$("#e_btn").click(function(){
-			$("#e_btn").hide();
-
-			function init( event ) {
-			$("#redux").eraser();
+			if (<?php echo isset($SID)&&$SID!=''?>) {
+				$("#e_btn").hide();
+				function init( event ) {
+					$("#redux").eraser();
 				// you can alse specify the brush size (in pixel) by using options :
 				 //$("#redux").eraser({size: 100});
-			}
+				}
 
 			function remove(event) {
 				$("#redux").eraser('clear');
@@ -127,10 +127,15 @@
 				$(".no_choice").show();
 				$(".none").fadeIn("500");*/
 			}
+			} else{
+				var img_id = <?php echo $img_id ?>;
+    			var aid =<?php echo $aid ?>;
+    			location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&SID='+<?php echo "'".$SID."'" ?>;
+			
+			}
+
+			
 		})
-
-
-		
 
 	})
 	

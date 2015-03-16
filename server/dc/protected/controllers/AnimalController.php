@@ -6,8 +6,8 @@ class AnimalController extends Controller
     {
         return array(
             'checkUpdate',
-            'checkSig - infoShare,joinMobileApi',
-            'getUserId - infoApi,recommendApi,popularApi,cardApi,searchApi,newsApi,txApi,imagesApi,fansApi,itemsApi,infoShare,joinMobileApi',
+            'checkSig - infoShare,joinMobileApi,touchMobileApi',
+            'getUserId - infoApi,recommendApi,popularApi,cardApi,searchApi,newsApi,txApi,imagesApi,fansApi,itemsApi,infoShare,joinMobileApi,touchMobileApi',
             /*
             array(
                 'COutputCache + welcomeApi',
@@ -627,6 +627,66 @@ class AnimalController extends Controller
             $transaction->rollback();
             throw $e;
         }
+    }
+
+    public function actionTouchMobileApi($aid, $img_id, $SID='')
+    {
+        if ($SID!='') {
+            $session = Yii::app()->session;
+            $this->usr_id = $session['usr_id'];
+        } 
+
+        if (!isset($this->usr_id)) {
+            if (isset($_SERVER['HTTP_USER_AGENT'])&&strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")) {
+                $to = 'wechat';
+            } else {
+                $to = 'weibo';
+            }
+
+            switch ($to) {
+                case 'wechat':
+                $oauth2 = Yii::app()->wechat;
+                $key = 'wechatoauth2_'.$oauth2->APPID;
+                if (isset($_COOKIE[$key])&&$cookie=$_COOKIE[$key]) {
+                    parse_str($cookie);
+                    $this->usr_id = $usr_id;
+                } else {
+                    $oauth2->get_code_by_authorize(serialize(array('img_id'=>$img_id,'img_url'=>1,'aid'=>$aid)));
+                    exit;
+                }
+                break;
+                case 'weibo':
+                Yii::import('ext.sinaWeibo.SinaWeibo',true);
+                $oauth2 = new SinaWeibo(WB_AKEY, WB_SKEY);
+                $key = 'weibooauth2_'.$oauth2->client_id;
+                if (isset($_COOKIE[$key])&&$cookie=$_COOKIE[$key]) {
+                    parse_str($cookie);
+                    $this->usr_id = $usr_id;
+                } else {
+                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id,'img_url'=>1,'aid'=>$aid)), 'mobile'));
+                    exit;
+                }
+                break;
+                default:
+                # code...
+                break;
+            }
+
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $user = User::model()->findByPk($this->usr_id);
+
+                if (!isset($session[$aid.'touch_count'])) {
+                    $user->touch();
+                    $session[$aid.'touch_count']=1;
+                }
+                $transaction->commit();
+
+                $this->redirect(array('social/touch', 'aid'=>$aid, 'img_id'=>$img_id, 'SID'=>$SID));
+            } catch (Exception $e) {
+                $transaction->rollback();
+                throw $e;
+            }
     }
 
     public function actionShakeApi($aid, $is_shake=0)

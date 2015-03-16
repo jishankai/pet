@@ -86,11 +86,14 @@ class SocialController extends Controller
         $this->renderPartial('ration', array('aid'=>$aid, 'r'=>$r, 'SID'=>$SID));
     }
 
-    public function actionTouch($aid, $img_url='', $SID='')
+    public function actionTouch($aid, $img_id=0, $img_url='', $SID='')
     {
+        if ($img_id!=0) {
+            $img_url = Yii::app()->db->createCommand('SELECT url FROM dc_image WHERE img_id=:img_id')->bindValue(':img_id', $img_id)->queryScalar();
+        }
         $r = Yii::app()->db->createCommand('SELECT aid, name, tx FROM dc_animal WHERE aid=:aid')->bindValue(":aid", $aid)->queryRow();
 
-        $this->renderPartial('touch', array('img_url'=>$img_url, 'r'=>$r, 'SID'=>$SID));
+        $this->renderPartial('touch', array('img_url'=>$img_url, 'img_id'=>$img_id, 'r'=>$r, 'SID'=>$SID));
     }
 
     public function actionShake($aid, $SID='')
