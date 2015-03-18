@@ -418,6 +418,7 @@ class WechatController extends Controller
         $tmp_arr = unserialize($state);
         $img_id = isset($tmp_arr['img_id'])?$tmp_arr['img_id']:NULL;
         $aid = $tmp_arr['aid'];
+        $img_url = $img_id = isset($tmp_arr['img_url'])?$tmp_arr['img_url']:NULL;
         $u = Yii::app()->wechat->get_userinfo_by_authorize($code);
         $params = array(
             'uid'=>$u['openid'],
@@ -453,6 +454,8 @@ class WechatController extends Controller
             $this->redirect(array('animal/joinMobileApi', 'aid'=>$aid, 'SID'=>$j->data->SID));
         } else if ($img_id==0) {
             $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$j->data->SID));
+        } else if (isset($img_id)&&isset($img_url)) {
+            $this->redirect(array('social/touch', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$j->data->SID));
         } else if (isset($img_id)) {
             $this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$j->data->SID));
         } 
