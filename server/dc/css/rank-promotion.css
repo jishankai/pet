@@ -1,0 +1,100 @@
+*{margin:0;padding:0;}
+.clearfix:after{content:'';display:table;clear:both;}
+.clearfix{*zoom:1;}
+.wraper::after {
+  /* clearfix */
+  content: '';
+  display: table;
+  clear: both;
+}
+.left{float:left;width: 50%;text-align: right;}
+.right{float:right;width:50%;text-align: left;}
+.wraper{width: 640px;height:100%;margin:0 auto;
+	background:url(../css/images/rank-promotion/rank_promotion_back.jpg);padding-top: 52px;
+	background-size: 100% 100%;
+	font-family: "Microsoft YaHei";
+	text-align: center;
+}
+.timeline_block{position: relative;margin-bottom: 38px;}
+.btn{width:105px;height: 59px;}
+h3{color:#999999;
+	text-shadow: 0 0 10px #fff,
+                 0 0 20px  #fff,
+                 0 0 30px  #fff,
+                 0 0 40px  #ffffff,
+                 0 0 70px  #ffffff,
+                 0 0 80px  #ffffff,
+                 0 0 100px #ffffff;
+}
+#timeline::before {
+  content: '';
+  position: absolute;
+  top: 52px;
+  left: 50%;
+  height: 854px;
+  width: 2px;
+  margin-left:-1px;
+  background: #f19149;
+}
+.circle{
+	position: absolute;	
+	left:50%;
+	top:20px;
+	width: 14px;
+	height: 14px;
+	margin-left:-7px;
+	border-radius: 50%;
+	background: #f19149;
+	z-index: 1000;
+}
+.right h3, .right img{margin-left: 58px;}
+.left h3, .left img{margin-right: 58px;}
+.rank_word{margin-bottom: 72px;margin-top: 16px;}
+
+@media only screen and (min-width: 300px) and (max-width: 650px){
+
+.wraper{width: 100%;background-size:100% 100%;padding-top: 26px;}
+.timeline_block{margin-bottom: 19px;}
+.left img, .right img{width:52px;height: 29px;}
+
+#timeline::before {
+  top: 26px;
+  height: 427px;
+}
+.circle{
+	top:10px;
+	width: 8px;
+	height: 8px;
+	margin-left:-4px;
+}
+.right h3, .right img{margin-left: 29px;}
+.left h3, .left img{margin-right: 29px;}
+.rank_word{margin-bottom: 36px;margin-top: 8px;}
+h3{font-size: 12px;}
+.rank_word{width: 80%;}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
