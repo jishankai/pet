@@ -55,7 +55,7 @@ h3{color:#999999;
 
 .wraper{width: 100%;background-size:100% 100%;padding-top: 26px;}
 .timeline_block{margin-bottom: 19px;}
-.left img, .right img{width:52px;height: 29px;}
+.left img, .right img{width:62px;height: 35px;}
 
 #timeline::before {
   top: 26px;
