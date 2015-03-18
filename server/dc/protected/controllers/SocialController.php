@@ -109,5 +109,10 @@ class SocialController extends Controller
         
         $this->renderPartial('gift', array('r'=>$r, 'SID'=>$SID));
     }
+
+    public function actionRankPromotion()
+    {
+        $this->renderPartial('rank-promotion');
+    }
 }
 
