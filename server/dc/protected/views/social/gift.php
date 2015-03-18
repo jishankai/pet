@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="wrapper comWidth">
-	<div class="top">给<span id="name">大花</span>送个礼物</div>
+	<div class="top">给<span id="name"><?php echo $r['name']?></span>送个礼物</div>
 	<div class="hr"></div>
 	<div class="main_body">
 		<div class="box">
@@ -414,7 +414,7 @@
 
 		var oShark = document.createElement("div");
 			oShark.id="gift_alert_box";
-			oShark.innerHTML="<div class='g_a_give'>给<span>猫君</span>送礼物</div><div id='close'></div><div class='ga_gift_name'><span class='gname'>女神蝴蝶结</span> x 1</div><div class='ga_img_box'><img src='css/images/gift1.png' class='ga_img'><div class='ga_popularity_box'>人气 <span id='ga_popularity'>28</span></div></div><div class='ga_btn_box clearfix'><div id='ga_btn1'>再挑一个</div><div id='ga_btn2'>确定 </div></div></div>";
+			oShark.innerHTML="<div class='g_a_give'>给<span><?php echo $r['name']?></span>送礼物</div><div id='close'></div><div class='ga_gift_name'><span class='gname'>女神蝴蝶结</span> x 1</div><div class='ga_img_box'><img src='css/images/gift1.png' class='ga_img'><div class='ga_popularity_box'>人气 <span id='ga_popularity'>28</span></div></div><div class='ga_btn_box clearfix'><div id='ga_btn1'>再挑一个</div><div id='ga_btn2'>确定 </div></div></div>";
 			document.body.appendChild(oShark);
 
 			/*<div class="gift_alert_box">

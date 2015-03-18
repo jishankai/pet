@@ -13,18 +13,18 @@
 <div class="comWidth">
 	<div class="wraper">
 		<div class="head clearfix">
-			<div class="img"><img src="css/images/a1.jpg" id="head"></div>
-			<div>摸一摸 <span>猫君</span></div>
+			<div class="img"><img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" id="head"></div>
+			<div>摸一摸 <span><?php echo $r['name']?></span></div>
 		</div>
 		<div class="box">
 			<div class="container">
 				<img src="css/images/no_choice.png" class="no_choice"/>
-				<img id="robot" src="css/images/a1.jpg" />
+				<img id="robot" src="http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $img_url?>" />
 				<img id="redux" src="css/images/eraser.png" />
 			</div>
 		</div>
 		
-		<p class="happy"><span>猫君</span>很开心</p>
+		<p class="happy"><span><?php echo $r['name']?></span>很开心</p>
 		<p class="popularity">人气＋10 </p>
 		<p class="text">每天摸一摸，人气涨的高～</p>
 		<p class="none">今天的次数用完啦，记得明天还来哦～</p>
@@ -78,13 +78,13 @@
 	$(window).on('load',function(){
 		
 		$("#e_btn").click(function(){
-			$("#e_btn").hide();
-
-			function init( event ) {
-			$("#redux").eraser();
+			if (<?php echo isset($SID)&&$SID!=''?1:0?>) {
+				$("#e_btn").hide();
+				function init( event ) {
+					$("#redux").eraser();
 				// you can alse specify the brush size (in pixel) by using options :
 				 //$("#redux").eraser({size: 100});
-			}
+				}
 
 			function remove(event) {
 				$("#redux").eraser('clear');
@@ -127,16 +127,15 @@
 				$(".no_choice").show();
 				$(".none").fadeIn("500");*/
 			}
+			} else{
+				var img_id = <?php echo $img_id ?>;
+    			var aid =<?php echo $r['aid'] ?>;
+    			location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&SID='+<?php echo "'".$SID."'" ?>;
+			
+			}
 		})
 
-
-		
-
 	})
-	
-
-		
-
 	</script>
 
 
