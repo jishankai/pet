@@ -6,10 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
 <style type="text/css">
 *{margin: 0;padding: 0;}
-.wraper{width: 100%;height:auto;margin: 0 auto;}
+.wraper{width: 640px;height:9000px;margin: 0 auto;}
 img{width:100%;height: 100%;}
 #shake{display: none;}
 #sign{display: none;}
+
+@media only screen and (min-width: 300px) and (max-width: 650px){
+
+.wraper{width: 100%;height:auto;margin: 0 auto;}
+}
     
 </style>
 </head>
