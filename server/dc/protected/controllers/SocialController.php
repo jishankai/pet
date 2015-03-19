@@ -114,5 +114,10 @@ class SocialController extends Controller
     {
         $this->renderPartial('rank-promotion');
     }
+
+    public function actionDivine()
+    {
+        $this->renderPartial('divine');
+    }
 }
 
