@@ -136,7 +136,7 @@ function jumpToDecode(){
     var shareData = {
         title: "神秘占卜",
         desc: "穿越到二次元，你会变成谁？",
-        link: "http://"+window.location.host+"/index.php?r=social/activityview&aid="+<?php echo $aid?>, 
+        link: "http://"+window.location.host+"/index.php?r=social/divine", 
         imgUrl: "http://"+window.location.host+"/css/images/divine_tit.jpg"
     };
     wx.onMenuShareAppMessage(shareData);
