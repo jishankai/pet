@@ -1,3 +1,8 @@
+<?php
+require_once "jssdk.php";
+$jssdk = new JSSDK(WECHAT_MP_ID, WECHAT_MP_SECRET);
+$signPackage = $jssdk->GetSignPackage();
+?>
 <!DOCTYPE>
 <html>
 <head>
