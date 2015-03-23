@@ -116,7 +116,7 @@
              android:background="@drawable/home_recomment_rq_frame">
              <TextView android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:text="成员"
+                 android:text="粉丝"
                 android:textSize="12sp"
                  android:textColor="@color/white"/>
               <TextView android:layout_width="wrap_content"

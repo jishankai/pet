@@ -79,6 +79,8 @@ public class WarningDialogActivity extends Activity {
 		}else if(mode==6){
 			layout1.setVisibility(View.GONE);
 			agreeLayout.setVisibility(View.VISIBLE);
+			isAgree=getIntent().getBooleanExtra("isAgree", false);
+			
 			WebSettings wb=webView.getSettings();
 			wb.setJavaScriptEnabled(true);
 			webView.setWebViewClient(new WebViewClient(){
@@ -198,7 +200,9 @@ public class WarningDialogActivity extends Activity {
 		agreeTV=(TextView)findViewById(R.id.agree_tv);
 		
 		agreeTV.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-		
+		if(isAgree){
+			agreeIV.setImageResource(R.drawable.box_chose_red);
+		}
 		agreeTV.setOnClickListener(new OnClickListener() {
 			
 			@Override

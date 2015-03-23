@@ -15,6 +15,7 @@ import com.huewu.pla.sample.R;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -209,6 +210,7 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 	}
 
 	public void updateHeaderHeight(float delta) {
+		update_footer=false;
 		mHeaderView.setVisiableHeight((int) delta + mHeaderView.getVisiableHeight());
 		if (mEnablePullRefresh && !mPullRefreshing) { // 未处于刷新状态，更新箭头
 			if (mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
@@ -241,8 +243,9 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 		// trigger computeScroll
 		invalidate();
 	}
-
+    boolean update_footer=false;
 	private void updateFooterHeight(float delta) {
+		update_footer=true;
 		int height = mFooterView.getBottomMargin() + (int) delta;
 		if (mEnablePullLoad && !mPullLoading) {
 			if (height > PULL_LOAD_MORE_DELTA) { // height enough to invoke load
@@ -298,7 +301,7 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 			break;
 		default:
 			mLastY = -1; // reset
-			if (getFirstVisiblePosition() == 0) {
+			if (getFirstVisiblePosition() == 0&&!update_footer) {
 				// invoke refresh
 				if (mEnablePullRefresh && mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
 					mPullRefreshing = true;
@@ -310,11 +313,15 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 				resetHeaderHeight();
 			} else if (getLastVisiblePosition() == mTotalItemCount - 1) {
 				// invoke load more.
+				Log.i("mi", "resetFooterHeight();===1");
 				if (mEnablePullLoad && mFooterView.getBottomMargin() > PULL_LOAD_MORE_DELTA) {
 					startLoadMore();
 				}
 				resetFooterHeight();
+				Log.i("mi", "resetFooterHeight();====2");
+				update_footer=false;
 			}
+			Log.i("mi", "getLastVisiblePosition()="+getLastVisiblePosition()+";mTotalItemCount - 1="+(mTotalItemCount - 1));
 			break;
 		}
 		return super.onTouchEvent(ev);

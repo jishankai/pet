@@ -153,6 +153,7 @@ public class ImageResizer extends ImageWorker {
 
 		// Calculate inSampleSize
 //		options1.inSampleSize = calculateInSampleSize(options1, reqWidth, reqHeight);
+		if(options!=null)
 		options1.inSampleSize = options.inSampleSize;
 		Log.i("me", "options.inSampleSize=========="+options1.inSampleSize);
 		// Decode bitmap with inSampleSize set

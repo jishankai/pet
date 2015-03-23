@@ -65,7 +65,7 @@ import com.aidigame.hisun.pet.widget.ShowProgress;
  */
 public class ChoseKingActivity extends Activity implements OnClickListener ,PullToRefreshAndMoreListener{
 	FrameLayout frameLayout;
-//	View viewTopWhite;
+	View viewTopWhite;
 	public View popupParent;//PopupWindwo位置相关parent
 	public RelativeLayout black_layout;
 	public static ChoseKingActivity choseKingActivity;
@@ -124,7 +124,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 		
 		titleLayout=(RelativeLayout)findViewById(R.id.relativeLayout1);
 		view1=(View)findViewById(R.id.view1);
-//		viewTopWhite=(View)findViewById(R.id.top_white_view);
+		viewTopWhite=(View)findViewById(R.id.top_white_view);
 		
 		
 		searchLayout=(LinearLayout)findViewById(R.id.search_layout);
@@ -144,6 +144,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 		choseStyleSpinner=(TextView)findViewById(R.id.chose_king_chose_style);
 		listView=pullToRefreshAndMoreView.getListView();
 		listView.setCacheColorHint(Color.TRANSPARENT);
+//		listView.setSelector(R.color.transparent);
 		pullToRefreshAndMoreView.setHeaderAndFooterInvisible();
 		pullToRefreshAndMoreView.setListener(this);
         list=new ArrayList<Animal>();
@@ -278,7 +279,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 			searchLayout.setVisibility(View.VISIBLE);
 			titleLayout.setVisibility(View.GONE);
 			view1.setVisibility(View.VISIBLE);
-//			viewTopWhite.setVisibility(View.GONE);
+			viewTopWhite.setVisibility(View.GONE);
 			break;
 		case R.id.chose_king_chose_race:
 //			showRaceWindow();
@@ -296,7 +297,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 				searchLayout.setVisibility(View.INVISIBLE);
 				titleLayout.setVisibility(View.VISIBLE);
 				view1.setVisibility(View.GONE);
-//				viewTopWhite.setVisibility(View.VISIBLE);
+				viewTopWhite.setVisibility(View.VISIBLE);
 				loadData();
 			}else{
 				String name=inputET.getText().toString();
@@ -315,11 +316,11 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 			isSearching=false;
 			break;
 		case R.id.chose_king_search3:
-			functionLayout.setVisibility(View.INVISIBLE);
+			functionLayout.setVisibility(View.GONE);
 			searchLayout.setVisibility(View.VISIBLE);
 			titleLayout.setVisibility(View.GONE);
-			view1.setVisibility(View.VISIBLE);
-//			viewTopWhite.setVisibility(View.GONE);
+			view1.setVisibility(View.GONE);
+			viewTopWhite.setVisibility(View.GONE);
 			break;
 		}
 	}
@@ -328,6 +329,7 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 	    TextView tv1=(TextView)view.findViewById(R.id.textView1);
 	    ListView listView=(ListView)view.findViewById(R.id.listview);
 	    listView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+	   
 	    final String[] strArray=new String[2];
 	    strArray[0]="推荐";
 	    strArray[1]="人气";
@@ -403,7 +405,9 @@ public class ChoseKingActivity extends Activity implements OnClickListener ,Pull
 		View view=LayoutInflater.from(this).inflate(R.layout.popup_popular_1, null);
 	    TextView tv1=(TextView)view.findViewById(R.id.textView1);
 	    ListView listView=(ListView)view.findViewById(R.id.listview);
+	    
 	    listView.setSelector(new ColorDrawable(Color.TRANSPARENT));
+	   
 	    String[] temp=null;
 	    if(Constants.planet==2){
 	    	temp=getResources().getStringArray(R.array.dog_race);

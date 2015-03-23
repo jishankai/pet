@@ -1,7 +1,9 @@
 package com.aidigame.hisun.pet.adapter;
 
+import java.io.File;
 import java.util.ArrayList;
 
+import u.aly.i;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -56,6 +58,7 @@ import com.aidigame.hisun.pet.widget.fragment.MyPetFragment;
 import com.example.android.bitmapfun.util.ImageCache;
 import com.example.android.bitmapfun.util.ImageFetcher;
 import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
+import com.example.android.bitmapfun.util.ImageWorker.LoadCompleteListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -93,7 +96,7 @@ public class HomeMyPetAdapter extends BaseAdapter {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 		
 		
@@ -165,7 +168,8 @@ public class HomeMyPetAdapter extends BaseAdapter {
 		final Animal animal=animals.get(position);
 		holder.modifyTv.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 		ImageLoader imageLoader=ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl, holder.pet_icon,displayImageOptions,new ImageLoadingListener() {
+		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+animal.pet_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", holder.pet_icon,displayImageOptions,new ImageLoadingListener() {
 			
 			@Override
 			public void onLoadingStarted(String imageUri, View view) {
@@ -244,10 +248,14 @@ public class HomeMyPetAdapter extends BaseAdapter {
 		holder.iv2.setVisibility(View.INVISIBLE);
 		holder.iv3.setVisibility(View.INVISIBLE);
 		holder.iv4.setVisibility(View.INVISIBLE);
-		holder.iv1.setImageBitmap(null);
-		holder.iv2.setImageBitmap(null);
-		holder.iv3.setImageBitmap(null);
-		holder.iv4.setImageBitmap(null);
+		holder.iv1.setImageResource(R.drawable.image_default2);
+		holder.iv2.setImageResource(R.drawable.image_default2);
+		holder.iv3.setImageResource(R.drawable.image_default2);
+		holder.iv4.setImageResource(R.drawable.image_default2);
+//		holder.iv1.setImageBitmap(null);
+//		holder.iv2.setImageBitmap(null);
+//		holder.iv3.setImageBitmap(null);
+//		holder.iv4.setImageBitmap(null);
 		
 		if(animal.picturs!=null){
 			if(animal.picturs.size()>=4){
@@ -366,10 +374,40 @@ public class HomeMyPetAdapter extends BaseAdapter {
 	}
 	public void loadImage(ImageView iv,String url){
 		iv.setVisibility(View.VISIBLE);
+		
 		ImageFetcher imageFetcher4=new ImageFetcher(context, context.getResources().getDimensionPixelSize(R.dimen.dip_64),context.getResources().getDimensionPixelSize(R.dimen.dip_64));
-		imageFetcher4.setImageCache(new ImageCache(context, new ImageCacheParams(url)));
+		imageFetcher4.IP=imageFetcher4.UPLOAD_THUMBMAIL_IMAGE;
+		imageFetcher4.setImageCache(new ImageCache(context, new ImageCacheParams(url+"@"+context.getResources().getDimensionPixelSize(R.dimen.dip_64)+"w_"+context.getResources().getDimensionPixelSize(R.dimen.dip_64)+"h_"+"0l.jpg")));
+		imageFetcher4.setLoadCompleteListener(new LoadCompleteListener() {
+        	
+			@Override
+			public void onComplete(Bitmap bitmap) {
+				// TODO Auto-generated method stub
+				
+			    
+			}
+			@Override
+			public void getPath(String path) {
+				// TODO Auto-generated method stub
+				File f=new File(path);
+				if(animals!=null)
+				for(int j=0;j<animals.size();j++){
+					if(animals.get(j).picturs!=null)
+					for(int i=0;i<animals.get(j).picturs.size();i++){
+						if(f.getName().contains(animals.get(j).picturs.get(i).url)){
+							animals.get(j).picturs.get(i).petPicture_path=f.getName();
+						}
+					}
+				}
+				
+				
+			}
+			
+			
+		});
+		
 		//imageFetcher4.setWidth(context.getResources().getDimensionPixelSize(R.dimen.dip_64));
-		imageFetcher4.loadImage(url, iv, op);
+		imageFetcher4.loadImage(url+"@"+context.getResources().getDimensionPixelSize(R.dimen.dip_64)+"w_"+context.getResources().getDimensionPixelSize(R.dimen.dip_64)+"h_"+"0l.jpg", iv, /*op*/null);
 	}
 	/**
 	 * 用户职位等级   
@@ -640,7 +678,7 @@ public class HomeMyPetAdapter extends BaseAdapter {
 							@Override
 							public void run() {
 								// TODO Auto-generated method stub
-								final PetPicture pp=HttpUtil.shareFoodApi(handler, animal, context);
+								final PetPicture pp=HttpUtil.judgePictureMenu(handler, animal, context,1);
 								context.runOnUiThread(new Runnable() {
 									
 									@Override
@@ -649,7 +687,7 @@ public class HomeMyPetAdapter extends BaseAdapter {
 										if(pp==null){
 											if(PetApplication.myUser.userId==animal.master_id){
 												if(HomeActivity.homeActivity.myPetFragment!=null){
-													HomeActivity.homeActivity.myPetFragment.showCameraAlbum(animal,true);
+													HomeActivity.homeActivity.myPetFragment.showCameraAlbum(animal,1);
 												}
 											}else{
 												Toast.makeText(context, "萌星 "+animal.pet_nickName+"，今天还没挣口粮呢~", Toast.LENGTH_LONG).show();

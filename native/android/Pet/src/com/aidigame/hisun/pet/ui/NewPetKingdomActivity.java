@@ -443,9 +443,10 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.ARGB_8888)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+data.pet_iconUrl, petIcon, displayImageOptions,new ImageLoadingListener() {
+		int w=getResources().getDimensionPixelSize(R.dimen.one_dip)*72;
+		imageLoader.displayImage(Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+data.pet_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", petIcon, displayImageOptions,new ImageLoadingListener() {
 			
 			@Override
 			public void onLoadingStarted(String imageUri, View view) {
@@ -537,6 +538,7 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 		options.inPreferredConfig=Bitmap.Config.RGB_565;
 		options.inPurgeable=true;
 		options.inInputShareable=true;
+		
 		DisplayImageOptions displayImageOptions2=new DisplayImageOptions
 	            .Builder()
 	            .showImageOnLoading(R.drawable.pet_icon)
@@ -545,7 +547,7 @@ public class NewPetKingdomActivity extends Activity implements OnClickListener{
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 //		ImageLoader imageLoader2=ImageLoader.getInstance();
 //imageLoader2.loadImage(Constants.ANIMAL_DOWNLOAD_TX+data.pet_iconUrl,  displayImageOptions2,new ImageLoadingListener() {
@@ -643,10 +645,11 @@ DisplayImageOptions displayImageOptions3=new DisplayImageOptions
 .cacheOnDisc(true)
 .bitmapConfig(Bitmap.Config.RGB_565)
 .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-.decodingOptions(options2)
+//.decodingOptions(options2)
 .build();
+int w2=getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
 ImageLoader imageLoader3=ImageLoader.getInstance();
-		imageLoader3.displayImage(Constants.USER_DOWNLOAD_TX+data.u_tx, userIcon, displayImageOptions3);
+		imageLoader3.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+data.u_tx+"@"+w2+"w_"+w2+"h_0l.jpg", userIcon, displayImageOptions3);
 	}
 	private void initListener() {
 		// TODO Auto-generated method stub

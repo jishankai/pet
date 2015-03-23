@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.adapter;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.aidigame.hisun.pet.R;
@@ -19,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,12 +45,13 @@ public class GridPictureAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		int a=pictures.size()%3;
+		/*int a=pictures.size()%3;
 		if(a==0){
 			return pictures.size()/3;
 		}else{
 			return pictures.size()/3+1;
-		}
+		}*/
+		return pictures.size();
 	}
 
 	@Override
@@ -119,7 +122,8 @@ public class GridPictureAdapter extends BaseAdapter {
 		options.inInputShareable=true;
 	    ImageFetcher mImageFetcher=new ImageFetcher(context, 0);
 		mImageFetcher.setWidth(0);
-		mImageFetcher.setImageCache(new ImageCache(context, new ImageCacheParams(data.url)));
+		mImageFetcher.IP=mImageFetcher.UPLOAD_THUMBMAIL_IMAGE;
+		mImageFetcher.setImageCache(new ImageCache(context, new ImageCacheParams(data.url+"@"+Constants.screen_width/3+"w_"+Constants.screen_width/3+"h_"+"0l.jpg")));
 		mImageFetcher.setLoadCompleteListener(new LoadCompleteListener() {
 			
 			@Override
@@ -131,6 +135,14 @@ public class GridPictureAdapter extends BaseAdapter {
 			@Override
 			public void getPath(String path) {
 				// TODO Auto-generated method stub
+				File f=new File(path);
+				for(int i=0;i<pictures.size();i++){
+					if(f.getName().contains(pictures.get(i).url)){
+						pictures.get(i).petPicture_path=f.getName();
+					}
+				}
+				
+				
 				LinearLayout.LayoutParams param=(LinearLayout.LayoutParams)topic.getLayoutParams();
 				if(param==null){
 					param=new LinearLayout.LayoutParams(0,0);
@@ -141,7 +153,10 @@ public class GridPictureAdapter extends BaseAdapter {
 				topic.setLayoutParams(param);
 			}
 		});
-		mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/data.url, topic, options);
+		
+		LogUtil.i("me", "******************************loadImage******************"+data.url+"@"+Constants.screen_width/3+"w_0l_50q.jpg");
+		Log.i("me", "adapter ******url="+data.url+"@"+Constants.screen_width/3+"w_0l_50q");
+		mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/data.url+"@"+Constants.screen_width/3+"w_0l.jpg", topic, /*options*/null);
 	}
 	class Holder{
 		ImageView iv1;

@@ -18,6 +18,7 @@ import com.aidigame.hisun.pet.widget.ShowProgress;
 import com.aidigame.hisun.pet.widget.WeixinShare;
 import com.aidigame.hisun.pet.widget.fragment.DialogNote;
 import com.aidigame.hisun.pet.widget.fragment.MyPetFragment;
+import com.example.android.bitmapfun.util.DiskLruCache;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -319,7 +320,10 @@ public class SetupActivity extends Activity implements OnClickListener{
 			
 			break;
 		case R.id.linearlayout7:
-			if(Constants.realVersion!=null&&StringUtil.canUpdate(this, Constants.realVersion)){
+			if(StringUtil.isEmpty(Constants.realVersion)){
+				Constants.realVersion=sp.getString("real_version", "1.0.0");
+			}
+			if((Constants.realVersion!=null&&StringUtil.canUpdate(this, Constants.realVersion))||(Constants.VERSION!=null&&StringUtil.canUpdate(this, Constants.VERSION))){
 				Intent intent=new Intent(this,UpdateAPKActivity.class);
 				this.startActivity(intent);
 			}else{
@@ -363,6 +367,7 @@ public class SetupActivity extends Activity implements OnClickListener{
 		}else{
 			showProgress.showProgress();
 		}
+		DiskLruCache.clearCache(SetupActivity.this, Constants.Picture_Topic_Path);
 				File file=new File(Constants.Picture_Root_Path);
 				if(file.exists()){
 					StringUtil.deleteFile(file);
@@ -405,6 +410,7 @@ public class SetupActivity extends Activity implements OnClickListener{
 						if(!file1.exists()){
 							file1.mkdirs();
 						}
+						
 					}
 				}, 2000);
 	}

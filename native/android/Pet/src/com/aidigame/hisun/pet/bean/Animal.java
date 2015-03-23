@@ -87,6 +87,7 @@ public class Animal implements Serializable{
 	
 	public boolean isTouched;
 	public String touchedPath;
+	public long touch_img_id;
 	
 	
 	public boolean isSelected=false;

@@ -25,6 +25,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
@@ -68,6 +69,7 @@ import com.aidigame.hisun.pet.widget.fragment.UserCenterFragment;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.umeng.analytics.MobclickAgent;
 /**
  * 注册界面，填写个人信息
  * mode 2，只填写用户信息；3创建狗的猫的联萌填写宠物和用户信息,5 修改用户资料,6 微信或新浪绑定
@@ -191,6 +193,7 @@ public class NewRegisterActivity extends Activity {
 			title.setText("修改用户资料");
 		}else{
 			title.setText("注册");
+			
 		}
 		camera_album=(LinearLayout)findViewById(R.id.album_camera_register);
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
@@ -704,7 +707,14 @@ public class NewRegisterActivity extends Activity {
 											intent13.putExtra("mode", 2);
 											NewRegisterActivity.this.startActivity(intent13);
 										/*}*/
-										
+										if(PetApplication.myUser!=null&&PetApplication.myUser.currentAnimal!=null){
+											if(PetApplication.myUser.userId==PetApplication.myUser.currentAnimal.a_id){
+												MobclickAgent.onEvent(NewRegisterActivity.this, "register_suc_pet");
+											}else{
+												MobclickAgent.onEvent(NewRegisterActivity.this, "register_suc_nopet");
+											}
+											
+										}
 										
 										if(UserCenterFragment.userCenterFragment!=null){
 									    	UserCenterFragment.userCenterFragment.updatateInfo(true);;

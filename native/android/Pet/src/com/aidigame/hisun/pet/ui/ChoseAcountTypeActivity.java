@@ -26,6 +26,7 @@ import com.aidigame.hisun.pet.http.HttpUtil;
 import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
+import com.umeng.analytics.MobclickAgent;
 /**
  * 选择账户类型，1.认养宠物，2.建立王国
  * 界面有两种显示模式，1.汪星，2.喵星
@@ -74,7 +75,11 @@ public class ChoseAcountTypeActivity extends Activity {
 		agreeLayout=(LinearLayout)findViewById(R.id.agree_layout);
 		agreeTV.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
 		
-		if(from!=0)agreeLayout.setVisibility(View.INVISIBLE);
+		if(from!=0){
+			agreeLayout.setVisibility(View.INVISIBLE);
+		}else{
+			MobclickAgent.onEvent(ChoseAcountTypeActivity.this, "register_choose");
+		}
 		
 		agreeTV.setOnClickListener(new OnClickListener() {
 			
@@ -83,6 +88,7 @@ public class ChoseAcountTypeActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent=new Intent(ChoseAcountTypeActivity.this,WarningDialogActivity.class);
 				intent.putExtra("mode", 6);
+				intent.putExtra("isAgree", isAgree);
 				ChoseAcountTypeActivity.this.startActivity(intent);
 			}
 		});

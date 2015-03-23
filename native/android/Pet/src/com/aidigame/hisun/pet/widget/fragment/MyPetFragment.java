@@ -69,6 +69,8 @@ import com.aidigame.hisun.pet.ui.DialogGiveSbGiftActivity1;
 import com.aidigame.hisun.pet.ui.HomeActivity;
 import com.aidigame.hisun.pet.ui.PlayGameActivity;
 import com.aidigame.hisun.pet.ui.ShakeActivity;
+import com.aidigame.hisun.pet.ui.SubmitPictureActivity;
+import com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity;
 import com.aidigame.hisun.pet.ui.TakePictureBackground;
 import com.aidigame.hisun.pet.ui.TouchActivity;
 import com.aidigame.hisun.pet.ui.UsersListActivity;
@@ -329,7 +331,10 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 			  		}
 			  		if(animals.size()>0){
 			  		//使用系统相机
-					showCameraAlbum(animals.get(0),false);
+//					showCameraAlbum(animals.get(0),false);
+			  			Intent intent=new Intent(getActivity(),SubmitPictureTypeActivity.class);
+			  			getActivity().startActivity(intent);
+			  			
 			  		}
 			}else{
 				Toast.makeText(getActivity(), "只有宠物主人才可以上传照片,目前您还没有创建的萌星", Toast.LENGTH_LONG).show();
@@ -376,7 +381,12 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 
 	
 	boolean isShowingCameraAlbum=false;
-	public void showCameraAlbum(final Animal animal,final boolean isBeg) {
+	/**
+	 * 
+	 * @param animal
+	 * @param mode 0 晒照片；1，挣口粮；2 求摸摸；3 玩球球
+	 */
+	public void showCameraAlbum(final Animal animal,final int mode) {
 		// TODO Auto-generated method stub
 		isShowingCameraAlbum=true;
 		long l1=System.currentTimeMillis();
@@ -403,10 +413,10 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 				intent2.putExtra("mode", TakePictureBackground.MODE_TOPIC);
 				if(animal!=null){
 					intent2.putExtra("animal", animal);
-					intent2.putExtra("isBeg", isBeg);
+					intent2.putExtra("isBeg", mode);
 				}else{
 					intent2.putExtra("animal", PetApplication.myUser.currentAnimal);
-					intent2.putExtra("isBeg", isBeg);
+					intent2.putExtra("isBeg", mode);
 				}
 				
 				getActivity().startActivity(intent2);
@@ -426,10 +436,10 @@ public class MyPetFragment extends Fragment implements OnClickListener{
 				
 				if(animal!=null){
 					intent2.putExtra("animal", animal);
-					intent2.putExtra("isBeg", isBeg);
+					intent2.putExtra("isBeg", mode);
 				}else{
 					intent2.putExtra("animal", PetApplication.myUser.currentAnimal);
-					intent2.putExtra("isBeg", isBeg);
+					intent2.putExtra("isBeg", mode);
 				}
 				getActivity().startActivity(intent2);
 				

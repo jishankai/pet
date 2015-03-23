@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.adapter;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.aidigame.hisun.pet.PetApplication;
@@ -96,7 +97,7 @@ public class BegPicturesAdapter extends BaseAdapter {
 			holder=(Holder)convertView.getTag();
 		}
 		final PetPicture p=pictures.get(position);
-		if(position==0){
+		if(position==0||position==1||position==2){
 			if((p.create_time*1000+24*3600*1000)<System.currentTimeMillis()){
 				holder.giveLayout2.setVisibility(View.GONE);
   			}else{
@@ -115,6 +116,18 @@ public class BegPicturesAdapter extends BaseAdapter {
 		holder.timeTv.setText(""+judgeTime(p.create_time));
 		loadTopicImage(holder.begIv, p);
 		final TextView tv=holder.foodNumTv;
+		if(p.picture_type==1){
+			holder.heartIv.setImageResource(R.drawable.give_heart);
+		}else{
+			 SharedPreferences sp=context.getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+		     
+		    	  String path=sp.getString("p_mid"+p.picture_type+"_pic_path", "");
+		    	  if(!StringUtil.isEmpty(path)&&new File(path).exists()){
+		    		  holder.heartIv.setImageBitmap(BitmapFactory.decodeFile(path));
+		    	  }else{
+		    		  holder.heartIv.setImageResource(R.drawable.give_heart);
+		    	  }
+		}
 		holder.giveLayout.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -256,7 +269,7 @@ tv4.setOnClickListener(new OnClickListener() {
 		}else if(time/(60*60*24)<30){
 			sb.append(  str+time/(60*60*24)+"天");
 		}else if(time/(60*60*24*30)<12){
-			sb.append(  str+time/(60*60*24)+"个月");
+			sb.append(  str+time/(60*60*24*30)+"个月");
 		}else if(time/(60*60*24*30*12)<1000){
 			sb.append( str+time/(60*60*24*30*12)+"年");
 		}
@@ -283,7 +296,9 @@ tv4.setOnClickListener(new OnClickListener() {
 		options.inInputShareable=true;
 	    ImageFetcher mImageFetcher=new ImageFetcher(context, 0);
 		mImageFetcher.setWidth(0);
-		mImageFetcher.setImageCache(new ImageCache(context, new ImageCacheParams(data.url)));
+		int h=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*100;
+		mImageFetcher.IP=mImageFetcher.UPLOAD_THUMBMAIL_IMAGE;
+		mImageFetcher.setImageCache(new ImageCache(context, new ImageCacheParams(data.url+"@"+h+"w_"+h+"h_0l.jpg")));
 		mImageFetcher.setLoadCompleteListener(new LoadCompleteListener() {
 			
 			@Override
@@ -305,7 +320,7 @@ tv4.setOnClickListener(new OnClickListener() {
 				topic.setLayoutParams(param);
 			}
 		});
-		mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/data.url, topic, options);
+		mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/data.url+"@"+h+"w_"+h+"h_0l.jpg", topic, /*options*/null);
 	}
 	boolean isGiving=false;
 	int current_give_num=1;

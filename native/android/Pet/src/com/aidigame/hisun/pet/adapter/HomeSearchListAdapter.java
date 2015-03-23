@@ -85,7 +85,7 @@ public class HomeSearchListAdapter extends BaseAdapter {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 		displayImageOptions2=new DisplayImageOptions
 	            .Builder()
@@ -94,7 +94,7 @@ public class HomeSearchListAdapter extends BaseAdapter {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 	}
 	public void updateList(
@@ -243,12 +243,14 @@ public class HomeSearchListAdapter extends BaseAdapter {
 	public void loadIcon(RoundImageView icon,final Animal data){
 		
 		imageLoader=ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+data.pet_iconUrl, icon, displayImageOptions);
+		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+data.pet_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", icon, displayImageOptions);
 	}
 public void loadIcon(RoundImageView icon,final MyUser data){
 		
 		imageLoader=ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+data.u_iconUrl, icon, displayImageOptions2);
+		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+data.u_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", icon, displayImageOptions2);
 	}
 	class Holder{
 		RoundImageView icon;

@@ -16,6 +16,7 @@
         android:paddingRight="15dp"
         android:horizontalSpacing="30dp"
         android:verticalSpacing="20dp"
+        android:layout_marginBottom="46dp"
         android:gravity="center_horizontal"
         android:scrollbars="none"
         android:fadingEdge="none"

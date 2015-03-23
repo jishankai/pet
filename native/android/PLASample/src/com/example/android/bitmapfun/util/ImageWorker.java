@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 
 import java.lang.ref.WeakReference;
 
+import com.dodola.model.DuitangInfo;
 import com.huewu.pla.sample.BuildConfig;
 
 /**
@@ -267,15 +268,17 @@ public abstract class ImageWorker {
 		 */
 		@Override
 		protected Bitmap doInBackground(Object... params) {
+			
 			data = params[0];
 			String dataString = String.valueOf(data);
-			if(dataString.contains(".png")){
+			Log.i("me", "BitmapWorkerTask ******url="+dataString);
+			/*if(dataString.contains(".png")){
 				dataString=dataString.substring(0, dataString.indexOf(".png"));
 				dataString=dataString+".png";
 			}else if(dataString.contains(".jpg")){
 				dataString=dataString.substring(0, dataString.indexOf(".jpg"));
 				dataString=dataString+".jpg";
-			}
+			}*/
 			
 			Bitmap bitmap = null;
 

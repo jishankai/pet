@@ -22,6 +22,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -45,6 +46,9 @@ public class ImageFetcher extends ImageResizer {
 //    public static final String HTTP_CACHE_DIR = "http";   //pet-test
     public static String UPLOAD_IMAGE_RETURN_URL="http://pet4upload.oss-cn-beijing.aliyuncs.com/";//http://pet4upload.oss-cn-beijing.aliyuncs.com/
     public   String itemUrl=null;
+    public String IP=UPLOAD_IMAGE_RETURN_URL;
+    public static String UPLOAD_THUMBMAIL_IMAGE="http://uploadthumb.imengstar.com/";
+//    public static String UPLOAD_THUMBMAIL_IMAGE="http://devuploadthumb.imengstar.com/";
     /**
      * Initialize providing a target image width and height for the processing images.
      *
@@ -106,7 +110,7 @@ public class ImageFetcher extends ImageResizer {
         }else{
         	u=itemUrl+data;
         }
-        final File f = downloadBitmap(mContext, data,itemUrl);
+        final File f = downloadBitmap(mContext, data,itemUrl,IP);
 
         if (f != null) {
             // Return a sampled down version
@@ -129,8 +133,12 @@ public class ImageFetcher extends ImageResizer {
      * @param urlString The URL to fetch
      * @return A File pointing to the fetched bitmap
      */
-    public static File downloadBitmap(Context context, String urlString,String itemUrl) {
+    public static File downloadBitmap(Context context, String urlString,String itemUrl,String IP) {
     
+    	File t=new File(Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"topic");
+    	Log.i("me",Environment.getExternalStorageDirectory()+File.separator+"pet"+File.separator+"topic"+".exist()="+t.exists());
+    	
+    	
         final File cacheDir = DiskLruCache.getDiskCacheDir(context, "");
 
         final DiskLruCache cache =
@@ -139,7 +147,7 @@ public class ImageFetcher extends ImageResizer {
         final File cacheFile = new File(cache.createFilePath(urlString));
         
         Log.i("me","cacheFile.exists()="+cacheFile.exists()+",cacheFile.isDirectory()="+cacheFile.isDirectory() );
-        if (cache.containsKey(urlString)) {
+        if (cache.containsKey(urlString)&&cacheFile.exists()) {
             if (BuildConfig.DEBUG) {
 //                Log.d(TAG, "downloadBitmap - found in http cache - " + urlString);
             }
@@ -147,9 +155,9 @@ public class ImageFetcher extends ImageResizer {
             	String temp=urlString.substring(urlString.indexOf("@")+1);
             	if(temp!=null&&temp.contains("@")){
             		int length=Integer.parseInt(temp.substring(0,temp.indexOf("@")));
-            		if(cacheFile.length()>length-1000){
+//            		if(cacheFile.length()>length-1000){
             			 return cacheFile;
-            		}
+//            		}
             	}
             	
             }else
@@ -173,9 +181,10 @@ public class ImageFetcher extends ImageResizer {
         	}else{
         		u=itemUrl+urlString;
         	}
-            final URL url = new URL(UPLOAD_IMAGE_RETURN_URL+u);
+        	 Log.i("me", "=================xiazai 图片   url="+IP+u);
+            final URL url = new URL(IP+u);
             
-            Log.i("me", "=================xiazai 图片   url="+UPLOAD_IMAGE_RETURN_URL+urlString);
+           
             urlConnection = (HttpURLConnection) url.openConnection();
             final InputStream in =
                     new BufferedInputStream(urlConnection.getInputStream(), Utils.IO_BUFFER_SIZE);
@@ -189,7 +198,7 @@ public class ImageFetcher extends ImageResizer {
             return cacheFile;
 
         } catch (final IOException e) {
-            Log.e(TAG, "Error in downloadBitmap - " + e);
+            Log.e(TAG, "Error in downloadBitmap - " + e+"=====url="+urlString);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();

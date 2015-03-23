@@ -25,6 +25,7 @@ import com.example.android.bitmapfun.util.ImageFetcher;
 import com.example.android.bitmapfun.util.ImageWorker;
 import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
 import com.example.android.bitmapfun.util.ImageWorker.LoadCompleteListener;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.controller.UMServiceFactory;
@@ -203,7 +204,10 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 			options.inPurgeable=true;
 			options.inInputShareable=true;
 			mImageFetcher.setWidth(iv.getMeasuredWidth());
-			mImageFetcher.setImageCache(new ImageCache(this, new ImageCacheParams(pp.url)));
+			int w=getResources().getDimensionPixelSize(R.dimen.one_dip)*100;
+			int h=getResources().getDimensionPixelSize(R.dimen.one_dip)*150;
+			mImageFetcher.IP=mImageFetcher.UPLOAD_THUMBMAIL_IMAGE;
+			mImageFetcher.setImageCache(new ImageCache(this, new ImageCacheParams(pp.url+"@"+w+"w_"+h+"h_0l.jpg")));
 			mImageFetcher.setLoadCompleteListener(new LoadCompleteListener() {
 				
 				@Override
@@ -218,7 +222,7 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 					Dialog6Activity.this.path=path;
 				}
 			});
-			mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/pp.url, iv,options);
+			mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/pp.url+"@"+w+"w_"+h+"h_0l.jpg", iv,/*options*/null);
 			if(myTimerTask!=null){
 			    myTimerTask.cancel();
 			}
@@ -307,6 +311,26 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 		   		                @Override
 		   		                public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
 		   		                     if (eCode == 200) {
+		   		                    	
+		   		     				/*if(pp.picture_type==2){
+			         					MobclickAgent.onEvent(Dialog6Activity.this, "topic1_share_suc");
+			         				}else if(pp.picture_type==2){
+			         					MobclickAgent.onEvent(Dialog6Activity.this, "topic2_share_suc");
+			         				}else {
+											MobclickAgent.onEvent(Dialog6Activity.this, "food_share_suc");
+									 
+			         				}*/
+		   		                    	if(pp.picture_type==2){
+		   			                  		MobclickAgent.onEvent(Dialog6Activity.this, "topic1_share_suc");
+		   									
+		   								}else if(pp.picture_type==3){
+		   									MobclickAgent.onEvent(Dialog6Activity.this, "topic2_share_suc");
+		   		         				}else if(pp.picture_type==0){
+		   		         					
+		   		         				}else{
+		   		         					MobclickAgent.onEvent(Dialog6Activity.this, "food_share_suc");
+		   		         				}
+		   		                    	 
 		   		                         Toast.makeText(Dialog6Activity.this, "分享成功.", Toast.LENGTH_SHORT).show();
 		   		                     } else {
 		   		                          String eMsg = "";
@@ -343,6 +367,24 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 		           @Override
 		           public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
 		                if (eCode == 200) {
+		                	/*if(pp.picture_type==2){
+	         					MobclickAgent.onEvent(Dialog6Activity.this, "topic1_share_suc");
+	         				}else if(pp.picture_type==2){
+	         					MobclickAgent.onEvent(Dialog6Activity.this, "topic2_share_suc");
+	         				}else {
+									MobclickAgent.onEvent(Dialog6Activity.this, "food_share_suc");
+							 
+	         				}*/
+		                	if(pp.picture_type==2){
+		                  		MobclickAgent.onEvent(Dialog6Activity.this, "topic1_share_suc");
+								
+							}else if(pp.picture_type==3){
+								MobclickAgent.onEvent(Dialog6Activity.this, "topic2_share_suc");
+	         				}else if(pp.picture_type==0){
+	         					
+	         				}else{
+	         					MobclickAgent.onEvent(Dialog6Activity.this, "food_share_suc");
+	         				}
 		                 Toast.makeText(Dialog6Activity.this, "分享成功.", Toast.LENGTH_SHORT).show();
 		                } else {
 		                     String eMsg = "";
@@ -380,6 +422,24 @@ public class Dialog6Activity extends Activity implements OnClickListener{
 		   		public void onComplete(SHARE_MEDIA arg0, int eCode, SocializeEntity arg2) {
 		   			// TODO Auto-generated method stub
 		   			if (eCode == 200) {
+		   				/*if(pp.picture_type==2){
+         					MobclickAgent.onEvent(Dialog6Activity.this, "topic1_share_suc");
+         				}else if(pp.picture_type==2){
+         					MobclickAgent.onEvent(Dialog6Activity.this, "topic2_share_suc");
+         				}else {
+								MobclickAgent.onEvent(Dialog6Activity.this, "food_share_suc");
+						 
+         				}*/
+		   				if(pp.picture_type==2){
+	                  		MobclickAgent.onEvent(Dialog6Activity.this, "topic1_share_suc");
+							
+						}else if(pp.picture_type==3){
+							MobclickAgent.onEvent(Dialog6Activity.this, "topic2_share_suc");
+         				}else if(pp.picture_type==0){
+         					
+         				}else{
+         					MobclickAgent.onEvent(Dialog6Activity.this, "food_share_suc");
+         				}
 		                   Toast.makeText(Dialog6Activity.this, "分享成功.", Toast.LENGTH_SHORT).show();
 		                  } else {
 		                       String eMsg = "";

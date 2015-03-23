@@ -69,6 +69,7 @@ public class PetApplication extends Application{
 		String versions=sp.getString(Constants.BASEIC_VERSION, "");
 		if(!StringUtil.isEmpty(versions)){
 			if(!versions.equals(StringUtil.getAPKVersionName(this))){
+				ed.putString(Constants.BASEIC_VERSION, StringUtil.getAPKVersionName(this));
 				ed.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE1, true);
 				ed.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE2, true);
 				ed.putBoolean(Constants.BASEIC_SHAREDPREFERENCE_NAME_GUIDE3, true);

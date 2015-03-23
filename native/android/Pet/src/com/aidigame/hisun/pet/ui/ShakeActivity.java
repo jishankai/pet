@@ -171,7 +171,7 @@ public class ShakeActivity extends Activity {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
     	initView();
     }
@@ -182,7 +182,8 @@ public class ShakeActivity extends Activity {
 		viewPager=(ViewPager)findViewById(R.id.viewpager);
 		ImageLoader imageLoader=ImageLoader.getInstance();
 		ImageView icon=(ImageView)findViewById(R.id.roundImageView1);
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl,icon , displayImageOptions,new ImageLoadingListener() {
+		int w=getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+animal.pet_iconUrl+"@"+w+"w_"+w+"h_0l.jpg",icon , displayImageOptions,new ImageLoadingListener() {
 			
 			@Override
 			public void onLoadingStarted(String imageUri, View view) {
@@ -550,9 +551,10 @@ public class ShakeActivity extends Activity {
 		desTv.setText(gift.effect_des);
 		addRqTv.setText("人气+"+gift.add_rq);
 		ImageLoader imageLoader=ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl, animalIv, displayImageOptions);
+		int w=getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+animal.pet_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", animalIv, displayImageOptions);
 		
-		share(view33);
+		share(view33,3);
 	}
     public void initView4(){
     	shine_view.setVisibility(View.GONE);
@@ -574,14 +576,14 @@ public class ShakeActivity extends Activity {
     	TextView tView=(TextView)view5.findViewById(R.id.textView23);
     	tView.setText(animal.pet_nickName+"今天的摇一摇次数用完啦~");
     	ImageView cloudIV1=(ImageView)view5.findViewById(R.id.cloud1);
-    	share(view5);
+    	share(view5,5);
     	ImageView cloudIV2=(ImageView)view5.findViewById(R.id.cloud2);
     	ImageView cloudIV3=(ImageView)view5.findViewById(R.id.cloud3);
     	StringUtil.viewStartTransAnim(cloudIV1, 4600, 20, -20-Constants.screen_width);
     	StringUtil.viewStartTransAnim(cloudIV2, 5000, -20, 20+Constants.screen_width);
     	StringUtil.viewStartTransAnim(cloudIV3, 4800, 20, -20-Constants.screen_width);
 	}
-	public void share(View view){
+	public void share(View view,final int mode){
 		ImageView weixinIV=(ImageView)view.findViewById(R.id.imageView3);
 		ImageView friendIV=(ImageView)view.findViewById(R.id.imageView4);
 		ImageView xinlangIV=(ImageView)view.findViewById(R.id.imageView5);
@@ -590,7 +592,7 @@ public class ShakeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				weixinShare(animal.pet_iconPath);
+				weixinShare(animal.pet_iconPath,mode);
 				
 				
 			}
@@ -600,7 +602,7 @@ public class ShakeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				friendShare(animal.pet_iconPath);
+				friendShare(animal.pet_iconPath,mode);
 				
 			}
 		});
@@ -610,7 +612,7 @@ public class ShakeActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
-				xinlangShare();
+				xinlangShare(mode);
 				
 				
 			}
@@ -640,14 +642,22 @@ public class ShakeActivity extends Activity {
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	   }
-	      public void weixinShare(String path){
+	      public void weixinShare(String path,int mode){
 	   	   WeiXinShareContent weixinContent = new WeiXinShareContent();
 	  	 //设置分享文字
-		   	 weixinContent.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
+	   	weixinContent.setTitle("摇一摇，手不酸了~");
 		   	 //设置title
-		   	 weixinContent.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+//		   	 weixinContent.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+		   	 if(mode==3){
+			   	 weixinContent.setShareContent("duang~"+gift.name+"从天而降，满眼都是幸福的小星星n(*≧▽≦*)n");
+		   	 }else if(mode==5){
+		   		weixinContent.setShareContent("你有事儿么？没事摇一摇~");
+		   	 }
+		   	
 		   	 //设置分享内容跳转URL
-		   	 weixinContent.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
+//		   	weixinContent.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
+		   	weixinContent.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=social/shake&aid="+animal.a_id+"&SID="+PetApplication.SID);
+
 	   	 //设置分享图片
 	   	 UMImage umImage=new UMImage(this,path );
 	   	 weixinContent.setShareImage(umImage);
@@ -677,17 +687,23 @@ public class ShakeActivity extends Activity {
 	   	   
 	   		
 	      }
-	      public void friendShare(String path){
+	      public void friendShare(String path,int mode){
 	   	   CircleShareContent circleMedia = new CircleShareContent();
 	   	   UMImage umImage=new UMImage(this, path);
 	   	   circleMedia.setShareImage(umImage);
 	   	   
 	  	 //设置分享文字
-		   	circleMedia.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
+		   	circleMedia.setShareContent("摇一摇，手不酸了~");
 			   	 //设置title
-		   	circleMedia.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+//		   	circleMedia.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+		    if(mode==3){
+		    	circleMedia.setTitle("duang~"+gift.name+"从天而降，满眼都是幸福的小星星n(*≧▽≦*)n");
+		   	 }else if(mode==5){
+		   		circleMedia.setTitle("你有事儿么？没事摇一摇~");
+		   	 }
 			   	 //设置分享内容跳转URL
-		   	circleMedia.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
+//		   	circleMedia.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
+			circleMedia.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=social/shake&aid="+animal.a_id+"&SID="+PetApplication.SID);
 	   	   
 
 	   	   mController.setShareMedia(circleMedia);
@@ -885,7 +901,7 @@ public class ShakeActivity extends Activity {
 				}
 			}).start();
 	    }
-	    public void xinlangShare(){
+	    public void xinlangShare(int mode){
 				
 	    	 UserImagesJson.Data data=new UserImagesJson.Data();
 		   		data.path=animal.pet_iconPath;
@@ -899,7 +915,12 @@ public class ShakeActivity extends Activity {
 					}
 		   	
 		   	   SinaShareContent content=new SinaShareContent();
-		   	   content.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~"+"http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id+"（分享自@宠物星球社交应用）");
+		   	   if(mode==3){
+		   		content.setShareContent("duang~"+gift.name+"从天而降，满眼都是幸福的小星星n(*≧▽≦*)n"+"http://"+Constants.IP+Constants.URL_ROOT+"r=social/shake&aid="+animal.a_id+"&SID="+PetApplication.SID+"（分享自@宠物星球社交应用）");
+		   	   }else if(mode==5){
+		   		content.setShareContent("你有事儿么？没事摇一摇~"+"http://"+Constants.IP+Constants.URL_ROOT+"r=social/shake&aid="+animal.a_id+"&SID="+PetApplication.SID+"（分享自@宠物星球社交应用）");
+		   	   }
+		   	   
 	    	
 		   	   UMImage umImage=new UMImage(this, data.path);
 		   	  

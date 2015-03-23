@@ -58,7 +58,7 @@ public class KingdomPeoplesAdapter extends BaseAdapter {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 	}
 	public void updateList(ArrayList<MyUser> temp) {
@@ -151,7 +151,8 @@ public class KingdomPeoplesAdapter extends BaseAdapter {
 	public void loadIcon(RoundImageView icon,final MyUser data){
 		
 		imageLoader=ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+data.u_iconUrl, icon, displayImageOptions);
+		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+data.u_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", icon, displayImageOptions);
 	}
 	class Holder{
 		RoundImageView roundImageView;

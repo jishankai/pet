@@ -169,7 +169,7 @@ public class UpdateAPKActivity extends Activity {
 //		
 		if(Constants.VERSION!=null&&StringUtil.canUpdate(this, Constants.VERSION)){
 			cancelTv.setVisibility(View.GONE);
-//			noteLayout.setVisibility(View.VISIBLE);
+			noteLayout.setVisibility(View.VISIBLE);
 		}
 		cancelTv.setOnClickListener(new OnClickListener() {
 			
@@ -190,17 +190,22 @@ public class UpdateAPKActivity extends Activity {
 			}
 		});
 		sureTv.setOnClickListener(new OnClickListener() {
-			
+			boolean isloading=false;
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(isloading){
+					return;
+				}
+				isloading=true;
 				Intent intent=new Intent(UpdateAPKActivity.this,DownLoadApkService.class);
 				UpdateAPKActivity.this.startService(intent);
 //				scrollview.setVisibility(View.INVISIBLE);
-				noteLayout.setVisibility(View.VISIBLE);
+				
 				if(Constants.VERSION!=null&&StringUtil.canUpdate(UpdateAPKActivity.this, Constants.VERSION)){
-//					scrollview.setVisibility(View.INVISIBLE);
-//					noteLayout.setVisibility(View.VISIBLE);
+					listView.setVisibility(View.INVISIBLE);
+					progressLayout.setVisibility(View.VISIBLE);
+					isFinish=false;
 				}else{
 					finish();
 				}
@@ -213,11 +218,23 @@ public class UpdateAPKActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 //		return super.onKeyDown(keyCode, event);
-		if(!isFinish){
+		/*if(!isFinish){
 			return true;
 		}else{
 			return false;
+		}*/
+		
+		for(int i=0;i<PetApplication.petApp.activityList.size();i++){
+			Activity activity=PetApplication.petApp.activityList.get(i);
+			if(activity!=null){
+				if(activity instanceof HomeActivity){
+					continue;
+				}
+				activity.finish();
+			}
 		}
+		finish();
+		return true;
 	}
 
 	      @Override

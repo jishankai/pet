@@ -28,7 +28,7 @@ public class TakePictureBackground extends Activity {
 	String filename;
 	String activityName;
 	Animal animal;
-	boolean isBeg;
+	int isBeg;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			
@@ -68,7 +68,7 @@ public class TakePictureBackground extends Activity {
 		mode=getIntent().getIntExtra("mode", -1);
 		activityName=getIntent().getStringExtra("activity");
 		animal=(Animal)getIntent().getSerializableExtra("animal");
-		isBeg=getIntent().getBooleanExtra("isBeg",false);
+		isBeg=getIntent().getIntExtra("isBeg",0);
 		switch (mode) {
 		case -1:
 			

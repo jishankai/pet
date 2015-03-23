@@ -44,12 +44,15 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 import android.widget.Toast;
 
+import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.bean.MyUser;
 import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.PictureBegActivity;
 import com.aidigame.hisun.pet.ui.ReceiverAddressActivity;
+import com.aidigame.hisun.pet.ui.UserCardActivity;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.easemob.EMCallBack;
 import com.easemob.chat.EMChatManager;
@@ -330,7 +333,7 @@ public class MessageAdapter extends BaseAdapter{
 					if (holder.tv_delivered != null) {
 						holder.tv_delivered.setVisibility(View.INVISIBLE);
 					}
-					holder.tv_ack.setVisibility(View.VISIBLE);
+//					holder.tv_ack.setVisibility(View.VISIBLE);
 				} else {
 					holder.tv_ack.setVisibility(View.INVISIBLE);
 
@@ -418,13 +421,31 @@ public class MessageAdapter extends BaseAdapter{
 			});
 			
 			imageLoader=ImageLoader.getInstance();
+			int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
 			try {
-				imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+message.getStringAttribute("tx"), holder.head_iv, displayImageOptions);
+				imageLoader.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+message.getStringAttribute("tx")+"@"+w+"w_"+w+"h_0l.jpg", holder.head_iv, displayImageOptions);
 			} catch (EaseMobException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+            holder.head_iv.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+//					if("1".equals(username)||"2".equals(username)||"3".equals(username))return ;
+					
+					try {
+						Intent intent = new Intent(activity, UserCardActivity.class);
+						MyUser myUser=new MyUser();
+						intent.putExtra("user", PetApplication.myUser);
+						activity.startActivity(intent);
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+				
+				}
+			});
 
 		} else {
 			// 长按头像，移入黑名单
@@ -442,9 +463,27 @@ public class MessageAdapter extends BaseAdapter{
 				}
 			});
 			
-			
-			if("1".equals(username)){
-				holder.head_iv.setImageResource(R.drawable.miaomiao);
+			holder.head_iv.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					if("1".equals(username)||"2".equals(username)||"3".equals(username))return ;
+					
+					try {
+						Intent intent = new Intent(activity, UserCardActivity.class);
+						MyUser myUser=new MyUser();
+						myUser.userId=Integer.parseInt(username);
+						intent.putExtra("user", myUser);
+						activity.startActivity(intent);
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+				
+				}
+			});
+			/*if("1".equals(username))*/{
+//				holder.head_iv.setImageResource(R.drawable.miaomiao);
 				String type="";
 				try {
 					type = message.getStringAttribute("type");
@@ -517,9 +556,10 @@ public class MessageAdapter extends BaseAdapter{
 							}
 						});
 						}else{
+							if(holder.redRight_iv!=null)
 							holder.redRight_iv.setVisibility(View.GONE);
 						}
-			}else if("2".equals(username)){
+			}/*else if("2".equals(username)){
 				holder.head_iv.setImageResource(R.drawable.wangwang);
 				String type="";
 				try {
@@ -667,10 +707,11 @@ public class MessageAdapter extends BaseAdapter{
 					}else{
 						holder.redRight_iv.setVisibility(View.GONE);
 					}
-			}else{
+			}else*/{
 				imageLoader=ImageLoader.getInstance();
+				int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
 				try {
-					imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+message.getStringAttribute("tx"), holder.head_iv, displayImageOptions);
+					imageLoader.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+message.getStringAttribute("tx")+"@"+w+"w_"+w+"h_0l.jpg", holder.head_iv, displayImageOptions);
 				} catch (EaseMobException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

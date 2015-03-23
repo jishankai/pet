@@ -44,6 +44,7 @@ public class HomeMyPet implements IXListViewListener{
 		animals=new ArrayList<Animal>();
 		adapter=new HomeMyPetAdapter(activity, animals);
 		listview.setAdapter(adapter);
+		listview.setSelector(R.color.transparent);
 	
 		handler=HandleHttpConnectionException.getInstance().getHandler(activity);
 //		refresh();

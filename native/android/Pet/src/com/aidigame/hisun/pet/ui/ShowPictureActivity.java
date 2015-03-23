@@ -1,17 +1,35 @@
 package com.aidigame.hisun.pet.ui;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaScannerConnection;
+import android.media.MediaScannerConnection.MediaScannerConnectionClient;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.MeasureSpec;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,6 +37,7 @@ import android.widget.LinearLayout;
 import com.aidigame.hisun.pet.PetApplication;
 import com.aidigame.hisun.pet.R;
 import com.aidigame.hisun.pet.constant.Constants;
+import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
@@ -36,12 +55,13 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  * @author admin
  *
  */
-public class ShowPictureActivity extends Activity {
+public class ShowPictureActivity extends Activity implements MediaScannerConnectionClient{
 	DisplayImageOptions displayImageOptions;
 	ImageView imageView;
 	ImageFetcher mImageFetcher;
 	public static ShowPictureActivity showPictureActivity;
 	int mode=0;//0,查看发布的照片；1，查看 头像
+	String save_path;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -82,7 +102,7 @@ mImageFetcher=new ImageFetcher(this, Constants.screen_width, Constants.screen_he
 				LogUtil.i("me", "照片手势缩放界面url="+Constants.UPLOAD_IMAGE_RETURN_URL+url);
 //				mImageFetcher.setWidth(Constants.screen_width);
 				mImageFetcher.setImageCache(new ImageCache(this, new ImageCacheParams(url)));
-				/*mImageFetcher.setLoadCompleteListener(new ImageWorker.LoadCompleteListener(){
+				mImageFetcher.setLoadCompleteListener(new ImageWorker.LoadCompleteListener(){
 					@Override
 					public void  onComplete(Bitmap bitmap) {
 						// TODO Auto-generated method stub
@@ -92,8 +112,9 @@ mImageFetcher=new ImageFetcher(this, Constants.screen_width, Constants.screen_he
 					public void getPath(String path) {
 						// TODO Auto-generated method stub
 						LogUtil.i("me", "照片手势缩放界面path="+path);
+						save_path=path;
 					}
-				});*/
+				});
 				
 				
 				mImageFetcher.loadImage(url, imageView,options);
@@ -101,19 +122,183 @@ mImageFetcher=new ImageFetcher(this, Constants.screen_width, Constants.screen_he
 			}
 		}else if(mode==1){
 			ImageLoader imageLoader=ImageLoader.getInstance();
-			imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+url, imageView/*,displayImageOptions*/);
+			imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+url, imageView/*,displayImageOptions*/,new ImageLoadingListener() {
+				
+				@Override
+				public void onLoadingStarted(String imageUri, View view) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onLoadingFailed(String imageUri, View view,
+						FailReason failReason) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+					// TODO Auto-generated method stub
+					String p=Constants.Picture_Root_Path+System.currentTimeMillis()+"headicon.png";
+					try {
+						OutputStream os=new FileOutputStream(new File(p));
+						loadedImage.compress(CompressFormat.PNG, 100, os);
+						save_path=p;
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				@Override
+				public void onLoadingCancelled(String imageUri, View view) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 		} if(mode==2){
 			ImageLoader imageLoader=ImageLoader.getInstance();
-			imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+url, imageView/*,displayImageOptions*/);
+			imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+url, imageView/*,displayImageOptions*/,new ImageLoadingListener() {
+				
+				@Override
+				public void onLoadingStarted(String imageUri, View view) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onLoadingFailed(String imageUri, View view,
+						FailReason failReason) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+					// TODO Auto-generated method stub
+					String p=Constants.Picture_Root_Path+System.currentTimeMillis()+"headicon.png";
+					try {
+						OutputStream os=new FileOutputStream(new File(p));
+						loadedImage.compress(CompressFormat.PNG, 100, os);
+						save_path=p;
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				@Override
+				public void onLoadingCancelled(String imageUri, View view) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 		}
 			
 //		}
-		imageView.setOnTouchListener(new OnTouchListener() {
+		/*imageView.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
 				return detector.onTouchEvent(event);
+			}
+		});*/
+		imageView.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				imageView.setImageBitmap(null);
+				
+				showPictureActivity=null;
+				if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(ShowPictureActivity.this)){
+					PetApplication.petApp.activityList.remove(ShowPictureActivity.this);
+				}
+				ShowPictureActivity.this.finish();
+				System.gc();
+			}
+		});
+		imageView.setOnLongClickListener(new OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View v) {
+				// TODO Auto-generated method stub
+				if(!StringUtil.isEmpty(save_path)){
+					File image=new File(save_path);
+					if(image.exists()){
+						File f=new File(Environment.getExternalStorageDirectory()+File.separator+"宠物星球");
+						if(!f.exists()){
+							f.mkdirs();
+						}
+						BufferedInputStream bis=null;
+						BufferedOutputStream bos=null;
+						try {
+							bis=new BufferedInputStream(new FileInputStream(image));
+							bos=new BufferedOutputStream(new FileOutputStream(Environment.getExternalStorageDirectory()+File.separator+"宠物星球"+File.separator+System.currentTimeMillis()+".png"));
+							int length=0;
+							byte[] buffer=new byte[1024*8];
+							while((length=bis.read(buffer))>0){
+								bos.write(buffer, 0, length);
+							}
+						} catch (FileNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}finally{
+							if(bis!=null){
+								try {
+									bis.close();
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							}
+							if(bos!=null){
+								try {
+									bos.close();
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							}
+							int level=android.os.Build.VERSION.SDK_INT;
+							if(level<=18){
+								
+							
+							sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,Uri.parse("file://" + Environment.getExternalStorageDirectory()+File.separator+"宠物星球"))); 
+							}else{
+								
+							MediaScannerConnection.scanFile(ShowPictureActivity.this, new String[] {
+
+									f.toString()},
+
+									null, new MediaScannerConnection.OnScanCompletedListener() {
+
+									public void onScanCompleted(String path, Uri uri)
+
+									{
+
+                                          LogUtil.i("me", "path="+path+";uri="+uri);
+									}
+
+									});
+							}
+							
+							Intent intent2=new Intent(HomeActivity.homeActivity,DialogNoteActivity.class);
+			  				intent2.putExtra("mode", 10);
+			  				intent2.putExtra("info", "图片已经保存到 宠物星球 文件夹里面了~");
+			  				HomeActivity.homeActivity.startActivity(intent2);
+			  			
+			  				
+						}
+					}
+					
+				}
+				return true;
 			}
 		});
 		
@@ -151,6 +336,82 @@ mImageFetcher=new ImageFetcher(this, Constants.screen_width, Constants.screen_he
 		@Override
 		public void onLongPress(MotionEvent e) {
 			// TODO Auto-generated method stub
+			if(!StringUtil.isEmpty(save_path)){
+				File image=new File(save_path);
+				if(image.exists()){
+					File f=new File(Environment.getExternalStorageDirectory()+File.separator+"宠物星球");
+					if(!f.exists()){
+						f.mkdirs();
+					}
+					BufferedInputStream bis=null;
+					BufferedOutputStream bos=null;
+					try {
+						bis=new BufferedInputStream(new FileInputStream(image));
+						bos=new BufferedOutputStream(new FileOutputStream(Environment.getExternalStorageDirectory()+File.separator+"宠物星球"+File.separator+System.currentTimeMillis()+".png"));
+						int length=0;
+						byte[] buffer=new byte[1024*8];
+						while((length=bis.read(buffer))>0){
+							bos.write(buffer, 0, length);
+						}
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}finally{
+						if(bis!=null){
+							try {
+								bis.close();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+						if(bos!=null){
+							try {
+								bos.close();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+						int level=android.os.Build.VERSION.SDK_INT;
+						if(level<=10){
+							
+						
+						sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,Uri.parse("file://" + Environment.getExternalStorageDirectory()+File.separator+"宠物星球"))); 
+						}else{
+						MediaScannerConnection.scanFile(ShowPictureActivity.this, new String[] {
+
+								f.getAbsolutePath()},
+
+								null, new MediaScannerConnection.OnScanCompletedListener() {
+
+								public void onScanCompleted(String path, Uri uri)
+
+								{
+
+
+								}
+
+								});
+							/*if(conn==null){
+								conn=new MediaScannerConnection(ShowPictureActivity.this, ShowPictureActivity.this);
+							}
+							conn.connect();*/
+						}
+						
+						Intent intent2=new Intent(HomeActivity.homeActivity,DialogNoteActivity.class);
+		  				intent2.putExtra("mode", 10);
+		  				intent2.putExtra("info", "图片已经保存到 宠物星球 文件夹里面了~");
+		  				HomeActivity.homeActivity.startActivity(intent2);
+		  			
+		  				
+					}
+				}
+				
+			}
 			
 		}
 		
@@ -168,6 +429,7 @@ mImageFetcher=new ImageFetcher(this, Constants.screen_width, Constants.screen_he
 			return true;
 		}
 	});
+	MediaScannerConnection conn;
 	   @Override
 	   protected void onPause() {
 	   	// TODO Auto-generated method stub
@@ -180,5 +442,20 @@ mImageFetcher=new ImageFetcher(this, Constants.screen_width, Constants.screen_he
 	   	super.onResume();
 	   	StringUtil.umengOnResume(this);
 	   }
+		@Override
+		public void onMediaScannerConnected() {
+			// TODO Auto-generated method stub
+			try {
+				conn.scanFile(Environment.getExternalStorageDirectory()+File.separator+"宠物星球", "image/*");
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		}
+		@Override
+		public void onScanCompleted(String path, Uri uri) {
+			// TODO Auto-generated method stub
+			if(conn!=null)conn.disconnect();
+		}
 
 }

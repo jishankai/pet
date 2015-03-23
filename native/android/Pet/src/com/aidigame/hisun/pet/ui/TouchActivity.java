@@ -204,7 +204,8 @@ public class TouchActivity extends Activity {
 		// TODO Auto-generated method stub
 		ImageLoader imageLoader=ImageLoader.getInstance();
 		ImageView icon=(ImageView)findViewById(R.id.roundImageView1);
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+animal.pet_iconUrl,icon , displayImageOptions,new ImageLoadingListener() {
+		int w=getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+animal.pet_iconUrl+"@"+w+"w_"+w+"h_0l.jpg",icon , displayImageOptions,new ImageLoadingListener() {
 			
 			@Override
 			public void onLoadingStarted(String imageUri, View view) {
@@ -399,6 +400,7 @@ public class TouchActivity extends Activity {
 		});
 	    
 	}
+	String url="";
 	private  void loadBitmap(String url){
 		BitmapFactory.Options options=new BitmapFactory.Options();
 		options.inJustDecodeBounds=false;
@@ -406,6 +408,8 @@ public class TouchActivity extends Activity {
 		options.inPreferredConfig=Bitmap.Config.RGB_565;
 		options.inPurgeable=true;
 		options.inInputShareable=true;
+		int w=getResources().getDimensionPixelSize(R.dimen.one_dip)*280;
+		int h=getResources().getDimensionPixelSize(R.dimen.one_dip)*170;
 		if("pet_icon".equals(url)){
 			eraserView.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.pet_icon),layout.getMeasuredWidth(),layout.getMeasuredHeight());
 			if(showProgress!=null)
@@ -420,16 +424,19 @@ public class TouchActivity extends Activity {
 			        .cacheOnDisc(true)
 			        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
 			        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-			        .decodingOptions(options)
+//			        .decodingOptions(options)
 	                .build();
 			ImageLoader imageLoader=ImageLoader.getInstance();
 			String path="";
 			if(!animal.pet_iconUrl.equals(url)){
-				path=Constants.UPLOAD_IMAGE_RETURN_URL+url;
+				this.url=animal.pet_iconUrl;
+				path=Constants.UPLOAD_IMAGE_THUBMAIL_IMAG+url;
 			}else{
-				path=Constants.ANIMAL_DOWNLOAD_TX+url;
+				path=Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+url;
+				this.url=url;
 			}
-			imageLoader.loadImage(path,displayImageOptions, new ImageLoadingListener() {
+			
+			imageLoader.loadImage(path+"@"+w+"w_"+h+"h_0l.jpg",displayImageOptions, new ImageLoadingListener() {
 				
 				@Override
 				public void onLoadingStarted(String imageUri, View view) {
@@ -486,6 +493,8 @@ public class TouchActivity extends Activity {
 		}
 		ImageView playIv=(ImageView)view2.findViewById(R.id.imageView2);
 		final ImageView imageIv=(ImageView)view2.findViewById(R.id.imageView1);
+		int w=getResources().getDimensionPixelSize(R.dimen.one_dip)*280;
+		int h=getResources().getDimensionPixelSize(R.dimen.one_dip)*170;
 		if("pet_icon".equals(imagePath)){
 			eraserView.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.pet_icon),layout.getMeasuredWidth(),layout.getMeasuredHeight());
 		}else{
@@ -517,17 +526,17 @@ public class TouchActivity extends Activity {
 			        .cacheOnDisc(true)
 			        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
 			        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-			        .decodingOptions(options)
+//			        .decodingOptions(options)
 	                .build();
 			ImageLoader imageLoader=ImageLoader.getInstance();
 			String path="";
 			if(!animal.pet_iconUrl.equals(imagePath)){
-				path=Constants.UPLOAD_IMAGE_RETURN_URL+imagePath;
+				path=Constants.UPLOAD_IMAGE_THUBMAIL_IMAG+imagePath;
 			}else{
-				path=Constants.ANIMAL_DOWNLOAD_TX+imagePath;
+				path=Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+imagePath;
 			}
 			
-		imageLoader.loadImage(path,displayImageOptions, new ImageLoadingListener() {
+		imageLoader.loadImage(path+"@"+w+"w_"+h+"h_0l.jpg",displayImageOptions, new ImageLoadingListener() {
 			
 			@Override
 			public void onLoadingStarted(String imageUri, View view) {
@@ -677,11 +686,13 @@ public class TouchActivity extends Activity {
 	      private  void weixinShare(String path){
 		   	   WeiXinShareContent weixinContent = new WeiXinShareContent();
 		   	 //设置分享文字
-			   	 weixinContent.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
+			   	 weixinContent.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");//
+			   	weixinContent.setShareContent("我在宠物星球摸了摸萌星"+animal.pet_nickName+"，软软哒真可爱~~舍不得洗手了呢嘤嘤嘤");
 			   	 //设置title
-			   	 weixinContent.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+//			   	 weixinContent.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");//
+			   	weixinContent.setTitle("摸一摸，屏幕清晰~");
 			   	 //设置分享内容跳转URL
-			   	 weixinContent.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
+			   	 weixinContent.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=social/touch&aid="+animal.a_id+"&img_url="+url+"&SID="+PetApplication.SID);
 		   	 //设置分享图片
 		   	 UMImage umImage=new UMImage(this,path );
 		   	 weixinContent.setShareImage(umImage);
@@ -715,11 +726,13 @@ public class TouchActivity extends Activity {
 		   	   UMImage umImage=new UMImage(this, path);
 		   	   circleMedia.setShareImage(umImage);
 		   	 //设置分享文字
-			   	circleMedia.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
+//			   	circleMedia.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");//
+				circleMedia.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~");
 				   	 //设置title
-			   	circleMedia.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");
+//			   	circleMedia.setTitle("我是"+animal.pet_nickName+"，来自宠物星球的大萌星！");//
+			   	circleMedia.setTitle("我在宠物星球摸了摸萌星"+animal.pet_nickName+"，软软哒真可爱~~舍不得洗手了呢嘤嘤嘤");
 				   	 //设置分享内容跳转URL
-			   	circleMedia.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id);
+			   	circleMedia.setTargetUrl("http://"+Constants.IP+Constants.URL_ROOT+"r=social/touch&aid="+animal.a_id+"&img_url="+url+"&SID="+PetApplication.SID);
 		   	   mController.setShareMedia(circleMedia);
 		   	   mController.postShare(this,SHARE_MEDIA.WEIXIN_CIRCLE,
 		   			   new SnsPostListener() {
@@ -752,7 +765,8 @@ public class TouchActivity extends Activity {
 				   	   SinaShareContent content=new SinaShareContent();
 				   	   content.setShareContent(data.des);
 				   	   UMImage umImage=new UMImage(this, data.path);
-				   	 content.setShareContent("人家在宠物星球好开心，快来跟我一起玩嘛~"+"http://"+Constants.IP+Constants.URL_ROOT+"r=animal/infoShare&aid="+animal.a_id+"（分享自@宠物星球社交应用）");
+				   	   
+				   	 content.setShareContent("我在宠物星球摸了摸萌星"+animal.pet_nickName+"，软软哒真可爱~~舍不得洗手了呢嘤嘤嘤"+"http://"+Constants.IP+Constants.URL_ROOT+"r=social/touch&aid="+animal.a_id+"&img_url="+url+"&SID="+PetApplication.SID+"（分享自@宠物星球社交应用）");
 				   	   content.setShareImage(umImage);
 				   	   mController.setShareMedia(content);
 				   	   mController.postShare(this, SHARE_MEDIA.SINA,new SnsPostListener() {

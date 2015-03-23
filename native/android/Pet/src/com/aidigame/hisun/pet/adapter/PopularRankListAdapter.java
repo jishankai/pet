@@ -67,7 +67,7 @@ public class PopularRankListAdapter extends BaseAdapter {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
     }
     public void updateData(ArrayList<Animal> list){
@@ -169,7 +169,8 @@ public class PopularRankListAdapter extends BaseAdapter {
 		}
 		holder.nameTV.setText(""+people.pet_nickName);
 		ImageLoader imageLoader=ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+people.pet_iconUrl, holder.icon, displayImageOptions);
+		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+people.pet_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", holder.icon, displayImageOptions);
 		
 		switch (people.change) {
 		case 1:

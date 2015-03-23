@@ -48,7 +48,7 @@ public class UserPetsAdapter extends BaseAdapter {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 	}
 	
@@ -83,9 +83,13 @@ public class UserPetsAdapter extends BaseAdapter {
 			holder=new Holder();
 			holder.hat=(ImageView)convertView.findViewById(R.id.hat);
 			holder.icon=(ImageView)convertView.findViewById(R.id.icon);
+			holder.background=convertView.findViewById(R.id.background);
+			holder.position=position;
 			convertView.setTag(holder);
+			
 		}else{
 			holder=(Holder)convertView.getTag();
+			holder.position=position;
 		}
 		Animal animal=animals.get(position);
 		if(animal.master_id==user.userId){
@@ -118,11 +122,14 @@ public void loadIcon(ImageView icon,final Animal data){
 			}
 		});
 		imageLoader=ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+data.pet_iconUrl, icon, displayImageOptions);
+		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+data.pet_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", icon, displayImageOptions);
 	}
-	class Holder{
+	public static class Holder{
 		ImageView icon;
-		ImageView hat;
+		public View background;
+		public ImageView hat;
+		public int position;
 	}
 
 }

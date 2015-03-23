@@ -57,7 +57,7 @@ public class TopicUsersListAdapter extends BaseAdapter {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 		if(this.users==null){
 			this.users=new ArrayList<MyUser>();
@@ -103,7 +103,9 @@ public class TopicUsersListAdapter extends BaseAdapter {
 		}
 		MyUser user=users.get(position);
 		ImageLoader imageLoader=ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+user.u_iconUrl, holder.icon, displayImageOptions);
+		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		
+		imageLoader.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+user.u_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", holder.icon, displayImageOptions);
 		if(!StringUtil.isEmpty(user.u_nick)){
 			holder.nameTv.setText(""+user.u_nick);
 		}

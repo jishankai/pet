@@ -129,7 +129,7 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(ops)
+//		        .decodingOptions(ops)
                 .build();
 		displayImageOptions=new DisplayImageOptions
 	            .Builder()
@@ -139,7 +139,7 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(ops)
+//		        .decodingOptions(ops)
                 .build();
 	}
 	public void updateTopics(ArrayList<Animal> animals){
@@ -333,10 +333,12 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 				
 				for(int i=0;i<data.picturs.size();i++){
 					String path=null;
-					if(new File(Constants.Picture_Topic_Path+File.separator+data.picturs.get(i).url).exists()){
-						path=Constants.Picture_Topic_Path+File.separator+data.picturs.get(i).url;
+					if(new File(Constants.Picture_Topic_Path+File.separator+data.picturs.get(i).url+"@"+context.getResources().getDimensionPixelSize(R.dimen.dip_240)+"w_"+context.getResources().getDimensionPixelSize(R.dimen.dip_240)+"h_"+"0l.jpg").exists()){
+						path=Constants.Picture_Topic_Path+File.separator+data.picturs.get(i).url+"@"+context.getResources().getDimensionPixelSize(R.dimen.dip_240)+"w_"+context.getResources().getDimensionPixelSize(R.dimen.dip_240)+"h_"+"0l.jpg";
 					}else{
-						path=HttpUtil.downloadImage(Constants.UPLOAD_IMAGE_RETURN_URL,data.picturs.get(i).url,null,context);
+//						path=HttpUtil.downloadImage(Constants.UPLOAD_IMAGE_RETURN_URL,data.picturs.get(i).url,null,context);
+						path=HttpUtil.downloadImage(Constants.UPLOAD_IMAGE_THUBMAIL_IMAG,data.picturs.get(i).url+"@"+context.getResources().getDimensionPixelSize(R.dimen.dip_240)+"w_"+context.getResources().getDimensionPixelSize(R.dimen.dip_240)+"h_"+"0l.jpg",null,context);
+						
 					}
 					
 					if(!StringUtil.isEmpty(path)){
@@ -439,7 +441,8 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 	}
 	public void loadIcon(RoundImageView icon,final Animal  data){
 		imageLoader =ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+data.pet_iconUrl, icon, displayImageOptions2, new ImageLoadingListener() {
+		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+data.pet_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", icon, displayImageOptions2, new ImageLoadingListener() {
 			
 			@Override
 			public void onLoadingStarted(String imageUri, View view) {
@@ -470,7 +473,8 @@ public class HomePetPictureAdapter extends BaseAdapter  {
 	}
 	public void loadUserIcon(RoundImageView icon,final Animal  data){
 		imageLoader =ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+data.u_tx, icon, displayImageOptions, new ImageLoadingListener() {
+		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+data.u_tx+"@"+w+"w_"+w+"h_0l.jpg", icon, displayImageOptions, new ImageLoadingListener() {
 			
 			@Override
 			public void onLoadingStarted(String imageUri, View view) {

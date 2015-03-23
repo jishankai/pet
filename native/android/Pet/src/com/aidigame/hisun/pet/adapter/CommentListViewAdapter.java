@@ -66,7 +66,7 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 	}
 	public void update(ArrayList<PetPicture.Comments> listComment){
@@ -113,7 +113,8 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 		}
 		final PetPicture.Comments comments=listComment.get(position);
 		ImageLoader imageLoader=ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+comments.usr_tx, holder.usericon, displayImageOptions);
+		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+comments.usr_tx+"@"+w+"w_"+w+"h_0l.jpg", holder.usericon, displayImageOptions);
 		if(!StringUtil.isEmpty(Constants.CON_VERSION)&&"1.0".equals(Constants.CON_VERSION)){
 			holder.warning_iv.setVisibility(View.VISIBLE);
 		}else{

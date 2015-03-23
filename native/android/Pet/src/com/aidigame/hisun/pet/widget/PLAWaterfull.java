@@ -241,7 +241,7 @@ public class PLAWaterfull implements IXListViewListener{
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             
             ViewHolder holder;
            final DuitangInfo duitangInfo = mInfos.get(position);
@@ -298,6 +298,8 @@ public class PLAWaterfull implements IXListViewListener{
 					pp.animal=new Animal();
 					pp.animal.a_id=duitangInfo.a_id;
 					pp.url=duitangInfo.isrc;
+					pp.petPicture_path=duitangInfo.path;
+//					pp.petPicture_path=mInfos.get(position).path;
 					ArrayList<PetPicture> pictures=new ArrayList<PetPicture>();
 					PetPicture p=null;
 					for(int i=0;i<mInfos.size();i++){
@@ -316,7 +318,7 @@ public class PLAWaterfull implements IXListViewListener{
             mImageFetcher.setWidth(Constants.screen_width/2);
             //
             mImageFetcher.setLoadCompleteListener(new LoadCompleteListener() {
-				
+            	DuitangInfo  d=duitangInfo;
 				@Override
 				public void onComplete(Bitmap bitmap) {
 					// TODO Auto-generated method stub
@@ -326,7 +328,6 @@ public class PLAWaterfull implements IXListViewListener{
 				    		if(count>4){
 				    			PLAWaterfull.this.parent.setVisibility(View.VISIBLE);
 				    			
-				    			
 				    		}
 				    }
 				    
@@ -334,6 +335,12 @@ public class PLAWaterfull implements IXListViewListener{
 				@Override
 				public void getPath(String path) {
 					// TODO Auto-generated method stub
+					File f=new File(path);
+					for(int i=0;i<mInfos.size();i++){
+						if(f.getName().contains(mInfos.get(i).isrc)){
+							mInfos.get(i).path=f.getName();
+						}
+					}
 					
 				}
 				
@@ -345,7 +352,7 @@ public class PLAWaterfull implements IXListViewListener{
             
          
             options.inSampleSize=StringUtil.getScaleByDPI(activity,duitangInfo.getIsrc());;
-            mImageFetcher.setImageCache(new ImageCache(activity, new ImageCacheParams(duitangInfo.getIsrc())));
+            mImageFetcher.setImageCache(new ImageCache(activity, new ImageCacheParams(duitangInfo.getIsrc()+"@"+Constants.screen_width/2+"w_0l.jpg")));
           /*  if(duitangInfo.getIsrc().contains("@")){
             	int a=duitangInfo.getIsrc().indexOf("@");
             	int b=duitangInfo.getIsrc().lastIndexOf("@");
@@ -358,8 +365,10 @@ public class PLAWaterfull implements IXListViewListener{
             }else{
         		options.inSampleSize=StringUtil.getScaleByDPI(activity);;
         	}*/
-            LogUtil.i("run", "options.inSampleSize"+options.inSampleSize);
-            mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/duitangInfo.getIsrc(), holder.imageView,options);
+            LogUtil.i("run", "options.inSampleSize"+options.inSampleSize+"====="+duitangInfo.getIsrc()+"@"+Constants.screen_width/2+"w_0l.jpg");
+//            mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/duitangInfo.getIsrc(), holder.imageView,options);
+          mImageFetcher.IP=mImageFetcher.UPLOAD_THUMBMAIL_IMAGE;
+            mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/duitangInfo.getIsrc()+"@"+Constants.screen_width/2+"w_0l.jpg", holder.imageView,null);
             return convertView;
         }
 

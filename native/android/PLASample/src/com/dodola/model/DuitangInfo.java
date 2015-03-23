@@ -9,6 +9,7 @@ public class DuitangInfo {
 	public int width=200;
 	public long img_id;
 	public long a_id;
+	public String path;
 
 	public int getWidth(){
 		return width;

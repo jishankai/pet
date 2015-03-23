@@ -18,14 +18,14 @@
         android:layout_height="42dp"
         android:visibility="gone"
         android:background="@color/white"/>
-   <!--  <View android:layout_width="match_parent"
-        android:layout_height="96dp"
+    <View android:layout_width="match_parent"
+        android:layout_height="42dp"
         
        
-        android:id="@+id/top_white_view"/>android:background="@color/white"  -->
+        android:id="@+id/top_white_view"/><!-- android:background="@color/white"  -->
     
         <com.aidigame.hisun.pet.view.PullToRefreshAndMoreView
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="54dp"
         android:id="@+id/chose_king_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="选择萌星"
+            android:text="认养萌星"
             android:textColor="@color/white"
             android:textSize="20sp" />
         <ImageView

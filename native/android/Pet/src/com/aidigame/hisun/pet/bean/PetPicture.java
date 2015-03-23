@@ -60,6 +60,7 @@ public class PetPicture implements Serializable{
 	public String is_food;
 	
 	public boolean isBeg;//是否是求口粮
+	public int picture_type;//发布照片的类型
 	
 	public ArrayList<String> like_txUrlList;
 	public ArrayList<String> gift_txUrlList;

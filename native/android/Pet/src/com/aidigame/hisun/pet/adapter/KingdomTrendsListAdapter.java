@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.adapter;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,7 +28,12 @@ import com.aidigame.hisun.pet.bean.PetPicture;
 import com.aidigame.hisun.pet.constant.Constants;
 import com.aidigame.hisun.pet.ui.NewShowTopicActivity;
 import com.aidigame.hisun.pet.ui.PetTrendsActivity;
+import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
+import com.example.android.bitmapfun.util.ImageCache;
+import com.example.android.bitmapfun.util.ImageFetcher;
+import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
+import com.example.android.bitmapfun.util.ImageWorker.LoadCompleteListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -61,7 +68,7 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 	}
 	public void update(ArrayList<PetNews> list){
@@ -191,8 +198,41 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 		      + "</html>";
 			holder.imagesDesTv.setText(Html.fromHtml(htmlStr1));
 			holder.imagesTimeTv.setText(timeString);
-			ImageLoader imageLoader=ImageLoader.getInstance();
-			imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+petNews.img_url, holder.imageIv, displayImageOptions);
+//			ImageLoader imageLoader=ImageLoader.getInstance();
+			int h=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*90;
+//			imageLoader.displayImage(Constants.UPLOAD_IMAGE_THUBMAIL_IMAG+petNews.img_url+"@"+h+"h_0l.jpg", holder.imageIv, displayImageOptions);
+			
+			
+			 ImageFetcher mImageFetcher=new ImageFetcher(context, 0);
+				mImageFetcher.setWidth(0);
+				mImageFetcher.IP=mImageFetcher.UPLOAD_THUMBMAIL_IMAGE;
+				mImageFetcher.setImageCache(new ImageCache(context, new ImageCacheParams(Constants.UPLOAD_IMAGE_THUBMAIL_IMAG+petNews.img_url+"@"+h+"h_0l.jpg")));
+				mImageFetcher.setLoadCompleteListener(new LoadCompleteListener() {
+					
+					@Override
+					public void onComplete(Bitmap bitmap) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void getPath(String path) {
+						// TODO Auto-generated method stub
+						File f=new File(path);
+						for(int i=0;i<list.size();i++){
+							if(list.get(i).type==3&&f.getName().contains(list.get(i).img_url)){
+								list.get(i).petPicture_path=f.getName();
+							}
+						}
+						
+					}
+				});
+				
+				mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/petNews.img_url+"@"+h+"h_0l.jpg", holder.imageIv, /*options*/null);
+			
+			
+			
+			
 			
 		}else if(petNews.type==4){
 			Gift gift=new Gift();
@@ -359,6 +399,7 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 				PetPicture pp=new PetPicture();
 				pp.img_id=petNews.img_id;
 				pp.url=petNews.img_url;
+				pp.petPicture_path=petNews.petPicture_path;
 				if(NewShowTopicActivity.newShowTopicActivity!=null){
 					NewShowTopicActivity.newShowTopicActivity.recyle();
 				}
@@ -403,7 +444,7 @@ public class KingdomTrendsListAdapter extends BaseAdapter {
 		}else if(time/(60*60*24)<30){
 			sb.append(  str+time/(60*60*24)+"天");
 		}else if(time/(60*60*24*30)<12){
-			sb.append(  str+time/(60*60*24)+"个月");
+			sb.append(  str+time/(60*60*24*30)+"个月");
 		}else if(time/(60*60*24*30*12)<1000){
 			sb.append( str+time/(60*60*24*30*12)+"年");
 		}

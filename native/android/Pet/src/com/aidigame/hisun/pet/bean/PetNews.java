@@ -19,6 +19,7 @@ public class PetNews implements Serializable{
     //type=3
 	public int img_id;
 	public String img_url;
+	public String petPicture_path;
 	
 	
 	//type=4

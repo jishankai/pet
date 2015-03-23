@@ -62,9 +62,11 @@ public class ChatAllHistoryAdapter extends ArrayAdapter<EMConversation> {
 	private ConversationFilter conversationFilter;
 	DisplayImageOptions displayImageOptions;//显示图片的格式
 	 ImageLoader imageLoader;
+	 Context context;
 	public ChatAllHistoryAdapter(Context context, int textViewResourceId, List<EMConversation> objects) {
 		super(context, textViewResourceId, objects);
 		this.conversationList = objects;
+		this.context=context;
 		copyConversationList = new ArrayList<EMConversation>();
 		copyConversationList.addAll(objects);
 		inflater = LayoutInflater.from(context);
@@ -187,7 +189,8 @@ public void upadte(List<EMConversation> objects){
 				holder.avatar.setImageResource(R.drawable.xiaoge);
 			}else{
 				imageLoader=ImageLoader.getInstance();
-				imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+tx, holder.avatar, displayImageOptions);
+				int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+				imageLoader.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+tx+"@"+w+"w_"+w+"h_0l.jpg", holder.avatar, displayImageOptions);
 				
 			}
 				

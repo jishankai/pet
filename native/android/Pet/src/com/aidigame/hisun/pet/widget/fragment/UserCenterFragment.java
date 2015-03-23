@@ -354,11 +354,14 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 		ImageLoader imageLoader2=ImageLoader.getInstance();
-		imageLoader2.displayImage(Constants.USER_DOWNLOAD_TX+PetApplication.myUser.u_iconUrl, userIcon, displayImageOptions2);
-	}
+		if(getActivity()!=null){
+		int w=getActivity().getResources().getDimensionPixelSize(R.dimen.one_dip)*72;
+		imageLoader2.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+PetApplication.myUser.u_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", userIcon, displayImageOptions2);
+		}
+		}
 	private   void getNewsNum(final boolean loadUserInfo){
 		//获取消息和活动数目
 		new Thread(new Runnable() {
@@ -377,6 +380,8 @@ BitmapFactory.Options options=new BitmapFactory.Options();
 								PetApplication.myUser.u_nick=u.u_nick;
 								PetApplication.myUser.u_iconUrl=u.u_iconUrl;
 								PetApplication.myUser.u_age=u.u_age;
+						 }else{
+							 return;
 						 }
 						
 						 

@@ -14,6 +14,7 @@ import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.widget.ShowProgress;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
@@ -77,7 +78,7 @@ public class DialogGoRegisterActivity extends Activity implements OnClickListene
 		wxHandler.addToSocialSDK();
 		SinaSsoHandler handler=new SinaSsoHandler(this);
 		handler.addToSocialSDK();
-		
+		MobclickAgent.onEvent(DialogGoRegisterActivity.this, "register_hint");
 		weixinLayout.setOnClickListener(this);
 		accountLayout.setOnClickListener(this);
 		loginLayout.setOnClickListener(this);

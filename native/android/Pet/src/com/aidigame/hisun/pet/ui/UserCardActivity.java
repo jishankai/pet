@@ -53,8 +53,9 @@ public class UserCardActivity extends Activity implements OnClickListener{
 	private MyUser user;
 	public static UserCardActivity userCardActivity;
 	private UserPetsAdapter userPetsAdapter;
-	private ArrayList<Animal> animals;
 	private int current_position=0;
+	private ArrayList<Animal> animals;
+	
 	private int from;//1,照片详情
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -245,10 +246,11 @@ public class UserCardActivity extends Activity implements OnClickListener{
 		        .cacheOnDisc(false)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options2)
+//		        .decodingOptions(options2)
                 .build();
 		ImageLoader imageLoader3=ImageLoader.getInstance();
-		imageLoader3.displayImage(Constants.USER_DOWNLOAD_TX+user.u_iconUrl, iconIv, displayImageOptions3);
+		int w=getResources().getDimensionPixelSize(R.dimen.one_dip)*72;
+		imageLoader3.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+user.u_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", iconIv, displayImageOptions3);
 	}
 	@Override
 	public void onClick(View v) {

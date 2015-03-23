@@ -31,7 +31,7 @@ public class AlbumPictureBackground extends Activity {
 	private String filename;
 	private String path;
 	private Animal animal;
-	private boolean isBeg;
+	private int isBeg;
 	Handler handler=new Handler(){
 		public void handleMessage(android.os.Message msg) {
 			if(msg.obj!=null){
@@ -63,7 +63,7 @@ public class AlbumPictureBackground extends Activity {
 		LogUtil.i("me", "创建TakePictureBackground");
 		setContentView(R.layout.activity_take_picture_background);
 		mode=getIntent().getIntExtra("mode", -1);
-		isBeg=getIntent().getBooleanExtra("isBeg", false);
+		isBeg=getIntent().getIntExtra("isBeg", 0);
 		switch (mode) {
 		case -1:
 			if(PetApplication.petApp.activityList!=null&&PetApplication.petApp.activityList.contains(this)){

@@ -1,5 +1,6 @@
 package com.aidigame.hisun.pet.widget.fragment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -57,9 +58,12 @@ import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UserStatusUtil;
 import com.aidigame.hisun.pet.view.RoundImageView;
+import com.aidigame.hisun.pet.widget.PLAWaterfull;
 import com.aidigame.hisun.pet.widget.ShowProgress;
+import com.dodola.model.DuitangInfo;
 import com.example.android.bitmapfun.util.ImageCache;
 import com.example.android.bitmapfun.util.ImageFetcher;
+import com.example.android.bitmapfun.util.ImageWorker.LoadCompleteListener;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -320,7 +324,9 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 		// TODO Auto-generated method stub
 		list=new ArrayList<PetPicture>();
 		pagerAdapter=new PagerAdapter() {
-			
+			SharedPreferences sp=getActivity().getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_READABLE);
+			int width;
+			int height;
 			@Override
 			public boolean isViewFromObject(View arg0, Object arg1) {
 				// TODO Auto-generated method stub
@@ -353,16 +359,73 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
                     }
                     view.setId(position);
                 	ImageView imageView=(ImageView)view.findViewById(R.id.imageview);
-                    
                 	ImageView animIV=(ImageView)view.findViewById(R.id.beg_anim_iv);
-                	AnimationDrawable ad=(AnimationDrawable)animIV.getDrawable();
-                	ad.start();
+                	String p=sp.getString("p_mid"+list.get(position).picture_type+"_animate1_path", "");
+                    if(list.get(position).picture_type==1||StringUtil.isEmpty(p)||!new File(p).exists()){
+                    	animIV.setImageResource(R.drawable.anim_beg_frame);
+                    	AnimationDrawable ad=(AnimationDrawable)animIV.getDrawable();
+                    	ad.start();
+                    }else /*if(list.get(position).picture_type==1)*/{
+                    	AnimationDrawable ad2=new AnimationDrawable();
+                    	String path1=sp.getString("p_mid"+list.get(position).picture_type+"_animate1_path", "");
+                    	String path2=sp.getString("p_mid"+list.get(position).picture_type+"_animate1_path", "");
+                    	if(width==0){
+                    		Bitmap bmp=BitmapFactory.decodeResource(getResources(), R.drawable.anim_beg1);
+                    		width=bmp.getWidth();
+                    		height=bmp.getHeight();
+                    	}
+                    	
+                    	RelativeLayout.LayoutParams param=(RelativeLayout.LayoutParams)animIV.getLayoutParams();
+                    	if(param==null)param=new RelativeLayout.LayoutParams(width, height);
+                    	param.width=width;
+                    	param.height=height;
+                    	animIV.setLayoutParams(param);
+                    	ad2.addFrame(new BitmapDrawable(BitmapFactory.decodeFile(sp.getString("p_mid"+list.get(position).picture_type+"_animate1_path", ""))), 300);
+                    	ad2.addFrame(new BitmapDrawable(BitmapFactory.decodeFile(sp.getString("p_mid"+list.get(position).picture_type+"_animate2_path", ""))), 300);
+//                    	ad2.addFrame(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.anim_beg1)), 300);
+//                    	ad2.addFrame(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.anim_beg2)), 300);
+                    	animIV.clearAnimation();
+                    	ad2.setOneShot(false);
+                    	animIV.setImageDrawable(ad2);
+                    	ad2.start();
+                    }
+                	
+                	
                 	
                 	
                 	
                 ImageFetcher imageFetcher=new ImageFetcher(getActivity(), 0);
-                imageFetcher.setImageCache(new ImageCache(getActivity(), list.get(position).url));
-                imageFetcher.loadImage(list.get(position).url, imageView, options);
+                int h=Constants.screen_height-getActivity().getResources().getDimensionPixelSize(R.dimen.one_dip)*180;
+                int w=Constants.screen_width-getActivity().getResources().getDimensionPixelSize(R.dimen.one_dip)*52;
+                imageFetcher.IP=imageFetcher.UPLOAD_THUMBMAIL_IMAGE;
+                imageFetcher.setImageCache(new ImageCache(getActivity(), list.get(position).url+"@"+w+"w_"+h+"h_"+"1l.jpg"));
+                imageFetcher.setLoadCompleteListener(new LoadCompleteListener() {
+                	
+    				@Override
+    				public void onComplete(Bitmap bitmap) {
+    					// TODO Auto-generated method stub
+    					
+    				    
+    				}
+    				@Override
+    				public void getPath(String path) {
+    					// TODO Auto-generated method stub
+    					File f=new File(path);
+    					for(int i=0;i<list.size();i++){
+    						if(f.getName().contains(list.get(i).url)){
+    							list.get(i).petPicture_path=f.getName();
+    						}
+    					}
+    					
+    				}
+    				
+    				
+    			});
+                
+                
+                
+                
+                imageFetcher.loadImage(list.get(position).url+"@"+w+"w_"+h+"h_"+"1l.jpg", imageView, /*options*/null);
 				
 				TextView foodNum=(TextView)view.findViewById(R.id.food_num_tv);
 				TextView timeTv=(TextView)view.findViewById(R.id.time_tv);
@@ -451,7 +514,21 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 	       petRaceTv.setText(pp.animal.race);
 	       if(!StringUtil.isEmpty(pp.animal.u_name))
 	       userNameTv.setText(pp.animal.u_name);
-	      
+	       SharedPreferences sp=getActivity().getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+	      if(pp.picture_type==1){
+	    	  giveHeartIv.setImageResource(R.drawable.give_heart);
+	    	
+	      }else{
+	    	  String path=sp.getString("p_mid"+list.get(position).picture_type+"_pic_path", "");
+	    	  if(!StringUtil.isEmpty(path)&&new File(path).exists()){
+	    		  giveHeartIv.setImageBitmap(BitmapFactory.decodeFile(path));
+	    	  }else{
+	    		  giveHeartIv.setImageResource(R.drawable.give_heart);
+	    	  }
+	      }
+	       
+	       
+	       
 		loadIcon(pp);
 		if(myTimerTask!=null){
 		    myTimerTask.cancel();
@@ -481,10 +558,11 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 		ImageLoader imageLoader1=ImageLoader.getInstance();
-		imageLoader1.displayImage(Constants.ANIMAL_DOWNLOAD_TX+pp.animal.pet_iconUrl, petIcon, displayImageOptions1);
+		int w=getActivity().getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader1.displayImage(Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+pp.animal.pet_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", petIcon, displayImageOptions1);
 		DisplayImageOptions displayImageOptions2=new DisplayImageOptions
 	            .Builder()
 	            .showImageOnLoading(R.drawable.user_icon)
@@ -493,10 +571,10 @@ public class BegFoodFragment extends Fragment implements OnClickListener{
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 		ImageLoader imageLoader2=ImageLoader.getInstance();
-		imageLoader2.displayImage(Constants.USER_DOWNLOAD_TX+pp.animal.u_tx, userIcon, displayImageOptions2);
+		imageLoader2.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+pp.animal.u_tx+"@"+w+"w_"+w+"h_0l.jpg", userIcon, displayImageOptions2);
 		
 	}
     

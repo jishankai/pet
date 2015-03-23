@@ -5,12 +5,21 @@
     <RelativeLayout 
     android:layout_width="63dp"
     android:layout_height="wrap_content">
-    <com.aidigame.hisun.pet.view.RoundImageView  
-        android:id="@+id/icon"
+    <View 
+        android:id="@+id/background"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/bug"/>
+        android:background="@drawable/submit_picture8"
+        android:src="@drawable/pet_icon"
+        android:visibility="invisible"/>
+    <com.aidigame.hisun.pet.view.RoundImageView  
+        android:id="@+id/icon"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="2dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/pet_icon"/>
     <ImageView 
         android:id="@+id/hat"
         android:layout_width="16dp"

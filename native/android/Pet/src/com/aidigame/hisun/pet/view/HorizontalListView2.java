@@ -31,10 +31,16 @@ package com.aidigame.hisun.pet.view;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.aidigame.hisun.pet.R;
+import com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter;
+import com.aidigame.hisun.pet.adapter.UserPetsAdapter;
+import com.aidigame.hisun.pet.util.LogUtil;
+
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
@@ -273,7 +279,9 @@ public class HorizontalListView2 extends AdapterView<ListAdapter> {
 			child = getChildAt(getChildCount()-1);
 		}
 	}
-	
+	public boolean showItemBg=false;
+	public int chose_position=0;
+	SubmitPictureTypeAdapter.Holder holder;
 	private void positionItems(final int dx) {
 		if(getChildCount() > 0){
 			mDisplayOffset += dx;
@@ -283,7 +291,38 @@ public class HorizontalListView2 extends AdapterView<ListAdapter> {
 				int childWidth = child.getMeasuredWidth();
 				child.layout(left, 0, left + childWidth, child.getMeasuredHeight());
 				left += childWidth + child.getPaddingRight();
+				Object o=child.getTag();
+				    if(o!=null&&showItemBg){
+				    	
+				   
+				    	SubmitPictureTypeAdapter.Holder holder=(SubmitPictureTypeAdapter.Holder)o;
+					if(holder!=null){
+						LogUtil.i("me", "holder!=null;position="+holder.position);
+						holder.background.setVisibility(View.VISIBLE);
+						holder.hat.setVisibility(View.INVISIBLE);
+						/*if(i==0){
+						holder.background.setBackgroundResource(R.drawable.submit_picture8);
+						}else{
+							holder.background.setBackgroundResource(R.drawable.submit_picture9);
+						}*/
+						if(chose_position==holder.position){
+							holder.background.setBackgroundResource(R.drawable.submit_picture8);
+							this.holder=holder;
+							}else{
+								holder.background.setBackgroundResource(R.drawable.submit_picture9);
+							}
+					}
+				    }
+				
 			}
+		}
+	}
+	public void resetBackground(SubmitPictureTypeAdapter.Holder newHolder){
+		if(holder!=null)
+		holder.background.setBackgroundResource(R.drawable.submit_picture9);
+		holder=newHolder;
+		if(holder!=null){
+			holder.background.setBackgroundResource(R.drawable.submit_picture8);;
 		}
 	}
 	

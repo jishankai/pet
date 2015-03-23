@@ -1,6 +1,9 @@
 package com.aidigame.hisun.pet;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -9,7 +12,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
@@ -29,6 +34,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Space;
 import android.widget.TextView;
 
 import com.aidigame.hisun.pet.bean.Animal;
@@ -44,6 +50,8 @@ import com.aidigame.hisun.pet.util.HandleHttpConnectionException;
 import com.aidigame.hisun.pet.util.LogUtil;
 import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
+import com.example.android.bitmapfun.util.ImageCache;
+import com.example.android.bitmapfun.util.ImageCache.ImageCacheParams;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -468,6 +476,11 @@ public class FirstPageActivity extends Activity{
 			return;
 		}
 		SharedPreferences sPreferences=FirstPageActivity.this.getSharedPreferences("setup", Context.MODE_WORLD_WRITEABLE);
+		
+		
+		
+		
+		
 		if(!StringUtil.isEmpty(SID)){
 			PetApplication.SID=SID;
 			update();
@@ -487,13 +500,78 @@ public class FirstPageActivity extends Activity{
 			
 		}
 			String version=StringUtil.getAPKVersionName(this);
-			if(Constants.realVersion!=null&&StringUtil.canUpdate(this, Constants.realVersion)){
+			if(Constants.VERSION!=null&&StringUtil.canUpdate(this, Constants.VERSION)){
 				Intent intent=new Intent(FirstPageActivity.this,UpdateAPKActivity.class);
 				FirstPageActivity.this.startActivity(intent);
 			}
 		
-		
+			if(sPreferences.getInt("p_mid_size", 0)>0){
+				ImageLoader imageLoader=ImageLoader.getInstance();
+				Editor editor=sPreferences.edit();
+				int label=0;
+				for(int i=0;i<sPreferences.getInt("p_mid_size", 0);i++){
+					 label=sPreferences.getInt("p_mid"+i+"_label", 0);
+					loadMidPic(imageLoader,sPreferences.getString("p_mid"+label+"_icon", ""),"p_mid"+label+"_icon_path","_icon_path");
+					loadMidPic(imageLoader,sPreferences.getString("p_mid"+label+"_animate1", ""),"p_mid"+label+"_animate1_path","_animate1_path");
+					loadMidPic(imageLoader,sPreferences.getString("p_mid"+label+"_animate2", ""),"p_mid"+label+"_animate2_path","_animate2_path");
+					loadMidPic(imageLoader,sPreferences.getString("p_mid"+label+"_pic", ""),"p_mid"+label+"_pic_path","_pic_path");
+				}
+				editor.commit();
+			}
 	}
+	private void loadMidPic(final ImageLoader imageLoader, final String string,
+			final String name,final String pathName) {
+		// TODO Auto-generated method stub
+		if(new File(Constants.Picture_ICON_Path+File.separator+string+".png").exists()){
+			return;
+		}
+		imageLoader.loadImage(Constants.PICTURE_TYPE_MENUS+string, new ImageLoadingListener() {
+			
+			@Override
+			public void onLoadingStarted(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLoadingFailed(String imageUri, View view,
+					FailReason failReason) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+				// TODO Auto-generated method stub
+				File file=new File(Constants.Picture_ICON_Path);
+				if(!file.exists()){
+					file.mkdirs();
+				}
+				String pname=string+pathName+".png";
+				OutputStream os;
+				try {
+					os = new FileOutputStream(new File(Constants.Picture_ICON_Path+File.separator+pname));
+					loadedImage.compress(CompressFormat.PNG, 100, os);
+					SharedPreferences sp=FirstPageActivity.this.getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+					Editor editor=sp.edit();
+					editor.putString(name, Constants.Picture_ICON_Path+File.separator+pname);
+					editor.commit();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			}
+			
+			@Override
+			public void onLoadingCancelled(String imageUri, View view) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+
 	/**
 	 * 用户信息下载成功
 	 */

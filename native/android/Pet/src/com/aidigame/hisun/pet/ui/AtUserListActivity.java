@@ -1,6 +1,8 @@
 package com.aidigame.hisun.pet.ui;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
@@ -37,6 +39,8 @@ import com.aidigame.hisun.pet.util.StringUtil;
 import com.aidigame.hisun.pet.util.UiUtil;
 import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView;
 import com.aidigame.hisun.pet.view.PullToRefreshAndMoreView.PullToRefreshAndMoreListener;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMConversation;
 
 /**
  * @用户列表和发布到列表
@@ -315,15 +319,31 @@ public class AtUserListActivity extends Activity implements PullToRefreshAndMore
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
-                ArrayList<TalkMessage> talks=StringUtil.getTalkHistory(AtUserListActivity.this);
+				Hashtable<String, EMConversation> tables=EMChatManager.getInstance().getAllConversations();
+				List<EMConversation> list=new ArrayList<EMConversation>();
+				for(EMConversation conversation:tables.values()){
+					if(conversation.getMsgCount()!=0){
+						if(!conversation.getUserName().equals("1")&&!conversation.getUserName().equals("1")&&!conversation.getUserName().equals("1")){
+							list.add(conversation);
+						}
+					}
+				}
+				
+				
+				
+				
+				
+				
+				/*SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+                ArrayList<TalkMessage> talks=StringUtil.getTalkHistory(AtUserListActivity.this);*/
                 boolean isSuccess=false;
-                if(talks!=null&&talks.size()>0){
-            	   for(int i=0;i<talks.size();i++){
+//                if(talks!=null&&talks.size()>0){
+                if(list!=null&&list.size()>0){
+            	   for(int i=0;i<list.size();i++){
             		   if(i==0){
-            			   userIdString+=talks.get(i).usr_id;
+            			   userIdString+=list.get(i).getUserName();
             		   }else{
-            			   userIdString+=","+talks.get(i).usr_id;
+            			   userIdString+=","+list.get(i).getUserName();
             		   }
             		   
             	   }

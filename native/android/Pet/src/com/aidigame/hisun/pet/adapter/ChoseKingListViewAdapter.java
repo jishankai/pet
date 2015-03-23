@@ -53,6 +53,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 	ArrayList<Animal> list;
 	ChoseKingActivity context;
 	LinearLayout currentShowInfoLayout;
+	int current_position;
 	View hidenLineView;
 	HandleHttpConnectionException handleHttpConnectionException;
 	boolean isBind;
@@ -80,7 +81,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 		displayImageOptions2=new DisplayImageOptions
 	            .Builder()
@@ -90,7 +91,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 		displayImageOptions3=new DisplayImageOptions
 	            .Builder()
@@ -100,7 +101,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 		        .cacheOnDisc(true)
 		        .bitmapConfig(Bitmap.Config.RGB_565)//毛玻璃处理，必须使用RGB_565
 		        .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-		        .decodingOptions(options)
+//		        .decodingOptions(options)
                 .build();
 	}
 	public void updateList(ArrayList<Animal> list){
@@ -127,7 +128,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 	
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		Holder holder=null;
 		if(convertView==null){
@@ -260,11 +261,18 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 			holder.join.setClickable(false);
 		}
 		ImageLoader imageLoader=ImageLoader.getInstance();
-		imageLoader.displayImage(Constants.ANIMAL_DOWNLOAD_TX+data.pet_iconUrl, holder.petIcon, displayImageOptions);
+		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		imageLoader.displayImage(Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+data.pet_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", holder.petIcon, displayImageOptions);
 		holder.petName.setText(""+data.pet_nickName);
 		holder.petAge.setText(""+data.a_age_str);
 		holder.petRace.setText(""+data.race);
+		
 		final LinearLayout temp=holder.infoLayout;
+		if(current_position==position){
+			
+		}else{
+			temp.setVisibility(View.GONE);
+		}
 		final View lineView=holder.line;
 		holder.briefInfoLayout.setTag(holder);
 		final LinearLayout imagsLayout=holder.imagesLayout;
@@ -278,6 +286,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 					if(hidenLineView!=null){
 						hidenLineView.setVisibility(View.VISIBLE);
 					}
+					current_position=-1;
 					hidenLineView=null;
 					currentShowInfoLayout=null;
 					return;
@@ -292,7 +301,7 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 				lineView.setVisibility(View.GONE);
 				currentShowInfoLayout=temp;
 				hidenLineView=lineView;
-				
+				current_position=position;
 				new Thread(new Runnable() {
 					
 					@Override
@@ -309,27 +318,30 @@ public class ChoseKingListViewAdapter extends BaseAdapter {
 								ImageLoader imageLoader=ImageLoader.getInstance();
 								if(card!=null){
 									if(card.list!=null){
+										int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*78;
+										int h=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*48;
 										if(card.list.size()>=1){
 											holder.image1.setTag(card.list.get(0));
-											imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+card.list.get(0).url, holder.image1, displayImageOptions2,new MyImageLoaderListener(imagsLayout));
+											imageLoader.displayImage(Constants.UPLOAD_IMAGE_THUBMAIL_IMAG+card.list.get(0).url+"@"+w+"w_"+h+"h_0l.jpg", holder.image1, displayImageOptions2,new MyImageLoaderListener(imagsLayout));
 										}
 										if(card.list.size()>=2){
 											holder.image1.setTag(card.list.get(0));
-											imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+card.list.get(1).url, holder.image2, displayImageOptions2,new MyImageLoaderListener(imagsLayout));
+											imageLoader.displayImage(Constants.UPLOAD_IMAGE_THUBMAIL_IMAG+card.list.get(1).url+"@"+w+"w_"+h+"h_0l.jpg", holder.image2, displayImageOptions2,new MyImageLoaderListener(imagsLayout));
 										}
 										if(card.list.size()>=3){
 											holder.image1.setTag(card.list.get(0));
-											imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+card.list.get(2).url, holder.image3, displayImageOptions2,new MyImageLoaderListener(imagsLayout));
+											imageLoader.displayImage(Constants.UPLOAD_IMAGE_THUBMAIL_IMAG+card.list.get(2).url+"@"+w+"w_"+h+"h_0l.jpg", holder.image3, displayImageOptions2,new MyImageLoaderListener(imagsLayout));
 										}
 										if(card.list.size()>=4){
 											holder.image1.setTag(card.list.get(0));
-											imageLoader.displayImage(Constants.UPLOAD_IMAGE_RETURN_URL+card.list.get(3).url, holder.image4, displayImageOptions2,new MyImageLoaderListener(imagsLayout));
+											imageLoader.displayImage(Constants.UPLOAD_IMAGE_THUBMAIL_IMAG+card.list.get(3).url+"@"+w+"w_"+h+"h_0l.jpg", holder.image4, displayImageOptions2,new MyImageLoaderListener(imagsLayout));
 										}
 										
 									}
 								}
 								if(card.user!=null){
-									imageLoader.displayImage(Constants.USER_DOWNLOAD_TX+card.user.u_iconUrl, holder.userIcon, displayImageOptions3);
+									int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+									imageLoader.displayImage(Constants.USER_THUBMAIL_DOWNLOAD_TX+card.user.u_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", holder.userIcon, displayImageOptions3);
 									if(card.user.u_gender==1){
 										holder.userSex.setImageResource(R.drawable.male1);
 									}else{

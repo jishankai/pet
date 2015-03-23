@@ -30,6 +30,7 @@ import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
@@ -54,12 +55,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-
 public class StringUtil {
 	public static String timeFormat(long time){
 		//1403514413
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
+        
 		return sdf.format(new Date(time*1000));
 		
 	}
@@ -154,8 +154,10 @@ public class StringUtil {
 			if(files.length==0)file.delete();
 			for(File f:files){
 				if(f.isDirectory()){
+					if(!f.equals(new File(Constants.Picture_ICON_Path)))
 					deleteFile(f);
 				}else{
+					
 					f.delete();
 				}
 			}
@@ -829,7 +831,7 @@ public class StringUtil {
 		}else if(time/(60)<60){
 			sb.append( str+time/(60)+"分");
 		}else if(time/(60*60)<24){
-			sb.append(  str+time/(60*60)+"个小时");
+			sb.append(  str+time/(60*60)+"小时");
 		}else if(time/(60*60*24)<30){
 			sb.append(  str+time/(60*60*24)+"天");
 		}else if(time/(60*60*24*30)<12){

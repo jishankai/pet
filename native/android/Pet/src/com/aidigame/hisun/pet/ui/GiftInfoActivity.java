@@ -76,23 +76,23 @@ public class GiftInfoActivity extends Activity implements OnClickListener{
 		priceTV.setText(""+gift.price);
 		String[] strs=gift.totalDes.split("&");
 		if(strs!=null&&strs.length>0){
-			if(strs.length>1){
+			if(strs.length>=1){
 				ades2TV.setVisibility(View.VISIBLE);
 				ades2TV.setText(""+strs[0]);
 			}
-            if(strs.length>2){
+            if(strs.length>=2){
             	scopeTV.setVisibility(View.VISIBLE);
             	scopeTV.setText(""+strs[1]);
 			}
-            if(strs.length>3){
+            if(strs.length>=3){
             	standardTV.setVisibility(View.VISIBLE);
             	standardTV.setText(""+strs[2]);
 			}
-            if(strs.length>4){
+            if(strs.length>=4){
             	gperiodTV.setVisibility(View.VISIBLE);
             	gperiodTV.setText(""+strs[3]);
 			}
-            if(strs.length>5){
+            if(strs.length>=5){
             	postModeTV.setVisibility(View.VISIBLE);
             	postModeTV.setText(""+strs[4]);
 			}
@@ -144,6 +144,13 @@ public class GiftInfoActivity extends Activity implements OnClickListener{
 			System.gc();
 			break;
 		case R.id.buy_tv:
+			if(gift.animal.foodNum<gift.price){
+				Intent intent=new Intent(this,Dialog3Activity.class);
+				intent.putExtra("mode", 2);
+				this.startActivity(intent);
+			}else{
+				
+			
 			Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
 				
 				@Override
@@ -169,6 +176,7 @@ public class GiftInfoActivity extends Activity implements OnClickListener{
 			intent.putExtra("name", gift.name);
 			intent.putExtra("num", gift.price);
 			this.startActivity(intent);
+			}
 //			Toast.makeText(this,"购买成功", Toast.LIGENGTH_SHORT).show();
 			break;
 		case R.id.close_iv:

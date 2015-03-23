@@ -56,26 +56,30 @@ public class Constants {
 //	public static String URL_ROOT="/dc/index.php?";
 	public static String URL_ROOT="/index.php?";
 	public static String URL_ROOT2="/index.php?";//
-	public static String IP="release4pet.aidigame.com";//   release4pet.aidigame.com   dev4pet.aidigame.com
-	public static String IP2="release4pet.aidigame.com";//release4pet.aidigame.com
-	//下载头像
-//	public static String USER_DOWNLOAD_TX="http://"+IP+"/dc/images/tx/";
-	public static String USER_DOWNLOAD_TX="http://pet4tx.oss-cn-beijing.aliyuncs.com/"+"tx_usr/";
-	                                      //http://pet4tx.oss-cn-beijing.aliyuncs.com/
-	                                      //-test
-	
-	
-	public static String ANIMAL_DOWNLOAD_TX="http://pet4tx.oss-cn-beijing.aliyuncs.com/"+"tx_ani/";
-                                          //http://pet4tx.oss-cn-beijing.aliyuncs.com/
-	
+	public static String IP="release4pet.imengstar.com";//   release4pet.imengstar.com   dev4pet.imengstar.com
+	public static String IP2="release4pet.imengstar.com";//release4pet.aidigame.com
+	public static String test="";//-test
+	public static String USER_DOWNLOAD_TX="http://pet"+test+"4tx.oss-cn-beijing.aliyuncs.com/"+"tx_usr/";
+	public static String ANIMAL_DOWNLOAD_TX="http://pet"+test+"4tx.oss-cn-beijing.aliyuncs.com/"+"tx_ani/";
+public static String PICTURE_TYPE_MENUS="http://pet"+test+"4upload.oss-cn-beijing.aliyuncs.com/menu/";
 	
     //下载声音
-    public static String DOWNLOAD_VOICE="http://pet4voices.oss-cn-beijing.aliyuncs.com/ani/";//不需要加密
+    public static String DOWNLOAD_VOICE="http://pet"+test+"4voices.oss-cn-beijing.aliyuncs.com/ani/";//不需要加密
   //欢迎页图片下载
-    public static String WELCOME_IMAGE="http://pet4welcome.oss-cn-beijing.aliyuncs.com/";//
-                                       //http://pet4welcome.oss-cn-beijing.aliyuncs.com/
-    public static String UPLOAD_IMAGE_RETURN_URL="http://pet4upload.oss-cn-beijing.aliyuncs.com/";
-                                      //http://pet4upload.oss-cn-beijing.aliyuncs.com/
+    public static String WELCOME_IMAGE="http://pet"+test+"4welcome.oss-cn-beijing.aliyuncs.com/";//
+    public static String UPLOAD_IMAGE_RETURN_URL="http://pet"+test+"4upload.oss-cn-beijing.aliyuncs.com/";
+	
+	
+	
+	public static String ANIMAL_THUBMAIL_DOWNLOAD_TX="http://txthumb.imengstar.com/tx_ani/";
+	public static String USER_THUBMAIL_DOWNLOAD_TX="http://txthumb.imengstar.com/tx_usr/";
+	 public static String UPLOAD_IMAGE_THUBMAIL_IMAG="http://uploadthumb.imengstar.com/";
+//	public static String ANIMAL_THUBMAIL_DOWNLOAD_TX="http://devtxthumb.imengstar.com/tx_ani/";
+//	public static String USER_THUBMAIL_DOWNLOAD_TX="http://devtxthumb.imengstar.com/tx_usr/";
+//	 public static String UPLOAD_IMAGE_THUBMAIL_IMAG="http://devuploadthumb.imengstar.com/";
+//	
+	
+   
     public static String DOWNLOAD_FOOD_PATH="item/";
 	
 	
@@ -141,6 +145,11 @@ public class Constants {
 	public static String PET_BEG_PICTURE_LIST=IP2+URL_ROOT2+"r=animal/foodListApi&aid=";
 	//赏口粮图片信息
 	public static String SHARE_FOOD=IP2+URL_ROOT2+"r=animal/foodApi&aid=";
+	
+	//宠物是否做过此操作，（挣口粮，摸一摸...），做过的话，返回图片信息
+	public static String DO_PICTURE_TYPE=IP2+URL_ROOT2+"r=image/isMenuApi&aid=";
+	
+	
 	//兑换礼物列表
 	public static String EXCHANGE_FOOD_LIST=IP2+URL_ROOT2+"r=item/listApi";
 	//兑换礼物
@@ -178,6 +187,8 @@ public class Constants {
 	public static String CREATE_KINGDOM=URL_ROOT+"r=animal/createApi&sig=";
 	//创建王国
 	public static String IS_TOUCHED=URL_ROOT+"r=animal/isTouchedApi&sig=";
+	//发布图片时可以选择的类型
+	public static String GET_PICTURE_TYPE=URL_ROOT+"r=image/menuApi&sig=";
 	//用户分享数api
 	public static String USER_SHARE_NUM=URL_ROOT+"r=user/shareApi&sig=";
 	//退出王国

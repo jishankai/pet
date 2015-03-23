@@ -98,7 +98,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 	public String relatesId;//关联的id;
 	public String relateString;
 	Animal animal;
-	private boolean isBeg;
+	private int isBeg;//0 晒照片；1，挣口粮；2 求摸摸；3 玩球球
 	private UMSocialService mController;
 	private 	HandleHttpConnectionException handleHttpConnectionException;
 	private RelativeLayout rootLayout;
@@ -146,7 +146,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 		wxCircleHandler.addToSocialSDK();
 		
 		animal=(Animal)getIntent().getSerializableExtra("animal");
-		isBeg=getIntent().getBooleanExtra("isBeg", false);
+		isBeg=getIntent().getIntExtra("isBeg", 0);
 		initView();
 		this.submitPictureActivity=this;
 		handleHttpConnectionException=HandleHttpConnectionException.getInstance();
@@ -169,13 +169,22 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 		options.inSampleSize=4;
 		rootLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.submit_background,options)));
 		
-		if(isBeg){
+		if(isBeg==1){
 			titleTv.setText("挣口粮");
 			topicTV.setText("挣口粮");
+		}else if(isBeg!=0){
+			SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+		      
+		    	  String topic=sp.getString("p_mid"+isBeg+"_subject", "");
+		    	  if(!StringUtil.isEmpty(topic)){
+		    		  topic_name=topic;
+		    		  topicTV.setText("#"+topic_name+"#");
+		    	  }
+		    
 		}
-		if(topic_id!=-1){
+		/*if(topic_id!=-1){
 			topicTV.setText("#"+topic_name+"#");
-		}
+		}*/
 		sendToTv=(TextView)findViewById(R.id.sendto_tv6);
 		sendToTv.setText("发布到"+animal.pet_nickName);
 		atTV=(TextView)findViewById(R.id.textView6);
@@ -203,7 +212,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 		imageView.setOnClickListener(this);
 		sendToTv.setOnClickListener(this);
 		closeBt.setOnClickListener(this);
-		if(!isBeg)
+		if((isBeg==0))
 		topicTV.setOnClickListener(this);
 		atTV.setOnClickListener(this);
 		editText.addTextChangedListener(new TextWatcher() {
@@ -540,7 +549,14 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 						path2=finalPath;
 					}
 					petPicture.petPicture_path=path2;
-					petPicture.isBeg=isBeg;
+					if(isBeg==1)
+					petPicture.isBeg=true;
+					petPicture.picture_type=isBeg;
+					if(isBeg==1)petPicture.topic_name="挣口粮";
+					if(isBeg!=0&&isBeg!=1){
+						SharedPreferences sp=getSharedPreferences(Constants.SHAREDPREFERENCE_NAME, Context.MODE_WORLD_WRITEABLE);
+						petPicture.topic_name=sp.getString("p_mid"+sp.getInt("p_mid"+isBeg+"_label", 0)+"_subject", "");
+					}
 					if(topic_id!=-1){
 						petPicture.topic_id=topic_id;
 						petPicture.topic_name=topic_name;
@@ -552,10 +568,20 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 					petPicture.relatesString=relateString;
 					PetPicture petPicture2=HttpUtil.uploadImage(petPicture,handleHttpConnectionException.getHandler(SubmitPictureActivity.this),SubmitPictureActivity.this);
 					petPicture2.topic_id=petPicture.topic_id;
-					petPicture2.topic_name="#"+petPicture.topic_name+"#";
+					petPicture2.topic_name=petPicture.topic_name;
 					petPicture2.relates=relatesId;
 					petPicture2.relatesString=relateString;
-					MobclickAgent.onEvent(SubmitPictureActivity.this, "photo");
+					petPicture2.picture_type=petPicture.picture_type;
+					if(petPicture.picture_type==1){
+						MobclickAgent.onEvent(SubmitPictureActivity.this, "food_suc");
+					}else if(petPicture.picture_type==2){
+						MobclickAgent.onEvent(SubmitPictureActivity.this, "topic1_suc");
+					}else if(petPicture.picture_type==3){
+						MobclickAgent.onEvent(SubmitPictureActivity.this, "topic2_suc");
+					}else{
+						MobclickAgent.onEvent(SubmitPictureActivity.this, "photo");
+					}
+					
 					if(!StringUtil.isEmpty(petPicture2.url)){
 //						HttpUtil.imageInfo(petPicture2, handler, SubmitPictureActivity.this);
 						handler.sendEmptyMessage(DISMISS_PROGRESS);
@@ -621,7 +647,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 			this.startActivity(intent6);
 			break;
 		case R.id.sendto_tv6:
-			if(isBeg){
+			if(isBeg!=0){
 				return;
 			}
 			Intent intent7=new Intent(this,AtUserListActivity.class);
@@ -777,7 +803,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 				Constants.whereShare=-1;
 				
 				Intent intent=null;
-				if(isBeg){
+				if(isBeg!=0){
 					intent=new Intent(SubmitPictureActivity.this,Dialog6Activity.class);
 					petPicture.animal=animal;
 					intent.putExtra("picture", petPicture);
@@ -834,7 +860,8 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 						sinaShareContent.setShareContent(petPicture.cmt+(StringUtil.isEmpty(petPicture.topic_name)?"":(" "+petPicture.topic_name+" "))+"http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id="+petPicture.img_id+"（分享自@宠物星球社交应用）");
 					}
 				   	
-				    if(petPicture.isBeg){
+				    if(petPicture.picture_type!=0){
+				    	
 				    	sinaShareContent.setShareContent((StringUtil.isEmpty(petPicture.cmt)?"看在我这么努力卖萌的份上快来宠宠我！免费送我点口粮好不好？":petPicture.cmt)+"http://"+Constants.IP+Constants.URL_ROOT+"r=social/foodShareApi&img_id="+petPicture.img_id/*+"&to=webo"*/+"（分享自@宠物星球社交应用）");
 					   }
 				   	
@@ -850,6 +877,13 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 				              public void onComplete(SHARE_MEDIA platform, int eCode,SocializeEntity entity) {
 				                   if (eCode == 200) {
 				                  	addShares(false);
+				                  	if(petPicture.picture_type==1){
+										MobclickAgent.onEvent(SubmitPictureActivity.this, "food_share_suc");
+									}else if(petPicture.picture_type==2){
+			         					MobclickAgent.onEvent(SubmitPictureActivity.this, "topic1_share_suc");
+			         				}else if(petPicture.picture_type==2){
+			         					MobclickAgent.onEvent(SubmitPictureActivity.this, "topic2_share_suc");
+			         				}
 				                    Toast.makeText(SubmitPictureActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
 				                   } else {
 //				                	   over();
@@ -912,7 +946,7 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 				   	   
 				   	   
 				   	  circleMedia.setShareImage(umImage);
-					   if(petPicture.isBeg){
+					   if(petPicture.picture_type!=0){
 							 //设置分享文字
 						   circleMedia.setShareContent("看在我这么努力卖萌的份上快来宠宠我！免费送我点口粮好不好？");
 							 //设置title
@@ -952,6 +986,18 @@ public class SubmitPictureActivity extends Activity implements OnClickListener{
 				            	  if (eCode == 200) {
 				            		  LogUtil.i("miii", "微信分享成功，执行addShares方法   sendToWeixin="+sendToWeixin);
 				                  	addShares(true);
+				                  	
+				                  	if(petPicture.picture_type==2){
+				                  		MobclickAgent.onEvent(SubmitPictureActivity.this, "topic1_share_suc");
+										
+									}else if(petPicture.picture_type==3){
+										MobclickAgent.onEvent(SubmitPictureActivity.this, "topic2_share_suc");
+			         				}else if(petPicture.picture_type==0){
+			         					
+			         				}else{
+			         					MobclickAgent.onEvent(SubmitPictureActivity.this, "food_share_suc");
+			         				}
+				                  	
 				                    Toast.makeText(SubmitPictureActivity.this, "分享成功.", Toast.LENGTH_SHORT).show();
 				                   } else {
 				                	   over();

@@ -39,6 +39,9 @@ public class MarketGridViewAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
+	/*	if(list.size()%2!=0){
+			return list.size()/2+1;
+		}*/
 		return list.size()/2;
 	}
 

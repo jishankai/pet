@@ -42,13 +42,29 @@
         android:layout_marginRight="10dp"
         android:paddingBottom="20dp"
        >
+       <ImageView 
+               android:id="@+id/show_topic_iv_temp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:scaleType="fitXY"
+               android:layout_marginLeft="10dp"
+           android:layout_marginRight="10dp"
+           android:layout_marginTop="10dp"/>
+       <View 
+           android:layout_below="@+id/show_topic_iv_temp"
+               android:layout_width="match_parent"
+               android:layout_height="35dp"
+               android:focusable="false"
+               android:focusableInTouchMode="false"/>
        <LinearLayout 
+           android:id="@+id/image_layout"
            android:layout_width="match_parent" 
            android:orientation="vertical"
            android:layout_height="wrap_content"
            android:layout_marginLeft="10dp"
            android:layout_marginRight="10dp"
            android:layout_marginTop="10dp"
+           android:visibility="invisible"
            android:layout_marginBottom="20dp">
            <ImageView 
                android:id="@+id/show_topic_iv"
@@ -91,8 +107,7 @@
                android:layout_height="35dp"
                android:id="@+id/paddingView"
                android:focusable="false"
-               android:focusableInTouchMode="false"
-               android:background="@color/white"/>
+               android:focusableInTouchMode="false"/>
        </LinearLayout>
 
         
@@ -114,18 +129,23 @@
     
     
     <!-- 反面，图片相关信息 -->
-     <com.aidigame.hisun.pet.view.MyScrollView 
+    <!--  <com.aidigame.hisun.pet.view.MyScrollView 
                  android:id="@+id/my_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
        android:visibility="gone"
        android:scrollbars="none"
+       android:focusable="false"
+       android:focusableInTouchMode="false"
       android:background="@android:color/transparent"
-       >
+       > -->
     <LinearLayout 
+        android:id="@+id/reverse_side_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+       android:visibility="gone"
         android:orientation="vertical">
         
    
@@ -477,7 +497,7 @@
             />
     </RelativeLayout>
      </LinearLayout>
-    </com.aidigame.hisun.pet.view.MyScrollView>
+   <!--  </com.aidigame.hisun.pet.view.MyScrollView> -->
     
     </FrameLayout>
     

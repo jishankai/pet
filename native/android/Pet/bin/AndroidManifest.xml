@@ -1,7 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+                     <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aidigame.hisun.pet"
     android:versionCode="29"
-    android:versionName="1.1.4" >
+    android:versionName="1.1.4" ><!--  29   1.1.4-->
 
     <uses-sdk
         android:minSdkVersion="12"
@@ -132,7 +132,7 @@
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
         <activity android:name="com.aidigame.hisun.pet.ui.NewShowTopicActivity"
             android:windowSoftInputMode="adjustResize"
-            android:hardwareAccelerated="true"
+            
             android:theme="@android:style/Theme.Translucent"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
         <activity android:name="com.aidigame.hisun.pet.ui.ShowPictureActivity"
@@ -203,7 +203,8 @@
              android:configChanges="keyboardHidden|orientation|navigation">
                     </activity>
                     <activity android:name="com.aidigame.hisun.pet.ui.ChoseKingActivity"
-                        android:configChanges="keyboardHidden|orientation|navigation">
+                        android:configChanges="keyboardHidden|orientation|navigation"
+                        android:hardwareAccelerated="true">
                                                  <!-- <intent-filter >
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -263,6 +264,8 @@
                         android:theme="@style/SampleTheme.Light"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                      <activity android:name="com.aidigame.hisun.pet.ui.ChosePetActivity"
+                        android:configChanges="keyboardHidden|orientation|navigation"></activity>
+                     <activity android:name="com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                      <activity android:name="com.aidigame.hisun.pet.ui.MarketActivity"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
@@ -339,7 +342,7 @@
                         android:theme="@style/Theme.Transparent"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                      <activity android:name="com.aidigame.hisun.pet.ui.UpdateAPKActivity"
-                        android:theme="@style/Theme.Transparent"
+                        android:theme="@style/Theme.Transparent2"
                         android:configChanges="keyboardHidden|orientation|navigation"></activity>
                      <activity android:name="com.aidigame.hisun.pet.wxapi.WXEntryActivity"
                         android:theme="@android:style/Theme.NoDisplay"
@@ -368,7 +371,7 @@
         <activity android:name="com.umeng.fb.ContactActivity"
          android:theme="@android:style/Theme.NoTitleBar"/>
         <meta-data android:value="546ad32dfd98c57ed4006955" android:name="UMENG_APPKEY"></meta-data>
-        <meta-data android:value="aidi" android:name="UMENG_CHANNEL"/>
+        <meta-data android:value="sougou" android:name="UMENG_CHANNEL"/>
         <!--  <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/> -->
         <!-- 友盟分享弹窗 -->
         <activity

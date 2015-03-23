@@ -180,7 +180,7 @@ public class DiskLruCache {
 			final String file = mLinkedHashMap.get(key);
 			if(options!=null)
 			Log.i("me", "图片缩放尺寸大小为=="+options.inSampleSize);
-			if (file != null) {
+			if (file != null&&new File(file).exists()) {
 				if (BuildConfig.DEBUG) {
 					Log.d(TAG, "Disk cache hit  ");
 				}

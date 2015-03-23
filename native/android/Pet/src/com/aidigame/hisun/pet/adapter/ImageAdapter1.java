@@ -209,20 +209,10 @@ public class ImageAdapter1 extends BaseAdapter {
 		
 		
 		BitmapFactory.Options options=new BitmapFactory.Options();
-		options.inSampleSize=StringUtil.getScaleByDPIget4(mContext,list.get(position%list.size()).petPicture_path);
-		/*if(list.get(position%list.size()).petPicture_path.contains("@")){
-        	int a=list.get(position%list.size()).petPicture_path.indexOf("@");
-        	int b=list.get(position%list.size()).petPicture_path.lastIndexOf("@");
-        	int lenth=Integer.parseInt(list.get(position%list.size()).petPicture_path.substring(a+1, b));
-        	if(lenth>1024*100){
-        		options.inSampleSize=4;
-        	}else{
-        		options.inSampleSize=StringUtil.getScaleByDPI(mContext);;
-        	}
-        }else{
-    		options.inSampleSize=StringUtil.getScaleByDPI(mContext);;
-    	}*/
-		Bitmap bmp=BitmapFactory.decodeFile(list.get(position%list.size()).petPicture_path,options);
+//		options.inSampleSize=StringUtil.getScaleByDPIget4(mContext,list.get(position%list.size()).petPicture_path);
+		
+//		Bitmap bmp=BitmapFactory.decodeFile(list.get(position%list.size()).petPicture_path,options);
+		Bitmap bmp=BitmapFactory.decodeFile(list.get(position%list.size()).petPicture_path/*,options*/);
 		final PetPicture p=list.get(position%list.size());
 		
 		final ImageView imageview=new ImageView(mContext);

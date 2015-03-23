@@ -159,9 +159,9 @@ public class ChatAllHistoryFragment extends Fragment {
 						e.printStackTrace();
 					}
 				}
-				if (username.equals(com.aidigame.hisun.pet.PetApplication.getUserName()))
+				/*if (username.equals(com.aidigame.hisun.pet.PetApplication.getUserName()))
 					Toast.makeText(getActivity(), "不能和自己聊天", 0).show();
-				else {
+				else {*/
 					// 进入聊天页面
 					Intent intent = new Intent(getActivity(), ChatActivity.class);
 					/*EMContact emContact = null;
@@ -185,7 +185,7 @@ public class ChatAllHistoryFragment extends Fragment {
 						intent.putExtra("user", user);
 					/*}*/
 					startActivity(intent);
-				}
+				/*}*/
 			}
 		});
 		// 注册上下文菜单

@@ -716,6 +716,7 @@ public class DiscoveryFragment extends Fragment implements OnClickListener{
 							// TODO Auto-generated method stub
 							showProgress.progressCancel();
 							if(users!=null){
+								if(users.size()>0)touchLayout.setVisibility(View.GONE);
 								searchListview.setVisibility(View.VISIBLE);
 								viewPager.setVisibility(View.INVISIBLE);
 								if(page!=0){

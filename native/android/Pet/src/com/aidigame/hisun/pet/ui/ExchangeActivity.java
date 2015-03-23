@@ -239,17 +239,17 @@ public class ExchangeActivity extends Activity implements OnClickListener{
 					int position, long id) {
 				// TODO Auto-generated method stub
 				Gift gift=giftList.get(position);
-				if(animal.foodNum<gift.price){
+				/*if(animal.foodNum<gift.price){
 					Intent intent=new Intent(ExchangeActivity.this,Dialog3Activity.class);
 					intent.putExtra("mode", 2);
 					ExchangeActivity.this.startActivity(intent);
-				}else{
+				}else{*/
 					Intent intent=new Intent(ExchangeActivity.this,GiftInfoActivity.class);
 					
 					gift.animal=animal;
 					intent.putExtra("gift", gift);
 					ExchangeActivity.this.startActivity(intent);
-				}
+//				}
 				
 			}
 		});

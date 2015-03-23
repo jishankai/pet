@@ -4623,10 +4623,10 @@ com.aidigame.hisun.pet.FirstPageActivity$6$1
 com.aidigame.hisun.pet.FirstPageActivity$6$1: com.aidigame.hisun.pet.FirstPageActivity$6 this$1
 com.aidigame.hisun.pet.FirstPageActivity$6$1: FirstPageActivity$6$1(com.aidigame.hisun.pet.FirstPageActivity$6)
 com.aidigame.hisun.pet.FirstPageActivity$6$1: void run()
-com.aidigame.hisun.pet.FirstPageActivity$7
-com.aidigame.hisun.pet.FirstPageActivity$7: com.aidigame.hisun.pet.FirstPageActivity this$0
-com.aidigame.hisun.pet.FirstPageActivity$7: FirstPageActivity$7(com.aidigame.hisun.pet.FirstPageActivity)
-com.aidigame.hisun.pet.FirstPageActivity$7: void run()
+com.aidigame.hisun.pet.FirstPageActivity$8
+com.aidigame.hisun.pet.FirstPageActivity$8: com.aidigame.hisun.pet.FirstPageActivity this$0
+com.aidigame.hisun.pet.FirstPageActivity$8: FirstPageActivity$8(com.aidigame.hisun.pet.FirstPageActivity)
+com.aidigame.hisun.pet.FirstPageActivity$8: void run()
 com.aidigame.hisun.pet.PetApplication
 com.aidigame.hisun.pet.PetApplication: com.aidigame.hisun.pet.PetApplication petApp
 com.aidigame.hisun.pet.PetApplication: com.aidigame.hisun.pet.bean.MyUser user
@@ -5766,6 +5766,7 @@ com.aidigame.hisun.pet.R$drawable: int icon
 com.aidigame.hisun.pet.R$drawable: int icon_shadow
 com.aidigame.hisun.pet.R$drawable: int icon_white_circle
 com.aidigame.hisun.pet.R$drawable: int image_default
+com.aidigame.hisun.pet.R$drawable: int image_default2
 com.aidigame.hisun.pet.R$drawable: int input_bar_bg_active
 com.aidigame.hisun.pet.R$drawable: int input_bar_bg_normal
 com.aidigame.hisun.pet.R$drawable: int invite_bt
@@ -5957,6 +5958,15 @@ com.aidigame.hisun.pet.R$drawable: int spinner_selected
 com.aidigame.hisun.pet.R$drawable: int spinner_unselected
 com.aidigame.hisun.pet.R$drawable: int start_image
 com.aidigame.hisun.pet.R$drawable: int submit_background
+com.aidigame.hisun.pet.R$drawable: int submit_picture1
+com.aidigame.hisun.pet.R$drawable: int submit_picture2
+com.aidigame.hisun.pet.R$drawable: int submit_picture3
+com.aidigame.hisun.pet.R$drawable: int submit_picture4
+com.aidigame.hisun.pet.R$drawable: int submit_picture5
+com.aidigame.hisun.pet.R$drawable: int submit_picture6
+com.aidigame.hisun.pet.R$drawable: int submit_picture7
+com.aidigame.hisun.pet.R$drawable: int submit_picture8
+com.aidigame.hisun.pet.R$drawable: int submit_picture9
 com.aidigame.hisun.pet.R$drawable: int support_gray
 com.aidigame.hisun.pet.R$drawable: int support_green
 com.aidigame.hisun.pet.R$drawable: int sure_bt
@@ -6160,7 +6170,10 @@ com.aidigame.hisun.pet.R$id: int aviary_workspace_indicator
 com.aidigame.hisun.pet.R$id: int award_linearlayout
 com.aidigame.hisun.pet.R$id: int back
 com.aidigame.hisun.pet.R$id: int back_iv
+com.aidigame.hisun.pet.R$id: int background
 com.aidigame.hisun.pet.R$id: int background_image_rlayout
+com.aidigame.hisun.pet.R$id: int ball_image
+com.aidigame.hisun.pet.R$id: int ball_tv
 com.aidigame.hisun.pet.R$id: int banner_layout
 com.aidigame.hisun.pet.R$id: int bar_bottom
 com.aidigame.hisun.pet.R$id: int beforeDescendants
@@ -6465,6 +6478,10 @@ com.aidigame.hisun.pet.R$id: int iv
 com.aidigame.hisun.pet.R$id: int iv1
 com.aidigame.hisun.pet.R$id: int iv2
 com.aidigame.hisun.pet.R$id: int iv3
+com.aidigame.hisun.pet.R$id: int iv_4
+com.aidigame.hisun.pet.R$id: int iv_5
+com.aidigame.hisun.pet.R$id: int iv_6
+com.aidigame.hisun.pet.R$id: int iv_7
 com.aidigame.hisun.pet.R$id: int iv_emoticons_checked
 com.aidigame.hisun.pet.R$id: int iv_emoticons_normal
 com.aidigame.hisun.pet.R$id: int iv_expression
@@ -6588,7 +6605,6 @@ com.aidigame.hisun.pet.R$id: int msg_status
 com.aidigame.hisun.pet.R$id: int msg_tv
 com.aidigame.hisun.pet.R$id: int multipleChoice
 com.aidigame.hisun.pet.R$id: int multipleChoiceModal
-com.aidigame.hisun.pet.R$id: int my_scrollview
 com.aidigame.hisun.pet.R$id: int mycoin_tv
 com.aidigame.hisun.pet.R$id: int name
 com.aidigame.hisun.pet.R$id: int name_et
@@ -6744,6 +6760,7 @@ com.aidigame.hisun.pet.R$id: int report_line1
 com.aidigame.hisun.pet.R$id: int report_tv
 com.aidigame.hisun.pet.R$id: int reporttv
 com.aidigame.hisun.pet.R$id: int request
+com.aidigame.hisun.pet.R$id: int reverse_side_layout
 com.aidigame.hisun.pet.R$id: int reward_layout
 com.aidigame.hisun.pet.R$id: int reward_layout2
 com.aidigame.hisun.pet.R$id: int right
@@ -6832,6 +6849,7 @@ com.aidigame.hisun.pet.R$id: int show_topic_close_iv1
 com.aidigame.hisun.pet.R$id: int show_topic_close_iv2
 com.aidigame.hisun.pet.R$id: int show_topic_comment_tv
 com.aidigame.hisun.pet.R$id: int show_topic_iv
+com.aidigame.hisun.pet.R$id: int show_topic_iv_temp
 com.aidigame.hisun.pet.R$id: int show_topic_listview
 com.aidigame.hisun.pet.R$id: int show_topic_pet_race
 com.aidigame.hisun.pet.R$id: int show_topic_petgender
@@ -6905,7 +6923,9 @@ com.aidigame.hisun.pet.R$id: int top_bar
 com.aidigame.hisun.pet.R$id: int top_down
 com.aidigame.hisun.pet.R$id: int top_layout
 com.aidigame.hisun.pet.R$id: int top_white_view
+com.aidigame.hisun.pet.R$id: int touch_image
 com.aidigame.hisun.pet.R$id: int touch_layout
+com.aidigame.hisun.pet.R$id: int touch_tv
 com.aidigame.hisun.pet.R$id: int trends_bite_layout
 com.aidigame.hisun.pet.R$id: int trends_fans_layout
 com.aidigame.hisun.pet.R$id: int trends_join_kingdom_layout
@@ -7115,6 +7135,7 @@ com.aidigame.hisun.pet.R$layout: int activity_show_big_image
 com.aidigame.hisun.pet.R$layout: int activity_show_picture
 com.aidigame.hisun.pet.R$layout: int activity_show_topic
 com.aidigame.hisun.pet.R$layout: int activity_submit_picture
+com.aidigame.hisun.pet.R$layout: int activity_submit_picture_type
 com.aidigame.hisun.pet.R$layout: int activity_take_picture_background
 com.aidigame.hisun.pet.R$layout: int activity_topic_list
 com.aidigame.hisun.pet.R$layout: int activity_touch
@@ -7278,6 +7299,7 @@ com.aidigame.hisun.pet.R$layout: int item_user_list_topic1
 com.aidigame.hisun.pet.R$layout: int item_user_setup
 com.aidigame.hisun.pet.R$layout: int item_user_topics
 com.aidigame.hisun.pet.R$layout: int item_users_listview
+com.aidigame.hisun.pet.R$layout: int itemsubmit_picture_icon
 com.aidigame.hisun.pet.R$layout: int itemtopic_users_list
 com.aidigame.hisun.pet.R$layout: int main
 com.aidigame.hisun.pet.R$layout: int menu_frame
@@ -8365,6 +8387,7 @@ com.aidigame.hisun.pet.adapter.ChoseKingListViewAdapter: com.nostra13.universali
 com.aidigame.hisun.pet.adapter.ChoseKingListViewAdapter: java.util.ArrayList list
 com.aidigame.hisun.pet.adapter.ChoseKingListViewAdapter: com.aidigame.hisun.pet.ui.ChoseKingActivity context
 com.aidigame.hisun.pet.adapter.ChoseKingListViewAdapter: android.widget.LinearLayout currentShowInfoLayout
+com.aidigame.hisun.pet.adapter.ChoseKingListViewAdapter: int current_position
 com.aidigame.hisun.pet.adapter.ChoseKingListViewAdapter: android.view.View hidenLineView
 com.aidigame.hisun.pet.adapter.ChoseKingListViewAdapter: com.aidigame.hisun.pet.util.HandleHttpConnectionException handleHttpConnectionException
 com.aidigame.hisun.pet.adapter.ChoseKingListViewAdapter: boolean isBind
@@ -8616,10 +8639,10 @@ com.aidigame.hisun.pet.adapter.KingdomTrendsListAdapter: java.lang.Object getIte
 com.aidigame.hisun.pet.adapter.KingdomTrendsListAdapter: long getItemId(int)
 com.aidigame.hisun.pet.adapter.KingdomTrendsListAdapter: android.view.View getView(int,android.view.View,android.view.ViewGroup)
 com.aidigame.hisun.pet.adapter.KingdomTrendsListAdapter: java.lang.String judgeTime(long)
-com.aidigame.hisun.pet.adapter.KingdomTrendsListAdapter$1: void onClick(android.view.View)
 com.aidigame.hisun.pet.adapter.KingdomTrendsListAdapter$2: void onClick(android.view.View)
 com.aidigame.hisun.pet.adapter.KingdomTrendsListAdapter$3: void onClick(android.view.View)
 com.aidigame.hisun.pet.adapter.KingdomTrendsListAdapter$4: void onClick(android.view.View)
+com.aidigame.hisun.pet.adapter.KingdomTrendsListAdapter$5: void onClick(android.view.View)
 com.aidigame.hisun.pet.adapter.MarketGridViewAdapter
 com.aidigame.hisun.pet.adapter.MarketGridViewAdapter: android.content.Context context
 com.aidigame.hisun.pet.adapter.MarketGridViewAdapter: java.util.List list
@@ -8783,6 +8806,20 @@ com.aidigame.hisun.pet.adapter.StringAdapter: int getCount()
 com.aidigame.hisun.pet.adapter.StringAdapter: java.lang.Object getItem(int)
 com.aidigame.hisun.pet.adapter.StringAdapter: long getItemId(int)
 com.aidigame.hisun.pet.adapter.StringAdapter: android.view.View getView(int,android.view.View,android.view.ViewGroup)
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter: android.app.Activity context
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter: java.util.ArrayList animals
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter: com.aidigame.hisun.pet.bean.MyUser user
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter: com.nostra13.universalimageloader.core.DisplayImageOptions displayImageOptions
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter: com.nostra13.universalimageloader.core.ImageLoader imageLoader
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter: SubmitPictureTypeAdapter(android.app.Activity,java.util.ArrayList,com.aidigame.hisun.pet.bean.MyUser)
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter: void update(java.util.ArrayList)
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter: int getCount()
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter: java.lang.Object getItem(int)
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter: long getItemId(int)
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter: android.view.View getView(int,android.view.View,android.view.ViewGroup)
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter: void loadIcon(android.widget.ImageView,com.aidigame.hisun.pet.bean.Animal)
+com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter$1: void onClick(android.view.View)
 com.aidigame.hisun.pet.adapter.TopicListAdapter
 com.aidigame.hisun.pet.adapter.TopicListAdapter: android.content.Context context
 com.aidigame.hisun.pet.adapter.TopicListAdapter: java.util.ArrayList list
@@ -8916,6 +8953,7 @@ com.aidigame.hisun.pet.bean.Animal: boolean is_follow
 com.aidigame.hisun.pet.bean.Animal: boolean is_join
 com.aidigame.hisun.pet.bean.Animal: boolean isTouched
 com.aidigame.hisun.pet.bean.Animal: java.lang.String touchedPath
+com.aidigame.hisun.pet.bean.Animal: long touch_img_id
 com.aidigame.hisun.pet.bean.Animal: boolean isSelected
 com.aidigame.hisun.pet.bean.Animal: Animal()
 com.aidigame.hisun.pet.bean.Animal: int hashCode()
@@ -9027,6 +9065,7 @@ com.aidigame.hisun.pet.bean.PetNews: java.lang.String u_name
 com.aidigame.hisun.pet.bean.PetNews: long create_time
 com.aidigame.hisun.pet.bean.PetNews: int img_id
 com.aidigame.hisun.pet.bean.PetNews: java.lang.String img_url
+com.aidigame.hisun.pet.bean.PetNews: java.lang.String petPicture_path
 com.aidigame.hisun.pet.bean.PetNews: int item_id
 com.aidigame.hisun.pet.bean.PetNews: java.lang.String item_name
 com.aidigame.hisun.pet.bean.PetNews: int rq
@@ -9059,6 +9098,7 @@ com.aidigame.hisun.pet.bean.PetPicture: int shares
 com.aidigame.hisun.pet.bean.PetPicture: com.aidigame.hisun.pet.bean.Animal animal
 com.aidigame.hisun.pet.bean.PetPicture: java.lang.String is_food
 com.aidigame.hisun.pet.bean.PetPicture: boolean isBeg
+com.aidigame.hisun.pet.bean.PetPicture: int picture_type
 com.aidigame.hisun.pet.bean.PetPicture: java.util.ArrayList like_txUrlList
 com.aidigame.hisun.pet.bean.PetPicture: java.util.ArrayList gift_txUrlList
 com.aidigame.hisun.pet.bean.PetPicture: java.util.ArrayList commentsList
@@ -9163,11 +9203,16 @@ com.aidigame.hisun.pet.constant.Constants: java.lang.String URL_ROOT
 com.aidigame.hisun.pet.constant.Constants: java.lang.String URL_ROOT2
 com.aidigame.hisun.pet.constant.Constants: java.lang.String IP
 com.aidigame.hisun.pet.constant.Constants: java.lang.String IP2
+com.aidigame.hisun.pet.constant.Constants: java.lang.String test
 com.aidigame.hisun.pet.constant.Constants: java.lang.String USER_DOWNLOAD_TX
 com.aidigame.hisun.pet.constant.Constants: java.lang.String ANIMAL_DOWNLOAD_TX
+com.aidigame.hisun.pet.constant.Constants: java.lang.String PICTURE_TYPE_MENUS
 com.aidigame.hisun.pet.constant.Constants: java.lang.String DOWNLOAD_VOICE
 com.aidigame.hisun.pet.constant.Constants: java.lang.String WELCOME_IMAGE
 com.aidigame.hisun.pet.constant.Constants: java.lang.String UPLOAD_IMAGE_RETURN_URL
+com.aidigame.hisun.pet.constant.Constants: java.lang.String ANIMAL_THUBMAIL_DOWNLOAD_TX
+com.aidigame.hisun.pet.constant.Constants: java.lang.String USER_THUBMAIL_DOWNLOAD_TX
+com.aidigame.hisun.pet.constant.Constants: java.lang.String UPLOAD_IMAGE_THUBMAIL_IMAG
 com.aidigame.hisun.pet.constant.Constants: java.lang.String DOWNLOAD_FOOD_PATH
 com.aidigame.hisun.pet.constant.Constants: java.lang.String AWARD_FOOD
 com.aidigame.hisun.pet.constant.Constants: java.lang.String GET_SID
@@ -9192,6 +9237,7 @@ com.aidigame.hisun.pet.constant.Constants: java.lang.String LOGIN_PATH
 com.aidigame.hisun.pet.constant.Constants: java.lang.String BEG_FOOD_LIST
 com.aidigame.hisun.pet.constant.Constants: java.lang.String PET_BEG_PICTURE_LIST
 com.aidigame.hisun.pet.constant.Constants: java.lang.String SHARE_FOOD
+com.aidigame.hisun.pet.constant.Constants: java.lang.String DO_PICTURE_TYPE
 com.aidigame.hisun.pet.constant.Constants: java.lang.String EXCHANGE_FOOD_LIST
 com.aidigame.hisun.pet.constant.Constants: java.lang.String EXCHANGE_FOOD
 com.aidigame.hisun.pet.constant.Constants: java.lang.String FOOD_INFO
@@ -9207,6 +9253,7 @@ com.aidigame.hisun.pet.constant.Constants: java.lang.String IMAGE_SHARE_NUM
 com.aidigame.hisun.pet.constant.Constants: java.lang.String CHANGE_PLANT
 com.aidigame.hisun.pet.constant.Constants: java.lang.String CREATE_KINGDOM
 com.aidigame.hisun.pet.constant.Constants: java.lang.String IS_TOUCHED
+com.aidigame.hisun.pet.constant.Constants: java.lang.String GET_PICTURE_TYPE
 com.aidigame.hisun.pet.constant.Constants: java.lang.String USER_SHARE_NUM
 com.aidigame.hisun.pet.constant.Constants: java.lang.String EXIT_KINGDOM
 com.aidigame.hisun.pet.constant.Constants: java.lang.String KING_USER_RELATION
@@ -9681,6 +9728,7 @@ com.aidigame.hisun.pet.huanxin.ChatAllHistoryAdapter: java.util.List copyConvers
 com.aidigame.hisun.pet.huanxin.ChatAllHistoryAdapter: com.aidigame.hisun.pet.huanxin.ChatAllHistoryAdapter$ConversationFilter conversationFilter
 com.aidigame.hisun.pet.huanxin.ChatAllHistoryAdapter: com.nostra13.universalimageloader.core.DisplayImageOptions displayImageOptions
 com.aidigame.hisun.pet.huanxin.ChatAllHistoryAdapter: com.nostra13.universalimageloader.core.ImageLoader imageLoader
+com.aidigame.hisun.pet.huanxin.ChatAllHistoryAdapter: android.content.Context context
 com.aidigame.hisun.pet.huanxin.ChatAllHistoryAdapter: int[] $SWITCH_TABLE$com$easemob$chat$EMMessage$Type
 com.aidigame.hisun.pet.huanxin.ChatAllHistoryAdapter: ChatAllHistoryAdapter(android.content.Context,int,java.util.List)
 com.aidigame.hisun.pet.huanxin.ChatAllHistoryAdapter: void upadte(java.util.List)
@@ -10440,19 +10488,39 @@ com.aidigame.hisun.pet.huanxin.MessageAdapter$1: MessageAdapter$1(com.aidigame.h
 com.aidigame.hisun.pet.huanxin.MessageAdapter$1: void onClick(android.view.View)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$10
 com.aidigame.hisun.pet.huanxin.MessageAdapter$10: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
+com.aidigame.hisun.pet.huanxin.MessageAdapter$10: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
 com.aidigame.hisun.pet.huanxin.MessageAdapter$10: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$10: MessageAdapter$10(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$10: void onClick(android.view.View)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$10: java.util.Timer val$timer
+com.aidigame.hisun.pet.huanxin.MessageAdapter$10: MessageAdapter$10(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder,com.easemob.chat.EMMessage,java.util.Timer)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$10: void run()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$10: com.aidigame.hisun.pet.huanxin.MessageAdapter access$0(com.aidigame.hisun.pet.huanxin.MessageAdapter$10)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$10$1
+com.aidigame.hisun.pet.huanxin.MessageAdapter$10$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$10 this$1
+com.aidigame.hisun.pet.huanxin.MessageAdapter$10$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
+com.aidigame.hisun.pet.huanxin.MessageAdapter$10$1: com.easemob.chat.EMMessage val$message
+com.aidigame.hisun.pet.huanxin.MessageAdapter$10$1: java.util.Timer val$timer
+com.aidigame.hisun.pet.huanxin.MessageAdapter$10$1: MessageAdapter$10$1(com.aidigame.hisun.pet.huanxin.MessageAdapter$10,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder,com.easemob.chat.EMMessage,java.util.Timer)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$10$1: void run()
 com.aidigame.hisun.pet.huanxin.MessageAdapter$11
 com.aidigame.hisun.pet.huanxin.MessageAdapter$11: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$11: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$11: MessageAdapter$11(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$11: void onClick(android.view.View)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$11: int val$position
+com.aidigame.hisun.pet.huanxin.MessageAdapter$11: MessageAdapter$11(com.aidigame.hisun.pet.huanxin.MessageAdapter,int)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$11: boolean onLongClick(android.view.View)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$12
 com.aidigame.hisun.pet.huanxin.MessageAdapter$12: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$12: int val$position
-com.aidigame.hisun.pet.huanxin.MessageAdapter$12: MessageAdapter$12(com.aidigame.hisun.pet.huanxin.MessageAdapter,int)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$12: boolean onLongClick(android.view.View)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12: com.easemob.chat.EMMessage val$message
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12: java.util.Timer val$timer
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12: MessageAdapter$12(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder,com.easemob.chat.EMMessage,java.util.Timer)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12: void run()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12: com.aidigame.hisun.pet.huanxin.MessageAdapter access$0(com.aidigame.hisun.pet.huanxin.MessageAdapter$12)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12$1
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$12 this$1
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12$1: com.easemob.chat.EMMessage val$message
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12$1: java.util.Timer val$timer
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12$1: MessageAdapter$12$1(com.aidigame.hisun.pet.huanxin.MessageAdapter$12,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder,com.easemob.chat.EMMessage,java.util.Timer)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$12$1: void run()
 com.aidigame.hisun.pet.huanxin.MessageAdapter$13
 com.aidigame.hisun.pet.huanxin.MessageAdapter$13: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
 com.aidigame.hisun.pet.huanxin.MessageAdapter$13: int val$position
@@ -10461,157 +10529,116 @@ com.aidigame.hisun.pet.huanxin.MessageAdapter$13: boolean onLongClick(android.vi
 com.aidigame.hisun.pet.huanxin.MessageAdapter$14
 com.aidigame.hisun.pet.huanxin.MessageAdapter$14: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
 com.aidigame.hisun.pet.huanxin.MessageAdapter$14: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$14: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$14: java.util.Timer val$timer
-com.aidigame.hisun.pet.huanxin.MessageAdapter$14: MessageAdapter$14(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder,com.easemob.chat.EMMessage,java.util.Timer)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$14: void run()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$14: MessageAdapter$14(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$14: void onSuccess()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$14: void onProgress(int,java.lang.String)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$14: void onError(int,java.lang.String)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$14: com.aidigame.hisun.pet.huanxin.MessageAdapter access$0(com.aidigame.hisun.pet.huanxin.MessageAdapter$14)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$14$1
 com.aidigame.hisun.pet.huanxin.MessageAdapter$14$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$14 this$1
 com.aidigame.hisun.pet.huanxin.MessageAdapter$14$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$14$1: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$14$1: java.util.Timer val$timer
-com.aidigame.hisun.pet.huanxin.MessageAdapter$14$1: MessageAdapter$14$1(com.aidigame.hisun.pet.huanxin.MessageAdapter$14,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder,com.easemob.chat.EMMessage,java.util.Timer)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$14$1: MessageAdapter$14$1(com.aidigame.hisun.pet.huanxin.MessageAdapter$14,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$14$1: void run()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$14$2
+com.aidigame.hisun.pet.huanxin.MessageAdapter$14$2: com.aidigame.hisun.pet.huanxin.MessageAdapter$14 this$1
+com.aidigame.hisun.pet.huanxin.MessageAdapter$14$2: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
+com.aidigame.hisun.pet.huanxin.MessageAdapter$14$2: MessageAdapter$14$2(com.aidigame.hisun.pet.huanxin.MessageAdapter$14,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$14$2: void run()
 com.aidigame.hisun.pet.huanxin.MessageAdapter$15
 com.aidigame.hisun.pet.huanxin.MessageAdapter$15: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$15: int val$position
-com.aidigame.hisun.pet.huanxin.MessageAdapter$15: MessageAdapter$15(com.aidigame.hisun.pet.huanxin.MessageAdapter,int)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$15: boolean onLongClick(android.view.View)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$15: com.easemob.chat.EMMessage val$message
+com.aidigame.hisun.pet.huanxin.MessageAdapter$15: long val$start
+com.aidigame.hisun.pet.huanxin.MessageAdapter$15: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
+com.aidigame.hisun.pet.huanxin.MessageAdapter$15: MessageAdapter$15(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage,long,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$15: void onSuccess()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$15: void onError(int,java.lang.String)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$15: void onProgress(int,java.lang.String)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$16
 com.aidigame.hisun.pet.huanxin.MessageAdapter$16: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$16: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
 com.aidigame.hisun.pet.huanxin.MessageAdapter$16: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$16: java.util.Timer val$timer
-com.aidigame.hisun.pet.huanxin.MessageAdapter$16: MessageAdapter$16(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder,com.easemob.chat.EMMessage,java.util.Timer)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$16: void run()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16: MessageAdapter$16(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16: void onSuccess()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16: void onError(int,java.lang.String)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16: void onProgress(int,java.lang.String)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$16: com.aidigame.hisun.pet.huanxin.MessageAdapter access$0(com.aidigame.hisun.pet.huanxin.MessageAdapter$16)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$16$1
 com.aidigame.hisun.pet.huanxin.MessageAdapter$16$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$16 this$1
-com.aidigame.hisun.pet.huanxin.MessageAdapter$16$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
 com.aidigame.hisun.pet.huanxin.MessageAdapter$16$1: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$16$1: java.util.Timer val$timer
-com.aidigame.hisun.pet.huanxin.MessageAdapter$16$1: MessageAdapter$16$1(com.aidigame.hisun.pet.huanxin.MessageAdapter$16,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder,com.easemob.chat.EMMessage,java.util.Timer)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16$1: MessageAdapter$16$1(com.aidigame.hisun.pet.huanxin.MessageAdapter$16,com.easemob.chat.EMMessage,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$16$1: void run()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16$2
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16$2: com.aidigame.hisun.pet.huanxin.MessageAdapter$16 this$1
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16$2: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16$2: int val$progress
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16$2: MessageAdapter$16$2(com.aidigame.hisun.pet.huanxin.MessageAdapter$16,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder,int)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$16$2: void run()
 com.aidigame.hisun.pet.huanxin.MessageAdapter$17
 com.aidigame.hisun.pet.huanxin.MessageAdapter$17: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$17: int val$position
-com.aidigame.hisun.pet.huanxin.MessageAdapter$17: MessageAdapter$17(com.aidigame.hisun.pet.huanxin.MessageAdapter,int)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$17: boolean onLongClick(android.view.View)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17: com.easemob.chat.EMMessage val$message
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17: long val$start
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17: MessageAdapter$17(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage,long,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17: void onSuccess()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17: void onError(int,java.lang.String)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17: void onProgress(int,java.lang.String)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17: com.aidigame.hisun.pet.huanxin.MessageAdapter access$0(com.aidigame.hisun.pet.huanxin.MessageAdapter$17)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$1
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$17 this$1
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$1: MessageAdapter$17$1(com.aidigame.hisun.pet.huanxin.MessageAdapter$17,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$1: void run()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$2
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$2: com.aidigame.hisun.pet.huanxin.MessageAdapter$17 this$1
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$2: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$2: MessageAdapter$17$2(com.aidigame.hisun.pet.huanxin.MessageAdapter$17,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$2: void run()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$3
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$3: com.aidigame.hisun.pet.huanxin.MessageAdapter$17 this$1
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$3: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$3: int val$progress
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$3: MessageAdapter$17$3(com.aidigame.hisun.pet.huanxin.MessageAdapter$17,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder,int)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$17$3: void run()
 com.aidigame.hisun.pet.huanxin.MessageAdapter$18
 com.aidigame.hisun.pet.huanxin.MessageAdapter$18: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
+com.aidigame.hisun.pet.huanxin.MessageAdapter$18: com.easemob.chat.EMMessage val$message
 com.aidigame.hisun.pet.huanxin.MessageAdapter$18: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18: MessageAdapter$18(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18: void onSuccess()
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18: void onProgress(int,java.lang.String)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18: void onError(int,java.lang.String)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18: com.aidigame.hisun.pet.huanxin.MessageAdapter access$0(com.aidigame.hisun.pet.huanxin.MessageAdapter$18)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18$1
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$18 this$1
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18$1: MessageAdapter$18$1(com.aidigame.hisun.pet.huanxin.MessageAdapter$18,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18$1: void run()
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18$2
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18$2: com.aidigame.hisun.pet.huanxin.MessageAdapter$18 this$1
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18$2: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18$2: MessageAdapter$18$2(com.aidigame.hisun.pet.huanxin.MessageAdapter$18,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$18$2: void run()
+com.aidigame.hisun.pet.huanxin.MessageAdapter$18: MessageAdapter$18(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$18: void run()
 com.aidigame.hisun.pet.huanxin.MessageAdapter$19
 com.aidigame.hisun.pet.huanxin.MessageAdapter$19: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
+com.aidigame.hisun.pet.huanxin.MessageAdapter$19: java.lang.String val$localFullSizePath
 com.aidigame.hisun.pet.huanxin.MessageAdapter$19: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$19: long val$start
-com.aidigame.hisun.pet.huanxin.MessageAdapter$19: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$19: MessageAdapter$19(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage,long,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$19: void onSuccess()
-com.aidigame.hisun.pet.huanxin.MessageAdapter$19: void onError(int,java.lang.String)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$19: void onProgress(int,java.lang.String)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$19: java.lang.String val$remote
+com.aidigame.hisun.pet.huanxin.MessageAdapter$19: MessageAdapter$19(com.aidigame.hisun.pet.huanxin.MessageAdapter,java.lang.String,com.easemob.chat.EMMessage,java.lang.String)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$19: void onClick(android.view.View)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$2
 com.aidigame.hisun.pet.huanxin.MessageAdapter$2: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$2: int val$position
-com.aidigame.hisun.pet.huanxin.MessageAdapter$2: MessageAdapter$2(com.aidigame.hisun.pet.huanxin.MessageAdapter,int)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$2: boolean onLongClick(android.view.View)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$2: MessageAdapter$2(com.aidigame.hisun.pet.huanxin.MessageAdapter)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$2: void onClick(android.view.View)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$20
 com.aidigame.hisun.pet.huanxin.MessageAdapter$20: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
 com.aidigame.hisun.pet.huanxin.MessageAdapter$20: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20: MessageAdapter$20(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20: void onSuccess()
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20: void onError(int,java.lang.String)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20: void onProgress(int,java.lang.String)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20: com.aidigame.hisun.pet.huanxin.MessageAdapter access$0(com.aidigame.hisun.pet.huanxin.MessageAdapter$20)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20$1
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$20 this$1
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20$1: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20$1: MessageAdapter$20$1(com.aidigame.hisun.pet.huanxin.MessageAdapter$20,com.easemob.chat.EMMessage,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20$1: void run()
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20$2
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20$2: com.aidigame.hisun.pet.huanxin.MessageAdapter$20 this$1
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20$2: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20$2: int val$progress
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20$2: MessageAdapter$20$2(com.aidigame.hisun.pet.huanxin.MessageAdapter$20,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder,int)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$20$2: void run()
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21: long val$start
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21: MessageAdapter$21(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage,long,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21: void onSuccess()
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21: void onError(int,java.lang.String)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21: void onProgress(int,java.lang.String)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21: com.aidigame.hisun.pet.huanxin.MessageAdapter access$0(com.aidigame.hisun.pet.huanxin.MessageAdapter$21)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$1
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$21 this$1
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$1: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$1: MessageAdapter$21$1(com.aidigame.hisun.pet.huanxin.MessageAdapter$21,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$1: void run()
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$2
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$2: com.aidigame.hisun.pet.huanxin.MessageAdapter$21 this$1
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$2: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$2: MessageAdapter$21$2(com.aidigame.hisun.pet.huanxin.MessageAdapter$21,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$2: void run()
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$3
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$3: com.aidigame.hisun.pet.huanxin.MessageAdapter$21 this$1
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$3: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$3: int val$progress
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$3: MessageAdapter$21$3(com.aidigame.hisun.pet.huanxin.MessageAdapter$21,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder,int)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$21$3: void run()
-com.aidigame.hisun.pet.huanxin.MessageAdapter$22
-com.aidigame.hisun.pet.huanxin.MessageAdapter$22: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$22: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$22: com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder val$holder
-com.aidigame.hisun.pet.huanxin.MessageAdapter$22: MessageAdapter$22(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage,com.aidigame.hisun.pet.huanxin.MessageAdapter$ViewHolder)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$22: void run()
-com.aidigame.hisun.pet.huanxin.MessageAdapter$23
-com.aidigame.hisun.pet.huanxin.MessageAdapter$23: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$23: java.lang.String val$localFullSizePath
-com.aidigame.hisun.pet.huanxin.MessageAdapter$23: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$23: java.lang.String val$remote
-com.aidigame.hisun.pet.huanxin.MessageAdapter$23: MessageAdapter$23(com.aidigame.hisun.pet.huanxin.MessageAdapter,java.lang.String,com.easemob.chat.EMMessage,java.lang.String)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$23: void onClick(android.view.View)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$24
-com.aidigame.hisun.pet.huanxin.MessageAdapter$24: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$24: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$24: MessageAdapter$24(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$24: void onClick(android.view.View)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$20: MessageAdapter$20(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$20: void onClick(android.view.View)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$3
 com.aidigame.hisun.pet.huanxin.MessageAdapter$3: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$3: MessageAdapter$3(com.aidigame.hisun.pet.huanxin.MessageAdapter)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$3: void onClick(android.view.View)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$3: int val$position
+com.aidigame.hisun.pet.huanxin.MessageAdapter$3: MessageAdapter$3(com.aidigame.hisun.pet.huanxin.MessageAdapter,int)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$3: boolean onLongClick(android.view.View)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$4
 com.aidigame.hisun.pet.huanxin.MessageAdapter$4: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$4: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$4: MessageAdapter$4(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$4: MessageAdapter$4(com.aidigame.hisun.pet.huanxin.MessageAdapter)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$4: void onClick(android.view.View)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$5
 com.aidigame.hisun.pet.huanxin.MessageAdapter$5: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$5: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$5: MessageAdapter$5(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$5: MessageAdapter$5(com.aidigame.hisun.pet.huanxin.MessageAdapter)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$5: void onClick(android.view.View)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$6
 com.aidigame.hisun.pet.huanxin.MessageAdapter$6: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$6: MessageAdapter$6(com.aidigame.hisun.pet.huanxin.MessageAdapter)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$6: com.easemob.chat.EMMessage val$message
+com.aidigame.hisun.pet.huanxin.MessageAdapter$6: MessageAdapter$6(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$6: void onClick(android.view.View)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$7
 com.aidigame.hisun.pet.huanxin.MessageAdapter$7: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
@@ -10620,13 +10647,14 @@ com.aidigame.hisun.pet.huanxin.MessageAdapter$7: MessageAdapter$7(com.aidigame.h
 com.aidigame.hisun.pet.huanxin.MessageAdapter$7: void onClick(android.view.View)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$8
 com.aidigame.hisun.pet.huanxin.MessageAdapter$8: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$8: com.easemob.chat.EMMessage val$message
-com.aidigame.hisun.pet.huanxin.MessageAdapter$8: MessageAdapter$8(com.aidigame.hisun.pet.huanxin.MessageAdapter,com.easemob.chat.EMMessage)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$8: void onClick(android.view.View)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$8: int val$position
+com.aidigame.hisun.pet.huanxin.MessageAdapter$8: MessageAdapter$8(com.aidigame.hisun.pet.huanxin.MessageAdapter,int)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$8: boolean onLongClick(android.view.View)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$9
 com.aidigame.hisun.pet.huanxin.MessageAdapter$9: com.aidigame.hisun.pet.huanxin.MessageAdapter this$0
-com.aidigame.hisun.pet.huanxin.MessageAdapter$9: MessageAdapter$9(com.aidigame.hisun.pet.huanxin.MessageAdapter)
-com.aidigame.hisun.pet.huanxin.MessageAdapter$9: void onClick(android.view.View)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$9: int val$position
+com.aidigame.hisun.pet.huanxin.MessageAdapter$9: MessageAdapter$9(com.aidigame.hisun.pet.huanxin.MessageAdapter,int)
+com.aidigame.hisun.pet.huanxin.MessageAdapter$9: boolean onLongClick(android.view.View)
 com.aidigame.hisun.pet.huanxin.MessageAdapter$MapClickListener
 com.aidigame.hisun.pet.huanxin.MessageAdapter$MapClickListener: com.easemob.util.LatLng location
 com.aidigame.hisun.pet.huanxin.MessageAdapter$MapClickListener: java.lang.String address
@@ -11546,6 +11574,8 @@ com.aidigame.hisun.pet.ui.AwardDetailActivity$1$2: com.aidigame.hisun.pet.ui.Awa
 com.aidigame.hisun.pet.ui.AwardDetailActivity$1$2: AwardDetailActivity$1$2(com.aidigame.hisun.pet.ui.AwardDetailActivity$1)
 com.aidigame.hisun.pet.ui.AwardDetailActivity$1$2: void run()
 com.aidigame.hisun.pet.ui.AwardDetailActivity$2: void onClick(android.view.View)
+com.aidigame.hisun.pet.ui.BaseActivity
+com.aidigame.hisun.pet.ui.BaseActivity: BaseActivity()
 com.aidigame.hisun.pet.ui.BegPicturesActivity
 com.aidigame.hisun.pet.ui.BegPicturesActivity: BegPicturesActivity()
 com.aidigame.hisun.pet.ui.BegPicturesActivity$1: void onClick(android.view.View)
@@ -12253,69 +12283,86 @@ com.aidigame.hisun.pet.ui.NewShowTopicActivity$15
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$15: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$15: NewShowTopicActivity$15(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$15: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16: NewShowTopicActivity$16(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$16: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$16)
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$16 this$1
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1: NewShowTopicActivity$16$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$16)
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1: void run()
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$16 access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1)
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1$1
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1 this$2
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1$1: NewShowTopicActivity$16$1$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1)
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$16$1$1: void run()
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$17
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$17: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$17: int val$mode
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$17: NewShowTopicActivity$17(com.aidigame.hisun.pet.ui.NewShowTopicActivity,int)
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$17: void run()
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$17: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$17)
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$17 this$1
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1: int val$mode
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1: java.util.ArrayList val$temp
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1: NewShowTopicActivity$17$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$17,int,java.util.ArrayList)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1: NewShowTopicActivity$17$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$17)
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1: void run()
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$19
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$19: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$19: NewShowTopicActivity$19(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$19: void run()
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$21
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$21: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$21: NewShowTopicActivity$21(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$21: void run()
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$23
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$23: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$23: NewShowTopicActivity$23(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$23: void run()
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$25
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$25: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$25: NewShowTopicActivity$25(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$25: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$17 access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1 this$2
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1$1: NewShowTopicActivity$17$1$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1$1$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1$1$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1$1 this$3
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1$1$1: NewShowTopicActivity$17$1$1$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1$1)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$17$1$1$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$18
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$18: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$18: int val$mode
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$18: NewShowTopicActivity$18(com.aidigame.hisun.pet.ui.NewShowTopicActivity,int)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$18: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$18: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$18)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$18$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$18$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$18 this$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$18$1: int val$mode
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$18$1: java.util.ArrayList val$temp
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$18$1: NewShowTopicActivity$18$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$18,int,java.util.ArrayList)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$18$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$20
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$20: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$20: NewShowTopicActivity$20(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$20: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$22
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$22: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$22: NewShowTopicActivity$22(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$22: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$24
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$24: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$24: NewShowTopicActivity$24(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$24: void run()
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$26
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$26: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$26: NewShowTopicActivity$26(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$26: void run()
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$26: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$26)
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$26$1
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$26$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$26 this$1
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$26$1: boolean val$flag
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$26$1: NewShowTopicActivity$26$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$26,boolean)
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$26$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$27
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$27: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$27: NewShowTopicActivity$27(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$27: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$27: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$27)
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$27$1
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$27$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$27 this$1
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$27$1: NewShowTopicActivity$27$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$27)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$27$1: boolean val$flag
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$27$1: NewShowTopicActivity$27$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$27,boolean)
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$27$1: void run()
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$28
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$28: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$28: java.lang.String val$comment
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$28: NewShowTopicActivity$28(com.aidigame.hisun.pet.ui.NewShowTopicActivity,java.lang.String)
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$28: void run()
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$28: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$28)
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$28 this$1
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1: com.aidigame.hisun.pet.bean.MyUser val$user
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1: java.lang.String val$comment
-com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1: NewShowTopicActivity$28$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$28,com.aidigame.hisun.pet.bean.MyUser,java.lang.String)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1: NewShowTopicActivity$28$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$28)
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$28$1: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$29
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$29: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$29: java.lang.String val$comment
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$29: NewShowTopicActivity$29(com.aidigame.hisun.pet.ui.NewShowTopicActivity,java.lang.String)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$29: void run()
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$29: com.aidigame.hisun.pet.ui.NewShowTopicActivity access$0(com.aidigame.hisun.pet.ui.NewShowTopicActivity$29)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$29$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$29$1: com.aidigame.hisun.pet.ui.NewShowTopicActivity$29 this$1
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$29$1: com.aidigame.hisun.pet.bean.MyUser val$user
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$29$1: java.lang.String val$comment
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$29$1: NewShowTopicActivity$29$1(com.aidigame.hisun.pet.ui.NewShowTopicActivity$29,com.aidigame.hisun.pet.bean.MyUser,java.lang.String)
+com.aidigame.hisun.pet.ui.NewShowTopicActivity$29$1: void run()
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$36
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$36: com.aidigame.hisun.pet.ui.NewShowTopicActivity this$0
 com.aidigame.hisun.pet.ui.NewShowTopicActivity$36: NewShowTopicActivity$36(com.aidigame.hisun.pet.ui.NewShowTopicActivity)
@@ -12642,7 +12689,6 @@ com.aidigame.hisun.pet.ui.SetupActivity$1: SetupActivity$1(com.aidigame.hisun.pe
 com.aidigame.hisun.pet.ui.SetupActivity$1: void run()
 com.aidigame.hisun.pet.ui.ShakeActivity
 com.aidigame.hisun.pet.ui.ShakeActivity: ShakeActivity()
-com.aidigame.hisun.pet.ui.ShakeActivity: void share(android.view.View)
 com.aidigame.hisun.pet.ui.ShakeActivity$1$1
 com.aidigame.hisun.pet.ui.ShakeActivity$1$1: com.aidigame.hisun.pet.ui.ShakeActivity$1 this$1
 com.aidigame.hisun.pet.ui.ShakeActivity$1$1: android.graphics.Bitmap val$loadedImage
@@ -12699,6 +12745,7 @@ com.aidigame.hisun.pet.ui.ShakeActivity$8$1$1: void run()
 com.aidigame.hisun.pet.ui.ShakeActivity$9: void onClick(android.view.View)
 com.aidigame.hisun.pet.ui.ShowPictureActivity
 com.aidigame.hisun.pet.ui.ShowPictureActivity: ShowPictureActivity()
+com.aidigame.hisun.pet.ui.ShowPictureActivity$5: void onClick(android.view.View)
 com.aidigame.hisun.pet.ui.SubmitPictureActivity
 com.aidigame.hisun.pet.ui.SubmitPictureActivity: SubmitPictureActivity()
 com.aidigame.hisun.pet.ui.SubmitPictureActivity: void onClick(android.view.View)
@@ -12745,6 +12792,38 @@ com.aidigame.hisun.pet.ui.SubmitPictureActivity$9: com.aidigame.hisun.pet.bean.P
 com.aidigame.hisun.pet.ui.SubmitPictureActivity$9: SubmitPictureActivity$9(com.aidigame.hisun.pet.ui.SubmitPictureActivity,com.aidigame.hisun.pet.bean.PetPicture)
 com.aidigame.hisun.pet.ui.SubmitPictureActivity$9: void run()
 com.aidigame.hisun.pet.ui.SubmitPictureActivity$9: com.aidigame.hisun.pet.ui.SubmitPictureActivity access$0(com.aidigame.hisun.pet.ui.SubmitPictureActivity$9)
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity: SubmitPictureTypeActivity()
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity: void onClick(android.view.View)
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$2: void onClick(android.view.View)
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$3: void onClick(android.view.View)
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$4: void onClick(android.view.View)
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$4$1
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$4$1: com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$4 this$1
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$4$1: SubmitPictureTypeActivity$4$1(com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$4)
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$4$1: void run()
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5: com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity this$0
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5: SubmitPictureTypeActivity$5(com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity)
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5: void run()
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5: com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity access$0(com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5)
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5$1
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5$1: com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5 this$1
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5$1: com.aidigame.hisun.pet.bean.PetPicture val$pp
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5$1: SubmitPictureTypeActivity$5$1(com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5,com.aidigame.hisun.pet.bean.PetPicture)
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$5$1: void run()
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6: com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity this$0
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6: int val$iv
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6: SubmitPictureTypeActivity$6(com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity,int)
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6: void run()
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6: com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity access$0(com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6)
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6$1
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6$1: com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6 this$1
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6$1: com.aidigame.hisun.pet.bean.PetPicture val$pp
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6$1: int val$labelFinal
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6$1: SubmitPictureTypeActivity$6$1(com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6,com.aidigame.hisun.pet.bean.PetPicture,int)
+com.aidigame.hisun.pet.ui.SubmitPictureTypeActivity$6$1: void run()
 com.aidigame.hisun.pet.ui.TakePictureBackground
 com.aidigame.hisun.pet.ui.TakePictureBackground: TakePictureBackground()
 com.aidigame.hisun.pet.ui.TakePictureBackground$2
@@ -13091,6 +13170,9 @@ com.aidigame.hisun.pet.view.HorizontalListView2: android.widget.AdapterView$OnIt
 com.aidigame.hisun.pet.view.HorizontalListView2: android.widget.AdapterView$OnItemLongClickListener mOnItemLongClicked
 com.aidigame.hisun.pet.view.HorizontalListView2: boolean mDataChanged
 com.aidigame.hisun.pet.view.HorizontalListView2: android.database.DataSetObserver mDataObserver
+com.aidigame.hisun.pet.view.HorizontalListView2: boolean showItemBg
+com.aidigame.hisun.pet.view.HorizontalListView2: int chose_position
+com.aidigame.hisun.pet.view.HorizontalListView2: com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter$Holder holder
 com.aidigame.hisun.pet.view.HorizontalListView2: android.view.GestureDetector$OnGestureListener mOnGesture
 com.aidigame.hisun.pet.view.HorizontalListView2: HorizontalListView2(android.content.Context,android.util.AttributeSet)
 com.aidigame.hisun.pet.view.HorizontalListView2: void initView()
@@ -13109,6 +13191,7 @@ com.aidigame.hisun.pet.view.HorizontalListView2: void fillListRight(int,int)
 com.aidigame.hisun.pet.view.HorizontalListView2: void fillListLeft(int,int)
 com.aidigame.hisun.pet.view.HorizontalListView2: void removeNonVisibleItems(int)
 com.aidigame.hisun.pet.view.HorizontalListView2: void positionItems(int)
+com.aidigame.hisun.pet.view.HorizontalListView2: void resetBackground(com.aidigame.hisun.pet.adapter.SubmitPictureTypeAdapter$Holder)
 com.aidigame.hisun.pet.view.HorizontalListView2: void scrollTo(int)
 com.aidigame.hisun.pet.view.HorizontalListView2: boolean dispatchTouchEvent(android.view.MotionEvent)
 com.aidigame.hisun.pet.view.HorizontalListView2: boolean onFling(android.view.MotionEvent,android.view.MotionEvent,float,float)
@@ -13723,7 +13806,7 @@ com.aidigame.hisun.pet.widget.fragment.BegFoodFragment$3$1: java.util.ArrayList 
 com.aidigame.hisun.pet.widget.fragment.BegFoodFragment$3$1: BegFoodFragment$3$1(com.aidigame.hisun.pet.widget.fragment.BegFoodFragment$3,java.util.ArrayList)
 com.aidigame.hisun.pet.widget.fragment.BegFoodFragment$3$1: void run()
 com.aidigame.hisun.pet.widget.fragment.BegFoodFragment$4: void onClick(android.view.View)
-com.aidigame.hisun.pet.widget.fragment.BegFoodFragment$5$1: void onClick(android.view.View)
+com.aidigame.hisun.pet.widget.fragment.BegFoodFragment$5$2: void onClick(android.view.View)
 com.aidigame.hisun.pet.widget.fragment.BegFoodFragment$7: void onClick(android.view.View)
 com.aidigame.hisun.pet.widget.fragment.BegFoodFragment$8: void onClick(android.view.View)
 com.aidigame.hisun.pet.widget.fragment.BegFoodFragment$9: void onClick(android.view.View)
@@ -24308,6 +24391,7 @@ com.dodola.model.DuitangInfo: java.lang.String isrc
 com.dodola.model.DuitangInfo: int width
 com.dodola.model.DuitangInfo: long img_id
 com.dodola.model.DuitangInfo: long a_id
+com.dodola.model.DuitangInfo: java.lang.String path
 com.dodola.model.DuitangInfo: DuitangInfo()
 com.dodola.model.DuitangInfo: int getWidth()
 com.dodola.model.DuitangInfo: java.lang.String getAlbid()
@@ -25035,6 +25119,8 @@ com.example.android.bitmapfun.util.ImageFetcher: java.lang.String TAG
 com.example.android.bitmapfun.util.ImageFetcher: int HTTP_CACHE_SIZE
 com.example.android.bitmapfun.util.ImageFetcher: java.lang.String UPLOAD_IMAGE_RETURN_URL
 com.example.android.bitmapfun.util.ImageFetcher: java.lang.String itemUrl
+com.example.android.bitmapfun.util.ImageFetcher: java.lang.String IP
+com.example.android.bitmapfun.util.ImageFetcher: java.lang.String UPLOAD_THUMBMAIL_IMAGE
 com.example.android.bitmapfun.util.ImageFetcher: void <clinit>()
 com.example.android.bitmapfun.util.ImageFetcher: ImageFetcher(android.content.Context,int,int)
 com.example.android.bitmapfun.util.ImageFetcher: ImageFetcher(android.content.Context,int)
@@ -25042,7 +25128,7 @@ com.example.android.bitmapfun.util.ImageFetcher: void init(android.content.Conte
 com.example.android.bitmapfun.util.ImageFetcher: void checkConnection(android.content.Context)
 com.example.android.bitmapfun.util.ImageFetcher: android.graphics.Bitmap processBitmap(java.lang.String,android.graphics.BitmapFactory$Options)
 com.example.android.bitmapfun.util.ImageFetcher: android.graphics.Bitmap processBitmap(java.lang.Object,android.graphics.BitmapFactory$Options)
-com.example.android.bitmapfun.util.ImageFetcher: java.io.File downloadBitmap(android.content.Context,java.lang.String,java.lang.String)
+com.example.android.bitmapfun.util.ImageFetcher: java.io.File downloadBitmap(android.content.Context,java.lang.String,java.lang.String,java.lang.String)
 com.example.android.bitmapfun.util.ImageResizer
 com.example.android.bitmapfun.util.ImageResizer: java.lang.String TAG
 com.example.android.bitmapfun.util.ImageResizer: int mImageWidth
@@ -30754,6 +30840,7 @@ me.maxwin.view.XListView: int SCROLL_DURATION
 me.maxwin.view.XListView: int PULL_LOAD_MORE_DELTA
 me.maxwin.view.XListView: float OFFSET_RADIO
 me.maxwin.view.XListView: boolean isForScrollView
+me.maxwin.view.XListView: boolean update_footer
 me.maxwin.view.XListView: XListView(android.content.Context)
 me.maxwin.view.XListView: XListView(android.content.Context,android.util.AttributeSet)
 me.maxwin.view.XListView: void onMeasure(int,int)

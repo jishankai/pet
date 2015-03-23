@@ -45,7 +45,7 @@ public class DownLoadApkService extends Service {
 				String value = "dog&cat";
 				String SIG = HttpUtil.getMD5(value);
 				boolean flag=false;
-				String url=Constants.DOWNLOAD_APK;
+				String url=Constants.android_url;
 				DefaultHttpClient client = new DefaultHttpClient();
 				HttpGet get = new HttpGet(url);
 				BufferedInputStream bis=null;
