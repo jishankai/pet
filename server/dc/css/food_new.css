@@ -32,7 +32,7 @@
 
 /*按钮组*/
 .btns_box{width: 96%;height: 54px;line-height: 54px;margin-bottom: 18px;
-	margin-left: 4%;color:#666666;}
+	margin-left: 4%;color:#666;}
 .btns_box li{float: left;width: 25%;}
 
 .btns_box > li:last-child img{margin-left: 40px;}
