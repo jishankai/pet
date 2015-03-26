@@ -19,11 +19,11 @@
 			<img src="css/images/pet8.jpg" class="pet_img"/>
 			<div class="food_time clearfix">
 				<div class="food_box left">
-					<img src="css/images/food_border_white.png"/>
+					<img src="css/images/food_white_border.png"/>
 					<span id="food">12</span>
 				</div>
 				<div class="d_time_box right">
-					<img src="css/images/time_border_white.png"/>
+					<img src="css/images/time_white_border.png"/>
 					<span id="d_time">12:44:06</span>
 				</div>
 			</div>
