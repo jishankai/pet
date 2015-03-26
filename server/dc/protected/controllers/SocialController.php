@@ -61,6 +61,11 @@ class SocialController extends Controller
 
     }
 
+    public function actionFood()
+    {
+        $this->renderPartial('food_new');
+    }
+
     public function actionNewYearEvent($SID='')
     {
 
