@@ -417,7 +417,7 @@ class WechatController extends Controller
         }
         $a_arr = explode('*', $state);
         foreach ($a_arr as $v) {
-            $b_arr = explode('#', $v);
+            $b_arr = explode('$', $v);
             $tmp_arr[$b_arr[0]] = $b_arr[1];
         }
         $img_id = isset($tmp_arr['img_id'])?$tmp_arr['img_id']:NULL;
