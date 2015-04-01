@@ -342,7 +342,9 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $oauth2->get_code_by_authorize(serialize(array('aid'=>$aid)));
+                    $a = explode('#', array('aid',$aid));
+                    $state = explode('*', array($a));
+                    $oauth2->get_code_by_authorize($state);
                     exit;
                 }
                 break;
@@ -629,7 +631,7 @@ class AnimalController extends Controller
         }
     }
 
-    public function actionTouchMobileApi($aid, $img_id, $SID='')
+    public function actionTouchMobileApi($aid, $img_id, $img_url='', $SID='')
     {
         if ($SID!='') {
             $session = Yii::app()->session;
@@ -651,7 +653,11 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $oauth2->get_code_by_authorize(serialize(array('img_id'=>$img_id,'img_url'=>1,'aid'=>$aid)));
+                    $a = explode('#', array('img_id',$img_id));
+                    $b = explode('#', array('aid', $aid));
+                    $c = explode('#', array('img_url', $img_url));
+                    $state = explode('*', array($a, $b, $c));
+                    $oauth2->get_code_by_authorize($state);
                     exit;
                 }
                 break;
@@ -729,7 +735,10 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $oauth2->get_code_by_authorize(serialize(array('img_id'=>$img_id,'img_url'=>1,'aid'=>$aid)));
+                    $a = explode('#', array('aid',$aid));
+                    $b = explode('#', array('is_shake', 1));
+                    $state = explode('*', array($a, $b));
+                    $oauth2->get_code_by_authorize($state);
                     exit;
                 }
                 break;
@@ -741,7 +750,7 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id,'img_url'=>1,'aid'=>$aid)), 'mobile'));
+                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('aid'=>$aid, 'is_shake'=>1)), 'mobile'));
                     exit;
                 }
                 break;
@@ -760,8 +769,7 @@ class AnimalController extends Controller
         } else if ($is_shake) {
             $session[$aid.'_shake_count']-=1;
         }
-        $this->redirect(array('social/shake', 'aid'=>$aid, 
-            'SID'=>$SID));
+        $this->redirect(array('social/shake', 'aid'=>$aid, 'SID'=>$SID));
     }
 
     public function actionSendGiftApi($item_id, $aid, $img_id=NULL, $is_shake=FALSE)

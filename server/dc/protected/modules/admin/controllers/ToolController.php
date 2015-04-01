@@ -212,4 +212,24 @@ class ToolController extends Controller
 			'model'=>$model,
 		));
 	}
+
+    public function actionGold()
+    {
+        $error=FALSE;
+        $result=FALSE;
+        if (isset($_POST['code'])&&$_POST['code']!=''&&isset($_POST['gold'])&&$_POST['gold']!=0) {
+            $code = $_POST['code'];
+            $gold = $_POST['gold'];
+            $user = User::model()->findByAttributes(array('code'=>$code));
+            if (isset($user)) {
+                $user->gold+=$gold;
+                $user->saveAttributes(array('gold'));
+                $result = TRUE;
+            } else {
+                $error='用户不存在';
+            }
+            
+        }
+        $this->render('gold',array('error'=>$error,'result'=>$result)); 
+    }
 }

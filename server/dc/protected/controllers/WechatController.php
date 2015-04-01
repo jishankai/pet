@@ -415,10 +415,14 @@ class WechatController extends Controller
         if (!isset($code)) {
             Yii::app()->wechat->get_code_by_authorize($state);
         }
-        $tmp_arr = unserialize($state);
+        $a_arr = explode('*', $state);
+        foreach ($a_arr as $v) {
+            $b_arr = explode('#', $v);
+            $tmp_arr[$b_arr[0]] = $b_arr[1];
+        }
         $img_id = isset($tmp_arr['img_id'])?$tmp_arr['img_id']:NULL;
         $aid = $tmp_arr['aid'];
-        $img_url = $img_id = isset($tmp_arr['img_url'])?$tmp_arr['img_url']:NULL;
+        $img_url = isset($tmp_arr['img_url'])?$tmp_arr['img_url']:NULL;
         $u = Yii::app()->wechat->get_userinfo_by_authorize($code);
         $params = array(
             'uid'=>$u['openid'],
@@ -451,7 +455,11 @@ class WechatController extends Controller
         $oauth2 = Yii::app()->wechat;
         setcookie('wechatauth2_'.$oauth2->APPID, http_build_query(array('usr_id'=>$j->data->usr_id)));
         if (!isset($img_id)) {
-            $this->redirect(array('animal/joinMobileApi', 'aid'=>$aid, 'SID'=>$j->data->SID));
+            if (!isset($is_shake)) {
+                $this->redirect(array('animal/joinMobileApi', 'aid'=>$aid, 'SID'=>$j->data->SID));
+            } else {
+                $this->redirect(array('social/shake', 'aid'=>$aid, 'SID'=>$j->data->SID));
+            }
         } else if ($img_id==0) {
             $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$j->data->SID));
         } else if (isset($img_id)&&isset($img_url)) {
