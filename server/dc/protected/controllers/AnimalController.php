@@ -342,8 +342,8 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $a = explode('#', array('aid',$aid));
-                    $state = explode('*', array($a));
+                    $a = implode('#', array('aid',$aid));
+                    $state = implode('*', array($a));
                     $oauth2->get_code_by_authorize($state);
                     exit;
                 }
@@ -653,10 +653,10 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $a = explode('#', array('img_id',$img_id));
-                    $b = explode('#', array('aid', $aid));
-                    $c = explode('#', array('img_url', $img_url));
-                    $state = explode('*', array($a, $b, $c));
+                    $a = implode('#', array('img_id',$img_id));
+                    $b = implode('#', array('aid', $aid));
+                    $c = implode('#', array('img_url', $img_url));
+                    $state = implode('*', array($a, $b, $c));
                     $oauth2->get_code_by_authorize($state);
                     exit;
                 }
@@ -735,9 +735,9 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $a = explode('#', array('aid',$aid));
-                    $b = explode('#', array('is_shake', 1));
-                    $state = explode('*', array($a, $b));
+                    $a = implode('#', array('aid',$aid));
+                    $b = implode('#', array('is_shake', 1));
+                    $state = implode('*', array($a, $b));
                     $oauth2->get_code_by_authorize($state);
                     exit;
                 }
