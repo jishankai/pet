@@ -104,8 +104,9 @@ class SocialController extends Controller
     public function actionShake($aid, $SID='')
     {
         $r = Yii::app()->db->createCommand('SELECT aid, name, tx FROM dc_animal WHERE aid=:aid')->bindValue(":aid", $aid)->queryRow();
-
-        $this->renderPartial('shake', array('r'=>$r, 'SID'=>$SID));
+        $session = Yii::app()->session;
+        $chance_times = $session[$aid.'_shake_count'];
+        $this->renderPartial('shake', array('r'=>$r, 'chance_times'=>$chance_times, 'SID'=>$SID));
     }
 
     public function actionGift($aid, $SID='')

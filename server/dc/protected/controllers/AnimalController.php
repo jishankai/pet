@@ -713,7 +713,7 @@ class AnimalController extends Controller
         $this->echoJsonData(array('shake_count'=>$session[$aid.'_shake_count'])); 
     }
 
-    public function actionShakeMobileApi($aid, $SID='')
+    public function actionShakeMobileApi($aid, $is_shake=0, $SID='')
     {
         if ($SID!='') {
             $session = Yii::app()->session;

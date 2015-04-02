@@ -66,7 +66,7 @@
 		<a href="#" id="again">再摇<span id="again_times">1</span>次</a>
 		<a href="#" id="send">就送这个</a>		
 	</div>
-	<div id="chance">还剩<span id="chance_times">2</span>次</div>
+	<div id="chance">还剩<span id="chance_times"><?php echo $chance_times?>/span>次</div>
 
 	<div class="float">
 		<div class="load_shadow"><img src="css/images/load_shadow.png"></div>
@@ -98,6 +98,9 @@ window.onload=function(){
 	var s_btn= document.getElementById("s_btn");
 	
 	s_btn.onclick=function(){
+		if (<?php echo isset($SID)&&$SID!=''?>) {
+			location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array())."'" ?>
+		};
 
 		/*摇一摇实现*/
 		$("#s_btn").hide();
@@ -153,82 +156,98 @@ window.onload=function(){
 					case 1:
 						$("#gift_name").html("好大一条鱼");
 						$("#popularity").html("＋28");
-						$("#effect").html("盯着大鱼，口水流出来了~")
+						$("#effect").html("盯着大鱼，口水流出来了~");
+						gift_id=1101;
 						break;
 					case 2:
 						$("#gift_name").html("甜蜜缤纷");
 						$("#popularity").html("＋18");
-						$("#effect").html("舔了舔糖果，幸福到不行~")
+						$("#effect").html("舔了舔糖果，幸福到不行~");
+						gift_id=1102;
 						break;
 					case 3:
 						$("#gift_name").html("萌铛铛");
 						$("#popularity").html("＋18");
-						$("#effect").html("拨弄着铃铛，主人快被烦死了~")
+						$("#effect").html("拨弄着铃铛，主人快被烦死了~");
+						gift_id=1103;
 						break;
 					case 4:
 						$("#gift_name").html("女神蝴蝶结");
 						$("#popularity").html("＋28");
-						$("#effect").html("戴上了臭美哒蝴蝶结，照镜子去啦~")
+						$("#effect").html("戴上了臭美哒蝴蝶结，照镜子去啦~");
+						gift_id=1104;
 						break;
 					case 5:
 						$("#gift_name").html("求陪玩");
 						$("#popularity").html("＋45");
-						$("#effect").html("立刻精神抖擞地去追球球了~")
+						$("#effect").html("立刻精神抖擞地去追球球了~");
+						gift_id=1201;
 						break;
 					case 6:
 						$("#gift_name").html("带我飞");
 						$("#popularity").html("＋45");
-						$("#effect").html("纵身一跃，宇宙翱翔~")
+						$("#effect").html("纵身一跃，宇宙翱翔~");
+						gift_id=1202;
 						break;
 					case 7:
 						$("#gift_name").html("土豪零食");
 						$("#popularity").html("＋58");
-						$("#effect").html("吃货本质终于暴露在你面前啦！")
+						$("#effect").html("吃货本质终于暴露在你面前啦！");
+						gift_id=1203;
 						break;
 					case 8:
 						$("#gift_name").html("萌力无边");
 						$("#popularity").html("＋58");
-						$("#effect").html("瞪大了圆圆滴眼睛，萌！")
+						$("#effect").html("瞪大了圆圆滴眼睛，萌！");
+						gift_id=1204;
 						break;
 					case 9:
 						$("#gift_name").html("喷香香");
 						$("#popularity").html("＋80");
-						$("#effect").html("现在香喷喷哒，快来亲一口！")
+						$("#effect").html("现在香喷喷哒，快来亲一口！");
+						gift_id=1301;
 						break;
 					case 10:
 						$("#gift_name").html("撒气小兽");
 						$("#popularity").html("＋80");
-						$("#effect").html("对着小兽撒了一通气，可爽啦！")
+						$("#effect").html("对着小兽撒了一通气，可爽啦！");
+						gift_id=1302;
 						break;
 					case 11:
 						$("#gift_name").html("求约会");
 						$("#popularity").html("＋95");
-						$("#effect").html("得看你的表现才会决定跟不跟你约会哦！")
+						$("#effect").html("得看你的表现才会决定跟不跟你约会哦！");
+						gift_id=1303;
 						break;
 					case 12:
 						$("#gift_name").html("暖男围巾");
 						$("#popularity").html("＋95");
-						$("#effect").html("顿时热乎乎的，夸赞你是暖男呢！")
+						$("#effect").html("顿时热乎乎的，夸赞你是暖男呢！");
+						gift_id=1304;
 						break;
 					case 13:
 						$("#gift_name").html("温馨小窝");
 						$("#popularity").html("＋140");
-						$("#effect").html("满意的躺到了新家里，身子暖暖哒~~")
+						$("#effect").html("满意的躺到了新家里，身子暖暖哒~~");
+						gift_id=1401;
 						break;
 					case 14:
 						$("#gift_name").html("萌星合约");
 						$("#popularity").html("＋140");
-						$("#effect").html("捧着萌星合约，决心一定要做大萌星！")
+						$("#effect").html("捧着萌星合约，决心一定要做大萌星！");
+						gift_id=1402;
 						break;
 					case 15:
 						$("#gift_name").html("深情比金坚");
 						$("#popularity").html("＋200");
-						$("#effect").html("戴上了新项圈，跑到镜子前臭美去了~~")
+						$("#effect").html("戴上了新项圈，跑到镜子前臭美去了~~");
+						gift_id=1403;
 						break;				
 					default:
 						$("#gift_name").html("宇宙第一萌");
 						$("#popularity").html("＋240");
-						$("#effect").html("戴上了皇冠，英姿飒爽的叫了一声！")
+						$("#effect").html("戴上了皇冠，英姿飒爽的叫了一声！");
+						gift_id=1404;
 						break;
 						
 				}
