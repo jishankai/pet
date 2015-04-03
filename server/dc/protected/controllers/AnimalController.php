@@ -6,8 +6,8 @@ class AnimalController extends Controller
     {
         return array(
             'checkUpdate',
-            'checkSig - infoShare,joinMobileApi,touchMobileApi',
-            'getUserId - infoApi,recommendApi,popularApi,cardApi,searchApi,newsApi,txApi,imagesApi,fansApi,itemsApi,infoShare,joinMobileApi,touchMobileApi',
+            'checkSig - infoShare,joinMobileApi,touchMobileApi,shakeMobileApi',
+            'getUserId - infoApi,recommendApi,popularApi,cardApi,searchApi,newsApi,txApi,imagesApi,fansApi,itemsApi,infoShare,joinMobileApi,touchMobileApi,shakeMobileApi',
             /*
             array(
                 'COutputCache + welcomeApi',
