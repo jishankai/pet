@@ -11,13 +11,15 @@
 		.wrapper{width: 640px;margin: 0 auto;text-align: center;
 			}
 		.pay_active_btn{position: absolute;left: 50%;/*margin-left: -190px;*/
-			/*top:420px;*/}
+			/*top:420px;*/display: block;width: 450px;height: 80px;}
 
 		@media only screen and (min-width: 300px) and (max-width: 640px){
 
 			.wrapper{width: 100%;}
 			.pay_active{width: 100%;height: auto;}
-			.pay_active_btn{width: 70%;height: auto;
+			.pay_active_btn{
+				display: block;
+				width: 70%;height: 50px;/*background-color: red;*/
 				/*margin-left:-35%;*//*top:35%;*/}
 		}
 
@@ -30,7 +32,8 @@
 <body>
 <div class="wrapper">
 	<img src="css/images/pay_active.jpg" class="pay_active"/>
-	<a href="<?php echo $this->createUrl('alipay/pay', array('SID'=>$SID))?>"><img src="css/images/pay_active_btn.jpg" class="pay_active_btn"/></a>
+    <a href="<?php echo $this->createUrl('alipay/pay', array('SID'=>$SID))?>"><!-- <img src="pay_active_btn.jpg" class="pay_active_btn"/> --><span class="pay_active_btn"></span>
+	</a>
 </div>
 	
 </body>
