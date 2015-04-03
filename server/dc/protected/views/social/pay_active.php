@@ -31,7 +31,7 @@
 </head>
 <body>
 <div class="wrapper">
-	<img src="pay_active.jpg" class="pay_active"/>
+	<img src="css/images/pay_active.jpg" class="pay_active"/>
 	<a href="http://www.baidu.com"><!-- <img src="pay_active_btn.jpg" class="pay_active_btn"/> --><span class="pay_active_btn"></span>
 	</a>
 </div>
