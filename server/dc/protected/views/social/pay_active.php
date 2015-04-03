@@ -6,14 +6,23 @@
 	<title>充值活动</title>
 	<style>
 		*{padding: 0;margin: 0;}
+		body{background: #efefef;}
 		.wrapper{width: 640px;margin: 0 auto;text-align: center;
-			background-color: #efefef;}
-		.pay_active_btn{margin-bottom: 50px;margin-top: 20px;}
+			}
+		.pay_active_btn{position: absolute;left: center;margin-left: -190px;
+			top:420px;}
+
 		@media only screen and (min-width: 300px) and (max-width: 640px){
+
 			.wrapper{width: 100%;}
 			.pay_active{width: 100%;height: auto;}
-			.pay_active_btn{width: 80%;height: auto;
-				margin-bottom: 30px;margin-top: 10px;}
+			.pay_active_btn{width: 70%;height: auto;
+				margin-left:-35%;top:35%;}
+		}
+
+		@media only screen and (min-height: 480px) and (max-height: 540px){
+			.pay_active_btn{width: 70%;height: auto;
+				margin-left:-35%;top:45%;}
 		}
 
 	</style>
