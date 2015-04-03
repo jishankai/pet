@@ -289,12 +289,12 @@ class UserBehavior extends CActiveRecordBehavior
                     $gold = LOGIN_X3;
                 }
                  */
-                Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, "Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利1金币已经入账咯～");
+                Talk::model()->sendMsg(NPC_SYSTEM_USRID, $this->owner->usr_id, "Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利5金币已经入账咯～");
                 $easemob = Yii::app()->easemob;
                 $npc = User::model()->findByPk(NPC_SYSTEM_USRID);
                 $easemob->sendToUsers($this->owner->usr_id, NPC_SYSTEM_USRID, array(
                     'mixed'=>TRUE,
-                    'msg'=>"Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利1金币已经入账咯～",
+                    'msg'=>"Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利5金币已经入账咯～",
                     'ext'=>array(
                         'nickname'=>$npc->name,
                         'tx'=>$npc->tx,
@@ -351,7 +351,7 @@ class UserBehavior extends CActiveRecordBehavior
                     $this->owner->gold+=LOGIN_X3;
                 }
                  */
-                 $this->owner->gold+=1;
+                 $this->owner->gold+=5;
                  break;
              case 'touch':
                  //$this->owner->gold+=rand(5,10);
