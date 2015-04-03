@@ -82,12 +82,12 @@ if($verify_result) {//验证成功
 						$user->saveAttributes(array('gold'));
 						$order->status = 1;
 						$order->saveAttributes(array('status'));
-						Talk::model()->sendMsg(NPC_SYSTEM_USRID, $order->usr_id, "Hello，您的充值$gold金币已经入账咯～");
+						Talk::model()->sendMsg(NPC_SYSTEM_USRID, $order->usr_id, "Hello，您的充值".$gold."金币已经入账咯～");
                 		$easemob = Yii::app()->easemob;
                 		$npc = User::model()->findByPk(NPC_SYSTEM_USRID);
                 		$easemob->sendToUsers($order->usr_id, NPC_SYSTEM_USRID, array(
                     		'mixed'=>TRUE,
-                    		'msg'=>"Hello，您的充值$gold金币已经入账咯～",
+                    		'msg'=>"Hello，您的充值".$gold."金币已经入账咯～",
                     		'ext'=>array(
                         	'nickname'=>$npc->name,
                         	'tx'=>$npc->tx,
@@ -148,12 +148,12 @@ if($verify_result) {//验证成功
 						$user->saveAttributes(array('gold'));
 						$order->status = 1;
 						$order->saveAttributes(array('status'));
-						Talk::model()->sendMsg(NPC_SYSTEM_USRID, $order->usr_id, "Hello，您的充值$gold金币已经入账咯～");
+						Talk::model()->sendMsg(NPC_SYSTEM_USRID, $order->usr_id,"Hello，您的充值".$gold."金币已经入账咯～");
                 		$easemob = Yii::app()->easemob;
                 		$npc = User::model()->findByPk(NPC_SYSTEM_USRID);
                 		$easemob->sendToUsers($order->usr_id, NPC_SYSTEM_USRID, array(
                     		'mixed'=>TRUE,
-                    		'msg'=>"Hello，您的充值$gold金币已经入账咯～",
+                    		'msg'=>"Hello，您的充值".$gold."金币已经入账咯～",
                     		'ext'=>array(
                         	'nickname'=>$npc->name,
                         	'tx'=>$npc->tx,
