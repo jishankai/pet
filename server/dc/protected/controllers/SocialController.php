@@ -125,5 +125,10 @@ class SocialController extends Controller
     {
         $this->renderPartial('divine');
     }
+
+    public function actionPayActivity()
+    {
+        $this->renderPartial('pay_active');
+    }
 }
 
