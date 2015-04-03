@@ -5,7 +5,7 @@ class AlipayController extends Controller
 	public function filters() 
     {
         return array(
-        	'getUserId - notify, return',
+        	'getUserId - notify, return, success',
         );
     }
 
