@@ -156,4 +156,9 @@ class AlipayController extends Controller
 		$this->renderPartial('call_back_url');
 	}
 
+	public function actionSuccess()
+	{
+		$this->renderPartial('success');
+	}
+
 }

@@ -81,7 +81,8 @@ if($verify_result) {//验证成功
         return ;
     }
 		
-	echo "验证成功<br />";
+	//echo "验证成功<br />";
+    $this->redirect(array('alipay/success'));
 
 	//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 	
