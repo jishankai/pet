@@ -52,15 +52,19 @@ if($verify_result) {//验证成功
                 $user = User::model()->findByPk($order->usr_id);
                 switch ($order->fee) {
                     case 1:
+                    $gold=110;
                     $user->gold+=110;
                     break;
                     case 5:
+                    $gold=550;
                     $user->gold+=550;
                     break;
                     case 10:
-                    $user->gold+=1154;
+                    $gold=1155;
+                    $user->gold+=1155;
                     break;
                     case 100:
+                    $gold=12100;
                     $user->gold+=12100;
                     default:
                             # code...
@@ -69,6 +73,17 @@ if($verify_result) {//验证成功
                 $user->saveAttributes(array('gold'));
                 $order->status = 1;
                 $order->saveAttributes(array('status'));
+                Talk::model()->sendMsg(NPC_SYSTEM_USRID, $order->usr_id, "Hello，您的充值$gold金币已经入账咯～");
+                $easemob = Yii::app()->easemob;
+                $npc = User::model()->findByPk(NPC_SYSTEM_USRID);
+                $easemob->sendToUsers($order->usr_id, NPC_SYSTEM_USRID, array(
+                    'mixed'=>TRUE,
+                    'msg'=>"Hello，您的充值$gold金币已经入账咯～",
+                    'ext'=>array(
+                        'nickname'=>$npc->name,
+                        'tx'=>$npc->tx,
+                    ),
+                ));
                 $transaction->commit();
             } catch (Exception $e) {
                 $transaction->rollback();
