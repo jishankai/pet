@@ -32,7 +32,7 @@
 <body>
 <div class="wrapper">
 	<img src="css/images/pay_active.jpg" class="pay_active"/>
-    <a href="<?php echo $this->createUrl('alipay/pay', array('SID'=>$SID))?>"><!-- <img src="pay_active_btn.jpg" class="pay_active_btn"/> --><span class="pay_active_btn"></span>
+    <a href="<?php if($SID!='') { echo $this->createUrl('alipay/pay', array('SID'=>$SID)); } else { echo "http://tb.cn/PgvVLDy"; } ?>"><!-- <img src="pay_active_btn.jpg" class="pay_active_btn"/> --><span class="pay_active_btn"></span>
 	</a>
 </div>
 	
