@@ -30,7 +30,7 @@
 <body>
 <div class="wrapper">
 	<img src="css/images/pay_active.jpg" class="pay_active"/>
-	<a href="#"><img src="css/images/pay_active_btn.jpg" class="pay_active_btn"/></a>
+	<a href="<?php echo $this->createUrl('alipay/pay', array('SID'=>$SID))?>"><img src="css/images/pay_active_btn.jpg" class="pay_active_btn"/></a>
 </div>
 	
 </body>

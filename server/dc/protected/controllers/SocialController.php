@@ -126,9 +126,9 @@ class SocialController extends Controller
         $this->renderPartial('divine');
     }
 
-    public function actionPayActivity()
+    public function actionPayActivity($SID='')
     {
-        $this->renderPartial('pay_active');
+        $this->renderPartial('pay_active', array('SID'=>$SID));
     }
 }
 
