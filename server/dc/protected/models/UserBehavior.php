@@ -180,7 +180,7 @@ class UserBehavior extends CActiveRecordBehavior
                 $circle->saveAttributes(array('rank'));
 
                 $this->onRankUp = array($this, 'addGold');
-                $this->onRankUp(new CEvent($this, array('on'=>'rankUp', 'rank'=>$circle->rank)));
+                $this->onRankUp(new CEvent($this, array('on'=>'rankUp', 'rank'=>$circle->rank, 'aid'=>$circle->aid)));
             }
         }
     }
@@ -363,9 +363,61 @@ class UserBehavior extends CActiveRecordBehavior
                  //$this->owner->gold+=1;    
                  break;
              case 'levelUp':
+                 $gold = ($this->owner->lv/5+1)*LEVELUP_A;
+                 $easemob = Yii::app()->easemob;
+                 $npc = User::model()->findByPk(NPC_SYSTEM_USRID);
+                 $easemob->sendToUsers($this->owner->usr_id, NPC_SYSTEM_USRID, array(
+                    'mixed'=>TRUE,
+                    'msg'=>"幸运的两脚兽啊，你找到了本喵埋下的彩蛋，送你$gold金币，别客气~还有其他彩蛋哦，加了个油~",
+                    'ext'=>array(
+                        'nickname'=>$npc->name,
+                        'tx'=>$npc->tx,
+                    ),
+                 ));
                  $this->owner->gold+=($this->owner->lv/5+1)*LEVELUP_A;
                  break;
              case 'rankUp':
+                 $easemob = Yii::app()->easemob;
+                 $npc = User::model()->findByPk(NPC_SYSTEM_USRID);
+                 $a_name = Yii::app()->db->createCommand('SELECT name FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $event->params['aid'])->queryScalar();
+                 switch ($event->params['rank']) {
+                     case 1:
+                         $r_name = '凉粉';
+                         break;
+                     case 2:
+                         $r_name = '淡粉';
+                         break;
+                     case 3:
+                         $r_name = '狠粉';
+                         break;
+                     case 4:
+                         $r_name = '灰常粉';
+                         break;
+                     case 5:
+                         $r_name = '超级粉';
+                         break;
+                     case 6:
+                         $r_name = '铁杆粉';
+                         break; 
+                     case 7:
+                         $r_name = '脑残粉';
+                         break; 
+                     case 8:
+                         $r_name = '骨灰粉';
+                         break; 
+                     default:
+                         # code...
+                         break;
+                 }
+                 $gold = $event->params['rank']*RANKUP_A;
+                 $easemob->sendToUsers($this->owner->usr_id, NPC_SYSTEM_USRID, array(
+                    'mixed'=>TRUE,
+                    'msg'=>"矮油不错喔~你已经升格成为萌星$a_name的$r_name了，本喵赏你$gold金币，拿去high吧~",
+                    'ext'=>array(
+                        'nickname'=>$npc->name,
+                        'tx'=>$npc->tx,
+                    ),
+                 ));
                  $this->owner->gold+=$event->params['rank']*RANKUP_A;
                  break;
              case 'invite':

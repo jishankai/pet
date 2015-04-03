@@ -760,15 +760,12 @@ class AnimalController extends Controller
             }
         }
         $session = Yii::app()->session;
-        if (!isset($session[$aid.'_shake_count'])) {
-            if ($is_shake) {
-                $session[$aid.'_shake_count']=2;
-            } else {
-                $session[$aid.'_shake_count']=3;
-            }
-        } else if ($is_shake) {
-            $session[$aid.'_shake_count']-=1;
+        if ($is_shake) {
+            $session[$aid.'_shake_count']=0;
+        } else {
+            $session[$aid.'_shake_count']=3;
         }
+        
         $this->redirect(array('social/shake', 'aid'=>$aid, 'SID'=>$SID));
     }
 

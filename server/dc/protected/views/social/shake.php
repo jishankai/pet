@@ -1,3 +1,8 @@
+<?php
+require_once "jssdk.php";
+$jssdk = new JSSDK(WECHAT_MP_ID, WECHAT_MP_SECRET);
+$signPackage = $jssdk->GetSignPackage();
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -99,7 +104,7 @@ window.onload=function(){
 	
 	s_btn.onclick=function(){
 		if (<?php echo isset($SID)&&$SID!=''?>) {
-			location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array())."'" ?>
+			location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$aid, 'SID'=>$SID))."'" ?>
 		};
 
 		/*摇一摇实现*/
@@ -308,11 +313,57 @@ window.onload=function(){
 		$("#gift_img").attr("src","css/images/happy.png");
 		$(".shareList").show();
 		$(".prompt").show();
+		$.ajax({
+                    url: <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$aid, 'is_shake'=>1, 'SID'=>$SID))."'" ?>,
+                    data: { },
+                    type: "get",
+                    success: function (data) {
+                    }
+                });
+		location.href = <?php echo "'".$this->createUrl('social/shake', array('aid'=>$aid, 'SID'=>$SID))."'" ?>
 	});
 	
 }
 	</script>
-
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+  // 注意：所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。 
+  // 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
+  // 完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+  wx.config({
+    appId: '<?php echo $signPackage["appId"];?>',
+    timestamp: <?php echo $signPackage["timestamp"];?>,
+    nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+    signature: '<?php echo $signPackage["signature"];?>',
+    jsApiList: [
+      // 所有要调用的 API 都要加到这个列表中
+      'checkJsApi',
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+    ]
+  });
+  wx.ready(function () {
+    // 在这里调用 API
+    var shareData = {
+        title: "摇一摇，手不酸了~",
+        desc: "你有事儿么？没事摇一摇~",
+        link: "http://"+window.location.host+"/index.php?r=social/shake&aid="+<?php echo $aid?>, 
+        imgUrl: "http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>",
+        success: function () { 
+       		location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$aid, 'SID'=>$SID))."'" ?>
+    	},
+    	cancel: function () { 
+       	// 用户取消分享后执行的回调函数
+    	}
+    };
+    wx.onMenuShareAppMessage(shareData);
+    wx.onMenuShareTimeline(shareData);
+    wx.onMenuShareQQ(shareData);
+    wx.onMenuShareWeibo(shareData);
+  });
+</script>
 
 
 </html>

@@ -52,16 +52,16 @@ if($verify_result) {//验证成功
                 $user = User::model()->findByPk($order->usr_id);
                 switch ($order->fee) {
                     case 1:
-                    $user->gold+=100;
+                    $user->gold+=110;
                     break;
                     case 5:
-                    $user->gold+=500;
+                    $user->gold+=550;
                     break;
                     case 10:
-                    $user->gold+=1050;
+                    $user->gold+=1154;
                     break;
                     case 100:
-                    $user->gold+=11000;
+                    $user->gold+=12100;
                     default:
                             # code...
                     break;
