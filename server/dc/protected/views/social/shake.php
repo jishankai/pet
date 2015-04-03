@@ -104,7 +104,7 @@ window.onload=function(){
 	
 	s_btn.onclick=function(){
 		if (<?php echo isset($SID)&&$SID!=''?>) {
-			location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$aid, 'SID'=>$SID))."'" ?>
+			location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$r['aid'], 'SID'=>$SID))."'" ?>
 		};
 
 		/*摇一摇实现*/
@@ -314,13 +314,13 @@ window.onload=function(){
 		$(".shareList").show();
 		$(".prompt").show();
 		$.ajax({
-                    url: <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$aid, 'is_shake'=>1, 'SID'=>$SID))."'" ?>,
+                    url: <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$r['aid'], 'is_shake'=>1, 'SID'=>$SID))."'" ?>,
                     data: { },
                     type: "get",
                     success: function (data) {
                     }
                 });
-		location.href = <?php echo "'".$this->createUrl('social/shake', array('aid'=>$aid, 'SID'=>$SID))."'" ?>
+		location.href = <?php echo "'".$this->createUrl('social/shake', array('aid'=>$r['aid'], 'SID'=>$SID))."'" ?>
 	});
 	
 }
@@ -349,10 +349,10 @@ window.onload=function(){
     var shareData = {
         title: "摇一摇，手不酸了~",
         desc: "你有事儿么？没事摇一摇~",
-        link: "http://"+window.location.host+"/index.php?r=social/shake&aid="+<?php echo $aid?>, 
+        link: "http://"+window.location.host+"/index.php?r=social/shake&aid="+<?php echo $r['aid']?>, 
         imgUrl: "http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>",
         success: function () { 
-       		location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$aid, 'SID'=>$SID))."'" ?>
+       		location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$r['aid'], 'SID'=>$SID))."'" ?>
     	},
     	cancel: function () { 
        	// 用户取消分享后执行的回调函数
