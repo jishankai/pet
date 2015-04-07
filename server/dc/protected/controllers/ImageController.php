@@ -300,7 +300,8 @@ class ImageController extends Controller
 
         foreach ($r as $k => $v) {
             if ($v['likers']!='') {
-                $r[$k]['likers_tx'] = Yii::app()->db->createCommand('SELECT tx FROM dc_user WHERE usr_id IN (:usr_ids)')->bindValue(':usr_ids', $v['likers'])->queryAll();
+                $likers = $v['likers'];
+                $images[$k]['likers_tx'] = Yii::app()->db->createCommand("SELECT tx FROM dc_user WHERE usr_id IN ($likers)")->queryColumn();
             } else {
                 $r[$k]['likers_tx'] = '';
             }
@@ -319,7 +320,8 @@ class ImageController extends Controller
 
         foreach ($images as $k => $v) {
             if ($v['likers']!='') {
-                $images[$k]['likers_tx'] = Yii::app()->db->createCommand('SELECT tx FROM dc_user WHERE usr_id IN (:usr_ids)')->bindValue(':usr_ids', $v['likers'])->queryAll();
+                $likers = $v['likers'];
+                $images[$k]['likers_tx'] = Yii::app()->db->createCommand("SELECT tx FROM dc_user WHERE usr_id IN ($likers)")->queryColumn();
             } else {
                 $images[$k]['likers_tx'] = '';
             }
