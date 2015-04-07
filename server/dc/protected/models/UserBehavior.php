@@ -368,7 +368,7 @@ class UserBehavior extends CActiveRecordBehavior
                  $npc = User::model()->findByPk(NPC_SYSTEM_USRID);
                  $easemob->sendToUsers($this->owner->usr_id, NPC_SYSTEM_USRID, array(
                     'mixed'=>TRUE,
-                    'msg'=>"幸运的两脚兽啊，你找到了本喵埋下的彩蛋，送你$gold金币，别客气~还有其他彩蛋哦，加了个油~",
+                    'msg'=>"幸运的两脚兽啊，你找到了本喵埋下的彩蛋，送你".$gold."金币，别客气~还有其他彩蛋哦，加了个油~",
                     'ext'=>array(
                         'nickname'=>$npc->name,
                         'tx'=>$npc->tx,
@@ -412,7 +412,7 @@ class UserBehavior extends CActiveRecordBehavior
                  $gold = $event->params['rank']*RANKUP_A;
                  $easemob->sendToUsers($this->owner->usr_id, NPC_SYSTEM_USRID, array(
                     'mixed'=>TRUE,
-                    'msg'=>"矮油不错喔~你已经升格成为萌星$a_name的$r_name了，本喵赏你$gold金币，拿去high吧~",
+                    'msg'=>"矮油不错喔~你已经升格成为萌星".$a_name."的".$r_name."了，本喵赏你".$gold."金币，拿去high吧~",
                     'ext'=>array(
                         'nickname'=>$npc->name,
                         'tx'=>$npc->tx,
