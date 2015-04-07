@@ -301,7 +301,7 @@ class ImageController extends Controller
         foreach ($r as $k => $v) {
             if ($v['likers']!='') {
                 $likers = $v['likers'];
-                $images[$k]['likers_tx'] = Yii::app()->db->createCommand("SELECT tx FROM dc_user WHERE usr_id IN ($likers)")->queryColumn();
+                $r[$k]['likers_tx'] = Yii::app()->db->createCommand("SELECT tx FROM dc_user WHERE usr_id IN ($likers)")->queryColumn();
             } else {
                 $r[$k]['likers_tx'] = '';
             }
