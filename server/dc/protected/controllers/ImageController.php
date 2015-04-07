@@ -293,10 +293,18 @@ class ImageController extends Controller
     {
         $dependency = new CDbCacheDependency("SELECT MAX(i.update_time) FROM dc_follow f LEFT JOIN dc_image i ON f.aid=i.aid WHERE usr_id = :usr_id");
         $dependency->params[':usr_id'] = $this->usr_id;
-        $r = Yii::app()->db->cache(3600, $dependency)->createCommand('SELECT i.img_id, i.url, i.cmt, i.likes, i.likers, i.aid, a.tx, a.name, a.type, i.create_time FROM dc_image i INNER JOIN dc_follow f ON f.aid=i.aid LEFT JOIN dc_animal a ON i.aid=a.aid WHERE usr_id=:usr_id AND img_id<:img_id ORDER BY img_id DESC LIMIT 30')->bindValues(array(
+        $r = Yii::app()->db->cache(3600, $dependency)->createCommand('SELECT i.img_id, i.url, i.cmt, i.likes, i.likers, i.aid, a.tx, a.name, a.type, i.comments, i.create_time FROM dc_image i INNER JOIN dc_follow f ON f.aid=i.aid LEFT JOIN dc_animal a ON i.aid=a.aid WHERE usr_id=:usr_id AND img_id<:img_id ORDER BY img_id DESC LIMIT 30')->bindValues(array(
             ':usr_id' => $this->usr_id,
             ':img_id' => $img_id,
         ))->queryAll();
+
+        foreach ($r as $k => $v) {
+            if ($v['likers']!='') {
+                $r[$k]['likers_tx'] = Yii::app()->db->createCommand('SELECT tx FROM dc_user WHERE user_id IN (:usr_ids)')->bindValue(':usr_ids', $v['likers'])->queryColumn();
+            } else {
+                $r[$k]['likers_tx'] = '';
+            }
+        }
 
         $this->echoJsonData($r);
     }
@@ -307,6 +315,14 @@ class ImageController extends Controller
             $images =  Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.cmt, i.likes, i.likers, i.aid, a.tx, a.name, i.comments FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid WHERE i.img_id<:img_id ORDER BY i.create_time DESC LIMIT 30')->bindValue(':img_id', $img_id)->queryAll();        
         } else {
             $images =  Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.cmt, i.likes, i.likers, i.aid, a.tx, a.name, i.comments FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid ORDER BY i.create_time DESC LIMIT 30')->queryAll();        
+        }
+
+        foreach ($images as $k => $v) {
+            if ($v['likers']!='') {
+                $images[$k]['likers_tx'] = Yii::app()->db->createCommand('SELECT tx FROM dc_user WHERE user_id IN (:usr_ids)')->bindValue(':usr_ids', $v['likers'])->queryColumn();
+            } else {
+                $images[$k]['likers_tx'] = '';
+            }
         }
 
         $this->echoJsonData(array($images));
