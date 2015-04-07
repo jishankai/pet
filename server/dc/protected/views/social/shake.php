@@ -332,7 +332,7 @@ window.onload=function(){
                     success: function (data) {
                     }
                 });
-		.ajax({
+		$.ajax({
                     url: <?php echo "'".$this->createUrl('animal/sendGiftApi', array('aid'=>$r['aid'], 'is_shake'=>1, 'SID'=>$SID))."'" ?>+'&item_id='+gift_id,
                     data: { },
                     type: "get",
