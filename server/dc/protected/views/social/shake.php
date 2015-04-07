@@ -103,7 +103,7 @@ window.onload=function(){
 	var s_btn= document.getElementById("s_btn");
 	
 	s_btn.onclick=function(){
-		if (<?php echo (!isset($SID) or $SID=='')1:0?>) {
+		if (<?php echo (!isset($SID) or $SID=='')?1:0?>) {
 			location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$r['aid'], 'SID'=>$SID))."'" ?>
 		};
 
