@@ -304,9 +304,9 @@ class ImageController extends Controller
     public function actionRecommendApi($img_id=NULL)
     {
         if (isset($img_id)) {
-            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url, i.cmt AS cmt FROM dc_image i WHERE i.img_id<:img_id ORDER BY i.create_time DESC LIMIT 30')->bindValue(':img_id', $img_id)->queryAll();        
+            $images =  Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.cmt, i.likes, i.likers, i.aid, a.tx, a.name, i.comments FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid WHERE i.img_id<:img_id ORDER BY i.create_time DESC LIMIT 30')->bindValue(':img_id', $img_id)->queryAll();        
         } else {
-            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url, i.cmt AS cmt FROM dc_image i ORDER BY i.create_time DESC LIMIT 30')->queryAll();        
+            $images =  Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.cmt, i.likes, i.likers, i.aid, a.tx, a.name, i.comments FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid ORDER BY i.create_time DESC LIMIT 30')->queryAll();        
         }
 
         $this->echoJsonData(array($images));
