@@ -71,7 +71,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<a href="#" id="again">再摇<span id="again_times">1</span>次</a>
 		<a href="#" id="send">就送这个</a>		
 	</div>
-	<div id="chance">还剩<span id="chance_times"><?php echo $chance_times?>/span>次</div>
+	<div id="chance">还剩<span id="chance_times"><?php echo $chance_times?></span>次</div>
 
 	<div class="float">
 		<div class="load_shadow"><img src="css/images/load_shadow.png"></div>
@@ -106,43 +106,55 @@ window.onload=function(){
 		if (<?php echo (!isset($SID) or $SID=='')?1:0?>) {
 			location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$r['aid'], 'SID'=>$SID))."'" ?>
 		};
+		var b=parseInt($("#chance_times").html());
+		if (b>0) {
+			/*摇一摇实现*/
+			$("#s_btn").hide();
 
-		/*摇一摇实现*/
-		$("#s_btn").hide();
-  
-	    var SHAKE_THRESHOLD = 1000;
-	    var last_update = 0;
-	    var x = y = z = last_x = last_y = last_z = 0;
+			var SHAKE_THRESHOLD = 1000;
+			var last_update = 0;
+			var x = y = z = last_x = last_y = last_z = 0;
 
-	    if (window.DeviceMotionEvent) {
-	        window.addEventListener('devicemotion', deviceMotionHandler, false);
-	    } else {
-	        alert('本设备不支持devicemotion事件');
-	    }
+			if (window.DeviceMotionEvent) {
+				window.addEventListener('devicemotion', deviceMotionHandler, false);
+			} else {
+				alert('本设备不支持devicemotion事件');
+			}
 
-	    function deviceMotionHandler(eventData) {
-	        var acceleration = eventData.accelerationIncludingGravity;
-	        var curTime = new Date().getTime();
+			function deviceMotionHandler(eventData) {
+				var acceleration = eventData.accelerationIncludingGravity;
+				var curTime = new Date().getTime();
 
-	        if ((curTime - last_update) > 100) {
-	            var diffTime = curTime - last_update;
-	            last_update = curTime;
-	            x = acceleration.x;
-	            y = acceleration.y;
-	            z = acceleration.z;
-	            var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
-	            var status = document.getElementById("status");
+				if ((curTime - last_update) > 100) {
+					var diffTime = curTime - last_update;
+					last_update = curTime;
+					x = acceleration.x;
+					y = acceleration.y;
+					z = acceleration.z;
+					var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+					var status = document.getElementById("status");
 
-	            if (speed > SHAKE_THRESHOLD) {
-	                doResult();
-	            }
-	            last_x = x;
-	            last_y = y;
-	            last_z = z;
-	        }
-	    }
+					if (speed > SHAKE_THRESHOLD) {
+						doResult();
+					}
+					last_x = x;
+					last_y = y;
+					last_z = z;
+				}
+			}
 
-	    flag="true";  //控制摇一摇
+	    	flag="true";  //控制摇一摇
+		} else {
+			/*今天的次数用完了*/
+			$(".container1").hide();
+			$(".s_btn1").hide();
+			$("#chance").hide();
+			$(".container").show();
+			$("#shake").attr("src","css/images/no_choice.png");
+			$(".none").show();
+			$(".shareList").show();
+			$(".prompt").show();
+		}
 
 	    /*摇一摇后随机礼物函数*/
 	    function doResult() {
@@ -315,6 +327,13 @@ window.onload=function(){
 		$(".prompt").show();
 		$.ajax({
                     url: <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$r['aid'], 'is_shake'=>1, 'SID'=>$SID))."'" ?>,
+                    data: { },
+                    type: "get",
+                    success: function (data) {
+                    }
+                });
+		.ajax({
+                    url: <?php echo "'".$this->createUrl('animal/sendGiftApi', array('aid'=>$r['aid'], 'is_shake'=>1, 'SID'=>$SID))."'" ?>+'&item_id='+gift_id,
                     data: { },
                     type: "get",
                     success: function (data) {
