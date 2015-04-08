@@ -187,4 +187,9 @@ class SiteController extends Controller
     {
         $this->renderPartial('agreement');
     }    
+
+    public function actionRechargeUrl()
+    {
+        $this->echoJsonData(array('recharge_url'=>'http://suo.im/bbon7'));
+    }
 }
