@@ -31,8 +31,8 @@ class Article extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('icon, image, title', 'length', 'max'=>45),
-			array('url, description', 'length', 'max'=>255),
+			array('title', 'length', 'max'=>45),
+			array('icon, image, url, description', 'length', 'max'=>255),
 			array('create_time', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

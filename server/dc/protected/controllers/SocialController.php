@@ -130,5 +130,15 @@ class SocialController extends Controller
     {
         $this->renderPartial('pay_active', array('SID'=>$SID));
     }
+
+    public function actionArticles($page=0)
+    {
+        $articles = Yii::app()->db->createCommand("SELECT * FROM dc_article WHERE image='' ORDER BY i.update_time DESC LIMIT :m, 10")->bindValue(':m', $page*10)->queryAll();
+        if ($page==0) {
+            $articles['banner'] = Yii::app()->db->createCommand("SELECT * FROM dc_article WHERE image!='' ORDER BY i.update_time DESC LIMIT 1")->queryRow();
+        }
+
+        $this->echoJsonData($articles);
+    }
 }
 
