@@ -21,13 +21,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'icon'); ?>
-		<?php echo $form->textField($model,'icon',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->textField($model,'icon',array('size'=>45,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'icon'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'image'); ?>
-		<?php echo $form->textField($model,'image',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->textField($model,'image',array('size'=>45,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'image'); ?>
 	</div>
 
