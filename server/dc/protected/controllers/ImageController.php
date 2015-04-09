@@ -293,7 +293,7 @@ class ImageController extends Controller
     {
         $dependency = new CDbCacheDependency("SELECT MAX(i.update_time) FROM dc_follow f LEFT JOIN dc_image i ON f.aid=i.aid WHERE usr_id = :usr_id");
         $dependency->params[':usr_id'] = $this->usr_id;
-        $r = Yii::app()->db->cache(3600, $dependency)->createCommand('SELECT i.img_id, i.url, i.cmt, i.topic_id, i.topic_name, i.likes, i.likers, i.aid, a.tx, a.name, a.type, i.comments, u.usr_id, u.tx AS u_tx, u.name AS u_name, i.create_time FROM dc_image i INNER JOIN dc_follow f ON f.aid=i.aid LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE usr_id=:usr_id AND img_id<:img_id ORDER BY img_id DESC LIMIT 30')->bindValues(array(
+        $r = Yii::app()->db->cache(3600, $dependency)->createCommand('SELECT i.img_id, i.url, i.cmt, i.topic_id, i.topic_name, i.likes, i.likers, i.aid, a.tx, a.name, a.type, i.comments, u.usr_id, u.tx AS u_tx, u.name AS u_name, i.create_time FROM dc_image i INNER JOIN dc_follow f ON f.aid=i.aid LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE f.usr_id=:usr_id AND img_id<:img_id ORDER BY img_id DESC LIMIT 30')->bindValues(array(
             ':usr_id' => $this->usr_id,
             ':img_id' => $img_id,
         ))->queryAll();
