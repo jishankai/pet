@@ -23,7 +23,7 @@ class StarController extends Controller
                 $a = array_merge($a, $t);
             }
             $usr_ids = array_count_values($a);
-            $usr_ids = rsort($usr_ids);
+            rsort($usr_ids);
             $usr_ids = array_slice($usr_ids, 0, 6);
             $users_str = implode(',', $usr_ids);
             if ($users_Str!='') {
