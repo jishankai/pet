@@ -26,7 +26,7 @@ class StarController extends Controller
             rsort($usr_ids);
             $usr_ids = array_slice($usr_ids, 0, 6);
             $users_str = implode(',', $usr_ids);
-            if ($users_Str!='') {
+            if ($users_str!='') {
                 $stars[$k]['user_txs'] = Yii::app()->db->createCommand('SELECT usr_id, tx FROM dc_user WHERE usr_ids IN (:users_str)')->bindValue(':users_str', $users_str)->queryAll();
             } else {
                 $stars[$k]['user_txs'] = array();
