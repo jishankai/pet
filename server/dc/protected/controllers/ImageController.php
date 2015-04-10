@@ -112,6 +112,9 @@ class ImageController extends Controller
                 } else {
                     $model->topic_name = $_POST['topic_name'];
                 }
+                if (isset($_POST['star_id'])) {
+                    $model->star_id = $_POST['star_id'];
+                }
                 if (isset($_POST['relates'])) {
                     $model->relates = $_POST['relates'];
                 }
