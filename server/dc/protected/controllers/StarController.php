@@ -16,21 +16,22 @@ class StarController extends Controller
         $stars = Yii::app()->db->createCommand('SELECT star_id, banner, url FROM dc_star where start_time<=:time AND end_time>:time')->bindValue(':time', time())->queryAll();
 
         foreach ($stars as $k => $v) {
-            $a = array();
-            $r = Yii::app()->db->createCommand('SELECT starers FROM dc_image WHERE star_id=:star_id')->bindValue(':star_id', $v['star_id'])->queryColumn();
-            foreach ($r as $r_v) {
-                $t = explode(',', $r_v);
-                $a = array_merge($a, $t);
-            }
-            $usr_ids = array_count_values($a);
-            rsort($usr_ids);
-            $usr_ids = array_slice($usr_ids, 0, 6);
-            $users_str = implode(',', $usr_ids);
-            if ($users_str!='') {
-                $stars[$k]['user_txs'] = Yii::app()->db->createCommand('SELECT usr_id, tx FROM dc_user WHERE usr_ids IN (:users_str)')->bindValue(':users_str', $users_str)->queryAll();
-            } else {
-                $stars[$k]['user_txs'] = array();
-            }
+            // $a = array();
+            // $r = Yii::app()->db->createCommand('SELECT starers FROM dc_image WHERE star_id=:star_id')->bindValue(':star_id', $v['star_id'])->queryColumn();
+            // foreach ($r as $r_v) {
+            //     $t = explode(',', $r_v);
+            //     $a = array_merge($a, $t);
+            // }
+            // $usr_ids = array_count_values($a);
+            // rsort($usr_ids);
+            // $usr_ids = array_slice($usr_ids, 0, 6);
+            // $users_str = implode(',', $usr_ids);
+            // if ($users_str!='') {
+            //     $stars[$k]['user_txs'] = Yii::app()->db->createCommand('SELECT usr_id, tx FROM dc_user WHERE usr_ids IN (:users_str)')->bindValue(':users_str', $users_str)->queryAll();
+            // } else {
+            //     $stars[$k]['user_txs'] = array();
+            // }
+            $stars[$k]['animals'] = Yii::app()->db->createCommand('SELECT a.aid, a.tx, COUNT(i.stars) AS cnt FROM dc_image i LEFT JOIN dc_animal a ON a.aid=i.aid WHERE star_id=:star_id GROUP BY i.aid,a.aid,a.tx ORDER BY cnt DESC LIMIT 6')->bindValue(':star_id', $v['star_id'])->queryAll();
             $stars[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url, stars FROM dc_image WHERE star_id=:star_id ORDER BY stars DESC LIMIT 30')->bindValue(':star_id', $v['star_id'])->queryAll();
         }
            
