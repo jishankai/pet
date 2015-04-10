@@ -46,12 +46,12 @@ class Image extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('reports, is_deleted', 'numerical', 'integerOnly'=>true),
-			array('aid, topic_id, likes, gifts, shares, create_time', 'length', 'max'=>10),
+			array('aid, topic_id, star_id, stars, likes, gifts, shares, create_time', 'length', 'max'=>10),
 			array('topic_name', 'length', 'max'=>45),
 			array('relates, cmt, url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('img_id, aid, topic_id, topic_name, relates, cmt, url, likes, likers, gifts, senders, comments, shares, reports, is_food, food, create_time, update_time, is_deleted', 'safe', 'on'=>'search'),
+			array('img_id, aid, topic_id, topic_name, star_id, stars, starers, relates, cmt, url, likes, likers, gifts, senders, comments, shares, reports, is_food, food, create_time, update_time, is_deleted', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -124,7 +124,9 @@ class Image extends CActiveRecord
 		$criteria->compare('aid',$this->aid,true);
 		$criteria->compare('topic_id',$this->topic_id,true);
 		$criteria->compare('topic_name',$this->topic_name,true);
-		$criteria->compare('relates',$this->relates,true);
+		$criteria->compare('star_id',$this->star_id,true);
+		$criteria->compare('stars',$this->stars,true);
+		$criteria->compare('starers',$this->starers,true);
 		$criteria->compare('cmt',$this->cmt,true);
 		$criteria->compare('url',$this->url,true);
 		$criteria->compare('likes',$this->likes,true);

@@ -51,18 +51,46 @@ class StarController extends Controller
     
     public function actionVoteApi($img_id)
     {
-        $rewards_str = Yii::app()->db->createCommand('SELECT reward FROM dc_topic WHERE topic_id=:topic_id')->bindValue(':topic_id', $topic_id)->queryScalar();
-
-        $r = array();
-        if (isset($rewards_str) && $rewards_str!='') {
-            $rewards = explode(';',$rewards_str);
-            $itemList = Util::loadConfig('items');
-            foreach ($rewards as $reward_str) {
-                $reward = explode(':', $reward_str);
-                $r[$reward[0]] = $itemList[$reward[1]];
+        $image = Image::model()->findByPk($img_id);
+        $session = Yii::app()->session;
+        if (!isset($session['star_'.$image->star_id.'_'.$usr_id])) {
+            $session[$this->usr_id.'_star_'.$image->star_id] = 3;
+        } 
+        if ($session[$usr_id.'_star_'.$image->star_id]>0) {
+            $flag = TRUE;
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $session[$usr_id.'_star_'.$image->star_id]--;
+                $image->stars++;
+                $image->starers = $image->starers.','.$this->usr_id;
+                $image->saveAttributes(array('stars', 'starers'));
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollback();
+                throw $e;
             }
+        } else {
+            $flag = FALSE;
         }
 
-        $this->echoJsonData(array($r));
+        $this->echoJsonData(array('isSuccess'=>$flag));
+    }
+
+    public function actionChargeApi($star_id)
+    {
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            $session = Yii::app()->session;
+            $session[$this->usr_id.'_star_'.$image->star_id] = 3;
+            $user = User::model()->findByPk($this->usr_id);
+            $user->gold-=100;
+            $user->saveAttributes(array('gold'));
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+
+        $this->echoJsonData(array('isSuccess'=>TRUE));
     }
 }
