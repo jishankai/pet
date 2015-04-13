@@ -24,7 +24,7 @@ class StarController extends Controller
                 if (!isset($session[$usr_id.'_star_'.$v['star_id']])) {
                     $session[$usr_id.'_star_'.$v['star_id']] = 3;
                 }
-                $votes = session[$usr_id.'_star_'.$v['star_id']];
+                $votes = $session[$usr_id.'_star_'.$v['star_id']];
             }
             $stars[$k]['votes'] = $votes;
             // $a = array();
