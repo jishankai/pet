@@ -13,9 +13,20 @@ class StarController extends Controller
 
     public function actionListApi()
     {
+        $session = Yii::app()->session;
         $stars = Yii::app()->db->createCommand('SELECT star_id, banner, url FROM dc_star where start_time<=:time AND end_time>:time')->bindValue(':time', time())->queryAll();
 
         foreach ($stars as $k => $v) {
+            if (empty($session['usr_id'])) {
+                $votes = 3;
+            } else {
+                $usr_id = $session['usr_id'];
+                if (!isset($session[$usr_id.'_star_'.$v['star_id']])) {
+                    $session[$usr_id.'_star_'.$v['star_id']] = 3;
+                }
+                $votes = session[$usr_id.'_star_'.$v['star_id']];
+            }
+            $stars[$k]['votes'] = $votes;
             // $a = array();
             // $r = Yii::app()->db->createCommand('SELECT starers FROM dc_image WHERE star_id=:star_id')->bindValue(':star_id', $v['star_id'])->queryColumn();
             // foreach ($r as $r_v) {
@@ -54,7 +65,7 @@ class StarController extends Controller
     {
         $image = Image::model()->findByPk($img_id);
         $session = Yii::app()->session;
-        if (!isset($session['star_'.$image->star_id.'_'.$usr_id])) {
+        if (!isset($session[$this->usr_id.'_star_'.$image->star_id])) {
             $session[$this->usr_id.'_star_'.$image->star_id] = 3;
         } 
         if ($session[$usr_id.'_star_'.$image->star_id]>0) {
