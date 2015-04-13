@@ -72,7 +72,7 @@ class StarController extends Controller
             $flag = TRUE;
             $transaction = Yii::app()->db->beginTransaction();
             try {
-                $session[$this->usr_id.'_star_'.$image->star_id]--;
+                $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
                 $image->stars++;
                 $image->starers = $image->starers.','.$this->usr_id;
                 $image->saveAttributes(array('stars', 'starers'));
