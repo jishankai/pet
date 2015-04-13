@@ -93,7 +93,7 @@ class StarController extends Controller
         $transaction = Yii::app()->db->beginTransaction();
         try {
             $session = Yii::app()->session;
-            $session[$this->usr_id.'_star_'.$image->star_id] = 3;
+            $session[$this->usr_id.'_star_'.$star_id] = 3;
             $user = User::model()->findByPk($this->usr_id);
             $user->gold-=100;
             $user->saveAttributes(array('gold'));
