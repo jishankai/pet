@@ -68,11 +68,11 @@ class StarController extends Controller
         if (!isset($session[$this->usr_id.'_star_'.$image->star_id])) {
             $session[$this->usr_id.'_star_'.$image->star_id] = 3;
         } 
-        if ($session[$usr_id.'_star_'.$image->star_id]>0) {
+        if ($session[$this->usr_id.'_star_'.$image->star_id]>0) {
             $flag = TRUE;
             $transaction = Yii::app()->db->beginTransaction();
             try {
-                $session[$usr_id.'_star_'.$image->star_id]--;
+                $session[$this->usr_id.'_star_'.$image->star_id]--;
                 $image->stars++;
                 $image->starers = $image->starers.','.$this->usr_id;
                 $image->saveAttributes(array('stars', 'starers'));
