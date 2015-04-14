@@ -1,3 +1,8 @@
+<?php
+require_once "jssdk.php";
+$jssdk = new JSSDK(WECHAT_MP_ID, WECHAT_MP_SECRET);
+$signPackage = $jssdk->GetSignPackage();
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -19,7 +24,7 @@
 		<div class="box">
 			<div class="container">
 				<img src="css/images/no_choice.png" class="no_choice"/>
-				<img id="robot" src="http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $img_url?>" />
+				<img id="robot" src="http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $img_url?>" />
 				<img id="redux" src="css/images/eraser.png" />
 			</div>
 		</div>
@@ -137,7 +142,45 @@
 
 	})
 	</script>
-
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+  // 注意：所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。 
+  // 如果发现在 Android 不能分享自定义内容，请到官网下载最新的包覆盖安装，Android 自定义分享接口需升级至 6.0.2.58 版本及以上。
+  // 完整 JS-SDK 文档地址：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
+  wx.config({
+    appId: '<?php echo $signPackage["appId"];?>',
+    timestamp: <?php echo $signPackage["timestamp"];?>,
+    nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+    signature: '<?php echo $signPackage["signature"];?>',
+    jsApiList: [
+      // 所有要调用的 API 都要加到这个列表中
+      'checkJsApi',
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'onMenuShareQQ',
+      'onMenuShareWeibo',
+    ]
+  });
+  wx.ready(function () {
+    // 在这里调用 API
+    var shareData = {
+        title: "摸一摸，屏幕清晰~",
+        desc: "我在宠物星球摸了摸萌星"+<?php echo $r['name']?>+"，软软哒真可爱~~舍不得洗手了呢嘤嘤嘤",
+        link: "http://"+window.location.host+"/index.php?r=social/touch&aid="+<?php echo $r['aid']?>, 
+        imgUrl: "http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>",
+        success: function () { 
+       		location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$r['aid'], 'SID'=>$SID))."'" ?>
+    	},
+    	cancel: function () { 
+       	// 用户取消分享后执行的回调函数
+    	}
+    };
+    wx.onMenuShareAppMessage(shareData);
+    wx.onMenuShareTimeline(shareData);
+    wx.onMenuShareQQ(shareData);
+    wx.onMenuShareWeibo(shareData);
+  });
+</script>
 
 
 </html>

@@ -46,7 +46,7 @@ class StarController extends Controller
             $stars[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url, stars FROM dc_image WHERE star_id=:star_id ORDER BY stars DESC LIMIT 30')->bindValue(':star_id', $v['star_id'])->queryAll();
         }
            
-        $this->echoJsonData(array('stars'=>$stars, 'vote_info'=>array('gold'=>100, 'times'=>3)));
+        $this->echoJsonData(array('stars'=>$stars, 'vote_price'=>30));
     }
 
     public function actionPopularApi($star_id, $page)
@@ -68,41 +68,44 @@ class StarController extends Controller
         if (!isset($session[$this->usr_id.'_star_'.$image->star_id])) {
             $session[$this->usr_id.'_star_'.$image->star_id] = 3;
         } 
-        if ($session[$this->usr_id.'_star_'.$image->star_id]>0) {
-            $flag = TRUE;
-            $transaction = Yii::app()->db->beginTransaction();
-            try {
-                $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
-                $image->stars++;
-                $image->starers = $image->starers.','.$this->usr_id;
-                $image->saveAttributes(array('stars', 'starers'));
-                $transaction->commit();
-            } catch (Exception $e) {
-                $transaction->rollback();
-                throw $e;
-            }
-        } else {
-            $flag = FALSE;
-        }
-
-        $this->echoJsonData(array('isSuccess'=>$flag));
-    }
-
-    public function actionChargeApi($star_id)
-    {
+        
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $session = Yii::app()->session;
-            $session[$this->usr_id.'_star_'.$star_id] = 3;
-            $user = User::model()->findByPk($this->usr_id);
-            $user->gold-=100;
-            $user->saveAttributes(array('gold'));
+            if ($session[$this->usr_id.'_star_'.$image->star_id]>0) {
+                $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
+            } else {
+                $user = User::model()->findByPk($this->usr_id);
+                $user->gold-=100;
+                $user->saveAttributes(array('gold'));
+            }
+            $image->stars++;
+            $image->starers = $image->starers.','.$this->usr_id;
+            $image->saveAttributes(array('stars', 'starers'));
+            $flag = TRUE;
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
             throw $e;
         }
 
-        $this->echoJsonData(array('isSuccess'=>TRUE));
+        $this->echoJsonData(array('isSuccess'=>$flag));
     }
+
+    // public function actionChargeApi($star_id)
+    // {
+    //     $transaction = Yii::app()->db->beginTransaction();
+    //     try {
+    //         $session = Yii::app()->session;
+    //         $session[$this->usr_id.'_star_'.$star_id] = 3;
+    //         $user = User::model()->findByPk($this->usr_id);
+    //         $user->gold-=100;
+    //         $user->saveAttributes(array('gold'));
+    //         $transaction->commit();
+    //     } catch (Exception $e) {
+    //         $transaction->rollback();
+    //         throw $e;
+    //     }
+
+    //     $this->echoJsonData(array('isSuccess'=>TRUE));
+    // }
 }
