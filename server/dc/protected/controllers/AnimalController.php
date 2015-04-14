@@ -6,7 +6,7 @@ class AnimalController extends Controller
     {
         return array(
             'checkUpdate',
-            'checkSig - infoShare,joinMobileApi,touchMobileApi,shakeMobileApi',
+            'checkSig - infoShare,joinMobileApi,touchMobileApi,shakeMobileApi,sendGiftApi,touchApi',
             'getUserId - infoApi,recommendApi,popularApi,cardApi,searchApi,newsApi,txApi,imagesApi,fansApi,itemsApi,infoShare,joinMobileApi,touchMobileApi,shakeMobileApi',
             /*
             array(
@@ -680,21 +680,13 @@ class AnimalController extends Controller
         }
 
         $session = Yii::app()->session;
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            $user = User::model()->findByPk($this->usr_id);
-
-            if (!isset($session[$aid.'touch_count'])) {
-                $user->touch();
-                $session[$aid.'touch_count']=1;
-            }
-            $transaction->commit();
-
-            $this->redirect(array('social/touch', 'aid'=>$aid, 'img_id'=>$img_id, 'SID'=>$SID));
-        } catch (Exception $e) {
-            $transaction->rollback();
-            throw $e;
+        if ($is_touch) {
+            $session[$aid.'touch_count']=0;
+        } else {
+            $session[$aid.'touch_count']=1;
         }
+
+        $this->redirect(array('social/touch', 'aid'=>$aid, 'img_id'=>$img_id, 'img_url'=>$img_url, 'SID'=>$SID));
     }
 
 

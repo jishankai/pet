@@ -83,13 +83,18 @@ $signPackage = $jssdk->GetSignPackage();
 	$(window).on('load',function(){
 		
 		$("#e_btn").click(function(){
-			if (<?php echo isset($SID)&&$SID!=''?1:0?>) {
-				$("#e_btn").hide();
-				function init( event ) {
-					$("#redux").eraser();
+			if (<?php echo !isset($SID)&&$SID!=''?1:0?>) {
+				var img_id = <?php echo $img_id ?>;
+				var img_url = <?php echo $img_url ?>;
+    			var aid =<?php echo $r['aid'] ?>;
+    			location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi')."'" ?>+'&img_url='+img_url+'&aid='+aid+'&img_id='+img_id+'&SID='+<?php echo "'".$SID."'" ?>;
+			}
+			$("#e_btn").hide();
+			function init( event ) {
+				$("#redux").eraser();
 				// you can alse specify the brush size (in pixel) by using options :
 				 //$("#redux").eraser({size: 100});
-				}
+			}
 
 			function remove(event) {
 				$("#redux").eraser('clear');
@@ -115,29 +120,32 @@ $signPackage = $jssdk->GetSignPackage();
 
 			function showResetButton(){
 				/*alert("111");*/
-				$(".text").hide();
-				/*$(".happy").show();*/
-				$(".happy").fadeIn("500");
-				$(".popularity").fadeIn("500");
-				$(".shareList").show();
-				$(".prompt").show();
-			
-
-				/*今天的次数用完*/
-				/*$("#robot").hide();
-				$("#redux").hide();
-				$(".happy").hide();
-				$(".popularity").hide();
-				$(".container").attr("style","border:none");
-				$(".no_choice").show();
-				$(".none").fadeIn("500");*/
+				if (<?php echo $chance_times?>) {
+					$(".text").hide();
+					/*$(".happy").show();*/
+					$(".happy").fadeIn("500");
+					$(".popularity").fadeIn("500");
+					$(".shareList").show();
+					$(".prompt").show();
+					$.ajax({
+                    url: <?php echo "'".$this->createUrl('animal/touchApi', array('aid'=>$r['aid'], 'SID'=>$SID))."'" ?>,
+                    data: { },
+                    type: "get",
+                    success: function (data) {
+                    }
+                });
+				} else {
+					/*今天的次数用完*/
+					$("#robot").hide();
+					$("#redux").hide();
+					$(".happy").hide();
+					$(".popularity").hide();
+					$(".container").attr("style","border:none");
+					$(".no_choice").show();
+					$(".none").fadeIn("500");
+				}
 			}
-			} else{
-				var img_id = <?php echo $img_id ?>;
-    			var aid =<?php echo $r['aid'] ?>;
-    			location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&SID='+<?php echo "'".$SID."'" ?>;
 			
-			}
 		})
 
 	})
@@ -169,7 +177,7 @@ $signPackage = $jssdk->GetSignPackage();
         link: "http://"+window.location.host+"/index.php?r=social/touch&aid="+<?php echo $r['aid']?>, 
         imgUrl: "http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>",
         success: function () { 
-       		location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$r['aid'], 'SID'=>$SID))."'" ?>
+       		location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$r['aid'], 'img_url'=>$img_url, 'img_id'=>$img_id, 'SID'=>$SID))."'" ?>
     	},
     	cancel: function () { 
        	// 用户取消分享后执行的回调函数
