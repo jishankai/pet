@@ -30,11 +30,12 @@ class Star extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('banner, url', 'length', 'max'=>255),
-			array('start_time, end_time, create_time', 'length', 'max'=>10),
+			array('star_id, start_time, end_time, create_time', 'length', 'max'=>10),
+			array('name, title', 'length', 'max'=>45),
+			array('icon, description, banner, url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('star_id, banner, url, start_time, end_time, create_time, update_time', 'safe', 'on'=>'search'),
+			array('star_id, name, title, icon, description, banner, url, start_time, end_time, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,6 +64,10 @@ class Star extends CActiveRecord
 	{
 		return array(
 			'star_id' => 'Star',
+			'name' => 'Name',
+			'title' => 'Title',
+			'icon' => 'Icon',
+			'description' => 'Description',
 			'banner' => 'Banner',
 			'url' => 'Url',
 			'start_time' => 'Start Time',
@@ -91,6 +96,10 @@ class Star extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('star_id',$this->star_id,true);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('icon',$this->icon,true);
+		$criteria->compare('description',$this->description,true);
 		$criteria->compare('banner',$this->banner,true);
 		$criteria->compare('url',$this->url,true);
 		$criteria->compare('start_time',$this->start_time,true);

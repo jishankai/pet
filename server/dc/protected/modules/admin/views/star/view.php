@@ -22,6 +22,10 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'star_id',
+		'name',
+		'title',
+		'icon',
+		'description',
 		'banner',
 		'url',
 		'start_time',
