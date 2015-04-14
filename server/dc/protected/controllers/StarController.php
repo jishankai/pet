@@ -14,7 +14,7 @@ class StarController extends Controller
     public function actionListApi()
     {
         $session = Yii::app()->session;
-        $stars = Yii::app()->db->createCommand('SELECT star_id, banner, url FROM dc_star where start_time<=:time AND end_time>:time')->bindValue(':time', time())->queryAll();
+        $stars = Yii::app()->db->createCommand('SELECT star_id, name, banner, url FROM dc_star where start_time<=:time AND end_time>:time')->bindValue(':time', time())->queryAll();
 
         foreach ($stars as $k => $v) {
             if (empty($session['usr_id'])) {
@@ -46,7 +46,7 @@ class StarController extends Controller
             $stars[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url, stars FROM dc_image WHERE star_id=:star_id ORDER BY stars DESC LIMIT 30')->bindValue(':star_id', $v['star_id'])->queryAll();
         }
            
-        $this->echoJsonData($stars);
+        $this->echoJsonData(array('stars'=>$stars, 'vote_info'=>array('gold'=>100, 'times'=>3)));
     }
 
     public function actionPopularApi($star_id, $page)
