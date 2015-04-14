@@ -24,7 +24,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="box">
 			<div class="container">
 				<img src="css/images/no_choice.png" class="no_choice"/>
-				<img id="robot" src="http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $img_url?>" />
+				<img id="robot" src="http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $img_url?>" />
 				<img id="redux" src="css/images/eraser.png" />
 			</div>
 		</div>
@@ -80,7 +80,7 @@ $signPackage = $jssdk->GetSignPackage();
 	<script src='js/jquery.eraser.js' type='text/javascript'></script>
 	<script type = "text/javascript">
 
-	$(window).on('load',function(){
+	window.onload=function(){
 		
 		$("#e_btn").click(function(){
 			if (<?php echo !isset($SID)&&$SID!=''?1:0?>) {
@@ -148,7 +148,7 @@ $signPackage = $jssdk->GetSignPackage();
 			
 		})
 
-	})
+	}
 	</script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
