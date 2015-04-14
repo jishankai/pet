@@ -44,7 +44,7 @@ $signPackage = $jssdk->GetSignPackage();
 			<h3 id="signature"><?php echo $r['msg']?></h3>
 
 			<ul class="tab clearfix">
-				<li class="one">
+				<!-- <li class="one">
 					<h3 id="dynamic_num"><?php echo $r['news']?></h3>
 					<p id="dynamic">动态</p>
 				</li>
@@ -55,8 +55,8 @@ $signPackage = $jssdk->GetSignPackage();
 				<li>
 					<h3 id="photo_num"><?php echo $r['images']?></h3>
 					<p id="photo">照片</p>
-				</li>
-				<!-- <li>
+				</li> -->
+				<li>
 					<a href='<?php //echo $this->createUrl('social/ration',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon1.png"></a>
 				</li>
 				<li>
@@ -67,7 +67,7 @@ $signPackage = $jssdk->GetSignPackage();
 				</li>
 				<li>
 					<a href='<?php //echo $this->createUrl('social/touch',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon4.png"></a>
-				</li> -->
+				</li>
 			</ul>
 		</div>
 
