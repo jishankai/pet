@@ -5,7 +5,7 @@ class AlipayController extends Controller
 	public function filters() 
     {
         return array(
-        	'getUserId - notify, return',
+        	'getUserId - notify, return, success',
         );
     }
 
@@ -154,6 +154,11 @@ class AlipayController extends Controller
 	public function actionReturn() 
 	{
 		$this->renderPartial('call_back_url');
+	}
+
+	public function actionSuccess()
+	{
+		$this->renderPartial('success');
 	}
 
 }

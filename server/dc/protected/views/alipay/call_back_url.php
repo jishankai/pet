@@ -52,16 +52,20 @@ if($verify_result) {//验证成功
                 $user = User::model()->findByPk($order->usr_id);
                 switch ($order->fee) {
                     case 1:
-                    $user->gold+=100;
+                    $gold=110;
+                    $user->gold+=110;
                     break;
                     case 5:
-                    $user->gold+=500;
+                    $gold=550;
+                    $user->gold+=550;
                     break;
                     case 10:
-                    $user->gold+=1050;
+                    $gold=1155;
+                    $user->gold+=1155;
                     break;
                     case 100:
-                    $user->gold+=11000;
+                    $gold=12100;
+                    $user->gold+=12100;
                     default:
                             # code...
                     break;
@@ -69,6 +73,17 @@ if($verify_result) {//验证成功
                 $user->saveAttributes(array('gold'));
                 $order->status = 1;
                 $order->saveAttributes(array('status'));
+                Talk::model()->sendMsg(NPC_SYSTEM_USRID, $order->usr_id, "Hello，您的充值".$gold."金币已经入账咯～");
+                $easemob = Yii::app()->easemob;
+                $npc = User::model()->findByPk(NPC_SYSTEM_USRID);
+                $easemob->sendToUsers($order->usr_id, NPC_SYSTEM_USRID, array(
+                    'mixed'=>TRUE,
+                    'msg'=>"Hello，您的充值".$gold."金币已经入账咯～",
+                    'ext'=>array(
+                        'nickname'=>$npc->name,
+                        'tx'=>$npc->tx,
+                    ),
+                ));
                 $transaction->commit();
             } catch (Exception $e) {
                 $transaction->rollback();
@@ -81,7 +96,8 @@ if($verify_result) {//验证成功
         return ;
     }
 		
-	echo "验证成功<br />";
+	//echo "验证成功<br />";
+    $this->redirect(array('alipay/success'));
 
 	//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
 	

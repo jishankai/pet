@@ -96,16 +96,19 @@ class SocialController extends Controller
         if ($img_id!=0) {
             $img_url = Yii::app()->db->createCommand('SELECT url FROM dc_image WHERE img_id=:img_id')->bindValue(':img_id', $img_id)->queryScalar();
         }
+        $session = Yii::app()->session;
+        $chance_times = $session[$aid.'touch_count'];
         $r = Yii::app()->db->createCommand('SELECT aid, name, tx FROM dc_animal WHERE aid=:aid')->bindValue(":aid", $aid)->queryRow();
 
-        $this->renderPartial('touch', array('img_url'=>$img_url, 'img_id'=>$img_id, 'r'=>$r, 'SID'=>$SID));
+        $this->renderPartial('touch', array('img_url'=>$img_url, 'img_id'=>$img_id, 'r'=>$r, 'chance_times'=>$chance_times, 'SID'=>$SID));
     }
 
     public function actionShake($aid, $SID='')
     {
         $r = Yii::app()->db->createCommand('SELECT aid, name, tx FROM dc_animal WHERE aid=:aid')->bindValue(":aid", $aid)->queryRow();
-
-        $this->renderPartial('shake', array('r'=>$r, 'SID'=>$SID));
+        $session = Yii::app()->session;
+        $chance_times = $session[$aid.'_shake_count'];
+        $this->renderPartial('shake', array('r'=>$r, 'chance_times'=>$chance_times, 'SID'=>$SID));
     }
 
     public function actionGift($aid, $SID='')
@@ -123,6 +126,23 @@ class SocialController extends Controller
     public function actionDivine()
     {
         $this->renderPartial('divine');
+    }
+
+    public function actionPayActivity($SID='')
+    {
+        $this->renderPartial('pay_active', array('SID'=>$SID));
+    }
+
+    public function actionArticles($page=0)
+    {
+        $articles = Yii::app()->db->createCommand("SELECT * FROM dc_article WHERE image='' ORDER BY update_time DESC LIMIT :m, 10")->bindValue(':m', $page*10)->queryAll();
+        if ($page==0) {
+            $banner = Yii::app()->db->createCommand("SELECT * FROM dc_article WHERE image!='' ORDER BY update_time DESC LIMIT 1")->queryRow();
+        } else {
+            $banner = array();
+        }
+
+        $this->echoJsonData(array('banner'=>$banner, 'articles'=>$articles));
     }
 }
 

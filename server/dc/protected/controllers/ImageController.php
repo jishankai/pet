@@ -112,6 +112,9 @@ class ImageController extends Controller
                 } else {
                     $model->topic_name = $_POST['topic_name'];
                 }
+                if (isset($_POST['star_id'])) {
+                    $model->star_id = $_POST['star_id'];
+                }
                 if (isset($_POST['relates'])) {
                     $model->relates = $_POST['relates'];
                 }
@@ -293,10 +296,19 @@ class ImageController extends Controller
     {
         $dependency = new CDbCacheDependency("SELECT MAX(i.update_time) FROM dc_follow f LEFT JOIN dc_image i ON f.aid=i.aid WHERE usr_id = :usr_id");
         $dependency->params[':usr_id'] = $this->usr_id;
-        $r = Yii::app()->db->cache(3600, $dependency)->createCommand('SELECT i.img_id, i.url, i.cmt, i.likes, i.likers, i.aid, a.tx, a.name, a.type, i.create_time FROM dc_image i INNER JOIN dc_follow f ON f.aid=i.aid LEFT JOIN dc_animal a ON i.aid=a.aid WHERE usr_id=:usr_id AND img_id<:img_id ORDER BY img_id DESC LIMIT 30')->bindValues(array(
+        $r = Yii::app()->db->cache(3600, $dependency)->createCommand('SELECT i.img_id, i.url, i.cmt, i.topic_id, i.topic_name, i.likes, i.likers, i.is_food, i.aid, a.tx, a.name, a.type, i.comments, u.usr_id, u.tx AS u_tx, u.name AS u_name, i.create_time FROM dc_image i INNER JOIN dc_follow f ON f.aid=i.aid LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE f.usr_id=:usr_id AND img_id<:img_id ORDER BY img_id DESC LIMIT 30')->bindValues(array(
             ':usr_id' => $this->usr_id,
             ':img_id' => $img_id,
         ))->queryAll();
+
+        foreach ($r as $k => $v) {
+            if ($v['likers']!='') {
+                $likers = $v['likers'];
+                $r[$k]['likers_tx'] = Yii::app()->db->createCommand("SELECT tx FROM dc_user WHERE usr_id IN ($likers)")->queryColumn();
+            } else {
+                $r[$k]['likers_tx'] = '';
+            }
+        }
 
         $this->echoJsonData($r);
     }
@@ -304,9 +316,18 @@ class ImageController extends Controller
     public function actionRecommendApi($img_id=NULL)
     {
         if (isset($img_id)) {
-            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url, i.cmt AS cmt FROM dc_image i WHERE i.img_id<:img_id ORDER BY i.create_time DESC LIMIT 30')->bindValue(':img_id', $img_id)->queryAll();        
+            $images =  Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.cmt, i.topic_id, i.topic_name, i.likes, i.likers, i.is_food, i.aid, a.tx, a.name, i.comments, u.usr_id, u.tx AS u_tx, u.name AS u_name FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id<:img_id ORDER BY i.create_time DESC LIMIT 30')->bindValue(':img_id', $img_id)->queryAll();        
         } else {
-            $images =  Yii::app()->db->createCommand('SELECT i.img_id AS img_id, url, i.cmt AS cmt FROM dc_image i ORDER BY i.create_time DESC LIMIT 30')->queryAll();        
+            $images =  Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.cmt, i.topic_id, i.topic_name, i.likes, i.likers, i.is_food, i.aid, a.tx, a.name, i.comments, u.usr_id, u.tx AS u_tx, u.name AS u_name FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id ORDER BY i.create_time DESC LIMIT 30')->queryAll();        
+        }
+
+        foreach ($images as $k => $v) {
+            if ($v['likers']!='') {
+                $likers = $v['likers'];
+                $images[$k]['likers_tx'] = Yii::app()->db->createCommand("SELECT tx FROM dc_user WHERE usr_id IN ($likers)")->queryColumn();
+            } else {
+                $images[$k]['likers_tx'] = '';
+            }
         }
 
         $this->echoJsonData(array($images));
@@ -387,7 +408,10 @@ class ImageController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $oauth2->get_code_by_authorize(serialize(array('img_id'=>$img_id, 'aid'=>$aid)));
+                    $a = implode('$', array('img_id',$img_id));
+                    $b = implode('$', array('aid', $aid));
+                    $state = implode('*', array($a, $b));
+                    $oauth2->get_code_by_authorize($state);
                     exit;
                 }
                 break;
