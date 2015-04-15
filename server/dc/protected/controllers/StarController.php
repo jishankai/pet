@@ -7,7 +7,7 @@ class StarController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - listApi, popularApi',
+            'getUserId - listApi, popularApi, newestApi, rankApi',
         );
     }
 
@@ -89,6 +89,18 @@ class StarController extends Controller
         }
 
         $this->echoJsonData(array('isSuccess'=>$flag));
+    }
+
+    public function actionRankApi($star_id)
+    {
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, SUM(i.stars) AS stars FROM dc_image i LEFT JOIN dc_animal a ON a.aid=i.aid WHERE i.star_id=:star_id GROUP BY a.aid,a.name,a.tx ORDER BY stars DESC')->bindValue(':star_id', $star_id)->queryAll();
+
+        $this->echoJsonData($r);
+    }
+
+    public function actionContriApi($aid, $star_id)
+    {
+        // $r = Yii::app()->db->createCommand('SELECT ')
     }
 
     // public function actionChargeApi($star_id)
