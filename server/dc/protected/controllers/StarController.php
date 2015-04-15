@@ -91,9 +91,9 @@ class StarController extends Controller
         $this->echoJsonData(array('isSuccess'=>$flag));
     }
 
-    public function actionRankApi($star_id)
+    public function actionRankApi($star_id, $page=0)
     {
-        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, SUM(i.stars) AS stars FROM dc_image i LEFT JOIN dc_animal a ON a.aid=i.aid WHERE i.star_id=:star_id GROUP BY a.aid,a.name,a.tx ORDER BY stars DESC')->bindValue(':star_id', $star_id)->queryAll();
+        $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, SUM(i.stars) AS stars FROM dc_image i LEFT JOIN dc_animal a ON a.aid=i.aid WHERE i.star_id=:star_id GROUP BY a.aid,a.name,a.tx ORDER BY stars DESC LIMIT :m,30')->bindValues(array(':star_id'=>$star_id, ':m'=>$page*30))->queryAll();
 
         $this->echoJsonData($r);
     }
