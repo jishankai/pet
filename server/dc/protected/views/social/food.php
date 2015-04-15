@@ -3,102 +3,129 @@ require_once "jssdk.php";
 $jssdk = new JSSDK(WECHAT_MP_ID, WECHAT_MP_SECRET);
 $signPackage = $jssdk->GetSignPackage();
 ?>
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>我为自己代粮</title>
-<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
-<link type="text/css" rel="stylesheet" href="css/style.css"/>
-<link type="text/css" rel="stylesheet" href="css/alert.css"/>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initail-scale=1.0 ,maximum-scale=1, user-scalable=no">
+	<title>照片详情页－－NEW</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/food_new.css">
+	<link type="text/css" rel="stylesheet" href="css/alert.css"/>
 <script>
-//     var _hmt = _hmt || [];
-//     (function() {
-//       var hm = document.createElement("script");
-//       hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
-//       var s = document.getElementsByTagName("script")[0]; 
-//       s.parentNode.insertBefore(hm, s);
+//  var _hmt = _hmt || [];
+//  (function() {
+//    	var hm = document.createElement("script");
+//      hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
+//      var s = document.getElementsByTagName("script")[0]; 
+//      s.parentNode.insertBefore(hm, s);
 //   })();
 </script>
-
 </head>
 <body>
-<div class="comWidth">
-	<div class="titBox clearfix">
-    <div class="food_title left">
-      <h3>宠物星球免费下载</h3>
-    </div>
-    <div class="logo left">
-      <a href='https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?'><img src="css/images/apple.png" alt=""/></a>
-      <a href='http://fusion.qq.com/cgi-bin/qzapps/unified_jump?appid=11322209&from=singlemessage&isTimeline=false&actionFlag=0&params=pname%3Dcom.aidigame.hisun.pet%26versioncode%3D27%26channelid%3D%26actionflag%3D0&isappinstalled=1'><img src="css/images/android.png" alt=""/></a>
-    </div>
-  </div>
-	<div class="food_body">
-		<div class="info">
-        <a href="<?php echo $this->createUrl('animal/infoShare', array('aid'=>$r['aid'], 'SID'=>$sid))?>"><img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" alt="" class="ph_m"/></a>
-			<div class="info_tit">
-            <h3><?php echo $r['name']?></h3>
-				<img src="css/images/<?php echo $r['gender']==1?"male1.png":"female1.png"?>">
-			</div>
-			<div class="info_con">
-            <h3 class="info_con1"><?php echo $a_type?></h3>
-            <h3 class="info_con2"><?php echo $r['u_name']?></h3>
-			</div>
+<div class="wrap">
+	<div class="top">
+		<a href="<?php echo $this->createUrl('animal/infoShare', array('aid'=>$r['aid'], 'SID'=>$sid))?>"><img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" alt="" class="pet_head"/></a>
+		<!-- <img src="css/images/base_head13.jpg" class="pet_head"/> -->
+		<span class="pet_name"><?php echo $r['name']?></span>
+		<!-- <span class="pet_name">我是来钱儿思密达</span> -->
+	</div>
+	<div class="main_body">
+		<!-- 图片＋粮食＋倒计时 -->
+		<div class="pet_img_box">
+			<img src="http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $r['url']?>" alt="banner" class="pet_img"/>
+			<!-- <img src="css/images/pet8.jpg" class="pet_img"/> -->
+
+			<!-- <div class="food_time clearfix">
+				<div class="food_box left">
+					<img src="css/images/food_border_white.png" id="food_heart"/>
+					<span id="food">12</span>
+				</div>
+				<div class="d_time_box right">
+					<img src="css/images/time_border_white.png"/>
+					<span id="d_time">12:44:06</span>
+				</div>
+			</div> -->
+			<?php if($r['is_food']) {
+            echo '<div class="food_time clearfix">';
+	           	echo '<div class="food_box left">';
+	           		echo '<img src="css/images/food_white_border.png" id="food_heart"/>';
+	           		echo '<span id="food">'.$r['food'].'</span>';
+	           	echo '</div>';
+	           	echo '<div class="d_time_box right">';
+	           		echo '<img src="css/images/time_white_border.png"/>';
+	           		echo '<span id="d_time">12:44:06</span>';
+	           	echo '</div>';
+	        echo '</div>';
+           	}?>
+
+
+
 		</div>
-        <img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_usr/<?php echo $r['u_tx']?>" alt="" class="ph_s"/>
-      <div class="info_photo">
-          <img src="http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $r['url']?>" alt="banner" class="active"/>
-      </div>
-      <?php if($r['is_food']) {
-			echo '<div class="details clearfix">';
-	        	echo '<ul class="about_food">';
-	            	echo '<li  class="received"><div>已收到</div></li>';
-                    echo '<li ><div class="food_num" id="food_num">'.$r['food'].'</div></li>';
-	                echo '<li ><div class="time_img" id="time_img"></div></li>';
-	            echo '</ul>';
-        	echo '</div>';
-          }?>
-        	<div class="black">
-        	</div>
-        	<div class="come_from">
-            <h3><?php echo $r['cmt']?></h3>
-        	</div>
-      </div>
-          <div class="tab_wraper">      
-            <div id="tabs">
-              <ul class="tab_tit clearfix">
-                <li class="on"><img src="css/images/show_topic_like_red.png">&nbsp;<span><?php echo $r['likes']?></span></li>
-                <li><img src="css/images/show_topic_gift_red.png">&nbsp;<span><?php echo $r['gifts']?></span></li>
-                <li><img src="css/images/show_topic_share_red.png">&nbsp;<span><?php echo $r['shares']?></span></li>
-                <li id="a1"><img src="css/images/show_topic_comment_red.png">&nbsp;<span><?php echo 0?></span></li>
-              </ul>
-              <div id="like">
-               <ul class="tab_con clearfix" id="like_list">
-              </ul>    
-            </div>
-            <div class="hide" id="gift">
-              <ul class="tab_con clearfix" id="gift_list">
-              </ul>        
-            </div>
-            <div class="hide" id="comment">
-              <ul class="tab_con clearfix" id="comment_list">
-              </ul> 
-            </div>
-            <div class="hide" id="share">
-
-              <ul class="tab_con comment" id="share_list">
-              </ul>
-              
-            </div> 
-
-          </div>
-
-        </div>
-
-  <div class="hr"></div>
-	<div class="float">
-		<!-- <div class="select_money_t" id="gold">
+		<!-- 话题和描述 -->
+		<div class="topic_describe">
+			<span class="topic">＃妈啊我的包子脸＃</span>
+			<span class="describe"><?php echo $r['cmt']?></span>
+			<!-- <span class="describe">好饿 好饿 好饿</span> -->
+		</div>
+		<!-- 点赞，评论，礼物。。按钮组 -->
+		<ul class="btns_box clearfix">
+			<li>
+				<img src="css/images/page_like.png" id="like_img"/>
+				<span id="like">已赞</span>
+			</li>
+			<li id="comment_btn">
+				<img src="css/images/page_comment.png" id="comment_img"/>
+				<span id="comment">评论</span>
+			</li>
+			<li>
+				<img src="css/images/icon_gift.png" id="gift_img"/>
+				<span id="gift">礼物</span>
+			</li>
+			<li>
+				<img src="css/images/bt_more.png"/>
+			</li>
+		</ul>
+		<!-- 点赞头像显示 -->
+		<div class="like_box clearfix">
+			<div class="like_grey">
+				<img src="css/images/page_comment_gray.jpg">
+			</div>
+			<ul class="like_head clearfix">
+				<li><img src="css/images/base_head13.jpg"></li>
+				<li><img src="css/images/base_head13.jpg"></li>
+				<li><img src="css/images/base_head13.jpg"></li>
+				<li><img src="css/images/base_head13.jpg"></li>
+				<li><img src="css/images/base_head13.jpg"></li>
+				<li><img src="css/images/base_head13.jpg"></li>
+				<li><img src="css/images/base_head13.jpg"></li>
+			</ul>
+			<span id="like_num"><?php echo $r['likes']?></span>
+			<!-- <span id="like_num">960</span> -->
+		</div>
+		<!-- 评论情况展示 -->
+		<div class="comment_box">
+			<div class="comment_more">
+				<img src="css/images/page_comment_grey.jpg">
+				<a class="the_more_comment">查看所有<span id="comment_num"><?php echo 0?></span>条评论</a>
+			</div>
+			<ul class="comment_list clearfix">
+				<li>
+					<!-- <img src="css/images/base_head13.jpg"/> -->
+					<span>昵称1</span>
+					<p>姑娘，胸毛不错～</p>
+				</li>
+				<li>
+					<!-- <img src="css/images/base_head13.jpg"/> -->
+					<span>昵称2</span>
+					<p>姑娘，胸毛不错～</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="float giveBtn_box">
+		<div class="select_money_t" id="gold">
 			<div class="select_money">
 				<ul id="gold_num">
 					<li id="one">1000</li>
@@ -108,11 +135,8 @@ $signPackage = $jssdk->GetSignPackage();
 				</ul>
 			</div>
 			<div class="target"></div>
-		</div> -->
-		<div class="give_sc" id="give_sc">
-            <h3>打赏成功～萌星<span><?php echo $r['name']?></span>感谢您的关爱</h3>
 		</div>
-    <?php if($r['is_food']) {
+		<?php if($r['is_food']) {
 		echo '<div class="give_btn">';
 			echo '<div class="give_btn_bottom">';
 				echo '<div class="give_btn_con">';
@@ -126,167 +150,205 @@ $signPackage = $jssdk->GetSignPackage();
 				echo '</div>';
 			echo '</div>';
 		echo '</div>';
-    }?>
-		<!-- <div class="load">
-			
-			<div class="load_left">
-				<div class="logo_icon">
-					<img src="css/images/logo_icon.jpg"/>
-				</div>
-				<div class="load_info">
-					<h3>宠物星球</h3>
-					<p>我为自己代粮</p>
-				</div>
-			</div>
-			<div class="load_right">
-				<a href="https://home4pet.aidigame.com" target="_blank">
-                    <img src="css/images/load.jpg"/>
-                </a>
-			</div>
-		</div> -->
+    	}?>
 	</div>
-	
+	<div class="recommend_box float">
+		<div class="recommend">
+			<img id="recommend_btn" src="bt_heart.png"/>
+		</div>
+
+	</div>
+
+
+	<form class="comment_alert">
+		<h3>说点什么</h3>
+		<input type="submit" id="submit" value=""/>
+		<input type="button" id="close"/>
+		<textarea></textarea>
+	</form>
+
 </div>
 </body>
+<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 
-<script type="text/javascript" src="js/link.js"></script>
-<script type="text/javascript" src="js/jquery.md5.js"></script>
-<script type="text/javascript" src="js/alert.js"></script>
 <script type="text/javascript">
-/*倒计时*/
-$(window).on('load',function(){
-    if (<?php echo $r['is_food']?>) {
-      FreshTime();
-    }
-    if (<?php echo $alert_flag?>) {
-      cc();
-    };
-    //调整主图片位置
-    var a=$(".info_photo").height();
-    var b=$(".active").height();
-    var c=0;
-    if(a>b){
-        c=Math.floor((a-b)/2);
-    }
-    $(".active").css("margin-top",c+"px");
-    /* 
-    if(dataInt!=null){
-      if(dataInt.name!=null){
-        for(var i=0;i<dataInt.name.length;i++){
+$(function(){
+	$("#comment_btn").click(function(){
+		$(".comment_alert").show();
+	});
+	$("#close").click(function(){
+		$(".comment_alert").hide();
+	});
 
-          var oLi_like=$('<li>').appendTo($('#like_list'));
-          var oSpan_like=$('<span>').addClass('left').appendTo($(oLi_like));
-          var oImg_like=$('<img>').attr('src','css/images/'+$(dataInt.head[i]).attr('src')).appendTo($(oSpan_like));
-          var oH3_like=$('<h3>').addClass('left').html($(dataInt.name[i]).attr('name')).appendTo($(oLi_like));
-        }
-      }
-      if(dataInt.name1!=null){
-        for(var i=0;i<dataInt.name1.length;i++){
-          var oLi_gift=$('<li>').appendTo($('#gift_list'));
-          var oSpan_gift=$('<span>').addClass('left').appendTo($(oLi_gift));
-          var oImg_gift=$('<img>').attr('src','css/images/'+$(dataInt.head1[i]).attr('src')).appendTo($(oSpan_gift));
-          var oH3_gift=$('<h3>').addClass('left').html($(dataInt.name1[i]).attr('name')).appendTo($(oLi_gift));
-        }
-      }
-      if(dataInt.name2!=null){
-        for(var i=0;i<dataInt.name2.length;i++){
-          var oLi_comment=$('<li>').appendTo($('#comment_list'));
-          var oSpan_comment=$('<span>').addClass('left').appendTo($(oLi_comment));
-          var oImg_comment=$('<img>').attr('src','css/images/'+$(dataInt.head2[i]).attr('src')).appendTo($(oSpan_comment));
-          var oH3_comment=$('<h3>').addClass('left').html($(dataInt.name2[i]).attr('name')).appendTo($(oLi_comment));
-        }
-      }
-      if(dataInt.name3!=null){
-        for(var i=0;i<dataInt.name3.length;i++){
-          var oLi_share=$('<li>').appendTo($('#share_list'));
-          var oSpan_share=$('<span>').addClass('left').appendTo($(oLi_share));
-          var oImg_share=$('<img>').attr('src','css/images/'+$(dataInt.head3[i]).attr('src')).appendTo($(oSpan_share));
-          var oDiv_share=$('<div>').addClass('left').appendTo($(oLi_share));
-          var oP_share=$('<p>').appendTo($(oDiv_share));
-          var oB_share=$('<b>').html($(dataInt.name3[i]).attr('name')).appendTo($(oP_share));
-          var oSpanTime_share=$('<span>').addClass('time').addClass('right').html($(dataInt.time1[i]).attr('time')).appendTo($(oP_share));
-          var oP2_share=$('<p>').html($(dataInt.data[i]).attr('data')).appendTo($(oDiv_share));
-        }
-      }
-}*/
-})
+	/*推荐按钮*/
+	$("#recommend_btn").click(function(){
+		recommend();
+	});
+
+	/*赞按钮*/
+		$("#like_img").click(function(){
+			var like = $("#like").html();
+
+			if(like=="赞"){
+				document.getElementById("like_img").src="css/images/page_liked.png";
+				$("#like").html("已赞");
+			}else{
+				document.getElementById("like_img").src="css/images/page_like.png";
+				$("#like").html("赞");
+			}
+		});
+
+	//依情况改变页面样式   1.普通 2.可以赏口粮 3.可以推荐
+	var flag = 2;
+	if(flag==1){
+		$(".recommend_box").css("display","none");
+		$(".giveBtn_box").css("display","block");
+		$(".food_time").css("display","block");
+		document.getElementById("food_heart").src="css/images/food_border_white.png";
+	}else if(flag==2){
+		$(".giveBtn_box").css("display","none");
+		$(".recommend_box").css("display","block");
+		$(".food_time").css("display","block");
+		document.getElementById("food_heart").src="css/images/heart_orange_small.png";
+	}else{
+		$(".giveBtn_box").css("display","none");
+		$(".recommend_box").css("display","none");
+		$(".food_time").css("display","none");
+	}
+
+
+/*以前food页代码移入*/
+
+/*倒计时*/
+
+	if (<?php echo $r['is_food']?>) {
+		FreshTime();
+	}
+	if (<?php echo $alert_flag?>) {
+		cc();
+	};
+
+	    
 
 function FreshTime()
 {
-        var endtime = <?php echo $r['create_time']?>+60*60*24;//结束时间
-        var nowtime = new Date();//当前时间
+    var endtime = <?php echo $r['create_time']?>+60*60*24;//结束时间
+    var nowtime = new Date();//当前时间
 
-        var lefttime= parseInt(endtime-(nowtime.getTime())/1000); 
-        h=  parseInt(lefttime/(60*60)%24);
-        m=  parseInt(lefttime/(60)%60);
-        s=  parseInt(lefttime%60);
+    var lefttime= parseInt(endtime-(nowtime.getTime())/1000); 
+    h=  parseInt(lefttime/(60*60)%24);
+    m=  parseInt(lefttime/(60)%60);
+    s=  parseInt(lefttime%60);
         
-        if(h < 10){
-    		h="0"+h;
-		}
-		if(m<10){
-			m="0"+m;
-		}
-		if(s<10){
-			s="0"+s;
-		}
-       
-        document.getElementById("time_img").innerHTML=h+":"+m+":"+s;
-        if(lefttime<=0){
-        document.getElementById("time_img").innerHTML="已结束";
-        }
-        setTimeout(FreshTime,1000);
+    if(h < 10){
+       	h="0"+h;
+    }
+    if(m<10){
+       	m="0"+m;
+    }
+    if(s<10){
+        s="0"+s;
+    }
+
+    document.getElementById("d_time").innerHTML=h+":"+m+":"+s;
+    if(lefttime<=0){
+        document.getElementById("d_time").innerHTML="已结束";
+    }
+    setTimeout(FreshTime,1000);
 }
 
 $("#reward").click(function(){
-  if ($("#time_img")[0].innerHTML!="已结束") {
-    var b=parseInt($(".food_num").html());
-    var c=parseInt($("#g_num").html());
-    var n=c;
-    var img_id = <?php echo $img_id ?>;
-    var to = <?php echo "'".$to."'" ?>;
-    var aid =<?php echo $aid ?>;
-    var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
-    location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
-  } else {
-     var btn=$(".give_btn");
-         btn.attr("display","none");
-  }
-        	/*alert(data);*/
-        //     var b=parseInt($(".food_num").html());
-
-        //     var left = parseInt($('.food_num').position().left-80), top =  parseInt($('.food_num').position().top-40), obj=$('.food_num');
-        // 	if(data==1){
-        // 		$('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+1</b></div>');
-        // 		}
-       	// 	 else if(data==10){
-        //    		 $('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+10</b></div>');
-        // 		}
-        // 	else if(data==100){
-        //    		 $('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+100</b></div>');
-        // 		}
-        // 	else if(data==1000){
-        //     	$('.food_num').append('<div id="zhan"><img src="css/images/food.png" width="29px" height="28px"><b>+1000</b></div>');
-        // 		}
-       	// 	$('.food_num').remove("#zhan");
-
-        // 	$('#zhan').css({'position':'absolute','z-index':'1','color':'#C30','left':left+'px','top':top+'px','font-size':'24px'});
-        // 	$('#zhan').animate({top:top-40,opacity: 0},1000,
-        // 	function(){
-        //     	$(this).fadeOut(100).remove();
-        //     	var Num = parseInt(obj.text());
-        //        	Num=Num+c;
-        //        	obj.text(Num);
-        // 	});
-        // 	aa();
-
-
-        // });
+	if ($("#d_time")[0].innerHTML!="已结束") {
+	    var b=parseInt($("#food").html());
+	    var c=parseInt($("#g_num").html());
+	    var n=c;
+	    var img_id = <?php echo $img_id ?>;
+	    var to = <?php echo "'".$to."'" ?>;
+	    var aid =<?php echo $aid ?>;
+	    var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
+	    location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
+	  } else {
+	     var btn=$(".give_btn");
+	         btn.attr("display","none");
+	  }
+        
 	
+ });
 
-    });
+/*选金币效果*/
+	$(".give_left").click(function () {
+
+		$("#gold").toggle();
+	});
+
+	$("#one").click(function(){
+		var x=$(this).html();
+		$("#g_num").html(x);
+		$("#gold").hide();
+	})
+	$("#one1").click(function(){
+		var x=$(this).html();
+		$("#g_num").html(x);
+		$("#gold").hide();
+	})
+	$("#one2").click(function(){
+		var x=$(this).html();
+		$("#g_num").html(x);
+		$("#gold").hide();
+	})
+
+	$("#one3").click(function(){
+		var x=$(this).html();
+		$("#g_num").html(x);
+		$("#gold").hide();
+	})
 
 
+
+});
+
+/*推荐弹框*/
+function recommend(){
+	//屏幕的高度和宽度
+	var sHeight=document.documentElement.scrollHeight;
+	var sWidth=document.documentElement.scrollWidth;
+	//可视区域的高度
+	var wHeight=document.documentElement.clientHeight;
+
+	var rMask = document.createElement("div");
+		rMask.id="rMask";
+		rMask.className="mask";
+		rMask.style.height = sHeight + "px";
+		rMask.style.width = sWidth + "px";
+		document.body.appendChild(rMask);
+
+		var recommend_alert = document.createElement("div");
+		recommend_alert.id = "recommend_alert";
+		recommend_alert.className = "recommend_alert";
+		recommend_alert.innerHTML = "<h3>本次投票需要花费您:</h3><div id='cost_gold'>100</div><div></div><div id='rec_btn_no'>不了...</div><div id='rec_btn_yes'>好的!</div>";
+
+		/*<h3>本次投票需要花费您:</h3>
+		<div id="cost_gold">100</div>
+		<div id="rec_btn_no">不了...</div>
+		<div id="rec_btn_yes">好的!</div>*/
+
+		document.body.appendChild(recommend_alert);
+		var rHeight = recommend_alert.offsetHeight;
+		var rWidth = recommend_alert.offsetWidth;
+
+		recommend_alert.style.left = (sWidth-rWidth)/2 + "px";
+		recommend_alert.style.top = (wHeight-rHeight)/2 + "px";
+
+		var rec_btn_no = document.getElementById("rec_btn_no");
+		rec_btn_no.onclick = function(){
+			document.body.removeChild(recommend_alert);
+			document.body.removeChild(rMask);
+		}
+		var rec_btn_yes = document.getElementById("rec_btn_yes");
+		rec_btn_yes.onclick = function(){
+			//好的！按钮效果
+		}
+}
 
 </script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
@@ -323,3 +385,24 @@ $("#reward").click(function(){
   });
 </script>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
