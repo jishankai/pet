@@ -100,7 +100,33 @@ class StarController extends Controller
 
     public function actionContriApi($aid, $star_id)
     {
-        // $r = Yii::app()->db->createCommand('SELECT ')
+        $a = array();
+        $r = Yii::app()->db->createCommand('SELECT starers FROM dc_image WHERE star_id=:star_id AND aid=:aid')->bindValues(array(':star_id'=>$star_id, ':aid'=>$aid))->queryColumn();
+        foreach ($r as $r_v) {
+            $t = explode(',', $r_v);
+            $a = array_merge($a, $t);
+        }
+        $usr_ids = array_count_values($a);
+        $total_votes = array_sum($usr_ids);
+        rsort($usr_ids);
+        $my_votes = $usr_ids[$this->usr_id];
+        $rank_ids = array_slice($usr_ids, 0, 3);
+        $users_str = implode(',', array_keys($rank_ids));
+        if ($users_str!='') {
+            $user_txs = Yii::app()->db->createCommand('SELECT usr_id, tx FROM dc_user WHERE usr_ids IN (:users_str) ORDER BY FIELD(usr_id, :usr_str)')->bindValue(':users_str', $users_str)->queryAll();
+        } else {
+            $user_txs = array();
+        }
+        foreach ($rank_ids as $k => $v) {
+            $rank_ids[$k]['tx'] = $user_txs['$k'];
+            $rank_ids[$k]['votes'] = $rank_ids['$k'];
+        }
+
+        $this->echoJsonData(array(
+            'total_votes' => $total_votes,
+            'my_votes' => $my_votes,
+            'rank' => $rank_ids,
+        ));
     }
 
     // public function actionChargeApi($star_id)
