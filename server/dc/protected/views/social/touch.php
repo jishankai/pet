@@ -83,7 +83,7 @@ $signPackage = $jssdk->GetSignPackage();
 	$(window).on('load',function(){
 		
 		$("#e_btn").click(function(){
-			if (<?php echo !isset($SID)&&$SID!=''?1:0?>) {
+			if (<?php echo isset($SID)&&$SID!=''?1:0?>) {
     			var aid =<?php echo $r['aid'] ?>;
     			location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi')."'" ?>+'&aid='+aid+'&SID='+<?php echo "'".$SID."'" ?>;
 			}
