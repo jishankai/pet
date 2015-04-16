@@ -57,16 +57,16 @@ $signPackage = $jssdk->GetSignPackage();
 					<p id="photo">照片</p>
 				</li> -->
 				<li>
-					<a href='<?php //echo $this->createUrl('social/ration',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon1.png"></a>
+					<a href='<?php echo $this->createUrl('social/ration',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon1.png"></a>
 				</li>
 				<li>
-					<img src="css/images/pet_icon2.png">
+					<a href='<?php echo $this->createUrl('social/gift',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon2.png"></a>
 				</li>
 				<li>
-					<img src="css/images/pet_icon3.png">
+					<a href='<?php echo $this->createUrl('social/shake',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon3.png"></a>
 				</li>
 				<li>
-					<a href='<?php //echo $this->createUrl('social/touch',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon4.png"></a>
+					<a href='<?php echo $this->createUrl('social/touch',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon4.png"></a>
 				</li>
 			</ul>
 		</div>
