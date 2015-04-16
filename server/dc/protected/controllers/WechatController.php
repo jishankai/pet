@@ -422,6 +422,7 @@ class WechatController extends Controller
         }
         $img_id = isset($tmp_arr['img_id'])?$tmp_arr['img_id']:NULL;
         $is_shake = isset($tmp_arr['is_shake'])?$tmp_arr['is_shake']:NULL;
+        $is_touch = isset($tmp_arr['is_touch'])?$tmp_arr['is_touch']:NULL;
         $aid = $tmp_arr['aid'];
         $img_url = isset($tmp_arr['img_url'])?$tmp_arr['img_url']:NULL;
         $u = Yii::app()->wechat->get_userinfo_by_authorize($code);
@@ -456,15 +457,15 @@ class WechatController extends Controller
         $oauth2 = Yii::app()->wechat;
         setcookie('wechatauth2_'.$oauth2->APPID, http_build_query(array('usr_id'=>$j->data->usr_id)));
         if (!isset($img_id)) {
-            if (!isset($is_shake)) {
-                $this->redirect(array('animal/joinMobileApi', 'aid'=>$aid, 'SID'=>$j->data->SID));
-            } else {
+            if (isset($is_shake)) {
                 $this->redirect(array('social/shake', 'aid'=>$aid, 'SID'=>$j->data->SID));
+            }  else if (isset($is_touch)) {
+                $this->redirect(array('social/touch', 'aid'=>$aid, 'SID'=>$j->data->SID));
+            }  else {
+                $this->redirect(array('animal/joinMobileApi', 'aid'=>$aid, 'SID'=>$j->data->SID));
             }
         } else if ($img_id==0) {
             $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$j->data->SID));
-        } else if (isset($img_id)&&isset($img_url)) {
-            $this->redirect(array('social/touch', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$j->data->SID));
         } else if (isset($img_id)) {
             $this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$j->data->SID));
         } 
