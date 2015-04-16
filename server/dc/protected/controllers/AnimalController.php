@@ -679,11 +679,7 @@ class AnimalController extends Controller
         }
 
         $session = Yii::app()->session;
-        if ($is_touch) {
-            $session[$aid.'touch_count']=0;
-        } else {
-            $session[$aid.'touch_count']=1;
-        }
+        $session[$aid.'touch_count']=1;
 
         $this->redirect(array('social/touch', 'aid'=>$aid, 'SID'=>$SID));
     }

@@ -98,7 +98,7 @@ class SocialController extends Controller
         if (isset($session[$aid.'touch_count'])) {
             $chance_times = $session[$aid.'touch_count'];
         } else {
-            $chance_times = 1;
+            $chance_times = 0;
         }
         
         $r = Yii::app()->db->createCommand('SELECT aid, name, tx FROM dc_animal WHERE aid=:aid')->bindValue(":aid", $aid)->queryRow();
