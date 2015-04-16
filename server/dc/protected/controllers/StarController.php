@@ -65,14 +65,14 @@ class StarController extends Controller
     {
         $image = Image::model()->findByPk($img_id);
         $session = Yii::app()->session;
-        if (!isset($session['star_'.$image->star_id])) {
-            $session['star_'.$image->star_id] = 3;
+        if (!isset($session[$this->usr_id.'_star_'.$image->star_id])) {
+            $session[$this->usr_id.'_star_'.$image->star_id] = 3;
         } 
         
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            if ($session['star_'.$image->star_id]>0) {
-                $session['star_'.$image->star_id] = $session['star_'.$image->star_id] - 1;
+            if ($session[$this->usr_id.'_star_'.$image->star_id]>0) {
+                $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
             } else {
                 $user = User::model()->findByPk($this->usr_id);
                 $user->gold-=100;
