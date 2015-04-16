@@ -422,6 +422,7 @@ class WechatController extends Controller
         }
         $img_id = isset($tmp_arr['img_id'])?$tmp_arr['img_id']:NULL;
         $is_shake = isset($tmp_arr['is_shake'])?$tmp_arr['is_shake']:NULL;
+        $is_shake = isset($tmp_arr['is_touch'])?$tmp_arr['is_touch']:NULL;
         $aid = $tmp_arr['aid'];
         $img_url = isset($tmp_arr['img_url'])?$tmp_arr['img_url']:NULL;
         $u = Yii::app()->wechat->get_userinfo_by_authorize($code);
