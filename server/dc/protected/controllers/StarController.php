@@ -7,7 +7,7 @@ class StarController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - listApi, popularApi, newestApi, rankApi',
+            'getUserId - listApi, popularApi, newestApi, rankApi, contriApi',
         );
     }
 
@@ -42,7 +42,7 @@ class StarController extends Controller
             // } else {
             //     $stars[$k]['user_txs'] = array();
             // }
-            $stars[$k]['animals'] = Yii::app()->db->createCommand('SELECT a.aid, a.tx, COUNT(i.stars) AS cnt FROM dc_image i LEFT JOIN dc_animal a ON a.aid=i.aid WHERE star_id=:star_id GROUP BY i.aid,a.aid,a.tx ORDER BY cnt DESC LIMIT 6')->bindValue(':star_id', $v['star_id'])->queryAll();
+            $stars[$k]['animals'] = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, COUNT(i.stars) AS cnt FROM dc_image i LEFT JOIN dc_animal a ON a.aid=i.aid WHERE star_id=:star_id GROUP BY i.aid,a.aid,a.tx,a.name ORDER BY cnt DESC LIMIT 6')->bindValue(':star_id', $v['star_id'])->queryAll();
             $stars[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url, stars FROM dc_image WHERE star_id=:star_id ORDER BY stars DESC LIMIT 30')->bindValue(':star_id', $v['star_id'])->queryAll();
         }
            
@@ -65,21 +65,25 @@ class StarController extends Controller
     {
         $image = Image::model()->findByPk($img_id);
         $session = Yii::app()->session;
-        if (!isset($session[$this->usr_id.'_star_'.$image->star_id])) {
-            $session[$this->usr_id.'_star_'.$image->star_id] = 3;
+        if (!isset($session['star_'.$image->star_id])) {
+            $session['star_'.$image->star_id] = 3;
         } 
         
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            if ($session[$this->usr_id.'_star_'.$image->star_id]>0) {
-                $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
+            if ($session['star_'.$image->star_id]>0) {
+                $session['star_'.$image->star_id] = $session['star_'.$image->star_id] - 1;
             } else {
                 $user = User::model()->findByPk($this->usr_id);
                 $user->gold-=100;
                 $user->saveAttributes(array('gold'));
             }
             $image->stars++;
-            $image->starers = $image->starers.','.$this->usr_id;
+            if ($image->starers=='') {
+                $image->starers = $this->usr_id;
+            } else {
+                $image->starers = $image->starers.','.$this->usr_id;
+            }
             $image->saveAttributes(array('stars', 'starers'));
             $flag = TRUE;
             $transaction->commit();
@@ -98,8 +102,13 @@ class StarController extends Controller
         $this->echoJsonData($r);
     }
 
-    public function actionContriApi($aid, $star_id)
+    public function actionContriApi($aid, $star_id, $SID='')
     {
+        if ($SID!='') {
+            $session = Yii::app()->session;
+            $this->usr_id = $session['usr_id'];
+        } 
+
         $a = array();
         $r = Yii::app()->db->createCommand('SELECT starers FROM dc_image WHERE star_id=:star_id AND aid=:aid')->bindValues(array(':star_id'=>$star_id, ':aid'=>$aid))->queryColumn();
         foreach ($r as $r_v) {
@@ -108,24 +117,39 @@ class StarController extends Controller
         }
         $usr_ids = array_count_values($a);
         $total_votes = array_sum($usr_ids);
-        rsort($usr_ids);
-        $my_votes = $usr_ids[$this->usr_id];
-        $rank_ids = array_slice($usr_ids, 0, 3);
-        $users_str = implode(',', array_keys($rank_ids));
-        if ($users_str!='') {
-            $user_txs = Yii::app()->db->createCommand('SELECT usr_id, tx FROM dc_user WHERE usr_ids IN (:users_str) ORDER BY FIELD(usr_id, :usr_str)')->bindValue(':users_str', $users_str)->queryAll();
+        arsort($usr_ids);
+        if (isset($this->usr_id)) {
+            $my_votes = isset($usr_ids[$this->usr_id])?$usr_ids[$this->usr_id]:0;
         } else {
-            $user_txs = array();
+            $my_votes = 0;
         }
+       
+        $i = 0;
+        foreach ($usr_ids as $k => $v) {
+            $rank_ids[$k] = $v;
+            if (++$i>=3) {
+                break;
+            }
+        }
+        $users_str = implode(',', array_keys($rank_ids));
+        $user_txs = array();
+        if ($users_str!='') {
+            $tx_r = Yii::app()->db->createCommand('SELECT usr_id, tx FROM dc_user WHERE usr_id IN ('.$users_str.') ORDER BY FIELD(usr_id, '.$users_str.')')->queryAll();
+            foreach ($tx_r as $tx_v) {
+                $user_txs[$tx_v['usr_id']] = $tx_v['tx'];
+            }
+        } 
+        $j = 0;
         foreach ($rank_ids as $k => $v) {
-            $rank_ids[$k]['tx'] = $user_txs['$k'];
-            $rank_ids[$k]['votes'] = $rank_ids['$k'];
+            $rank[$j][$k]['tx'] = $user_txs[$k];
+            $rank[$j++][$k]['votes'] = $v;
         }
-
+        $info = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.stars, a.gender FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid WHERE i.star_id=:star_id AND i.aid=:aid')->bindValues(array(':star_id'=>$star_id, ':aid'=>$aid))->queryRow();
         $this->echoJsonData(array(
             'total_votes' => $total_votes,
             'my_votes' => $my_votes,
-            'rank' => $rank_ids,
+            'rank' => $rank,
+            'info' => $info,
         ));
     }
 

@@ -91,16 +91,19 @@ class SocialController extends Controller
         $this->renderPartial('ration', array('aid'=>$aid, 'r'=>$r, 'SID'=>$SID));
     }
 
-    public function actionTouch($aid, $img_id=0, $img_url='', $SID='')
+    public function actionTouch($aid, $SID='')
     {
-        if ($img_id!=0) {
-            $img_url = Yii::app()->db->createCommand('SELECT url FROM dc_image WHERE img_id=:img_id')->bindValue(':img_id', $img_id)->queryScalar();
-        }
+        $img_url = Yii::app()->db->createCommand('SELECT url FROM dc_image WHERE aid=:aid ORDER BY update_time DESC LIMIT 1')->bindValue(':aid', $aid)->queryScalar();
         $session = Yii::app()->session;
-        $chance_times = $session[$aid.'touch_count'];
+        if (isset($session[$aid.'touch_count'])) {
+            $chance_times = $session[$aid.'touch_count'];
+        } else {
+            $chance_times = 0;
+        }
+        
         $r = Yii::app()->db->createCommand('SELECT aid, name, tx FROM dc_animal WHERE aid=:aid')->bindValue(":aid", $aid)->queryRow();
 
-        $this->renderPartial('touch', array('img_url'=>$img_url, 'img_id'=>$img_id, 'r'=>$r, 'chance_times'=>$chance_times, 'SID'=>$SID));
+        $this->renderPartial('touch', array('img_url'=>$img_url, 'r'=>$r, 'chance_times'=>$chance_times, 'SID'=>$SID));
     }
 
     public function actionShake($aid, $SID='')

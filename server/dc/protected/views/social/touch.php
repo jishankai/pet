@@ -83,11 +83,9 @@ $signPackage = $jssdk->GetSignPackage();
 	$(window).on('load',function(){
 		
 		$("#e_btn").click(function(){
-			if (<?php echo !isset($SID)&&$SID!=''?1:0?>) {
-				var img_id = <?php echo $img_id ?>;
-				var img_url = <?php echo $img_url ?>;
+			if (<?php echo isset($SID)&&$SID!=''?0:1?>) {
     			var aid =<?php echo $r['aid'] ?>;
-    			location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi')."'" ?>+'&img_url='+img_url+'&aid='+aid+'&img_id='+img_id+'&SID='+<?php echo "'".$SID."'" ?>;
+    			location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi')."'" ?>+'&aid='+aid+'&SID='+<?php echo "'".$SID."'" ?>;
 			}
 			$("#e_btn").hide();
 			function init( event ) {
@@ -111,11 +109,10 @@ $signPackage = $jssdk->GetSignPackage();
 				event.preventDefault();
 			}
 
-
 			$('#redux').eraser( {
 			    completeRatio: .6,
 			    completeFunction: showResetButton
-			});
+			})
 
 
 			function showResetButton(){
@@ -131,9 +128,9 @@ $signPackage = $jssdk->GetSignPackage();
                     url: <?php echo "'".$this->createUrl('animal/touchApi', array('aid'=>$r['aid'], 'SID'=>$SID))."'" ?>,
                     data: { },
                     type: "get",
-                    success: function (data) {
-                    }
-                });
+                    success: function (data) {}
+                    });
+               
 				} else {
 					/*今天的次数用完*/
 					$("#robot").hide();
@@ -147,8 +144,8 @@ $signPackage = $jssdk->GetSignPackage();
 			}
 			
 		})
-
 	})
+	</script>
 	</script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
@@ -177,7 +174,7 @@ $signPackage = $jssdk->GetSignPackage();
         link: "http://"+window.location.host+"/index.php?r=social/touch&aid="+<?php echo $r['aid']?>, 
         imgUrl: "http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>",
         success: function () { 
-       		location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$r['aid'], 'img_url'=>$img_url, 'img_id'=>$img_id, 'SID'=>$SID))."'" ?>
+       		location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi', array('aid'=>$r['aid'], 'SID'=>$SID))."'" ?>
     	},
     	cancel: function () { 
        	// 用户取消分享后执行的回调函数

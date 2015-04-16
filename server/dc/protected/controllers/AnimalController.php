@@ -594,7 +594,7 @@ class AnimalController extends Controller
     {
         $session = Yii::app()->session;
         $img_url = Yii::app()->db->createCommand('SELECT url FROM dc_image WHERE aid=:aid ORDER BY update_time DESC LIMIT 1')->bindValue(':aid',$aid)->queryScalar();
-        if (isset($session[$aid.'touch_count'])) {
+        if ($session[$aid.'touch_count']==0) {
             $is_touched = TRUE;
         } else {
             $is_touched = FALSE;
@@ -614,10 +614,10 @@ class AnimalController extends Controller
             $ex_gold = $user->gold;
             $ex_exp = $user->exp;
             $ex_lv = $user->lv;
-            if (!isset($session[$aid.'touch_count'])) {
+            if ($session[$aid.'touch_count']>0) {
                 $user->touch();
-                $session[$aid.'touch_count']=1;
             }
+            $session[$aid.'touch_count'] = 0;
             $transaction->commit();
 
             $this->echoJsonData(array(
@@ -631,7 +631,7 @@ class AnimalController extends Controller
         }
     }
 
-    public function actionTouchMobileApi($aid, $img_id, $img_url='', $SID='')
+    public function actionTouchMobileApi($aid, $SID='')
     {
         if ($SID!='') {
             $session = Yii::app()->session;
@@ -653,10 +653,9 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $a = implode('$', array('img_id',$img_id));
-                    $b = implode('$', array('aid', $aid));
-                    $c = implode('$', array('img_url', $img_url));
-                    $state = implode('*', array($a, $b, $c));
+                    $a = implode('$', array('aid', $aid));
+                    $b = implode('$', array('is_touch', 1));
+                    $state = implode('*', array($a, $b));
                     $oauth2->get_code_by_authorize($state);
                     exit;
                 }
@@ -669,7 +668,7 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id,'img_url'=>1,'aid'=>$aid)), 'mobile'));
+                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('is_touch'=>1,'aid'=>$aid)), 'mobile'));
                     exit;
                 }
                 break;
@@ -680,13 +679,9 @@ class AnimalController extends Controller
         }
 
         $session = Yii::app()->session;
-        if ($is_touch) {
-            $session[$aid.'touch_count']=0;
-        } else {
-            $session[$aid.'touch_count']=1;
-        }
+        $session[$aid.'touch_count']=1;
 
-        $this->redirect(array('social/touch', 'aid'=>$aid, 'img_id'=>$img_id, 'img_url'=>$img_url, 'SID'=>$SID));
+        $this->redirect(array('social/touch', 'aid'=>$aid, 'SID'=>$SID));
     }
 
 
