@@ -134,11 +134,12 @@ class StarController extends Controller
             $rank[$j][$k]['tx'] = $user_txs[$k];
             $rank[$j++][$k]['votes'] = $v;
         }
-
+        $info = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.stars, a.gender FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid WHERE star_id=:star_id AND aid=:aid')->bindValues(array(':star_id'=>$star_id, ':aid'=>$aid))->queryRow();
         $this->echoJsonData(array(
             'total_votes' => $total_votes,
             'my_votes' => $my_votes,
             'rank' => $rank,
+            'info' => $info,
         ));
     }
 

@@ -80,12 +80,15 @@ $signPackage = $jssdk->GetSignPackage();
 	<script src='js/jquery.eraser.js' type='text/javascript'></script>
 	<script type = "text/javascript">
 
+	<script type = "text/javascript">
+
 	$(window).on('load',function(){
 		
 		$("#e_btn").click(function(){
 			if (<?php echo !isset($SID)&&$SID!=''?1:0?>) {
 				var img_id = <?php echo $img_id ?>;
 				var img_url = <?php echo $img_url ?>;
+
     			var aid =<?php echo $r['aid'] ?>;
     			location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi')."'" ?>+'&img_url='+img_url+'&aid='+aid+'&img_id='+img_id+'&SID='+<?php echo "'".$SID."'" ?>;
 			}
@@ -111,11 +114,10 @@ $signPackage = $jssdk->GetSignPackage();
 				event.preventDefault();
 			}
 
-
 			$('#redux').eraser( {
 			    completeRatio: .6,
 			    completeFunction: showResetButton
-			});
+			})
 
 
 			function showResetButton(){
@@ -131,8 +133,9 @@ $signPackage = $jssdk->GetSignPackage();
                     url: <?php echo "'".$this->createUrl('animal/touchApi', array('aid'=>$r['aid'], 'SID'=>$SID))."'" ?>,
                     data: { },
                     type: "get",
-                    success: function (data) {
-                    }
+                    success: function (data) {}
+                    });
+               
 				} else {
 					/*今天的次数用完*/
 					$("#robot").hide();
@@ -147,6 +150,7 @@ $signPackage = $jssdk->GetSignPackage();
 			
 		})
 	})
+	</script>
 	</script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
