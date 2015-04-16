@@ -42,7 +42,7 @@ class StarController extends Controller
             // } else {
             //     $stars[$k]['user_txs'] = array();
             // }
-            $stars[$k]['animals'] = Yii::app()->db->createCommand('SELECT a.aid, a.tx, COUNT(i.stars) AS cnt FROM dc_image i LEFT JOIN dc_animal a ON a.aid=i.aid WHERE star_id=:star_id GROUP BY i.aid,a.aid,a.tx ORDER BY cnt DESC LIMIT 6')->bindValue(':star_id', $v['star_id'])->queryAll();
+            $stars[$k]['animals'] = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, COUNT(i.stars) AS cnt FROM dc_image i LEFT JOIN dc_animal a ON a.aid=i.aid WHERE star_id=:star_id GROUP BY i.aid,a.aid,a.tx,a.name ORDER BY cnt DESC LIMIT 6')->bindValue(':star_id', $v['star_id'])->queryAll();
             $stars[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url, stars FROM dc_image WHERE star_id=:star_id ORDER BY stars DESC LIMIT 30')->bindValue(':star_id', $v['star_id'])->queryAll();
         }
            

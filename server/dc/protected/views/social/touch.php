@@ -85,7 +85,7 @@ $signPackage = $jssdk->GetSignPackage();
 		$("#e_btn").click(function(){
 			if (<?php echo !isset($SID)&&$SID!=''?1:0?>) {
 				var img_id = <?php echo $img_id ?>;
-				var img_url = <?php echo $img_url ?>;
+				var img_url = '<?php echo $img_url ?>';
 
     			var aid =<?php echo $r['aid'] ?>;
     			location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi')."'" ?>+'&img_url='+img_url+'&aid='+aid+'&img_id='+img_id+'&SID='+<?php echo "'".$SID."'" ?>;
