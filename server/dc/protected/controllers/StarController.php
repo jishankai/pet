@@ -110,7 +110,7 @@ class StarController extends Controller
         } 
 
         $a = array();
-        $r = Yii::app()->db->createCommand('SELECT starers FROM dc_image WHERE star_id=:star_id AND aid=:aid')->bindValues(array(':star_id'=>$star_id, ':aid'=>$aid))->queryColumn();
+        $r = Yii::app()->db->createCommand("SELECT starers FROM dc_image WHERE star_id=:star_id AND aid=:aid AND starers!=''")->bindValues(array(':star_id'=>$star_id, ':aid'=>$aid))->queryColumn();
         foreach ($r as $r_v) {
             $t = explode(',', $r_v);
             $a = array_merge($a, $t);
