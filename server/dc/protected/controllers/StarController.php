@@ -110,6 +110,13 @@ class StarController extends Controller
         $total_votes = array_sum($usr_ids);
         rsort($usr_ids);
         $my_votes = isset($usr_ids[$this->usr_id])?$usr_ids[$this->usr_id]:0;
+        $i = 0;
+        foreach ($usr_ids as $k => $v) {
+            $rank_ids[$k] = $v;
+            if (++$i>=3) {
+                break;
+            }
+        }
         $rank_ids = array_slice($usr_ids, 0, 3);
         $users_str = implode(',', array_keys($rank_ids));
         $user_txs = array();
