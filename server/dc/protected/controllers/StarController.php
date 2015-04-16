@@ -7,7 +7,7 @@ class StarController extends Controller
         return array(
             'checkUpdate',
             'checkSig',
-            'getUserId - listApi, popularApi, newestApi, rankApi',
+            'getUserId - listApi, popularApi, newestApi, rankApi, contriApi',
         );
     }
 
@@ -65,14 +65,14 @@ class StarController extends Controller
     {
         $image = Image::model()->findByPk($img_id);
         $session = Yii::app()->session;
-        if (!isset($session[$this->usr_id.'_star_'.$image->star_id])) {
-            $session[$this->usr_id.'_star_'.$image->star_id] = 3;
+        if (!isset($session['star_'.$image->star_id])) {
+            $session['star_'.$image->star_id] = 3;
         } 
         
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            if ($session[$this->usr_id.'_star_'.$image->star_id]>0) {
-                $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
+            if ($session['star_'.$image->star_id]>0) {
+                $session['star_'.$image->star_id] = $session['star_'.$image->star_id] - 1;
             } else {
                 $user = User::model()->findByPk($this->usr_id);
                 $user->gold-=100;
@@ -113,7 +113,12 @@ class StarController extends Controller
         $usr_ids = array_count_values($a);
         $total_votes = array_sum($usr_ids);
         arsort($usr_ids);
-        $my_votes = isset($usr_ids[$this->usr_id])?$usr_ids[$this->usr_id]:0;
+        if (isset($this->usr_id)) {
+            $my_votes = isset($usr_ids[$this->usr_id])?$usr_ids[$this->usr_id]:0;
+        } else {
+            $my_votes = 0;
+        }
+       
         $i = 0;
         foreach ($usr_ids as $k => $v) {
             $rank_ids[$k] = $v;
