@@ -79,7 +79,11 @@ class StarController extends Controller
                 $user->saveAttributes(array('gold'));
             }
             $image->stars++;
-            $image->starers = $image->starers.','.$this->usr_id;
+            if ($image->starers=='') {
+                $image->starers = $this->usr_id;
+            } else {
+                $image->starers = $image->starers.','.$this->usr_id;
+            }
             $image->saveAttributes(array('stars', 'starers'));
             $flag = TRUE;
             $transaction->commit();
