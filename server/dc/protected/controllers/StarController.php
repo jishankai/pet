@@ -120,7 +120,7 @@ class StarController extends Controller
         $users_str = implode(',', array_keys($rank_ids));
         $user_txs = array();
         if ($users_str!='') {
-            $tx_r = Yii::app()->db->createCommand('SELECT usr_id, tx FROM dc_user WHERE usr_id IN (:users_str) ORDER BY FIELD(usr_id, :users_str)')->bindValue(':users_str', $users_str)->queryAll();
+            $tx_r = Yii::app()->db->createCommand('SELECT usr_id, tx FROM dc_user WHERE usr_id IN ('.$users_str.') ORDER BY FIELD(usr_id, '.$users_str.')')->queryAll();
             foreach ($tx_r as $tx_v) {
                 $user_txs[$tx_v['usr_id']] = $tx_v['tx'];
             }
