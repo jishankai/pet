@@ -125,9 +125,10 @@ class StarController extends Controller
                 $user_txs[$tx_v['usr_id']] = $tx_v['tx'];
             }
         } 
+        $j = 0;
         foreach ($rank_ids as $k => $v) {
-            $rank[$k]['tx'] = $user_txs[$k];
-            $rank[$k]['votes'] = $v;
+            $rank[$j][$k]['tx'] = $user_txs[$k];
+            $rank[$j++][$k]['votes'] = $v;
         }
 
         $this->echoJsonData(array(
