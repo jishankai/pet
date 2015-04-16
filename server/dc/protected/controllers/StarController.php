@@ -141,6 +141,7 @@ class StarController extends Controller
             }
         } 
         $j = 0;
+        $rank = array();
         foreach ($rank_ids as $k => $v) {
             $rank[$j][$k]['tx'] = $user_txs[$k];
             $rank[$j++][$k]['votes'] = $v;
