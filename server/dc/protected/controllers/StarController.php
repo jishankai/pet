@@ -125,6 +125,7 @@ class StarController extends Controller
         }
        
         $i = 0;
+        $rank_ids = array();
         foreach ($usr_ids as $k => $v) {
             $rank_ids[$k] = $v;
             if (++$i>=3) {
