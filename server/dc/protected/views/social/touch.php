@@ -80,8 +80,6 @@ $signPackage = $jssdk->GetSignPackage();
 	<script src='js/jquery.eraser.js' type='text/javascript'></script>
 	<script type = "text/javascript">
 
-	<script type = "text/javascript">
-
 	$(window).on('load',function(){
 		
 		$("#e_btn").click(function(){
