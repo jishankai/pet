@@ -56,7 +56,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<h3 id="photo_num"><?php echo $r['images']?></h3>
 					<p id="photo">照片</p>
 				</li> -->
-				<li>
+				<li class="one">
 					<a href='<?php //echo $this->createUrl('social/ration',array('aid'=>$r['aid'],'SID'=>$SID))?>'><img src="css/images/pet_icon1.png"></a>
 				</li>
 				<li>
