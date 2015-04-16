@@ -594,7 +594,7 @@ class AnimalController extends Controller
     {
         $session = Yii::app()->session;
         $img_url = Yii::app()->db->createCommand('SELECT url FROM dc_image WHERE aid=:aid ORDER BY update_time DESC LIMIT 1')->bindValue(':aid',$aid)->queryScalar();
-        if (isset($session[$aid.'touch_count'])) {
+        if ($session[$aid.'touch_count']==0) {
             $is_touched = TRUE;
         } else {
             $is_touched = FALSE;
@@ -614,9 +614,9 @@ class AnimalController extends Controller
             $ex_gold = $user->gold;
             $ex_exp = $user->exp;
             $ex_lv = $user->lv;
-            if (!isset($session[$aid.'touch_count'])) {
+            if ($session[$aid.'touch_count']>0) {
                 $user->touch();
-                $session[$aid.'touch_count']=1;
+                $session[$aid.'touch_count']--;
             }
             $transaction->commit();
 
