@@ -84,11 +84,8 @@ $signPackage = $jssdk->GetSignPackage();
 		
 		$("#e_btn").click(function(){
 			if (<?php echo !isset($SID)&&$SID!=''?1:0?>) {
-				var img_id = <?php echo $img_id ?>;
-				var img_url = '<?php echo $img_url ?>';
-
     			var aid =<?php echo $r['aid'] ?>;
-    			location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi')."'" ?>+'&img_url='+img_url+'&aid='+aid+'&img_id='+img_id+'&SID='+<?php echo "'".$SID."'" ?>;
+    			location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi')."'" ?>+'&aid='+aid+'&SID='+<?php echo "'".$SID."'" ?>;
 			}
 			$("#e_btn").hide();
 			function init( event ) {
@@ -177,7 +174,7 @@ $signPackage = $jssdk->GetSignPackage();
         link: "http://"+window.location.host+"/index.php?r=social/touch&aid="+<?php echo $r['aid']?>, 
         imgUrl: "http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>",
         success: function () { 
-       		location.href = <?php echo "'".$this->createUrl('animal/shakeMobileApi', array('aid'=>$r['aid'], 'img_url'=>$img_url, 'img_id'=>$img_id, 'SID'=>$SID))."'" ?>
+       		location.href = <?php echo "'".$this->createUrl('animal/touchMobileApi', array('aid'=>$r['aid'], 'SID'=>$SID))."'" ?>
     	},
     	cancel: function () { 
        	// 用户取消分享后执行的回调函数

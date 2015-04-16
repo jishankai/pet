@@ -631,7 +631,7 @@ class AnimalController extends Controller
         }
     }
 
-    public function actionTouchMobileApi($aid, $img_id, $img_url='', $SID='')
+    public function actionTouchMobileApi($aid, $SID='')
     {
         if ($SID!='') {
             $session = Yii::app()->session;
@@ -653,10 +653,9 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $a = implode('$', array('img_id',$img_id));
-                    $b = implode('$', array('aid', $aid));
-                    $c = implode('$', array('img_url', $img_url));
-                    $state = implode('*', array($a, $b, $c));
+                    $a = implode('$', array('aid', $aid));
+                    $b = implode('$', array('is_touch', 1));
+                    $state = implode('*', array($a, $b));
                     $oauth2->get_code_by_authorize($state);
                     exit;
                 }
@@ -669,7 +668,7 @@ class AnimalController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id,'img_url'=>1,'aid'=>$aid)), 'mobile'));
+                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('is_touch'=>1,'aid'=>$aid)), 'mobile'));
                     exit;
                 }
                 break;
@@ -686,7 +685,7 @@ class AnimalController extends Controller
             $session[$aid.'touch_count']=1;
         }
 
-        $this->redirect(array('social/touch', 'aid'=>$aid, 'img_id'=>$img_id, 'img_url'=>$img_url, 'SID'=>$SID));
+        $this->redirect(array('social/touch', 'aid'=>$aid, 'SID'=>$SID));
     }
 
 
