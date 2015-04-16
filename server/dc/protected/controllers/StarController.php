@@ -117,7 +117,6 @@ class StarController extends Controller
                 break;
             }
         }
-        $rank_ids = array_slice($usr_ids, 0, 3);
         $users_str = implode(',', array_keys($rank_ids));
         $user_txs = array();
         if ($users_str!='') {
