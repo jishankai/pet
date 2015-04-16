@@ -108,7 +108,7 @@ class StarController extends Controller
         }
         $usr_ids = array_count_values($a);
         $total_votes = array_sum($usr_ids);
-        rsort($usr_ids);
+        arsort($usr_ids);
         $my_votes = isset($usr_ids[$this->usr_id])?$usr_ids[$this->usr_id]:0;
         $i = 0;
         foreach ($usr_ids as $k => $v) {
