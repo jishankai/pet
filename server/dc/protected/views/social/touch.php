@@ -133,7 +133,6 @@ $signPackage = $jssdk->GetSignPackage();
                     type: "get",
                     success: function (data) {
                     }
-                });
 				} else {
 					/*今天的次数用完*/
 					$("#robot").hide();
@@ -147,7 +146,6 @@ $signPackage = $jssdk->GetSignPackage();
 			}
 			
 		})
-
 	})
 	</script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
