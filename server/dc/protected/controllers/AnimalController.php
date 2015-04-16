@@ -616,8 +616,8 @@ class AnimalController extends Controller
             $ex_lv = $user->lv;
             if ($session[$aid.'touch_count']>0) {
                 $user->touch();
-                $session[$aid.'touch_count']--;
             }
+            $session[$aid.'touch_count'] = 0;
             $transaction->commit();
 
             $this->echoJsonData(array(
