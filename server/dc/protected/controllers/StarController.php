@@ -104,6 +104,11 @@ class StarController extends Controller
 
     public function actionContriApi($aid, $star_id)
     {
+        if ($SID!='') {
+            $session = Yii::app()->session;
+            $this->usr_id = $session['usr_id'];
+        } 
+        
         $a = array();
         $r = Yii::app()->db->createCommand('SELECT starers FROM dc_image WHERE star_id=:star_id AND aid=:aid')->bindValues(array(':star_id'=>$star_id, ':aid'=>$aid))->queryColumn();
         foreach ($r as $r_v) {
