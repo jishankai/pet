@@ -68,6 +68,7 @@
 /*.comment_list li img{float: left;height: 100%;border-radius: 50%;}*/
 .comment_list span{float: left;margin-right: 20px;color:#fc7b51;}
 .comment_list li p{float: left;margin-left: 12px;}
+.the_more_comment{cursor:pointer;}
 
 /*画按钮*/
 .giveBtn_box{display:none;}

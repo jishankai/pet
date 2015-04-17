@@ -173,11 +173,25 @@ $signPackage = $jssdk->GetSignPackage();
 
 <script type="text/javascript">
 $(function(){
+
+	/*评论弹框*/
 	$("#comment_btn").click(function(){
 		$(".comment_alert").show();
 	});
 	$("#close").click(function(){
 		$(".comment_alert").hide();
+	});
+
+	//查看所有评论
+	$(".the_more_comment").click(function(){
+
+
+		/*$.get("",function(data){*/
+			for(var i=0;i<5;i++){
+				$(".comment_list").append("<li><span>"+"data.name"+"</span><p>"+"data.say"+"</p></li>");
+			}
+		/*},"json");*/
+		
 	});
 
 	/*推荐按钮*/
