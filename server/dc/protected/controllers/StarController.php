@@ -65,14 +65,14 @@ class StarController extends Controller
     {
         $image = Image::model()->findByPk($img_id);
         $session = Yii::app()->session;
-        if (!isset($session['star_'.$image->star_id])) {
-            $session['star_'.$image->star_id] = 3;
+        if (!isset($session[$this->usr_id.'_star_'.$image->star_id])) {
+            $session[$this->usr_id.'_star_'.$image->star_id] = 3;
         } 
         
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            if ($session['star_'.$image->star_id]>0) {
-                $session['star_'.$image->star_id] = $session['star_'.$image->star_id] - 1;
+            if ($session[$this->usr_id.'_star_'.$image->star_id]>0) {
+                $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
             } else {
                 $user = User::model()->findByPk($this->usr_id);
                 $user->gold-=100;
@@ -110,7 +110,7 @@ class StarController extends Controller
         } 
 
         $a = array();
-        $r = Yii::app()->db->createCommand('SELECT starers FROM dc_image WHERE star_id=:star_id AND aid=:aid')->bindValues(array(':star_id'=>$star_id, ':aid'=>$aid))->queryColumn();
+        $r = Yii::app()->db->createCommand("SELECT starers FROM dc_image WHERE star_id=:star_id AND aid=:aid AND starers!=''")->bindValues(array(':star_id'=>$star_id, ':aid'=>$aid))->queryColumn();
         foreach ($r as $r_v) {
             $t = explode(',', $r_v);
             $a = array_merge($a, $t);
@@ -125,6 +125,7 @@ class StarController extends Controller
         }
        
         $i = 0;
+        $rank_ids = array();
         foreach ($usr_ids as $k => $v) {
             $rank_ids[$k] = $v;
             if (++$i>=3) {
@@ -140,6 +141,7 @@ class StarController extends Controller
             }
         } 
         $j = 0;
+        $rank = array();
         foreach ($rank_ids as $k => $v) {
             $rank[$j][$k]['tx'] = $user_txs[$k];
             $rank[$j++][$k]['votes'] = $v;
