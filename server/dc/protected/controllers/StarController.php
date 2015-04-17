@@ -51,7 +51,7 @@ class StarController extends Controller
 
     public function actionPopularApi($star_id, $page)
     {
-        $r = Yii::app()->db->createCommand('SELECT img_id, url, stars FROM dc_image WHERE star_id=:star_id ORDER BY stars DESC LIMIT :m, 30')->bindValues(array(':star_id'=>$star_id, ':m'=>$page*30))->queryAll(); 
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.stars, a.name FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid WHERE i.star_id=:star_id ORDER BY i.stars DESC LIMIT :m, 30')->bindValues(array(':star_id'=>$star_id, ':m'=>$page*30))->queryAll(); 
         $this->echoJsonData($r);
     }
 
