@@ -11,6 +11,16 @@ $signPackage = $jssdk->GetSignPackage();
 	<title>照片详情页－－NEW</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/food_new.css">
+	<link type="text/css" rel="stylesheet" href="css/alert.css"/>
+<script>
+//  var _hmt = _hmt || [];
+//  (function() {
+//    	var hm = document.createElement("script");
+//      hm.src = "//hm.baidu.com/hm.js?fffd5628b5c5fe81d7a7867d554d07ca";
+//      var s = document.getElementsByTagName("script")[0]; 
+//      s.parentNode.insertBefore(hm, s);
+//   })();
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -26,10 +36,20 @@ $signPackage = $jssdk->GetSignPackage();
 			<img src="http://<?php echo OSS_PREFIX?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $r['url']?>" alt="banner" class="pet_img"/>
 			<!-- <img src="css/images/pet8.jpg" class="pet_img"/> -->
 
-           <?php if($r['is_food']) {
+			<!-- <div class="food_time clearfix">
+				<div class="food_box left">
+					<img src="css/images/food_border_white.png" id="food_heart"/>
+					<span id="food">12</span>
+				</div>
+				<div class="d_time_box right">
+					<img src="css/images/time_border_white.png"/>
+					<span id="d_time">12:44:06</span>
+				</div>
+			</div> -->
+			<?php if($r['is_food']) {
             echo '<div class="food_time clearfix">';
 	           	echo '<div class="food_box left">';
-	           		echo '<img src="css/images/food_white_border.png"/>';
+	           		echo '<img src="css/images/food_white_border.png" id="food_heart"/>';
 	           		echo '<span id="food">'.$r['food'].'</span>';
 	           	echo '</div>';
 	           	echo '<div class="d_time_box right">';
@@ -38,16 +58,9 @@ $signPackage = $jssdk->GetSignPackage();
 	           	echo '</div>';
 	        echo '</div>';
            	}?>
-			<!-- <div class="food_time clearfix">
-				<div class="food_box left">
-					<img src="css/images/food_white_border.png"/>
-					<span id="food">12</span>
-				</div>
-				<div class="d_time_box right">
-					<img src="css/images/time_white_border.png"/>
-					<span id="d_time">12:44:06</span>
-				</div>
-			</div> -->
+
+
+
 		</div>
 		<!-- 话题和描述 -->
 		<div class="topic_describe">
@@ -95,22 +108,23 @@ $signPackage = $jssdk->GetSignPackage();
 			<div class="comment_more">
 				<img src="css/images/page_comment_grey.jpg">
 				<a class="the_more_comment">查看所有<span id="comment_num"><?php echo 0?></span>条评论</a>
-				<!-- <a class="the_more_comment">查看所有<span id="comment_num">35</span>条评论</a> -->
 			</div>
 			<ul class="comment_list clearfix">
 				<li>
-					<img src="css/images/base_head13.jpg"/>
+					<!-- <img src="css/images/base_head13.jpg"/> -->
+					<span>昵称1</span>
 					<p>姑娘，胸毛不错～</p>
 				</li>
 				<li>
-					<img src="css/images/base_head13.jpg"/>
+					<!-- <img src="css/images/base_head13.jpg"/> -->
+					<span>昵称2</span>
 					<p>姑娘，胸毛不错～</p>
 				</li>
 			</ul>
 		</div>
 	</div>
-
-	<div class="float">
+	
+	<div class="float giveBtn_box">
 		<div class="select_money_t" id="gold">
 			<div class="select_money">
 				<ul id="gold_num">
@@ -122,36 +136,29 @@ $signPackage = $jssdk->GetSignPackage();
 			</div>
 			<div class="target"></div>
 		</div>
-
 		<?php if($r['is_food']) {
-			echo '<div class="give_btn">';
-				echo '<div class="give_btn_bottom">';
-					echo '<div class="give_btn_con">';
-						echo '<div class="give_left" >';
-							echo '<h3 id="g_num">1</h3>';
-						echo '</div>';
-						echo '<div class="give_m"></div>';
-						echo '<div class="give_right">';
-							echo '<img src="css/images/reword_btn.gif" id="reward"/>';
-						echo '</div>';
+		echo '<div class="give_btn">';
+			echo '<div class="give_btn_bottom">';
+				echo '<div class="give_btn_con">';
+					echo '<div class="give_left" >';
+						echo '<h3 id="g_num">1</h3>';
+					echo '</div>';
+					echo '<div class="give_m"></div>';
+					echo '<div class="give_right">';
+						echo '<img src="css/images/reword_btn.gif" id="reward"/>';
 					echo '</div>';
 				echo '</div>';
 			echo '</div>';
+		echo '</div>';
     	}?>
-		<!-- <div class="give_btn" id="give_btn">
-			<div class="give_btn_bottom">
-				<div class="give_btn_con">
-					<div class="give_left" >
-						<h3 id="g_num">1</h3>
-					</div>
-					<div class="give_m"></div>
-					<div class="give_right">
-						<img src="css/images/reword_btn.gif" id="reward"/>
-					</div>
-				</div>
-			</div>
-		</div> -->
 	</div>
+	<div class="recommend_box float">
+		<div class="recommend">
+			<img id="recommend_btn" src="css/images/bt_heart.png"/>
+		</div>
+
+	</div>
+
 
 	<form class="comment_alert">
 		<h3>说点什么</h3>
@@ -163,96 +170,187 @@ $signPackage = $jssdk->GetSignPackage();
 </div>
 </body>
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+
 <script type="text/javascript">
-	/*$(function(){
-		$("#comment_btn").click(function(){
-			$(".comment_alert").show();
-		})
-		$("#close").click(function(){
-			$(".comment_alert").hide();
-		})
-	});*/
+$(function(){
+	$("#comment_btn").click(function(){
+		$(".comment_alert").show();
+	});
+	$("#close").click(function(){
+		$(".comment_alert").hide();
+	});
 
-/*倒计时*/
-$(window).on('load',function(){
-    if (<?php echo $r['is_food']?>) {
-      FreshTime();
-    }
-    if (<?php echo $alert_flag?>) {
-      cc();
-    };
-    //调整主图片位置
-    var a=$(".info_photo").height();
-    var b=$(".active").height();
-    var c=0;
-    if(a>b){
-        c=Math.floor((a-b)/2);
-    }
-    $(".active").css("margin-top",c+"px");
+	/*推荐按钮*/
+	$("#recommend_btn").click(function(){
+		recommend();
+	});
 
-    //评论框控制 
-    $("#comment_btn").click(function(){
-			$(".comment_alert").show();
-		})
-		$("#close").click(function(){
-			$(".comment_alert").hide();
+	/*赞按钮*/
+		$("#like_img").click(function(){
+			var like = $("#like").html();
+
+			if(like=="赞"){
+				document.getElementById("like_img").src="css/images/page_liked.png";
+				$("#like").html("已赞");
+			}else{
+				document.getElementById("like_img").src="css/images/page_like.png";
+				$("#like").html("赞");
+			}
 		});
 
+	//依情况改变页面样式   1.普通 2.可以赏口粮 3.可以推荐
+	var flag = 1;
+	if(flag==1){
+		$(".recommend_box").css("display","none");
+		$(".giveBtn_box").css("display","block");
+		$(".food_time").css("display","block");
+		document.getElementById("food_heart").src="css/images/food_border_white.png";
+	}else if(flag==2){
+		$(".giveBtn_box").css("display","none");
+		$(".recommend_box").css("display","block");
+		$(".food_time").css("display","block");
+		document.getElementById("food_heart").src="css/images/heart_orange_small.png";
+	}else{
+		$(".giveBtn_box").css("display","none");
+		$(".recommend_box").css("display","none");
+		$(".food_time").css("display","none");
+	}
 
 
-$("#reward").click(function(){
-  if ($("#d_time")[0].innerHTML!="已结束") {
-    var b=parseInt($("#food").html());
-    var c=parseInt($("#g_num").html());
-    var n=c;
-    var img_id = <?php echo $img_id ?>;
-    var to = <?php echo "'".$to."'" ?>;
-    var aid =<?php echo $aid ?>;
-    var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
-    location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
-  } else {
-     var btn=$(".give_btn");
-         btn.attr("display","none");
-  }
+/*以前food页代码移入*/
 
-    });
+/*倒计时*/
 
-})
+	if (<?php echo $r['is_food']?>) {
+		FreshTime();
+	}
+	if (<?php echo $alert_flag?>) {
+		cc();
+	};
+
+	    
 
 function FreshTime()
 {
-        var endtime = <?php echo $r['create_time']?>+60*60*24;//结束时间
-        var nowtime = new Date();//当前时间
+    var endtime = <?php echo $r['create_time']?>+60*60*24;//结束时间
+    var nowtime = new Date();//当前时间
 
-        var lefttime= parseInt(endtime-(nowtime.getTime())/1000); 
-        h=  parseInt(lefttime/(60*60)%24);
-        m=  parseInt(lefttime/(60)%60);
-        s=  parseInt(lefttime%60);
+    var lefttime= parseInt(endtime-(nowtime.getTime())/1000); 
+    h=  parseInt(lefttime/(60*60)%24);
+    m=  parseInt(lefttime/(60)%60);
+    s=  parseInt(lefttime%60);
         
-        if(h < 10){
-    		h="0"+h;
-		}
-		if(m<10){
-			m="0"+m;
-		}
-		if(s<10){
-			s="0"+s;
-		}
-       
-        document.getElementById("d_time").innerHTML=h+":"+m+":"+s;
-        if(lefttime<=0){
+    if(h < 10){
+       	h="0"+h;
+    }
+    if(m<10){
+       	m="0"+m;
+    }
+    if(s<10){
+        s="0"+s;
+    }
+
+    document.getElementById("d_time").innerHTML=h+":"+m+":"+s;
+    if(lefttime<=0){
         document.getElementById("d_time").innerHTML="已结束";
-        }
-        setTimeout(FreshTime,1000);
+    }
+    setTimeout(FreshTime,1000);
 }
 
+$("#reward").click(function(){
+	if ($("#d_time")[0].innerHTML!="已结束") {
+	    var b=parseInt($("#food").html());
+	    var c=parseInt($("#g_num").html());
+	    var n=c;
+	    var img_id = <?php echo $img_id ?>;
+	    var to = <?php echo "'".$to."'" ?>;
+	    var aid =<?php echo $aid ?>;
+	    var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
+	    location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
+	  } else {
+	     var btn=$(".give_btn");
+	         btn.attr("display","none");
+	  }
+        
+	
+ });
 
+/*选金币效果*/
+	$(".give_left").click(function () {
+
+		$("#gold").toggle();
+	});
+
+	$("#one").click(function(){
+		var x=$(this).html();
+		$("#g_num").html(x);
+		$("#gold").hide();
+	})
+	$("#one1").click(function(){
+		var x=$(this).html();
+		$("#g_num").html(x);
+		$("#gold").hide();
+	})
+	$("#one2").click(function(){
+		var x=$(this).html();
+		$("#g_num").html(x);
+		$("#gold").hide();
+	})
+
+	$("#one3").click(function(){
+		var x=$(this).html();
+		$("#g_num").html(x);
+		$("#gold").hide();
+	})
+
+
+
+});
+
+/*推荐弹框*/
+function recommend(){
+	//屏幕的高度和宽度
+	var sHeight=document.documentElement.scrollHeight;
+	var sWidth=document.documentElement.scrollWidth;
+	//可视区域的高度
+	var wHeight=document.documentElement.clientHeight;
+
+	var rMask = document.createElement("div");
+		rMask.id="rMask";
+		rMask.className="mask";
+		rMask.style.height = sHeight + "px";
+		rMask.style.width = sWidth + "px";
+		document.body.appendChild(rMask);
+
+		var recommend_alert = document.createElement("div");
+		recommend_alert.id = "recommend_alert";
+		recommend_alert.className = "recommend_alert";
+		recommend_alert.innerHTML = "<h3>本次投票需要花费您:</h3><div id='cost_gold'>100</div><div></div><div id='rec_btn_no'>不了...</div><div id='rec_btn_yes'>好的!</div>";
+
+		/*<h3>本次投票需要花费您:</h3>
+		<div id="cost_gold">100</div>
+		<div id="rec_btn_no">不了...</div>
+		<div id="rec_btn_yes">好的!</div>*/
+
+		document.body.appendChild(recommend_alert);
+		var rHeight = recommend_alert.offsetHeight;
+		var rWidth = recommend_alert.offsetWidth;
+
+		recommend_alert.style.left = (sWidth-rWidth)/2 + "px";
+		recommend_alert.style.top = (wHeight-rHeight)/2 + "px";
+
+		var rec_btn_no = document.getElementById("rec_btn_no");
+		rec_btn_no.onclick = function(){
+			document.body.removeChild(recommend_alert);
+			document.body.removeChild(rMask);
+		}
+		var rec_btn_yes = document.getElementById("rec_btn_yes");
+		rec_btn_yes.onclick = function(){
+			//好的！按钮效果
+		}
+}
 
 </script>
-<script type="text/javascript" src="js/link.js"></script>
-<script type="text/javascript" src="js/jquery.md5.js"></script>
-<script type="text/javascript" src="js/alert.js"></script>
-
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
   // 注意：所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。 
