@@ -154,7 +154,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 	<div class="recommend_box float">
 		<div class="recommend">
-			<img id="recommend_btn" src="bt_heart.png"/>
+			<img id="recommend_btn" src="css/images/bt_heart.png"/>
 		</div>
 
 	</div>
@@ -199,7 +199,7 @@ $(function(){
 		});
 
 	//依情况改变页面样式   1.普通 2.可以赏口粮 3.可以推荐
-	var flag = 2;
+	var flag = 1;
 	if(flag==1){
 		$(".recommend_box").css("display","none");
 		$(".giveBtn_box").css("display","block");
