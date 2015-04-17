@@ -14,7 +14,7 @@ class StarController extends Controller
     public function actionListApi()
     {
         $session = Yii::app()->session;
-        $stars = Yii::app()->db->createCommand('SELECT star_id, name, icon, title, description, banner, url, end_time FROM dc_star')->queryAll();
+        $stars = Yii::app()->db->createCommand('SELECT star_id, name, icon, title, description, banner, url, end_time FROM dc_star ORDER BY end_time DESC')->queryAll();
 
         foreach ($stars as $k => $v) {
             if (empty($session['usr_id'])) {
