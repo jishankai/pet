@@ -41,4 +41,6 @@
 	<?php echo CHtml::encode(date("Y-m-d H:i:s",$data->end_time)); ?>
 	<br />
 
+	<b class="divider"></br>
+
 </div>
