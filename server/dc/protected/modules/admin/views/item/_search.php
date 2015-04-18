@@ -22,8 +22,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'desc'); ?>
-		<?php echo $form->textArea($model,'desc',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->label($model,'icon'); ?>
+		<?php echo $form->textField($model,'icon',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'description'); ?>
+		<?php echo $form->textField($model,'description',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
@@ -33,17 +38,17 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'price'); ?>
-		<?php echo $form->textField($model,'price'); ?>
+		<?php echo $form->textField($model,'price',array('size'=>10,'maxlength'=>10)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'create_time'); ?>
-		<?php echo $form->textField($model,'create_time',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->label($model,'type'); ?>
+		<?php echo $form->textField($model,'type'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'update_time'); ?>
-		<?php echo $form->textField($model,'update_time'); ?>
+		<?php echo $form->label($model,'spec'); ?>
+		<?php echo $form->textField($model,'spec',array('size'=>45,'maxlength'=>45)); ?>
 	</div>
 
 	<div class="row buttons">

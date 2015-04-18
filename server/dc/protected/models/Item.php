@@ -34,8 +34,9 @@ class Item extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('type', 'numerical', 'integerOnly'=>true),
-			array('name, icon, img, description', 'length', 'max'=>255),
-			array('price, create_time', 'length', 'max'=>10),
+			array('item_id, price, create_time', 'length', 'max'=>10),
+			array('name, icon, description, img', 'length', 'max'=>255),
+			array('spec', 'length', 'max'=>45),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('item_id, name, icon, description, img, price, type, spec, create_time, update_time', 'safe', 'on'=>'search'),
@@ -66,16 +67,16 @@ class Item extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'item_id' => '物品编号',
-			'name' => '名称',
-			'icon' => '标志',
-			'description' => '描述',
-			'img' => '图片地址',
-			'price' => '价格',
-			'type' => '类别',
-            'spec' => '规格',
-			'create_time' => '创建时间',
-			'update_time' => '更新时间',
+			'item_id' => 'Item',
+			'name' => 'Name',
+			'icon' => 'Icon',
+			'description' => 'Description',
+			'img' => 'Img',
+			'price' => 'Price',
+			'type' => 'Type',
+			'spec' => 'Spec',
+			'create_time' => 'Create Time',
+			'update_time' => 'Update Time',
 		);
 	}
 
