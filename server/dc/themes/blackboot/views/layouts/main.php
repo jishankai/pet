@@ -59,6 +59,7 @@
                             array('label'=>'商品', 'url'=>array('/admin/item/index'), 'visible'=>!Yii::app()->user->isGuest),
                             array('label'=>'文章', 'url'=>array('/admin/article/index'), 'visible'=>!Yii::app()->user->isGuest),
                             array('label'=>'选秀', 'url'=>array('/admin/star/index'), 'visible'=>!Yii::app()->user->isGuest),
+                            array('label'=>'礼物', 'url'=>array('/admin/gift/index'), 'visible'=>!Yii::app()->user->isGuest),
                             array('label'=>'工具', 'url'=>array('/admin/tool/index'), 'visible'=>!Yii::app()->user->isGuest),
 							array('label'=>'登出 ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 						),
