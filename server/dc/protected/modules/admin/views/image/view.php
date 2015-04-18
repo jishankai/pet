@@ -29,8 +29,6 @@ $this->menu=array(
 		'likes',
 		'likers',
 		'comments',
-		'create_time',
-		'update_time',
 		'is_deleted',
 	),
 )); ?>

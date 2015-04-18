@@ -52,12 +52,8 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'description',
 		'banner',
 		'url',
-		'start_time',
-		'end_time',
-		'create_time',
-		/*
-		'update_time',
-		*/
+		array('name'=>'start_time','value'=>date("Y-m-d H:i:s",$model->start_time)),
+		array('name'=>'end_time','value'=>date("Y-m-d H:i:s",$model->end_time)),
 		array(
 			'class'=>'CButtonColumn',
 		),
