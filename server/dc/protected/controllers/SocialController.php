@@ -5,6 +5,15 @@ class SocialController extends Controller
     public function filters()
     {
         return array(
+            array(
+                'COutputCache + articles',
+                'duration' => 300,
+                'varyByParam' => array('page'),
+                'dependency' => array(
+                    'class' => 'CDbCacheDependency',
+                    'sql' => "SELECT MAX(update_time) FROM dc_article",
+                ),
+            ),
         );
     }
 

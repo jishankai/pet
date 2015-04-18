@@ -22,7 +22,7 @@ class ImageController extends Controller
                 'COutputCache + favoriteApi',
                 'duration' => 300,
                 'varyByParam' => array('img_id'),
-                'varyBySession' => true,ima
+                'varyBySession' => true,
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
                     'sql' => 'SELECT MAX(i.update_time) FROM dc_follow f LEFT JOIN dc_image i ON f.aid=i.aid WHERE usr_id = :usr_id',
