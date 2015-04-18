@@ -36,5 +36,6 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('spec')); ?>:</b>
 	<?php echo CHtml::encode($data->spec); ?>
 	<br />
-
+	
+<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color=#987cb9 SIZE=3>
 </div>
