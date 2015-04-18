@@ -34,11 +34,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('start_time')); ?>:</b>
-	<?php echo CHtml::encode($data->start_time); ?>
+	<?php echo CHtml::encode(date("Y-m-d H:i:s",$data->start_time)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('end_time')); ?>:</b>
-	<?php echo CHtml::encode($data->end_time); ?>
+	<?php echo CHtml::encode(date("Y-m-d H:i:s",$data->end_time)); ?>
 	<br />
 
 </div>
