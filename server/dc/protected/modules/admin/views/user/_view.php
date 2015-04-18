@@ -25,6 +25,10 @@
 	<?php echo CHtml::encode($data->lv); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('code')); ?>:</b>
+	<?php echo CHtml::encode($data->code); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>
 	<?php echo CHtml::encode(date("Y-m-d H:i:s",$data->create_time)); ?>
 	<br />
