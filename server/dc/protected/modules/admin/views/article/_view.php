@@ -29,4 +29,5 @@
 	<?php echo CHtml::encode($data->description); ?>
 	<br />
 
+<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color=#987cb9 SIZE=3>
 </div>

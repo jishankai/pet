@@ -41,6 +41,6 @@
 	<?php echo CHtml::encode(date("Y-m-d H:i:s",$data->end_time)); ?>
 	<br />
 
-	<b class="divider"></br>
+	<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color=#987cb9 SIZE=3>
 
 </div>
