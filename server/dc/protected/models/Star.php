@@ -63,17 +63,17 @@ class Star extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'star_id' => 'Star',
-			'name' => 'Name',
-			'title' => 'Title',
-			'icon' => 'Icon',
-			'description' => 'Description',
-			'banner' => 'Banner',
-			'url' => 'Url',
-			'start_time' => 'Start Time',
-			'end_time' => 'End Time',
-			'create_time' => 'Create Time',
-			'update_time' => 'Update Time',
+			'star_id' => '活动编号',
+			'name' => '活动名称',
+			'title' => '分享标题',
+			'icon' => '分享图片',
+			'description' => '分享描述',
+			'banner' => 'Banner图片',
+			'url' => '跳转链接',
+			'start_time' => '开始时间',
+			'end_time' => '结束时间',
+			'create_time' => '创建时间',
+			'update_time' => '更新时间',
 		);
 	}
 

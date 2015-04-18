@@ -64,14 +64,14 @@ class Article extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'article_id' => 'Article',
-			'icon' => 'Icon',
-			'image' => 'Image',
-			'url' => 'Url',
-			'title' => 'Title',
-			'description' => 'Description',
-			'create_time' => 'Create Time',
-			'update_time' => 'Update Time',
+			'article_id' => '文章编号',
+			'icon' => '小图地址',
+			'image' => '大图地址',
+			'url' => '文章链接',
+			'title' => '文章标题',
+			'description' => '文章描述',
+			'create_time' => '创建时间',
+			'update_time' => '更新时间',
 		);
 	}
 
