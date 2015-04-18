@@ -47,11 +47,11 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 	'columns'=>array(
 		'star_id',
 		'name',
-		'title',
-		'icon',
-		'description',
-		'banner',
-		'url',
+		// 'title',
+		// 'icon',
+		// 'description',
+		// 'banner',
+		// 'url',
 		array('name'=>'start_time','value'=>date("Y-m-d H:i:s",$model->start_time)),
 		array('name'=>'end_time','value'=>date("Y-m-d H:i:s",$model->end_time)),
 		array(
