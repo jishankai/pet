@@ -67,16 +67,16 @@ class Item extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'item_id' => 'Item',
-			'name' => 'Name',
-			'icon' => 'Icon',
-			'description' => 'Description',
-			'img' => 'Img',
-			'price' => 'Price',
-			'type' => 'Type',
-			'spec' => 'Spec',
-			'create_time' => 'Create Time',
-			'update_time' => 'Update Time',
+			'item_id' => '商品编号',
+			'name' => '商品名称',
+			'icon' => '商品小图',
+			'description' => '商品描述（换行符&必须满足3个&）',
+			'img' => '商品大图',
+			'price' => '价格',
+			'type' => '类型（0全部1猫2狗）',
+			'spec' => '备注',
+			'create_time' => '创建时间',
+			'update_time' => '更新时间',
 		);
 	}
 
