@@ -15,7 +15,11 @@ class GiftController extends Controller
     {
         $r = Yii::app()->db->createCommand('SELECT * FROM dc_gift')->queryAll();
         if (isset($r)) {
-            $tmp_code = md5(implode(',',$r));
+            $str='';
+            foreach ($r as $v) {
+                $str = $str.implode(',', $v);
+            }
+            $tmp_code = md5($str);
         } else {
             $tmp_code = '0';
         }
