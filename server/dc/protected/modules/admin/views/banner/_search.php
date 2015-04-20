@@ -1,6 +1,6 @@
 <?php
-/* @var $this StarController */
-/* @var $model Star */
+/* @var $this BannerController */
+/* @var $model Banner */
 /* @var $form CActiveForm */
 ?>
 
@@ -12,18 +12,18 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'star_id'); ?>
-		<?php echo $form->textField($model,'star_id',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->label($model,'eid'); ?>
+		<?php echo $form->textField($model,'eid',array('size'=>10,'maxlength'=>10)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->label($model,'img_url'); ?>
+		<?php echo $form->textField($model,'img_url',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->label($model,'url'); ?>
+		<?php echo $form->textField($model,'url',array('size'=>60,'maxlength'=>255)); ?>
 	</div>
 
 	<div class="row">
@@ -32,18 +32,13 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'title'); ?>
+		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>255)); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'description'); ?>
 		<?php echo $form->textField($model,'description',array('size'=>60,'maxlength'=>255)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'banner'); ?>
-		<?php echo $form->textField($model,'banner',array('size'=>45,'maxlength'=>45)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'url'); ?>
-		<?php echo $form->textField($model,'url',array('size'=>45,'maxlength'=>45)); ?>
 	</div>
 
 	<div class="row">
