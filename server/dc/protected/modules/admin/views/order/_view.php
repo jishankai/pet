@@ -21,8 +21,8 @@
 	<?php echo CHtml::encode($data->user->name); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
+	<b><?php echo CHtml::encode('地址'); ?>:</b>
+	<?php echo CHtml::encode(implode(';',unserialize($data->animal->address))); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>

@@ -45,7 +45,7 @@ class Order extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'animal' => array(self::BELONGS_TO, 'Animal', 'aid', 'select'=>'name'),
+			'animal' => array(self::BELONGS_TO, 'Animal', 'aid', 'select'=>'name,address'),
 			'user' => array(self::BELONGS_TO, 'User', 'usr_id', 'select'=>'name'),
 			'item' => array(self::BELONGS_TO, 'Item', 'item_id', 'select'=>'name'),
 		);
