@@ -125,7 +125,7 @@ class OrderController extends Controller
 		$dataProvider=new CActiveDataProvider('Order', array(
 			'criteria'=>array(
 				'order'=>'update_time DESC',
-				'with'=>array('Animal', 'User', 'Item'),
+				'with'=>array('animal', 'user', 'item'),
 				)));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
