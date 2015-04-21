@@ -47,7 +47,7 @@ class Order extends CActiveRecord
 		return array(
 			'animal' => array(self::BELONGS_TO, 'Animal', 'aid'),
 			'user' => array(self::BELONGS_TO, 'User', 'usr_id'),
-			'item' => array(self::HAS_ONE, 'Item', 'item_id'),
+			'item' => array(self::BELONGS_TO, 'Item', 'item_id'),
 		);
 	}
 
