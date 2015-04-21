@@ -22,7 +22,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode('地址'); ?>:</b>
-	<?php echo CHtml::encode(implode(';',isset(unserialize($data->animal->address))?unserialize($data->animal->address):''); ?>
+	<?php echo CHtml::encode(implode(';',isset(unserialize($data->animal->address))?unserialize($data->animal->address):'')); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>
