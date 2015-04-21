@@ -50,14 +50,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'create_time'); ?>
-        <?php $this->widget('application.extensions.timepicker.timepicker', array(
-            'options'=>array(    
-                'showSecond'=>TRUE              
-             ),
-            'model'=>$model,                 
-            'name'=>'create_time',                 
-        )); ?>  
+		<?php echo $form->labelEx($model,'create_time'); ?>
+		<?php echo $form->textField($model,'create_time',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->error($model,'create_time'); ?>
 	</div>
 
 	<div class="row buttons">
