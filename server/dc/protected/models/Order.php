@@ -45,6 +45,9 @@ class Order extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'animal' => array(self::BELONGS_TO, 'Animal', 'aid'),
+			'user' => array(self::BELONGS_TO, 'User', 'usr_id'),
+			'item' => array(self::HAS_ONE, 'item', 'item_id'),
 		);
 	}
 
@@ -62,9 +65,9 @@ class Order extends CActiveRecord
 	{
 		return array(
 			'order_id' => '订单编号',
-			'item_id' => '商品编号',
-			'aid' => '宠物编号',
-			'usr_id' => '用户编号',
+			'item_id' => '商品',
+			'aid' => '宠物',
+			'usr_id' => '用户',
 			'status' => '订单状态',
 			'create_time' => '创建时间',
 			'update_time' => '更新时间',
