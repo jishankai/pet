@@ -70,7 +70,7 @@ class Article extends CActiveRecord
 			'url' => '文章链接',
 			'title' => '文章标题',
 			'description' => '文章描述',
-			'create_time' => '创建时间',
+			'create_time' => '排序时间',
 			'update_time' => '更新时间',
 		);
 	}
