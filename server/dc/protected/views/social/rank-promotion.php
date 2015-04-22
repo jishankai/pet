@@ -14,7 +14,7 @@
 			<img src="css/images/rank-promotion/agent_btn.png"/>
 		</div>
 		<div class="right">
-			<h3>带自家宝贝<br/>入驻宠物星球</h3>
+			<h3>带自家宝贝<br/>入驻我是大萌星</h3>
 		</div>
 	</div>
 	<div class="timeline_block clearfix">

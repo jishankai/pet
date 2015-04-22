@@ -98,7 +98,7 @@ $signPackage = $jssdk->GetSignPackage();
 						<img src="css/images/logo_icon.jpg"/>
 					</div>
 					<div class="load_info">
-						<h3>宠物星球</h3>
+						<h3>我是大萌星</h3>
 						<p>我为自己代粮</p>
 					</div>
 				</div>
@@ -400,8 +400,8 @@ function follow3Open(){
   wx.ready(function () {
     // 在这里调用 API
     var shareData = {
-        title: "我是<?php echo $r['name']?>，来自宠物星球的大萌星！",
-        desc: "人家在宠物星球好开心，快来跟我一起玩嘛~",
+        title: "我是大萌星 <?php echo $r['name']?>",
+        desc: "人家在我是大萌星好开心，快来跟我一起玩嘛~",
         link: "http://"+window.location.host+"/index.php?r=animal/infoShare&aid=<?php echo $r['aid']?>", 
         imgUrl: "http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>"
     };

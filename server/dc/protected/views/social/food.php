@@ -27,7 +27,7 @@ $signPackage = $jssdk->GetSignPackage();
 <div class="comWidth">
 	<div class="titBox clearfix">
     <div class="food_title left">
-      <h3>宠物星球免费下载</h3>
+      <h3>我是大萌星免费下载</h3>
     </div>
     <div class="logo left">
       <a href='https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?'><img src="css/images/apple.png" alt=""/></a>
@@ -134,7 +134,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<img src="css/images/logo_icon.jpg"/>
 				</div>
 				<div class="load_info">
-					<h3>宠物星球</h3>
+					<h3>我是大萌星</h3>
 					<p>我为自己代粮</p>
 				</div>
 			</div>

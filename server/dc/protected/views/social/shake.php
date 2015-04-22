@@ -82,7 +82,7 @@ $signPackage = $jssdk->GetSignPackage();
 					<img src="css/images/logo_icon.jpg"/>
 				</div>
 				<div class="load_info">
-					<h3>宠物星球</h3>
+					<h3>我是大萌星</h3>
 					<p>我为自己代粮</p>
 				</div>
 			</div>
