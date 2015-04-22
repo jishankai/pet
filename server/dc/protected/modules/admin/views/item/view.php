@@ -23,10 +23,11 @@ $this->menu=array(
 	'attributes'=>array(
 		'item_id',
 		'name',
-		'desc',
+		'icon',
+		'description',
 		'img',
 		'price',
-		'create_time',
-		'update_time',
+		'type',
+		'spec',
 	),
 )); ?>

@@ -34,6 +34,7 @@ class DeviceBehavior extends CActiveRecordBehavior
             2104 => 3,
         );
         $user->items = serialize($reward_items);
+        $user->create_time = time();
         $user->save();
 
         if (empty($aid)) {

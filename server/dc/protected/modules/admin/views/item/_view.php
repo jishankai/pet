@@ -13,8 +13,12 @@
 	<?php echo CHtml::encode($data->name); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('desc')); ?>:</b>
-	<?php echo CHtml::encode($data->desc); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('icon')); ?>:</b>
+	<?php echo CHtml::encode($data->icon); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
+	<?php echo CHtml::encode($data->description); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('img')); ?>:</b>
@@ -25,13 +29,13 @@
 	<?php echo CHtml::encode($data->price); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>
-	<?php echo CHtml::encode($data->create_time); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('type')); ?>:</b>
+	<?php echo CHtml::encode($data->type); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('update_time')); ?>:</b>
-	<?php echo CHtml::encode($data->update_time); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('spec')); ?>:</b>
+	<?php echo CHtml::encode($data->spec); ?>
 	<br />
-
-
+	
+<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color=#987cb9 SIZE=3>
 </div>

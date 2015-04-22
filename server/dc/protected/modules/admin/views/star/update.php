@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Stars'=>array('index'),
-	$model->star_id=>array('view','id'=>$model->star_id),
+	$model->name=>array('view','id'=>$model->star_id),
 	'Update',
 );
 

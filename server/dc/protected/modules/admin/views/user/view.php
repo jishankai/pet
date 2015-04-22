@@ -28,6 +28,7 @@ $this->menu=array(
         'exp',
         'lv',
         'con_login',
+        'code',
         array('name'=>'create_time','value'=>date("Y-m-d H:i:s",$model->create_time)),
 	),
 )); ?>

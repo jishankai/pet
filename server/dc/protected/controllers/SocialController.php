@@ -5,6 +5,15 @@ class SocialController extends Controller
     public function filters()
     {
         return array(
+            array(
+                'COutputCache + articles',
+                'duration' => 300,
+                'varyByParam' => array('page'),
+                'dependency' => array(
+                    'class' => 'CDbCacheDependency',
+                    'sql' => "SELECT MAX(update_time) FROM dc_article",
+                ),
+            ),
         );
     }
 
@@ -61,9 +70,56 @@ class SocialController extends Controller
 
     }
 
-    public function actionFood()
+    public function actionFood($img_id, $alert_flag=0, $to='', $SID='')
     {
-        $this->renderPartial('food_new');
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.likes, i.likers, i.gifts, i.senders, i.shares, i.sharers, i.comments, i.food, i.is_food=1 AS is_food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $img_id)->queryRow();
+        
+        $pet_type = Util::loadConfig('pet_type');
+        $n = floor($r['type']/100);
+        if (isset($pet_type[$n][$r['type']])) {
+            $a_type = $pet_type[$n][$r['type']];
+        } else {
+            switch ($n) {
+                case 1:
+                    $a_type = '喵星人';
+                    break;
+                case 2:
+                    $a_type = '汪星人';
+                    break;
+                
+                default:
+                    $a_type = '其他星人';
+                    break;
+            }
+        }        
+        
+        if (isset($r['likers'])&&$r['likers']!='') {
+            $liker_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN (:likers)")->bindValue(':likers', $r['likers'])->queryColumn();
+        }
+        
+        if (isset($r['senders'])&&$r['senders']!='') {
+            $sender_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN (:senders)")->bindValue(':senders', $r['senders'])->queryColumn();
+        }
+
+        if (isset($r['sharers'])&&$r['sharers']!='') {
+            $sharer_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN (:sharers)")->bindValue(':sharers', $r['sharers'])->queryColumn();
+        }
+
+        if (isset($r['comments'])&&$r['comments']!='') {
+            $c = explode(';', $r['comments']);
+            $coment_count = count($c); 
+            foreach ($c as $k1=>$c1) {
+                $c2 = explode(',', $c1);
+                foreach ($c2 as $c3) {
+                    $c4 = explode(':', $c3);
+                    // $comments[$k1][$c4[0]]=$c4[1];
+                }
+            }
+            //$r['comments'] = $comments;
+        }
+
+        $this->renderPartial('food_new', array('r'=>$r, /*'comment_count'=>$comment_count, 'liker_tx'=>$liker_tx, 'sender_tx'=>$sender_tx, 'sharer_tx'=>$sharer_tx,*/ 'a_type'=>$a_type, 'img_id'=>$img_id, 'alert_flag'=>$alert_flag, 'aid'=>$r['aid'], 'to'=>$to, 'sid'=>$SID));
+
     }
 
     public function actionNewYearEvent($SID='')
@@ -138,9 +194,9 @@ class SocialController extends Controller
 
     public function actionArticles($page=0)
     {
-        $articles = Yii::app()->db->createCommand("SELECT * FROM dc_article WHERE image='' ORDER BY update_time DESC LIMIT :m, 10")->bindValue(':m', $page*10)->queryAll();
+        $articles = Yii::app()->db->createCommand("SELECT * FROM dc_article WHERE image='' ORDER BY create_time DESC LIMIT :m, 10")->bindValue(':m', $page*10)->queryAll();
         if ($page==0) {
-            $banner = Yii::app()->db->createCommand("SELECT * FROM dc_article WHERE image!='' ORDER BY update_time DESC LIMIT 1")->queryRow();
+            $banner = Yii::app()->db->createCommand("SELECT * FROM dc_article WHERE image!='' ORDER BY create_time DESC LIMIT 1")->queryRow();
         } else {
             $banner = array();
         }

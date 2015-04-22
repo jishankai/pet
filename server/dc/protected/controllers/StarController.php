@@ -8,13 +8,27 @@ class StarController extends Controller
             'checkUpdate',
             'checkSig',
             'getUserId - listApi, popularApi, newestApi, rankApi, contriApi',
+            array(
+                'COutputCache + listApi',
+                'duration' => 300,
+                'varyByParam' => array('img_id'),
+                'dependency' => array(
+                    'class' => 'CDbCacheDependency',
+                    'sql' => "SELECT MAX(update_time) FROM dc_star",
+                ),
+            ),
+            array(
+                'COutputCache + pupularApi,newestApi,rankApi',
+                'duration' => 30,
+                'varyByParam' => array('star_id','page'),
+            ),
         );
     }
 
     public function actionListApi()
     {
         $session = Yii::app()->session;
-        $stars = Yii::app()->db->createCommand('SELECT star_id, name, icon, title, description, banner, url, end_time FROM dc_star where start_time<=:time AND end_time>:time')->bindValue(':time', time())->queryAll();
+        $stars = Yii::app()->db->createCommand('SELECT star_id, name, icon, title, description, banner, url, end_time FROM dc_star ORDER BY end_time DESC')->queryAll();
 
         foreach ($stars as $k => $v) {
             if (empty($session['usr_id'])) {
@@ -42,8 +56,8 @@ class StarController extends Controller
             // } else {
             //     $stars[$k]['user_txs'] = array();
             // }
-            $stars[$k]['animals'] = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, COUNT(i.stars) AS cnt FROM dc_image i LEFT JOIN dc_animal a ON a.aid=i.aid WHERE star_id=:star_id GROUP BY i.aid,a.aid,a.tx,a.name ORDER BY cnt DESC LIMIT 6')->bindValue(':star_id', $v['star_id'])->queryAll();
-            $stars[$k]['images'] = Yii::app()->db->createCommand('SELECT img_id, url, stars FROM dc_image WHERE star_id=:star_id ORDER BY stars DESC LIMIT 30')->bindValue(':star_id', $v['star_id'])->queryAll();
+            $stars[$k]['animals'] = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, SUM(i.stars) AS cnt FROM dc_image i LEFT JOIN dc_animal a ON a.aid=i.aid WHERE star_id=:star_id GROUP BY i.aid,a.aid,a.tx,a.name ORDER BY cnt DESC LIMIT 6')->bindValue(':star_id', $v['star_id'])->queryAll();
+            $stars[$k]['images'] = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.stars, a.name FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid WHERE i.star_id=:star_id ORDER BY i.stars DESC LIMIT 30')->bindValue(':star_id', $v['star_id'])->queryAll();
         }
            
         $this->echoJsonData(array('stars'=>$stars, 'vote_price'=>30));
@@ -51,7 +65,7 @@ class StarController extends Controller
 
     public function actionPopularApi($star_id, $page)
     {
-        $r = Yii::app()->db->createCommand('SELECT img_id, url, stars FROM dc_image WHERE star_id=:star_id ORDER BY stars DESC LIMIT :m, 30')->bindValues(array(':star_id'=>$star_id, ':m'=>$page*30))->queryAll(); 
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.stars, a.name FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid WHERE i.star_id=:star_id ORDER BY i.stars DESC LIMIT :m, 30')->bindValues(array(':star_id'=>$star_id, ':m'=>$page*30))->queryAll(); 
         $this->echoJsonData($r);
     }
 

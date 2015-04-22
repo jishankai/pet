@@ -50,6 +50,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
         array('name'=>'gender', 'value'=>'$data->getGender()'),
         array('name'=>'tx', 'value'=>'$data->showTxImage()','type'=>'html'),
 		'age',
+		'code',
         array('name'=>'create_time','value'=>'date("Y-m-d H:i:s",$data->create_time)'),
 		array(
 			'class'=>'CButtonColumn',

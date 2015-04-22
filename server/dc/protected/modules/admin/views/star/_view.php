@@ -34,20 +34,13 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('start_time')); ?>:</b>
-	<?php echo CHtml::encode($data->start_time); ?>
+	<?php echo CHtml::encode(date("Y-m-d H:i:s",$data->start_time)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('end_time')); ?>:</b>
-	<?php echo CHtml::encode($data->end_time); ?>
+	<?php echo CHtml::encode(date("Y-m-d H:i:s",$data->end_time)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('create_time')); ?>:</b>
-	<?php echo CHtml::encode($data->create_time); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('update_time')); ?>:</b>
-	<?php echo CHtml::encode($data->update_time); ?>
-	<br />
-
+	<HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color=#987cb9 SIZE=3>
 
 </div>

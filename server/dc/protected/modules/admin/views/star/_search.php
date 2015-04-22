@@ -48,23 +48,26 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'start_time'); ?>
-		<?php echo $form->textField($model,'start_time',array('size'=>10,'maxlength'=>10)); ?>
+        <?php $this->widget('application.extensions.timepicker.timepicker', array(
+            'options'=>array(    
+                'showSecond'=>TRUE              
+             ),
+            'model'=>$model,                 
+            'name'=>'start_time',                 
+        )); ?>  
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'end_time'); ?>
-		<?php echo $form->textField($model,'end_time',array('size'=>10,'maxlength'=>10)); ?>
+        <?php $this->widget('application.extensions.timepicker.timepicker', array(
+            'options'=>array(    
+                'showSecond'=>TRUE              
+             ),
+            'model'=>$model,                 
+            'name'=>'end_time',                 
+        )); ?>  
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'create_time'); ?>
-		<?php echo $form->textField($model,'create_time',array('size'=>10,'maxlength'=>10)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'update_time'); ?>
-		<?php echo $form->textField($model,'update_time'); ?>
-	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>

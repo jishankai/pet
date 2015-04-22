@@ -27,7 +27,5 @@ $this->menu=array(
 		'url',
 		'title',
 		'description',
-		'create_time',
-		'update_time',
 	),
 )); ?>
