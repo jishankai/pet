@@ -76,7 +76,7 @@ class ImageController extends Controller
          */
         //$cmtlen = (strlen($_POST['comment'])+mb_strlen($_POST['comment'],"UTF8"))/2;
         $cmtlen = mb_strlen($_POST['comment'],"UTF8");
-        if ($cmtlen>40) {
+        if ($cmtlen>255) {
             throw new PException('描述不合要求');
         }
 
