@@ -110,7 +110,7 @@ class SocialController extends Controller
 
         if (isset($r['comments'])&&$r['comments']!='') {
             $c = explode(';', $r['comments']);
-            $coment_count = count($c); 
+            $comment_count = count($c); 
             foreach ($c as $k1=>$c1) {
                 $c2 = explode(',', $c1);
                 foreach ($c2 as $c3) {
