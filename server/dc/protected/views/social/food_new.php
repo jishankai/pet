@@ -81,8 +81,8 @@ $signPackage = $jssdk->GetSignPackage();
 			<li>
 				<a href='<?php echo $this->createUrl('social/gift',array('aid'=>$r['aid'],'SID'=>$sid))?>'>
 				<img src="css/images/icon_gift.png" id="gift_img"/>
-				<span id="gift">礼物</span>
 				</a>
+				<span id="gift">礼物</span>
 			</li>
 			<li>
 				<img src="css/images/bt_more.png"/>
