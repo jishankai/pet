@@ -115,7 +115,7 @@ class SocialController extends Controller
                 $c2 = explode(',', $c1);
                 foreach ($c2 as $c3) {
                     $c4 = explode(':', $c3);
-                    $comments[$k1][$c4[0]]=$c4[1];
+                    if(isset($c4[1])) $comments[$k1][$c4[0]]=$c4[1];
                 }
             }
             $r['comments'] = $comments;
