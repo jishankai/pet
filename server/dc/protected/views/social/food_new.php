@@ -79,8 +79,10 @@ $signPackage = $jssdk->GetSignPackage();
 				<span id="comment">评论</span>
 			</li>
 			<li>
+				<a href='<?php echo $this->createUrl('social/gift',array('aid'=>$r['aid'],'SID'=>$SID))?>'>
 				<img src="css/images/icon_gift.png" id="gift_img"/>
 				<span id="gift">礼物</span>
+				</a>
 			</li>
 			<li>
 				<img src="css/images/bt_more.png"/>
