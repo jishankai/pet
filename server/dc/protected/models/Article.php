@@ -117,4 +117,10 @@ class Article extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	protected function beforeSave()
+	{
+		$this->create_time = strtotime($this->create_time);
+		return parent::beforeSave();
+	}
 }
