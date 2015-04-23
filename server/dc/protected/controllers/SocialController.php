@@ -113,7 +113,7 @@ class SocialController extends Controller
                 }
             }
             $r['comments'] = $comments;
-            $r['comment_count'] = $comment_count;
+            $r['comment_count'] = $comment_count-1;
         }
 
         $this->renderPartial('food_new', array('r'=>$r, 'is_liked'=>$is_liked, 'liker_tx'=>$liker_tx, 'a_type'=>$a_type, 'img_id'=>$img_id, 'alert_flag'=>$alert_flag, 'aid'=>$r['aid'], 'to'=>$to, 'sid'=>$SID));
