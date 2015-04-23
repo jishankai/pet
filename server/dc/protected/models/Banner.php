@@ -123,11 +123,11 @@ class Banner extends CActiveRecord
 		return parent::model($className);
 	}
 
-	protected function beforeSave()
+	protected function beforeValidate()
 	{
 		$this->start_time = strtotime($this->start_time);
 		$this->end_time = strtotime($this->end_time);
 		$this->create_time = strtotime($this->create_time);
-		return parent::beforeSave();
+		return parent::beforeValidate();
 	}
 }
