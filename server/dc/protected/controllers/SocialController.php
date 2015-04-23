@@ -98,7 +98,7 @@ class SocialController extends Controller
         if (isset($r['likers'])&&$r['likers']!='') {
             $liker_array = explode(',', $r['likers']);
             if(isset($this->usr_id)) $is_liked = in_array($this->usr_id, $liker_array);
-            $liker_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN (:likers)")->bindValue(':likers', $r['likers'])->queryColumn();
+            $liker_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN (:likers)")->bindValue(':likers', $r['likers'])->queryAll();
         }
 
         if (isset($r['comments'])&&$r['comments']!='') {
