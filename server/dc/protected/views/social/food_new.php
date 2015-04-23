@@ -64,7 +64,7 @@ $signPackage = $jssdk->GetSignPackage();
 		</div>
 		<!-- 话题和描述 -->
 		<div class="topic_describe">
-			<span class="topic">＃妈啊我的包子脸＃</span>
+			<span class="topic">＃<?php echo $r['topic_name']?>＃</span>
 			<span class="describe"><?php echo $r['cmt']?></span>
 			<!-- <span class="describe">好饿 好饿 好饿</span> -->
 		</div>
@@ -72,7 +72,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<ul class="btns_box clearfix">
 			<li>
 				<img src="css/images/page_like.png" id="like_img"/>
-				<span id="like">已赞</span>
+				<span id="like"><?php if($is_liked) {?>已赞<?php } else {?>赞<?php }?></span>
 			</li>
 			<li id="comment_btn">
 				<img src="css/images/page_comment.png" id="comment_img"/>
@@ -92,13 +92,9 @@ $signPackage = $jssdk->GetSignPackage();
 				<img src="css/images/page_comment_gray.jpg">
 			</div>
 			<ul class="like_head clearfix">
-				<li><img src="css/images/base_head13.jpg"></li>
-				<li><img src="css/images/base_head13.jpg"></li>
-				<li><img src="css/images/base_head13.jpg"></li>
-				<li><img src="css/images/base_head13.jpg"></li>
-				<li><img src="css/images/base_head13.jpg"></li>
-				<li><img src="css/images/base_head13.jpg"></li>
-				<li><img src="css/images/base_head13.jpg"></li>
+				<?php for($i=0;$i<count($likers)&&$i<7;$i++) {?>
+				<li><img src="http://<?php echo OSS_PREFIX;?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $likers[$i]['tx'];?>"></li>
+				<?php }?>
 			</ul>
 			<span id="like_num"><?php echo $r['likes']?></span>
 			<!-- <span id="like_num">960</span> -->
@@ -107,19 +103,16 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="comment_box">
 			<div class="comment_more">
 				<img src="css/images/page_comment_grey.jpg">
-				<a class="the_more_comment">查看所有<span id="comment_num"><?php echo 0?></span>条评论</a>
+				<a class="the_more_comment">查看所有<span id="comment_num"><?php echo $r['comment_count']?></span>条评论</a>
 			</div>
 			<ul class="comment_list clearfix">
+				<?php foreach($r['comments'] AS $name=>$content) {?>
 				<li>
 					<!-- <img src="css/images/base_head13.jpg"/> -->
-					<span>昵称1</span>
-					<p>姑娘，胸毛不错～</p>
+					<span><?php echo $name;?></span>
+					<p><?php echo $content;?></p>
 				</li>
-				<li>
-					<!-- <img src="css/images/base_head13.jpg"/> -->
-					<span>昵称2</span>
-					<p>姑娘，胸毛不错～</p>
-				</li>
+				<?php }?>
 			</ul>
 		</div>
 	</div>
