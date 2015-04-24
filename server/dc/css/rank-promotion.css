@@ -18,14 +18,13 @@
 .timeline_block{position: relative;margin-bottom: 38px;}
 .btn{width:105px;height: 59px;}
 h3{color:#999999;
-	text-shadow: 0 0 10px #fff,
-                 0 0 20px  #fff,
-                 0 0 30px  #fff,
-                 0 0 40px  #ffffff,
-                 0 0 70px  #ffffff,
-                 0 0 80px  #ffffff,
-                 0 0 100px #ffffff;
-}
+  
+  text-shadow:0 0 5px #fff,
+              0 0 10px #fff,
+              0 0 15px #fff,
+              0 0 40px #fff,
+              0 0 60px #fff;
+  }
 #timeline::before {
   content: '';
   position: absolute;
