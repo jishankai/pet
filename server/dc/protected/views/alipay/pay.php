@@ -29,10 +29,10 @@
     </div> -->
     <div class="gold">
         <ul class="money_list" id="money_list">
-            <li id="1"><div class="num">100<span style='color:red'>+10</span></div><div class="money">￥1</div></li>   
-            <li id="5"><div class="num">500<span style='color:red'>+50</span></div><div class="money">￥5</div></li>
-            <li id="10"><div class="num">1050<span style='color:red'>+105</span></div><div class="money">￥10</div></li>
-            <li id="100"><div class="num">11000<span style='color:red'>+1100</span></div><div class="money">￥100</div></li>
+            <li id="1"><div class="num">100</div><div class="money">￥1</div></li>   
+            <li id="5"><div class="num">500</div><div class="money">￥5</div></li>
+            <li id="10"><div class="num">1050</div><div class="money">￥10</div></li>
+            <li id="100"><div class="num">11000</div><div class="money">￥100</div></li>
         </ul>
     </div>
     <!-- <div class="pay_select">

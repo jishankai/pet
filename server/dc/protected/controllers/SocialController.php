@@ -72,7 +72,7 @@ class SocialController extends Controller
 
     public function actionFood($img_id, $alert_flag=0, $to='', $SID='')
     {
-        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.likes, i.likers, i.gifts, i.senders, i.shares, i.sharers, i.comments, i.food, i.is_food=1 AS is_food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $img_id)->queryRow();
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.topic_name, i.likes, i.likers, i.gifts, i.senders, i.shares, i.sharers, i.comments, i.food, i.is_food=1 AS is_food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $img_id)->queryRow();
         
         $pet_type = Util::loadConfig('pet_type');
         $n = floor($r['type']/100);
@@ -93,32 +93,30 @@ class SocialController extends Controller
             }
         }        
         
+        $is_liked = 0;
+        $liker_tx = array();
         if (isset($r['likers'])&&$r['likers']!='') {
-            $liker_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN (:likers)")->bindValue(':likers', $r['likers'])->queryColumn();
-        }
-        
-        if (isset($r['senders'])&&$r['senders']!='') {
-            $sender_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN (:senders)")->bindValue(':senders', $r['senders'])->queryColumn();
-        }
-
-        if (isset($r['sharers'])&&$r['sharers']!='') {
-            $sharer_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN (:sharers)")->bindValue(':sharers', $r['sharers'])->queryColumn();
+            $liker_array = explode(',', $r['likers']);
+            if(isset($this->usr_id)) $is_liked = in_array($this->usr_id, $liker_array);
+            $likers = $r['likers'];
+            $liker_tx = Yii::app()->db->createCommand("SELECT usr_id, name, tx FROM dc_user WHERE usr_id IN ($likers)")->queryAll();
         }
 
         if (isset($r['comments'])&&$r['comments']!='') {
             $c = explode(';', $r['comments']);
-            $coment_count = count($c); 
+            $comment_count = count($c); 
             foreach ($c as $k1=>$c1) {
                 $c2 = explode(',', $c1);
                 foreach ($c2 as $c3) {
                     $c4 = explode(':', $c3);
-                    // $comments[$k1][$c4[0]]=$c4[1];
+                    if(isset($c4[1])) $comments[$k1][$c4[0]]=$c4[1];
                 }
             }
-            //$r['comments'] = $comments;
+            $r['comments'] = $comments;
+            $r['comment_count'] = $comment_count-1;
         }
 
-        $this->renderPartial('food_new', array('r'=>$r, /*'comment_count'=>$comment_count, 'liker_tx'=>$liker_tx, 'sender_tx'=>$sender_tx, 'sharer_tx'=>$sharer_tx,*/ 'a_type'=>$a_type, 'img_id'=>$img_id, 'alert_flag'=>$alert_flag, 'aid'=>$r['aid'], 'to'=>$to, 'sid'=>$SID));
+        $this->renderPartial('food_new', array('r'=>$r, 'is_liked'=>$is_liked, 'liker_tx'=>$liker_tx, 'a_type'=>$a_type, 'img_id'=>$img_id, 'alert_flag'=>$alert_flag, 'aid'=>$r['aid'], 'to'=>$to, 'sid'=>$SID));
 
     }
 
