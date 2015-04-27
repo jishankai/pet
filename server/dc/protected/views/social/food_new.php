@@ -155,7 +155,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 
 
-	<form class="comment_alert">
+	<form class="comment_alert" action="<?php echo $this->createUrl('image/commentApi')?>">
 		<h3>说点什么</h3>
 		<input type="submit" id="submit" value=""/>
 		<input type="button" id="close"/>

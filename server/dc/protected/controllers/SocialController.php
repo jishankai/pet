@@ -201,5 +201,10 @@ class SocialController extends Controller
 
         $this->echoJsonData(array('banner'=>$banner, 'articles'=>$articles));
     }
+
+    public function actionVote()
+    {
+        $this->renderPartial('vote');
+    }
 }
 
