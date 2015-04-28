@@ -97,7 +97,7 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 
 .head_imgList{margin-left: 3%;}
 .head_imgList li{float: left;margin-left: 2%;width: 60px;height: 60px;}
-.head_imgList img{width: 100%;height: 100%;}
+.head_imgList img{width: 100%;height: 100%;border-radius: 50%;}
 .act1_bottom{background-color: #efede4;}
 .am_tit{
 	font-size: 30px;font-weight: bold;
