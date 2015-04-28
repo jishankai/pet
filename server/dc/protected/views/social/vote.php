@@ -63,7 +63,7 @@
 <body>
 <div class="act1_wrap comWidth">
 	<div class="act1_top">
-		<img alt="" src="css/images/1.jpg">
+		<img alt="" src="css/images/vote_bannner.png">
 	</div>
 	<div class="act1_body">
 		<div class="ab_tit clearfix">
@@ -76,47 +76,47 @@
 			<ul class="act1_imgList clearfix">
 				
 				<li>
-					<div class="pet_img">
+					<div class="pet_img p1">
 						<div class="pet_img_con">
 							<div class="t_progress"></div>
 							<div class="t_num_icon">11</div>
 							<!-- <img src="css/images/t_pet1.jpg"/> -->
-							<h1>年薪过百万</h1>
-							<h3>来自邓不拉多星球</h3>
+							<h1>宝宝</h1>
+							<h3>来自爱犬有家</h3>
 						</div>
 					</div>
 					<div class="t_btn" id="t_btn1"></div>
 				</li>
 				<li>
-					<div class="pet_img">
+					<div class="pet_img p2">
 						<div class="pet_img_con">
 							<div class="t_progress"></div>
 							<div class="t_num_icon">11</div>
 							<!-- <img src="css/images/t_pet1.jpg"/> -->
-							<h1>年薪过百万</h1>
-							<h3>来自邓不拉多星球</h3>
+							<h1>小花</h1>
+							<h3>来自阿汪不哭</h3>
 						</div>
 					</div>
 					<div class="t_btn"></div>
 				</li>
 				<li>
-					<div class="pet_img">
+					<div class="pet_img p3">
 						<div class="pet_img_con">
 							<div class="t_progress"></div>
 							<div class="t_num_icon">11</div>
 							<!-- <img src="css/images/t_pet1.jpg"/> -->
-							<h1>年薪过百万</h1>
-							<h3>来自邓不拉多星球</h3>
+							<h1>小嗝嗝</h1>
+							<h3>来自诺爱之家</h3>
 						</div>
 					</div>
 					<div class="t_btn"></div>
 				</li><li>
-					<div class="pet_img">
+					<div class="pet_img p4">
 						<div class="pet_img_con">
 							<div class="t_progress"></div>
 							<div class="t_num_icon">11</div>
 							<!-- <img src="css/images/t_pet1.jpg"/> -->
-							<h1>年薪过百万</h1>
+							<h1>雪儿</h1>
 							<h3>来自邓不拉多星球</h3>
 						</div>
 					</div>
