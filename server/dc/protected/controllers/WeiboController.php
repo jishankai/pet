@@ -65,7 +65,11 @@ class WeiboController extends Controller
                     $this->redirect(array('animal/joinMobileApi', 'aid'=>$aid, 'SID'=>$j->data->SID));
                 }
             } else if ($img_id==0) {
-                $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$j->data->SID));
+                if ($is_dog) {
+                    $this->redirect(array('social/vote', 'SID'=>$j->data->SID));
+                } else {
+                    $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$j->data->SID));
+                }
             } else if (isset($img_id)) {
                 $this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$j->data->SID));
             }

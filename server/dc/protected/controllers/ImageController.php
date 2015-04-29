@@ -385,7 +385,7 @@ class ImageController extends Controller
         $this->echoJsonData(array($r));
     }
 
-    public function actionRewardFoodMobileApi($aid=0, $n, $to='', $img_id=0, $SID='')
+    public function actionRewardFoodMobileApi($aid=0, $n, $to='', $is_dog=0, $img_id=0, $SID='')
     {
         if ($SID!='') {
             $session = Yii::app()->session;
@@ -410,7 +410,8 @@ class ImageController extends Controller
                 } else {
                     $a = implode('$', array('img_id',$img_id));
                     $b = implode('$', array('aid', $aid));
-                    $state = implode('*', array($a, $b));
+                    $c = implode('$', array('is_dog', $is_dog));
+                    $state = implode('*', array($a, $b, $c));
                     $oauth2->get_code_by_authorize($state);
                     exit;
                 }
@@ -423,7 +424,7 @@ class ImageController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id, 'aid'=>$aid)), 'mobile'));
+                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id, 'aid'=>$aid, 'is_dog'=>$is_dog)), 'mobile'));
                     exit;
                 }
                 break;
@@ -481,7 +482,11 @@ class ImageController extends Controller
         }
 
         if ($img_id==0) {
-            $this->redirect(array('social/activityview', 'aid'=>$aid, 'alert_flag'=>$alert_flag, 'SID'=>$SID));
+            if ($is_dog) {
+                $this->redirect(array('social/vote', 'SID'=>$SID));
+            } else {
+                $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$SID));
+            }
         } else {
             $this->redirect(array('social/foodShareApi', 'alert_flag'=>$alert_flag, 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$SID));
         }

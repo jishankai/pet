@@ -238,6 +238,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 </div>
 </body>
+<script src="js/md5.js"></script>
 <script  src="js/jquery-1.11.1.js"></script>
 <script type="text/javascript">
 	var head1=document.getElementById("head1");
@@ -288,38 +289,38 @@ $signPackage = $jssdk->GetSignPackage();
 					$("#t_btn1").click(function(){
 						var n=1;
 						var aid = 1650;
-						var sig =md5('aid='+aid+'&n='+n+'dog&cat');
-						location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;			
+						var sig =md5('aid='+aid+'&is_dog=1&n='+n+'dog&cat');
+						location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&is_dog=1&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;			
 					});
 					$("#t_btn2").click(function(){
 						var n=1;
 						var aid = 1653;
-						var sig =md5('aid='+aid+'&n='+n+'dog&cat');
-						location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;	
+						var sig =md5('aid='+aid+'&is_dog=1&n='+n+'dog&cat');
+						location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&is_dog=1&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;	
 					});
 					$("#t_btn3").click(function(){
 						var n=1;
 						var aid = 1655;
-						var sig =md5('aid='+aid+'&n='+n+'dog&cat');
-						location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;	
+						var sig =md5('aid='+aid+'&is_dog=1&n='+n+'dog&cat');
+						location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&is_dog=1&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;	
 					});
 					$("#t_btn4").click(function(){
 						var n=1;
 						var aid = 1652;
-						var sig =md5('aid='+aid+'&n='+n+'dog&cat');
-						location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;	
+						var sig =md5('aid='+aid+'&is_dog=1&n='+n+'dog&cat');
+						location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&is_dog=1&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;	
 					});
 					$("#t_btn5").click(function(){
 						var n=1;
 						var aid = 1656;
-						var sig =md5('aid='+aid+'&n='+n+'dog&cat');
-						location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;	
+						var sig =md5('aid='+aid+'&is_dog=1&n='+n+'dog&cat');
+						location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&is_dog=1&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;	
 					});
 					$("#t_btn6").click(function(){
 						var n=1;
 						var aid = 1651;
-						var sig =md5('aid='+aid+'&n='+n+'dog&cat');
-						location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;	
+						var sig =md5('aid='+aid+'&is_dog=1&n='+n+'dog&cat');
+						location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&is_dog=1&n='+n+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;	
 					});
 
     }
