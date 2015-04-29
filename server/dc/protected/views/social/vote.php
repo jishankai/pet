@@ -76,75 +76,87 @@
 			<ul class="act1_imgList clearfix">
 				
 				<li>
-					<div class="pet_img p1">
-						<div class="pet_img_con">
-							<div class="t_progress"></div>
-							<div class="t_num_icon">11</div>
-							<!-- <img src="css/images/t_pet1.jpg"/> -->
-							<h1>宝宝</h1>
-							<h3>来自爱犬有家</h3>
+					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1650">
+						<div class="pet_img p1">
+							<div class="pet_img_con">
+								<div class="t_progress"></div>
+								<div class="t_num_icon">11</div>
+								<!-- <img src="css/images/t_pet1.jpg"/> -->
+								<h1>宝宝</h1>
+								<h3>来自爱犬有家</h3>
+							</div>
 						</div>
-					</div>
+					</a>
 					<div class="t_btn" id="t_btn1"></div>
 				</li>
 				<li>
-					<div class="pet_img p2">
-						<div class="pet_img_con">
-							<div class="t_progress"></div>
-							<div class="t_num_icon">11</div>
-							<!-- <img src="css/images/t_pet1.jpg"/> -->
-							<h1>小花</h1>
-							<h3>来自阿汪不哭</h3>
+					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1653">
+						<div class="pet_img p2">
+							<div class="pet_img_con">
+								<div class="t_progress"></div>
+								<div class="t_num_icon">11</div>
+								<!-- <img src="css/images/t_pet1.jpg"/> -->
+								<h1>小花</h1>
+								<h3>来自阿汪不哭</h3>
+							</div>
 						</div>
-					</div>
+					</a>
 					<div class="t_btn" id="t_btn2"></div>
 				</li>
 				<li>
-					<div class="pet_img p3">
-						<div class="pet_img_con">
-							<div class="t_progress"></div>
-							<div class="t_num_icon">11</div>
-							<!-- <img src="css/images/t_pet1.jpg"/> -->
-							<h1>小嗝嗝</h1>
-							<h3>来自诺爱之家</h3>
+					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1655">
+						<div class="pet_img p3">
+							<div class="pet_img_con">
+								<div class="t_progress"></div>
+								<div class="t_num_icon">11</div>
+								<!-- <img src="css/images/t_pet1.jpg"/> -->
+								<h1>雪儿</h1>
+								<h3>来自张莹流浪狗救助小院</h3>
+							</div>
 						</div>
-					</div>
+					</a>
 					<div class="t_btn" id="t_btn3"></div>
 				</li>
 				<li>
-					<div class="pet_img p4">
-						<div class="pet_img_con">
-							<div class="t_progress"></div>
-							<div class="t_num_icon">11</div>
-							<!-- <img src="css/images/t_pet1.jpg"/> -->
-							<h1>雪儿</h1>
-							<h3>来自邓不拉多星球</h3>
+					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1652">
+						<div class="pet_img p4">
+							<div class="pet_img_con">
+								<div class="t_progress"></div>
+								<div class="t_num_icon">11</div>
+								<!-- <img src="css/images/t_pet1.jpg"/> -->				
+								<h1>小嗝嗝</h1>
+								<h3>来自诺爱之家</h3>
+							</div>
 						</div>
-					</div>
+					</a>
 					<div class="t_btn" id="t_btn4"></div>
 				</li>
 				<li>
-					<div class="pet_img p5">
-						<div class="pet_img_con">
-							<div class="t_progress"></div>
-							<div class="t_num_icon">11</div>
-							<!-- <img src="images1/t_pet1.jpg"/> -->
-							<h1>甜甜</h1>
-							<h3>来自杨洁阿姨爱心狗舍</h3>
+					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1656">
+						<div class="pet_img p5">
+							<div class="pet_img_con">
+								<div class="t_progress"></div>
+								<div class="t_num_icon">11</div>
+								<!-- <img src="images1/t_pet1.jpg"/> -->	
+								<h1>白手套</h1>
+								<h3>来自社区汪咪孤儿院</h3>
+							</div>
 						</div>
-					</div>
+					</a>
 					<div class="t_btn" id="t_btn5"></div>
 				</li>
 				<li>
-					<div class="pet_img p6">
-						<div class="pet_img_con">
-							<div class="t_progress"></div>
-							<div class="t_num_icon">11</div>
-							<!-- <img src="images1/t_pet1.jpg"/> -->
-							<h1>白手套</h1>
-							<h3>来自社区汪咪孤儿院</h3>
+					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1655">
+						<div class="pet_img p6">
+							<div class="pet_img_con">
+								<div class="t_progress"></div>
+								<div class="t_num_icon">11</div>
+								<!-- <img src="images1/t_pet1.jpg"/> -->
+								<h1>甜甜</h1>
+								<h3>来自杨洁阿姨爱心狗舍</h3>
+							</div>
 						</div>
-					</div>
+					</a>
 					<div class="t_btn" id="t_btn6"></div>
 				</li>
 			</ul>
