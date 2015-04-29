@@ -202,9 +202,11 @@ class SocialController extends Controller
         $this->echoJsonData(array('banner'=>$banner, 'articles'=>$articles));
     }
 
-    public function actionVote()
+    public function actionVote($SID='')
     {
-        $this->renderPartial('vote');
+        $users = Yii::app()->db->createCommand('SELECT COUNT(usr_id) FROM dc_user')->queryScalar();
+
+        $this->renderPartial('vote', array('users'=>$users, 'sid'=>$SID));
     }
 }
 
