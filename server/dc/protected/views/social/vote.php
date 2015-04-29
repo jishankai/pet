@@ -67,7 +67,7 @@
 	</div>
 	<div class="act1_body">
 		<div class="ab_tit clearfix">
-			<img src="css/images/ab_tit1.gif" class="tit_img">
+			<img src="css/images/vote_tit.gif" class="tit_img">
 			<a href="http://home4pet.aidigame.com/pet_release_1.1.2.apk"><img src="css/images/android.png" class="android_btn"></a>
 			<a href="https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?"><img src="css/images/apple.png" class="apple_btn"></a>
 
@@ -97,7 +97,7 @@
 							<h3>来自阿汪不哭</h3>
 						</div>
 					</div>
-					<div class="t_btn"></div>
+					<div class="t_btn" id="t_btn2"></div>
 				</li>
 				<li>
 					<div class="pet_img p3">
@@ -109,8 +109,9 @@
 							<h3>来自诺爱之家</h3>
 						</div>
 					</div>
-					<div class="t_btn"></div>
-				</li><li>
+					<div class="t_btn" id="t_btn3"></div>
+				</li>
+				<li>
 					<div class="pet_img p4">
 						<div class="pet_img_con">
 							<div class="t_progress"></div>
@@ -120,13 +121,37 @@
 							<h3>来自邓不拉多星球</h3>
 						</div>
 					</div>
-					<div class="t_btn"></div>
+					<div class="t_btn" id="t_btn4"></div>
+				</li>
+				<li>
+					<div class="pet_img p5">
+						<div class="pet_img_con">
+							<div class="t_progress"></div>
+							<div class="t_num_icon">11</div>
+							<!-- <img src="images1/t_pet1.jpg"/> -->
+							<h1>甜甜</h1>
+							<h3>来自杨洁阿姨爱心狗舍</h3>
+						</div>
+					</div>
+					<div class="t_btn" id="t_btn5"></div>
+				</li>
+				<li>
+					<div class="pet_img p6">
+						<div class="pet_img_con">
+							<div class="t_progress"></div>
+							<div class="t_num_icon">11</div>
+							<!-- <img src="images1/t_pet1.jpg"/> -->
+							<h1>白手套</h1>
+							<h3>来自社区汪咪孤儿院</h3>
+						</div>
+					</div>
+					<div class="t_btn" id="t_btn6"></div>
 				</li>
 			</ul>
 		</div>
 	</div>
 	<div class="act1_bottom">
-		<div class="person_num">已经有<span>123445</span>人参与了捐粮，快来加入爱心大军~~</div>
+		<div class="person_num">已经有<span>123445</span>人参与了汪店长投票活动~</div>
 		<div class="head_imgBox">
 			<ul class="head_imgList clearfix">
 				<li style="position: relative">
@@ -155,29 +180,26 @@
 				</li>
 			</ul>
 		</div>
-		<div class="mian">每天都能免费赠3份，爱心不怕重复，明天再来哟！</div>
+		<div class="mian">每天都能免费投5票~明天再来哟！</div>
 		<div id="tabs">
 		    <ul>
-		        <li class="on" style="color:red;">喜大普奔</li>
+		        <li class="on" style="color:red;">活动介绍</li>
 		        <li>参与方式</li>
 		        <li>主办方介绍</li>
 		    </ul>
     <div>
-       	<p>喜大普奔~严寒和雾霾都挡不住小伙伴们的爱心！据活动结束还有两天，各位可爱的小主就帮助我们筹集齐了六个地区的冬粮，流浪喵的年夜饭有着落啦！小宠这厢有礼了喵~（看看上边羞耻的动态图就知道我们有多开心了~~才不会告诉你那是我们单身的CTO呢！）</p>
-      	<p>截止目标达成，共有22000位网友参与了我们的公益捐粮活动。我们也将在本周六（1月24日），和@酷宠新天地流浪动物救助平台 @全峰快递集团 一起，专车为各个群护区捐赠大家打赏的年夜饭。届时，将有微博全程直播，欢迎大家监督~</p>
-		<p>小宠在这里代表为本次活动辛勤付出的全体工作人员，向支持公益和陪伴宠物星球成长的你们，说一声：谢谢。</p>
-		
+       	<p>宠物星球·我是大萌星联合BARKSTARS汪星客咖啡第一届汪店长公开选拔开始啦！6只萌萌哒汪星人，谁能登上店长宝座？快为你支持的候选汪投票吧！第一只达到票数目标的候选汪将成为BARKSTARS汪星客咖啡店驻店店长，任期一个月（其他完成目标的汪也会按完成时间顺延做汪店长哦！）。</p>
+      	<p>汪店长将由帝都首家对狗儿说‘YES’的爱犬主题精品咖啡店汪星客负责饲养管理，有意领养者还可到店与狗狗进行亲密接触，符合领养条件还有机会把汪店长带回家哦~5月28日荣祥广场“萌宠家庭日”现场，汪店长还将与粉丝见面，欢迎调戏~还有更多神秘惊喜等着你！</p>	
+    </div>
+    <div class="hide">
+       	<p>1.在投票页面选择喜欢的汪星人，点击“投TA一票”→完成相关授权→投票成功！</p>
+		<p>2.每人每天都能获得金币用于投票，萌的路上不怕积累和重复，记得每天都要来哟！</p>
+		<p>3.你的朋友也可以在你分享出的活动页面进行投票！快喊小伙伴一起为钟爱的萌犬投票吧~</p>
 
     </div>
     <div class="hide">
-       	<p>1.点击代粮猫头像进入捐粮页面→在相应区域主页选择捐粮份数→点击“赏”→完成相关授权→捐赠成功</p>
-		<p>2.每人每天都能获得金币用于捐粮，连续登陆天数越长获得金币越多哦！爱心不怕积累和重复，记得每天都要来！</p>
-		<p>3.你的朋友也可以在你分享出的活动页面进行捐助！快喊小伙伴一起为流浪喵筹集冬粮吧！</p>
-
-    </div>
-    <div class="hide">
-        <p>宠物星球社交应用是一个萌宠至上的宠物社区，在这里你可以：卖萌换口粮，让你家宝贝为自己代粮！结交萌宠和亲亲主人，交流我们的小秘密！参加星球活动，和可爱萌宠大联欢！我们希望，展示每一只宠物的与众不同，打造最闪亮的萌星！</p>
-		<p>酷宠新天地流浪动物救助平台，是一个致力于帮助流浪猫狗寻找领养主人的优秀平台，通过对各地区领养信息的扩散宣传，为每一个等家的小生命搭建爱心桥梁。同时传递科学养宠与责任养宠的理念，领养代替购买，让生命不再流浪。</p>
+        <p>宠物星球·我是大萌星App是一个萌宠至上的宠物社区，在这里你可以：卖萌换口粮，让你家宝贝为自己代粮！结交萌宠和亲亲主人，交流我们的小秘密！参加星球活动，和可爱萌宠大联欢！我们希望，展示每一只宠物的与众不同，打造最闪亮的萌星！</p>
+		<p>BARKSTARS汪星客咖啡，是帝都首家对狗儿说‘YES’的爱犬主题精品咖啡店。有萌犬有咖啡~还等什么，快带上你的爱犬来这里做客吧~不是星巴克，是汪星客哦！</p>
 
     </div>
 </div>
@@ -192,7 +214,7 @@
 					<img src="css/images/logo_icon.jpg"/>
 				</div>
 				<div class="load_info">
-					<h3>宠物星球</h3>
+					<h3>我是大萌星</h3>
 					<p>我为自己代粮</p>
 				</div>
 			</div>
@@ -222,14 +244,14 @@
 	var ad7=Math.floor((Math.random())*4+24);
 	var ad8=Math.floor((Math.random())*4+28);
 
-	head1.src="images/base_head"+ad1+".jpg";
-	head2.src="images/base_head"+ad2+".jpg";
-	head3.src="images/base_head"+ad3+".jpg";
-	head4.src="images/base_head"+ad4+".jpg";
-	head5.src="images/base_head"+ad5+".jpg";
-	head6.src="images/base_head"+ad6+".jpg";
-	head7.src="images/base_head"+ad7+".jpg";
-	head8.src="images/base_head"+ad8+".jpg";
+	head1.src="css/images/base_head"+ad1+".jpg";
+	head2.src="css/images/base_head"+ad2+".jpg";
+	head3.src="css/images/base_head"+ad3+".jpg";
+	head4.src="css/images/base_head"+ad4+".jpg";
+	head5.src="css/images/base_head"+ad5+".jpg";
+	head6.src="css/images/base_head"+ad6+".jpg";
+	head7.src="css/images/base_head"+ad7+".jpg";
+	head8.src="css/images/base_head"+ad8+".jpg";
 
 	window.onload = function(){
              var oTab = document.getElementById("tabs");
