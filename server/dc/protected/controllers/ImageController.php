@@ -482,7 +482,11 @@ class ImageController extends Controller
         }
 
         if ($img_id==0) {
-            $this->redirect(array('social/activityview', 'aid'=>$aid, 'alert_flag'=>$alert_flag, 'SID'=>$SID));
+            if ($is_dog) {
+                $this->redirect(array('social/vote', 'SID'=>$j->data->SID));
+            } else {
+                $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$j->data->SID));
+            }
         } else {
             $this->redirect(array('social/foodShareApi', 'alert_flag'=>$alert_flag, 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$SID));
         }
