@@ -217,24 +217,6 @@
 </div>
 		<div class="hr_100"></div> 
 	</div>
-	<div class="float">
-		<div class="load_shadow"><img src="css/images/load_shadow.png"></div>
-		<div class="load">
-
-			<div class="load_left">
-				<div class="logo_icon">
-					<img src="css/images/logo_icon.jpg"/>
-				</div>
-				<div class="load_info">
-					<h3>我是大萌星</h3>
-					<p>我为自己代粮</p>
-				</div>
-			</div>
-			<div class="load_right">
-				<img src="css/images/load.jpg"/>
-			</div>
-		</div>
-	</div>
 </div>
 </body>
 <script  src="js/jquery-1.11.1.js"></script>
