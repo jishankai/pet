@@ -50,13 +50,26 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 	margin-bottom: 20px;
 	/*background-color: orange;*/
 }
+.act1_imgList > li:nth-child(5){margin-bottom: 0px!important;}
+.act1_imgList > li:nth-child(6){margin-bottom: 0px!important;}
 .act1_imgList li .pet_img{
-	background: url(../css/images/t_pet1.jpg)left top no-repeat;
 	background-size: 100% 100%;
 	width: 100%;height: 340px;
 	border-radius: 10px;
 	position: relative;
 }
+.p1{background: url(../css/images/v_pet1.png)left top no-repeat;
+	background-size: 100% 100%;}
+.p2{background: url(../css/images/v_pet2.png)left top no-repeat;
+	background-size: 100% 100%;}
+.p3{background: url(../css/images/v_pet3.png)left top no-repeat;
+	background-size: 100% 100%;}
+.p4{background: url(../css/images/v_pet4.png)left top no-repeat;
+	background-size: 100% 100%;}
+.p5{background: url(../css/images/v_pet5.png)left top no-repeat;
+	background-size: 100% 100%;}
+.p6{background: url(../css/images/v_pet6.png)left top no-repeat;
+	background-size: 100% 100%;}
 .pet_img_con{
 	width: 100%;height: 90px;
 	background: url(../css/images/tpet_con_back.png)left top no-repeat;
@@ -97,7 +110,7 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 
 .head_imgList{margin-left: 3%;}
 .head_imgList li{float: left;margin-left: 2%;width: 60px;height: 60px;}
-.head_imgList img{width: 100%;height: 100%;}
+.head_imgList img{width: 100%;height: 100%;border-radius: 50%;}
 .act1_bottom{background-color: #efede4;}
 .am_tit{
 	font-size: 30px;font-weight: bold;
