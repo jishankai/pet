@@ -210,7 +210,7 @@ class SocialController extends Controller
             $a[$v['aid']] = $v['food'];
         }
 
-        $this->renderPartial('vote', array('users'=>$users, 'animals'=>$a, 'sid'=>$SID));
+        $this->renderPartial('vote', array('users'=>$users, 'animals'=>$a, 'SID'=>$SID));
     }
 }
 
