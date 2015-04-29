@@ -68,7 +68,7 @@
 	<div class="act1_body">
 		<div class="ab_tit clearfix">
 			<img src="css/images/vote_tit.gif" class="tit_img">
-			<a href="http://home4pet.aidigame.com/pet_release_1.1.2.apk"><img src="css/images/android.png" class="android_btn"></a>
+			<a href="http://home4pet.aidigame.com/pet_release_2.0.0ac.apk"><img src="css/images/android.png" class="android_btn"></a>
 			<a href="https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?"><img src="css/images/apple.png" class="apple_btn"></a>
 
 		</div>
@@ -79,8 +79,8 @@
 					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1650">
 						<div class="pet_img p1">
 							<div class="pet_img_con">
-								<div class="t_progress"></div>
-								<div class="t_num_icon">11</div>
+								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1650]*0.75/2000)?>%"></div>
+								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1650]*0.75/2000)?>%"><?php echo $animals[1650]?></div>
 								<!-- <img src="css/images/t_pet1.jpg"/> -->
 								<h1>宝宝</h1>
 								<h3>来自爱犬有家</h3>
@@ -93,8 +93,8 @@
 					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1653">
 						<div class="pet_img p2">
 							<div class="pet_img_con">
-								<div class="t_progress"></div>
-								<div class="t_num_icon">11</div>
+								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1653]*0.75/2000)?>%"></div>
+								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1653]*0.75/2000)?>%"><?php echo $animals[1653]?></div>
 								<!-- <img src="css/images/t_pet1.jpg"/> -->
 								<h1>小花</h1>
 								<h3>来自阿汪不哭</h3>
@@ -107,8 +107,8 @@
 					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1655">
 						<div class="pet_img p3">
 							<div class="pet_img_con">
-								<div class="t_progress"></div>
-								<div class="t_num_icon">11</div>
+								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1655]*0.75/2000)?>%"></div>
+								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1655]*0.75/2000)?>%"><?php echo $animals[1655]?></div>
 								<!-- <img src="css/images/t_pet1.jpg"/> -->
 								<h1>雪儿</h1>
 								<h3>来自张莹流浪狗救助小院</h3>
@@ -121,8 +121,8 @@
 					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1652">
 						<div class="pet_img p4">
 							<div class="pet_img_con">
-								<div class="t_progress"></div>
-								<div class="t_num_icon">11</div>
+								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1652]*0.75/2000)?>%"></div>
+								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1652]*0.75/2000)?>%"><?php echo $animals[1652]?></div>
 								<!-- <img src="css/images/t_pet1.jpg"/> -->				
 								<h1>小嗝嗝</h1>
 								<h3>来自诺爱之家</h3>
@@ -135,8 +135,8 @@
 					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1656">
 						<div class="pet_img p5">
 							<div class="pet_img_con">
-								<div class="t_progress"></div>
-								<div class="t_num_icon">11</div>
+								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1656]*0.75/2000)?>%"></div>
+								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1656]*0.75/2000)?>%"><?php echo $animals[1656]?></div>
 								<!-- <img src="images1/t_pet1.jpg"/> -->	
 								<h1>白手套</h1>
 								<h3>来自社区汪咪孤儿院</h3>
@@ -146,11 +146,11 @@
 					<div class="t_btn" id="t_btn5"></div>
 				</li>
 				<li>
-					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1655">
+					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1651">
 						<div class="pet_img p6">
 							<div class="pet_img_con">
-								<div class="t_progress"></div>
-								<div class="t_num_icon">11</div>
+								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1651]*0.75/2000)?>%"></div>
+								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1651]*0.75/2000)?>%"><?php echo $animals[1651]?></div>
 								<!-- <img src="images1/t_pet1.jpg"/> -->
 								<h1>甜甜</h1>
 								<h3>来自杨洁阿姨爱心狗舍</h3>
@@ -163,7 +163,7 @@
 		</div>
 	</div>
 	<div class="act1_bottom">
-		<div class="person_num">已经有<span>123445</span>人参与了汪店长投票活动~</div>
+		<div class="person_num">已经有<span><?php echo $users?></span>人参与了汪店长投票活动~</div>
 		<div class="head_imgBox">
 			<ul class="head_imgList clearfix">
 				<li style="position: relative">
