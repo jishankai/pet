@@ -3,6 +3,7 @@ body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd,input{
 .clearfix{zoom:1;}
 ul{list-style: none;}
 body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
+a{text-decoration: none;}
 /*电脑适配*/
 @media only screen and (min-width: 650px){
 .comWidth{width:640px;height:100%;margin:auto auto;}

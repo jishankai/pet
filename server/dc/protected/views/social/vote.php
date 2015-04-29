@@ -86,8 +86,8 @@ $signPackage = $jssdk->GetSignPackage();
 					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1650">
 						<div class="pet_img p1">
 							<div class="pet_img_con">
-								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1650]*0.75/2000)?>%"></div>
-								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1650]*0.75/2000)?>%"><?php echo $animals[1650]?></div>
+								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1650]*100*0.75/5000)?>%"></div>
+								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1650]*100*0.76/5000)?>%"><?php echo $animals[1650]?></div>
 								<!-- <img src="css/images/t_pet1.jpg"/> -->
 								<h1>宝宝</h1>
 								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205465713&idx=1&sn=c1faa57d8c04ca2a286a1d11ee50d026#rd">
@@ -102,8 +102,8 @@ $signPackage = $jssdk->GetSignPackage();
 					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1653">
 						<div class="pet_img p2">
 							<div class="pet_img_con">
-								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1653]*0.75/2000)?>%"></div>
-								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1653]*0.75/2000)?>%"><?php echo $animals[1653]?></div>
+								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1653]*100*0.75/5000)?>%"></div>
+								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1653]*100*0.76/5000)?>%"><?php echo $animals[1653]?></div>
 								<!-- <img src="css/images/t_pet1.jpg"/> -->
 								<h1>小花</h1>
 								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205463973&idx=1&sn=fc9da90b7ba18d6b97d99d32b56ce340#rd">
@@ -118,8 +118,8 @@ $signPackage = $jssdk->GetSignPackage();
 					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1655">
 						<div class="pet_img p3">
 							<div class="pet_img_con">
-								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1655]*0.75/2000)?>%"></div>
-								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1655]*0.75/2000)?>%"><?php echo $animals[1655]?></div>
+								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1655]*100*0.75/5000)?>%"></div>
+								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1655]*100*0.76/5000)?>%"><?php echo $animals[1655]?></div>
 								<!-- <img src="css/images/t_pet1.jpg"/> -->
 								<h1>雪儿</h1>
 								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205462915&idx=1&sn=a7999a7300d0b594eab110db8cd6b6b3#rd">
@@ -134,8 +134,8 @@ $signPackage = $jssdk->GetSignPackage();
 					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1652">
 						<div class="pet_img p4">
 							<div class="pet_img_con">
-								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1652]*0.75/2000)?>%"></div>
-								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1652]*0.75/2000)?>%"><?php echo $animals[1652]?></div>
+								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1652]*100*0.75/5000)?>%"></div>
+								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1652]*100*0.76/5000)?>%"><?php echo $animals[1652]?></div>
 								<!-- <img src="css/images/t_pet1.jpg"/> -->				
 								<h1>小嗝嗝</h1>
 								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205461402&idx=1&sn=125e9c94e85b4fd26da09acf676ad731#rd">
@@ -150,8 +150,8 @@ $signPackage = $jssdk->GetSignPackage();
 					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1656">
 						<div class="pet_img p5">
 							<div class="pet_img_con">
-								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1656]*0.75/2000)?>%"></div>
-								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1656]*0.75/2000)?>%"><?php echo $animals[1656]?></div>
+								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1656]*100*0.75/5000)?>%"></div>
+								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1656]*100*0.76/5000)?>%"><?php echo $animals[1656]?></div>
 								<!-- <img src="images1/t_pet1.jpg"/> -->	
 								<h1>白手套</h1>
 								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205465668&idx=1&sn=b05a2f111da3f2c94489138574f6e48a#rd">
@@ -166,8 +166,8 @@ $signPackage = $jssdk->GetSignPackage();
 					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1651">
 						<div class="pet_img p6">
 							<div class="pet_img_con">
-								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1651]*0.75/2000)?>%"></div>
-								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1651]*0.75/2000)?>%"><?php echo $animals[1651]?></div>
+								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1651]*100*0.75/5000)?>%"></div>
+								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1651]*100*0.76/5000)?>%"><?php echo $animals[1651]?></div>
 								<!-- <img src="images1/t_pet1.jpg"/> -->
 								<h1>甜甜</h1>
 								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205464763&idx=1&sn=a75c4417660a324c57fec2e0942292a3#rd">
