@@ -68,13 +68,14 @@ $signPackage = $jssdk->GetSignPackage();
 <body>
 <div class="act1_wrap comWidth">
 	<div class="act1_top">
+	<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205459850&idx=1&sn=5d2b70fc0c605a109b858438390e1cea#rd">
 		<img alt="" src="css/images/vote_bannner.png">
+	</a>
 	</div>
 	<div class="act1_body">
 		<div class="ab_tit clearfix">
-			<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205459850&idx=1&sn=5d2b70fc0c605a109b858438390e1cea#rd">
-				<img src="css/images/vote_tit.gif" class="tit_img">
-			</a>
+			
+			<img src="css/images/vote_tit.gif" class="tit_img">		
 			<a href="http://home4pet.aidigame.com/pet_release_2.0.0ac.apk"><img src="css/images/android.png" class="android_btn"></a>
 			<a href="https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?"><img src="css/images/apple.png" class="apple_btn"></a>
 
