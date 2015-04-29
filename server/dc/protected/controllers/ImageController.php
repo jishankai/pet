@@ -483,7 +483,7 @@ class ImageController extends Controller
 
         if ($img_id==0) {
             if ($is_dog) {
-                $this->redirect(array('social/vote', 'SID'=>$SID));
+                $this->redirect(array('social/vote', 'alert_flag'=>$alert_flag, 'SID'=>$SID));
             } else {
                 $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$SID));
             }
