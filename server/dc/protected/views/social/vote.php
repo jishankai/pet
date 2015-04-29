@@ -268,6 +268,9 @@ $signPackage = $jssdk->GetSignPackage();
 	head8.src="css/images/base_head"+ad8+".jpg";
 
 	window.onload = function(){
+        if (<?php echo $alert_flag?>) {
+            no_ticket();
+        };
              var oTab = document.getElementById("tabs");
              var oUl = oTab.getElementsByTagName("ul")[0];
              var oLis = oUl.getElementsByTagName("li");
