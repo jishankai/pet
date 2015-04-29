@@ -224,6 +224,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 </div>
 </body>
+<script src="js/md5.js"></script>
 <script  src="js/jquery-1.11.1.js"></script>
 <script type="text/javascript">
 	var head1=document.getElementById("head1");
