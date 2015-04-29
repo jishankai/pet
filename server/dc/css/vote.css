@@ -104,9 +104,8 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 	background: url(../css/images/t_btn.png)left top no-repeat;
 	background-size: 100% 100%;
 	margin: 5px auto;
+	cursor: pointer;
 }
-
-
 
 .head_imgList{margin-left: 3%;}
 .head_imgList li{float: left;margin-left: 2%;width: 60px;height: 60px;}
@@ -138,6 +137,37 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 .load_left p{height:49px; font-size:25px; color: #777676;}
 .load .load_right{float: left; width: 50%; height: 100%; text-align: right;}
 .float{position: fixed;bottom: 0;left:center; width: 640px;}
+
+
+/*免费次数已用完弹框*/
+.mask{background:#000;
+		opacity:0.75;filter:alpha(opacity=75);
+		position:absolute;left:0;top:0;
+		z-index:1000;}
+
+.recommend_alert{width:300px;height: 250px;border-radius: 20px;
+	background-color: #fff;position: fixed;left:0;top:0;
+	z-index: 1001;opacity:0.85;filter:alpha(opacity=85);}
+#close{ width:40px;height: 40px;
+        margin-left: 256px;margin-top: 5px;
+        background: url("../css/images/close.png")center center no-repeat;
+        background-size: 100% 100%;
+        cursor:pointer;}
+.recommend_alert h3{text-align: center;font-size: 18px;
+	margin-top: 15px;}
+.recommend_alert p{font-size: 18px;margin-top: 10px;
+	font-weight: bold;text-align: center;}
+
+#tok_btn{
+	display: inline-block;width: 150px;height: 38px;line-height: 38px;
+	text-align: center;
+	border-radius: 12px;box-shadow: -1px 1px 6px #aaaaaa;
+	margin-left: 75px;color: #ffffff;margin-top: 50px;
+	cursor:pointer;background-color: #f99371;
+}
+.the_more{font-size: 12px;text-align: center;margin-top: 10px;}
+.the_more span{color: red;}
+
 
 /*手机适配（小）*/
 @media only screen and (min-width: 300px) and (max-width: 650px){
@@ -179,7 +209,7 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 }
 .pet_img_con h1{font-size: 11px;
 	margin-top: 17px;/*margin-left: 52px;*/}
-.pet_img_con  h3{font-size: 9px;
+.pet_img_con  h3{font-size: 10px;text-decoration: underline;
 	/*margin-left: 52px;*/
 }
 .t_btn{width: 127px;height: 30px;

@@ -72,7 +72,9 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 	<div class="act1_body">
 		<div class="ab_tit clearfix">
-			<img src="css/images/vote_tit.gif" class="tit_img">
+			<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205459850&idx=1&sn=5d2b70fc0c605a109b858438390e1cea#rd">
+				<img src="css/images/vote_tit.gif" class="tit_img">
+			</a>
 			<a href="http://home4pet.aidigame.com/pet_release_2.0.0ac.apk"><img src="css/images/android.png" class="android_btn"></a>
 			<a href="https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?"><img src="css/images/apple.png" class="apple_btn"></a>
 
@@ -88,7 +90,9 @@ $signPackage = $jssdk->GetSignPackage();
 								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1650]*0.75/2000)?>%"><?php echo $animals[1650]?></div>
 								<!-- <img src="css/images/t_pet1.jpg"/> -->
 								<h1>宝宝</h1>
-								<h3>来自爱犬有家</h3>
+								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205465713&idx=1&sn=c1faa57d8c04ca2a286a1d11ee50d026#rd">
+									<h3>来自爱犬有家</h3>
+								</a>
 							</div>
 						</div>
 					</a>
@@ -102,7 +106,9 @@ $signPackage = $jssdk->GetSignPackage();
 								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1653]*0.75/2000)?>%"><?php echo $animals[1653]?></div>
 								<!-- <img src="css/images/t_pet1.jpg"/> -->
 								<h1>小花</h1>
-								<h3>来自阿汪不哭</h3>
+								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205463973&idx=1&sn=fc9da90b7ba18d6b97d99d32b56ce340#rd">
+									<h3>来自阿汪不哭</h3>
+								</a>
 							</div>
 						</div>
 					</a>
@@ -116,7 +122,9 @@ $signPackage = $jssdk->GetSignPackage();
 								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1655]*0.75/2000)?>%"><?php echo $animals[1655]?></div>
 								<!-- <img src="css/images/t_pet1.jpg"/> -->
 								<h1>雪儿</h1>
-								<h3>来自张莹流浪狗救助小院</h3>
+								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205462915&idx=1&sn=a7999a7300d0b594eab110db8cd6b6b3#rd">
+									<h3>来自张莹流浪狗救助小院</h3>
+								</a>
 							</div>
 						</div>
 					</a>
@@ -130,7 +138,9 @@ $signPackage = $jssdk->GetSignPackage();
 								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1652]*0.75/2000)?>%"><?php echo $animals[1652]?></div>
 								<!-- <img src="css/images/t_pet1.jpg"/> -->				
 								<h1>小嗝嗝</h1>
-								<h3>来自诺爱之家</h3>
+								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205461402&idx=1&sn=125e9c94e85b4fd26da09acf676ad731#rd">
+									<h3>来自诺爱之家</h3>
+								</a>
 							</div>
 						</div>
 					</a>
@@ -144,7 +154,9 @@ $signPackage = $jssdk->GetSignPackage();
 								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1656]*0.75/2000)?>%"><?php echo $animals[1656]?></div>
 								<!-- <img src="images1/t_pet1.jpg"/> -->	
 								<h1>白手套</h1>
+								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205465668&idx=1&sn=b05a2f111da3f2c94489138574f6e48a#rd">
 								<h3>来自社区汪咪孤儿院</h3>
+								</a>
 							</div>
 						</div>
 					</a>
@@ -158,7 +170,9 @@ $signPackage = $jssdk->GetSignPackage();
 								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1651]*0.75/2000)?>%"><?php echo $animals[1651]?></div>
 								<!-- <img src="images1/t_pet1.jpg"/> -->
 								<h1>甜甜</h1>
-								<h3>来自杨洁阿姨爱心狗舍</h3>
+								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205464763&idx=1&sn=a75c4417660a324c57fec2e0942292a3#rd">
+									<h3>来自杨洁阿姨爱心狗舍</h3>
+								</a>
 							</div>
 						</div>
 					</a>
@@ -310,6 +324,53 @@ $signPackage = $jssdk->GetSignPackage();
 
     }
 
+
+//今天的免费次数用完了
+function no_ticket(){
+	//屏幕的高度和宽度
+	var sHeight=document.documentElement.scrollHeight;
+	var sWidth=document.documentElement.scrollWidth;
+	//可视区域的高度
+	var wHeight=document.documentElement.clientHeight;
+
+	var rMask = document.createElement("div");
+		rMask.id="rMask";
+		rMask.className="mask";
+		rMask.style.height = sHeight + "px";
+		rMask.style.width = sWidth + "px";
+		document.body.appendChild(rMask);
+
+		var recommend_alert = document.createElement("div");
+		recommend_alert.id = "recommend_alert";
+		recommend_alert.className = "recommend_alert";
+		recommend_alert.innerHTML = "<div id='close'></div><h3>今天的免费投票次数用完了</h3><p>明天还有免费机会，再来哟！</p><div id='tok_btn'>好的</div><div class='the_more'>戳顶部<span>下载链接</span>寻找更多大萌星</div>";
+
+
+		/*<div id='close'></div>
+		<h3>今天的免费投票次数用完了</h3>
+		<p>明天还有免费机会，再来哟！</p>
+		<div id='tok_btn'></div>
+		<div class='the_more'>戳顶部<span>下载链接</span>寻找更多大萌星</div>*/
+
+		document.body.appendChild(recommend_alert);
+		var rHeight = recommend_alert.offsetHeight;
+		var rWidth = recommend_alert.offsetWidth;
+
+		recommend_alert.style.left = (sWidth-rWidth)/2 + "px";
+		recommend_alert.style.top = (wHeight-rHeight)/2 + "px";
+
+		var rec_btn_no = document.getElementById("close");
+		rec_btn_no.onclick = function(){
+			document.body.removeChild(recommend_alert);
+			document.body.removeChild(rMask);
+		}
+		var rec_btn_yes = document.getElementById("tok_btn");
+		rec_btn_yes.onclick = function(){
+			//好的！按钮效果
+		}
+
+}
+
     
 
 
@@ -339,7 +400,7 @@ $signPackage = $jssdk->GetSignPackage();
         title: "包吃包住包撒欢儿，宠物星球·我是大萌星携手BARKSTARS汪星客咖啡，第一任汪店长公开选拔开！始！啦！",
         desc: "每天都有免费投票机会，快来给你喜欢的候选汪投票呀~",
         link: "http://"+window.location.host+"/index.php?r=social/vote", 
-        imgUrl: "http://"+window.location.host+"/css/images/a2.jpg",
+        imgUrl: "http://"+window.location.host+"/css/images/vote_share_icon.jpg",
         
     };
     wx.onMenuShareAppMessage(shareData);
