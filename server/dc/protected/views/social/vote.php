@@ -367,7 +367,8 @@ function no_ticket(){
 		}
 		var rec_btn_yes = document.getElementById("tok_btn");
 		rec_btn_yes.onclick = function(){
-			//好的！按钮效果
+			document.body.removeChild(recommend_alert);
+			document.body.removeChild(rMask);
 		}
 
 }
