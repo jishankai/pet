@@ -76,7 +76,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="ab_tit clearfix">
 			
 			<img src="css/images/vote_tit.gif" class="tit_img">		
-			<a href="http://home4pet.aidigame.com/pet_release_2.0.0ac.apk"><img src="css/images/android.png" class="android_btn"></a>
+			<a href="http://home4pet.aidigame.com/pet_release_2.0.0.apk"><img src="css/images/android.png" class="android_btn"></a>
 			<a href="https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?"><img src="css/images/apple.png" class="apple_btn"></a>
 
 		</div>
@@ -421,7 +421,7 @@ function no_ticket(){
   wx.ready(function () {
     // 在这里调用 API
     var shareData = {
-        title: "包吃包住包撒欢儿，宠物星球·我是大萌星携手BARKSTARS汪星客咖啡，第一任汪店长公开选拔开！始！啦！",
+        title: "包吃包住包撒欢儿，汪店长公开选拔开！始！啦！",
         desc: "每天都有免费投票机会，快来给你喜欢的候选汪投票呀~",
         link: "http://"+window.location.host+"/index.php?r=social/vote", 
         imgUrl: "http://"+window.location.host+"/css/images/vote_share_icon.jpg",
