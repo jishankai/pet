@@ -76,8 +76,8 @@ $signPackage = $jssdk->GetSignPackage();
 		<div class="ab_tit clearfix">
 			
 			<img src="css/images/vote_tit.gif" class="tit_img">		
-			<a href="http://home4pet.aidigame.com/pet_release_2.0.0.apk"><img src="css/images/android.png" class="android_btn"></a>
-			<a href="https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?"><img src="css/images/apple.png" class="apple_btn"></a>
+			<a href="http://home4pet.aidigame.com"><img src="css/images/android.png" class="android_btn"></a>
+			<a href="http://home4pet.aidigame.com"><img src="css/images/apple.png" class="apple_btn"></a>
 
 		</div>
 		<div class="act1_imgBox">
