@@ -8,7 +8,7 @@ $signPackage = $jssdk->GetSignPackage();
 <head>
 	<meta name="viewport" content="width = device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>投票活动</title>
+	<title>汪店长招聘中</title>
 	<link rel="stylesheet" type="text/css" href="css/vote.css">
     <script>
        /* var _hmt = _hmt || [];
@@ -84,39 +84,37 @@ $signPackage = $jssdk->GetSignPackage();
 			<ul class="act1_imgList clearfix">
 				
 				<li>
-					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1650">
-						<div class="pet_img p1">
-							<div class="pet_img_con">
-								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1650]*100*0.75/5000)?>%"></div>
-								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1650]*100*0.76/5000)?>%"><?php echo $animals[1650]?></div>
-								<!-- <img src="css/images/t_pet1.jpg"/> -->
-								<h1>宝宝</h1>
-								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205465713&idx=1&sn=c1faa57d8c04ca2a286a1d11ee50d026#rd">
-									<h3>来自爱犬有家</h3>
-								</a>
-							</div>
+					<div class="pet_img p1">
+						<div class="pet_img_con">
+							<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1650]*100*0.75/5000)?>%"></div>
+							<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1650]*100*0.76/5000)?>%"><?php echo $animals[1650]?></div>
+							<!-- <img src="css/images/t_pet1.jpg"/> -->
+							<h1>宝宝</h1>
+							<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205465713&idx=1&sn=c1faa57d8c04ca2a286a1d11ee50d026#rd">
+								<h3>来自爱犬有家</h3>
+							</a>
 						</div>
-					</a>
+					</div>
+					
 					<div class="t_btn" id="t_btn1"></div>
 				</li>
 				<li>
-					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1653">
-						<div class="pet_img p2">
-							<div class="pet_img_con">
-								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1653]*100*0.75/5000)?>%"></div>
-								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1653]*100*0.76/5000)?>%"><?php echo $animals[1653]?></div>
-								<!-- <img src="css/images/t_pet1.jpg"/> -->
-								<h1>小花</h1>
-								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205463973&idx=1&sn=fc9da90b7ba18d6b97d99d32b56ce340#rd">
-									<h3>来自阿汪不哭</h3>
-								</a>
-							</div>
+					<div class="pet_img p2">
+						<div class="pet_img_con">
+							<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1653]*100*0.75/5000)?>%"></div>
+							<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1653]*100*0.76/5000)?>%"><?php echo $animals[1653]?></div>
+							<!-- <img src="css/images/t_pet1.jpg"/> -->
+							<h1>小花</h1>
+							<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205463973&idx=1&sn=fc9da90b7ba18d6b97d99d32b56ce340#rd">
+								<h3>来自阿汪不哭</h3>
+							</a>
 						</div>
-					</a>
+					</div>
+					
 					<div class="t_btn" id="t_btn2"></div>
 				</li>
 				<li>
-					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1655">
+					
 						<div class="pet_img p3">
 							<div class="pet_img_con">
 								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1655]*100*0.75/5000)?>%"></div>
@@ -128,55 +126,55 @@ $signPackage = $jssdk->GetSignPackage();
 								</a>
 							</div>
 						</div>
-					</a>
+					
 					<div class="t_btn" id="t_btn3"></div>
 				</li>
 				<li>
-					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1652">
-						<div class="pet_img p4">
-							<div class="pet_img_con">
-								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1652]*100*0.75/5000)?>%"></div>
-								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1652]*100*0.76/5000)?>%"><?php echo $animals[1652]?></div>
-								<!-- <img src="css/images/t_pet1.jpg"/> -->				
-								<h1>小嗝嗝</h1>
-								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205461402&idx=1&sn=125e9c94e85b4fd26da09acf676ad731#rd">
-									<h3>来自诺爱之家</h3>
-								</a>
-							</div>
+					
+					<div class="pet_img p4">
+						<div class="pet_img_con">
+							<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1652]*100*0.75/5000)?>%"></div>
+							<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1652]*100*0.76/5000)?>%"><?php echo $animals[1652]?></div>
+							<!-- <img src="css/images/t_pet1.jpg"/> -->				
+							<h1>小嗝嗝</h1>
+							<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205461402&idx=1&sn=125e9c94e85b4fd26da09acf676ad731#rd">
+								<h3>来自诺爱之家</h3>
+							</a>
 						</div>
-					</a>
+					</div>
+					
 					<div class="t_btn" id="t_btn4"></div>
 				</li>
 				<li>
-					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1656">
-						<div class="pet_img p5">
-							<div class="pet_img_con">
-								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1656]*100*0.75/5000)?>%"></div>
-								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1656]*100*0.76/5000)?>%"><?php echo $animals[1656]?></div>
-								<!-- <img src="images1/t_pet1.jpg"/> -->	
-								<h1>白手套</h1>
-								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205465668&idx=1&sn=b05a2f111da3f2c94489138574f6e48a#rd">
+					
+					<div class="pet_img p5">
+						<div class="pet_img_con">
+							<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1656]*100*0.75/5000)?>%"></div>
+							<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1656]*100*0.76/5000)?>%"><?php echo $animals[1656]?></div>
+							<!-- <img src="images1/t_pet1.jpg"/> -->	
+							<h1>白手套</h1>
+							<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205465668&idx=1&sn=b05a2f111da3f2c94489138574f6e48a#rd">
 								<h3>来自社区汪咪孤儿院</h3>
-								</a>
-							</div>
+							</a>
 						</div>
-					</a>
+					</div>
+					
 					<div class="t_btn" id="t_btn5"></div>
 				</li>
 				<li>
-					<a href="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1651">
-						<div class="pet_img p6">
-							<div class="pet_img_con">
-								<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1651]*100*0.75/5000)?>%"></div>
-								<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1651]*100*0.76/5000)?>%"><?php echo $animals[1651]?></div>
-								<!-- <img src="images1/t_pet1.jpg"/> -->
-								<h1>甜甜</h1>
-								<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205464763&idx=1&sn=a75c4417660a324c57fec2e0942292a3#rd">
-									<h3>来自杨洁阿姨爱心狗舍</h3>
-								</a>
-							</div>
+					
+					<div class="pet_img p6">
+						<div class="pet_img_con">
+							<div class="t_progress" style="width:<?php echo sprintf("%.2f",$animals[1651]*100*0.75/5000)?>%"></div>
+							<div class="t_num_icon" style="left:<?php echo sprintf("%.2f",$animals[1651]*100*0.76/5000)?>%"><?php echo $animals[1651]?></div>
+							<!-- <img src="images1/t_pet1.jpg"/> -->
+							<h1>甜甜</h1>
+							<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTQwMjYwNw==&mid=205464763&idx=1&sn=a75c4417660a324c57fec2e0942292a3#rd">
+								<h3>来自杨洁阿姨爱心狗舍</h3>
+							</a>
 						</div>
-					</a>
+					</div>
+					
 					<div class="t_btn" id="t_btn6"></div>
 				</li>
 			</ul>
@@ -288,6 +286,26 @@ $signPackage = $jssdk->GetSignPackage();
                      oDivs[this.index].className = "";
                  }
              };
+
+             //大图跳转
+             $(".p1").click(function(){
+				window.location="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1650";
+			})
+             $(".p2").click(function(){
+				window.location="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1653";
+			})
+             $(".p3").click(function(){
+				window.location="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1655";
+			})
+             $(".p4").click(function(){
+				window.location="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1652";
+			})
+             $(".p5").click(function(){
+				window.location="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1656";
+			})
+             $(".p6").click(function(){
+				window.location="http://release4pet.imengstar.com/index.php?r=animal/infoShare&aid=1651";
+			})
 
         	//投票按钮组
 					$("#t_btn1").click(function(){

@@ -85,11 +85,11 @@ a{text-decoration: none;}
 	background: orange;
 }
 .t_num_icon{
-	position: absolute;left: 26px;bottom: 69px;
-	width: 30px;height: 20px;
+	position: absolute;/*left: 26px;*/left:75%;bottom: 69px;
+	width: 45px;height: 30px;line-height: 20px;
 	background: url(../css/images/t_num.png)left top no-repeat;
 	background-size: 100% 100%;
-	font-size: 5px;text-align: center;
+	font-size: 12px;text-align: center;
 }
 
 .pet_img_con img{width: 38px;height: 38px;border-radius: 50%;
@@ -200,8 +200,8 @@ a{text-decoration: none;}
 }
 .t_num_icon{
 	position: absolute;left: 14px;bottom: 38px;
-	width: 16px;height: 11px;
-	font-size: 3px;
+	width: 32px;height: 22px;line-height: 16px;
+	font-size: 8px;
 }
 
 .pet_img_con img{width: 21px;height: 21px;
