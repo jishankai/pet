@@ -8,15 +8,15 @@ class StarController extends Controller
             'checkUpdate',
             'checkSig',
             'getUserId - listApi, popularApi, newestApi, rankApi, contriApi',
-            array(
-                'COutputCache + listApi',
-                'duration' => 300,
-                'varyByParam' => array('img_id'),
-                'dependency' => array(
-                    'class' => 'CDbCacheDependency',
-                    'sql' => "SELECT MAX(update_time) FROM dc_star",
-                ),
-            ),
+            // array(
+            //     'COutputCache + listApi',
+            //     'duration' => 300,
+            //     'varyByParam' => array('img_id'),
+            //     'dependency' => array(
+            //         'class' => 'CDbCacheDependency',
+            //         'sql' => "SELECT MAX(update_time) FROM dc_star",
+            //     ),
+            // ),
             array(
                 'COutputCache + pupularApi,newestApi,rankApi',
                 'duration' => 30,
