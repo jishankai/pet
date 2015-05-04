@@ -3,7 +3,7 @@ require_once "jssdk.php";
 $jssdk = new JSSDK(WECHAT_MP_ID, WECHAT_MP_SECRET);
 $signPackage = $jssdk->GetSignPackage();
 ?>
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta name="viewport" content="width = device-width, initial-scale=1.0">
