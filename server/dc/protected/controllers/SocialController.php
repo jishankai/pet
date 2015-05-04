@@ -204,7 +204,7 @@ class SocialController extends Controller
 
     public function actionVote($alert_flag=0, $SID='')
     {
-        $users = Yii::app()->db->createCommand('SELECT COUNT(usr_id) FROM dc_user')->queryScalar();
+        $users = Yii::app()->db->createCommand('SELECT SUM(food) FROM dc_animal WHERE aid IN (1650,1653,1655,1652,1656,1651)')->queryScalar();
         $animals = Yii::app()->db->createCommand('SELECT aid, food FROM dc_animal WHERE aid IN (1650,1653,1655,1652,1656,1651)')->queryAll();
         foreach ($animals as $v) {
             $a[$v['aid']] = $v['food'];
