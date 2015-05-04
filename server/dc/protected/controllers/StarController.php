@@ -89,7 +89,7 @@ class StarController extends Controller
                 $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
             } else {
                 $user = User::model()->findByPk($this->usr_id);
-                $user->gold-=100;
+                $user->gold-=30;
                 $user->saveAttributes(array('gold'));
             }
             $image->stars++;
