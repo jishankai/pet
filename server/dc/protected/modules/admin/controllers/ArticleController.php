@@ -122,7 +122,10 @@ class ArticleController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Article');
+		$dataProvider=new CActiveDataProvider('Article',array(
+			'criteria'=>array(
+				'order'=>'create_time DESC',
+				)));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
