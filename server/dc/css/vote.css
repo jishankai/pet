@@ -3,7 +3,8 @@ body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd,input{
 .clearfix{zoom:1;}
 ul{list-style: none;}
 body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
-a{text-decoration: none;}
+/*a{text-decoration: none;}*/
+a{color: #fb7658;}
 /*电脑适配*/
 @media only screen and (min-width: 650px){
 .comWidth{width:640px;height:100%;margin:auto auto;}
@@ -99,7 +100,7 @@ a{text-decoration: none;}
 .pet_img_con h1{font-size: 21px;color: #6e6e6e;
 	margin-top: 32px;/*margin-left: 95px;*/text-align: center;}
 .pet_img_con  h3{font-size: 17px;color: #fb7658;
-	/*margin-left: 95px;*/text-decoration: underline;text-align: center;
+	/*margin-left: 95px;*//*text-decoration: underline;*/text-align: center;
 }
 .t_btn{width: 231px;height: 54px;
 	background: url(../css/images/t_btn.png)left top no-repeat;
@@ -210,7 +211,7 @@ a{text-decoration: none;}
 }
 .pet_img_con h1{font-size: 11px;
 	margin-top: 17px;/*margin-left: 52px;*/}
-.pet_img_con  h3{font-size: 10px;text-decoration: underline;
+.pet_img_con  h3{font-size: 10px;/*text-decoration: underline;*/
 	/*margin-left: 52px;*/
 }
 .t_btn{width: 127px;height: 30px;
