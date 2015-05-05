@@ -208,7 +208,7 @@ $(function(){
 		});
 
 	//依情况改变页面样式   1.普通 2.可以赏口粮 3.可以推荐
-	var flag = 1;
+	var flag = <? if ($r['star_id']!=0) { echo 3; } else if ($r['is_food']==1) { echo 2; } else { echo 1; }?>;
 	if(flag==1){
 		$(".recommend_box").css("display","none");
 		$(".giveBtn_box").css("display","block");
