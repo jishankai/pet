@@ -94,6 +94,7 @@ class SocialController extends Controller
                     $this->usr_id = $usr_id;
                 } else {
                     $a = implode('$', array('img_id',$img_id));
+                    $state = $a;
                     $oauth2->get_code_by_authorize($state);
                     exit;
                 }
