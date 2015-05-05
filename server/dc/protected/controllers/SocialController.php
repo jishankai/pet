@@ -72,6 +72,50 @@ class SocialController extends Controller
 
     public function actionFood($img_id, $alert_flag=0, $to='', $SID='')
     {
+        if ($SID!='') {
+            $session = Yii::app()->session;
+            $this->usr_id = $session['usr_id'];
+        } 
+
+        if (!isset($this->usr_id)) {
+            if ($to=='') {
+                if (isset($_SERVER['HTTP_USER_AGENT'])&&strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")) {
+                    $to = 'wechat';
+                } else {
+                    $to = 'weibo';
+                }
+            }
+            switch ($to) {
+            case 'wechat':
+                $oauth2 = Yii::app()->wechat;
+                $key = 'wechatoauth2_'.$oauth2->APPID;
+                if (isset($_COOKIE[$key])&&$cookie=$_COOKIE[$key]) {
+                    parse_str($cookie);
+                    $this->usr_id = $usr_id;
+                } else {
+                    $a = implode('$', array('img_id',$img_id));
+                    $oauth2->get_code_by_authorize($state);
+                    exit;
+                }
+                break;
+            case 'weibo':
+                Yii::import('ext.sinaWeibo.SinaWeibo',true);
+                $oauth2 = new SinaWeibo(WB_AKEY, WB_SKEY);
+                $key = 'weibooauth2_'.$oauth2->client_id;
+                if (isset($_COOKIE[$key])&&$cookie=$_COOKIE[$key]) {
+                    parse_str($cookie);
+                    $this->usr_id = $usr_id;
+                } else {
+                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id)), 'mobile'));
+                    exit;
+                }
+                break;
+            default:
+                # code...
+                break;
+            }
+        }
+
         $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.topic_name, i.likes, i.likers, i.gifts, i.senders, i.shares, i.sharers, i.comments, i.food, i.is_food=1 AS is_food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $img_id)->queryRow();
         
         $pet_type = Util::loadConfig('pet_type');

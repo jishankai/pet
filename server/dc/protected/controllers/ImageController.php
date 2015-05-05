@@ -33,10 +33,10 @@ class ImageController extends Controller
             ),
                 */
 
-            array(
-                'COutputCache + topicApi',
-                'duration' => 3600,
-            )
+            // array(
+            //     'COutputCache + topicApi',
+            //     'duration' => 3600,
+            // )
         );
     }
 
