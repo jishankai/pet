@@ -424,7 +424,7 @@ class WechatController extends Controller
         $is_shake = isset($tmp_arr['is_shake'])?$tmp_arr['is_shake']:NULL;
         $is_touch = isset($tmp_arr['is_touch'])?$tmp_arr['is_touch']:NULL;
         $is_dog = isset($tmp_arr['is_dog'])?$tmp_arr['is_dog']:NULL;
-        $aid = $tmp_arr['aid'];
+        $aid = isset($tmp_arr['aid'])?$tmp_arr['aid']:NULL;
         $img_url = isset($tmp_arr['img_url'])?$tmp_arr['img_url']:NULL;
         $u = Yii::app()->wechat->get_userinfo_by_authorize($code);
         $params = array(
@@ -472,7 +472,11 @@ class WechatController extends Controller
                 $this->redirect(array('social/activityview', 'aid'=>$aid, 'SID'=>$j->data->SID));
             }
         } else if (isset($img_id)) {
-            $this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$j->data->SID));
+            if (isset($aid)) {
+                $this->redirect(array('social/foodShareApi', 'img_id'=>$img_id, 'aid'=>$aid, 'SID'=>$j->data->SID));
+            } else {
+                $this->redirect(array('social/food', 'img_id'=>$img_id, 'SID'=>$j->data->SID));
+            }
         } 
     }
 
