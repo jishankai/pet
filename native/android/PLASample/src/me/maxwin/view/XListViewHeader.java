@@ -35,10 +35,14 @@ public class XListViewHeader extends LinearLayout {
 	public final static int STATE_NORMAL = 0;
 	public final static int STATE_READY = 1;
 	public final static int STATE_REFRESHING = 2;
-
-	public XListViewHeader(Context context) {
+    public int topMargin;
+    public Context context;
+	public XListViewHeader(Context context,int topMargin) {
 		super(context);
+		this.topMargin=topMargin;
+		this.context=context;
 		initView(context);
+		
 	}
 
 	/**
@@ -56,6 +60,12 @@ public class XListViewHeader extends LinearLayout {
 				LayoutParams.FILL_PARENT, 0);
 		mContainer = (LinearLayout) LayoutInflater.from(context).inflate(
 				R.layout.xlistview_header, null);
+		if(topMargin==0){
+			lp.topMargin=context.getResources().getDimensionPixelOffset(R.dimen.one_dip)*0;
+		}else{
+			lp.topMargin=context.getResources().getDimensionPixelOffset(R.dimen.one_dip)*topMargin;
+		}
+		
 		addView(mContainer, lp);
 		setGravity(Gravity.BOTTOM);
 
@@ -124,6 +134,18 @@ public class XListViewHeader extends LinearLayout {
 
 	public int getVisiableHeight() {
 		return mContainer.getHeight();
+	}
+	public void setTopMargin(int top){
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+				LayoutParams.FILL_PARENT, 0);
+		if(top==0){
+			lp.topMargin=context.getResources().getDimensionPixelOffset(R.dimen.one_dip)*0;
+		}else{
+			lp.topMargin=context.getResources().getDimensionPixelOffset(R.dimen.one_dip)*top;
+		}
+		
+		mContainer.setLayoutParams(lp);
+		
 	}
 
 }

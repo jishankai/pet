@@ -108,7 +108,12 @@ public class ImageFetcher extends ImageResizer {
         if(null==itemUrl){
         	u=data;
         }else{
-        	u=itemUrl+data;
+        	if("noAdd".equals(itemUrl)){
+        		
+        	}else{
+        		u=itemUrl+data;
+        	}
+        	
         }
         final File f = downloadBitmap(mContext, data,itemUrl,IP);
 
@@ -179,11 +184,21 @@ public class ImageFetcher extends ImageResizer {
         	if(itemUrl==null){
         		
         	}else{
-        		u=itemUrl+urlString;
+        		if("noAdd".equals(itemUrl)){
+        			
+        		}else{
+        			u=itemUrl+urlString;
+        		}
+        		
         	}
-        	 Log.i("me", "=================xiazai 图片   url="+IP+u);
-            final URL url = new URL(IP+u);
-            
+        	
+        	 if("noAdd".equals(itemUrl)){
+     			
+     		}else{
+     			u=IP+u;
+     		}
+            final URL url = new URL(u);
+            Log.i("me", "=================xiazai 图片   url="+u);
            
             urlConnection = (HttpURLConnection) url.openConnection();
             final InputStream in =

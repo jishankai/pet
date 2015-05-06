@@ -31,6 +31,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executor;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.dodola.model.DuitangInfo;
 import com.huewu.pla.sample.BuildConfig;
@@ -106,8 +113,15 @@ public abstract class ImageWorker {
 			final AsyncDrawable asyncDrawable = new AsyncDrawable(mContext.getResources(), mLoadingBitmap, task);
 			if(imageView!=null)
 			imageView.setImageDrawable(asyncDrawable);
-			task.execute(data);
-			Log.i("me", "内存缓存图片为空");
+//			try {
+				task.execute(data);
+			/*} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}*/
+				
+			
+			Log.i("me", "内存缓存图片为空task.execute(data);=============================================");
 		}
 	}
 	int width;
@@ -258,9 +272,13 @@ public abstract class ImageWorker {
 		private final WeakReference<ImageView> imageViewReference;
 		BitmapFactory.Options options;
 
+	    
+		
+		
 		public BitmapWorkerTask(ImageView imageView,BitmapFactory.Options options) {
 			imageViewReference = new WeakReference<ImageView>(imageView);
 			this.options=options;
+			
 		}
 
 		/**
@@ -375,9 +393,11 @@ public abstract class ImageWorker {
 			super(res, bitmap);
 
 			bitmapWorkerTaskReference = new WeakReference<BitmapWorkerTask>(bitmapWorkerTask);
+			
 		}
 
 		public BitmapWorkerTask getBitmapWorkerTask() {
+			
 			return bitmapWorkerTaskReference.get();
 		}
 	}

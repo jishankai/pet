@@ -24,6 +24,7 @@ import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.View;
 
+import com.huewu.pla.lib.internal.PLA_AbsListView;
 import com.huewu.pla.lib.internal.PLA_ListView;
 import com.huewu.pla.sample.R;
 
@@ -45,7 +46,7 @@ public class MultiColumnListView extends PLA_ListView {
 
     private int mColumnPaddingLeft = 0;
     private int mColumnPaddingRight = 0;
-
+    public int headTopMargin;
     public MultiColumnListView(Context context) {
         super(context);
         init(null);
@@ -74,7 +75,7 @@ public class MultiColumnListView extends PLA_ListView {
 
             int landColNumber = a.getInteger(R.styleable.PinterestLikeAdapterView_plaLandscapeColumnNumber, 3);
             int defColNumber = a.getInteger(R.styleable.PinterestLikeAdapterView_plaColumnNumber, 2);
-
+            headTopMargin=a.getInteger(R.styleable.PinterestLikeAdapterView_headTopMargin, 0);
             if (mFrameRect.width() > mFrameRect.height() && landColNumber != -1) {
                 mColumnNumber = (landColNumber);
             } else if (defColNumber != -1) {
@@ -219,6 +220,7 @@ public class MultiColumnListView extends PLA_ListView {
         int result = Integer.MAX_VALUE;
         for (Column c : mColumns) {
             int top = c.getTop();
+            
             result = result > top ? top : result;
         }
         return result;

@@ -19,8 +19,11 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.MeasureSpec;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AbsListView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
@@ -89,6 +92,7 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
     		int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
     				MeasureSpec.AT_MOST);
     		super.onMeasure(widthMeasureSpec, expandSpec);
+//    		isForScrollView=false;
     	}else{
     		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     	}
@@ -107,10 +111,14 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 		super.setOnScrollListener(this);
 
 		// init header view
-		mHeaderView = new XListViewHeader(context);
+		mHeaderView = new XListViewHeader(context,headTopMargin);
 		mHeaderViewContent = (RelativeLayout) mHeaderView.findViewById(R.id.xlistview_header_content);
 		mHeaderTimeView = (TextView) mHeaderView.findViewById(R.id.xlistview_header_time);
+		
+		
+		
 		addHeaderView(mHeaderView);
+		
 
 		// init footer view
 		mFooterView = new XListViewFooter(context);
@@ -289,9 +297,24 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 			break;
 		case MotionEvent.ACTION_MOVE:
 			final float deltaY = ev.getRawY() - mLastY;
+			int[] screenXY=new int[2];
+			this.getLocationOnScreen(screenXY);
+			int[] windowXY=new int[2];
+			this.getLocationInWindow(windowXY);
+			
+			Log.i("mi", "screenXY:x="+screenXY[0]+";y="+screenXY[1]+";windowXY:x="+windowXY[0]+";y="+windowXY[1]+";mScroller.getCurrY()="+mScroller.getCurrY());
+		
 			mLastY = ev.getRawY();
+			
+			Log.i("mi", "getScrollChildTop()="+getScrollChildTop()+";getScrollChildBottom()="+getScrollChildBottom()+"====deltaY="+deltaY);
+			
+			if(scrollowTopListener!=null){
+				scrollowTopListener.changeTopTab(deltaY);
+			}
+			
 			if (getFirstVisiblePosition() == 0 && (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
 				// the first item is showing, header has shown or pull down.
+				
 				updateHeaderHeight(deltaY / OFFSET_RADIO);
 				invokeOnScrolling();
 			} else if (getLastVisiblePosition() == mTotalItemCount - 1 && (mFooterView.getBottomMargin() > 0 || deltaY < 0)) {
@@ -300,6 +323,9 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 			}
 			break;
 		default:
+			
+			
+			
 			mLastY = -1; // reset
 			if (getFirstVisiblePosition() == 0&&!update_footer) {
 				// invoke refresh
@@ -384,6 +410,9 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 		if (mScrollListener != null) {
 			mScrollListener.onScrollStateChanged(view, scrollState);
 		}
+		if(scrollowTopListener!=null&&scrollState==PLA_AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
+			scrollowTopListener.onScrollStop(scrollState);
+		}
 	}
 
 	@Override
@@ -393,5 +422,13 @@ public class XListView extends MultiColumnListView implements OnScrollListener {
 		if (mScrollListener != null) {
 			mScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
 		}	
+	}
+	private ScrollowTopListener scrollowTopListener;
+	public void setScrollowTopListenenr(ScrollowTopListener scrollowTopListener){
+		this.scrollowTopListener=scrollowTopListener;
+	}
+	public static interface ScrollowTopListener{
+		void changeTopTab(float firstChildTop);
+		void onScrollStop(final int status);
 	}
 }

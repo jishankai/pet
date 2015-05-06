@@ -41,6 +41,7 @@ import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Adapter;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
 
@@ -2805,7 +2806,7 @@ public abstract class PLA_AbsListView extends PLA_AdapterView<ListAdapter> imple
 
     /**
      * AbsListView extends LayoutParams to provide a place to hold the view
-     * type.
+     * type.   ViewGroup.LayoutParams
      */
     public static class LayoutParams extends ViewGroup.LayoutParams {
         /**

@@ -771,6 +771,7 @@ public class PLA_ListView extends PLA_AbsListView {
         }
 
         setMeasuredDimension(widthSize, heightSize);
+       
         mWidthMeasureSpec = widthMeasureSpec;
     }
 

@@ -38,7 +38,7 @@
 -keepclassmembers class * {
    public <init>(org.json.JSONObject);
 }
--keep public class com.aidigame.hisun.pet.R$*{
+-keep public class com.aidigame.hisun.imengstar.R$*{
     public static final int *;
 }
 -keepclassmembers enum * {
@@ -59,13 +59,13 @@
 -keep class com.tencent.**{*;}
 -keep class com.polites.android.**{*;}
 -keep class dalvik.system.**{*;}
--keep class com.aidigame.hisun.pet.wxapi.**{*;}
--keep class com.aidigame.hisun.pet.constant.**{*;}
+-keep class com.aidigame.hisun.imengstar.wxapi.**{*;}
+-keep class com.aidigame.hisun.imengstar.constant.**{*;}
 -keep class com.costum.android.widget.**{*;}
--keep class com.aidigame.hisun.pet.view.**{*;}
--keep class com.aidigame.hisun.pet.view.GalleryFlow {*;}
--keep class com.aidigame.hisun.pet.widget.fragment.ClawStyleFunction {*;}
--keep class com.aidigame.hisun.pet.view.arcmenu.**{*;}
+-keep class com.aidigame.hisun.imengstar.view.**{*;}
+-keep class com.aidigame.hisun.imengstar.view.GalleryFlow {*;}
+-keep class com.aidigame.hisun.imengstar.widget.fragment.ClawStyleFunction {*;}
+-keep class com.aidigame.hisun.imengstar.view.arcmenu.**{*;}
 -keep public class * extends android.app.Activity
 
 -keep public class * extends android.app.Application {*;}
@@ -79,11 +79,11 @@
 -keep public class * extends android.widget.Adapter {*;}
 -keepnames class * implements java.io.Serializable
 -keepclassmembers class * implements java.io.Serializable {*;}
--keep class com.aidigame.hisun.pet.bean.*{*;}
+-keep class com.aidigame.hisun.imengstar.bean.*{*;}
 -keep public class * extends android.preference.Preference {*;}
 -keep class android.content.SharedPreferences {*;}
--keep class com.aidigame.hisun.pet.util.HandleHttpConnectionException {*;}
--keep class com.aidigame.hisun.pet.ui.NewRegisterActivity {*;}
+-keep class com.aidigame.hisun.imengstar.util.HandleHttpConnectionException {*;}
+-keep class com.aidigame.hisun.imengstar.ui.NewRegisterActivity {*;}
 
 
 
@@ -353,7 +353,7 @@
 
 
 
--keep class com.aidigame.hisun.pet.huanxin.** {*;}
+-keep class com.aidigame.hisun.imengstar.huanxin.** {*;}
 -keep class org.jivesoftware.** {*;}
 -keep class org.apache.** {*;}
 -dontwarn  com.easemob.**
@@ -361,7 +361,7 @@
 #-keep class org.xbill.DNS.** {*;}
 #另外，demo中发送表情的时候使用到反射，需要keep SmileUtils,注意前面的包名，
 #不要SmileUtils复制到自己的项目下，keep的时候还是写的demo里的包名
--keep class com.aidigame.hisun.pet.huanxin.SmileUtils {*;}
+-keep class com.aidigame.hisun.imengstar.huanxin.SmileUtils {*;}
 
 #2.0.9后加入语音通话功能，如需使用此功能的api，加入以下keep
 -dontwarn ch.imvs.**

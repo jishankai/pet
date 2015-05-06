@@ -25,6 +25,7 @@
         <attr name="plaLandscapeColumnNumber" format="integer" />
         <attr name="plaColumnPaddingLeft" format="dimension" />
         <attr name="plaColumnPaddingRight" format="dimension" />
+        <attr name="headTopMargin" format="integer"/>
     </declare-styleable>    
 
     <declare-styleable name="View">
