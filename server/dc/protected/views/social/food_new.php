@@ -156,11 +156,12 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 
 
-	<form class="comment_alert" action="<?php echo $this->createUrl('image/commentApi')?>">
+	<form class="comment_alert" action="<?php echo $this->createUrl('image/commentApi', array('sig'=>md5('dog&cat')))?>">
 		<h3>说点什么</h3>
 		<input type="submit" id="submit" value=""/>
 		<input type="button" id="close"/>
 		<textarea></textarea>
+        <input type="hidden" name="img_id" value="<?php echo $img_id?>" />
 	</form>
 
 </div>
@@ -169,6 +170,9 @@ $signPackage = $jssdk->GetSignPackage();
 
 <script type="text/javascript">
 $(function(){
+	/*头像尺寸设置*/
+	var iWidth=$(".like_head img").width();
+	$(".like_head img").height(iWidth);
 
 	/*评论弹框*/
 	$("#comment_btn").click(function(){
@@ -212,8 +216,8 @@ $(function(){
 			}
 		});
 
-	//依情况改变页面样式   1.普通 2.可以赏口粮 3.可以推荐
-	var flag = <?php if ($r['star_id']!=0) { echo 3; } else if ($r['is_food']==1) { echo 2; } else { echo 1; }?>;
+	//依情况改变页面样式   默认为普通（除1和2外的其它值）1.可以赏口粮 2.可以推荐
+	var flag = <?php if ($r['star_id']!=0) { echo 2; } else if ($r['is_food']==1) { echo 2; } else { echo 3; }?>;
 	if(flag==1){
 		$(".recommend_box").css("display","none");
 		$(".giveBtn_box").css("display","block");
