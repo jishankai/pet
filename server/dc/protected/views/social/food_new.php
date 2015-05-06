@@ -170,6 +170,9 @@ $signPackage = $jssdk->GetSignPackage();
 
 <script type="text/javascript">
 $(function(){
+	/*头像尺寸设置*/
+	var iWidth=$(".like_head img").width();
+	$(".like_head img").height(iWidth);
 
 	/*评论弹框*/
 	$("#comment_btn").click(function(){
