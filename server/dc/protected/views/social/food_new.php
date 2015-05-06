@@ -150,6 +150,7 @@ $signPackage = $jssdk->GetSignPackage();
 	<div class="recommend_box float">
 		<div class="recommend">
 			<img id="recommend_btn" src="css/images/bt_heart.png"/>
+			<img id="act_jump_btn" src="css/images/activity_jump.png"/>
 		</div>
 
 	</div>
@@ -192,6 +193,10 @@ $(function(){
 	/*推荐按钮*/
 	$("#recommend_btn").click(function(){
 		recommend();
+	});
+	/*Go活动界面*/
+	$("#act_jump_btn").click(function(){
+		window.location="";
 	});
 
 	/*赞按钮*/
