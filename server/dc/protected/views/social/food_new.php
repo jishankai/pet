@@ -156,7 +156,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 
 
-	<form class="comment_alert" action="<?php echo $this->createUrl('image/commentApi', array('sig'=>md5('dog&cat')))?>">
+	<form class="comment_alert" action="<?php echo $this->createAbsoluteUrl('image/commentApi', array('sig'=>md5('dog&cat')))?>">
 		<h3>说点什么</h3>
 		<input type="submit" id="submit" value=""/>
 		<input type="button" id="close"/>
@@ -208,6 +208,13 @@ $(function(){
 			var like = $("#like").html();
 
 			if(like=="赞"){
+				$.ajax({
+                    url: <?php echo "'".$this->createUrl('image/likeApi', array('img_id'=>$img_id, 'sig'=>md5('img_id='.$img_id), 'SID'=>$SID))."'" ?>,
+                    data: { },
+                    type: "get",
+                    success: function (data) {
+                    }
+                });
 				document.getElementById("like_img").src="css/images/page_liked.png";
 				$("#like").html("已赞");
 			}else{
@@ -365,6 +372,13 @@ function recommend(){
 		var rec_btn_yes = document.getElementById("rec_btn_yes");
 		rec_btn_yes.onclick = function(){
 			//好的！按钮效果
+			$.ajax({
+				url: <?php echo "'".$this->createUrl('star/voteApi', array('img_id'=>$img_id, 'sig'=>md5('img_id='.$img_id), 'SID'=>$SID))."'" ?>,
+				data: { },
+				type: "get",
+				success: function (data) {
+				}
+			});
 		}
 }
 
