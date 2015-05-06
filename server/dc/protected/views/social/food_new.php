@@ -161,6 +161,7 @@ $signPackage = $jssdk->GetSignPackage();
 		<input type="submit" id="submit" value=""/>
 		<input type="button" id="close"/>
 		<textarea></textarea>
+		<input type="hidden" name="img_id" value="a" />
 	</form>
 
 </div>
@@ -212,7 +213,7 @@ $(function(){
 			}
 		});
 
-	//依情况改变页面样式   1.普通 2.可以赏口粮 3.可以推荐
+	//依情况改变页面样式   默认为普通（除1和2外的其它值）1.可以赏口粮 2.可以推荐
 	var flag = 1;
 	if(flag==1){
 		$(".recommend_box").css("display","none");
