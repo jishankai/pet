@@ -1,0 +1,82 @@
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,dl,dt,dd,input{margin:0;padding:0;}
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+ul{list-style: none;}
+body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
+.hr_30{height: 30px;width: 100%;}
+/*电脑适配*/
+@media only screen and (min-width: 650px){
+.comWidth{width:640px;height:100%;margin:auto auto;}
+}
+
+.act1_top img{width: 100%;}
+.act1_top{width:100%;height:auto;background-color: pink;}
+.act1_body{width:100%;height:auto; }
+.ab_tit{width: 100%;padding: 1% 0px;}
+.ab_tit .tit_img{width: 60%;}
+.android_btn, .apple_btn{width:13%;margin-left: 1%;}
+
+/*头像*/
+.head_imgList{margin-left: 2%;}
+.head_imgList li{float: left;margin-left: 3%;width: 80px;height: 80px;}
+.head_imgList li h3{width: 70%;font-size: 14px;
+	text-align: center;margin: 0 auto;
+	text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
+.head_imgList img{width: 100%;height: 100%;border-radius: 100%;}
+.star, .hot_photos{font-size: 24px;margin:2.5%;padding-top: 3%;}
+
+/*热门照片*/
+.hot_photos_box{width: 100%;height:auto;margin: 0 auto;}
+.hot_photos_list{width: 100%;height: auto;}
+.hot_photos_list li{width:30%;height:auto;float: left;margin-left: 2.5%;
+	margin-bottom: 2%;position: relative;}
+.hot_photos_list li img{width: 100%;}
+.hot_photos_list li div{position: absolute;right: 10px;bottom: 10px;
+	height: 30px;line-height: 30px;padding-left: 30px;padding-right: 3px;
+	background: rgba(255,255,255,0.5) url("../css/images/heart_orange_small.png")3px center no-repeat;
+	background-size: auto 70%;
+	border-radius: 8px;}
+
+
+/*手机适配（小）*/
+@media only screen and (min-width: 300px) and (max-width: 650px){
+
+.comWidth{width:100%;height:100%;margin:auto auto;}
+.ab_tit{
+	padding:2% 0px 0px 2%;
+}
+
+.head_imgList li h3{width: 100%;font-size: 10px;text-align: center;
+	text-overflow:ellipsis; white-space:nowrap; overflow:hidden; }
+
+/*热门照片*/
+
+.hot_photos_list li div{position: absolute;right: 5px;bottom: 5px;
+	height: 18px;line-height: 18px;padding-left: 18px;padding-right: 3px;
+	font-size: 10px;
+	border-radius: 5px;}
+
+}
+/*微信头像匹配*/
+@media only screen and (min-width: 300px) and (max-width: 350px){
+	.head_imgList li{width: 40px;height: 40px;}
+	.star, .hot_photos{font-size: 12px;}
+	.mian{font-size: 12px;}
+}
+@media only screen and (min-width: 351px) and (max-width: 400px){
+	.head_imgList li{width: 45px;height: 45px;}
+	.star, .hot_photos{font-size: 13px;}
+	.mian{font-size: 13px;}
+}
+@media only screen and (min-width: 401px) and (max-width: 450px){
+	.head_imgList li{width: 50px;height: 50px;}
+}
+@media only screen and (min-width: 451px) and (max-width: 500px){
+	.head_imgList li{width: 56px;height: 56px;}
+}
+@media only screen and (min-width: 501px) and (max-width: 550px){
+	.head_imgList li{width: 65px;height: 65px;}
+}
+@media only screen and (min-width: 551px) and (max-width: 600px){
+	.head_imgList li{width: 70px;height: 70px;}
+}
