@@ -145,23 +145,23 @@
 		opacity:0.75;filter:alpha(opacity=75);
 		position:absolute;left:0;top:0;
 		z-index:1000;}
-.recommend_alert{width:300px;height: 250px;border-radius: 20px;
+.recommend_alert{width:300px;height: 240px;border-radius: 20px;
 	background-color: #fff;position: fixed;left:0;top:0;
 	z-index: 1001;opacity:0.85;filter:alpha(opacity=85);}
-.recommend_alert h3{text-align: center;font-size: 18px;
+.recommend_alert h3{text-align: center;font-size: 16px;
 	margin-top: 60px;font-weight: bold;}
-#cost_gold{background:url("images/gold.png")left center no-repeat;
-background-size: auto 100% ;padding-left: 36px;height: 30px;line-height: 34px;
-display: inline-block;width: 50px;margin-left: 114px;font-size: 18px;
-margin-top: 30px;}
-#rec_btn_no, #rec_btn_yes{
-	display: inline-block;width: 100px;height: 38px;line-height: 38px;
+.recommend_alert p{
+	text-align: center;font-size: 16px;
+	margin-top: 20px;font-weight: bold;
+}
+
+#rec_btn_yes{
+	display: inline-block;width: 150px;height: 38px;line-height: 38px;
 	background-color: yellow;text-align: center;
 	border-radius: 12px;box-shadow: -1px 1px 6px #aaaaaa;
-	margin-left: 34px;color: #ffffff;margin-top: 40px;
+	margin-left:70px;color: #ffffff;margin-top: 40px;
 	cursor:pointer;
 }
-#rec_btn_no{background-color: #b4b3b3;}
 #rec_btn_yes{background-color: #f99371}
 
 

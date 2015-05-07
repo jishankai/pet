@@ -63,7 +63,7 @@ $signPackage = $jssdk->GetSignPackage();
             echo '<div class="food_time clearfix" id="r_condition">';
 	           	echo '<div class="food_box left">';
 	           		echo '<img src="css/images/heart_orange_small.png" id="food_heart"/>';
-	           		echo '<span id="food">'.$r['stars'].'</span>';
+	           		echo '<span id="t_num">'.$r['stars'].'</span>';
 	           	echo '</div>';
 	           	echo '<div class="d_time_box right">';
 	           		echo '<img src="css/images/time_white_border.png"/>';
@@ -213,7 +213,22 @@ $(function(){
 
 	/*推荐按钮*/
 	$("#recommend_btn").click(function(){
-		recommend();
+		var votes=<?php echo $votes?>;
+		if(votes>0){
+			$.ajax({
+				url: <?php echo "'".$this->createUrl('star/voteApi', array('img_id'=>$img_id, 'sig'=>md5('img_id='.$img_id.'dog&cat'), 'SID'=>$SID))."'" ?>,
+				data: { },
+				type: "get",
+				success: function (data) {
+					var t_num=parseInt($("#t_num").html());
+					$("#t_num").html(t_num+1);
+				}
+			}else{
+				recommend();
+			}
+
+		
+			
 	});
 	/*Go活动界面*/
 	$("#act_jump_btn").click(function(){
@@ -234,9 +249,8 @@ $(function(){
                 });
 				document.getElementById("like_img").src="css/images/page_liked.png";
 				$("#like").html("已赞");
-			}else{
-				document.getElementById("like_img").src="css/images/page_like.png";
-				$("#like").html("赞");
+				var like_num = parseInt($("#like_num").html());
+				$("#like_num").html(like_num+1);
 			}
 		});
 
@@ -395,12 +409,11 @@ function recommend(){
 		var recommend_alert = document.createElement("div");
 		recommend_alert.id = "recommend_alert";
 		recommend_alert.className = "recommend_alert";
-		recommend_alert.innerHTML = "<h3>本次投票需要花费您:</h3><div id='cost_gold'>100</div><div></div><div id='rec_btn_no'>不了...</div><div id='rec_btn_yes'>好的!</div>";
+		recommend_alert.innerHTML = "<h3>今天的免费投票次数用完了</h3><p>明天还有免费机会，再来哟~</p><div id='rec_btn_yes'>好的!</div>";
 
-		/*<h3>本次投票需要花费您:</h3>
-		<div id="cost_gold">100</div>
-		<div id="rec_btn_no">不了...</div>
-		<div id="rec_btn_yes">好的!</div>*/
+		/*<h3>今天的免费投票次数用完了</h3>
+		<p>明天还有免费机会，再来哟！</p>
+		<div id='rec_btn_yes'>好的!</div>*/
 
 		document.body.appendChild(recommend_alert);
 		var rHeight = recommend_alert.offsetHeight;
@@ -409,22 +422,12 @@ function recommend(){
 		recommend_alert.style.left = (sWidth-rWidth)/2 + "px";
 		recommend_alert.style.top = (wHeight-rHeight)/2 + "px";
 
-		var rec_btn_no = document.getElementById("rec_btn_no");
+		var rec_btn_no = document.getElementById("rec_btn_yes");
 		rec_btn_no.onclick = function(){
 			document.body.removeChild(recommend_alert);
 			document.body.removeChild(rMask);
 		}
-		var rec_btn_yes = document.getElementById("rec_btn_yes");
-		rec_btn_yes.onclick = function(){
-			//好的！按钮效果
-			$.ajax({
-				url: <?php echo "'".$this->createUrl('star/voteApi', array('img_id'=>$img_id, 'sig'=>md5('img_id='.$img_id.'dog&cat'), 'SID'=>$SID))."'" ?>,
-				data: { },
-				type: "get",
-				success: function (data) {
-				}
-			});
-		}
+		
 }
 
 </script>
