@@ -169,11 +169,11 @@ $signPackage = $jssdk->GetSignPackage();
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 
 <script type="text/javascript">
-$(function(){
-	/*头像尺寸设置*/
+/*头像尺寸设置*/
 	var iWidth=$(".like_head img").width();
 	$(".like_head img").height(iWidth);
-
+$(function(){
+	
 	/*评论弹框*/
 	$("#comment_btn").click(function(){
 		$(".comment_alert").show();
