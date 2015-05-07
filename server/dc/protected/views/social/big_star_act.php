@@ -93,7 +93,7 @@
             <?php for($i=0;$i<count($star['images'])&&$i<9;$i++) {?>
                 <li>
                     <img src="http://<?php echo OSS_PREFIX;?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $star['images'][$i]['url'];?>">
-                    <div><?php echo $star['images'][$i]['cnt'];?></div>
+                    <div><?php echo $star['images'][$i]['stars'];?></div>
                 </li>
             <?php }?>
 		</ul>
