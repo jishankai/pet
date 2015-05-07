@@ -8,7 +8,7 @@ $signPackage = $jssdk->GetSignPackage();
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initail-scale=1.0 ,maximum-scale=1, user-scalable=no">
-	<title>照片详情页－－NEW</title>
+	<title>我是大萌星</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/food_new.css">
 	<link type="text/css" rel="stylesheet" href="css/alert.css"/>
