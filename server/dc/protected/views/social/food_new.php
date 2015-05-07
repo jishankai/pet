@@ -241,7 +241,7 @@ $(function(){
 		});
 
 	//依情况改变页面样式   默认为普通（除1和2外的其它值）1.可以赏口粮 2.可以推荐
-	var flag = <?php if ($r['star_id']!=0) { echo 2; } else if ($r['is_food']==1) { echo 2; } else { echo 3; }?>;
+	var flag = <?php if ($r['star_id']!=0) { echo 2; } else if ($r['is_food']==1) { echo 1; } else { echo 3; }?>;
 	if(flag==1){
 			$(".recommend_box").css("display","none");
 			$(".giveBtn_box").css("display","block");
