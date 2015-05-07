@@ -178,7 +178,7 @@ class SocialController extends Controller
     }
 
     public function actionFood($img_id, $alert_flag=0, $to='', $SID='')
-    {
+   {
         if ($SID!='') {
             $session = Yii::app()->session;
             $this->usr_id = $session['usr_id'];
@@ -225,6 +225,11 @@ class SocialController extends Controller
         }
 
         $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.topic_name, i.star_id, i.stars, i.likes, i.likers, i.gifts, i.senders, i.shares, i.sharers, i.comments, i.food, i.is_food=1 AS is_food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $img_id)->queryRow();
+        if ($r['star_id']) {
+            $start_time = Yii::app()->db->createCommand('SELECT start_time FROM dc_star WHERE star_id=:star_id')->bindValue(':star_id', $r['star_id'])->queryScalar();
+        } else {
+            $start_time = 0;
+        }
         
         if (!isset($session[$this->usr_id.'_star_'.$r['star_id']])) {
             $session[$this->usr_id.'_star_'.$r['star_id']] = 3;
@@ -271,12 +276,14 @@ class SocialController extends Controller
             }
             $r['comments'] = $comments;
             $r['comment_count'] = $comment_count-1;
+        } else {
+            $r['comment_count'] = 0;
         }
 
-        $this->renderPartial('food_new', array('r'=>$r, 'votes'=>$votes, 'is_liked'=>$is_liked, 'liker_tx'=>$liker_tx, 'a_type'=>$a_type, 'img_id'=>$img_id, 'alert_flag'=>$alert_flag, 'aid'=>$r['aid'], 'to'=>$to, 'SID'=>$SID));
+        $this->renderPartial('food_new', array('r'=>$r, 'votes'=>$votes, 'start_time'=>$start_time, 'is_liked'=>$is_liked, 'liker_tx'=>$liker_tx, 'a_type'=>$a_type, 'img_id'=>$img_id, 'alert_flag'=>$alert_flag, 'aid'=>$r['aid'], 'to'=>$to, 'SID'=>$SID));
 
     }
-
+    
     public function actionNewYearEvent($SID='')
     {
 
