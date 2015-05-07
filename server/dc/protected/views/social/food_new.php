@@ -62,7 +62,7 @@ $signPackage = $jssdk->GetSignPackage();
            	<?php if($r['star_id']!=0) {
             echo '<div class="food_time clearfix" id="r_condition">';
 	           	echo '<div class="food_box left">';
-	           		echo '<img src="css/images/food_white_border.png" id="food_heart"/>';
+	           		echo '<img src="css/images/heart_orange_small.png" id="food_heart"/>';
 	           		echo '<span id="food">'.$r['stars'].'</span>';
 	           	echo '</div>';
 	           	echo '<div class="d_time_box right">';
