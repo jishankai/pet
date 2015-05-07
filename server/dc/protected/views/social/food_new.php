@@ -47,7 +47,20 @@ $signPackage = $jssdk->GetSignPackage();
 				</div>
 			</div> -->
 			<?php if($r['is_food']) {
-            echo '<div class="food_time clearfix">';
+            echo '<div class="food_time clearfix" id="f_condition">';
+	           	echo '<div class="food_box left">';
+	           		echo '<img src="css/images/food_white_border.png" id="food_heart"/>';
+	           		echo '<span id="food">'.$r['food'].'</span>';
+	           	echo '</div>';
+	           	echo '<div class="d_time_box right">';
+	           		echo '<img src="css/images/time_white_border.png"/>';
+	           		echo '<span id="d_time">12:44:06</span>';
+	           	echo '</div>';
+	        echo '</div>';
+           	}?>
+			<!-- 推荐情况 (改成推荐时的数据)-->
+           	<?php if($r['is_food']) {
+            echo '<div class="food_time clearfix" id="r_condition">';
 	           	echo '<div class="food_box left">';
 	           		echo '<img src="css/images/food_white_border.png" id="food_heart"/>';
 	           		echo '<span id="food">'.$r['food'].'</span>';
@@ -185,12 +198,17 @@ $(function(){
 	//查看所有评论
 	$(".the_more_comment").click(function(){
 
-
-		/*$.get("",function(data){*/
-			for(var i=0;i<5;i++){
-				$(".comment_list").append("<li><span>"+"data.name"+"</span><p>"+"data.say"+"</p></li>");
-			}
-		/*},"json");*/
+			$(ajax{
+				url:"",
+				data:{},
+				dataType:"json",
+				type:"post",
+				success:function(data){
+					for(var i=0;i<data.length;i++){
+							$(".comment_list").append("<li><span>"+"data.name"+"</span><p>"+"data.say"+"</p></li>");
+						}
+				}
+			});
 		
 	});
 
@@ -219,20 +237,20 @@ $(function(){
 	//依情况改变页面样式   默认为普通（除1和2外的其它值）1.可以赏口粮 2.可以推荐
 	var flag = 1;
 	if(flag==1){
-		$(".recommend_box").css("display","none");
-		$(".giveBtn_box").css("display","block");
-		$(".food_time").css("display","block");
-		document.getElementById("food_heart").src="css/images/food_border_white.png";
-	}else if(flag==2){
-		$(".giveBtn_box").css("display","none");
-		$(".recommend_box").css("display","block");
-		$(".food_time").css("display","block");
-		document.getElementById("food_heart").src="css/images/heart_orange_small.png";
-	}else{
-		$(".giveBtn_box").css("display","none");
-		$(".recommend_box").css("display","none");
-		$(".food_time").css("display","none");
-	}
+			$(".recommend_box").css("display","none");
+			$(".giveBtn_box").css("display","block");
+			$("#r_condition").css("display","none"); 
+			$("#f_condition").css("display","block");
+		}else if(flag==2){
+			$(".giveBtn_box").css("display","none");
+			$(".recommend_box").css("display","block");
+			$("#f_condition").css("display","none");
+			$("#r_condition").css("display","block");
+		}else{
+			$(".giveBtn_box").css("display","none");
+			$(".recommend_box").css("display","none");
+			$(".food_time").css("display","none");
+		}
 
 
 /*以前food页代码移入*/
