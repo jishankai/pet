@@ -266,7 +266,7 @@ $(function(){
 	if (<?php echo $r['is_food']?>) {
 		FreshTime();
 	}
-	if (<?php echo $r['star_id']!=1?>) {
+	if (<?php echo $r['star_id']!=0?>) {
 		FreshTime1();
 	}
 	if (<?php echo $alert_flag?>) {
