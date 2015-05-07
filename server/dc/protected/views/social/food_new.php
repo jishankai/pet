@@ -418,7 +418,7 @@ function recommend(){
 		rec_btn_yes.onclick = function(){
 			//好的！按钮效果
 			$.ajax({
-				url: <?php echo "'".$this->createUrl('star/voteApi', array('img_id'=>$img_id, 'sig'=>md5('img_id='.$img_id), 'SID'=>$SID))."'" ?>,
+				url: <?php echo "'".$this->createUrl('star/voteApi', array('img_id'=>$img_id, 'sig'=>md5('img_id='.$img_id.'dog&cat'), 'SID'=>$SID))."'" ?>,
 				data: { },
 				type: "get",
 				success: function (data) {
