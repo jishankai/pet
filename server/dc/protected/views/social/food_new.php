@@ -307,7 +307,7 @@ function FreshTime1(){
         var endtime = <?php echo $r['create_time']?>+60*60*24;//结束时间
         var nowtime = new Date();//当前时间
 
-        var lefttime= parseInt((endtime.getTime()-nowtime.getTime())/1000);
+        var lefttime= parseInt(endtime-(nowtime.getTime())/1000); 
         mm= parseInt(lefttime/3600/24/30);//月
         d=  parseInt(lefttime/3600/24);//天
         h=  parseInt(lefttime/(60*60)%24);//小时
