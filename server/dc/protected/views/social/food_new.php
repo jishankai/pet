@@ -198,11 +198,10 @@ $(function(){
 	//查看所有评论
 	$(".the_more_comment").click(function(){
 
-			$(ajax{
+
+			$.ajax({
 				url:"",
-				data:{},
 				dataType:"json",
-				type:"post",
 				success:function(data){
 					for(var i=0;i<data.length;i++){
 							$(".comment_list").append("<li><span>"+"data.name"+"</span><p>"+"data.say"+"</p></li>");
