@@ -315,7 +315,7 @@ function FreshTime1(){
         s=  parseInt(lefttime%60);//秒
 
         if(d>0){
-        	document.getElementById("td_time").innerHTML=d+"天"+h"小时";
+        	document.getElementById("td_time").innerHTML=d+"天"+h+"小时";
         }
         else if(s>0){
         	document.getElementById("td_time").innerHTML=h+":"+m+":"+s;
