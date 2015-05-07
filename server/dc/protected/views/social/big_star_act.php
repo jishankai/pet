@@ -3,7 +3,7 @@
 <head>
 	<meta name="viewport" content="width = device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>我是大萌星--第一届海选火热进行中</title>
+	<title><?php echo $star['name']?></title>
 	<link rel="stylesheet" type="text/css" href="css/big_star_act.css">
     <script>
        /* var _hmt = _hmt || [];
@@ -62,12 +62,12 @@
 <body>
 <div class="act1_wrap comWidth">
 	<div class="act1_top">
-		<img alt="" src="css/images/vote_bannner.png">
+		<img alt="" src="http://<?php echo OSS_PREFIX;?>4upload.oss-cn-beijing.aliyuncs.com/hx/<?php echo $star['banner'];?>">
 	</div>
 	<div class="act1_body">
 		<div class="ab_tit clearfix">
 			<img src="css/images/ab_tit1.gif" class="tit_img">
-			<a href="http://home4pet.aidigame.com/pet_release_1.1.2.apk"><img src="images/android.png" class="android_btn"></a>
+			<a href="http://home4pet.imengstar.com"><img src="css/images/android.png" class="android_btn"></a>
 			<a href="https://itunes.apple.com/cn/app/chong-wu-xing-qiu/id932758265?mt=8?"><img src="css/images/apple.png" class="apple_btn"></a>
 		</div>
 	</div>
@@ -76,30 +76,12 @@
 	<div class="act1_bottom">
 		<div class="head_imgBox">
 			<ul class="head_imgList clearfix">
-				<li style="position: relative">
-					<img alt="" src="css/images/base_head0.jpg" id="head1">
-					<h3>来钱儿</h3>
-				</li>
-				<li style="position: relative">
-					<img alt="" src="css/images/base_head1.jpg" id="head2">
-					<h3>来钱儿dddddddd</h3>
-				</li>
-				<li style="position: relative">
-					<img alt="" src="css/images/base_head2.jpg" id="head3">
-					<h3>来钱儿dd</h3>
-				</li>
-				<li style="position: relative">
-					<img alt="" src="css/images/base_head3.jpg" id="head4">
-					<h3>来钱儿</h3>
-				</li>
-				<li style="position: relative">
-					<img alt="" src="css/images/base_head4.jpg" id="head5">
-					<h3>来钱儿dd</h3>
-				</li>
-				<li style="position: relative">
-					<img alt="" src="css/images/base_head5.jpg" id="head6">
-					<h3>来钱儿</h3>
-				</li>
+                <?php for($i=0;$i<count($star['animals'])&&$i<7;$i++) {?>
+                <li style="position: relative">
+                    <img src="http://<?php echo OSS_PREFIX;?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $star['animals'][$i]['tx'];?>">
+                    <h3><?php echo $star['animals'][$i]['name'];?></h3>
+                </li>
+                <?php }?>
 			</ul>
 		</div>	
 	</div>
@@ -108,15 +90,12 @@
 	<div class="hot_photos">热门照片</div>
 	<div class="hot_photos_box">	
 		<ul class="hot_photos_list">
-			<li><img src="css/images/pet8.jpg"><div>1</div></li>
-			<li><img src="css/images/pet8.jpg"><div>123</div></li>
-			<li><img src="css/images/pet8.jpg"><div>123</div></li>
-			<li><img src="css/images/pet8.jpg"><div>123</div></li>
-			<li><img src="css/images/pet8.jpg"><div>123</div></li>
-			<li><img src="css/images/pet8.jpg"><div>123</div></li>
-			<li><img src="css/images/pet8.jpg"><div>123</div></li>
-			<li><img src="css/images/pet8.jpg"><div>123</div></li>
-			<li><img src="css/images/pet8.jpg"><div>123</div></li>
+            <?php for($i=0;$i<count($star['images'])&&$i<9;$i++) {?>
+                <li>
+                    <img src="http://<?php echo OSS_PREFIX;?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $star['images'][$i]['url'];?>">
+                    <div><?php echo $star['images'][$i]['cnt'];?></div>
+                </li>
+            <?php }?>
 		</ul>
 	</div>
 

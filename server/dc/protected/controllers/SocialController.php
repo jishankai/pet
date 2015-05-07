@@ -377,9 +377,14 @@ class SocialController extends Controller
         $this->renderPartial('vote', array('users'=>$users, 'animals'=>$a, 'alert_flag'=>$alert_flag, 'SID'=>$SID));
     }
 
-    public function actionStarIndex()
+    public function actionStarIndex($star_id)
     {
-        $this->renderPartial('big_star_act');
+        $star = Yii::app()->db->createCommand('SELECT star_id, name, icon, title, description, banner, url, end_time FROM dc_star WHERE star_id=:star_id ORDER BY end_time DESC')->bindValue(':star_id', $star_id)->queryRow();
+
+        $star['animals'] = Yii::app()->db->createCommand('SELECT a.aid, a.tx, a.name, SUM(i.stars) AS cnt FROM dc_image i LEFT JOIN dc_animal a ON a.aid=i.aid WHERE star_id=:star_id GROUP BY i.aid,a.aid,a.tx,a.name ORDER BY cnt DESC LIMIT 6')->bindValue(':star_id', $v['star_id'])->queryAll();
+        $star['images'] = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.stars, a.name FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid WHERE i.star_id=:star_id ORDER BY i.stars DESC LIMIT 30')->bindValue(':star_id', $v['star_id'])->queryAll();
+        
+        $this->renderPartial('big_star_act', array('star'=>$star));
     }
 }
 
