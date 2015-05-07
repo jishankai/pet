@@ -67,7 +67,7 @@ $signPackage = $jssdk->GetSignPackage();
 	           	echo '</div>';
 	           	echo '<div class="d_time_box right">';
 	           		echo '<img src="css/images/time_white_border.png"/>';
-	           		echo '<span id="d_time">12:44:06</span>';
+	           		echo '<span id="td_time">12:44:06</span>';
 	           	echo '</div>';
 	        echo '</div>';
            	}?>
@@ -292,6 +292,31 @@ function FreshTime()
     }
     setTimeout(FreshTime,1000);
 }
+
+/*推荐倒计时*/
+function FreshTime1(){
+        var endtime=new Date("2015/6/22,19:20:12");//结束时间
+        var nowtime = new Date();//当前时间
+
+        var lefttime= parseInt((endtime.getTime()-nowtime.getTime())/1000);
+        mm= parseInt(lefttime/3600/24/30);//月
+        d=  parseInt(lefttime/3600/24);//天
+        h=  parseInt(lefttime/(60*60)%24);//小时
+        m=  parseInt(lefttime/(60)%60);//分钟
+        s=  parseInt(lefttime%60);//秒
+
+        if(d>0){
+        	document.getElementById("td_time").innerHTML=d+"天"+h"小时";
+        }
+        else if(s>0){
+        	document.getElementById("td_time").innerHTML=h+":"+m+":"+s;
+        }
+        else{
+        	document.getElementById("td_time").innerHTML="已结束";
+        }
+
+
+    }
 
 $("#reward").click(function(){
 	if ($("#d_time")[0].innerHTML!="已结束") {
