@@ -121,13 +121,13 @@ $signPackage = $jssdk->GetSignPackage();
 				<a class="the_more_comment">查看所有<span id="comment_num"><?php echo $r['comment_count']?></span>条评论</a>
 			</div>
 			<ul class="comment_list clearfix">
-				<?php foreach($r['comments'] AS $c) {?>
+				<?php if ($r['comment_count']!=0) { foreach($r['comments'] AS $c) {?>
 				<li>
 					<!-- <img src="css/images/base_head13.jpg"/> -->
 					<span><?php echo $c['name'];?></span>
 					<p><?php echo $c['body'];?></p>
 				</li>
-				<?php }?>
+				<?php }}?>
 			</ul>
 		</div>
 	</div>
