@@ -59,11 +59,11 @@ $signPackage = $jssdk->GetSignPackage();
 	        echo '</div>';
            	}?>
 			<!-- 推荐情况 (改成推荐时的数据)-->
-           	<?php if($r['is_food']) {
+           	<?php if($r['star_id']!=0) {
             echo '<div class="food_time clearfix" id="r_condition">';
 	           	echo '<div class="food_box left">';
 	           		echo '<img src="css/images/food_white_border.png" id="food_heart"/>';
-	           		echo '<span id="food">'.$r['food'].'</span>';
+	           		echo '<span id="food">'.$r['stars'].'</span>';
 	           	echo '</div>';
 	           	echo '<div class="d_time_box right">';
 	           		echo '<img src="css/images/time_white_border.png"/>';
@@ -266,6 +266,9 @@ $(function(){
 	if (<?php echo $r['is_food']?>) {
 		FreshTime();
 	}
+	if (<?php echo $r['star_id']!=1?>) {
+		FreshTime1();
+	}
 	if (<?php echo $alert_flag?>) {
 		cc();
 	};
@@ -301,7 +304,7 @@ function FreshTime()
 
 /*推荐倒计时*/
 function FreshTime1(){
-        var endtime=new Date("2015/6/22,19:20:12");//结束时间
+        var endtime = <?php echo $r['create_time']?>+60*60*24;//结束时间
         var nowtime = new Date();//当前时间
 
         var lefttime= parseInt((endtime.getTime()-nowtime.getTime())/1000);
