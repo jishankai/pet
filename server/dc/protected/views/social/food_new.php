@@ -214,7 +214,8 @@ $(function(){
 	/*推荐按钮*/
 	$("#recommend_btn").click(function(){
 		var votes=<?php echo $votes?>;
-		if(votes>0){
+		var t = $("#td_time").html();
+		if(votes>0 && t!="已结束"){
 			$.ajax({
 				url: <?php echo "'".$this->createUrl('star/voteApi', array('img_id'=>$img_id, 'sig'=>md5('img_id='.$img_id.'dog&cat'), 'SID'=>$SID))."'" ?>,
 				data: { },
@@ -222,7 +223,11 @@ $(function(){
 				success: function (data) {
 					var t_num=parseInt($("#t_num").html());
 					$("#t_num").html(t_num+1);
-				}});
+					votes--;
+				}
+
+				});
+
 			}else{
 				recommend();
 			}
