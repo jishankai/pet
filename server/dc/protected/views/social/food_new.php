@@ -25,7 +25,7 @@ $signPackage = $jssdk->GetSignPackage();
 <body>
 <div class="wrap">
 	<div class="top">
-		<a href="<?php echo $this->createUrl('animal/infoShare', array('aid'=>$r['aid'], 'SID'=>$sid))?>"><img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" alt="" class="pet_head"/></a>
+		<a href="<?php echo $this->createUrl('animal/infoShare', array('aid'=>$r['aid'], 'SID'=>$SID))?>"><img src="http://<?php echo OSS_PREFIX?>4tx.oss-cn-beijing.aliyuncs.com/tx_ani/<?php echo $r['tx']?>" alt="" class="pet_head"/></a>
 		<!-- <img src="css/images/base_head13.jpg" class="pet_head"/> -->
 		<span class="pet_name"><?php echo $r['name']?></span>
 		<!-- <span class="pet_name">我是来钱儿思密达</span> -->
@@ -79,7 +79,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<span id="comment">评论</span>
 			</li>
 			<li>
-				<a href='<?php echo $this->createUrl('social/gift',array('aid'=>$r['aid'],'SID'=>$sid))?>'>
+				<a href='<?php echo $this->createUrl('social/gift',array('aid'=>$r['aid'],'SID'=>$SID))?>'>
 				<img src="css/images/icon_gift.png" id="gift_img"/>
 				</a>
 				<span id="gift">礼物</span>
@@ -291,7 +291,7 @@ $("#reward").click(function(){
 	    var to = <?php echo "'".$to."'" ?>;
 	    var aid =<?php echo $aid ?>;
 	    var sig =$.md5('aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'dog&cat');
-	    location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$sid."'" ?>;
+	    location.href = <?php echo "'".$this->createUrl('image/rewardFoodMobileApi')."'" ?>+'&aid='+aid+'&img_id='+img_id+'&n='+n+'&to='+to+'&sig='+sig+'&SID='+<?php echo "'".$SID."'" ?>;
 	  } else {
 	     var btn=$(".give_btn");
 	         btn.attr("display","none");
