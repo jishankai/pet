@@ -169,22 +169,23 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 
 
-	<form class="comment_alert" action="<?php echo $this->createAbsoluteUrl('image/commentApi', array('sig'=>md5('dog&cat'), 'SID'=>$SID))?>" method="post">
+	<!-- <form class="comment_alert" action="<?php echo $this->createAbsoluteUrl('image/commentApi', array('sig'=>md5('dog&cat'), 'SID'=>$SID))?>" method="post">
 		<h3>说点什么</h3>
 		<input type="submit" id="submit" value=""/>
 		<input type="button" id="close"/>
 		<textarea></textarea>
         <input type="hidden" name="img_id" value="<?php echo $img_id?>" />
-	</form>
+	</form> -->
 
 	<!-- ajax提交表单测试 -->
-	<!-- <form class="comment_alert" id="form1">
+	<form class="comment_alert" id="form1">
 		<h3>说点什么</h3>
 		<input type="button" id="submit" value=""/>
 		<input type="button" id="close"/>
-		<textarea></textarea>
+		<textarea name="body" id="com_body"></textarea>
+		<input type="hidden" name="img_id" value="<?php echo $img_id?>" />
 		
-	</form> -->
+	</form>
 
 </div>
 </body>
@@ -192,15 +193,17 @@ $signPackage = $jssdk->GetSignPackage();
 
 <script type="text/javascript">
 /*ajax提交表单测试*/
-/*$("#submit").click(function(){
+$("#submit").click(function(){
 	$.ajax({
-		url:"",
+		url:"<?php echo $this->createAbsoluteUrl('image/commentApi', array('sig'=>md5('dog&cat'), 'SID'=>$SID))?>",
 		data:$("#form1").serialize(),
 		type:"post",
-		success:function(data){}
+		success:function(data){
+
+		}
 	});
 	$("#form1").submit();
-})*/
+})
 
 /*头像尺寸设置*/
 	var iWidth=$(".like_head img").width();
@@ -213,6 +216,11 @@ $(function(){
 	});
 	$("#close").click(function(){
 		$(".comment_alert").hide();
+	});
+	$("#submit").click(function(){
+		$(".comment_alert").hide();
+		var com_body= $("#com_body").val();
+		$(".comment_list").append("<li><span>"+"我"+"</span><p>"+com_body+"</p></li>");
 	});
 
 	//查看所有评论
