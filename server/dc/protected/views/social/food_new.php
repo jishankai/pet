@@ -323,7 +323,7 @@ function FreshTime()
 
 /*推荐倒计时*/
 function FreshTime1(){
-        var endtime = <?php echo $r['create_time']?>+60*60*24;//结束时间
+        var endtime = <?php echo $start_time?>+60*60*24*7;//结束时间
         var nowtime = new Date();//当前时间
 
         var lefttime= parseInt(endtime-(nowtime.getTime())/1000); 
