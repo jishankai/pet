@@ -376,5 +376,10 @@ class SocialController extends Controller
 
         $this->renderPartial('vote', array('users'=>$users, 'animals'=>$a, 'alert_flag'=>$alert_flag, 'SID'=>$SID));
     }
+
+    public function actionStarIndex()
+    {
+        $this->renderPartial('big_star_act');
+    }
 }
 
