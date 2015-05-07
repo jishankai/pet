@@ -266,7 +266,7 @@ $(function(){
 	});
 	/*Go活动界面*/
 	$("#act_jump_btn").click(function(){
-		window.location="";
+		window.location="<?php echo $this->createUrl('social/starIndex', array('star_id'=>$r['star_id']))?>";
 	});
 
 	/*赞按钮*/
