@@ -222,7 +222,7 @@ $(function(){
 				success: function (data) {
 					var t_num=parseInt($("#t_num").html());
 					$("#t_num").html(t_num+1);
-				}
+				}});
 			}else{
 				recommend();
 			}
