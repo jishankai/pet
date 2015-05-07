@@ -223,12 +223,11 @@ $(function(){
 				success: function (data) {
 					var t_num=parseInt($("#t_num").html());
 					$("#t_num").html(t_num+1);
-<<<<<<< HEAD
 					votes--;
 				}
-=======
-				}});
->>>>>>> b27ca8819971ef9d3f66bac1bb9029bd0f2a931a
+
+				});
+
 			}else{
 				recommend();
 			}
