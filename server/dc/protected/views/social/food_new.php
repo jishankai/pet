@@ -121,13 +121,13 @@ $signPackage = $jssdk->GetSignPackage();
 				<a class="the_more_comment">查看所有<span id="comment_num"><?php echo $r['comment_count']?></span>条评论</a>
 			</div>
 			<ul class="comment_list clearfix">
-				<?php foreach($r['comments'] AS $c) {?>
+				<?php if ($r['comment_count']!=0) { foreach($r['comments'] AS $c) {?>
 				<li>
 					<!-- <img src="css/images/base_head13.jpg"/> -->
 					<span><?php echo $c['name'];?></span>
 					<p><?php echo $c['body'];?></p>
 				</li>
-				<?php }?>
+				<?php }}?>
 			</ul>
 		</div>
 	</div>
@@ -169,7 +169,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 
 
-	<form class="comment_alert" action="<?php echo $this->createAbsoluteUrl('image/commentApi', array('sig'=>md5('dog&cat')))?>">
+	<form class="comment_alert" action="<?php echo $this->createAbsoluteUrl('image/commentApi', array('sig'=>md5('dog&cat'), 'SID'=>$SID))?>" method="post">
 		<h3>说点什么</h3>
 		<input type="submit" id="submit" value=""/>
 		<input type="button" id="close"/>
@@ -223,8 +223,12 @@ $(function(){
 				success: function (data) {
 					var t_num=parseInt($("#t_num").html());
 					$("#t_num").html(t_num+1);
+<<<<<<< HEAD
 					votes--;
 				}
+=======
+				}});
+>>>>>>> b27ca8819971ef9d3f66bac1bb9029bd0f2a931a
 			}else{
 				recommend();
 			}
@@ -257,7 +261,7 @@ $(function(){
 		});
 
 	//依情况改变页面样式   默认为普通（除1和2外的其它值）1.可以赏口粮 2.可以推荐
-	var flag = <?php if ($r['star_id']!=0) { echo 2; } else if ($r['is_food']==1) { echo 2; } else { echo 3; }?>;
+	var flag = <?php if ($r['star_id']!=0) { echo 2; } else if ($r['is_food']==1) { echo 1; } else { echo 3; }?>;
 	if(flag==1){
 			$(".recommend_box").css("display","none");
 			$(".giveBtn_box").css("display","block");
@@ -282,7 +286,7 @@ $(function(){
 	if (<?php echo $r['is_food']?>) {
 		FreshTime();
 	}
-	if (<?php echo $r['star_id']!=0?>) {
+	if (<?php echo $r['star_id']?>) {
 		FreshTime1();
 	}
 	if (<?php echo $alert_flag?>) {
@@ -433,6 +437,7 @@ function recommend(){
 }
 
 </script>
+<script type="text/javascript" src="js/jquery.md5.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
   // 注意：所有的JS接口只能在公众号绑定的域名下调用，公众号开发者需要先登录微信公众平台进入“公众号设置”的“功能设置”里填写“JS接口安全域名”。 
