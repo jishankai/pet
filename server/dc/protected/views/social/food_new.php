@@ -177,11 +177,31 @@ $signPackage = $jssdk->GetSignPackage();
         <input type="hidden" name="img_id" value="<?php echo $img_id?>" />
 	</form>
 
+	<!-- ajax提交表单测试 -->
+	<!-- <form class="comment_alert" id="form1">
+		<h3>说点什么</h3>
+		<input type="button" id="submit" value=""/>
+		<input type="button" id="close"/>
+		<textarea></textarea>
+		
+	</form> -->
+
 </div>
 </body>
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 
 <script type="text/javascript">
+/*ajax提交表单测试*/
+/*$("#submit").click(function(){
+	$.ajax({
+		url:"",
+		data:$("#form1").serialize(),
+		type:"post",
+		success:function(data){}
+	});
+	$("#form1").submit();
+})*/
+
 /*头像尺寸设置*/
 	var iWidth=$(".like_head img").width();
 	$(".like_head img").height(iWidth);
