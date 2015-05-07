@@ -212,8 +212,9 @@ $(function(){
 	});
 
 	/*推荐按钮*/
+	votes=parseInt(<?php echo $votes?>);
 	$("#recommend_btn").click(function(){
-		var votes=<?php echo $votes?>;
+		
 		var t = $("#td_time").html();
 		if(votes>0 && t!="已结束"){
 			$.ajax({
@@ -223,7 +224,7 @@ $(function(){
 				success: function (data) {
 					var t_num=parseInt($("#t_num").html());
 					$("#t_num").html(t_num+1);
-					votes--;
+					votes=votes-1;
 				}
 
 				});
