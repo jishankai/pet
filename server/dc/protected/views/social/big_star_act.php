@@ -62,7 +62,7 @@
 <body>
 <div class="act1_wrap comWidth">
 	<div class="act1_top">
-		<img alt="" src="http://<?php echo OSS_PREFIX;?>4upload.oss-cn-beijing.aliyuncs.com/hx/<?php echo $star['banner'];?>">
+		<img alt="" src="<?php echo $star['banner'];?>">
 	</div>
 	<div class="act1_body">
 		<div class="ab_tit clearfix">
