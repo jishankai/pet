@@ -27,9 +27,14 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 
 /*热门照片*/
 .hot_photos_box{width: 100%;height:auto;margin: 0 auto;}
-.hot_photos_list{width: 100%;height: auto;}
-.hot_photos_list li{width:30%;height:auto;float: left;margin-left: 2.5%;
-	margin-bottom: 2%;position: relative;}
+.hot_photos_list{width: 100%;height: auto;
+	-webkit-column-width:202px;
+    -moz-column-width:202px; 
+	-webkit-column-gap:2px;
+	-moz-column-gap:2px;
+}
+.hot_photos_list li{width:202px;height:auto;float: left;margin-left: 1%;
+	margin-bottom: 2.5%;position: relative;}
 .hot_photos_list li img{width: 100%;}
 .hot_photos_list li div{position: absolute;right: 10px;bottom: 10px;
 	height: 30px;line-height: 30px;padding-left: 30px;padding-right: 3px;
@@ -57,26 +62,120 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 	border-radius: 5px;}
 
 }
-/*微信头像匹配*/
+/*微信头像,瀑布流照片匹配*/
 @media only screen and (min-width: 300px) and (max-width: 350px){
 	.head_imgList li{width: 40px;height: 40px;}
 	.star, .hot_photos{font-size: 12px;}
 	.mian{font-size: 12px;}
+	.hot_photos_list{
+	-webkit-column-width:100px;
+    -moz-column-width:100px; 
+	-webkit-column-gap:2px;
+	-moz-column-gap:2px;
+	}
+	.hot_photos_list li{
+		float: left;
+		width: 100px;
+		padding-left:2px;
+		padding-right: 2px;
+		padding-top:4px;
+	}
 }
 @media only screen and (min-width: 351px) and (max-width: 400px){
 	.head_imgList li{width: 45px;height: 45px;}
 	.star, .hot_photos{font-size: 13px;}
 	.mian{font-size: 13px;}
+	.hot_photos_list{
+	-webkit-column-width:116px;
+    -moz-column-width:116px; 
+	-webkit-column-gap:2px;
+	-moz-column-gap:2px;
+	}
+	.hot_photos_list li{
+		float: left;
+		width: 116px;
+		padding-left:2px;
+		padding-right: 2px;
+		padding-top:4px;
+	}
 }
 @media only screen and (min-width: 401px) and (max-width: 450px){
 	.head_imgList li{width: 50px;height: 50px;}
+	.hot_photos_list{
+	-webkit-column-width:130px;
+    -moz-column-width:130px; 
+	-webkit-column-gap:2px;
+	-moz-column-gap:2px;
+	}
+	.hot_photos_list li{
+		float: left;
+		width: 130px;
+		padding-left:2px;
+		padding-right: 2px;
+		padding-top:4px;
+	}
 }
 @media only screen and (min-width: 451px) and (max-width: 500px){
 	.head_imgList li{width: 56px;height: 56px;}
+	.hot_photos_list{
+	-webkit-column-width:150px;
+    -moz-column-width:150px; 
+	-webkit-column-gap:2px;
+	-moz-column-gap:2px;
+	}
+	.hot_photos_list li{
+		float: left;
+		width: 150px;
+		padding-left:2px;
+		padding-right: 2px;
+		padding-top:4px;
+	}
 }
 @media only screen and (min-width: 501px) and (max-width: 550px){
 	.head_imgList li{width: 65px;height: 65px;}
+	.hot_photos_list{
+	-webkit-column-width:162px;
+    -moz-column-width:162px; 
+	-webkit-column-gap:2px;
+	-moz-column-gap:2px;
+	}
+	.hot_photos_list li{
+		float: left;
+		width: 162px;
+		padding-left:2px;
+		padding-right: 2px;
+		padding-top:4px;
+	}
 }
 @media only screen and (min-width: 551px) and (max-width: 600px){
 	.head_imgList li{width: 70px;height: 70px;}
+	.hot_photos_list{
+	-webkit-column-width:180px;
+    -moz-column-width:180px; 
+	-webkit-column-gap:2px;
+	-moz-column-gap:2px;
+	}
+	.hot_photos_list li{
+		float: left;
+		width: 180px;
+		padding-left:2px;
+		padding-right: 2px;
+		padding-top:4px;
+	}
+}
+@media only screen and (min-width: 600px) and (max-width: 640px){
+	.head_imgList li{width: 75px;height: 75px;}
+	.hot_photos_list{
+	-webkit-column-width:196px;
+    -moz-column-width:196px; 
+	-webkit-column-gap:2px;
+	-moz-column-gap:2px;
+	}
+	.hot_photos_list li{
+		float: left;
+		width: 196px;
+		padding-left:2px;
+		padding-right: 2px;
+		padding-top:4px;
+	}
 }
