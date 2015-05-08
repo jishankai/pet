@@ -28,13 +28,19 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 /*热门照片*/
 .hot_photos_box{width: 100%;height:auto;margin: 0 auto;}
 .hot_photos_list{width: 100%;height: auto;
+	column-width:202px;
 	-webkit-column-width:202px;
     -moz-column-width:202px; 
+    -o-column-width:202px;
+    -ms-column-width:202px;
+    column-gap:2px;
 	-webkit-column-gap:2px;
 	-moz-column-gap:2px;
+	-o-column-gap:2px;
+	-ms-column-gap:2px;
 }
-.hot_photos_list li{width:202px;height:auto;float: left;margin-left: 1%;
-	margin-bottom: 2.5%;position: relative;}
+.hot_photos_list li{width:202px;height:auto;margin-left: 1%;
+	margin-bottom: 3%;position: relative;}
 .hot_photos_list li img{width: 100%;}
 .hot_photos_list li div{position: absolute;right: 10px;bottom: 10px;
 	height: 30px;line-height: 30px;padding-left: 30px;padding-right: 3px;
@@ -70,8 +76,12 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 	.hot_photos_list{
 	-webkit-column-width:100px;
     -moz-column-width:100px; 
+    -o-column-width:100px;
+    -ms-column-width:100px; 
 	-webkit-column-gap:2px;
 	-moz-column-gap:2px;
+	-o-column-gap:2px;
+	-ms-column-gap:2px;
 	}
 	.hot_photos_list li{
 		float: left;
@@ -88,8 +98,12 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 	.hot_photos_list{
 	-webkit-column-width:116px;
     -moz-column-width:116px; 
+    -o-column-width:116px;
+    -ms-column-width:116px; 
 	-webkit-column-gap:2px;
 	-moz-column-gap:2px;
+	-o-column-gap:2px;
+	-ms-column-gap:2px;
 	}
 	.hot_photos_list li{
 		float: left;
@@ -104,8 +118,12 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 	.hot_photos_list{
 	-webkit-column-width:130px;
     -moz-column-width:130px; 
+    -o-column-width:130px;
+    -ms-column-width:130px;
 	-webkit-column-gap:2px;
 	-moz-column-gap:2px;
+	-o-column-gap:2px;
+	-ms-column-gap:2px;
 	}
 	.hot_photos_list li{
 		float: left;
@@ -120,8 +138,12 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 	.hot_photos_list{
 	-webkit-column-width:150px;
     -moz-column-width:150px; 
+    -o-column-width:150px;
+    -ms-column-width:150px; 
 	-webkit-column-gap:2px;
 	-moz-column-gap:2px;
+	-o-column-gap:2px;
+	-ms-column-gap:2px;
 	}
 	.hot_photos_list li{
 		float: left;
@@ -136,8 +158,12 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 	.hot_photos_list{
 	-webkit-column-width:162px;
     -moz-column-width:162px; 
+    -o-column-width:162px;
+    -ms-column-width:162px; 
 	-webkit-column-gap:2px;
 	-moz-column-gap:2px;
+	-webkit-o-gap:2px;
+	-moz-ms-gap:2px;
 	}
 	.hot_photos_list li{
 		float: left;
@@ -152,8 +178,12 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 	.hot_photos_list{
 	-webkit-column-width:180px;
     -moz-column-width:180px; 
+    -o-column-width:180px;
+    -ms-column-width:180px; 
 	-webkit-column-gap:2px;
 	-moz-column-gap:2px;
+	-o-column-gap:2px;
+	-ms-column-gap:2px;
 	}
 	.hot_photos_list li{
 		float: left;
@@ -168,8 +198,12 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 	.hot_photos_list{
 	-webkit-column-width:196px;
     -moz-column-width:196px; 
+    -o-columns-width:196px;
+  	-ms-columns-width:196px;
 	-webkit-column-gap:2px;
 	-moz-column-gap:2px;
+	-o-column-gap:2px;
+	-ms-column-gap:2px;
 	}
 	.hot_photos_list li{
 		float: left;
