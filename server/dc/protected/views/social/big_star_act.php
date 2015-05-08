@@ -62,7 +62,7 @@
 <body>
 <div class="act1_wrap comWidth">
 	<div class="act1_top">
-		<a href="#"><img alt="" src="<?php echo $star['banner'];?>"></a>
+		<a href="<?php echo $star['url']?>"><img alt="" src="<?php echo $star['banner'];?>"></a>
 	</div>
 	<div class="act1_body">
 		<div class="ab_tit clearfix">
