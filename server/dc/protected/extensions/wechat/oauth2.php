@@ -22,7 +22,8 @@ class oauth2{
  	 * @param string $SECRET
  	 * @param string $REDIRECT_URL
  	 */
- 	function init($APPID='',$SECRET='',$REDIRECT_URL='http://kouliang.tuturead.com/index.php?r=wechat/callback'){
+ 	//function init($APPID='',$SECRET='',$REDIRECT_URL='http://kouliang.tuturead.com/index.php?r=wechat/callback'){
+ 	function init($APPID='',$SECRET='',$REDIRECT_URL='http://weixin.imengstar.com/index.php?r=wechat/callback'){
  		$this->REDIRECT_URL=$REDIRECT_URL;
  		if ($APPID!='') $this->APPID=$APPID;
  		if ($SECRET!='') $this->SECRET=$SECRET;
