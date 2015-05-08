@@ -111,6 +111,7 @@ class StarController extends Controller
 
     public function actionVoteMobileApi($img_id)
     {
+        $flag = FALSE;
         $image = Image::model()->findByPk($img_id);
         $session = Yii::app()->session;
         if (!isset($session[$this->usr_id.'_star_'.$image->star_id])) {
