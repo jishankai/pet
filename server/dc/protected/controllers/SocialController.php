@@ -77,6 +77,8 @@ class SocialController extends Controller
             $this->usr_id = $session['usr_id'];
         } 
 
+        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.topic_name, i.star_id, i.stars, i.likes, i.likers, i.gifts, i.senders, i.shares, i.sharers, i.comments, i.food, i.is_food=1 AS is_food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $img_id)->queryRow();
+        
         if (!isset($this->usr_id)) {
             if ($to=='') {
                 if (isset($_SERVER['HTTP_USER_AGENT'])&&strpos($_SERVER['HTTP_USER_AGENT'], "MicroMessenger")) {
@@ -94,7 +96,8 @@ class SocialController extends Controller
                     $this->usr_id = $usr_id;
                 } else {
                     $a = implode('$', array('img_id',$img_id));
-                    $state = $a;
+                    $b = implode('$', array('aid',$r['aid']));
+                    $state = implode('*', array($a, $b));
                     $oauth2->get_code_by_authorize($state);
                     exit;
                 }
@@ -107,7 +110,7 @@ class SocialController extends Controller
                     parse_str($cookie);
                     $this->usr_id = $usr_id;
                 } else {
-                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id)), 'mobile'));
+                    $this->redirect($oauth2->getAuthorizeURL(WB_CALLBACK_URL, 'code', http_build_query(array('img_id'=>$img_id, 'aid'=>$r['aid'])), 'mobile'));
                     exit;
                 }
                 break;
@@ -117,7 +120,6 @@ class SocialController extends Controller
             }
         }
 
-        $r = Yii::app()->db->createCommand('SELECT i.img_id, i.url, i.aid, i.cmt, i.topic_name, i.star_id, i.stars, i.likes, i.likers, i.gifts, i.senders, i.shares, i.sharers, i.comments, i.food, i.is_food=1 AS is_food, i.create_time, a.name, a.tx, a.type, a.gender, u.usr_id, u.tx AS u_tx, u.name AS u_name  FROM dc_image i LEFT JOIN dc_animal a ON i.aid=a.aid LEFT JOIN dc_user u ON a.master_id=u.usr_id WHERE i.img_id=:img_id')->bindValue(':img_id', $img_id)->queryRow();
         if ($r['star_id']) {
             $start_time = Yii::app()->db->createCommand('SELECT start_time FROM dc_star WHERE star_id=:star_id')->bindValue(':star_id', $r['star_id'])->queryScalar();
         } else {
