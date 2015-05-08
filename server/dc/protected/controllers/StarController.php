@@ -109,6 +109,42 @@ class StarController extends Controller
         $this->echoJsonData(array('isSuccess'=>$flag));
     }
 
+    public function actionVoteMobileApi($img_id)
+    {
+        $image = Image::model()->findByPk($img_id);
+        $session = Yii::app()->session;
+        if (!isset($session[$this->usr_id.'_star_'.$image->star_id])) {
+            $session[$this->usr_id.'_star_'.$image->star_id] = 3;
+        } 
+        
+        $transaction = Yii::app()->db->beginTransaction();
+        try {
+            if ($session[$this->usr_id.'_star_'.$image->star_id]>0) {
+                $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
+                $user = User::model()->findByPk($this->usr_id);
+                if ($user->gold>0) {
+                    $user->gold-=1;
+                    $user->saveAttributes(array('gold'));
+                    $image->stars++;
+                    if ($image->starers=='') {
+                        $image->starers = $this->usr_id;
+                    } else {
+                        $image->starers = $image->starers.','.$this->usr_id;
+                    }
+                    $image->saveAttributes(array('stars', 'starers'));
+                    $flag = TRUE;
+                }
+            }
+            
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            throw $e;
+        }
+
+        $this->echoJsonData(array('isSuccess'=>$flag));
+    }    
+
     public function actionRankApi($star_id, $page=0)
     {
         $r = Yii::app()->db->createCommand('SELECT a.aid, a.name, a.tx, SUM(i.stars) AS stars FROM dc_image i LEFT JOIN dc_animal a ON a.aid=i.aid WHERE i.star_id=:star_id GROUP BY a.aid,a.name,a.tx ORDER BY stars DESC LIMIT :m,30')->bindValues(array(':star_id'=>$star_id, ':m'=>$page*30))->queryAll();
