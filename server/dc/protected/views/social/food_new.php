@@ -192,6 +192,19 @@ $signPackage = $jssdk->GetSignPackage();
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 
 <script type="text/javascript">
+
+/*点赞头像尺寸匹配*/
+var like_head_top=parseInt($(".like_head").height());
+$(".like_head li").height(like_head_top);
+$(".like_head li").width(like_head_top);
+/*点赞默认头像*/
+var like_li=$(".like_head li").length;
+for (var i = 0; i < like_li; i++) {
+	var l_img=$(".like_head li img")[i];
+	if($(l_img).attr("src")=="http://pet4tx.oss-cn-beijing.aliyuncs.com/tx_usr/"){
+		$(l_img).attr("src","css/images/user_icon.png");	}
+};
+
 /*ajax提交表单测试*/
 $("#submit").click(function(){
 	$.ajax({
