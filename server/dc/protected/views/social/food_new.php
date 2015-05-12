@@ -283,7 +283,7 @@ $(function(){
 	});
 	/*Go活动界面*/
 	$("#act_jump_btn").click(function(){
-		window.location="<?php echo $this->createUrl('social/starIndex', array('star_id'=>$r['star_id']))?>";
+		window.location="<?php echo $this->createUrl('social/starIndex', array('star_id'=>$r['star_id'], 'SID'=>$SID))?>";
 	});
 
 	/*赞按钮*/

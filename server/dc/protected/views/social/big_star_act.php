@@ -106,7 +106,7 @@
         var oParent=document.getElementById('imgBox');
         <?php for($i=0;$i<count($star['images'])&&$i<9;$i++) {?>      
             var oA=document.createElement('a');
-                oA.setAttribute('href',"<?php echo $this->createUrl('social/foodShareApi', array('img_id'=>$image['img_id'], 'SID'=>$SID))?>");
+                oA.setAttribute('href',"<?php echo $this->createUrl('social/foodShareApi', array('img_id'=>$star['images'][$i]['img_id'], 'SID'=>$SID))?>");
                 oParent.appendChild(oA);
             var oLi=document.createElement('li');
                 oLi.className='box';
