@@ -41,6 +41,7 @@ body{font-family: "Microsoft Yahei";color: #7c7c7c;background-color: #ffffff;}
 }
 .hot_photos_list li{width:202px;height:auto;margin-left: 1%;
 	margin-bottom: 3%;position: relative;}
+.hot_photos_list a{color: #7c7c7c;text-decoration: none;}
 .hot_photos_list li img{width: 100%;}
 .hot_photos_list li div{position: absolute;right: 10px;bottom: 10px;
 	height: 30px;line-height: 30px;padding-left: 30px;padding-right: 3px;
