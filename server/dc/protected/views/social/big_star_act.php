@@ -89,16 +89,35 @@
 
 	<div class="hot_photos">热门照片</div>
 	<div class="hot_photos_box">	
-		<ul class="hot_photos_list">
-            <?php for($i=0;$i<count($star['images'])&&$i<9;$i++) {?>
-                <li>
-                    <img src="http://<?php echo OSS_PREFIX;?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $star['images'][$i]['url'];?>">
-                    <div><?php echo $star['images'][$i]['stars'];?></div>
-                </li>
-            <?php }?>
+		<ul class="hot_photos_list" id="imgBox">
+            <?php /*for($i=0;$i<count($star['images'])&&$i<9;$i++) {*/?>
+                <!-- <li>
+                    <img src="http://<?php /*echo OSS_PREFIX;*/?>4upload.oss-cn-beijing.aliyuncs.com/<?php /*echo $star['images'][$i]['url'];*/?>">
+                    <div><?php /*echo $star['images'][$i]['stars'];*/?></div>
+                </li> -->
+            <?php /*}*/?>
 		</ul>
 	</div>
 
 </div>
 </body>
+<script type="text/javascript">
+    $(window).on('load',function(){
+        var oParent=document.getElementById('imgBox');
+        <?php for($i=0;$i<count($star['images'])&&$i<9;$i++) {?>      
+            var oA=document.createElement('a');
+                oA.setAttribute('href',"<?php echo $this->createUrl('social/foodShareApi', array('img_id'=>$image['img_id'], 'SID'=>$SID))?>");
+                oParent.appendChild(oA);
+            var oLi=document.createElement('li');
+                oLi.className='box';
+                oA.appendChild(oLi);
+            var oImg=document.createElement('img');
+                oImg.src="http://<?php echo OSS_PREFIX;?>4upload.oss-cn-beijing.aliyuncs.com/<?php echo $star['images'][$i]['url'];?>";
+                oLi.appendChild(oImg);
+            var oDiv=document.createElement('div');
+                oDiv.innerHTML=<?php echo $star['images'][$i]['stars'];?>;
+                oLi.appendChild(oDiv);            
+        <?php }?>
+    })
+</script>
 </html>
