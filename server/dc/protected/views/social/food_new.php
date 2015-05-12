@@ -105,7 +105,7 @@ $signPackage = $jssdk->GetSignPackage();
 				<img src="css/images/page_comment_gray.jpg">
 			</div>
 			<ul class="like_head clearfix">
-				<?php for($i=0;$i<count($liker_tx)&&$i<5;$i++) {?>
+				<?php for($i=0;$i<count($liker_tx)&&$i<6;$i++) {?>
 				<li><img src="http://<?php echo OSS_PREFIX;?>4tx.oss-cn-beijing.aliyuncs.com/tx_usr/<?php echo $liker_tx[$i]['tx'];?>"></li>
 				<?php }?>
 			</ul>
