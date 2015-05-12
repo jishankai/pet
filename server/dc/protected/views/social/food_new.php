@@ -77,9 +77,7 @@ $signPackage = $jssdk->GetSignPackage();
 		</div>
 		<!-- 话题和描述 -->
 		<div class="topic_describe">
-			<span class="topic">＃<?php echo $r['topic_name']?>＃</span>
-			<span class="describe"><?php echo $r['cmt']?></span>
-			<!-- <span class="describe">好饿 好饿 好饿</span> -->
+			<span class="topic">＃<?php echo $r['topic_name']?>＃</span><?php echo $r['cmt']?>
 		</div>
 		<!-- 点赞，评论，礼物。。按钮组 -->
 		<ul class="btns_box clearfix">
