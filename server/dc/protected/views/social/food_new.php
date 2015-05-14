@@ -255,7 +255,7 @@ $(function(){
 	$("#recommend_btn").click(function(){
 		
 		var t = $("#td_time").html();
-		if(votes>0 && t!="已结束"){
+		if(t!="已结束"){
 			$.ajax({
 				url: <?php echo "'".$this->createUrl('star/voteMobileApi', array('img_id'=>$img_id, 'sig'=>md5('img_id='.$img_id.'dog&cat'), 'SID'=>$SID))."'" ?>,
 				data: { },
