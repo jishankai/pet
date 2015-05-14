@@ -251,7 +251,7 @@ $(function(){
 	});
 
 	/*推荐按钮*/
-	votes=parseInt(<?php echo $votes?>);
+	// votes=parseInt(<?php echo $votes?>);
 	$("#recommend_btn").click(function(){
 		
 		var t = $("#td_time").html();
@@ -265,7 +265,7 @@ $(function(){
 					if (json_x.data.isSuccess) {
 						var t_num=parseInt($("#t_num").html());
 						$("#t_num").html(t_num+1);
-						votes=votes-1;
+						// votes=votes-1;
 					} else{
 						recommend();
 					};
