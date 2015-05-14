@@ -113,15 +113,15 @@ class StarController extends Controller
     {
         $flag = FALSE;
         $image = Image::model()->findByPk($img_id);
-        $session = Yii::app()->session;
-        if (!isset($session[$this->usr_id.'_star_'.$image->star_id])) {
-            $session[$this->usr_id.'_star_'.$image->star_id] = 3;
-        } 
+        // $session = Yii::app()->session;
+        // if (!isset($session[$this->usr_id.'_star_'.$image->star_id])) {
+        //     $session[$this->usr_id.'_star_'.$image->star_id] = 3;
+        // } 
         
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            if ($session[$this->usr_id.'_star_'.$image->star_id]>0) {
-                $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
+            // if ($session[$this->usr_id.'_star_'.$image->star_id]>0) {
+                // $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
                 $user = User::model()->findByPk($this->usr_id);
                 if ($user->gold>0) {
                     $user->gold-=1;
@@ -135,7 +135,7 @@ class StarController extends Controller
                     $image->saveAttributes(array('stars', 'starers'));
                     $flag = TRUE;
                 }
-            }
+            // }
             
             $transaction->commit();
         } catch (Exception $e) {
