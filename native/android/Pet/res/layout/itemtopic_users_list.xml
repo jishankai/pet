@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
          android:gravity="center_vertical">
-         <com.aidigame.hisun.pet.view.RoundImageView 
+         <com.aidigame.hisun.imengstar.view.RoundImageView 
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:id="@+id/icon"

@@ -120,13 +120,13 @@
 
         
     </RelativeLayout>
-        <com.aidigame.hisun.pet.view.PullToRefreshAndMoreView
+        <com.aidigame.hisun.imengstar.view.PullToRefreshAndMoreView
         android:id="@+id/activity_listview"
         android:layout_width="match_parent"
         android:layout_below="@+id/title"
         android:layout_height="match_parent" >
         
-    </com.aidigame.hisun.pet.view.PullToRefreshAndMoreView>
+    </com.aidigame.hisun.imengstar.view.PullToRefreshAndMoreView>
 </RelativeLayout>
     
 </FrameLayout>

@@ -19,7 +19,7 @@
             android:layout_marginLeft="10dp"
             android:scaleType="fitXY"
             android:src="@drawable/default_avatar" /> -->
-       <com.aidigame.hisun.pet.view.RoundImageView
+       <com.aidigame.hisun.imengstar.view.RoundImageView
             android:id="@+id/avatar"
             android:layout_width="45dp"
             android:layout_height="45dp"

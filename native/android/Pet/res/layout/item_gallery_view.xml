@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="66dp"
     android:layout_height="wrap_content" 
     >
    
-   <com.aidigame.hisun.pet.view.RoundImageView
+   <com.aidigame.hisun.imengstar.view.RoundImageView
             android:id="@+id/roundImage_one_border"
             android:layout_width="46dp"
             android:layout_height="46dp"
             android:visibility="visible"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
+            android:src="@drawable/bug"
+            android:layout_centerHorizontal="true"
             />
+   <TextView 
+       android:id="@+id/name_tv"
+       android:layout_width="50dp"
+       android:layout_height="16dp"
+       android:layout_below="@+id/roundImage_one_border"
+       android:text="秒买哦看"
+       android:textSize="12sp"
+       android:singleLine="true"
+       android:gravity="center"
+       android:visibility="gone"
+       android:layout_marginTop="3dp"
+       android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

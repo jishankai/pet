@@ -35,6 +35,7 @@
 -libraryjars libs/umeng_social_sdk.jar
 -libraryjars libs/SocialSDK_Sina.jar
 -libraryjars libs/httpmime-4.1.3.jar
+-libraryjars libs/SocialSDK_AtFriends.jar
 -keepclassmembers class * {
    public <init>(org.json.JSONObject);
 }

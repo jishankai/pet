@@ -14,7 +14,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:src="@drawable/red_ball_delete"/>
-    <com.aidigame.hisun.pet.view.RoundImageView 
+    <com.aidigame.hisun.imengstar.view.RoundImageView 
         android:id="@+id/pet_icon"
         android:layout_width="64dp"
         android:layout_height="64dp"
@@ -152,7 +152,7 @@
                 android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:text="没有邀请码？向宠物星球的小伙伴索要吧"
+        android:text="没有邀请码？向我是大萌星的小伙伴索要吧"
         />
      <TextView 
               android:layout_width="100dp"

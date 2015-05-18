@@ -132,7 +132,7 @@
                 android:layout_weight="1"
                 android:gravity="bottom" >
 
-                <com.aidigame.hisun.pet.huanxin.PasteEditText
+                <com.aidigame.hisun.imengstar.huanxin.PasteEditText
                     android:id="@+id/et_sendmessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

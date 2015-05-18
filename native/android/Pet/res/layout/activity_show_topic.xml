@@ -77,14 +77,7 @@
                android:focusable="true"
                android:focusableInTouchMode="true"
                android:text=""/>
-           <TextView 
-               android:id="@+id/show_topic_comment_tv"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="10dp"
-               android:textColor="@color/black"
-               android:text=""/>
-           <TextView 
+            <TextView 
                android:id="@+id/show_topic_topic_tv"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -93,6 +86,14 @@
                android:focusable="false"
                android:focusableInTouchMode="false"
                android:textColor="@color/orange_red1"/>
+           <TextView 
+               android:id="@+id/show_topic_comment_tv"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="10dp"
+               android:textColor="@color/black"
+               android:text=""/>
+          
            <TextView 
                android:id="@+id/show_topic_time_tv"
                android:layout_width="wrap_content"
@@ -192,7 +193,7 @@
                android:gravity="center_vertical"
                android:paddingBottom="5dp"
                >
-               <com.aidigame.hisun.pet.view.RoundImageView 
+               <com.aidigame.hisun.imengstar.view.RoundImageView 
                    android:id="@+id/show_topic_peticon"
                    android:layout_width="54dp"
                    android:layout_height="54dp"
@@ -250,7 +251,7 @@
                        android:textSize="12sp"
                        android:layout_marginRight="5dp"
                        android:textColor="#606060"/>
-                   <com.aidigame.hisun.pet.view.RoundImageView 
+                   <com.aidigame.hisun.imengstar.view.RoundImageView 
                        android:id="@+id/show_topic_usericon"
                    android:layout_width="28dp"
                    android:layout_height="28dp"
@@ -466,14 +467,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                      android:scrollbars="none">
-                <com.aidigame.hisun.pet.view.LinearLayoutForListView 
+                <com.aidigame.hisun.imengstar.view.LinearLayoutForListView 
                     android:id="@+id/info_listview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:divider="@null"
                     android:paddingBottom="150dp"
-                    ></com.aidigame.hisun.pet.view.LinearLayoutForListView>
+                    ></com.aidigame.hisun.imengstar.view.LinearLayoutForListView>
                 </ScrollView>
             </FrameLayout>
             
@@ -726,15 +727,119 @@
     
     
     <!-- 发送评论 -->
+      <RelativeLayout 
+          android:id="@+id/commentlayout"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:visibility="visible">
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:id="@+id/progress_layout"></LinearLayout>
+        
+        
+              <!-- 发送评论 -->
            <LinearLayout 
+            android:id="@+id/add_comment_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="invisible"
+        android:layout_above="@+id/more"
+        
+        android:background="@color/white"
+        ><!-- android:background="#d0f8f8f8" -->
+           <!--  <EditText 
+            android:id="@+id/edit_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_frame1"
+            android:layout_weight="1"
+            android:hint="写个评论呗"
+            android:visibility="gone"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textSize="16sp">
+        <requestFocus android:id="@+id/request"
+            />
+        </EditText> -->
+        <com.aidigame.hisun.imengstar.huanxin.PasteEditText
+                    android:id="@+id/et_sendmessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_frame1"
+            android:layout_weight="1"
+            android:hint="写个评论呗"
+            android:visibility="gone"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textSize="16sp"/>
+        <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/emotion_iv"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/chatting_biaoqing_btn_enable"/>
+        <TextView
+            android:id="@+id/send_comment" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送"
+            android:textSize="18sp"
+            android:layout_gravity="bottom"
+            android:textColor="@color/orange_red1"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"/>  
+         
+    </LinearLayout>
+     <!-- 表情 -->
+         <LinearLayout
+            android:id="@+id/more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            
+            >
+
+            <!-- 表情图片 -->
+
+            <LinearLayout
+                android:id="@+id/ll_face_container"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                 android:visibility="gone">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        
+            </LinearLayout>
+        
+        </RelativeLayout>
+    
+    
+    
+    
+    
+       <!--     <LinearLayout 
             android:id="@+id/add_comment_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:visibility="gone"
-        ><!-- android:background="#d0f8f8f8" -->
+        android:visibility="visible"
+        >android:background="#d0f8f8f8"
         <RelativeLayout android:layout_width="match_parent"
         android:layout_height="match_parent">
             <EditText 
@@ -770,7 +875,7 @@
             android:paddingBottom="5dp"/>  
         </RelativeLayout>
          
-    </LinearLayout>
+    </LinearLayout> -->
     
     
     
@@ -879,8 +984,14 @@
       </RelativeLayout> -->
       
       <!-- 分享 图标 -->
-      <RelativeLayout 
+       <RelativeLayout 
           android:id="@+id/sharelayout"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:visibility="gone">
+        </RelativeLayout>
+      <RelativeLayout 
+          android:id="@+id/sharelayout1"
           android:clickable="true"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
@@ -1084,4 +1195,5 @@
         android:scaleType="fitXY"
         android:visibility="gone"
         /> <!--android:src="@drawable/guide1"  -->
+       
 </FrameLayout>

@@ -5,7 +5,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/framelayout" 
-        android:background="@drawable/blur">
+        android:background="@drawable/blur"
+        ><!-- android:background="@drawable/blur" -->
          
         <LinearLayout 
     android:layout_width="match_parent"
@@ -14,6 +15,7 @@
     >
      <View android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:id="@+id/title_padding_view"
         /><!-- android:id="@+id/top_white_view" -->
   
     <ScrollView 
@@ -78,6 +80,36 @@
 
         <ImageView
             android:id="@+id/shang_note_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/checked"/>
+       
+    </LinearLayout>
+                <View android:layout_width="match_parent"
+            android:layout_height="0.2dp" 
+            android:id="@+id/view"
+            android:background="#beb5a5"/>
+                <LinearLayout
+        android:id="@+id/ticket_note_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingTop="3dp"
+        android:clickable="true"
+        android:paddingBottom="3dp">
+        <TextView android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="投票提示"
+            android:layout_marginLeft="30dp"
+            android:textSize="14sp"
+           android:textColor="@color/black"
+            />
+
+        <ImageView
+            android:id="@+id/ticket_note_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -256,6 +288,7 @@
      <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:id="@+id/title_layout"
         android:background="#33fc7b51"><!--  -->
 
         <ImageView

@@ -24,14 +24,14 @@
        
         android:id="@+id/top_white_view"/><!-- android:background="@color/white"  -->
     
-        <com.aidigame.hisun.pet.view.PullToRefreshAndMoreView
+        <com.aidigame.hisun.imengstar.view.PullToRefreshAndMoreView
             android:layout_marginTop="54dp"
         android:id="@+id/chose_king_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blur_view_top" >
         
-    </com.aidigame.hisun.pet.view.PullToRefreshAndMoreView>
+    </com.aidigame.hisun.imengstar.view.PullToRefreshAndMoreView>
     
     </LinearLayout>
     

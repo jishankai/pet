@@ -32,7 +32,7 @@
              android:id="@+id/textView1"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="宠物星球" 
+             android:text="我是大萌星" 
              android:textSize="22sp"
              android:layout_marginTop="15dp"/>
 
@@ -74,7 +74,7 @@
               android:id="@+id/textView6"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="宠物星球软件许可及服务条款" 
+              android:text="我是大萌星软件许可及服务条款" 
               android:textColor="@color/orange_red1"
               android:gravity="center_horizontal"
               android:textSize="12sp"

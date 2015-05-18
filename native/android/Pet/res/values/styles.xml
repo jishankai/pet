@@ -57,13 +57,31 @@
               <item name="android:backgroundDimEnabled">false</item>  
               <item name="android:windowCloseOnTouchOutside">false</item>
         </style>
+        <style name="Theme.Transparent4" parent="@android:style/Theme.Translucent"> 
+             <item name="android:windowNoTitle">true</item>  
+        </style>
+        
         <style name="umeng_socialize_divider">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/umeng_socialize_divider</item>
     </style>
-    
-        
+        <style name="umeng_socialize_edit_padding">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">@color/umeng_socialize_list_item_bgcolor</item>
+        <item name="android:layout_marginLeft">6dp</item>
+        <item name="android:layout_marginRight">6dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+    </style>
+            <style name="umeng_socialize_list_item">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:background">@color/umeng_socialize_list_item_bgcolor</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+    </style>
         
         
         

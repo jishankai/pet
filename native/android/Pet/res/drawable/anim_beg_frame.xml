@@ -3,6 +3,4 @@
     android:oneshot="false">
     <item android:drawable="@drawable/anim_beg1"  android:duration="300"></item>
     <item android:drawable="@drawable/anim_beg2"  android:duration="300"></item>
-    
-
 </animation-list>

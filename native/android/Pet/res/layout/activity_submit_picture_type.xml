@@ -68,12 +68,12 @@
              android:layout_marginLeft="5dp"
              android:gravity="center"
              android:layout_marginRight="5dp">
-             <com.aidigame.hisun.pet.view.HorizontalListView2 
+             <com.aidigame.hisun.imengstar.view.HorizontalListView2 
                  android:layout_width="146dp"
                  android:layout_height="48dp"
                  android:focusable="false"
                  android:focusableInTouchMode="false"
-                 android:id="@+id/listview"></com.aidigame.hisun.pet.view.HorizontalListView2><!-- 156dp -->
+                 android:id="@+id/listview"></com.aidigame.hisun.imengstar.view.HorizontalListView2><!-- 156dp -->
          </LinearLayout>
          
     </RelativeLayout>

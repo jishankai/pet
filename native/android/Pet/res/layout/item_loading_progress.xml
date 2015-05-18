@@ -3,20 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
     android:id="@+id/parent">
-
-    <ImageView
-        android:id="@+id/imageView1"
+    <ImageView 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/loading_background" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:src="@drawable/anim_cat_running"
         android:layout_centerInParent="true"
-        android:src="@drawable/loading_circle" />
+        android:id="@+id/cat_running"/>
 
 </RelativeLayout>

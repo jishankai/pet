@@ -33,6 +33,7 @@
    <dimen name="waterfall_padding">2dp</dimen>
    <dimen name="title_height">54dp</dimen>
    <dimen name="one_dip">1dp</dimen>
+   <dimen name="one_sp">1sp</dimen>
    <dimen name="dip_64">64dp</dimen>
    <dimen name="dip_38">38dp</dimen>
    <dimen name="dip_240">80dp</dimen>

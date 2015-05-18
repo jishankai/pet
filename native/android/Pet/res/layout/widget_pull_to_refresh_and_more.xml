@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
-         <com.aidigame.hisun.pet.view.PullToRefreshAndMoreView
+         <com.aidigame.hisun.imengstar.view.PullToRefreshAndMoreView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" 
@@ -13,5 +13,5 @@
         android:cacheColorHint="#00000000"  
         android:listSelector="@android:color/transparent"
         android:id="@+id/listview_linearLayout3">
-    </com.aidigame.hisun.pet.view.PullToRefreshAndMoreView>
+    </com.aidigame.hisun.imengstar.view.PullToRefreshAndMoreView>
     </RelativeLayout>

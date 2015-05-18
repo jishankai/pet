@@ -16,12 +16,12 @@
         android:layout_height="88dp"
         
         android:id="@+id/top_white_view"/><!-- android:background="@color/white" -->
-     <com.aidigame.hisun.pet.view.PullToRefreshAndMoreView
+     <com.aidigame.hisun.imengstar.view.PullToRefreshAndMoreView
         android:id="@+id/activity_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
         
-    </com.aidigame.hisun.pet.view.PullToRefreshAndMoreView>
+    </com.aidigame.hisun.imengstar.view.PullToRefreshAndMoreView>
 
 </LinearLayout>
 

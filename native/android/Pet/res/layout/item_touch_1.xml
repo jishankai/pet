@@ -36,7 +36,7 @@
     android:layout_marginTop="8dp"
     android:layout_width="match_parent"
     android:layout_height="170dp" >
-    <com.aidigame.hisun.pet.view.EraserView_user_drawPath
+    <com.aidigame.hisun.imengstar.view.EraserView_user_drawPath
         android:id="@+id/eraser_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" 

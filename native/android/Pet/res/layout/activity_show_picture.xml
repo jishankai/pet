@@ -5,12 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ff000000" >
-    <ImageView
+    <!-- <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter"/>
-    
+        android:scaleType="fitCenter"/> -->
+      <com.aidigame.hisun.imengstar.huanxin.PhotoView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter" />
 
 </LinearLayout>
 <!-- <LinearLayout

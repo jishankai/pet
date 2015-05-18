@@ -19,7 +19,7 @@
     android:paddingLeft="15dp"
     android:paddingRight="10dp"
         >
-        <com.aidigame.hisun.pet.view.RoundImageView
+        <com.aidigame.hisun.imengstar.view.RoundImageView
             android:id="@+id/icon_circleView"
             android:layout_width="54dp"
             android:layout_height="54dp"/>
@@ -238,7 +238,7 @@
                 android:text="经济人名片"
                 android:gravity="right"
                 android:textColor="@color/white" />
-            <com.aidigame.hisun.pet.view.RoundImageView
+            <com.aidigame.hisun.imengstar.view.RoundImageView
                 android:id="@+id/user_icon_circle"
                 android:layout_width="52dp"
                 android:layout_marginTop="5dp"

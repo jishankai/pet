@@ -15,7 +15,7 @@
         android:layout_height="wrap_content" 
         android:layout_alignParentRight="true"
         android:src="@drawable/dialog_close_white"/>
-    <com.aidigame.hisun.pet.view.RoundImageView 
+    <com.aidigame.hisun.imengstar.view.RoundImageView 
         android:id="@+id/user_icon"
         android:layout_width="96dp"
         android:layout_height="96dp"
@@ -56,6 +56,7 @@
             android:text="北京市 | 朝阳区"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
+            android:singleLine="true"
         android:layout_below="@+id/name_layout"/>
      <LinearLayout 
         android:id="@+id/gold_layout"
@@ -125,12 +126,12 @@
              android:layout_marginLeft="10dp"
              android:gravity="center"
              android:layout_marginRight="10dp">
-             <com.aidigame.hisun.pet.view.HorizontalListView2 
+             <com.aidigame.hisun.imengstar.view.HorizontalListView2 
                  android:layout_width="189dp"
                  android:layout_height="48dp"
                  android:focusable="false"
                  android:focusableInTouchMode="false"
-                 android:id="@+id/listview"></com.aidigame.hisun.pet.view.HorizontalListView2><!-- 156dp -->
+                 android:id="@+id/listview"></com.aidigame.hisun.imengstar.view.HorizontalListView2><!-- 156dp -->
          </LinearLayout>
          
     </RelativeLayout>

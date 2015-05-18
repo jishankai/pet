@@ -79,7 +79,7 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/pet_bg_img"
                     android:padding="13dp">
-                    <com.aidigame.hisun.pet.view.RoundImageView
+                    <com.aidigame.hisun.imengstar.view.RoundImageView
                     android:id="@+id/imageView3"
                     android:layout_width="92dp"
                     android:src="@drawable/pet_icon"
@@ -96,7 +96,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="15dp"
                     android:layout_toLeftOf="@+id/pet_layout"/>
-                <com.aidigame.hisun.pet.view.RoundImageView
+                <com.aidigame.hisun.imengstar.view.RoundImageView
                             android:id="@+id/user_icon"
                             android:layout_width="36dp"
                             android:layout_height="36dp"

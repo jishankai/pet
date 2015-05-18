@@ -19,6 +19,7 @@
         android:layout_marginBottom="46dp"
         android:gravity="center_horizontal"
         android:scrollbars="none"
+        
         android:fadingEdge="none"
             android:cacheColorHint="#00000000"
             android:listSelector="#00000000">
@@ -127,7 +128,7 @@
                 android:textSize="18sp"
                 android:layout_marginLeft="5dp"/>
         </LinearLayout>
-        <com.aidigame.hisun.pet.view.RoundImageView 
+        <com.aidigame.hisun.imengstar.view.RoundImageView 
             android:id="@+id/pet_icon"
             android:layout_width="46dp"
             android:layout_height="46dp"
@@ -171,7 +172,7 @@
              android:layout_alignParentRight="true"
             
             /> -->
-            <com.aidigame.hisun.pet.view.HorizontalListView2
+            <com.aidigame.hisun.imengstar.view.HorizontalListView2
                 android:id="@+id/galleryview"
             android:layout_width="match_parent"
             android:layout_height="46dp"

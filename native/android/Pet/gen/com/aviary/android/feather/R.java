@@ -302,12 +302,12 @@ public final class R {
 		public static final int aviary_hint_foreground_light = 0x7f0a0006;
 		public static final int aviary_hint_foreground_light_inverted = 0x7f0a0019;
 		public static final int aviary_iap_background = 0x7f0a0024;
-		public static final int aviary_iap_buy_button_text_color = 0x7f0a006e;
+		public static final int aviary_iap_buy_button_text_color = 0x7f0a0070;
 		public static final int aviary_iap_cell_layout_background = 0x7f0a0023;
 		public static final int aviary_iap_link_color_normal = 0x7f0a001a;
 		public static final int aviary_iap_link_color_pressed = 0x7f0a001c;
 		public static final int aviary_iap_link_color_selected = 0x7f0a001b;
-		public static final int aviary_iap_link_text_color = 0x7f0a006f;
+		public static final int aviary_iap_link_text_color = 0x7f0a0071;
 		public static final int aviary_iap_list_divider = 0x7f0a001d;
 		public static final int aviary_iap_restore_all_button_color = 0x7f0a001e;
 		public static final int aviary_iap_workspace_background = 0x7f0a001f;
@@ -333,9 +333,9 @@ public final class R {
 		public static final int aviary_primary_highlight_color_muted = 0x7f0a000e;
 		public static final int aviary_text_highlight_background_inner_pressed = 0x7f0a003a;
 		public static final int aviary_text_highlight_background_normal = 0x7f0a0039;
-		public static final int aviary_tool_text_color = 0x7f0a0070;
-		public static final int aviary_tool_text_color_inverted = 0x7f0a0071;
-		public static final int aviary_tool_text_color_no_selected = 0x7f0a0072;
+		public static final int aviary_tool_text_color = 0x7f0a0072;
+		public static final int aviary_tool_text_color_inverted = 0x7f0a0073;
+		public static final int aviary_tool_text_color_no_selected = 0x7f0a0074;
 		public static final int aviary_workspace_indicator_normal_endColor = 0x7f0a0013;
 		public static final int aviary_workspace_indicator_normal_startColor = 0x7f0a0012;
 		public static final int aviary_workspace_indicator_selected_endColor = 0x7f0a0011;
@@ -567,9 +567,9 @@ public final class R {
 		public static final int aviary_wheel_shadow_bottom = 0x7f0200aa;
 		public static final int back = 0x7f0200ab;
 		public static final int back_white = 0x7f0200ad;
-		public static final int hlv_overscroll_edge = 0x7f0201a4;
-		public static final int hlv_overscroll_glow = 0x7f0201a5;
-		public static final int ic_stickers = 0x7f0201b2;
+		public static final int hlv_overscroll_edge = 0x7f0201a5;
+		public static final int hlv_overscroll_glow = 0x7f0201a6;
+		public static final int ic_stickers = 0x7f0201b3;
 	}
 	public static final class id {
 		public static final int alwaysScroll = 0x7f07002c;
@@ -676,7 +676,7 @@ public final class R {
 		public static final int normal = 0x7f07002b;
 		public static final int pressed = 0x7f070032;
 		public static final int selected = 0x7f070034;
-		public static final int shadow = 0x7f070403;
+		public static final int shadow = 0x7f07040b;
 		public static final int size_preview = 0x7f07025c;
 		public static final int text = 0x7f070215;
 		public static final int text1 = 0x7f07024a;

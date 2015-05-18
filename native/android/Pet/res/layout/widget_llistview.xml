@@ -4,13 +4,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" 
     android:gravity="center_horizontal">
-    <com.aidigame.hisun.pet.view.ListViewForScrollView
+    <com.aidigame.hisun.imengstar.view.ListViewForScrollView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="visible" 
         android:layout_above="@+id/join_create_kingdom"
         android:layout_weight="1">
-    </com.aidigame.hisun.pet.view.ListViewForScrollView>
+    </com.aidigame.hisun.imengstar.view.ListViewForScrollView>
 
 </LinearLayout>

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:gravity="center">
-    <com.aidigame.hisun.pet.view.RoundImageView 
+    <com.aidigame.hisun.imengstar.view.RoundImageView 
         android:id="@+id/round_image"
         android:layout_width="26dp"
         android:layout_height="26dp"

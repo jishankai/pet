@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aidigame.hisun.imengstar"
-    android:versionCode="31"
-    android:versionName="2.0.0" ><!--  29   1.1.4-->
+    android:versionCode="32"
+    android:versionName="2.0.1" ><!--  29   1.1.4-->
 
     <uses-sdk
         android:minSdkVersion="12"
@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_APN_SETTINGS"/>
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -176,7 +177,8 @@
                     
                    <activity android:name="com.aidigame.hisun.imengstar.ui.RecommendActivity"
             android:theme="@android:style/Theme.Translucent"
-             android:configChanges="keyboardHidden|orientation|navigation"></activity>
+             android:configChanges="keyboardHidden|orientation|navigation"
+             android:hardwareAccelerated="true"></activity>
                     <activity android:name="com.aidigame.hisun.imengstar.ui.PetFansActivity"
             android:theme="@android:style/Theme.Translucent"
              android:configChanges="keyboardHidden|orientation|navigation"></activity>
@@ -371,7 +373,7 @@
         <activity android:name="com.umeng.fb.ContactActivity"
          android:theme="@android:style/Theme.NoTitleBar"/>
         <meta-data android:value="546ad32dfd98c57ed4006955" android:name="UMENG_APPKEY"></meta-data>
-        <meta-data android:value="anzhi" android:name="UMENG_CHANNEL"/>
+        <meta-data android:value="huawei" android:name="UMENG_CHANNEL"/>
         <!--  <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/> -->
         <!-- 友盟分享弹窗 -->
         <activity
