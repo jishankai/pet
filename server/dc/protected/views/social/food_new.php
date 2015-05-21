@@ -161,8 +161,10 @@ $signPackage = $jssdk->GetSignPackage();
 	<div class="recommend_box float">
 		<div class="recommend">
 			<img id="recommend_btn" src="css/images/bt_heart.png"/>
-			<img id="act_jump_btn" src="css/images/activity_jump.png"/>
+			<!-- <img id="act_jump_btn" src="css/images/activity_jump.png"/> -->
 		</div>
+		<img src="images/tact_1.png" id="a_jump_btn1">
+		<img src="images/tact_2.png" id="a_jump_btn2">
 
 	</div>
 
@@ -282,7 +284,13 @@ $(function(){
 			
 	});
 	/*Go活动界面*/
-	$("#act_jump_btn").click(function(){
+	/*$("#act_jump_btn").click(function(){
+		window.location="<?php echo $this->createUrl('social/starIndex', array('star_id'=>$r['star_id'], 'SID'=>$SID))?>";
+	});*/
+	$("#a_jump_btn1").click(function(){
+		window.location="http://home4pet.imengstar.com/";
+	});
+	$("#a_jump_btn2").click(function(){
 		window.location="<?php echo $this->createUrl('social/starIndex', array('star_id'=>$r['star_id'], 'SID'=>$SID))?>";
 	});
 

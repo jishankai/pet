@@ -136,6 +136,12 @@
 .more_recommend_num{color: red;text-align: center;
 	text-decoration: underline;height: 30px;line-height: 30px;
 	display: block;}*/
+	
+	#a_jump_btn1{float:left;margin-left: 180px;}
+	#a_jump_btn2{float: right;margin-right: 180px;}
+	#a_jump_btn1, #a_jump_btn2{
+		width: 120px;margin-bottom: 20px;margin-top: -80px;
+	}
 
 
 /*推荐弹框*/
@@ -163,7 +169,10 @@
 }
 #rec_btn_yes{background-color: #f99371}
 
-
+/*跳转按钮*/
+#a_jump_btn1, #a_jump_btn2{
+	width:100px;
+}
 
 @media only screen and (min-width: 300px) and (max-width: 640px){
 	
@@ -245,6 +254,11 @@
 	margin: 0 auto;}
 #recommend_btn{width:130px;height: auto;}
 #act_jump_btn{width: 120px;}
+#a_jump_btn1{float:left;margin-left: 50px;}
+#a_jump_btn2{float: right;margin-right: 50px;}
+#a_jump_btn1, #a_jump_btn2{
+	width: 100px;margin-bottom: 20px;margin-top: -50px;
+}
 
 }
 
@@ -288,6 +302,9 @@
 	height: 5px;width: 35%;margin-left: 12%;
 }
 .float{width: 100%;}
+
+#a_jump_btn1{float:left;margin-left: 80px;}
+#a_jump_btn2{float: right;margin-right: 80px;}
 
 }
 
