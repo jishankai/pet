@@ -163,8 +163,8 @@ $signPackage = $jssdk->GetSignPackage();
 			<img id="recommend_btn" src="css/images/bt_heart.png"/>
 			<!-- <img id="act_jump_btn" src="css/images/activity_jump.png"/> -->
 		</div>
-		<img src="images/tact_1.png" id="a_jump_btn1">
-		<img src="images/tact_2.png" id="a_jump_btn2">
+		<img src="css/images/tact_1.png" id="a_jump_btn1">
+		<img src="css/images/tact_2.png" id="a_jump_btn2">
 
 	</div>
 
