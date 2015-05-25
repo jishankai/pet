@@ -122,7 +122,10 @@ class StarController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Star');
+		$dataProvider=new CActiveDataProvider('Star',array(
+			'criteria'=>array(
+				'order'=>'create_time DESC',
+				)));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
