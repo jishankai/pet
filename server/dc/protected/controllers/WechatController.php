@@ -36,6 +36,36 @@ class WechatController extends Controller
         echo $b;
     }
 
+    public function actionGetUserApi()
+    {
+        $openid = $_REQUEST['openid'];
+
+        $appid="";//填写appid
+        $secret="";//填写secret
+
+        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={$appid}&secret={$secret}";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $a = curl_exec($ch);
+        $strjson=json_decode($a);
+        $token = $strjson->access_token;
+
+        $url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token={$token}&openid={$openid}&lang=zh_CN";
+        $ch = curl_init();//新建curl
+        curl_setopt($ch, CURLOPT_URL, $url);//url
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $b = curl_exec($ch); //输出
+        curl_close($ch);
+
+        echo $b;
+        
+    }
+
     public function actionUpdateMenuApi()
     {
         $appid="";//填写appid
