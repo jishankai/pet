@@ -336,7 +336,7 @@ $(function(){
 /*以前food页代码移入*/
 
 /*倒计时*/
-
+$(window).on('load',function(){
 	if (<?php echo $r['is_food']?>) {
 		FreshTime();
 	}
@@ -347,7 +347,7 @@ $(function(){
 		cc();
 	};
 
-	    
+});	    
 
 function FreshTime()
 {
