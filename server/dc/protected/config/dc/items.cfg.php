@@ -116,6 +116,16 @@ return array(
         'price'=> 120,
         'rq'   => 240,
     ),  
+    1405 => array(
+        'type' => 0,
+        'price'=> 150,
+        'rq'   => 320,
+    ),  
+    1406 => array(
+        'type' => 0,
+        'price'=> 150,
+        'rq'   => 320,
+    ),  
     2101 => array(
         'type' => 0,
         'price'=> 12,
