@@ -131,7 +131,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 	
 	<div class="float giveBtn_box">
-		<div class="select_money_t" id="gold">
+		<!-- <div class="select_money_t" id="gold">
 			<div class="select_money">
 				<ul id="gold_num">
 					<li id="one">1000</li>
@@ -141,7 +141,7 @@ $signPackage = $jssdk->GetSignPackage();
 				</ul>
 			</div>
 			<div class="target"></div>
-		</div>
+		</div> -->
 		<?php if($r['is_food']) {
 		echo '<div class="give_btn">';
 			echo '<div class="give_btn_bottom">';
