@@ -8,7 +8,7 @@ class UpdateDefaultTxCommand extends CConsoleCommand {
     public function start() {
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $user = User::model()->findAll(array('tx'=>''));
+            $user = User::model()->findAllByAttributes(array('tx'=>''));
             foreach ($user as $u) {
                 $u->tx = rand(1,15).'.jpg';
                 $u->saveAttributes(array('tx'));
