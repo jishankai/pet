@@ -87,19 +87,29 @@ class StarController extends Controller
         try {
             if ($session[$this->usr_id.'_star_'.$image->star_id]>0) {
                 $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
+                $image->stars++;
+                if ($image->starers=='') {
+                    $image->starers = $this->usr_id;
+                } else {
+                    $image->starers = $image->starers.','.$this->usr_id;
+                }
+                $image->saveAttributes(array('stars', 'starers'));
+                $flag = TRUE;
             } else {
                 $user = User::model()->findByPk($this->usr_id);
-                $user->gold-=30;
-                $user->saveAttributes(array('gold'));
+                if (($user->gold-30)>=0) {
+                    $user->gold-=30;
+                    $user->saveAttributes(array('gold'));
+                    $image->stars++;
+                    if ($image->starers=='') {
+                        $image->starers = $this->usr_id;
+                    } else {
+                        $image->starers = $image->starers.','.$this->usr_id;
+                    }
+                    $image->saveAttributes(array('stars', 'starers'));
+                    $flag = TRUE;
+                }
             }
-            $image->stars++;
-            if ($image->starers=='') {
-                $image->starers = $this->usr_id;
-            } else {
-                $image->starers = $image->starers.','.$this->usr_id;
-            }
-            $image->saveAttributes(array('stars', 'starers'));
-            $flag = TRUE;
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
