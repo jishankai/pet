@@ -6,8 +6,9 @@ $signPackage = $jssdk->GetSignPackage();
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initail-scale=1.0 ,maximum-scale=1, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" user-scalable="no">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>我是大萌星</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/food_new.css">
@@ -255,7 +256,7 @@ $(function(){
 
 	/*推荐按钮*/
 	votes=parseInt(<?php echo $votes?>);
-	$("#recommend_btn").click(function(){
+	$("#recommend_btn").bind("tap",function(){
 		
 		var t = $("#td_time").html();
 		if(votes>0 && t!="已结束"){
