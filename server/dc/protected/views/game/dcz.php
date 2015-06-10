@@ -478,8 +478,8 @@ position: fixed;left: 0;top:0;text-align: right;}
 			</div>
 			<br/>
 		</div>
-		<div class="mask" style="display:none;">
-			<img src="share_jt.png">
+		<div class="mask" id="mask" style="display:none;">
+			<img src="css/images/share_jt.png">
 		</div>
 	</div>
 
