@@ -88,6 +88,10 @@ height: 100%;
 z-index: 10000;
 display: none;
 }
+
+.mask{width: 100%;height: 100%;background-color: rgba(0,0,0,.5);
+position: fixed;left: 0;top:0;text-align: right;}
+.mask img{width: 25%;}
     </style>
 	<!--   <script type="text/javascript" src="scripts/stats.js" charset="UTF-8"></script>-->
 </head>
@@ -446,6 +450,14 @@ display: none;
 	            });
 	        });
 	    }, false);
+
+	function InviteBtn(){
+		var mask=document.getElementById("mask");
+		mask.style.display="block";
+	}
+	function DownloadBtn(){
+		window.location="http://home4pet.imengstar.com";
+	}
 </script>
 
 	<div id="GameScoreLayer" class="BBOX SHADE bgc1" style="display:none;">
@@ -458,7 +470,16 @@ display: none;
 			<div id="GameScoreLayer-btn" class="BOX">
 				<div class="btn BOX-S" onClick="replayBtn()">重来</div>&nbsp;
 			</div>
+			<div id="GameScoreLayer-btn" class="BOX">
+				<div class="btn BOX-S" onClick="InviteBtn()">邀请好友一起来</div>&nbsp;
+			</div>
+			<div id="GameScoreLayer-btn" class="BOX">
+				<div class="btn BOX-S" onClick="DownloadBtn()">下载我是大萌星</div>&nbsp;
+			</div>
 			<br/>
+		</div>
+		<div class="mask" style="display:none;">
+			<img src="share_jt.png">
 		</div>
 	</div>
 
