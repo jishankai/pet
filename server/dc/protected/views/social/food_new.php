@@ -6,8 +6,9 @@ $signPackage = $jssdk->GetSignPackage();
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initail-scale=1.0 ,maximum-scale=1, user-scalable=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" user-scalable="no">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>我是大萌星</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/food_new.css">
@@ -254,8 +255,13 @@ $(function(){
 	});
 
 	/*推荐按钮*/
+<<<<<<< HEAD
 	// votes=parseInt(<?php echo $votes?>);
 	$("#recommend_btn").click(function(){
+=======
+	votes=parseInt(<?php echo $votes?>);
+	$("#recommend_btn").bind("tap",function(){
+>>>>>>> skji/dev
 		
 		var t = $("#td_time").html();
 		if(t!="已结束"){
