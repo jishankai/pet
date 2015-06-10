@@ -95,10 +95,10 @@ display: none;
 	
 	<script type="text/javascript">
 	    window.shareData = {
-	        "imgUrl": "",
+	        "imgUrl": "http://"+window.location.host+"/assets/games/dcz/02.png",
 	        "timeLineLink": "",
-	        "tTitle": "保护萌主，拍死寄生虫！",
-	        "tContent": "怎么可以让这些臭虫打扰到萌主大人睡觉，20秒钟拍死虫子！"
+	        "tTitle": "你捉虫，我买单！为萌星店长筹集洗澡费啦~",
+	        "tContent": "每打死100只虫子，就能为萌星店长筹集1元的洗澡费！快来试试，你能打死几只吧？"
 	    };
 
 	    if (isDesktop)
@@ -355,7 +355,7 @@ display: none;
 	        }
 	        document.getElementById('GameScoreLayer-bast').innerHTML = '最佳&nbsp;&nbsp;' + bast;
 	        l.style.display = 'block';
-	        window.shareData.tTitle = '我为萌主拍死了' + _gameScore + '个虫子，不服来挑战！！！'
+	        window.shareData.tTitle = '你捉虫，我买单！为萌星店长筹集洗澡费啦~';
 	    }
 	    function hideGameScoreLayer() {
 	        var l = document.getElementById('GameScoreLayer');
@@ -370,19 +370,21 @@ display: none;
 	        hideGameScoreLayer();
 	        showWelcomeLayer();
 	    }
-	    var mebtnopenurl = 'http://home4pet.aidigame.com';
+	    var mebtnopenurl = '';
 		var gototop='';
 	    function shareText(score) {
-	        if (score <= 49)
-	            return '什么！才拍死了'+score+'只!<br/>萌主大人被吵醒了，真是罪该万死……';
+	        if (score <= 29)
+	            return '才捉到'+score+'只虫子，人类，你不够努力！！！萌星店长还等着洗澡呐！';
+	        if (score <= 59)
+	            return '好可惜，你捉到了'+score+'只虫子，还差'+(100-score)+'只，你就可以为萌星店长筹集到一元洗澡费了！继续加油吧！';
 	        if (score <= 99)
-	            return '太厉害了！拍死了'+score+'只虫子呢!<br/>奖励飞吻一个，萌主爱你~么么哒~.';
-	        if (score <= 149)
-	            return '真是醉了！居然打死了'+score+'只!<br/>星球大使终于同意你和萌主在一起了!';
+	            return '我爱洗澡，皮肤好好！地球人你捉到了'+score+'只虫子，为了萌星店长的洗澡费，请继续努力吧！100只就在触手可及的前方！！！';
 	        if (score <= 199)
-	            return '肿么了！居然打死了'+score+'只!<br/>太帅了，宠物星球的萌主们排队求包养！';
+	            return '恭喜！你捉到了'+score+'只虫子，成功为萌星店长筹集到1元洗澡费，再接再厉哦！';
+            if (score <= 159)
+                return '萌星店长发来感谢信，感谢你捉到'+score+'只虫子，为它筹集到1元的洗澡费！';
 
-	        return '肿么了！居然打死了'+score+'只!<br/>亲，你真的是地球人吗，再也没人能超越你了！';
+	        return '逆天了！捉到了'+score+'只虫子，你一定有练过佛山无影手吧！';
 	    }
 
 	    function toStr(obj) {
@@ -455,13 +457,8 @@ display: none;
 			<br/>
 			<div id="GameScoreLayer-btn" class="BOX">
 				<div class="btn BOX-S" onClick="replayBtn()">重来</div>&nbsp;
-				<div class="btn BOX-S" onClick="share()">分享到朋友圈</div>&nbsp;
 			</div>
 			<br/>
-			<div id="GameScoreLayer-share" class="BOX">
-				<div id="mebtn" class="btn BOX-S" onClick="window.open(mebtnopenurl)">&nbsp;宠物星球下载</div>
-				
-			</div>
 		</div>
 	</div>
 
@@ -469,15 +466,11 @@ display: none;
 		<div class="welcome-bg FILL"></div>
 		<div class="FILL BOX-M" style="position:absolute;top:0;left:0;right:0;bottom:0;z-index:5;">
 			<div style="margin:0 8% 0 9%;">
-				<div style="font-size:2.6em; color:#FEF002;">保护萌主<br/>拍死寄生虫</div><br/>
-				<div style="font-size:2.2em; color:#fff; line-height:1.5em;">怎么可以让这些臭虫打扰萌主大人睡觉<br/>20秒拍死虫子<br/></div><br/><br/>
+				<div style="font-size:2.6em; color:#FEF002;">你捉虫，我买单！</div><br/>
+				<div style="font-size:2.2em; color:#fff; line-height:1.5em;">萌星店长快被虫子包围了<br/>快打死虫子为它筹集洗澡费吧<br/></div><br/><br/>
 				<div id="ready-btn" class="btn loading" style="display:inline-block; margin:0 auto; width:8em; height:1.7em; line-height:1.7em; font-size:2.2em; color:#fff;"></div>
 			<br/><br/>
 			
-			<div style="font-size:1.2em; color:#fff; line-height:1.5em;">宠物星球·宠来宠趣<br/>荣誉出品<br/></div>
-			<div style="display:inline-block; margin:0 auto; width:8em; height:1em; line-height:1.7em; font-size:1.7em; color:#fff;" ><a href="http://home4pet.aidigame.com">宠物星球下载</a></div>
-		
-			</div>
 		</div>
 	</div>
 
