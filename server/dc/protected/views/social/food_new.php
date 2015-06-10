@@ -223,8 +223,7 @@ $("#submit").click(function(){
 /*头像尺寸设置*/
 	var iWidth=$(".like_head img").width();
 	$(".like_head img").height(iWidth);
-$(function(){
-	
+$(function(){	
 	/*评论弹框*/
 	$("#comment_btn").click(function(){
 		$(".comment_alert").show();
@@ -240,24 +239,20 @@ $(function(){
 
 	//查看所有评论
 	$(".the_more_comment").click(function(){
-
-
-			$.ajax({
-				url:"",
-				dataType:"json",
-				success:function(data){
-					for(var i=0;i<data.length;i++){
-							$(".comment_list").append("<li><span>"+"data.name"+"</span><p>"+"data.say"+"</p></li>");
-						}
+		$.ajax({
+			url:"",
+			dataType:"json",
+			success:function(data){
+				for(var i=0;i<data.length;i++){
+					$(".comment_list").append("<li><span>"+"data.name"+"</span><p>"+"data.say"+"</p></li>");
 				}
-			});
-		
+			}
+		});	
 	});
 
 	/*推荐按钮*/
 	votes=parseInt(<?php echo $votes?>);
-	$("#recommend_btn").bind("tap",function(){
-		
+	$("#recommend_btn").click(function(){		
 		var t = $("#td_time").html();
 		if(votes>0 && t!="已结束"){
 			$.ajax({
@@ -280,10 +275,7 @@ $(function(){
 
 			}else{
 				recommend();
-			}
-
-		
-			
+			}	
 	});
 	/*Go活动界面*/
 	/*$("#act_jump_btn").click(function(){
