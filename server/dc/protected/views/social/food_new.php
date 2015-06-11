@@ -192,6 +192,7 @@ $signPackage = $jssdk->GetSignPackage();
 </body>
 <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="js/alert.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.4.3.js"></script>
 
 <script type="text/javascript">
 
@@ -252,8 +253,8 @@ $(function(){
 
 	/*推荐按钮*/
 	votes=parseInt(<?php echo $votes?>);
-		
-	$("#recommend_btn").click(function(){		
+	
+	$("#recommend_btn").on("tap",function(){		
 		var t = $("#td_time").html();
 		if(t!="已结束"){
 			$.ajax({
