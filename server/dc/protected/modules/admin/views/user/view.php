@@ -26,6 +26,7 @@ $this->menu=array(
 		array('name'=>'tx','value'=>$model->showTxImage(),'type'=>'html'),
 		'age',
         'exp',
+        array('name'=>'aid','value'=>$model->getAddress()),
         'lv',
         'con_login',
         'code',

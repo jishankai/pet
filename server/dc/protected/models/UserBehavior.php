@@ -486,4 +486,10 @@ class UserBehavior extends CActiveRecordBehavior
             break;
         }
     }
+
+    public function getAddress()
+    {
+        $address = Yii::app()->db->createCommand('SELECT address FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $this->owner->aid)->queryScalar();
+        return implode(';',$address!=''?unserialize($address):array()); 
+    }
 }
