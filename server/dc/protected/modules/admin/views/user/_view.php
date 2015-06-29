@@ -17,6 +17,10 @@
 	<?php echo $data->showTxImage(); ?>
 	<br />
 
+	<b><?php echo CHtml::encode('地址'); ?>:</b>
+	<?php echo CHtml::encode(implode(';',$data->animal->address!=''?unserialize($data->animal->address):array())); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('exp')); ?>:</b>
 	<?php echo CHtml::encode($data->exp); ?>
 	<br />
