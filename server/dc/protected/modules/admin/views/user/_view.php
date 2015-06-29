@@ -18,7 +18,10 @@
 	<br />
 
 	<b><?php echo CHtml::encode('地址'); ?>:</b>
-	<?php echo CHtml::encode(implode(';',$data->animal->address!=''?unserialize($data->animal->address):array())); ?>
+    <?php
+        $address = Yii::app()->db->createCommand('SELECT address FROM dc_animal WHERE aid=:aid')->bindValue(':aid', $data->aid)->queryScalar();
+        echo CHtml::encode(implode(';',$address!=''?unserialize($address):array())); 
+    ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('exp')); ?>:</b>
