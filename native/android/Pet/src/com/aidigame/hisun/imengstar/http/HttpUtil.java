@@ -952,7 +952,7 @@ public class HttpUtil {
 							  pp.animal.foodNum=j.getLong("food");
 							  pp.create_time=j.getLong("create_time");
 							  pp.cmt=j.getString("cmt");
-							  if(temp.contains("is_food")){
+							  if(temp.contains("\"is_food\"")){
 								  pp.picture_type=j.getInt("is_food");
 							  }
 							  return pp;
@@ -1771,7 +1771,7 @@ public class HttpUtil {
 	/**
 	 * 萌星海选， 赠送推荐票
 	 */
-	public static boolean starImageGiveTicketApi(Handler handler,long img_id,Activity activity) {
+	public static boolean starImageGiveTicketApi(Handler handler,long img_id,Activity activity,int gold) {
 		String url = "http://" + Constants.IMAGE_SEND_TICKET_VOT;
 		DefaultHttpClient client = new DefaultHttpClient();
 		String value="";
@@ -1815,7 +1815,10 @@ public class HttpUtil {
 				  }else if(status==1){
 					  return isSuccess;
 				  }else if(status==2){
-					  return starImageGiveTicketApi(handler, img_id, activity);
+					  //SID 过期，应用一直在投票界面，直到第二天再次投票
+					  PetApplication.myUser.ticket_num=3;
+					  PetApplication.myUser.coinCount+=gold;
+					  return starImageGiveTicketApi(handler, img_id, activity,gold);
 				  }
 			}
 			
@@ -2077,7 +2080,7 @@ public class HttpUtil {
 						JSONObject jo1=jo.getJSONObject("data");
 						animal.a_id=jo1.getLong("aid");
 						animal.pet_iconUrl=jo1.getString("tx");
-						if(dataStr.contains("inviter")){
+						if(dataStr.contains("\"inviter\"")){
 							PetApplication.myUser.inviter=jo1.getInt("inviter");
 						}
 							return animal;
@@ -2966,7 +2969,7 @@ public class HttpUtil {
 						  JSONObject j2=j1.getJSONObject("data");
 						  flag=j2.getBoolean("is_touched");
 							  
-							  if(dataStr.contains("img_url")){
+							  if(dataStr.contains("\"img_url\"")){
 								  path=j2.getString("img_url");
 							  }
 							  if(StringUtil.isEmpty(animal.touchedPath)){
@@ -3573,6 +3576,7 @@ public class HttpUtil {
 	public static ArrayList<PetNews> kingdomTrends(Context context,int nid,long aid,Handler handler) {
 		String url = "http://" + Constants.IP + Constants.KINGDOM_TRENDS;
 		DefaultHttpClient client = new DefaultHttpClient();
+		ArrayList<Gift> total=StringUtil.getGiftList(PetApplication.petApp,handler);
 		boolean flag=false;
 		String value = "aid="+aid;
 		String SIG = getMD5Value(value);
@@ -3654,7 +3658,7 @@ public class HttpUtil {
 									  petNews.item_id=jo.getInt("item_id");
 //									  petNews.item_name=jo.getString("item_name");、
 									  
-									  if(petNews.item_id>=1101&&petNews.item_id<=1104){
+									  /*if(petNews.item_id>=1101&&petNews.item_id<=1104){
 										  isCorrect=true;
 									  }
 									  if(petNews.item_id>=1201&&petNews.item_id<=1204){
@@ -3668,7 +3672,10 @@ public class HttpUtil {
 									  }
 									  if(petNews.item_id>=2101&&petNews.item_id<=2104){
 										  isCorrect=true;
-									  }
+									  }*/
+									  Gift gift=new Gift();
+									  gift.no=petNews.item_id;
+									  if(total.contains(gift))isCorrect=true;
 									  if(!isCorrect){
 										  continue;
 									  }
@@ -3887,7 +3894,7 @@ public class HttpUtil {
 					  JSONObject j2=j1.getJSONObject("data");
 					  String dataStr=j1.getString("data");
 					  flag=j2.getBoolean("isSuccess");
-					  if(!StringUtil.isEmpty(dataStr)&&dataStr.contains("percent"))
+					  if(!StringUtil.isEmpty(dataStr)&&dataStr.contains("\"percent\""))
 					  animal.percent=j2.getInt("percent");
 					  if(flag){
 						 
@@ -3961,7 +3968,7 @@ public class HttpUtil {
 								  lv=j2.getInt("lv");
 								  user.lv=j2.getInt("lv");
 							  }
-							  if(dataStr.contains("rank")){
+							  if(dataStr.contains("\"rank\"")){
 								  user.rankCode=j2.getInt("rank"); 
 							  }
 				        		 sendLevelChangeReceiver(context, user.lv, user.exp, user.coinCount, user.rankCode, 0, false,0);
@@ -4139,7 +4146,7 @@ public class HttpUtil {
 							  gift=new Gift();
 							  isCorrect=false;
 							  gift.no=Integer.parseInt(iterator.next().toString());
-							  if(gift.no>=1101&&gift.no<=1104){
+							  /*if(gift.no>=1101&&gift.no<=1104){
 								  isCorrect=true;
 							  }
 							  if(gift.no>=1201&&gift.no<=1204){
@@ -4154,6 +4161,8 @@ public class HttpUtil {
 							  if(gift.no>=2101&&gift.no<=2104){
 								  isCorrect=true;
 							  }
+							  */
+							 if(total.contains(gift))isCorrect=true;
 							  
 							  if(!isCorrect){
 								  continue;
@@ -4398,7 +4407,7 @@ public class HttpUtil {
 							  gift=new Gift();
 							  isCorrect=false;
 							  gift.no=Integer.parseInt(iterator.next().toString());
-							  if(gift.no>=1101&&gift.no<=1104){
+							  /*if(gift.no>=1101&&gift.no<=1104){
 								  isCorrect=true;
 							  }
 							  if(gift.no>=1201&&gift.no<=1204){
@@ -4412,8 +4421,8 @@ public class HttpUtil {
 							  }
 							  if(gift.no>=2101&&gift.no<=2104){
 								  isCorrect=true;
-							  }
-							  
+							  }*/
+							  if(total.contains(gift))isCorrect=true;
 							  if(!isCorrect){
 								  continue;
 							  }
@@ -7064,10 +7073,10 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 						if(str!=null&&!"null".equals(str)){
 							JSONObject o2=o1.getJSONObject("data");
 							LoginJson.Data data=new LoginJson.Data();
-							if(str.contains("mail_count")){
+							if(str.contains("\"mail_count\"")){
 								data.mail_count=o2.getInt("mail_count");
 							}
-							if(str.contains("topic_count")){
+							if(str.contains("\"topic_count\"")){
 								data.topic_count=o2.getInt("topic_count");
 							}
 							return data;
@@ -7129,7 +7138,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 							user.exp=j1.getInt("exp");
 							user.coinCount=j1.getInt("gold");
 							user.lv=j1.getInt("lv");
-							if(result.contains("rank"))
+							if(result.contains("\"rank\""))
 							user.rankCode=j1.getInt("rank");
 							sendLevelChangeReceiver(context,user.lv,user.exp,user.coinCount,0,0,false,0);
 							return user;
@@ -7218,7 +7227,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 				int errorCode=o1.getInt("errorCode");
 				if(errorCode==0){
 					String dataString=o1.getString("data");
-					if(dataString!=null&&!"null".equals(dataString)&&dataString.contains("isSuccess")){
+					if(dataString!=null&&!"null".equals(dataString)&&dataString.contains("\"isSuccess\"")){
 						JSONObject o2=o1.getJSONObject("data");
 						boolean isSuccess=o2.getBoolean("isSuccess");
 						return isSuccess;
@@ -8205,7 +8214,7 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 		    	Constants.user=new User();
 		    	Constants.user.userId=data.getInt("usr_id");
 		    }*/
-			if(json.contains("SID")){
+			if(json.contains("\"SID\"")){
 				loginJson.data.SID = data.getString("SID");
 			}
 
@@ -8295,10 +8304,10 @@ LogUtil.i("me", "上传头像+文件路径="+path);
 					user.password=obj.getString("password");
 					user.weixin_id=obj.getString("wechat");
 					user.xinlang_id=obj.getString("weibo");
-					if(dataStr.contains("code")){
+					if(dataStr.contains("\"code\"")){
 						user.code=obj.getString("code");
 					}
-					if(dataStr.contains("food")){
+					if(dataStr.contains("\"food\"")){
 						user.food=obj.getInt("food");
 					}
 					String temp=obj.getString("rank");

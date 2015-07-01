@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aidigame.hisun.imengstar"
-    android:versionCode="32"
-    android:versionName="2.0.1" ><!--  29   1.1.4-->
+    android:versionCode="33"
+    android:versionName="2.0.2" ><!--  29   1.1.4-->
 
     <uses-sdk
         android:minSdkVersion="12"
@@ -373,7 +373,7 @@
         <activity android:name="com.umeng.fb.ContactActivity"
          android:theme="@android:style/Theme.NoTitleBar"/>
         <meta-data android:value="546ad32dfd98c57ed4006955" android:name="UMENG_APPKEY"></meta-data>
-        <meta-data android:value="huawei" android:name="UMENG_CHANNEL"/>
+        <meta-data android:value="anzhi" android:name="UMENG_CHANNEL"/>
         <!--  <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/> -->
         <!-- 友盟分享弹窗 -->
         <activity

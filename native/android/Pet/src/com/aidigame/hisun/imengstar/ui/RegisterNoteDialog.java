@@ -678,7 +678,7 @@ public class RegisterNoteDialog extends BaseActivity implements OnClickListener{
 						finish();
 					}
 				});
-				
+				HttpUtil.loadGiftInfo(RegisterNoteDialog.this, handler,"");
 			}
 		}).start();
 		

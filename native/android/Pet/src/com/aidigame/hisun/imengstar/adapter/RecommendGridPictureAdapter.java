@@ -115,8 +115,8 @@ public class RecommendGridPictureAdapter extends BaseAdapter {
 		final int index=position*3;
 		if(index<pictures.size()){
 			if(!StringUtil.isEmpty(pictures.get(index).url)){
-			loadTopicImage(holder.iv1, pictures.get(index));
-			holder.iv1_layout.setVisibility(View.VISIBLE);
+			loadTopicImage(holder.iv1, pictures.get(index),holder.iv1_layout);
+//			holder.iv1_layout.setVisibility(View.VISIBLE);
 			holder.tv1.setText(""+pictures.get(index).stars);
 			final TextView tv1=holder.tv1;
 			holder.iv1_layout.setOnClickListener(new OnClickListener() {
@@ -135,9 +135,9 @@ public class RecommendGridPictureAdapter extends BaseAdapter {
 			
 		}
 		if((index+1)<pictures.size()){
-			loadTopicImage(holder.iv2, pictures.get(index+1));
-			holder.iv2_layout.setVisibility(View.VISIBLE);
-			holder.iv1_layout.setVisibility(View.VISIBLE);
+			loadTopicImage(holder.iv2, pictures.get(index+1),holder.iv2_layout);
+//			holder.iv2_layout.setVisibility(View.VISIBLE);
+//			holder.iv1_layout.setVisibility(View.VISIBLE);
 			holder.tv2.setText(""+pictures.get(index+1).stars);
 			final TextView tv2=holder.tv2;
 			holder.iv2_layout.setOnClickListener(new OnClickListener() {
@@ -153,9 +153,9 @@ public class RecommendGridPictureAdapter extends BaseAdapter {
 			
 		}
 		if((index+2)<pictures.size()){
-			loadTopicImage(holder.iv3, pictures.get(index+2));
-			holder.iv3_layout.setVisibility(View.VISIBLE);
-			holder.iv1_layout.setVisibility(View.VISIBLE);
+			loadTopicImage(holder.iv3, pictures.get(index+2),holder.iv3_layout);
+//			holder.iv3_layout.setVisibility(View.VISIBLE);
+//			holder.iv1_layout.setVisibility(View.VISIBLE);
 			holder.tv3.setText(""+pictures.get(index+2).stars);
 			final TextView tv3=holder.tv3;
 			holder.iv3_layout.setOnClickListener(new OnClickListener() {
@@ -175,7 +175,7 @@ public class RecommendGridPictureAdapter extends BaseAdapter {
 	public void setClickRecommendListener(ClickRecommendListener listenenr){
 		this.listener=listenenr;
 	}
-	public void loadTopicImage(final ImageView topic,final PetPicture data){
+	public void loadTopicImage(final ImageView topic,final PetPicture data,final LinearLayout layout ){
 		topic.setVisibility(View.VISIBLE);
 		
 		topic.setOnClickListener(new OnClickListener() {
@@ -247,12 +247,14 @@ public class RecommendGridPictureAdapter extends BaseAdapter {
 				param.width=w;
 				param.height=w;
 				topic.setLayoutParams(param);
+				layout.setVisibility(View.VISIBLE);
 			}
 		});
 		
 		LogUtil.i("me", "******************************loadImage******************"+data.url+"@"+Constants.screen_width/3+"w_0l_50q.jpg");
 		Log.i("me", "adapter ******url="+data.url+"@"+Constants.screen_width/3+"w_0l_50q");
-		mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/data.url+"@"+Constants.screen_width/3+"w_0l.jpg", topic, /*options*/null);
+//		mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/data.url+"@"+Constants.screen_width/3+"w_0l.jpg", topic, /*options*/null);
+		mImageFetcher.loadImage(/*Constants.UPLOAD_IMAGE_RETURN_URL+*/data.url+"@"+Constants.screen_width/3+"w_"+Constants.screen_width/3+"h_"+"0l.jpg", topic, /*options*/null);
 	}
 	class Holder{
 		ImageView iv1;

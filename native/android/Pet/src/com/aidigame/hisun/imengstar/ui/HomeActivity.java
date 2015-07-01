@@ -167,7 +167,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener{
 //		rootLayout.setAnimationCacheEnabled(false);
 		messageNumTv=(TextView)findViewById(R.id.message_tv);
 		BitmapFactory.Options options=new BitmapFactory.Options();
-		options.inSampleSize=4;
+		options.inSampleSize=8;
 		rootLayout.setBackgroundDrawable(new BitmapDrawable(BitmapFactory.decodeResource(getResources(), R.drawable.blur, options)));
 		
 		
@@ -315,7 +315,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener{
 		
 		FragmentManager fm=getSupportFragmentManager();
 		FragmentTransaction ft=fm.beginTransaction();
-		ft.replace(R.id.fragment_framelayout_beg, begFoodFragment, "HOME_BEG_FOOD");
+		
         if(discoveryFragment!=null){
         	ft.remove(discoveryFragment);
         	
@@ -330,6 +330,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener{
         	ft.remove(userCenterFragment);
         	userCenterFragment=null;
         }
+        ft.replace(R.id.fragment_framelayout_beg, begFoodFragment, "HOME_BEG_FOOD");
 		ft.commit();
 		System.gc();
 		current_show=HOME_BEG_FOOD;
@@ -359,7 +360,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener{
 		}
 		FragmentManager fm=getSupportFragmentManager();
 		FragmentTransaction ft=fm.beginTransaction();
-		ft.replace(R.id.fragment_framelayout_beg, userCenterFragment, "HOME_USER_CENTER");
+		
 		
 		if(discoveryFragment!=null){
         	ft.remove(discoveryFragment);
@@ -377,7 +378,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener{
         	ft.remove(recommendFragment);
         	recommendFragment=null;
         }
-		
+        ft.replace(R.id.fragment_framelayout_beg, userCenterFragment, "HOME_USER_CENTER");
 		ft.commit();
 		System.gc();
 		current_show=HOME_USER_CENTER;
@@ -884,7 +885,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener{
 		        				activity.finish();
 		        			}
 		        		}*/
-		        		homeActivity=null;
+		        		
 //		        	    this.finish();
 		        		EventBus.getDefault().post("", "finish");
 		        	   EMChatOptions chatOptions = EMChatManager.getInstance().getChatOptions();
@@ -898,7 +899,7 @@ public class HomeActivity extends BaseActivity implements OnClickListener{
 		        	    
 		        	    MobclickAgent.onKillProcess(homeActivity);
 //		        		System.exit(0);
-		    		
+		        	    homeActivity=null;
 		    		
 		    	}
 		    	return super.onKeyDown(keyCode, event);

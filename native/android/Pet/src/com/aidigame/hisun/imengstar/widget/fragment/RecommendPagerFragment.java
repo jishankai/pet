@@ -79,7 +79,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  * @author admin
  *
  */
-public class RecommendPagerFragment implements OnClickListener,IXListViewListener{
+@SuppressLint("ValidFragment") public class RecommendPagerFragment  implements OnClickListener,IXListViewListener{
 	private View view;
 	private ImageView bigIv,recommendIv,participateIv;
 	private TextView numTv,see_all_tv,ticketNote1,ticketNote2;
@@ -97,6 +97,19 @@ public class RecommendPagerFragment implements OnClickListener,IXListViewListene
 		 this.activity=activity;
 		 init();
 	 }
+/*	 @Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onViewCreated(view, savedInstanceState);
+	}
+	 @Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		 view=LayoutInflater.from(activity).inflate(R.layout.fragment_recommend_page, null);
+		 init();
+		return view;
+	}*/
 	 public Activity getActivity(){
 		 return activity;
 	 }
@@ -736,7 +749,7 @@ new Thread(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				final boolean result=HttpUtil.starImageGiveTicketApi(handler, petPicture.img_id, getActivity());
+				final boolean result=HttpUtil.starImageGiveTicketApi(handler, petPicture.img_id, getActivity(),dataBean.gold);
 				if(getActivity()!=null)
 					getActivity().runOnUiThread(new Runnable() {
 					

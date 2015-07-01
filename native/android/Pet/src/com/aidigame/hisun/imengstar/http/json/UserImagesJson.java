@@ -120,7 +120,7 @@ public class UserImagesJson  implements Serializable{
 					temp.is_food=object.getString("is_food");
 				if(json.contains("\"create_time\""))
 				temp.create_time=object.getLong("create_time");
-				if(json.contains("likes")){
+				if(json.contains("\"likes\"")){
 					temp.likes=object.getInt("likes");
 				}
 				if(json.contains("\"likers\"")){
@@ -231,7 +231,7 @@ public class UserImagesJson  implements Serializable{
 				}
 				
 				
-				if (json.contains("aid")&&json.contains("cmt")){
+				if (json.contains("\"aid\"")&&json.contains("\"cmt\"")){
 					temp.animal.a_id=object.getLong("aid");
 					temp.cmt=object.getString("cmt");
 //					temp.create_time=object.getLong("create_time");

@@ -1386,6 +1386,8 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 		}
 		
 	}
+	Toast tempToast;
+	long lasttime=0;
 	public void clickItem4() {
 		// TODO Auto-generated method stub
 		if(!UserStatusUtil.isLoginSuccess(NewPetKingdomActivity.this,popupParent,black_layout)){
@@ -1409,12 +1411,21 @@ ImageLoader imageLoader3=ImageLoader.getInstance();
 									if(PetApplication.myUser.userId==data.master_id){
 											showCameraAlbum(data,true);
 									}else{
-										Toast.makeText(NewPetKingdomActivity.this, "萌星 "+data.pet_nickName+"，今天还没挣口粮呢~", Toast.LENGTH_LONG).show();
+										long currenttime=System.currentTimeMillis();
+										if(currenttime-lasttime>10*1000){
+											Toast.makeText(NewPetKingdomActivity.this, "萌星 "+data.pet_nickName+"，今天还没挣口粮呢~", Toast.LENGTH_SHORT).show();
+											lasttime=currenttime;
+										}
+										
 									}
 								}else{
 									long time=pp.create_time+24*3600-System.currentTimeMillis()/1000;
 						    			if(time<=0){
-						    				Toast.makeText(NewPetKingdomActivity.this, "萌星 "+data.pet_nickName+"，今天还没挣口粮呢~", Toast.LENGTH_LONG).show();
+						    				long currenttime=System.currentTimeMillis();
+											if(currenttime-lasttime>20*1000){
+												Toast.makeText(NewPetKingdomActivity.this, "萌星 "+data.pet_nickName+"，今天还没挣口粮呢~", Toast.LENGTH_SHORT).show();
+												lasttime=currenttime;
+											}
 						    				return;
 						    			}
 									Intent intent6=new Intent(NewPetKingdomActivity.this,Dialog6Activity.class);

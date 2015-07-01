@@ -92,7 +92,7 @@ options=new BitmapFactory.Options();
 			holder.nameTv.setText(animals.get(position).pet_nickName);
 		}
 		ImageLoader imageLoader1=ImageLoader.getInstance();
-		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*54;
+		int w=context.getResources().getDimensionPixelSize(R.dimen.one_dip)*32;
 		imageLoader1.displayImage(Constants.ANIMAL_THUBMAIL_DOWNLOAD_TX+animals.get(position).pet_iconUrl+"@"+w+"w_"+w+"h_0l.jpg", holder.iv, displayImageOptions1);
 		holder.iv.setOnClickListener(new OnClickListener() {
 			

@@ -140,7 +140,7 @@ new Thread(new Runnable() {
 							if(petPicture!=null&&pps.contains(petPicture)){
 								pps.remove(petPicture);
 								pps.add(0,petPicture);
-							}else{
+							}else if(petPicture!=null){
 								pps.add(0,petPicture);
 							}
 							if(pps.size()>0){
@@ -331,6 +331,8 @@ new Thread(new Runnable() {
 				
 //				giveTicket();
 			judgeGiveTicket();
+			
+			
 //			}else{
 //				buyTicket();
 //			}
@@ -400,6 +402,7 @@ new Thread(new Runnable() {
 	
 	public void judgeGiveTicket(){
 		 if(!UserStatusUtil.isLoginSuccess(this,HomeActivity.homeActivity.popupParent,HomeActivity.homeActivity.black_layout)){
+			 isSending=false;
 			 return ;
 		 }
 		 if(PetApplication.myUser!=null){
@@ -414,6 +417,7 @@ new Thread(new Runnable() {
 						intent.putExtra("mode", 10);
 						intent.putExtra("info", "金币不足");
 						HomeActivity.homeActivity.startActivity(intent);
+						isSending=false;
 					
 				 }else{
 					 Dialog4Activity.listener=new Dialog4Activity.Dialog3ActivityListener() {
@@ -488,7 +492,7 @@ new Thread(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				final boolean result=HttpUtil.starImageGiveTicketApi(handler, current_picture.img_id, RecommendActivity.this);
+				final boolean result=HttpUtil.starImageGiveTicketApi(handler, current_picture.img_id, RecommendActivity.this,gold);
 				runOnUiThread(new Runnable() {
 					
 					@Override

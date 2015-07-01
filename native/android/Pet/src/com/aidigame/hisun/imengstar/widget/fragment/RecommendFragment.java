@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
@@ -37,6 +38,7 @@ public class RecommendFragment extends Fragment {
 	 private ArrayList<RecommendPagerFragment> fragmentList=new ArrayList<RecommendPagerFragment>();
 	 private ShowProgress sp;
 	 private LinearLayout progressLayout;
+	 boolean[] fragmentsUpdateFlag;
 	@Override
  	public void onViewCreated(View view, Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -108,6 +110,7 @@ public class RecommendFragment extends Fragment {
 			}
 			
 		};
+		
 		viewPager.setAdapter(pa);
 	}
 	
@@ -128,7 +131,7 @@ public class RecommendFragment extends Fragment {
 									// TODO Auto-generated method stub
 									if(temp!=null){
 									dataBeans=temp;
-									
+									fragmentsUpdateFlag=new boolean[temp.size()];
 									
 									pa.notifyDataSetChanged();
 									}else{

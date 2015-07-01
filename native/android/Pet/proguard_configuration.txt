@@ -1,4 +1,4 @@
--injars 'C:\Users\admin\AppData\Local\Temp\android_6735922637446255178.jar'
+-injars 'C:\Users\admin\AppData\Local\Temp\android_8726528100455831444.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\annotations-10.0.2.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-cds-library.jar'
 -injars 'F:\android\aidi\aidi\PLASample\libs\android-support-v4.jar'
@@ -30,7 +30,7 @@
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\nineoldandroids-2.4.0.jar'
 -injars 'F:\android\aidi\aidi\Pet\libs\umeng_social_sdk.jar'
 -injars 'F:\android\aidi\aidi\Aviary-SDK\libs\stickylistheaders_lib.jar'
--outjars 'C:\Users\admin\AppData\Local\Temp\android_3023244255097677604.jar'
+-outjars 'C:\Users\admin\AppData\Local\Temp\android_7479175292030344756.jar'
 
 -libraryjars 'F:\android\aidi\aidi\Pet\libs\android-support-v4.jar'
 -libraryjars 'F:\android\aidi\aidi\Pet\libs\universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar'
