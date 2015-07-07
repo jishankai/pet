@@ -37,27 +37,36 @@ class RankController extends Controller
                break;
 
            case 1:
+               $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, d_rq, 0 AS vary  FROM dc_animal ORDER BY d_rq DESC')->queryAll();
+               /*
                $r = Yii::app()->cache->get('d_rq_rank');
                if (!isset($r) OR $r==FALSE) {
                    $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, d_rq, 0 AS vary  FROM dc_animal ORDER BY d_rq DESC')->queryAll();
                    Yii::app()->cache->set('d_rq_rank', $r, 3600*24);               
                }
+               */
                break;
 
            case 2:
+               $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, w_rq, 0 AS vary  FROM dc_animal ORDER BY w_rq DESC')->queryAll();
+               /*
                $r = Yii::app()->cache->get('w_rq_rank');
                if (!isset($r) OR $r==FALSE) {
                    $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, w_rq, 0 AS vary  FROM dc_animal ORDER BY w_rq DESC')->queryAll();
                    Yii::app()->cache->set('w_rq_rank', $r, 3600*24*7);               
                }
+               */
                break;
 
            case 3:
+               $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, m_rq, 0 AS vary  FROM dc_animal ORDER BY m_rq DESC')->queryAll();
+               /*
                $r = Yii::app()->cache->get('m_rq_rank');
                if (!isset($r) OR $r==FALSE) {
                    $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, m_rq, 0 AS vary  FROM dc_animal ORDER BY m_rq DESC')->queryAll();
                    Yii::app()->cache->set('m_rq_rank', $r, 3600*24*30);               
                }
+               */
                break;
 
            default:

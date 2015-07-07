@@ -6,6 +6,7 @@ class SummaryMonthRankCommand extends CConsoleCommand {
 	}
 	
     public function start() {
+        /*
         $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, m_rq  FROM dc_animal ORDER BY m_rq DESC')->queryAll();
         $prev_rank = Yii::app()->cache->get('m_rq_rank_report');
         if (isset($prev_rank)) {
@@ -25,6 +26,7 @@ class SummaryMonthRankCommand extends CConsoleCommand {
                 $r[$k]['vary'] = 0;
             }
         }
+        */
 
         //奖励计算
         /*
@@ -52,8 +54,8 @@ class SummaryMonthRankCommand extends CConsoleCommand {
             }
         }
          */
-        Yii::app()->cache->set('m_rq_rank_report', $rank, 3600*24*30);               
-        Yii::app()->cache->set('m_rq_rank', $r, 3600*24*30);               
+        //Yii::app()->cache->set('m_rq_rank_report', $rank, 3600*24*30);               
+        //Yii::app()->cache->set('m_rq_rank', $r, 3600*24*30);               
 
         //人气清零
         Yii::app()->db->createCommand('UPDATE dc_animal SET m_rq=0')->execute();

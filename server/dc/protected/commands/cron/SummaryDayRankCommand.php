@@ -6,6 +6,7 @@ class SummaryDayRankCommand extends CConsoleCommand {
 	}
 	
 	public function start() {
+        /*
         $r = Yii::app()->db->createCommand('SELECT aid, name, type, tx, d_rq  FROM dc_animal ORDER BY d_rq DESC')->queryAll();
         $prev_rank = Yii::app()->cache->get('d_rq_rank_report');
         if (isset($prev_rank)) {
@@ -25,7 +26,7 @@ class SummaryDayRankCommand extends CConsoleCommand {
                 $r[$k]['vary'] = 0;
             }
         }
-
+        */
         //奖励计算
         /*
         $total_member = Yii::app()->db->createCommand('SELECT COUNT(*) FROM dc_user')->queryScalar();
@@ -53,8 +54,8 @@ class SummaryDayRankCommand extends CConsoleCommand {
         }
          */
 
-        Yii::app()->cache->set('d_rq_rank_report', $rank, 3600*24);               
-        Yii::app()->cache->set('d_rq_rank', $r, 3600*24);               
+       // Yii::app()->cache->set('d_rq_rank_report', $rank, 3600*24);               
+       // Yii::app()->cache->set('d_rq_rank', $r, 3600*24);               
 
         //人气清零
         Yii::app()->db->createCommand('UPDATE dc_animal SET d_rq=0')->execute();
