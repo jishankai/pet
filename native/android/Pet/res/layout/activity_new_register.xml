@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/framelayout"
+    android:focusable="true"
+    
+    android:focusableInTouchMode="true" ><!-- android:background="@drawable/blur" -->
+    <LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:clipChildren="false" 
+     android:layerType="software"
+    >
+    <View android:layout_width="match_parent"
+        android:layout_height="54dp"
+        
+        android:id="@+id/top_white_view"/><!-- android:background="@color/white" -->
+      <android.support.v4.view.ViewPager
+                android:layout_below="@+id/title"
+                 android:id="@+id/viewpager"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 ><!-- android:background="@color/blur_view_top" -->
+                
+            </android.support.v4.view.ViewPager>
+    </LinearLayout>
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+      >
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:orientation="horizontal" 
+        android:gravity="center_vertical"
+        android:background="#33fc7b51">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/back_white" 
+            android:padding="12dp"
+            />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="48dp"
+            android:text="注册"
+           android:textSize="20sp"
+           android:layout_gravity="center"
+           android:textColor="@color/white" 
+            android:gravity="center"/>
+
+    </LinearLayout>
+    <!-- <Gallery 
+        android:id="@+id/gallery"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/> -->
+   
+           <!--  <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/title"
+                >
+                <FrameLayout 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal">
+                        <ImageView
+                            android:layout_width="wrap_content" 
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/half_circle"/>
+                    </LinearLayout>
+                </FrameLayout>
+            </ScrollView> -->
+           
+<LinearLayout
+            android:id="@+id/album_camera_register"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:background="#80000000"
+          android:visibility="invisible"
+          android:gravity="center" >
+     </LinearLayout>    
+</RelativeLayout>
+ <LinearLayout 
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/black_layout"
+          android:orientation="horizontal">
+      </LinearLayout>
+
+</FrameLayout>

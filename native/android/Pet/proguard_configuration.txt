@@ -1,0 +1,1744 @@
+-injars 'C:\Users\admin\AppData\Local\Temp\android_8726528100455831444.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\annotations-10.0.2.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-cds-library.jar'
+-injars 'F:\android\aidi\aidi\PLASample\libs\android-support-v4.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\listviewanimations.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\umeng-feedback-v4.3.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\horizontallistview.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\okhttp-1.2.1-jar-with-dependencies.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-sdk-library.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-tracking.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_WeiXin_1.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_UserCenter.jar'
+-injars 'F:\android\aidi\aidi\PLASample\bin\plasample.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\picasso.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-receipt-library.jar'
+-injars 'F:\android\aidi\aidi\library_wheel_picker\bin\library_wheel_picker.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\imageviewtouch.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\androideventbus-1.0.2.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_AtFriends.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-common-library.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\abtest.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\bin\aviary-sdk.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_Sina.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\umeng-analytics-v5.2.4.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_WeiXin_2.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\aviary-headless-library.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\httpmime-4.1.3.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\easemobchat_2.1.3.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\nineoldandroids-2.4.0.jar'
+-injars 'F:\android\aidi\aidi\Pet\libs\umeng_social_sdk.jar'
+-injars 'F:\android\aidi\aidi\Aviary-SDK\libs\stickylistheaders_lib.jar'
+-outjars 'C:\Users\admin\AppData\Local\Temp\android_7479175292030344756.jar'
+
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\android-support-v4.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\umeng-feedback-v4.3.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\umeng-analytics-v5.2.4.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_UserCenter.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_WeiXin_1.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_WeiXin_2.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\umeng_social_sdk.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_Sina.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\httpmime-4.1.3.jar'
+-libraryjars 'F:\android\aidi\aidi\Pet\libs\SocialSDK_AtFriends.jar'
+-libraryjars 'F:\adt-bundle-windows-x86_64-20140321\sdk\platforms\android-17\android.jar'
+
+-dontshrink
+-printusage 'F:\android\aidi\aidi\Pet\proguard\usage.txt'
+-dontoptimize
+-optimizations !code/simplification/arithmetic
+-optimizationpasses 5
+-allowaccessmodification
+-dontobfuscate
+-printmapping 'F:\android\aidi\aidi\Pet\proguard\mapping.txt'
+-overloadaggressively
+-dontusemixedcaseclassnames
+-repackageclasses ''
+-keepattributes *Annotation*,*Annotation*,Exceptions,InnerClasses,Signature,*Annotation*,SourceFile,LineNumberTable
+-dontpreverify
+-verbose
+-dontwarn android.support.**,android.support.**,com.squareup.okhttp.internal.**,com.google.android.maps.**,android.webkit.WebView,com.umeng.**,com.tencent.weibo.sdk.**,com.facebook.**,com.easemob.**,ch.imvs.**,org.slf4j.**
+-ignorewarnings
+-printconfiguration 'F:\android\aidi\aidi\Pet\proguard_configuration.txt'
+-dump 'F:\android\aidi\aidi\Pet\proguard\dump.txt'
+-printseeds 'F:\android\aidi\aidi\Pet\proguard\seeds.txt'
+
+
+-keep public class com.google.vending.licensing.ILicensingService
+
+-keep public class com.android.vending.licensing.ILicensingService
+
+# For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
+-keepclasseswithmembers,allowshrinking class * {
+    native <methods>;
+}
+
+# keep setters in Views so that animations can still work.
+# see http://proguard.sourceforge.net/manual/examples.html#beans
+-keepclassmembers public class * extends android.view.View {
+    void set*(***);
+    *** get*();
+}
+
+# We want to keep methods in Activity that could be used in the XML attribute onClick
+-keepclassmembers class * extends android.app.Activity {
+    public void *(android.view.View);
+}
+
+# For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
+-keepclassmembers enum  * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * extends android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
+-keepclassmembers class * {
+    public <init>(org.json.JSONObject);
+}
+
+-keep public class com.aidigame.hisun.imengstar.R$* {
+    public static final int *;
+}
+
+-keepclassmembers enum  * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class com.miloisbadboy.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.sina.weibo.sdk.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.aviary.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.buihha.audiorecorder.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.jeremyfeinstein.slidingmenu.lib.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class net.simonvt.numberpicker.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class android-support-v4.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.nostra13.universalimageloader.core.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.tencent.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.polites.android.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class dalvik.system.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.aidigame.hisun.imengstar.wxapi.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.aidigame.hisun.imengstar.constant.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.costum.android.widget.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.aidigame.hisun.imengstar.view.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.aidigame.hisun.imengstar.view.GalleryFlow {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.aidigame.hisun.imengstar.widget.fragment.ClawStyleFunction {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.aidigame.hisun.imengstar.view.arcmenu.** {
+    <fields>;
+    <methods>;
+}
+
+-keep public class * extends android.app.Activity
+
+-keep public class * extends android.app.Application {
+    <fields>;
+    <methods>;
+}
+
+-keep public class * extends android.app.Service
+
+-keep public class * extends android.content.BroadcastReceiver
+
+-keep public class * extends android.content.ContentProvider
+
+-keep public class * extends android.view.View {
+    <fields>;
+    <methods>;
+}
+
+-keep public class * extends android.widget.Adapter {
+    <fields>;
+    <methods>;
+}
+
+-keep,allowshrinking class * extends java.io.Serializable
+
+-keepclassmembers class * extends java.io.Serializable {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.aidigame.hisun.imengstar.bean.* {
+    <fields>;
+    <methods>;
+}
+
+-keep public class * extends android.preference.Preference {
+    <fields>;
+    <methods>;
+}
+
+-keep class android.content.SharedPreferences {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.aidigame.hisun.imengstar.util.HandleHttpConnectionException {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.aidigame.hisun.imengstar.ui.NewRegisterActivity {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.aviary.android.feather.headless.AviaryEffect
+
+-keep class com.aviary.android.feather.headless.gl.GLUtils
+
+-keep class com.aviary.android.feather.headless.moa.Moa
+
+-keep class com.aviary.android.feather.headless.moa.MoaHD
+
+-keep class com.aviary.android.feather.headless.filters.NativeFilterProxy
+
+-keep class com.aviary.android.feather.headless.filters.NativeToolFilter
+
+-keep class com.aviary.android.feather.headless.utils.CameraUtils
+
+-keep class com.aviary.android.feather.headless.moa.MoaResult
+
+-keep class com.aviary.android.feather.opengl.AviaryGLSurfaceView
+
+-keep class com.aviary.android.feather.library.external.tracking.TrackerFactory
+
+-keep class com.aviary.android.feather.library.tracking.AbstractTracker
+
+-keep class com.aviary.android.feather.library.services.BaseContextService
+
+-keep class com.aviary.android.feather.utils.SettingsUtils
+
+-keep class it.sephiroth.android.library.imagezoom.easing.Easing
+
+-keep class it.sephiroth.android.library.media.ExifInterfaceExtended
+
+-keep class it.sephiroth.android.library.imagezoom.ImageViewTouchBase
+
+-keep interface  com.aviary.android.feather.library.services.IAviaryController
+
+-keep interface  com.aviary.android.feather.headless.filters.IFilter
+
+-keep interface  com.aviary.android.feather.headless.filters.INativeFilter
+
+-keep class * extends com.aviary.android.feather.library.services.BaseContextService
+
+-keep class * extends com.aviary.android.feather.library.tracking.AbstractTracker
+
+-keep class * extends com.aviary.android.feather.headless.filters.IFilter
+
+-keep class * extends com.aviary.android.feather.headless.filters.INativeFilter
+
+-keep class * extends it.sephiroth.android.library.imagezoom.ImageViewTouchBase
+
+-keep class com.dodola.model.* {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.dodowaterfall.* {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.example.android.bitmapfun.util.* {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.huewu.pla.lib.* {
+    <fields>;
+    <methods>;
+}
+
+-keep class me.maxwin.view.* {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.tencent.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.tencent.wxop.stat.* {
+    <fields>;
+    <methods>;
+}
+
+-keep class * extends java.lang.Runnable {
+    <fields>;
+    <methods>;
+}
+
+-keep class * extends com.aviary.android.feather.library.services.IAviaryController
+
+-keepclasseswithmembers class * {
+    public <init>(com.aviary.android.feather.library.services.IAviaryController);
+}
+
+-keepclasseswithmembers class * {
+    protected <init>(com.aviary.android.feather.library.services.BaseContextService);
+}
+
+-keepclassmembers interface  it.sephiroth.android.library.imagezoom.easing.Easing {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.library.tracking.AbstractTracker {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.library.external.tracking.TrackerFactory {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class * extends it.sephiroth.android.library.imagezoom.easing.Easing {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.utils.SettingsUtils {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.headless.moa.MoaResult {
+    <fields>;
+    <methods>;
+}
+
+# Keep all the native methods
+-keepclassmembers class * {
+    private native <methods>;
+    public native <methods>;
+    protected native <methods>;
+    public static native <methods>;
+    private static native <methods>;
+    static native <methods>;
+    native <methods>;
+}
+
+-keep class android.support.v4.** {
+    <fields>;
+    <methods>;
+}
+
+-keep interface  android.support.v4.** {
+    <fields>;
+    <methods>;
+}
+
+# common library
+-keep class com.aviary.android.feather.common.AviaryIntent
+
+-keep class com.aviary.android.feather.common.tracking.AviaryTracker
+
+-keep class com.aviary.android.feather.common.tracking.AbstractTracker
+
+-keep class com.aviary.android.feather.common.log.LoggerFactory
+
+-keep class com.aviary.android.feather.headless.gl.GLUtils
+
+-keep class com.aviary.android.feather.library.services.BaseContextService
+
+-keep class com.aviary.android.feather.library.external.tracking.TrackerFactory
+
+# headless library
+-keep interface  com.aviary.android.feather.headless.filters.IFilter
+
+-keep class com.aviary.android.feather.headless.AviaryEffect
+
+-keep class com.aviary.android.feather.headless.moa.Moa
+
+-keep class com.aviary.android.feather.headless.moa.MoaHD
+
+-keep class com.aviary.android.feather.headless.moa.MoaParameter
+
+-keep class com.aviary.android.feather.headless.utils.CameraUtils
+
+-keep class com.aviary.android.feather.sdk.BuildConfig
+
+-keep class com.aviary.android.feather.cds.BuildConfig
+
+-keep class com.aviary.android.feather.headless.BuildConfig
+
+-keep class com.aviary.android.feather.common.BuildConfig
+
+-keep class * extends com.aviary.android.feather.headless.filters.IFilter
+
+-keep class * extends com.aviary.android.feather.headless.moa.MoaParameter
+
+-keep class * extends com.aviary.android.feather.library.services.BaseContextService
+
+-keep class * extends com.aviary.android.feather.common.tracking.AbstractTracker
+
+-keep class * extends android.app.Service
+
+-keep class * extends android.os.AsyncTask
+
+-keep class * extends android.app.Activity
+
+-keep class * extends android.app.Application
+
+-keep class * extends android.app.Service
+
+-keep class * extends android.content.BroadcastReceiver
+
+-keep class * extends android.content.ContentProvider
+
+-keep class com.android.vending.licensing.ILicensingService
+
+-keep public class com.android.vending.billing.IInAppBillingService
+
+-keepclassmembers class com.aviary.android.feather.common.utils.SDKUtils {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.common.utils.SDKUtils$ApiKeyReader {
+    <fields>;
+    <methods>;
+}
+
+# keep everything for native methods/fields
+-keepclassmembers class com.aviary.android.feather.headless.moa.Moa {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.headless.moa.MoaHD {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.headless.utils.CameraUtils {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.headless.moa.MoaResult {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.sdk.opengl.AviaryGLSurfaceView {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.headless.filters.MoaJavaToolStrokeResult {
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.headless.gl.GLUtils {
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.headless.filters.NativeToolFilter {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.common.AviaryIntent {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.common.utils.os.AviaryIntentService {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.common.utils.os.AviaryAsyncTask {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.common.tracking.AbstractTracker {
+    <fields>;
+}
+
+-keepclassmembers class com.aviary.android.feather.common.tracking.AviaryTracker {
+    <fields>;
+}
+
+-keepclassmembers class com.aviary.android.feather.common.log.LoggerFactory {
+    <fields>;
+}
+
+-keepclassmembers class com.aviary.android.feather.sdk.BuildConfig {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.cds.BuildConfig {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.headless.BuildConfig {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.common.BuildConfig {
+    <fields>;
+    <methods>;
+}
+
+# keep class members
+-keepclassmembers class com.aviary.android.feather.library.tracking.AbstractTracker {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.library.external.tracking.TrackerFactory {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.headless.gl.GLUtils {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.headless.moa.MoaResult {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.library.services.BaseContextService {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class com.aviary.android.feather.utils.SettingsUtils {
+    <fields>;
+    <methods>;
+}
+
+-keepclassmembers class * extends com.aviary.android.feather.library.services.BaseContextService {
+    public <init>(com.aviary.android.feather.library.services.IAviaryController);
+}
+
+-keepclasseswithmembers class * {
+    public <init>(com.aviary.android.feather.library.services.IAviaryController);
+}
+
+-keepclassmembers class * extends android.os.Parcelable {
+    static ** CREATOR;
+}
+
+# Keep all the native methods
+-keepclassmembers class * {
+    private native <methods>;
+    public native <methods>;
+    protected native <methods>;
+    public static native <methods>;
+    private static native <methods>;
+    static native <methods>;
+    native <methods>;
+}
+
+-keepclasseswithmembers class * {
+    public <init>(com.aviary.android.feather.library.services.IAviaryController);
+}
+
+-keep enum  com.facebook.**
+
+-keep public interface  com.facebook.**
+
+-keep public interface  com.tencent.**
+
+-keep public interface  com.umeng.socialize.**
+
+-keep public interface  com.umeng.socialize.sensor.**
+
+-keep public interface  com.umeng.scrshot.**
+
+-keep public class com.umeng.socialize.* {
+    <fields>;
+    <methods>;
+}
+
+-keep public class javax.**
+
+-keep public class android.webkit.**
+
+-keep class com.facebook.**
+
+-keep class com.umeng.scrshot.**
+
+-keep public class com.tencent.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.umeng.socialize.sensor.**
+
+-keep class com.ument.**
+
+-keep class com.ument.socialize.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.tencent.mm.sdk.modelmsg.WXMediaMessage {
+    <fields>;
+    <methods>;
+}
+
+-keep class com.tencent.mm.sdk.modelmsg.** extends com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject {
+    <fields>;
+    <methods>;
+}
+
+-keep class im.yixin.sdk.api.YXMessage {
+    <fields>;
+    <methods>;
+}
+
+-keep class im.yixin.sdk.api.** extends im.yixin.sdk.api.YXMessage$YXMessageData {
+    <fields>;
+    <methods>;
+}
+
+-keep public class [your_pkg].R$* {
+    public static final int *;
+}
+
+-keep class com.aidigame.hisun.imengstar.huanxin.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class org.jivesoftware.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class org.apache.** {
+    <fields>;
+    <methods>;
+}
+
+# 2.0.9后的不需要加下面这个keep
+# -keep class org.xbill.DNS.** {*;}
+# 另外，demo中发送表情的时�?�使用到反射，需要keep SmileUtils,注意前面的包名，
+# 不要SmileUtils复制到自己的项目下，keep的时候还是写的demo里的包名
+-keep class com.aidigame.hisun.imengstar.huanxin.SmileUtils {
+    <fields>;
+    <methods>;
+}
+
+-keep class org.ice4j.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class net.java.sip.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class org.webrtc.voiceengine.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class org.bitlet.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class org.slf4j.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class ch.imvs.** {
+    <fields>;
+    <methods>;
+}
+
+# view res/layout/activity_article.xml #generated:220
+# view res/layout/activity_chat_huanxin.xml #generated:214
+# view res/layout/activity_new_home_activity.xml #generated:405
+# view res/layout/activity_new_register.xml #generated:21
+# view res/layout/activity_recommend.xml #generated:39
+# view res/layout/activity_shake.xml #generated:47
+# view res/layout/activity_show_topic.xml #generated:820
+# view res/layout/activity_submit_picture.xml #generated:381
+# view res/layout/dialog_give_sb_gift.xml #generated:37
+# view res/layout/fragment_beg_food.xml #generated:11
+# view res/layout/fragment_recommend.xml #generated:6
+-keep class android.support.v4.view.ViewPager {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:152
+-keep class com.aidigame.hisun.imengstar.FirstPageActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:36
+-keep class com.aidigame.hisun.imengstar.PetApplication {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:414
+-keep class com.aidigame.hisun.imengstar.huanxin.AddContactActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:451
+-keep class com.aidigame.hisun.imengstar.huanxin.AlertDialog {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:406
+-keep class com.aidigame.hisun.imengstar.huanxin.ChatActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:463
+-keep class com.aidigame.hisun.imengstar.huanxin.ContextMenu {
+    <init>(...);
+}
+
+# view res/layout/expression_gridview.xml #generated:7
+# view res/layout/expression_gridview2.xml #generated:7
+-keep class com.aidigame.hisun.imengstar.huanxin.ExpandGridView {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:426
+-keep class com.aidigame.hisun.imengstar.huanxin.ImageGridActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:398
+-keep class com.aidigame.hisun.imengstar.huanxin.MainActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:420
+-keep class com.aidigame.hisun.imengstar.huanxin.NewFriendsMsgActivity {
+    <init>(...);
+}
+
+# view res/layout/activity_article.xml #generated:182
+# view res/layout/activity_chat_huanxin.xml #generated:135
+# view res/layout/activity_new_home_activity.xml #generated:356
+# view res/layout/activity_show_topic.xml #generated:771
+# view res/layout/activity_submit_picture.xml #generated:332
+-keep class com.aidigame.hisun.imengstar.huanxin.PasteEditText {
+    <init>(...);
+}
+
+# view res/layout/activity_show_big_image.xml #generated:8
+# view res/layout/activity_show_picture.xml #generated:13
+-keep class com.aidigame.hisun.imengstar.huanxin.PhotoView {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:438
+-keep class com.aidigame.hisun.imengstar.huanxin.RecorderVideoActivity {
+    <init>(...);
+}
+
+# view res/layout/choose_griditem.xml #generated:12
+-keep class com.aidigame.hisun.imengstar.huanxin.RecyclingImageView {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:456
+-keep class com.aidigame.hisun.imengstar.huanxin.SettingsActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:433
+-keep class com.aidigame.hisun.imengstar.huanxin.ShowBigImage {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:444
+-keep class com.aidigame.hisun.imengstar.huanxin.ShowVideoActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:356
+-keep class com.aidigame.hisun.imengstar.service.DownLoadApkService {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:270
+-keep class com.aidigame.hisun.imengstar.ui.AboutUsActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:337
+-keep class com.aidigame.hisun.imengstar.ui.AccountActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:229
+-keep class com.aidigame.hisun.imengstar.ui.ActivityWebActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:325
+-keep class com.aidigame.hisun.imengstar.ui.AddGoldContriExpActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:175
+-keep class com.aidigame.hisun.imengstar.ui.AdviceActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:165
+-keep class com.aidigame.hisun.imengstar.ui.AlbumPictureBackground {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:274
+-keep class com.aidigame.hisun.imengstar.ui.AnimalsListActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:252
+-keep class com.aidigame.hisun.imengstar.ui.ArticleActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:238
+-keep class com.aidigame.hisun.imengstar.ui.AtUserListActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:173
+-keep class com.aidigame.hisun.imengstar.ui.AwardDetailActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:186
+-keep class com.aidigame.hisun.imengstar.ui.BegPicturesActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:313
+-keep class com.aidigame.hisun.imengstar.ui.BiteActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:249
+-keep class com.aidigame.hisun.imengstar.ui.ChargeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:205
+-keep class com.aidigame.hisun.imengstar.ui.ChatActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:191
+-keep class com.aidigame.hisun.imengstar.ui.ChoseAcountTypeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:159
+-keep class com.aidigame.hisun.imengstar.ui.ChoseClassActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:194
+-keep class com.aidigame.hisun.imengstar.ui.ChoseKingActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:262
+-keep class com.aidigame.hisun.imengstar.ui.ChosePetActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:243
+-keep class com.aidigame.hisun.imengstar.ui.ContributeRankListActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:171
+-keep class com.aidigame.hisun.imengstar.ui.DetailActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:304
+-keep class com.aidigame.hisun.imengstar.ui.Dialog3Activity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:298
+-keep class com.aidigame.hisun.imengstar.ui.Dialog4Activity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:301
+-keep class com.aidigame.hisun.imengstar.ui.Dialog6Activity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:291
+-keep class com.aidigame.hisun.imengstar.ui.DialogGiveSbGiftActivity1 {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:310
+-keep class com.aidigame.hisun.imengstar.ui.DialogGiveSbGiftResultActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:287
+-keep class com.aidigame.hisun.imengstar.ui.DialogGoRegisterActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:307
+-keep class com.aidigame.hisun.imengstar.ui.DialogNoteActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:316
+-keep class com.aidigame.hisun.imengstar.ui.DialogPengTaSuccActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:216
+-keep class com.aidigame.hisun.imengstar.ui.ExchangeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:276
+-keep class com.aidigame.hisun.imengstar.ui.FAQActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:246
+-keep class com.aidigame.hisun.imengstar.ui.GetTicketRankListActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:240
+-keep class com.aidigame.hisun.imengstar.ui.GiftInfoActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:139
+-keep class com.aidigame.hisun.imengstar.ui.HomeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:343
+-keep class com.aidigame.hisun.imengstar.ui.InviteOthersDialogActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:266
+-keep class com.aidigame.hisun.imengstar.ui.MarketActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:259
+-keep class com.aidigame.hisun.imengstar.ui.ModifyPetInfoActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:272
+-keep class com.aidigame.hisun.imengstar.ui.MyItemActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:209
+-keep class com.aidigame.hisun.imengstar.ui.NewPetKingdomActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:202
+-keep class com.aidigame.hisun.imengstar.ui.NewRegisterActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:131
+-keep class com.aidigame.hisun.imengstar.ui.NewShowTopicActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:182
+-keep class com.aidigame.hisun.imengstar.ui.PetFansActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:224
+-keep class com.aidigame.hisun.imengstar.ui.PetGiftActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:206
+-keep class com.aidigame.hisun.imengstar.ui.PetKingdomActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:226
+-keep class com.aidigame.hisun.imengstar.ui.PetPicturesActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:219
+-keep class com.aidigame.hisun.imengstar.ui.PetTrendsActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:322
+-keep class com.aidigame.hisun.imengstar.ui.PictureBegActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:222
+-keep class com.aidigame.hisun.imengstar.ui.PlayGameActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:295
+-keep class com.aidigame.hisun.imengstar.ui.PlayJokeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:256
+-keep class com.aidigame.hisun.imengstar.ui.PopularRankListActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:231
+-keep class com.aidigame.hisun.imengstar.ui.ReceiverAddressActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:178
+-keep class com.aidigame.hisun.imengstar.ui.RecommendActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:331
+-keep class com.aidigame.hisun.imengstar.ui.RegisterNoteDialog {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:340
+-keep class com.aidigame.hisun.imengstar.ui.SetPassActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:268
+-keep class com.aidigame.hisun.imengstar.ui.SetupActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:278
+-keep class com.aidigame.hisun.imengstar.ui.ShakeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:334
+-keep class com.aidigame.hisun.imengstar.ui.ShareActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:135
+-keep class com.aidigame.hisun.imengstar.ui.ShowPictureActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:128
+-keep class com.aidigame.hisun.imengstar.ui.SubmitPictureActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:264
+-keep class com.aidigame.hisun.imengstar.ui.SubmitPictureTypeActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:162
+-keep class com.aidigame.hisun.imengstar.ui.TakePictureBackground {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:284
+-keep class com.aidigame.hisun.imengstar.ui.TicketCardActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:236
+-keep class com.aidigame.hisun.imengstar.ui.TopicListActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:319
+-keep class com.aidigame.hisun.imengstar.ui.TouchActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:346
+-keep class com.aidigame.hisun.imengstar.ui.UpdateAPKActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:281
+-keep class com.aidigame.hisun.imengstar.ui.UserCardActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:213
+-keep class com.aidigame.hisun.imengstar.ui.UserDossierActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:168
+-keep class com.aidigame.hisun.imengstar.ui.UsersListActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:328
+-keep class com.aidigame.hisun.imengstar.ui.WarningDialogActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:360
+-keep class com.aidigame.hisun.imengstar.util.DeviceNetInfoUtil$NetworkStatusChangeReceiver {
+    <init>(...);
+}
+
+# view res/layout/item_touch_1.xml #generated:39
+-keep class com.aidigame.hisun.imengstar.view.EraserView_user_drawPath {
+    <init>(...);
+}
+
+# view res/layout/activity_exchange.xml #generated:175
+# view res/layout/activity_submit_picture_type.xml #generated:71
+# view res/layout/activity_user_card.xml #generated:129
+# view res/layout/item_classic_pictures_list.xml #generated:178
+# view res/layout/item_recommend_grid_picture.xml #generated:44
+-keep class com.aidigame.hisun.imengstar.view.HorizontalListView2 {
+    <init>(...);
+}
+
+# view res/layout/fragment_function_123.xml #generated:7
+-keep class com.aidigame.hisun.imengstar.view.HorizontialListView {
+    <init>(...);
+}
+
+# view res/layout/activity_show_topic.xml #generated:470
+# view res/layout/widget_llistview1.xml #generated:7
+-keep class com.aidigame.hisun.imengstar.view.LinearLayoutForListView {
+    <init>(...);
+}
+
+# view res/layout/widget_llistview.xml #generated:7
+-keep class com.aidigame.hisun.imengstar.view.ListViewForScrollView {
+    <init>(...);
+}
+
+# view res/layout/act_pull_to_refresh_sample.xml #generated:13
+# view res/layout/fragment_home_see_picture.xml #generated:69
+-keep class com.aidigame.hisun.imengstar.view.MyViewPager {
+    <init>(...);
+}
+
+# view res/layout/widget_show_topics.xml #generated:2
+-keep class com.aidigame.hisun.imengstar.view.PullDownView {
+    <init>(...);
+}
+
+# view res/layout/activity_atuser_list.xml #generated:123
+# view res/layout/activity_chose_king.xml #generated:27
+# view res/layout/activity_topic_list.xml #generated:19
+# view res/layout/fragment_activity.xml #generated:19
+# view res/layout/item_user_topics.xml #generated:7
+# view res/layout/widget_pull_to_refresh_and_more.xml #generated:8
+# view res/layout/widget_pulltorefreshandmoreview.xml #generated:2
+-keep class com.aidigame.hisun.imengstar.view.PullToRefreshAndMoreView {
+    <init>(...);
+}
+
+# view res/layout/activity_exchange.xml #generated:131
+# view res/layout/activity_invite_dialog.xml #generated:17
+# view res/layout/activity_new_petdossier.xml #generated:82
+# view res/layout/activity_new_petdossier.xml #generated:99
+# view res/layout/activity_send_gift_result.xml #generated:146
+# view res/layout/activity_shake.xml #generated:77
+# view res/layout/activity_show_topic.xml #generated:196
+# view res/layout/activity_show_topic.xml #generated:254
+# view res/layout/activity_ticket_card.xml #generated:129
+# view res/layout/activity_ticket_card.xml #generated:166
+# view res/layout/activity_ticket_card.xml #generated:202
+# view res/layout/activity_ticket_card.xml #generated:281
+# view res/layout/activity_touch.xml #generated:59
+# view res/layout/activity_user_card.xml #generated:18
+# view res/layout/dialog_user_job_upgrade.xml #generated:31
+# view res/layout/dialog_user_peng_ta_success.xml #generated:45
+# view res/layout/fragment_beg_food.xml #generated:199
+# view res/layout/fragment_beg_food.xml #generated:258
+# view res/layout/fragment_new_user_center.xml #generated:72
+# view res/layout/item__simple_users_listview.xml #generated:20
+# view res/layout/item_article_comment.xml #generated:13
+# view res/layout/item_atuser_list.xml #generated:13
+# view res/layout/item_chose_king_listview.xml #generated:22
+# view res/layout/item_chose_king_listview.xml #generated:241
+# view res/layout/item_classic_pictures_list.xml #generated:23
+# view res/layout/item_comment_listview.xml #generated:13
+# view res/layout/item_contribute_list_.xml #generated:30
+# view res/layout/item_gallery_view.xml #generated:8
+# view res/layout/item_gallery_view2.xml #generated:8
+# view res/layout/item_kingdom_people_listview.xml #generated:21
+# view res/layout/item_only_icon.xml #generated:7
+# view res/layout/item_register_view1.xml #generated:183
+# view res/layout/item_register_view2.xml #generated:221
+# view res/layout/item_search_pet_list.xml #generated:14
+# view res/layout/item_shake_33.xml #generated:49
+# view res/layout/item_simple_users_listview.xml #generated:20
+# view res/layout/item_user_card_pets_icon.xml #generated:16
+# view res/layout/item_user_center_pets.xml #generated:17
+# view res/layout/item_user_focus_listview.xml #generated:33
+# view res/layout/item_users_listview.xml #generated:19
+# view res/layout/itemsubmit_picture_icon.xml #generated:16
+# view res/layout/itemtopic_users_list.xml #generated:16
+# view res/layout/row_chat_history.xml #generated:22
+# view res/layout/row_received_message.xml #generated:29
+# view res/layout/row_received_picture.xml #generated:29
+# view res/layout/row_received_video.xml #generated:29
+# view res/layout/row_received_voice.xml #generated:29
+# view res/layout/row_sent_message.xml #generated:29
+# view res/layout/row_sent_picture.xml #generated:29
+# view res/layout/row_sent_video.xml #generated:29
+# view res/layout/row_sent_voice.xml #generated:29
+-keep class com.aidigame.hisun.imengstar.view.RoundImageView {
+    <init>(...);
+}
+
+# view res/layout/activity_touch.xml #generated:34
+-keep class com.aidigame.hisun.imengstar.view.StaticViewPager {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:349
+-keep class com.aidigame.hisun.imengstar.wxapi.WXEntryActivity {
+    <init>(...);
+}
+
+# view res/layout/widget_waterfull.xml #generated:9
+-keep class com.aidigame.hisun.pet.waterfull1.LazyScrollView {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:77
+-keep class com.aviary.android.feather.AlertActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:67
+-keep class com.aviary.android.feather.FeatherActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:104
+-keep class com.aviary.android.feather.cds.AviaryCdsProvider {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:113
+-keep class com.aviary.android.feather.cds.AviaryCdsReceiver {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:89
+-keep class com.aviary.android.feather.cds.AviaryCdsService {
+    <init>(...);
+}
+
+# view res/layout/aviary_main_view.xml #generated:2
+-keep class com.aviary.android.feather.library.services.drag.DragLayer {
+    <init>(...);
+}
+
+# view res/layout/aviary_content_effects_gl.xml #generated:7
+-keep class com.aviary.android.feather.opengl.AviaryGLSurfaceView {
+    <init>(...);
+}
+
+# view res/layout/aviary_content_adjust.xml #generated:2
+-keep class com.aviary.android.feather.widget.AdjustImageView {
+    <init>(...);
+}
+
+# view res/layout/aviary_tool_layout.xml #generated:2
+-keep class com.aviary.android.feather.widget.AviaryBadgeToolLayout {
+    <init>(...);
+}
+
+# view res/layout/aviary_bottombar.xml #generated:2
+-keep class com.aviary.android.feather.widget.AviaryBottomBarViewFlipper {
+    <init>(...);
+}
+
+# view res/layout/aviary_feedback_dialog_view.xml #generated:36
+# view res/layout/aviary_feedback_dialog_view.xml #generated:48
+# view res/layout/aviary_iap_dialog_list.xml #generated:48
+# view res/layout/aviary_navbar.xml #generated:107
+# view res/layout/aviary_navbar.xml #generated:123
+# view res/layout/aviary_navbar.xml #generated:52
+# view res/layout/aviary_panel_meme.xml #generated:16
+# view res/layout/aviary_panel_meme.xml #generated:40
+-keep class com.aviary.android.feather.widget.AviaryButton {
+    <init>(...);
+}
+
+# view res/layout/aviary_panel_crop.xml #generated:6
+# view res/layout/aviary_panel_draw.xml #generated:13
+# view res/layout/aviary_panel_draw.xml #generated:28
+# view res/layout/aviary_panel_spot.xml #generated:6
+-keep class com.aviary.android.feather.widget.AviaryGallery {
+    <init>(...);
+}
+
+# view res/layout/aviary_panel_crop.xml #generated:16
+# view res/layout/aviary_panel_draw.xml #generated:37
+# view res/layout/aviary_panel_draw.xml #generated:41
+# view res/layout/aviary_panel_spot.xml #generated:16
+-keep class com.aviary.android.feather.widget.AviaryGalleryTopIndicatorView {
+    <init>(...);
+}
+
+# view res/layout/aviary_content_draw.xml #generated:13
+# view res/layout/aviary_content_spot_draw.xml #generated:17
+# view res/layout/aviary_gallery_crop_item_view.xml #generated:17
+# view res/layout/aviary_gallery_item_highlight_view.xml #generated:10
+# view res/layout/aviary_panel_adjust.xml #generated:24
+# view res/layout/aviary_panel_adjust.xml #generated:34
+# view res/layout/aviary_panel_adjust.xml #generated:69
+# view res/layout/aviary_panel_adjust.xml #generated:79
+# view res/layout/aviary_panel_colorsplash.xml #generated:20
+# view res/layout/aviary_panel_colorsplash.xml #generated:46
+# view res/layout/aviary_panel_colorsplash.xml #generated:77
+# view res/layout/aviary_panel_enhance.xml #generated:17
+# view res/layout/aviary_panel_enhance.xml #generated:41
+# view res/layout/aviary_panel_enhance.xml #generated:65
+# view res/layout/aviary_panel_focus.xml #generated:17
+# view res/layout/aviary_panel_focus.xml #generated:27
+# view res/layout/aviary_panel_meme.xml #generated:24
+# view res/layout/aviary_panel_meme.xml #generated:48
+# view res/layout/aviary_tool_feedback_layout.xml #generated:18
+# view res/layout/aviary_tool_layout.xml #generated:23
+-keep class com.aviary.android.feather.widget.AviaryHighlightImageButton {
+    <init>(...);
+}
+
+# view res/layout/aviary_main_view.xml #generated:40
+-keep class com.aviary.android.feather.widget.AviaryImageRestoreSwitcher {
+    <init>(...);
+}
+
+# view res/layout/aviary_content_effects.xml #generated:2
+-keep class com.aviary.android.feather.widget.AviaryImageSwitcher {
+    <init>(...);
+}
+
+# view res/layout/aviary_navbar.xml #generated:2
+-keep class com.aviary.android.feather.widget.AviaryNavBarViewFlipper {
+    <init>(...);
+}
+
+# view res/layout/aviary_panel_seekbar.xml #generated:15
+-keep class com.aviary.android.feather.widget.AviarySeekBar {
+    <init>(...);
+}
+
+# view res/layout/aviary_effect_item_more.xml #generated:21
+# view res/layout/aviary_feedback_dialog_view.xml #generated:18
+# view res/layout/aviary_feedback_dialog_view.xml #generated:27
+# view res/layout/aviary_frame_item.xml #generated:33
+# view res/layout/aviary_frame_item_external.xml #generated:43
+# view res/layout/aviary_frame_item_more.xml #generated:19
+# view res/layout/aviary_gallery_crop_item_view.xml #generated:10
+# view res/layout/aviary_gallery_crop_item_view_custom.xml #generated:8
+# view res/layout/aviary_iap_buy_button.xml #generated:8
+# view res/layout/aviary_iap_dialog_detail.xml #generated:29
+# view res/layout/aviary_iap_dialog_detail.xml #generated:62
+# view res/layout/aviary_iap_dialog_detail.xml #generated:78
+# view res/layout/aviary_iap_dialog_list.xml #generated:39
+# view res/layout/aviary_iap_download_error_message.xml #generated:18
+# view res/layout/aviary_iap_list_item.xml #generated:34
+# view res/layout/aviary_iap_list_item.xml #generated:42
+# view res/layout/aviary_navbar_text.xml #generated:2
+# view res/layout/aviary_panel_adjust.xml #generated:45
+# view res/layout/aviary_panel_adjust.xml #generated:90
+# view res/layout/aviary_panel_colorsplash.xml #generated:30
+# view res/layout/aviary_panel_colorsplash.xml #generated:55
+# view res/layout/aviary_panel_colorsplash.xml #generated:86
+# view res/layout/aviary_panel_enhance.xml #generated:26
+# view res/layout/aviary_panel_enhance.xml #generated:50
+# view res/layout/aviary_panel_enhance.xml #generated:74
+# view res/layout/aviary_panel_focus.xml #generated:37
+# view res/layout/aviary_progress_medium.xml #generated:18
+# view res/layout/aviary_progress_medium_inverse.xml #generated:18
+# view res/layout/aviary_progress_small.xml #generated:18
+# view res/layout/aviary_sticker_item.xml #generated:19
+# view res/layout/aviary_sticker_item_more.xml #generated:20
+# view res/layout/aviary_tool_feedback_layout.xml #generated:28
+# view res/layout/aviary_tool_layout.xml #generated:43
+-keep class com.aviary.android.feather.widget.AviaryTextView {
+    <init>(...);
+}
+
+# view res/layout/aviary_panel_wheel.xml #generated:16
+-keep class com.aviary.android.feather.widget.AviaryWheel {
+    <init>(...);
+}
+
+# view res/layout/aviary_iap_dialog_detail.xml #generated:105
+-keep class com.aviary.android.feather.widget.AviaryWorkspace {
+    <init>(...);
+}
+
+# view res/layout/aviary_iap_dialog_detail.xml #generated:145
+-keep class com.aviary.android.feather.widget.AviaryWorkspaceIndicator {
+    <init>(...);
+}
+
+# view res/layout/aviary_iap_workspace_screen_effects.xml #generated:2
+# view res/layout/aviary_iap_workspace_screen_stickers.xml #generated:2
+# view res/layout/aviary_pack_information_preview_grid_effects.xml #generated:2
+-keep class com.aviary.android.feather.widget.CellLayout {
+    <init>(...);
+}
+
+# view res/layout/aviary_content_crop.xml #generated:2
+-keep class com.aviary.android.feather.widget.CropImageView {
+    <init>(...);
+}
+
+# view res/layout/aviary_frame_item.xml #generated:2
+-keep class com.aviary.android.feather.widget.EffectThumbLayout {
+    <init>(...);
+}
+
+# view res/layout/aviary_iap_buy_button.xml #generated:2
+-keep class com.aviary.android.feather.widget.IAPBuyButton {
+    <init>(...);
+}
+
+# view res/layout/aviary_iap_dialog_detail.xml #generated:2
+-keep class com.aviary.android.feather.widget.IAPDialogDetail {
+    <init>(...);
+}
+
+# view res/layout/aviary_iap_dialog_list.xml #generated:2
+-keep class com.aviary.android.feather.widget.IAPDialogList {
+    <init>(...);
+}
+
+# view res/layout/aviary_content_meme.xml #generated:36
+# view res/layout/aviary_content_stickers.xml #generated:2
+# view res/layout/aviary_content_text.xml #generated:15
+-keep class com.aviary.android.feather.widget.ImageViewDrawableOverlay {
+    <init>(...);
+}
+
+# view res/layout/aviary_content_spot_draw.xml #generated:8
+-keep class com.aviary.android.feather.widget.ImageViewSpotDraw {
+    <init>(...);
+}
+
+# view res/layout/aviary_content_focus.xml #generated:2
+-keep class com.aviary.android.feather.widget.ImageViewTiltiShiftTouch {
+    <init>(...);
+}
+
+# view res/layout/aviary_content_draw.xml #generated:7
+-keep class com.aviary.android.feather.widget.ImageViewTouchAndDraw {
+    <init>(...);
+}
+
+# view res/layout/widget_pull_to_refresh_and_more1.xml #generated:8
+-keep class com.costum.android.widget.PullAndLoadListView {
+    <init>(...);
+}
+
+# view res/layout/waterfallitem.xml #generated:2
+-keep class com.dodowaterfall.widget.FlowView {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:397
+-keep class com.easemob.chat.EMChatService {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:469
+-keep class com.easemob.chat.StartServiceReceiver {
+    <init>(...);
+}
+
+# view res/layout/activity_pick_contact_no_checkbox.xml #generated:42
+-keep class com.easemob.chatuidemo.widget.Sidebar {
+    <init>(...);
+}
+
+# view res/layout/act_sample.xml #generated:6
+-keep class com.huewu.pla.lib.MultiColumnListView {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:373
+-keep class com.umeng.fb.ContactActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:371
+-keep class com.umeng.fb.ConversationActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:379
+-keep class com.umeng.socialize.view.ShareActivity {
+    <init>(...);
+}
+
+# view res/layout/umeng_socialize_post_share.xml #generated:2
+-keep class com.umeng.socialize.view.wigets.KeyboardListenRelativeLayout {
+    <init>(...);
+}
+
+# view res/layout/umeng_socialize_at_view.xml #generated:21
+-keep class com.umeng.socialize.view.wigets.SearchBox {
+    <init>(...);
+}
+
+# view res/layout/umeng_socialize_at_view.xml #generated:38
+-keep class com.umeng.socialize.view.wigets.SectionListView {
+    <init>(...);
+}
+
+# view res/layout/umeng_socialize_at_view.xml #generated:47
+-keep class com.umeng.socialize.view.wigets.SlideBar {
+    <init>(...);
+}
+
+# view res/layout/aviary_main_view.xml #generated:47
+# view res/layout/aviary_main_view.xml #generated:52
+-keep class it.sephiroth.android.library.imagezoom.ImageViewTouch {
+    <init>(...);
+}
+
+# view res/layout/aviary_bottombar.xml #generated:24
+# view res/layout/aviary_panel_frames.xml #generated:9
+# view res/layout/aviary_panel_stickers.xml #generated:23
+# view res/layout/aviary_panel_stickers.xml #generated:32
+-keep class it.sephiroth.android.library.widget.HListView {
+    <init>(...);
+}
+
+# view res/layout/act_pull_to_refresh_sample.xml #generated:85
+# view res/layout/activity_article.xml #generated:108
+# view res/layout/activity_get_ticket_rank.xml #generated:25
+# view res/layout/activity_pet_beg_pictures.xml #generated:33
+# view res/layout/activity_pet_fans.xml #generated:33
+# view res/layout/activity_pet_pictures.xml #generated:36
+# view res/layout/activity_pet_pictures2.xml #generated:13
+# view res/layout/activity_pet_trends.xml #generated:33
+# view res/layout/activity_popular_rank.xml #generated:27
+# view res/layout/fragment_discovery.xml #generated:66
+# view res/layout/fragment_home_article.xml #generated:6
+# view res/layout/fragment_new_user_center.xml #generated:403
+# view res/layout/fragment_recommend_page.xml #generated:73
+# view res/layout/widget_home_pet_pictures.xml #generated:12
+# view res/layout/widget_home_pet_pictures2.xml #generated:12
+-keep class me.maxwin.view.XListView {
+    <init>(...);
+}
+
+# view res/layout/activity_receiver_address.xml #generated:223
+# view res/layout/activity_receiver_address.xml #generated:238
+# view res/layout/item_register_view2.xml #generated:260
+# view res/layout/item_register_view2.xml #generated:275
+# view res/layout/widget_address_picker.xml #generated:13
+# view res/layout/widget_address_picker.xml #generated:28
+-keep class net.simonvt.numberpicker.NumberPicker {
+    <init>(...);
+}
+
+# view res/layout/number_picker_with_selector_wheel.xml #generated:22
+-keep class net.simonvt.numberpicker.NumberPicker$CustomEditText {
+    <init>(...);
+}
+
+# onClick res/layout/commom_back_btn.xml #generated:2
+-keepclassmembers class * {
+    *** back(...);
+}
+
+# onClick res/layout/alert_dialog.xml #generated:61
+-keepclassmembers class * {
+    *** cancel(...);
+}
+
+# onClick res/layout/context_menu_for_text.xml #generated:10
+-keepclassmembers class * {
+    *** copy(...);
+}
+
+# onClick res/layout/context_menu_for_image.xml #generated:28
+# onClick res/layout/context_menu_for_location.xml #generated:10
+# onClick res/layout/context_menu_for_text.xml #generated:28
+# onClick res/layout/context_menu_for_video.xml #generated:16
+# onClick res/layout/context_menu_for_voice.xml #generated:16
+-keepclassmembers class * {
+    *** delete(...);
+}
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:135
+-keepclassmembers class * {
+    *** editClick(...);
+}
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:25
+-keepclassmembers class * {
+    *** emptyHistory(...);
+}
+
+# onClick res/layout/context_menu_for_image.xml #generated:45
+# onClick res/layout/context_menu_for_text.xml #generated:44
+-keepclassmembers class * {
+    *** forward(...);
+}
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:175
+-keepclassmembers class * {
+    *** more(...);
+}
+
+# onClick res/layout/alert_dialog.xml #generated:75
+-keepclassmembers class * {
+    *** ok(...);
+}
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:184
+# onClick res/layout/activity_chat_huanxin.xml #generated:247
+# onClick res/layout/activity_chat_huanxin.xml #generated:277
+# onClick res/layout/activity_chat_huanxin.xml #generated:308
+# onClick res/layout/activity_chat_huanxin.xml #generated:338
+# onClick res/layout/activity_chat_huanxin.xml #generated:378
+# onClick res/layout/activity_chat_huanxin.xml #generated:410
+-keepclassmembers class * {
+    *** onClick(...);
+}
+
+# onClick res/layout/activity_main.xml #generated:24
+# onClick res/layout/activity_main.xml #generated:59
+# onClick res/layout/activity_main.xml #generated:93
+-keepclassmembers class * {
+    *** onTabClicked(...);
+}
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:94
+-keepclassmembers class * {
+    *** setModeKeyboard(...);
+}
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:85
+-keepclassmembers class * {
+    *** setModeVoice(...);
+}
+
+# onClick res/layout/activity_chat_huanxin.xml #generated:43
+-keepclassmembers class * {
+    *** toGroupDetails(...);
+}

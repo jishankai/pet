@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:background="@drawable/market_spinner_selected"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="所有种族"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/white"
+        android:gravity="center" 
+        />
+   <ListView 
+       android:id="@+id/listview"
+       android:layout_width="100dp"
+       android:layout_height="100dp"
+       android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:cacheColorHint="@null"
+        android:listSelector="@null"
+        android:divider="@null"></ListView><!--  android:layout_height="200dp" -->
+
+</LinearLayout>

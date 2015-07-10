@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout 
+     xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/reward_layout"
+        android:clickable="true"
+       >
+ <RelativeLayout 
+                android:id="@+id/image_layout"
+                android:layout_below="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/waterfull_frame"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_above="@+id/reward_layout"
+        android:layout_marginBottom="5dp"
+       >
+       <RelativeLayout 
+           android:layout_width="match_parent" 
+           android:orientation="vertical"
+           android:layout_height="match_parent"
+           android:layout_marginLeft="10dp"
+           android:layout_marginRight="10dp"
+           android:layout_marginTop="5dp"
+           android:layout_marginBottom="20dp">
+           <ImageView 
+               android:id="@+id/imageview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/beg_info_layout"
+    android:padding="1dp" 
+    android:layout_marginTop="1dp"
+    android:layout_marginBottom="1dp"/>
+           <RelativeLayout 
+                android:id="@+id/anim_layout"
+               android:layout_width="wrap_content"
+               android:layout_height="120dp"
+               android:orientation="horizontal"
+               android:layout_marginLeft="40dp"
+               android:gravity="bottom"
+               android:visibility="invisible"
+               android:layout_marginBottom="-10dp"
+               android:layout_above="@+id/beg_info_layout">
+               
+           </RelativeLayout>
+           <!-- <LinearLayout 
+                   android:id="@+id/anim_layout"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_marginLeft="40dp"
+               android:gravity="left|bottom"
+               android:visibility="invisible"
+               android:layout_marginBottom="-10dp"
+               android:layout_above="@+id/beg_info_layout"
+               >
+                <ImageView 
+                   android:layout_width="24dp"
+                   android:layout_height="24dp"
+                   android:src="@drawable/exchange_food_red"/>
+                <TextView 
+                    android:id="@+id/anim_num_tv"
+                   android:text="+12034"
+                   android:textSize="16sp"
+                   android:layout_marginLeft="5dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/orange_red1"/>
+                 </LinearLayout> -->
+                 
+                 <ImageView 
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_above="@+id/beg_info_layout"
+                     android:layout_alignParentRight="true"
+                     
+                     android:id="@+id/beg_anim_iv"
+                     android:layout_marginBottom="-12dp"
+                     android:layout_marginRight="10dp"/>
+                 
+                 
+           <RelativeLayout 
+               android:id="@+id/beg_info_layout"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_above="@+id/line1"
+               
+               >
+               
+               <LinearLayout 
+                   android:id="@+id/layout1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_marginLeft="10dp"
+               android:gravity="left|bottom"
+               >
+                <ImageView 
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/exchange_food_red"/>
+                <TextView 
+                    android:id="@+id/food_num_tv"
+                   android:text="12034"
+                   android:textSize="22sp"
+                   android:layout_marginLeft="5dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/orange_red1"/>
+                 </LinearLayout>
+                <LinearLayout 
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:gravity="right|bottom"
+               android:layout_alignBottom="@+id/layout1"
+               android:layout_alignParentRight="true"
+               android:paddingBottom="2dp"
+               android:layout_marginRight="10dp"
+               >
+                 <TextView 
+                   android:text="倒计时："
+                   android:textSize="12sp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="20dp"/>
+                  <TextView 
+                      android:id="@+id/time_tv"
+                   android:text="23:59:59"
+                   android:textSize="16sp"
+                   android:textColor="@color/orange_red1"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="0dp"/>
+                 
+               </LinearLayout>
+           </RelativeLayout>
+           <View 
+               android:id="@+id/line1"
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="#dddddd"
+               android:layout_above="@+id/show_topic_comment_tv"/>
+           <TextView 
+               android:id="@+id/show_topic_comment_tv"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="10dp"
+               android:layout_marginLeft="10dp"
+               android:layout_marginRight="10dp"
+               android:lineSpacingExtra="3dp"
+               android:focusable="false"
+               android:focusableInTouchMode="false"
+               android:text=""
+               android:textColor="#777777"
+               android:layout_alignParentBottom="true"/>
+
+       </RelativeLayout>
+
+        
+    </RelativeLayout>
+    </RelativeLayout>

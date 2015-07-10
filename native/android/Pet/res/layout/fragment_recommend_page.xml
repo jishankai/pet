@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <!-- 海报 -->
+    <ImageView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/big_iv"
+        />
+    
+    <!-- ************************** -->
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:gravity="center_vertical"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:id="@+id/ticket_num_note_tv1"
+                android:text="您今天还剩"/>
+            <TextView 
+                android:id="@+id/num_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textColor="@color/orange_red1"
+                android:textSize="22sp"
+                android:layout_marginLeft="3dp"/>
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个推荐名额"
+                android:textSize="14sp"
+                android:id="@+id/ticket_num_note_tv2"
+                android:layout_marginLeft="3dp"/>
+        </LinearLayout>
+        <ImageView 
+            android:id="@+id/bt_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bt_recommend"/>
+        <ImageView 
+            android:id="@+id/bt_participate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/bt_participate"/>
+    </LinearLayout>
+<!-- ***************************************** -->
+<!-- 热门萌星 -->
+
+<!-- ********************************** -->
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    
+    >
+      <me.maxwin.view.XListView
+          android:layout_marginTop="5dp"
+        android:id="@+id/listview"
+        android:scrollbars="vertical"
+         android:fastScrollEnabled="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:divider="@null"
+        xmlns:pla="http://schemas.android.com/apk/res-auto"
+        pla:plaLandscapeColumnNumber="1"
+       pla:plaColumnNumber="1"
+       android:background="@color/white"
+      
+        />
+</LinearLayout>
+</LinearLayout>
