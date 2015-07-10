@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+    <RelativeLayout 
+        android:id="@+id/relativelayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:layout_centerInParent="true"
+        android:paddingBottom="5dp">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="140dp"
+            android:layout_height="70dp"
+            android:src="@drawable/half_circle"
+            android:scaleType="fitXY"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            />
+        <LinearLayout 
+            android:id="@+id/linearlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="280dp"
+            android:background="@drawable/pink_transparent"
+            android:orientation="vertical"
+            android:layout_below="@+id/imageView1"
+            android:layout_marginTop="0dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="30dp"
+            android:visibility="visible"
+            >
+            
+             <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/register_note2"
+            android:textSize="16sp"
+            android:paddingTop="10dp"
+            android:textColor="#f4fedd"/>
+              <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true" 
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="昵称"
+            android:textSize="14sp"
+             
+            android:textColor="@color/white"
+            />
+         <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:background="@drawable/button_white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_marginLeft="15dp" >
+               
+        <EditText
+            android:id="@+id/editText4" 
+            android:layout_width="150dp" 
+            android:layout_height="wrap_content"
+            android:hint="不超过8个汉字"
+            android:text=""
+            android:textColor="#3fb9ba"
+            android:gravity="left"
+            android:maxLength="8"
+            android:singleLine="true"
+            android:textSize="@dimen/register_text_size_normal"
+            android:layout_weight="1"
+            android:background="@null"/>
+         <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/keyboard" 
+            android:layout_marginRight="5dp"/>
+       </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="left|center_vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_gravity="left|center_vertical" >
+               <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="性别"
+            android:textSize="14sp"
+             android:layout_marginLeft="0dp"
+            android:textColor="@color/white"
+            
+            />
+               <RadioGroup 
+                   android:id="@+id/user_sex"
+                   android:layout_width="150dp"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:layout_marginLeft="15dp">
+                   <RadioButton 
+                       android:id="@+id/radiobutton1"
+                       android:layout_width="32dp"
+                       android:layout_height="32dp"
+                       android:button="@drawable/radio_selector"
+                       /><!--  -->
+                   <TextView android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="女"
+                       android:textColor="@color/white"
+                       android:layout_marginLeft="-5dp"/>
+                   <RadioButton 
+                       android:id="@+id/radiobutton2"
+                       android:layout_width="32dp"
+                       android:layout_height="32dp"
+                       android:button="@drawable/radio_selector"
+                       android:layout_marginLeft="30dp"/>
+                   <TextView android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="男"
+                       android:textColor="@color/white"
+                       android:layout_marginLeft="-5dp"/>
+               </RadioGroup>
+       
+    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/city_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:focusable="true"
+        android:layout_gravity="left"
+        android:focusableInTouchMode="true" 
+        android:gravity="center_vertical"
+        android:clickable="true">
+               <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="城市"
+            android:textSize="14sp"
+             android:layout_marginLeft="0dp"
+            android:textColor="@color/white"
+            
+            />
+                <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:background="@drawable/button_white"
+        android:focusable="true"
+        android:focusableInTouchMode="true" 
+        android:layout_marginLeft="15dp"
+        >
+               
+        <EditText
+            android:id="@+id/editText5" 
+            android:layout_width="150dp" 
+            android:layout_height="21dp"
+            android:hint="请选择"
+            android:text=""
+            android:textColor="#3fb9ba"
+            android:gravity="left|center_vertical"
+            android:textSize="@dimen/register_text_size_normal"
+            android:layout_weight="1"
+            android:focusableInTouchMode="false"
+            android:editable="false"
+            android:background="@null"
+            
+            />
+          <ImageView
+            android:id="@+id/chose_class_imageview"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/right"
+            android:layout_marginRight="10dp"
+            android:visibility="invisible" />
+          </LinearLayout>
+
+    </LinearLayout>
+    <!-- <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageView 
+        android:id="@+id/imageview_female"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/female"
+        android:layout_marginTop="15dp"/>
+     <ImageView 
+        android:id="@+id/imageview_male"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/male_gray"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"/>
+    </LinearLayout> -->
+        </LinearLayout>
+         <com.aidigame.hisun.imengstar.view.RoundImageView
+             android:id="@+id/user_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/camera1"
+        android:layout_centerHorizontal="true" 
+        android:layout_marginTop="20dp"/>
+          <!-- <ImageView 
+        android:id="@+id/imageview_female"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/female"
+        android:layout_below="@+id/imageView1"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="5dp"/> -->
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/linearlayout"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:text="完成"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:clickable="false"
+            android:background="@drawable/button_gray"
+             />
+         <LinearLayout 
+            android:id="@+id/address_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+            <net.simonvt.numberpicker.NumberPicker  
+        android:id="@+id/numberpicker1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+    <TextView
+        android:id="@+id/province_tv" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="北京"/>
+    <net.simonvt.numberpicker.NumberPicker
+        android:id="@+id/numberpicker2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+           
+        </LinearLayout>
+    </RelativeLayout>
+     
+
+</RelativeLayout>

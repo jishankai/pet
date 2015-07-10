@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/framelayout"
+    android:focusable="true"
+    android:background="@drawable/blur"
+    android:focusableInTouchMode="true" >
+    <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    ><!-- android:background="@color/blur_view_top" -->
+    <View android:layout_width="match_parent"
+        android:layout_height="89dp"
+        
+        android:id="@+id/top_white_view"/><!-- android:background="@color/white" -->
+  <!--   <ListView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listview"
+        android:layout_below="@+id/top_white_view"
+        android:divider="@null"></ListView> -->
+    
+     <me.maxwin.view.XListView
+        android:id="@+id/listview"
+        android:layout_below="@+id/top_white_view"
+        android:scrollbars="vertical"
+         android:fastScrollEnabled="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:divider="@null"
+        xmlns:pla="http://schemas.android.com/apk/res-auto"
+        pla:plaLandscapeColumnNumber="1"
+       pla:plaColumnNumber="1"
+        />
+    
+    
+    </RelativeLayout>
+    
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    
+
+    <RelativeLayout
+        android:id="@+id/relativelayout"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="#33fc7b51"
+        >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/back_white" />
+
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            android:gravity="bottom">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="最热萌星"
+            android:textColor="@color/white" /><!--  android:background="@drawable/market_spinner_selected" -->
+           
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/find_me"
+            android:textColor="@color/white"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            android:layout_marginBottom="15dp" />
+        
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linearlayout1"
+        android:layout_width="match_parent"
+        android:layout_height="35dp" 
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_below="@+id/relativelayout"
+        android:gravity="center_vertical"
+        android:background="#90bcbcbc">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="昵称" 
+            android:textColor="@color/white"
+            android:layout_weight="5"/>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="得票数"
+            android:textColor="@color/white"
+            android:layout_weight="3" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="排名"
+            android:textColor="@color/white"
+            android:layout_weight="2" />
+        
+    </LinearLayout>
+    
+
+</RelativeLayout>
+ <RelativeLayout 
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/black_layout">
+          <View 
+              android:id="@+id/popup_parent"
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_centerInParent="true"/>
+      </RelativeLayout>
+</FrameLayout>

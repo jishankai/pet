@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="register_circleview_w">120dp</dimen>
+    <dimen name="register_circleview_margin_top">15dp</dimen>
+    <dimen name="register_sex_image_margin_top">10dp</dimen>
+    <dimen name="register_text_size_normal">14sp</dimen>
+    <dimen name="register_female_margin_left">20dp</dimen>
+    <dimen name="orange_title_height">54dp</dimen>
+    <dimen name="home_activity_menu_padding">5dp</dimen>
+    
+    
+     <!-- ChoseStarActivity界面控件值 xhdpi -->
+    <dimen name="cat_star_margin_top">30dp</dimen>
+    <dimen name="dog_star_margin_top">-80dp</dimen>
+    <dimen name="cat_image_size">120dp</dimen>
+    <dimen name="cat_text_size">16sp</dimen>
+     <!-- 账号类型选择界面（创建或加入王国） -->
+     <dimen name="chose_acount_type_imageView2_margin_bottom">50dp</dimen>
+        <dimen name="dip_240">80dp</dimen>
+   <dimen name="dip_360">180dp</dimen>
+</resources>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:id="@+id/foot_layout">
+    <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <!-- 网页 -->
+    <WebView 
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_above="@+id/padding"
+        />
+    <!-- ************************** -->
+    <View 
+        android:id="@+id/padding"
+        android:layout_width="1dp"
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"/>
+    <!-- 评论相关信息，包括评论列表 -->
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/comment_linearlayout"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <View 
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray1"/>
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:layout_marginRight="10dp">
+            <ImageView 
+                android:id="@+id/back_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/page_back"/>
+            <TextView 
+                android:id="@+id/show_send_comment_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/box_comment"
+                android:hint="说点什么吧"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="10dp"
+                android:layout_marginLeft="10dp"
+                android:paddingRight="10dp"/>
+            <ImageView 
+                android:id="@+id/add_like_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/page_like"
+                android:layout_marginLeft="10dp"/>
+            <ImageView 
+                android:id="@+id/share_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/page_share"
+                android:layout_marginLeft="10dp"/>
+            <RelativeLayout 
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_marginLeft="10dp">
+                <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/page_comment"
+                android:id="@+id/page_comment_iv"
+                android:layout_centerVertical="true"
+                />
+                <TextView 
+                    android:id="@+id/show_comments_num_iv"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:background="@drawable/ball_red"
+                    android:layout_toRightOf="@+id/page_comment_iv"
+                    android:layout_marginTop="1dp"
+                    android:textSize="8sp"
+                    android:text="0"
+                    android:singleLine="true"
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="-8dp"
+                    />
+            </RelativeLayout>
+            
+        </LinearLayout>
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:id="@+id/comments_layout"
+            
+            android:visibility="gone">
+            <!-- 评论列表 -->
+                 <me.maxwin.view.XListView
+        android:id="@+id/listview"
+        android:scrollbars="vertical"
+         android:fastScrollEnabled="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:divider="@null"
+        xmlns:pla="http://schemas.android.com/apk/res-auto"
+        pla:plaLandscapeColumnNumber="1"
+       pla:plaColumnNumber="1"
+        />
+                 <!-- 数据加载进度条 -->
+        </RelativeLayout>
+        
+    </LinearLayout>
+</RelativeLayout>
+<!-- ***************************** -->
+<!-- 评论输入框 -->
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/edit_comment_layout"
+    android:visibility="gone">
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_above="@+id/more"
+       
+        android:background="@color/white">
+        <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+        <ImageView 
+            android:id="@+id/cancel_edit_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/page_cancle"/>
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="说点什么"
+            android:gravity="center"
+            android:textColor="@color/orange_red1"/>
+        
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/emotion_iv"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/chatting_biaoqing_btn_enable"/>
+        <ImageView 
+            android:id="@+id/commit_edit_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/page_confirm"/>
+    </LinearLayout>
+    <EditText 
+        android:id="@+id/edit_et"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="top|left"
+        android:textSize="14sp"
+        android:text=""
+        android:visibility="gone"/>
+    <com.aidigame.hisun.imengstar.huanxin.PasteEditText
+                    android:id="@+id/et_sendmessage"
+                    android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="top|left"
+        android:textSize="14sp"
+        android:text=""
+                    /><!--  android:maxLines="3"
+                    android:minHeight="40dp"
+                    android:onClick="editClick"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="1dp"
+                    android:paddingRight="1dp"
+                    android:paddingTop="3dp"
+                    android:textSize="18sp" -->
+    </LinearLayout>
+      <!-- 表情 -->
+         <LinearLayout
+            android:id="@+id/more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            >
+
+            <!-- 表情图片 -->
+
+            <LinearLayout
+                android:id="@+id/ll_face_container"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                 android:visibility="gone">
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        
+            </LinearLayout>
+</RelativeLayout>
+        <ImageView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+          android:id="@+id/guide"
+          android:visibility="gone"/>
+        
+        
+        
+     
+</FrameLayout>

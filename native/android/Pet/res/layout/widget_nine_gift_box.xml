@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout 
+        android:id="@+id/layout1"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginLeft="0dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true">
+        
+        </LinearLayout>
+        <LinearLayout 
+        android:id="@+id/layout2"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+        
+        </LinearLayout>
+        <LinearLayout 
+        android:id="@+id/layout3"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginRight="0dp"
+       android:layout_centerVertical="true"
+        android:layout_alignParentRight="true" >
+        
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout 
+        android:id="@+id/layout4"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+         android:layout_marginLeft="0dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true">
+        
+        </LinearLayout>
+        <LinearLayout 
+        android:id="@+id/layout5"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+        
+        </LinearLayout>
+        <LinearLayout 
+        android:id="@+id/layout6"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+         android:layout_marginRight="0dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true" >
+        
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout 
+        android:id="@+id/layout7"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+         android:layout_marginLeft="0dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true">
+        
+        </LinearLayout>
+        <LinearLayout 
+        android:id="@+id/layout8"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+        
+        </LinearLayout>
+        <LinearLayout 
+        android:id="@+id/layout9"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+         android:layout_marginRight="0dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true" >
+        
+        </LinearLayout>
+    </RelativeLayout>
+    
+    
+
+</LinearLayout>

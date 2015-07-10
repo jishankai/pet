@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:background="@drawable/home_pop_background"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="萌星"
+        android:paddingTop="5dp"
+         android:textColor="#565656"
+        android:paddingBottom="5dp"
+        android:gravity="center" 
+        />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="经纪人"
+        android:paddingTop="5dp"
+         android:textColor="#565656"
+        android:paddingBottom="5dp"
+        android:gravity="center" 
+        />
+</LinearLayout>

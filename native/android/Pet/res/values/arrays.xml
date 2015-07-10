@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string-array  name="gender">
+        <item >公</item>
+        <item >母</item>
+        <item >其他</item>
+    </string-array>
+    <string-array name="classs">
+        <item >汪星人</item>
+        <item >喵星人</item>
+    </string-array>
+    <string-array name="stars">
+        <item>喵喵</item>
+        <item>汪汪</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="dog_race">
+        <item >泰迪犬</item><!--201  -->
+        <item >博美犬</item>
+        <item >马尔济斯犬</item>
+        <item >约克夏梗</item>
+        <item >贵宾犬</item>
+        <item >蝴蝶犬</item>
+        <item >八哥犬</item>
+        <item >西施犬</item>
+        <item >比熊犬</item>
+        <item >北京犬</item>
+        <item >迷你杜宾</item>
+        <item >拉萨犬</item>
+        <item >冠毛犬</item>
+        <item >小型雪纳瑞</item>
+        <item >柯基犬</item>
+        <item >巴吉度犬</item>
+        <item >哈士奇</item>
+        <item >松狮</item>
+        <item >边境牧羊犬</item>
+        <item >柴犬</item>
+        <item >斗牛犬</item>
+        <item >萨摩耶犬</item>
+         <item >腊肠犬</item>
+        <item >猎兔犬</item>
+        <item >惠比特犬</item>
+        <item >拉布拉多</item>
+        <item >大麦町犬（斑点狗）</item>
+        <item >爱斯基摩犬</item>
+        <item >沙皮犬</item>
+        <item >山地犬</item>
+        <item >无毛犬</item>
+        <item >雪纳瑞</item>
+        <item >藏獒</item>
+        <item >史毕诺犬</item>
+        <item >卡斯罗</item>
+        <item >罗威纳犬</item>
+        <item >阿拉斯加雪橇犬</item>
+        <item >金毛</item>
+        <item >柯利犬</item>
+        <item >波尔多犬</item>
+        <item >法国狼犬</item>
+        <item >雪达犬</item>
+        <item >奇努克犬</item>
+        <item >威玛犬</item>
+        <item >比利时马林诺斯犬</item>
+        <item >寻回犬</item>
+        <item >浣熊犬</item>
+        <item >迦南犬</item>
+        <item >猎犬</item>
+        <item >梗犬</item>
+        <item >德国牧羊犬</item>
+        <item >吉娃娃</item>
+        <item >混血</item>
+	<item >秋田犬</item>
+        <item >杜宾犬</item>
+	<item >中华田园犬</item>
+	<item >喜乐蒂牧羊犬</item>
+	<item >古代英国牧羊犬</item><!--255  -->
+    </string-array>
+    <!-- 08-25 11:36:50.130: I/me(6828): 种族列表返回结果：{"currentTime":1408937803,
+    "data":{"3":{"301":"其他"},"2":{"240":"波尔多犬","241":"法国狼犬","245":"比利时马林诺斯犬",
+    "244":"威玛犬","243":"奇努克犬","242":"雪达犬","249":"猎犬","248":"迦南犬","247":"浣熊犬",
+    "246":"寻回犬","202":"博美犬","203":"马尔济斯犬","204":"约克夏梗","205":"贵宾犬","230":"山地犬",
+    "201":"泰迪犬","206":"蝴蝶犬","207":"八哥犬","208":"西施犬","209":"比熊犬","239":"柯利犬",
+    "232":"雪纳瑞","231":"无毛犬","234":"史毕诺犬","233":"藏獒","236":"罗威纳犬","235":"卡斯罗",
+    "238":"金毛","237":"阿拉斯加雪橇犬","211":"迷你杜宾","212":"拉萨犬","210":"北京犬","215":"柯基犬",
+    "216":"巴吉度犬","213":"冠毛犬","214":"小型雪纳瑞","219":"牧羊犬","217":"哈士奇","218":"松狮","220":"柴犬",
+    "250":"梗犬","221":"斗牛犬","251":"牧羊犬","222":"萨摩耶犬","252":"吉娃娃","223":"腊肠犬","224":"猎兔犬",
+    "225":"惠比特犬","226":"拉布拉多","227":"大麦町犬（斑点狗）","228":"爱斯基摩犬","229":"沙皮犬","253":"混血"},
+    "1":{"134":"波米拉猫","116":"短毛猫","135":"东方猫","117":"俄罗斯蓝猫","132":"美国刚毛猫","114":"暹罗猫",
+    "133":"哈瓦那棕猫","115":"苏格兰折耳猫","112":"褴褛猫","113":"拉邦猫","136":"混血","110":"巴厘猫",
+    "111":"土耳其安哥拉猫","118":"孟买猫","119":"埃及猫","109":"西伯利亚森林猫","108":"美国短尾猫",
+    "107":"土耳其梵猫","106":"索马利猫","105":"伯曼猫","104":"缅因猫","103":"挪威猫","131":"呵叻猫",
+    "102":"波斯猫","130":"沙特尔猫","101":"布偶猫","125":"日本短尾猫","126":"东奇尼猫","127":"卷毛猫",
+    "128":"马恩岛猫","121":"缅甸猫","122":"阿比西尼亚猫","123":"新加坡猫","124":"中国狸花猫","129":"奥西猫",
+    "120":"斯芬克斯猫"}},"errorMessage":"","errorCode":0,"state":0,"confVersion":"1.0","version":"1.0"} -->
+    <string-array name="cat_race">
+        <item >布偶猫</item><!--  101-->
+        <item >波斯猫</item>
+        <item >挪威森林猫</item>
+        <item >缅因猫</item>
+        <item >伯曼猫</item>
+        <item >索马利猫</item>
+        <item >土耳其梵猫</item>
+        <item >美国短尾猫</item>
+        <item >西伯利亚森林猫</item>
+        <item >巴厘猫</item>
+        <item >土耳其安哥拉猫</item>
+        <item >褴褛猫</item>
+        <item >拉邦猫</item>
+        <item >暹罗猫</item>
+        <item >苏格兰折耳猫</item>
+        <item >异国短毛猫</item>
+        <item >俄罗斯蓝猫</item>
+        <item >孟买猫</item>
+        <item >埃及猫</item>
+        <item >加拿大无毛猫</item>
+        <item >缅甸猫</item>
+        <item >阿比西尼亚猫</item>
+        <item >新加坡猫</item>
+        <item >中国狸花猫</item>
+        <item >日本短尾猫</item>
+        <item >东奇尼猫</item>
+        <item >卷毛猫</item>
+        <item >马恩岛猫</item>
+        <item >奥西猫</item>
+        <item >沙特尔猫</item>
+        <item >呵叻猫</item>
+        <item >美国刚毛猫</item>
+        <item >哈瓦那棕猫</item>
+        <item >波米拉猫</item>
+        <item >东方猫</item>
+        <item >混血</item>
+	<item >加菲猫</item>
+	<item >狮子猫</item>
+	<item >奶牛猫</item><!--  138   -->
+        <item >中华田园猫</item>
+	<item >英国短毛猫</item>
+	<item >美国短毛猫</item>
+	<item >孟加拉豹猫</item>
+	<item >金吉拉</item>
+	<item >美国卷耳猫</item>
+    </string-array>
+    <!-- 鸟鱼蛇龟仓鼠蜘蛛龙猫刺猬兔子蜥蜴其他 -->
+    <string-array name="other_race">
+        <item >鸟</item>
+        <item >鱼</item>
+        <item >蛇</item>
+        <item >龟</item>
+        <item >仓鼠</item>
+        <item >蜘蛛</item>
+        <item >龙猫</item>
+        <item >刺猬</item>
+        <item >兔子</item>
+        <item >蜥蜴</item>
+        <item >其他</item>
+    </string-array>
+
+   
+    
+
+    
+    
+
+   
+    
+   
+    
+    
+       
+   
+ 
+
+
+   <!--  <string-array name="job_cat">
+        <item>喵小二</item>
+        <item>喵小奴</item>
+        <item>喵侍卫</item>
+        <item>喵总管</item>
+        <item>喵骑士</item>
+        <item>喵护法</item>
+        <item>喵精灵</item>
+        <item>喵天使</item>
+    </string-array>
+        <string-array name="job_dog">
+        <item>汪小二</item>
+        <item>汪小粉</item>
+        <item>汪侍卫</item>
+        <item>汪总管</item>
+        <item>汪骑士</item>
+        <item>汪护法</item>
+        <item>汪精灵</item>
+        <item>汪天使</item>
+    </string-array> -->
+    <string-array name="job">
+        <item>凉粉</item>
+        <item>淡粉</item>
+        <item>狠粉</item>
+        <item>灰常粉</item>
+        <item>超级粉</item>
+        <item>铁杆粉</item>
+        <item>脑残粉</item>
+        <item>骨灰粉</item>
+    </string-array>
+</resources>

@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+     >
+
+    <item
+        android:id="@+id/delete_message"
+        android:title="@string/delete_message"
+        />
+    <item
+        android:id="@+id/block_user"
+        android:title="加入黑名单"/>
+</menu>

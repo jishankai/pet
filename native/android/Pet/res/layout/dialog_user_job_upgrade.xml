@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_background"
+    android:orientation="vertical" 
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="官职升级奖励领取" 
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+
+   
+
+    <RelativeLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+         <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        android:src="@drawable/dialog_red_ball" 
+        android:layout_centerHorizontal="true"/>
+        
+        <com.aidigame.hisun.imengstar.view.RoundImageView
+            android:id="@+id/icon_circleView"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
+
+        
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/icon_circleView"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/dialog_job_upgrade" 
+            android:layout_marginTop="-10dp"/>
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/icon_circleView"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/imageView3"
+            android:text="猫君国" 
+            android:layout_marginTop="-5dp"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/icon_circleView"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textView2"
+            android:text="凉粉" 
+            android:textColor="@color/orange_red"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"/>
+        
+        
+    </RelativeLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+         <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/gold_big" 
+            android:layout_marginLeft="3dp"/>
+        <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+100"
+        android:textColor="@color/orange_red" 
+        android:textSize="16sp"
+        android:layout_marginLeft="10dp"/>
+        
+        
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:text="我和小伙伴们都惊呆了" 
+        android:textColor="#606060"
+        />
+      <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="恭喜升级，小小敬意收下吧" 
+        android:textColor="#606060"
+        />
+      <ImageView 
+          android:layout_width="150dp"
+          android:layout_height="67dp"
+          android:layout_marginTop="5dp"
+          android:src="@drawable/cat_dog"/>
+    
+
+    <TextView
+        android:id="@+id/button1"
+        android:layout_width="180dp"
+        android:layout_height="35dp"
+        android:text="收下啦"
+        android:background="@drawable/button"
+        android:textColor="@color/white"
+        android:textSize="16sp" 
+        android:gravity="center"
+        android:paddingLeft="35dp"
+        android:paddingRight="35dp"
+        android:layout_marginBottom="10dp"/>
+    
+
+</LinearLayout>

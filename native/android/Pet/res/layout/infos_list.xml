@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="1dp"
+    android:paddingRight="1dp"
+    android:paddingBottom="2dp"
+    android:id="@+id/container_layout"
+    android:orientation="vertical" >
+    <!-- android:background="@drawable/news_item_bg" -->
+    <LinearLayout 
+    android:id="@+id/news_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="6dp"
+    
+    android:background="@drawable/waterfull_frame"
+    android:orientation="vertical" >
+    
+    
+<!-- com.dodowaterfall.widget.ScaleImageView -->
+    <ImageView
+        android:id="@+id/news_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@null" />
+
+    <TextView
+        android:id="@+id/news_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="false"
+        android:visibility="visible"
+        android:text="快乐的小猫咪"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:gravity="left"
+        android:lineSpacingExtra="3dp"
+        android:textColor="#656565" 
+        android:layout_marginTop="3dp"
+        android:maxLines="2"
+        android:layout_marginBottom="8dp"/>
+
+   <!--  <TextView
+        android:id="@+id/news_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:gravity="right"
+        android:visibility="gone"
+        android:textColor="#9f9f9f" /> -->
+</LinearLayout>
+</LinearLayout>

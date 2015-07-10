@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+   android:clickable="true"
+    android:paddingBottom="10dp"
+    android:id="@+id/layout"
+    
+     >
+     
+    <com.aidigame.hisun.imengstar.view.RoundImageView 
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:id="@+id/icon"
+        android:src="@drawable/user_icon"
+        android:layout_marginLeft="5dp"/>
+    <LinearLayout 
+        android:id="@+id/info_layout"
+        android:layout_toRightOf="@+id/icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            
+              <LinearLayout 
+             android:visibility="visible"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="5dp"
+             android:orientation="horizontal">
+              <TextView
+        android:id="@+id/huifu_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="回复"
+        android:visibility="gone"
+        android:textSize="14sp" 
+       android:textColor="#3d3d3d"
+        android:layout_marginLeft="5dp"
+        
+        android:layout_alignParentLeft="true"/>
+                     <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="14sp" 
+       android:textColor="@color/black"
+        android:layout_marginLeft="5dp"
+        
+        android:layout_alignParentLeft="true"/>
+                     </LinearLayout>
+         <LinearLayout 
+             android:id="@+id/bylayout"
+             android:visibility="gone"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginLeft="5dp">
+             <TextView
+        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="回复"
+        android:textSize="14sp" 
+        android:visibility="gone"
+        android:layout_marginLeft="5dp"
+       android:textColor="#3d3d3d"
+        
+        
+        android:layout_alignParentLeft="true"/>
+             <TextView
+        android:id="@+id/bytv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="14sp" 
+       android:textColor="@color/orange_red1"
+        android:layout_marginLeft="5dp"
+        
+        android:layout_alignParentLeft="true"/>
+         </LinearLayout>
+                              
+        </LinearLayout>
+
+
+ <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" 
+        android:textSize="12sp" 
+        android:clickable="false"
+        android:enabled="false"
+        android:layout_marginRight="15dp"
+        android:textColor="#7b7878"
+       
+        android:layout_alignParentRight="true"
+        />
+            <ImageView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/time_clock"
+                android:layout_toLeftOf="@+id/textView3"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="3dp"/>
+        </RelativeLayout>
+        <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+             <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="14sp" 
+        android:textColor="#7b7878"
+        android:layout_weight="1" 
+        android:clickable="false"
+        android:layout_marginLeft="10dp"
+        android:enabled="false"
+        android:layout_marginTop="3dp"
+        
+        android:layout_below="@+id/textView1"/>
+    
+    <ImageView
+        android:id="@+id/warning_iv"
+        android:layout_width="31dp"
+        android:layout_height="26dp"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/warning"
+        android:padding="3dp"
+        android:layout_gravity="bottom"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentRight="true"
+        android:visibility="invisible"
+        />
+        </LinearLayout>
+        
+    </LinearLayout>
+   
+   
+    <View 
+        android:layout_below="@+id/info_layout"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/icon"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:background="#dddddd"
+        android:visibility="gone"
+        android:layout_marginRight="5dp"/>
+
+</RelativeLayout>

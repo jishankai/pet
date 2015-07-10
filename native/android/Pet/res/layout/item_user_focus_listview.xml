@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_toLeftOf="@+id/buttons_layout">    
+<RelativeLayout 
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/linearlayout">    
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="8dp" 
+    android:paddingBottom="8dp"
+    android:paddingLeft="10dp"
+   
+    android:paddingRight="10dp"
+    >
+
+    <LinearLayout
+         android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical" 
+        >
+        <com.aidigame.hisun.imengstar.view.RoundImageView
+            android:id="@+id/icon_circleView"
+            android:layout_width="58dp"
+            android:layout_height="58dp"/>
+        
+    <RelativeLayout
+        android:id="@+id/rlayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        
+        android:layout_marginLeft="10dp">
+
+        <LinearLayout
+            android:id="@+id/llayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+            <TextView
+             android:id="@+id/textView2"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentTop="true"
+             android:layout_centerHorizontal="true"
+             android:text="忍者神龟" 
+             android:textSize="16sp"
+             android:textColor="@color/black"
+             android:paddingLeft="5dp"/>
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/female1" 
+                android:layout_marginLeft="5dp"/>
+                     
+
+        </LinearLayout>
+         <LinearLayout
+             android:id="@+id/llayout2"
+             android:layout_below="@+id/llayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" 
+                android:orientation="horizontal"
+                android:layout_marginTop="3dp">
+
+             <TextView
+                 android:id="@+id/textView3"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="西伯利亚森林猫" 
+                 android:textColor="#aa9f9f"
+                 android:textSize="12sp"/>
+
+             <TextView
+                 android:id="@+id/textView4"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="|" 
+                 android:textSize="12sp"
+                 android:paddingLeft="3dp"
+                 android:textColor="#aa9f9f"/>
+
+             <TextView
+                 android:id="@+id/textView5"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="2岁" 
+                 android:textSize="12sp"
+                 android:paddingLeft="3dp"
+                 android:textColor="#aa9f9f"/>
+
+            </LinearLayout>
+             <LinearLayout
+             android:layout_below="@+id/llayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" 
+                android:orientation="horizontal"
+                android:layout_marginTop="3dp">
+
+             <TextView
+                 android:id="@+id/textView6"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="经纪人" />
+
+             <TextView
+                 android:id="@+id/textView7"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="—" 
+                 android:paddingLeft="3dp"/>
+
+             <TextView
+                 android:id="@+id/textView8"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Anna" 
+                 android:textColor="@color/orange_red"
+                 android:paddingLeft="3dp"/>
+
+            </LinearLayout>
+
+
+        
+    </RelativeLayout>
+
+   <LinearLayout 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+         <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="70"
+        android:textColor="@color/orange_red"
+        android:gravity="center"
+        android:textSize="12sp" />
+         <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="总人气"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:textSize="14sp" 
+        android:textColor="#aa9f9f"/>
+    </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+</RelativeLayout>
+</RelativeLayout>
+ <LinearLayout 
+                android:id="@+id/buttons_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:visibility="gone"
+                >
+                <LinearLayout 
+                    android:id="@+id/change_current_kingdom_layout"
+                android:layout_width="78dp"
+                android:layout_height="104dp"
+                android:layout_alignParentRight="true"
+                android:background="@color/orange_red"
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+            <TextView 
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消"
+                />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="关注"
+                android:layout_marginTop="5dp"
+                />
+            </LinearLayout>
+            </LinearLayout>
+
+
+</RelativeLayout>
