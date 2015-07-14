@@ -269,6 +269,7 @@ $(function(){
 						// votes=votes-1;
 					} else{
 						recommend();
+						return false;
 					};
 					
 				}
@@ -277,6 +278,7 @@ $(function(){
 
 			}else{
 				recommend();
+				return false;
 			}	
 	});
 	/*Go活动界面*/
