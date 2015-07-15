@@ -351,7 +351,7 @@ class UserBehavior extends CActiveRecordBehavior
                     $this->owner->gold+=LOGIN_X3;
                 }
                  */
-                 $this->owner->gold+=5;
+                 $this->owner->gold+=50;
                  break;
              case 'touch':
                  //$this->owner->gold+=rand(5,10);
