@@ -294,7 +294,7 @@ class UserBehavior extends CActiveRecordBehavior
                 $npc = User::model()->findByPk(NPC_SYSTEM_USRID);
                 $easemob->sendToUsers($this->owner->usr_id, NPC_SYSTEM_USRID, array(
                     'mixed'=>TRUE,
-                    'msg'=>"Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利5金币已经入账咯～",
+                    'msg'=>"Hello ".$this->owner->name."，欢迎回到宠物星球～今天的福利50金币已经入账咯～",
                     'ext'=>array(
                         'nickname'=>$npc->name,
                         'tx'=>$npc->tx,
