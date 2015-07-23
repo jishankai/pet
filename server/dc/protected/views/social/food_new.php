@@ -161,8 +161,7 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 	<div class="recommend_box float">
 		<div class="recommend">
-			<button id="recommend_btn" class="recommend_btn"></button>
-			<!-- <img id="recommend_btn" src="css/images/bt_heart.png"/> -->
+			<button id="recommend_btn" class="recommend_btn">123</button>
 		</div>
 		<img src="css/images/tact_1.png" id="a_jump_btn1">
 		<img src="css/images/tact_2.png" id="a_jump_btn2">
