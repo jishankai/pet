@@ -279,7 +279,8 @@ $(function(){
 			}else{
 				recommend();
 				return false;
-			}	
+			}
+		return false;	
 	});
 	/*Go活动界面*/
 	/*$("#act_jump_btn").click(function(){
