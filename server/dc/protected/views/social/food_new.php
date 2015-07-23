@@ -254,10 +254,9 @@ $(function(){
 	/*推荐按钮*/
 	votes=parseInt(<?php echo $votes?>);
 	
-	$("#recommend_btn").on("tap",function(){		
+	$("#recommend_btn").on("tap",function(){	
+		$("#recommend_btn").attr('disabled',true);	
 		var t = $("#td_time").html();
-		if($("#recommend_btn").is('disabled')) return false;
-		$("#recommend_btn").attr('disabled',true);
 		if(t!="已结束"){
 			$.ajax({
 				url: <?php echo "'".$this->createUrl('star/voteMobileApi', array('img_id'=>$img_id, 'sig'=>md5('img_id='.$img_id.'dog&cat'), 'SID'=>$SID))."'" ?>,
@@ -268,7 +267,7 @@ $(function(){
 					if (json_x.data.isSuccess) {
 						var t_num=parseInt($("#t_num").html());
 						$("#t_num").html(t_num+1);
-						$("#recommend_btn").attr('disabled',false);
+						/*$("#recommend_btn").attr('disabled',false);*/
 						// votes=votes-1;
 					} else{
 						recommend();
@@ -484,7 +483,7 @@ function recommend(){
 		rec_btn_no.onclick = function(){
 			document.body.removeChild(recommend_alert);
 			document.body.removeChild(rMask);
-			$("#recommend_btn").attr('disabled',false);
+			/*$("#recommend_btn").attr('disabled',false);*/
 		}
 		
 }
