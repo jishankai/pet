@@ -482,7 +482,7 @@ function recommend(){
 		rec_btn_no.onclick = function(){
 			document.body.removeChild(recommend_alert);
 			document.body.removeChild(rMask);
-			/*$("#recommend_btn").attr('disabled',false);*/
+			$("#recommend_btn").attr('disabled',false);
 		}
 		
 }
