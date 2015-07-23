@@ -256,9 +256,9 @@ $(function(){
 	
 	$("#recommend_btn").on("tap",function(){		
 		var t = $("#td_time").html();
+		if($("#recommend_btn").is('disabled')) return false;
+		$("#recommend_btn").attr('disabled',true);
 		if(t!="已结束"){
-			if($("#recommend_btn").is('disabled')) return false;
-			$("#recommend_btn").attr('disabled',true);
 			$.ajax({
 				url: <?php echo "'".$this->createUrl('star/voteMobileApi', array('img_id'=>$img_id, 'sig'=>md5('img_id='.$img_id.'dog&cat'), 'SID'=>$SID))."'" ?>,
 				data: { },
@@ -272,7 +272,6 @@ $(function(){
 						// votes=votes-1;
 					} else{
 						recommend();
-						$("#recommend_btn").attr('disabled',false);
 					};
 					
 				}
@@ -280,7 +279,6 @@ $(function(){
 			});
 
 		}else{
-			$("#recommend_btn").attr('disabled',false);
 			recommend();
 		}
 	});
@@ -486,6 +484,7 @@ function recommend(){
 		rec_btn_no.onclick = function(){
 			document.body.removeChild(recommend_alert);
 			document.body.removeChild(rMask);
+			$("#recommend_btn").attr('disabled',false);
 		}
 		
 }
