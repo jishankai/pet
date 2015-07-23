@@ -161,8 +161,8 @@ $signPackage = $jssdk->GetSignPackage();
 	</div>
 	<div class="recommend_box float">
 		<div class="recommend">
-			<img id="recommend_btn" src="css/images/bt_heart.png"/>
-			<!-- <img id="act_jump_btn" src="css/images/activity_jump.png"/> -->
+			<button id="recommend_btn" class="recommend_btn"></button>
+			<!-- <img id="recommend_btn" src="css/images/bt_heart.png"/> -->
 		</div>
 		<img src="css/images/tact_1.png" id="a_jump_btn1">
 		<img src="css/images/tact_2.png" id="a_jump_btn2">
@@ -257,6 +257,8 @@ $(function(){
 	$("#recommend_btn").on("tap",function(){		
 		var t = $("#td_time").html();
 		if(t!="已结束"){
+			if($("#recommend_btn").is('disabled')) return false;
+			$("#recommend_btn").attr('disabled',true);
 			$.ajax({
 				url: <?php echo "'".$this->createUrl('star/voteMobileApi', array('img_id'=>$img_id, 'sig'=>md5('img_id='.$img_id.'dog&cat'), 'SID'=>$SID))."'" ?>,
 				data: { },
@@ -266,21 +268,21 @@ $(function(){
 					if (json_x.data.isSuccess) {
 						var t_num=parseInt($("#t_num").html());
 						$("#t_num").html(t_num+1);
+						$("#recommend_btn").attr('disabled',false);
 						// votes=votes-1;
 					} else{
 						recommend();
-						return false;
+						$("#recommend_btn").attr('disabled',false);
 					};
 					
 				}
 
-				});
+			});
 
-			}else{
-				recommend();
-				return false;
-			}
-		return false;	
+		}else{
+			$("#recommend_btn").attr('disabled',false);
+			recommend();
+		}
 	});
 	/*Go活动界面*/
 	/*$("#act_jump_btn").click(function(){

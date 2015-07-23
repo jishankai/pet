@@ -125,18 +125,13 @@
 .recommend_box{display: none;}
 .recommend{width: 176px;height: 240px;/*background-color: red;*/
 	margin: 0 auto;}
-/*.recommend img{float: left;}*/
-/*.recommend_num{width:80px;height: 160px;line-height:150px;
-	display: inline-block;float: left;color: #e92a01;margin-left: 8px;}
-.recommend_num > span:first-of-type{
-	font-size: 36px;
+.recommend_btn{cursor: pointer;border: none;outline: 0;
+	width: 180px;
+	height: 153px;
+	background: url("images/bt_heart.png")center center no-repeat;
+	background-size: 100% 100%;
+	border: none;
 }
-.recommend_num > span:last-of-type{
-	font-size: 40px;
-}
-.more_recommend_num{color: red;text-align: center;
-	text-decoration: underline;height: 30px;line-height: 30px;
-	display: block;}*/
 	
 	#a_jump_btn1{float:left;margin-left: 180px;}
 	#a_jump_btn2{float: right;margin-right: 180px;}
@@ -251,9 +246,10 @@
 
 /*推荐按钮*/
 .recommend_box{display: none;}
-.recommend{width: 130px;height: 160px;/*background-color: red;*/
+.recommend{width: 130px;height: 110px;
+	padding-bottom: 50px;
 	margin: 0 auto;}
-#recommend_btn{width:130px;height: auto;}
+#recommend_btn{width:130px;height: 110px;}
 #act_jump_btn{width: 120px;}
 #a_jump_btn1{float:left;margin-left: 50px;}
 #a_jump_btn2{float: right;margin-right: 50px;}
