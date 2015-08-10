@@ -232,4 +232,25 @@ class ToolController extends Controller
         }
         $this->render('gold',array('error'=>$error,'result'=>$result)); 
     }
+
+    public function actionPassword()
+    {
+        $error=FALSE;
+        $result=FALSE;
+        if (isset($_POST['code'])&&$_POST['code']!=''&&isset($_POST['password'])&&$_POST['password']!='') {
+            $code = $_POST['code'];
+            $password = $_POST['password'];
+            $user = User::model()->findByAttributes(array('code'=>$code));
+            if (isset($user)) {
+                $user->password=$password;
+                $user->saveAttributes(array('password'));
+                $result = TRUE;
+            } else {
+                $error='用户不存在';
+            }
+            
+        }
+        $this->render('password',array('error'=>$error,'result'=>$result)); 
+        
+    }
 }
