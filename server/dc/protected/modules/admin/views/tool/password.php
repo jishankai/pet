@@ -22,7 +22,7 @@ $this->menu=array(
 <?php echo CHtml::label('密码：', 'password');?>
 <?php echo CHtml::textField('password');?>
 <br/>
-<?php echo CHtml::submitButton('充值'); ?>
+<?php echo CHtml::submitButton('修改'); ?>
 <br/>
 <?php if($error): ?>
 <span style="color:red"><?php echo $error; ?></span>
