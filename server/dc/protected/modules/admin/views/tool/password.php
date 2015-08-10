@@ -14,7 +14,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>充值</h1>
+<h1>密码</h1>
 <?php echo CHtml::beginForm();?>
 <?php echo CHtml::label('用户标识：', 'code');?>
 <?php echo CHtml::textField('code');?>
