@@ -134,7 +134,7 @@ class StarController extends Controller
             // if ($session[$this->usr_id.'_star_'.$image->star_id]>0) {
                 // $session[$this->usr_id.'_star_'.$image->star_id] = $session[$this->usr_id.'_star_'.$image->star_id] - 1;
                 $user = User::model()->findByPk($this->usr_id);
-                if ($user->gold-10>0) {
+                if ($user->gold-10>=0) {
                     $user->gold-=10;
                     $user->saveAttributes(array('gold'));
                     $image->stars++;
