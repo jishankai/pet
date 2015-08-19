@@ -82,7 +82,7 @@ class Image extends CActiveRecord
 		return array(
 			'img_id' => '图片编号',
 			'aid' => '宠物编号',
-			'topic_id' => '活动编号',
+			'star_id' => '活动编号',
 			'topic_name' => '活动名称',
 			'relates' => '@用户',
 			'cmt' => '说明',
