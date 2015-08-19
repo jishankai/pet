@@ -13,8 +13,8 @@
 	<?php echo CHtml::encode($data->aid); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('topic_id')); ?>:</b>
-	<?php echo CHtml::encode($data->topic_id); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('star_id')); ?>:</b>
+	<?php echo CHtml::encode($data->star_id); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('url')); ?>:</b>

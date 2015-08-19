@@ -23,7 +23,7 @@ $this->menu=array(
 	'attributes'=>array(
 		'img_id',
 		'aid',
-		'topic_id',
+		'star_id',
 		'url',
 		'cmt',
 		'likes',
