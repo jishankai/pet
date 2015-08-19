@@ -142,6 +142,8 @@ class Image extends CActiveRecord
 		$criteria->compare('update_time',$this->update_time,true);
 		$criteria->compare('is_deleted',$this->is_deleted);
 
+        $criteria->order = 'update_time DESC';
+            
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
