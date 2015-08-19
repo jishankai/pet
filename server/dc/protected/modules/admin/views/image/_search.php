@@ -22,8 +22,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'topic_id'); ?>
-<?php echo $form->dropDownList($model,'topic_id',CHtml::listData(Topic::model()->findAll(), 'topic_id', 'topic')); ?>    
+		<?php echo $form->label($model,'star_id'); ?>
+<?php echo $form->dropDownList($model,'star_id',CHtml::listData(Star::model()->findAll(), 'star_id', 'name')); ?>    
 	</div>
 
 	<div class="row">
